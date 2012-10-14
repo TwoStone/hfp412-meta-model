@@ -1,0 +1,158 @@
+package persistence;
+
+
+
+public class ServerICProxi extends PersistentInCacheProxiOptimistic implements PersistentServer{
+    
+    public ServerICProxi(long objectId) {
+        super(objectId);
+    }
+    public ServerICProxi(PersistentObject object) {
+        super(object);
+    }
+    
+    protected PersistentObject getRemote() throws PersistenceException {
+        return ConnectionHandler.getTheConnectionHandler().theServerFacade
+            .getServer(this.getId());
+    }
+    
+    public long getClassId() {
+        return -109;
+    }
+    
+    public Server_ErrorsProxi getErrors() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getErrors();
+    }
+    public String getPassword() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getPassword();
+    }
+    public void setPassword(String newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setPassword(newValue);
+    }
+    public String getUser() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getUser();
+    }
+    public void setUser(String newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setUser(newValue);
+    }
+    public long getHackCount() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getHackCount();
+    }
+    public void setHackCount(long newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setHackCount(newValue);
+    }
+    public java.sql.Timestamp getHackDelay() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getHackDelay();
+    }
+    public void setHackDelay(java.sql.Timestamp newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setHackDelay(newValue);
+    }
+    public PersistentServer getThis() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getThis();
+    }
+    
+    public void accept(model.visitor.InvokerVisitor visitor) throws PersistenceException {
+        visitor.handleServer(this);
+    }
+    public <R> R accept(model.visitor.InvokerReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleServer(this);
+    }
+    public <E extends model.UserException>  void accept(model.visitor.InvokerExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleServer(this);
+    }
+    public <R, E extends model.UserException> R accept(model.visitor.InvokerReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleServer(this);
+    }
+    public void accept(model.visitor.RemoteVisitor visitor) throws PersistenceException {
+        visitor.handleServer(this);
+    }
+    public <R> R accept(model.visitor.RemoteReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleServer(this);
+    }
+    public <E extends model.UserException>  void accept(model.visitor.RemoteExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleServer(this);
+    }
+    public <R, E extends model.UserException> R accept(model.visitor.RemoteReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleServer(this);
+    }
+    public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException {
+        visitor.handleServer(this);
+    }
+    public <R> R accept(model.visitor.AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleServer(this);
+    }
+    public <E extends model.UserException>  void accept(model.visitor.AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleServer(this);
+    }
+    public <R, E extends model.UserException> R accept(model.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleServer(this);
+    }
+    
+    
+    public void handleResult(final Command command) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).handleResult(command);
+    }
+    public void signalChanged(boolean signal) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).signalChanged(signal);
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void connected(String user) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).connected(user);
+    }
+    public PersistentActorManager getActorManager(TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getActorManager(observer);
+    }
+    public void deleteErrors() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).deleteErrors();
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).initializeOnCreation();
+    }
+    public void changeName(PersistentActor actor, String nme) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).changeName(actor, nme);
+    }
+    public boolean hasChanged() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).hasChanged();
+    }
+    public void disconnected() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).disconnected();
+    }
+    public PersistentActorManager getActorManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getActorManager();
+    }
+    public void copyingPrivateUserAttributes(Anything copy) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void createActor(String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createActor(name);
+    }
+    public void handleException(final Command command, final PersistenceException exception) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).handleException(command, exception);
+    }
+    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void addRole(PersistentActor akteur, String roleName) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).addRole(akteur, roleName);
+    }
+
+    
+}
