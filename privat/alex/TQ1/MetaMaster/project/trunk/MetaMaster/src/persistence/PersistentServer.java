@@ -28,31 +28,31 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     
     public void handleResult(final Command command) 
 				throws PersistenceException;
-    public void signalChanged(boolean signal) 
+    public void signalChanged(final boolean signal) 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public PersistentActorManager getActorManager(TDObserver observer) 
+    public PersistentActorManager getActorManager(final TDObserver observer) 
 				throws PersistenceException;
     public void deleteErrors() 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
-    public void changeName(PersistentActor actor, String nme) 
+    public void changeName(final PersistentActor actor, final String nme) 
 				throws PersistenceException;
     public boolean hasChanged() 
 				throws PersistenceException;
     public PersistentActorManager getActorManager() 
 				throws PersistenceException;
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void createActor(String name) 
+    public void createActor(final String name) 
 				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException;
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void addRole(PersistentActor akteur, String roleName) 
+    public void addRole(final PersistentActor akteur, final String roleName) 
 				throws PersistenceException;
 
 }

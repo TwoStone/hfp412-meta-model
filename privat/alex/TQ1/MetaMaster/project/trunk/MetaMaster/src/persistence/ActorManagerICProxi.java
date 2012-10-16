@@ -41,7 +41,7 @@ public class ActorManagerICProxi extends PersistentInCacheProxiOptimistic implem
     }
     
     
-    public void createActor(String name, Invoker invoker) 
+    public void createActor(final String name, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentActorManager)this.getTheObject()).createActor(name, invoker);
     }
@@ -49,15 +49,15 @@ public class ActorManagerICProxi extends PersistentInCacheProxiOptimistic implem
 				throws PersistenceException{
         ((PersistentActorManager)this.getTheObject()).initializeOnInstantiation();
     }
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentActorManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createActor(String name) 
+    public void createActor(final String name) 
 				throws model.DoubleDefinition, PersistenceException{
         ((PersistentActorManager)this.getTheObject()).createActor(name);
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentActorManager)this.getTheObject()).initialize(This, final$$Fields);
     }
@@ -65,11 +65,11 @@ public class ActorManagerICProxi extends PersistentInCacheProxiOptimistic implem
 				throws PersistenceException{
         ((PersistentActorManager)this.getTheObject()).initializeOnCreation();
     }
-    public void addRole(PersistentActor actor, String roleName, Invoker invoker) 
+    public void addRole(final PersistentActor actor, final String roleName, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentActorManager)this.getTheObject()).addRole(actor, roleName, invoker);
     }
-    public void addRole(PersistentActor actor, String roleName) 
+    public void addRole(final PersistentActor actor, final String roleName) 
 				throws PersistenceException{
         ((PersistentActorManager)this.getTheObject()).addRole(actor, roleName);
     }

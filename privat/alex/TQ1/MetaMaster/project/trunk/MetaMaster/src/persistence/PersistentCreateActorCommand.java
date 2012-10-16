@@ -35,7 +35,7 @@ public interface PersistentCreateActorCommand extends ActorManagerCommand, Anyth
 				throws PersistenceException;
     public void checkException() 
 				throws UserException, PersistenceException;
-    public void sendException(PersistenceException exception) 
+    public void sendException(final PersistenceException exception) 
 				throws PersistenceException;
 
 }

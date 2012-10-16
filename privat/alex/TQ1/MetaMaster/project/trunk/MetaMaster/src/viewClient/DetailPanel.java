@@ -226,9 +226,9 @@ class RegularExpressionPanel extends BaseTypePanel {
 		});
 	}
 	protected boolean check() {
-		return this.handler.getRegExpr().getAutomaton().recognizesValue(this.getValue(), false);
+		return this.handler.check(this.getValue());
 	}
-	public RegularExpression getExpression() {
+	public RegularExpression<Character,rGType.CharacterType> getExpression() {
 		return handler.getRegExpr();
 	}
 }

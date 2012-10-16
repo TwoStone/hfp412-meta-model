@@ -37,7 +37,7 @@ public interface PersistentAddRoleCommand extends ActorManagerCommand, Anything,
 				throws PersistenceException;
     public void checkException() 
 				throws UserException, PersistenceException;
-    public void sendException(PersistenceException exception) 
+    public void sendException(final PersistenceException exception) 
 				throws PersistenceException;
 
 }

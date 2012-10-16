@@ -123,7 +123,7 @@ public class CreateActorCommandICProxi extends PersistentInCacheProxi implements
 				throws PersistenceException{
         return ((PersistentCreateActorCommand)this.getTheObject()).fetchInvoker();
     }
-    public void sendException(PersistenceException exception) 
+    public void sendException(final PersistenceException exception) 
 				throws PersistenceException{
         ((PersistentCreateActorCommand)this.getTheObject()).sendException(exception);
     }

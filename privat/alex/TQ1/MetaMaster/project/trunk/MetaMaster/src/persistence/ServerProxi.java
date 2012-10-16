@@ -93,7 +93,7 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleResult(command);
     }
-    public void signalChanged(boolean signal) 
+    public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
     }
@@ -101,11 +101,11 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
     }
-    public void connected(String user) 
+    public void connected(final String user) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).connected(user);
     }
-    public PersistentActorManager getActorManager(TDObserver observer) 
+    public PersistentActorManager getActorManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getActorManager(observer);
     }
@@ -117,7 +117,7 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnCreation();
     }
-    public void changeName(PersistentActor actor, String nme) 
+    public void changeName(final PersistentActor actor, final String nme) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).changeName(actor, nme);
     }
@@ -133,11 +133,11 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getActorManager();
     }
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createActor(String name) 
+    public void createActor(final String name) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createActor(name);
     }
@@ -145,11 +145,11 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleException(command, exception);
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void addRole(PersistentActor akteur, String roleName) 
+    public void addRole(final PersistentActor akteur, final String roleName) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addRole(akteur, roleName);
     }

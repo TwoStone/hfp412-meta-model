@@ -1876,3 +1876,138 @@ class ListRoot extends ViewRoot implements TreeModel {
 
 
 
+
+@SuppressWarnings("serial")
+abstract class UserRegExprSelectionPanel extends RegExprSelectionPanel {
+	UserRegExprSelectionPanel(String parameterName, Wizard main, expressions.RegularExpression regExpr) {
+		super(parameterName, main, regExpr);
+	}
+	boolean check(){
+		boolean result = this.userCheck();
+		this.setOk(result);
+		return result;
+	}
+	abstract boolean userCheck();
+}
+
+@SuppressWarnings("serial")
+class RegExprSelectionPanel extends StringSelectionPanel{
+	
+	protected view.ExprManager manager;
+	private expressions.RegularExpression regExp;
+
+	public RegExprSelectionPanel(String parameterName, Wizard main, expressions.RegularExpression regExpr){
+		super(parameterName, main);
+		this.regExp = regExpr;
+		this.manager = new view.ExprManager(regExpr);
+		this.add(this.getSupportButton());
+	}
+	private JButton supportButton = null;
+	private JButton getSupportButton(){
+		if (this.supportButton == null){
+			this.supportButton = new JButton();
+			this.supportButton.setText(Wizard.SupportButtonText);
+			this.supportButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					browse();
+				}
+			});
+		}
+		return this.supportButton;
+	}
+	protected void browse(){
+		main.setPanel(getSupportPanel());
+	}
+	class RegExprBrowserPanel extends AbstractBrowserPanel {
+
+		private RegExprSelectionPanel panel;
+		private expressions.RegularExpression regExp;
+		private String fieldName;
+		public RegExprBrowserPanel(expressions.RegularExpression regExp, RegExprSelectionPanel panel, String text, String fieldName) {
+			this.fieldName = fieldName;
+			this.panel = panel;
+			this.regExp =regExp;
+			this.setPreferredSize(new java.awt.Dimension(main.getWidth(), Wizard.StandardRegExprBrowserPanelHeight));
+			this.setLayout(new BorderLayout());
+			this.add(this.getRegExprPanel(),BorderLayout.CENTER);
+			this.add(getButtonPanel(),BorderLayout.SOUTH);
+			this.getRegExprPanel().getRegExprInput().setText(text);
+		}
+		view.RegExprPanel regExprPanel = null;
+		view.RegExprPanel getRegExprPanel(){
+			if (this.regExprPanel == null){
+				this.regExprPanel = new view.RegExprPanel(this.regExp, this.fieldName);
+			}
+			return this.regExprPanel;
+		}
+		private JPanel buttonPanel = null;
+		private Component getButtonPanel() {
+			if(buttonPanel == null){
+				buttonPanel = new JPanel();
+				buttonPanel.setLayout(new BoxLayout(buttonPanel,BoxLayout.X_AXIS));
+				buttonPanel.add(getFillupPanel());
+				buttonPanel.add(getOKButton());
+				buttonPanel.add(getCancelButton());
+			}
+			return buttonPanel;
+		}
+		private JButton cancelButton = null;
+		private Component getCancelButton() {
+			if (cancelButton == null){
+				cancelButton = new JButton();
+				cancelButton.setText(Wizard.CancelButtonText);
+				cancelButton.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						main.resetPanel();
+					}
+				});
+			}
+			return cancelButton;
+		}
+
+		private JButton okButton = null;
+		private JButton getOKButton() {
+			if (okButton == null){
+				okButton = new JButton();
+				okButton.setText(Wizard.OKButtonText);
+				okButton.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						panel.setText(getRegExprPanel().getRegExprInput().getText());
+						main.resetPanel();
+						setVisible(false);
+					}
+				});
+			}
+			return okButton;
+		}
+		private JPanel fillupPanel = null;
+		private JPanel getFillupPanel() {
+			if(fillupPanel == null){
+				fillupPanel = new JPanel();
+				fillupPanel.setPreferredSize(new Dimension(2000,10));
+			}
+			return fillupPanel;
+		}
+		@Override
+		public void determineFirstFocus() {
+			this.getRegExprPanel().getRegExprInput().requestFocusInWindow();
+		}
+		@Override
+		JButton getDefaultButton() {
+			return this.getOKButton();
+		}
+
+	}
+	private AbstractBrowserPanel getSupportPanel() {
+		return new RegExprBrowserPanel(this.regExp, this, this.getStringInputTextField().getText(), this.parameterName);
+	}
+	protected void setText(String text) {
+		this.getStringInputTextField().setText(text);
+	}
+	boolean check() {
+		String text = getStringInputTextField().getText();
+		boolean result = manager.check(text, "", false);
+		this.setOk(result);
+		return result;
+	}
+}

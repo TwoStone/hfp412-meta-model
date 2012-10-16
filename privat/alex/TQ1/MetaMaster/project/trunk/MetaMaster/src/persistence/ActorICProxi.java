@@ -21,7 +21,7 @@ public abstract class ActorICProxi extends PersistentInCacheProxiOptimistic impl
     
     
     
-    public RoleSearchList getRoles(TDObserver observer) 
+    public RoleSearchList getRoles(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentActor)this.getTheObject()).getRoles(observer);
     }
@@ -33,7 +33,7 @@ public abstract class ActorICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         return ((PersistentActor)this.getTheObject()).inverseGetRoleOwner();
     }
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentActor)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
@@ -41,11 +41,11 @@ public abstract class ActorICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         return ((PersistentActor)this.getTheObject()).getRoles();
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentActor)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void addRole(String roleName) 
+    public void addRole(final String roleName) 
 				throws PersistenceException{
         ((PersistentActor)this.getTheObject()).addRole(roleName);
     }

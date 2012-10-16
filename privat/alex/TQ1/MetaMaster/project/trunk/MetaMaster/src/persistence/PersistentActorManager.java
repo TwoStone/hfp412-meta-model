@@ -11,21 +11,21 @@ public interface PersistentActorManager extends Anything, AbstractPersistentProx
     public <E extends model.UserException>  void accept(model.visitor.AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(model.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void createActor(String name, Invoker invoker) 
+    public void createActor(final String name, final Invoker invoker) 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void createActor(String name) 
+    public void createActor(final String name) 
 				throws model.DoubleDefinition, PersistenceException;
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
-    public void addRole(PersistentActor actor, String roleName, Invoker invoker) 
+    public void addRole(final PersistentActor actor, final String roleName, final Invoker invoker) 
 				throws PersistenceException;
-    public void addRole(PersistentActor actor, String roleName) 
+    public void addRole(final PersistentActor actor, final String roleName) 
 				throws PersistenceException;
 
 }

@@ -5,7 +5,7 @@ package persistence;
 
 public interface Remote extends AbstractPersistentProxi {
     
-    public void connected(String user) 
+    public void connected(final String user) 
 				throws PersistenceException;
     public void disconnected() 
 				throws PersistenceException;

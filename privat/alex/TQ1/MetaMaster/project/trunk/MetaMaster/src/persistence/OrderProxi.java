@@ -60,11 +60,11 @@ public class OrderProxi extends PersistentProxi implements PersistentOrder{
 				throws PersistenceException{
         ((PersistentOrder)this.getTheObject()).initializeOnInstantiation();
     }
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentOrder)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentOrder)this.getTheObject()).initialize(This, final$$Fields);
     }

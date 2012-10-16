@@ -9,14 +9,14 @@ public interface PersistentCommandExecuter extends Runnable, Anything, AbstractP
     public <E extends model.UserException>  void accept(model.visitor.AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(model.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void finishCommand(CommitConnectionHandler handler) 
+    public void finishCommand(final CommitConnectionHandler handler) 
 				throws PersistenceException;
     public void run() ;
-    public void commandPut(Command command) 
+    public void commandPut(final Command command) 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void start() 
 				throws PersistenceException;

@@ -83,7 +83,7 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
     }
     
     
-    public synchronized void finishCommand(CommitConnectionHandler handler) 
+    public synchronized void finishCommand(final CommitConnectionHandler handler) 
 				throws PersistenceException{
         java.util.Iterator<Command> commands = this.getCommands().iterator();
 		Command command = commands.next();
@@ -127,7 +127,7 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
 			return;
 		}
     }
-    public synchronized void commandPut(Command command) 
+    public synchronized void commandPut(final Command command) 
 				throws PersistenceException{
         this.getCommands().add(command);
 		this.notify();
@@ -136,7 +136,7 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
 				throws PersistenceException{
         this.start();
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         
 		if(this.equals(This)){

@@ -15,7 +15,7 @@ public interface Command extends AbstractPersistentProxi {
 				throws PersistenceException;
     public Invoker fetchInvoker() 
 				throws PersistenceException;
-    public void sendException(PersistenceException exception) 
+    public void sendException(final PersistenceException exception) 
 				throws PersistenceException;
 
     public void accept(model.visitor.CommandVisitor visitor) throws PersistenceException;

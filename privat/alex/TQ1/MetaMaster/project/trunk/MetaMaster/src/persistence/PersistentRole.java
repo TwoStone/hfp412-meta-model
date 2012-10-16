@@ -13,9 +13,9 @@ public interface PersistentRole extends Anything, AbstractPersistentProxi {
     
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

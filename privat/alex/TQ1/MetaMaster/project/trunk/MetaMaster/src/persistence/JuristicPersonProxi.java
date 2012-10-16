@@ -50,7 +50,7 @@ public class JuristicPersonProxi extends ActorProxi implements PersistentJuristi
     }
     
     
-    public RoleSearchList getRoles(TDObserver observer) 
+    public RoleSearchList getRoles(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentJuristicPerson)this.getTheObject()).getRoles(observer);
     }
@@ -58,7 +58,7 @@ public class JuristicPersonProxi extends ActorProxi implements PersistentJuristi
 				throws PersistenceException{
         ((PersistentJuristicPerson)this.getTheObject()).initializeOnInstantiation();
     }
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentJuristicPerson)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
@@ -70,11 +70,11 @@ public class JuristicPersonProxi extends ActorProxi implements PersistentJuristi
 				throws PersistenceException{
         return ((PersistentJuristicPerson)this.getTheObject()).getRoles();
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentJuristicPerson)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void addRole(String roleName) 
+    public void addRole(final String roleName) 
 				throws PersistenceException{
         ((PersistentJuristicPerson)this.getTheObject()).addRole(roleName);
     }

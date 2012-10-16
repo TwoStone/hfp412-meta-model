@@ -233,7 +233,7 @@ public class Server extends PersistentObject implements PersistentServer{
 			}
 		}).start();
     }
-    public void signalChanged(boolean signal) 
+    public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         this.changed = signal;
     }
@@ -241,12 +241,12 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         
     }
-    public void connected(String user) 
+    public void connected(final String user) 
 				throws PersistenceException{
         //TODO: implement method: connected
         
     }
-    public PersistentActorManager getActorManager(TDObserver observer) 
+    public PersistentActorManager getActorManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentActorManager result = getThis().getActorManager();
 		observer.updateTransientDerived(getThis(), "actorManager", result);
@@ -261,7 +261,7 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         
     }
-    public void changeName(PersistentActor actor, String nme) 
+    public void changeName(final PersistentActor actor, final String nme) 
 				throws PersistenceException{
         //TODO: implement method: changeName
         
@@ -280,12 +280,12 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         return model.ActorManager.getTheActorManager();
     }
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public void createActor(String name) 
+    public void createActor(final String name) 
 				throws PersistenceException{
         //TODO: implement method: createActor
         
@@ -298,7 +298,7 @@ public class Server extends PersistentObject implements PersistentServer{
 			}
 		}).start();
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentServer)This);
 		if(this.equals(This)){
@@ -308,7 +308,7 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
     }
-    public void addRole(PersistentActor akteur, String roleName) 
+    public void addRole(final PersistentActor akteur, final String roleName) 
 				throws PersistenceException{
         //TODO: implement method: addRole
         

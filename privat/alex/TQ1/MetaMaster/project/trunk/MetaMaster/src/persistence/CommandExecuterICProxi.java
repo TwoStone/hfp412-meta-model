@@ -38,11 +38,11 @@ public class CommandExecuterICProxi extends PersistentInCacheProxi implements Pe
     }
     
     
-    public void finishCommand(CommitConnectionHandler handler) 
+    public void finishCommand(final CommitConnectionHandler handler) 
 				throws PersistenceException{
         ((PersistentCommandExecuter)this.getTheObject()).finishCommand(handler);
     }
-    public void commandPut(Command command) 
+    public void commandPut(final Command command) 
 				throws PersistenceException{
         ((PersistentCommandExecuter)this.getTheObject()).commandPut(command);
     }
@@ -61,7 +61,7 @@ public class CommandExecuterICProxi extends PersistentInCacheProxi implements Pe
 				throws PersistenceException{
         ((PersistentCommandExecuter)this.getTheObject()).start();
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentCommandExecuter)this.getTheObject()).initialize(This, final$$Fields);
     }

@@ -193,7 +193,7 @@ public class AddRoleCommand extends PersistentObject implements PersistentAddRol
 				throws PersistenceException{
         return this.getInvoker();
     }
-    public void sendException(PersistenceException exception) 
+    public void sendException(final PersistenceException exception) 
 				throws PersistenceException{
         this.invoker.handleException(this, exception);
     }

@@ -42,11 +42,11 @@ public class ProductICProxi extends PersistentInCacheProxiOptimistic implements 
 				throws PersistenceException{
         ((PersistentProduct)this.getTheObject()).initializeOnInstantiation();
     }
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentProduct)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentProduct)this.getTheObject()).initialize(This, final$$Fields);
     }

@@ -38,7 +38,7 @@ public class CommandCoordinatorProxi extends PersistentProxi implements Persiste
     }
     
     
-    public void coordinate(Command command) 
+    public void coordinate(final Command command) 
 				throws PersistenceException{
         ((PersistentCommandCoordinator)this.getTheObject()).coordinate(command);
     }
@@ -46,7 +46,7 @@ public class CommandCoordinatorProxi extends PersistentProxi implements Persiste
 				throws PersistenceException{
         ((PersistentCommandCoordinator)this.getTheObject()).initializeOnInstantiation();
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentCommandCoordinator)this.getTheObject()).initialize(This, final$$Fields);
     }

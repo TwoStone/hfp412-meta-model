@@ -98,7 +98,7 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
     }
     
     
-    public void coordinate(Command command) 
+    public void coordinate(final Command command) 
 				throws PersistenceException{
         if (!this.getExecuter().iterator().hasNext()){
 			PersistentCommandExecuter executer = CommandExecuter.createCommandExecuter();
@@ -111,7 +111,7 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
 				throws PersistenceException{
         
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         
 		if(this.equals(This)){

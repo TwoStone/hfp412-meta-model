@@ -54,11 +54,11 @@ public class PositionICProxi extends PersistentInCacheProxiOptimistic implements
 				throws PersistenceException{
         ((PersistentPosition)this.getTheObject()).initializeOnInstantiation();
     }
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentPosition)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentPosition)this.getTheObject()).initialize(This, final$$Fields);
     }

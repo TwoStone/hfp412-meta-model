@@ -129,7 +129,7 @@ public class ActorManager extends PersistentObject implements PersistentActorMan
     }
     
     
-    public void createActor(String name, Invoker invoker) 
+    public void createActor(final String name, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentCreateActorCommand command = model.meta.CreateActorCommand.createCreateActorCommand(name, now, now);
@@ -142,17 +142,17 @@ public class ActorManager extends PersistentObject implements PersistentActorMan
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public void createActor(String name) 
+    public void createActor(final String name) 
 				throws model.DoubleDefinition, PersistenceException{
         //TODO: implement method: createActor
         
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentActorManager)This);
 		if(this.equals(This)){
@@ -163,7 +163,7 @@ public class ActorManager extends PersistentObject implements PersistentActorMan
         //TODO: implement method: initializeOnCreation
         
     }
-    public void addRole(PersistentActor actor, String roleName, Invoker invoker) 
+    public void addRole(final PersistentActor actor, final String roleName, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentAddRoleCommand command = model.meta.AddRoleCommand.createAddRoleCommand(roleName, now, now);
@@ -172,7 +172,7 @@ public class ActorManager extends PersistentObject implements PersistentActorMan
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void addRole(PersistentActor actor, String roleName) 
+    public void addRole(final PersistentActor actor, final String roleName) 
 				throws PersistenceException{
         //TODO: implement method: addRole
         

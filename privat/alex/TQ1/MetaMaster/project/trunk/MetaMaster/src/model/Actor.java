@@ -78,7 +78,7 @@ public abstract class Actor extends PersistentObject implements PersistentActor{
     
     
     
-    public RoleSearchList getRoles(TDObserver observer) 
+    public RoleSearchList getRoles(final TDObserver observer) 
 				throws PersistenceException{
         RoleSearchList result = getThis().getRoles();
 		observer.updateTransientDerived(getThis(), "roles", result);
@@ -96,12 +96,12 @@ public abstract class Actor extends PersistentObject implements PersistentActor{
 							.inverseGetRoleOwner(this.getId(), this.getClassId());
 		return result;
     }
-    public void copyingPrivateUserAttributes(Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public void initialize(Anything This, java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentActor)This);
 		if(this.equals(This)){
@@ -113,19 +113,18 @@ public abstract class Actor extends PersistentObject implements PersistentActor{
         //TODO: implement method: initializeOnCreation
         
     }
-    
-    public void addRole(String roleName) throws PersistenceException{
-		
-	}
-
-	@Override
-	public RoleSearchList getRoles() throws PersistenceException {
+    public RoleSearchList getRoles() 
+				throws PersistenceException{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
 
+	public void addRole(String roleName) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
     
     /* End of protected part that is not overridden by persistence generator */
     

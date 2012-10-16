@@ -129,7 +129,7 @@ public class AddRoleCommandProxi extends PersistentProxi implements PersistentAd
 				throws PersistenceException{
         return ((PersistentAddRoleCommand)this.getTheObject()).fetchInvoker();
     }
-    public void sendException(PersistenceException exception) 
+    public void sendException(final PersistenceException exception) 
 				throws PersistenceException{
         ((PersistentAddRoleCommand)this.getTheObject()).sendException(exception);
     }
