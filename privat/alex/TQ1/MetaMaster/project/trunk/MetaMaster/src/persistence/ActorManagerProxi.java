@@ -17,7 +17,7 @@ public class ActorManagerProxi extends PersistentProxi implements PersistentActo
     }
     
     public long getClassId() {
-        return 112;
+        return 102;
     }
     
     public ActorManager_ActorsProxi getActors() throws PersistenceException {

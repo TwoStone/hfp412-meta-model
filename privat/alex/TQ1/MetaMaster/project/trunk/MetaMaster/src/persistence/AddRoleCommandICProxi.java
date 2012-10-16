@@ -17,7 +17,7 @@ public class AddRoleCommandICProxi extends PersistentInCacheProxi implements Per
     }
     
     public long getClassId() {
-        return 114;
+        return 104;
     }
     
     public PersistentActor getActor() throws PersistenceException {

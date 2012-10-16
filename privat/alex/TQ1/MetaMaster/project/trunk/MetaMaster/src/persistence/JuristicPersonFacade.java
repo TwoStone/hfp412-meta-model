@@ -13,7 +13,7 @@ public class JuristicPersonFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theActorFacade.getNextId();
         JuristicPerson result = new JuristicPerson(name,null,id);
         Cache.getTheCache().put(result);
-        return (JuristicPersonProxi)PersistentProxi.createProxi(id, 116);
+        return (JuristicPersonProxi)PersistentProxi.createProxi(id, 106);
     }
     
     public JuristicPerson getJuristicPerson(long JuristicPersonId) throws PersistenceException{

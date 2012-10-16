@@ -58,7 +58,7 @@ public class NaturalPerson extends model.Actor implements PersistentNaturalPerso
     }
     
     static public long getTypeId() {
-        return 119;
+        return 111;
     }
     
     public long getClassId() {

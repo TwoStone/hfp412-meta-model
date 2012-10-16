@@ -17,7 +17,7 @@ public class CustomerICProxi extends RoleICProxi implements PersistentCustomer{
     }
     
     public long getClassId() {
-        return 111;
+        return 101;
     }
     
     public PersistentCustomer getThis() throws PersistenceException {

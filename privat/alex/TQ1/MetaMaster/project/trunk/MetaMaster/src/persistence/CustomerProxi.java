@@ -17,7 +17,7 @@ public class CustomerProxi extends RoleProxi implements PersistentCustomer{
     }
     
     public long getClassId() {
-        return 111;
+        return 101;
     }
     
     public PersistentCustomer getThis() throws PersistenceException {

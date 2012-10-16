@@ -28,14 +28,14 @@ public class AddRoleCommandFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theAddRoleCommandFacade.getNextId();
         AddRoleCommand result = new AddRoleCommand(null,roleName,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (AddRoleCommandProxi)PersistentProxi.createProxi(id, 114);
+        return (AddRoleCommandProxi)PersistentProxi.createProxi(id, 104);
     }
     
     public AddRoleCommand getAddRoleCommand(long AddRoleCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 114)) return 114;
+        if(Cache.getTheCache().contains(objectId, 104)) return 104;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

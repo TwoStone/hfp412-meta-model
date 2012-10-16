@@ -15,7 +15,7 @@ public class JuristicPerson extends view.objects.Actor implements JuristicPerson
     }
     
     static public long getTypeId() {
-        return 116;
+        return 106;
     }
     
     public long getClassId() {

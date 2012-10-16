@@ -28,14 +28,14 @@ public class ServerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theServerFacade.getNextId();
         Server result = new Server(null,password,user,hackCount,hackDelay,id);
         Cache.getTheCache().put(result);
-        return (ServerProxi)PersistentProxi.createProxi(id, -109);
+        return (ServerProxi)PersistentProxi.createProxi(id, -110);
     }
     
     public Server getServer(long ServerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, -109)) return -109;
+        if(Cache.getTheCache().contains(objectId, -110)) return -110;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -43,7 +43,7 @@ public class ServerFacade{
     public ServerSearchList getServerByUser(String user) throws PersistenceException {
         ServerSearchList result = new ServerSearchList();
         java.util.Iterator candidates;
-        candidates = Cache.getTheCache().iterator(-109);
+        candidates = Cache.getTheCache().iterator(-110);
         while (candidates.hasNext()){
             PersistentServer current = (PersistentServer)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getUser().equals(user))

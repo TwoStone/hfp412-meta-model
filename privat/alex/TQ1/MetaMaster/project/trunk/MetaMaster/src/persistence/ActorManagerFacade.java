@@ -28,14 +28,14 @@ public class ActorManagerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theActorManagerFacade.getNextId();
         ActorManager result = new ActorManager(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (ActorManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 112);
+        return (ActorManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 102);
     }
     
     public ActorManager getActorManager(long ActorManagerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 112)) return 112;
+        if(Cache.getTheCache().contains(objectId, 102)) return 102;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

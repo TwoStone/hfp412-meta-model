@@ -17,7 +17,7 @@ public class JuristicPersonICProxi extends ActorICProxi implements PersistentJur
     }
     
     public long getClassId() {
-        return 116;
+        return 106;
     }
     
     public PersistentJuristicPerson getThis() throws PersistenceException {

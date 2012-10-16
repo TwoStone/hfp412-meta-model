@@ -17,7 +17,7 @@ public class CreateActorCommandICProxi extends PersistentInCacheProxi implements
     }
     
     public long getClassId() {
-        return 118;
+        return 108;
     }
     
     public String getName() throws PersistenceException {

@@ -15,7 +15,7 @@ public class Product extends ViewObject implements ProductView{
     }
     
     static public long getTypeId() {
-        return 115;
+        return 105;
     }
     
     public long getClassId() {

@@ -83,7 +83,7 @@ public class Position extends PersistentObject implements PersistentPosition{
     }
     
     static public long getTypeId() {
-        return 124;
+        return 116;
     }
     
     public long getClassId() {

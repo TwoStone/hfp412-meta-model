@@ -17,7 +17,7 @@ public class ErrorDisplay extends ViewObject implements ErrorDisplayView{
     }
     
     static public long getTypeId() {
-        return -101;
+        return -109;
     }
     
     public long getClassId() {

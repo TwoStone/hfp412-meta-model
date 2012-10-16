@@ -260,21 +260,21 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
-		this.number2NameMap.put(112, "ActorManager");
-		this.number2NameMap.put(114, "AddRoleCommand");
-		this.number2NameMap.put(-121, "CommandCoordinator");
-		this.number2NameMap.put(-113, "CommandExecuter");
-		this.number2NameMap.put(123, "CommonDate");
-		this.number2NameMap.put(118, "CreateActorCommand");
-		this.number2NameMap.put(111, "Customer");
-		this.number2NameMap.put(-101, "ErrorDisplay");
-		this.number2NameMap.put(116, "JuristicPerson");
-		this.number2NameMap.put(119, "NaturalPerson");
-		this.number2NameMap.put(117, "Order");
-		this.number2NameMap.put(124, "Position");
-		this.number2NameMap.put(115, "Product");
-		this.number2NameMap.put(-109, "Server");
-		this.number2NameMap.put(120, "Supplier");	
+		this.number2NameMap.put(102, "ActorManager");
+		this.number2NameMap.put(104, "AddRoleCommand");
+		this.number2NameMap.put(-113, "CommandCoordinator");
+		this.number2NameMap.put(-103, "CommandExecuter");
+		this.number2NameMap.put(115, "CommonDate");
+		this.number2NameMap.put(108, "CreateActorCommand");
+		this.number2NameMap.put(101, "Customer");
+		this.number2NameMap.put(-109, "ErrorDisplay");
+		this.number2NameMap.put(106, "JuristicPerson");
+		this.number2NameMap.put(111, "NaturalPerson");
+		this.number2NameMap.put(107, "Order");
+		this.number2NameMap.put(116, "Position");
+		this.number2NameMap.put(105, "Product");
+		this.number2NameMap.put(-110, "Server");
+		this.number2NameMap.put(112, "Supplier");	
 	}
 	
 }

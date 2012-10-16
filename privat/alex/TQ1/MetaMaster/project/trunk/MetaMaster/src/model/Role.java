@@ -49,7 +49,7 @@ public abstract class Role extends PersistentObject implements PersistentRole{
     }
     
     static public long getTypeId() {
-        return 125;
+        return 117;
     }
     
     public long getClassId() {

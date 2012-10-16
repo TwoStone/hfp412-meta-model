@@ -17,7 +17,7 @@ public class ErrorDisplayICProxi extends PersistentInCacheProxiOptimistic implem
     }
     
     public long getClassId() {
-        return -101;
+        return -109;
     }
     
     public String getMessage() throws PersistenceException {

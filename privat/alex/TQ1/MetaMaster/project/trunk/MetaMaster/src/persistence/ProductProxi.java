@@ -17,7 +17,7 @@ public class ProductProxi extends PersistentProxi implements PersistentProduct{
     }
     
     public long getClassId() {
-        return 115;
+        return 105;
     }
     
     public PersistentProduct getThis() throws PersistenceException {

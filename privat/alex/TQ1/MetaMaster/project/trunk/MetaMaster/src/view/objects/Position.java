@@ -19,7 +19,7 @@ public class Position extends ViewObject implements PositionView{
     }
     
     static public long getTypeId() {
-        return 124;
+        return 116;
     }
     
     public long getClassId() {

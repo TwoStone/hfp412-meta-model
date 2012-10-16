@@ -17,7 +17,7 @@ public class NaturalPersonICProxi extends ActorICProxi implements PersistentNatu
     }
     
     public long getClassId() {
-        return 119;
+        return 111;
     }
     
     public PersistentNaturalPerson getThis() throws PersistenceException {

@@ -47,7 +47,7 @@ public abstract class Actor extends PersistentObject implements PersistentActor{
     }
     
     static public long getTypeId() {
-        return 122;
+        return 114;
     }
     
     public long getClassId() {

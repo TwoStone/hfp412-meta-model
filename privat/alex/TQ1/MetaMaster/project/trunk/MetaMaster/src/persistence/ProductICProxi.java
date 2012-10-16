@@ -17,7 +17,7 @@ public class ProductICProxi extends PersistentInCacheProxiOptimistic implements 
     }
     
     public long getClassId() {
-        return 115;
+        return 105;
     }
     
     public PersistentProduct getThis() throws PersistenceException {

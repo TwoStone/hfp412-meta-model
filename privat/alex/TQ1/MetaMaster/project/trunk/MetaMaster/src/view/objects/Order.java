@@ -21,7 +21,7 @@ public class Order extends ViewObject implements OrderView{
     }
     
     static public long getTypeId() {
-        return 117;
+        return 107;
     }
     
     public long getClassId() {

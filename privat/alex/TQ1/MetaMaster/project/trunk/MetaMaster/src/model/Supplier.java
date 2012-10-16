@@ -62,7 +62,7 @@ public class Supplier extends model.Role implements PersistentSupplier{
     }
     
     static public long getTypeId() {
-        return 120;
+        return 112;
     }
     
     public long getClassId() {

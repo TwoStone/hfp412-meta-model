@@ -28,14 +28,14 @@ public class ErrorDisplayFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade.getNextId();
         ErrorDisplay result = new ErrorDisplay(id);
         Cache.getTheCache().put(result);
-        return (ErrorDisplayProxi)PersistentProxi.createProxi(id, -101);
+        return (ErrorDisplayProxi)PersistentProxi.createProxi(id, -109);
     }
     
     public ErrorDisplay getErrorDisplay(long ErrorDisplayId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, -101)) return -101;
+        if(Cache.getTheCache().contains(objectId, -109)) return -109;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

@@ -66,7 +66,7 @@ public class ErrorDisplay extends PersistentObject implements PersistentErrorDis
     }
     
     static public long getTypeId() {
-        return -101;
+        return -109;
     }
     
     public long getClassId() {

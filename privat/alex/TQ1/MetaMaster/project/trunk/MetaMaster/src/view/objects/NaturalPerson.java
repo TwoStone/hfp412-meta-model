@@ -15,7 +15,7 @@ public class NaturalPerson extends view.objects.Actor implements NaturalPersonVi
     }
     
     static public long getTypeId() {
-        return 119;
+        return 111;
     }
     
     public long getClassId() {

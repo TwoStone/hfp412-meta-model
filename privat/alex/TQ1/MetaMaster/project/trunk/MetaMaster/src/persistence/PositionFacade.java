@@ -28,14 +28,14 @@ public class PositionFacade{
         long id = ConnectionHandler.getTheConnectionHandler().thePositionFacade.getNextId();
         Position result = new Position(amount,null,null,id);
         Cache.getTheCache().put(result);
-        return (PositionProxi)PersistentProxi.createProxi(id, 124);
+        return (PositionProxi)PersistentProxi.createProxi(id, 116);
     }
     
     public Position getPosition(long PositionId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 124)) return 124;
+        if(Cache.getTheCache().contains(objectId, 116)) return 116;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

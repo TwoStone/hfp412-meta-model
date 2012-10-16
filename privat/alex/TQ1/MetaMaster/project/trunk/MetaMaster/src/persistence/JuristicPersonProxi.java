@@ -17,7 +17,7 @@ public class JuristicPersonProxi extends ActorProxi implements PersistentJuristi
     }
     
     public long getClassId() {
-        return 116;
+        return 106;
     }
     
     public PersistentJuristicPerson getThis() throws PersistenceException {

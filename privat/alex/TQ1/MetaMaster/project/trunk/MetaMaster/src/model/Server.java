@@ -110,7 +110,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     static public long getTypeId() {
-        return -109;
+        return -110;
     }
     
     public long getClassId() {

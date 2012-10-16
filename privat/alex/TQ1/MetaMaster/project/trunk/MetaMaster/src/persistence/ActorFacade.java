@@ -25,8 +25,8 @@ public class ActorFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 116)) return 116;
-        if(Cache.getTheCache().contains(objectId, 119)) return 119;
+        if(Cache.getTheCache().contains(objectId, 106)) return 106;
+        if(Cache.getTheCache().contains(objectId, 111)) return 111;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -34,13 +34,13 @@ public class ActorFacade{
     public ActorSearchList getActorByName(String name) throws PersistenceException {
         ActorSearchList result = new ActorSearchList();
         java.util.Iterator candidates;
-        candidates = Cache.getTheCache().iterator(116);
+        candidates = Cache.getTheCache().iterator(106);
         while (candidates.hasNext()){
             PersistentActor current = (PersistentActor)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getName().equals(name))
                 result.add((PersistentActor)PersistentProxi.createProxi(current.getId(), current.getClassId()));
         }
-        candidates = Cache.getTheCache().iterator(119);
+        candidates = Cache.getTheCache().iterator(111);
         while (candidates.hasNext()){
             PersistentActor current = (PersistentActor)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getName().equals(name))

@@ -62,7 +62,7 @@ public class Product extends PersistentObject implements PersistentProduct{
     }
     
     static public long getTypeId() {
-        return 115;
+        return 105;
     }
     
     public long getClassId() {

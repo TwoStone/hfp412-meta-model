@@ -17,7 +17,7 @@ public class ActorManager extends ViewObject implements ActorManagerView{
     }
     
     static public long getTypeId() {
-        return 112;
+        return 102;
     }
     
     public long getClassId() {

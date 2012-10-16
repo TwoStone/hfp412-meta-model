@@ -107,7 +107,7 @@ public class Order extends PersistentObject implements PersistentOrder{
     }
     
     static public long getTypeId() {
-        return 117;
+        return 107;
     }
     
     public long getClassId() {

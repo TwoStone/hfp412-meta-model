@@ -17,7 +17,7 @@ public class OrderICProxi extends PersistentInCacheProxiOptimistic implements Pe
     }
     
     public long getClassId() {
-        return 117;
+        return 107;
     }
     
     public PersistentPosition getPosition() throws PersistenceException {

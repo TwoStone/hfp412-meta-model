@@ -17,7 +17,7 @@ public class PositionProxi extends PersistentProxi implements PersistentPosition
     }
     
     public long getClassId() {
-        return 124;
+        return 116;
     }
     
     public long getAmount() throws PersistenceException {

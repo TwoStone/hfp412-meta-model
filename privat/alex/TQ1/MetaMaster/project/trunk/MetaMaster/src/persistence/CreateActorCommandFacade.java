@@ -28,14 +28,14 @@ public class CreateActorCommandFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theCreateActorCommandFacade.getNextId();
         CreateActorCommand result = new CreateActorCommand(name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateActorCommandProxi)PersistentProxi.createProxi(id, 118);
+        return (CreateActorCommandProxi)PersistentProxi.createProxi(id, 108);
     }
     
     public CreateActorCommand getCreateActorCommand(long CreateActorCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 118)) return 118;
+        if(Cache.getTheCache().contains(objectId, 108)) return 108;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

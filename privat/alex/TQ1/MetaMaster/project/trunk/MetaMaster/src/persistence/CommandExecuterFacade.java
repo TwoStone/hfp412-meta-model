@@ -28,14 +28,14 @@ public class CommandExecuterFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade.getNextId();
         CommandExecuter result = new CommandExecuter(id);
         Cache.getTheCache().put(result);
-        return (CommandExecuterProxi)PersistentProxi.createProxi(id, -113);
+        return (CommandExecuterProxi)PersistentProxi.createProxi(id, -103);
     }
     
     public CommandExecuter getCommandExecuter(long CommandExecuterId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, -113)) return -113;
+        if(Cache.getTheCache().contains(objectId, -103)) return -103;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

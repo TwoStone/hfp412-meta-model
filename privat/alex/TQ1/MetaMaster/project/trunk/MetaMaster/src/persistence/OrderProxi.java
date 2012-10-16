@@ -17,7 +17,7 @@ public class OrderProxi extends PersistentProxi implements PersistentOrder{
     }
     
     public long getClassId() {
-        return 117;
+        return 107;
     }
     
     public PersistentPosition getPosition() throws PersistenceException {

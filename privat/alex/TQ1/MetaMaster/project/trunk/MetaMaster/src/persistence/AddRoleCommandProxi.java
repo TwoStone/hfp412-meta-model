@@ -17,7 +17,7 @@ public class AddRoleCommandProxi extends PersistentProxi implements PersistentAd
     }
     
     public long getClassId() {
-        return 114;
+        return 104;
     }
     
     public PersistentActor getActor() throws PersistenceException {

@@ -43,7 +43,7 @@ public class CreateActorCommand extends PersistentObject implements PersistentCr
     }
     
     static public long getTypeId() {
-        return 118;
+        return 108;
     }
     
     public long getClassId() {

@@ -45,7 +45,7 @@ public class AddRoleCommand extends PersistentObject implements PersistentAddRol
     }
     
     static public long getTypeId() {
-        return 114;
+        return 104;
     }
     
     public long getClassId() {

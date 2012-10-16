@@ -25,8 +25,8 @@ public class RoleFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 111)) return 111;
-        if(Cache.getTheCache().contains(objectId, 120)) return 120;
+        if(Cache.getTheCache().contains(objectId, 101)) return 101;
+        if(Cache.getTheCache().contains(objectId, 112)) return 112;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -40,7 +40,7 @@ public class RoleFacade{
     public RoleSearchList inverseGetRoleOwner(long objectId, long classId)throws PersistenceException{
         RoleSearchList result = new RoleSearchList();
         java.util.Iterator candidates;
-        candidates = Cache.getTheCache().iterator(111);
+        candidates = Cache.getTheCache().iterator(101);
         while (candidates.hasNext()){
             PersistentRole current = (PersistentRole)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getRoleOwner() != null){
@@ -50,7 +50,7 @@ public class RoleFacade{
                 }
             }
         }
-        candidates = Cache.getTheCache().iterator(120);
+        candidates = Cache.getTheCache().iterator(112);
         while (candidates.hasNext()){
             PersistentRole current = (PersistentRole)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getRoleOwner() != null){

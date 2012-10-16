@@ -81,7 +81,7 @@ public class ActorManager extends PersistentObject implements PersistentActorMan
     }
     
     static public long getTypeId() {
-        return 112;
+        return 102;
     }
     
     public long getClassId() {

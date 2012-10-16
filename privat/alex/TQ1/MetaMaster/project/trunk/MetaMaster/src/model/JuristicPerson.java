@@ -58,7 +58,7 @@ public class JuristicPerson extends model.Actor implements PersistentJuristicPer
     }
     
     static public long getTypeId() {
-        return 116;
+        return 106;
     }
     
     public long getClassId() {

@@ -17,7 +17,7 @@ public class Supplier extends view.objects.Role implements SupplierView{
     }
     
     static public long getTypeId() {
-        return 120;
+        return 112;
     }
     
     public long getClassId() {

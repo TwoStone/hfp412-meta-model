@@ -13,7 +13,7 @@ public class CustomerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theRoleFacade.getNextId();
         Customer result = new Customer(null,null,id);
         Cache.getTheCache().put(result);
-        return (CustomerProxi)PersistentProxi.createProxi(id, 111);
+        return (CustomerProxi)PersistentProxi.createProxi(id, 101);
     }
     
     public Customer getCustomer(long CustomerId) throws PersistenceException{

@@ -17,7 +17,7 @@ public class NaturalPersonProxi extends ActorProxi implements PersistentNaturalP
     }
     
     public long getClassId() {
-        return 119;
+        return 111;
     }
     
     public PersistentNaturalPerson getThis() throws PersistenceException {

@@ -55,7 +55,7 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
     }
     
     static public long getTypeId() {
-        return -113;
+        return -103;
     }
     
     public long getClassId() {

@@ -58,7 +58,7 @@ public class Customer extends model.Role implements PersistentCustomer{
     }
     
     static public long getTypeId() {
-        return 111;
+        return 101;
     }
     
     public long getClassId() {
