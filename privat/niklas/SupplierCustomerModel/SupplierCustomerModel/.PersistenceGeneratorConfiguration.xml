@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<Configuration FinalParameters="" FontSize="12" MessagesForEventsOnly="" StaticOperationsasTools="" WithErrorService=""><Model>C:\Users\Nik\Development\workspaces\goja\MasterMetaModel\MasterMetaModel</Model><OracleTarget>C:\Users\Nik\Development\goja\database</OracleTarget><JavaTarget>C:\Users\Nik\Development\workspaces\goja</JavaTarget><JavaBackup>C:\Users\Nik\Development\goja\java_backup</JavaBackup><DatabaseConnection>localhost</DatabaseConnection><DatabaseUser>PG</DatabaseUser></Configuration>

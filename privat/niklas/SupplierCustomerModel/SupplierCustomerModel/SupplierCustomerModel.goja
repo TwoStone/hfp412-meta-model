@@ -1,0 +1,76 @@
+model SupplierCustomerModel {
+
+server Server {
+	skip-view derived ActorManager actors;
+
+	void createActor(String name);
+	void addRole(Actor actor, RoleSUBTYPEName roleName);
+
+	void changeName(Actor actor, String name);
+
+	void createProduct(Supplier manufacturer, String name);
+	void createOrder(Customer customer, Supplier supplier);
+
+	void addPosition(Order order, Product product {;order;supplier;products}, Integer quanitity);
+
+	void deleteErrors();
+}
+
+singleton ActorManager {
+	active void createActor(String name) throws DoubleDefinition;
+	active void addRole(Actor actor, RoleSUBTYPEName roleName);
+	active void changeName(Actor actor, String name) throws DoubleDefinition;
+
+	active void createProduct(Supplier manufacturer, String name) throws DoubleDefinition;
+	active void createOrder(Customer customer, Supplier supplier);
+
+	active void addPosition(Order order, Product product, Integer quanitity);
+
+	Actor ** actors;
+}
+
+exception DoubleDefinition {}
+
+class Actor {
+	indexed prior String name;
+	symmetric Role ** roles;
+
+	void addRole(RoleSUBTYPEName roleName);
+	void changeName(String newName);
+}
+
+string-factory abstract class Role {
+}
+
+class Customer extends Role {
+	derived Order ** myOrders;
+	
+	void createOrder(Supplier supplier);
+}
+
+class Supplier extends Role {
+	derived Product ** products;
+	
+	void createProduct(String name) throws DoubleDefinition;
+}
+
+class Product {
+	prior String name;
+	client-as-string prior symmetric Supplier producer;
+}
+
+class Order {
+	no-view prior symmetric Customer customer;
+	no-view prior Supplier supplier;
+
+	Position ** positions;
+
+	void addPosition(Product product, Integer quanitity);
+}
+
+class Position {
+	prior Product product;
+	prior Integer quantity;
+}
+
+}
