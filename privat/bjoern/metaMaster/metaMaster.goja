@@ -1,0 +1,46 @@
+model metaMaster {
+
+	server Server {
+		derived skip-view AkteurManager akteurManager;
+		void createAkteur(String name);
+		void addRole(Akteur akteur, RolleSUBTYPEName rollenName);
+		void deleteErrors();
+		void changeName(Akteur akteur, String nme [;akteur;name]);
+	}
+
+	singleton AkteurManager {
+		Akteur ** akteure;
+		active void createAkteur(String name) throws DoubleDefinition;
+		active void addRole(Akteur akteur, RolleSUBTYPEName rollenName);
+	}
+	
+	class Akteur {
+		indexed prior String name;
+		derived Rolle** meineRollen;
+		void addRole(RolleSUBTYPEName rollenName);
+	}
+	
+	string-factory abstract class Rolle {
+		no-view symmetric(meineRollen) prior final Akteur rolleFuer;
+	}
+
+	class Kunde extends Rolle {}
+	class Lieferant extends Rolle {
+		Produkt** portfolio;
+	}
+
+	class Auftrag {
+		Kunde auftraggeber;
+		Lieferant auftragnehmer;
+		Position** positionen;
+	}
+
+	class Produkt {}
+
+	class Position {
+		Produkt beziehtSichAuf;
+	}
+
+	exception DoubleDefinition {}
+
+}
