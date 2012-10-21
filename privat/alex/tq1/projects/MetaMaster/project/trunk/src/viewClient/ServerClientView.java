@@ -298,7 +298,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         currentButton = new javax.swing.JButton("deleteErrors");
         currentButton.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteErrors" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteErrors" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                     try {
                         getConnection().deleteErrors();
                         getConnection().setEagerRefresh();
@@ -332,7 +332,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         item.setText("(S) deleteErrors");
         item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteErrors" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteErrors" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                     try {
                         getConnection().deleteErrors();
                         getConnection().setEagerRefresh();
