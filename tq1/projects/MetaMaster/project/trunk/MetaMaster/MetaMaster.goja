@@ -1,0 +1,68 @@
+model metaMaster {
+
+	/*** Server ***/
+
+	server Server {
+		derived skip-view ActorManager actorManager;
+		void createActor(String name);
+		void addRole(Actor akteur, RoleSUBTYPEName roleName);
+		void deleteErrors();
+		void changeName(Actor actor, String nme [;actor;name]);
+	}
+
+
+	/*** Order ***/
+	
+	class Order {
+		prior final Position position;
+		prior final Customer customer;
+		prior final Supplier contractor;
+	}
+
+	class Position {
+		prior Integer amount;
+		prior final Product relateTo;
+	}
+
+	class Product {
+		
+	}
+
+
+	/*** Actor ***/
+
+	singleton ActorManager {
+		Actor ** actors;
+		active void createActor(String name) throws DoubleDefinition;
+		active void addRole(Actor actor, RoleSUBTYPEName roleName);
+	}	
+
+	abstract class Actor {
+		indexed prior String name;
+		derived Role ** roles;
+		void addRole(RoleSUBTYPEName roleName);
+	}
+	
+	class NaturalPerson extends Actor {}
+	class JuristicPerson extends Actor {}
+
+
+	/*** Role ***/
+
+	string-factory abstract class Role {
+		no-view symmetric prior final Actor roleOwner;
+	}
+	
+	class Customer extends Role {
+		
+	}
+
+	class Supplier extends Role {
+		Product ** portfolio;
+	}
+
+
+	/***** EXCEPTIONS *****/
+
+	exception DoubleDefinition {}
+}
