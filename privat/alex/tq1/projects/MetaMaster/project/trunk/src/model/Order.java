@@ -14,26 +14,23 @@ public class Order extends PersistentObject implements PersistentOrder{
         return (PersistentOrder)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentOrder createOrder(PersistentPosition position,PersistentCustomer customer,PersistentSupplier contractor) throws PersistenceException {
+    public static PersistentOrder createOrder(PersistentCustomer customer,PersistentSupplier contractor) throws PersistenceException {
         PersistentOrder result = ConnectionHandler.getTheConnectionHandler().theOrderFacade
             .newOrder();
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        final$$Fields.put("position", position);
         final$$Fields.put("customer", customer);
         final$$Fields.put("contractor", contractor);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
-        if(result.getThis().getPosition() == null)throw new PersistenceException("Field position in type Order has not been initialized!",0);
         if(result.getThis().getCustomer() == null)throw new PersistenceException("Field customer in type Order has not been initialized!",0);
         if(result.getThis().getContractor() == null)throw new PersistenceException("Field contractor in type Order has not been initialized!",0);
         return result;
     }
     
-    public static PersistentOrder createOrder(PersistentPosition position,PersistentCustomer customer,PersistentSupplier contractor,PersistentOrder This) throws PersistenceException {
+    public static PersistentOrder createOrder(PersistentCustomer customer,PersistentSupplier contractor,PersistentOrder This) throws PersistenceException {
         PersistentOrder result = ConnectionHandler.getTheConnectionHandler().theOrderFacade
             .newOrder();
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        final$$Fields.put("position", position);
         final$$Fields.put("customer", customer);
         final$$Fields.put("contractor", contractor);
         result.initialize(This, final$$Fields);
@@ -45,15 +42,7 @@ public class Order extends PersistentObject implements PersistentOrder{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot position = (AbstractPersistentRoot)this.getPosition();
-            if (position != null) {
-                result.put("position", position.createProxiInformation());
-                if(depth > 1) {
-                    position.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && position.hasEssentialFields())position.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
+            result.put("items", this.getItems().getVector(allResults, depth, essentialLevel, forGUI, tdObserver));
             AbstractPersistentRoot customer = (AbstractPersistentRoot)this.getCustomer();
             if (customer != null) {
                 result.put("customer", customer.createProxiInformation());
@@ -80,11 +69,11 @@ public class Order extends PersistentObject implements PersistentOrder{
     
     public Order provideCopy() throws PersistenceException{
         Order result = this;
-        result = new Order(this.position, 
-                           this.customer, 
+        result = new Order(this.customer, 
                            this.contractor, 
                            this.This, 
                            this.getId());
+        result.items = this.items.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -92,15 +81,15 @@ public class Order extends PersistentObject implements PersistentOrder{
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentPosition position;
+    protected Order_ItemsProxi items;
     protected PersistentCustomer customer;
     protected PersistentSupplier contractor;
     protected PersistentOrder This;
     
-    public Order(PersistentPosition position,PersistentCustomer customer,PersistentSupplier contractor,PersistentOrder This,long id) throws persistence.PersistenceException {
+    public Order(PersistentCustomer customer,PersistentSupplier contractor,PersistentOrder This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.position = position;
+        this.items = new Order_ItemsProxi(this);
         this.customer = customer;
         this.contractor = contractor;
         if (This != null && !(this.equals(This))) this.This = This;        
@@ -114,17 +103,8 @@ public class Order extends PersistentObject implements PersistentOrder{
         return getTypeId();
     }
     
-    public PersistentPosition getPosition() throws PersistenceException {
-        return this.position;
-    }
-    public void setPosition(PersistentPosition newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.position)) return;
-        if(getThis().getPosition() != null)throw new PersistenceException("Final field position in type Order has been set already!",0);
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.position = (PersistentPosition)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theOrderFacade.positionSet(this.getId(), newValue);
+    public Order_ItemsProxi getItems() throws PersistenceException {
+        return this.items;
     }
     public PersistentCustomer getCustomer() throws PersistenceException {
         return this.customer;
@@ -184,7 +164,7 @@ public class Order extends PersistentObject implements PersistentOrder{
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + (this.getPosition() == null ? 0 : 1)
+            + this.getItems().getLength()
             + (this.getCustomer() == null ? 0 : 1)
             + (this.getContractor() == null ? 0 : 1));
     }
@@ -204,7 +184,6 @@ public class Order extends PersistentObject implements PersistentOrder{
 				throws PersistenceException{
         this.setThis((PersistentOrder)This);
 		if(this.equals(This)){
-			this.setPosition((PersistentPosition)final$$Fields.get("position"));
 			this.setCustomer((PersistentCustomer)final$$Fields.get("customer"));
 			this.setContractor((PersistentSupplier)final$$Fields.get("contractor"));
 		}

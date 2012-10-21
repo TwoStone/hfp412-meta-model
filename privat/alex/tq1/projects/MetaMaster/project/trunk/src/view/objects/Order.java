@@ -8,14 +8,14 @@ import view.*;
 
 public class Order extends ViewObject implements OrderView{
     
-    protected PositionView position;
+    protected java.util.Vector<OrderItemView> items;
     protected CustomerView customer;
     protected SupplierView contractor;
     
-    public Order(PositionView position,CustomerView customer,SupplierView contractor,long id, long classId) {
+    public Order(java.util.Vector<OrderItemView> items,CustomerView customer,SupplierView contractor,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.position = position;
+        this.items = items;
         this.customer = customer;
         this.contractor = contractor;        
     }
@@ -28,11 +28,11 @@ public class Order extends ViewObject implements OrderView{
         return getTypeId();
     }
     
-    public PositionView getPosition() throws ModelException {
-        return this.position;
+    public java.util.Vector<OrderItemView> getItems() throws ModelException {
+        return this.items;
     }
-    public void setPosition(PositionView newValue) throws ModelException {
-        this.position = newValue;
+    public void setItems(java.util.Vector<OrderItemView> newValue) throws ModelException {
+        this.items = newValue;
     }
     public CustomerView getCustomer() throws ModelException {
         return this.customer;
@@ -61,9 +61,9 @@ public class Order extends ViewObject implements OrderView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        PositionView position = this.getPosition();
-        if (position != null) {
-            ((ViewProxi)position).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(position.getClassId(), position.getId())));
+        java.util.Vector<?> items = this.getItems();
+        if (items != null) {
+            ViewObject.resolveVectorProxies(items, resultTable);
         }
         CustomerView customer = this.getCustomer();
         if (customer != null) {
@@ -80,8 +80,8 @@ public class Order extends ViewObject implements OrderView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index == 0 && this.getPosition() != null) return new PositionOrderWrapper(this, originalIndex, (ViewRoot)this.getPosition());
-        if(this.getPosition() != null) index = index - 1;
+        if(index < this.getItems().size()) return new ItemsOrderWrapper(this, originalIndex, (ViewRoot)this.getItems().get(index));
+        index = index - this.getItems().size();
         if(index == 0 && this.getCustomer() != null) return new CustomerOrderWrapper(this, originalIndex, (ViewRoot)this.getCustomer());
         if(this.getCustomer() != null) index = index - 1;
         if(index == 0 && this.getContractor() != null) return new ContractorOrderWrapper(this, originalIndex, (ViewRoot)this.getContractor());
@@ -90,20 +90,23 @@ public class Order extends ViewObject implements OrderView{
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getPosition() == null ? 0 : 1)
+            + (this.getItems().size())
             + (this.getCustomer() == null ? 0 : 1)
             + (this.getContractor() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getPosition() == null ? true : false)
+            && (this.getItems().size() == 0)
             && (this.getCustomer() == null ? true : false)
             && (this.getContractor() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getPosition() != null && this.getPosition().equals(child)) return result;
-        if(this.getPosition() != null) result = result + 1;
+        java.util.Iterator<?> getItemsIterator = this.getItems().iterator();
+        while(getItemsIterator.hasNext()){
+            if(getItemsIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         if(this.getCustomer() != null && this.getCustomer().equals(child)) return result;
         if(this.getCustomer() != null) result = result + 1;
         if(this.getContractor() != null && this.getContractor().equals(child)) return result;

@@ -41,7 +41,7 @@ public class CommonDate extends PersistentObject implements PersistentCommonDate
     }
     
     static public long getTypeId() {
-        return 115;
+        return 116;
     }
     
     public long getClassId() {

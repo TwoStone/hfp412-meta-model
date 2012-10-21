@@ -4,8 +4,8 @@ import view.objects.*;
 
 public interface OrderView extends Anything, AbstractViewProxi {
     
-    public PositionView getPosition() throws ModelException ;
-    public void setPosition(PositionView newValue) throws ModelException ;
+    public java.util.Vector<OrderItemView> getItems() throws ModelException ;
+    public void setItems(java.util.Vector<OrderItemView> newValue) throws ModelException ;
     public CustomerView getCustomer() throws ModelException ;
     public void setCustomer(CustomerView newValue) throws ModelException ;
     public SupplierView getContractor() throws ModelException ;

@@ -10,6 +10,6 @@ public interface AnythingVisitor extends ActorVisitor,RoleVisitor{
     public void handleOrder(OrderView order) throws ModelException;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public void handleServer(ServerView server) throws ModelException;
-    public void handlePosition(PositionView position) throws ModelException;
+    public void handleOrderItem(OrderItemView orderItem) throws ModelException;
     
 }

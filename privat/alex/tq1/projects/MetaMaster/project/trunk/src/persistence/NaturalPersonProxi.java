@@ -62,10 +62,6 @@ public class NaturalPersonProxi extends ActorProxi implements PersistentNaturalP
 				throws PersistenceException{
         ((PersistentNaturalPerson)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public RoleSearchList inverseGetRoleOwner() 
-				throws PersistenceException{
-        return ((PersistentNaturalPerson)this.getTheObject()).inverseGetRoleOwner();
-    }
     public RoleSearchList getRoles() 
 				throws PersistenceException{
         return ((PersistentNaturalPerson)this.getTheObject()).getRoles();
@@ -81,6 +77,10 @@ public class NaturalPersonProxi extends ActorProxi implements PersistentNaturalP
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentNaturalPerson)this.getTheObject()).initializeOnCreation();
+    }
+    public RoleSearchList inverseGetOwner() 
+				throws PersistenceException{
+        return ((PersistentNaturalPerson)this.getTheObject()).inverseGetOwner();
     }
 
     

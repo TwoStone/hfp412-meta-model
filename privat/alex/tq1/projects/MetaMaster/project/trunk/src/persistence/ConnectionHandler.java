@@ -58,11 +58,11 @@ public class ConnectionHandler {
     public ErrorDisplayFacade theErrorDisplayFacade;
     public ServerFacade theServerFacade;
     public NaturalPersonFacade theNaturalPersonFacade;
+    public OrderItemFacade theOrderItemFacade;
     public SupplierFacade theSupplierFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public ActorFacade theActorFacade;
     public CommonDateFacade theCommonDateFacade;
-    public PositionFacade thePositionFacade;
     public RoleFacade theRoleFacade;
 
 	protected ConnectionHandler() throws PersistenceException {
@@ -79,11 +79,11 @@ public class ConnectionHandler {
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
             this.theServerFacade= new ServerFacade();
             this.theNaturalPersonFacade= new NaturalPersonFacade();
+            this.theOrderItemFacade= new OrderItemFacade();
             this.theSupplierFacade= new SupplierFacade();
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade();
             this.theActorFacade= new ActorFacade();
             this.theCommonDateFacade= new CommonDateFacade();
-            this.thePositionFacade= new PositionFacade();
             this.theRoleFacade= new RoleFacade();
 	}
 	public static void initializeMapsForMappedFields() throws PersistenceException {

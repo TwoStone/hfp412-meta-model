@@ -10,14 +10,14 @@ public class CustomerProxi extends RoleProxi implements CustomerView{
     }
     
     public CustomerView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        ViewProxi roleOwner = null;
-        String roleOwner$String = (String)resultTable.get("roleOwner");
-        if (roleOwner$String != null) {
-            common.ProxiInformation roleOwner$Info = common.RPCConstantsAndServices.createProxiInformation(roleOwner$String);
-            roleOwner = ViewProxi.createProxi(roleOwner$Info,connectionKey);
-            roleOwner.setToString(roleOwner$Info.getToString());
+        ViewProxi owner = null;
+        String owner$String = (String)resultTable.get("owner");
+        if (owner$String != null) {
+            common.ProxiInformation owner$Info = common.RPCConstantsAndServices.createProxiInformation(owner$String);
+            owner = ViewProxi.createProxi(owner$Info,connectionKey);
+            owner.setToString(owner$Info.getToString());
         }
-        CustomerView result$$ = new Customer((ActorView)roleOwner, this.getId(), this.getClassId());
+        CustomerView result$$ = new Customer((ActorView)owner, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

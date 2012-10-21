@@ -9,21 +9,21 @@ import persistence.*;
 public class Supplier extends model.Role implements PersistentSupplier{
     
     
-    public static PersistentSupplier createSupplier(PersistentActor roleOwner) throws PersistenceException {
+    public static PersistentSupplier createSupplier(PersistentActor owner) throws PersistenceException {
         PersistentSupplier result = ConnectionHandler.getTheConnectionHandler().theSupplierFacade
             .newSupplier();
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        final$$Fields.put("roleOwner", roleOwner);
+        final$$Fields.put("owner", owner);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentSupplier createSupplier(PersistentActor roleOwner,PersistentSupplier This) throws PersistenceException {
+    public static PersistentSupplier createSupplier(PersistentActor owner,PersistentSupplier This) throws PersistenceException {
         PersistentSupplier result = ConnectionHandler.getTheConnectionHandler().theSupplierFacade
             .newSupplier();
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        final$$Fields.put("roleOwner", roleOwner);
+        final$$Fields.put("owner", owner);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -42,7 +42,7 @@ public class Supplier extends model.Role implements PersistentSupplier{
     
     public Supplier provideCopy() throws PersistenceException{
         Supplier result = this;
-        result = new Supplier(this.roleOwner, 
+        result = new Supplier(this.owner, 
                               this.This, 
                               this.getId());
         result.portfolio = this.portfolio.copy(result);
@@ -55,14 +55,14 @@ public class Supplier extends model.Role implements PersistentSupplier{
     }
     protected Supplier_PortfolioProxi portfolio;
     
-    public Supplier(PersistentActor roleOwner,PersistentRole This,long id) throws persistence.PersistenceException {
+    public Supplier(PersistentActor owner,PersistentRole This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentActor)roleOwner,(PersistentRole)This,id);
+        super((PersistentActor)owner,(PersistentRole)This,id);
         this.portfolio = new Supplier_PortfolioProxi(this);        
     }
     
     static public long getTypeId() {
-        return 112;
+        return 113;
     }
     
     public long getClassId() {
@@ -124,7 +124,7 @@ public class Supplier extends model.Role implements PersistentSupplier{
 				throws PersistenceException{
         this.setThis((PersistentSupplier)This);
 		if(this.equals(This)){
-			this.setRoleOwner((PersistentActor)final$$Fields.get("roleOwner"));
+			this.setOwner((PersistentActor)final$$Fields.get("owner"));
 		}
     }
     public void initializeOnCreation() 

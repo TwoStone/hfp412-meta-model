@@ -17,8 +17,6 @@ public interface PersistentActor extends Anything, AbstractPersistentProxi {
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public RoleSearchList inverseGetRoleOwner() 
-				throws PersistenceException;
     public RoleSearchList getRoles() 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
@@ -26,6 +24,8 @@ public interface PersistentActor extends Anything, AbstractPersistentProxi {
     public void addRole(final String roleName) 
 				throws PersistenceException;
     public void initializeOnCreation() 
+				throws PersistenceException;
+    public RoleSearchList inverseGetOwner() 
 				throws PersistenceException;
 
 }

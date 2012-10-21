@@ -14,7 +14,7 @@ public interface AnythingVisitor extends ActorVisitor,CommonDateVisitor,RoleVisi
     public void handleCreateActorCommand(PersistentCreateActorCommand createActorCommand) throws PersistenceException;
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public void handleServer(PersistentServer server) throws PersistenceException;
+    public void handleOrderItem(PersistentOrderItem orderItem) throws PersistenceException;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
-    public void handlePosition(PersistentPosition position) throws PersistenceException;
     
 }

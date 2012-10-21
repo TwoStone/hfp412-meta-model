@@ -17,7 +17,7 @@ public class CommonDateProxi extends PersistentProxi implements PersistentCommon
     }
     
     public long getClassId() {
-        return 115;
+        return 116;
     }
     
     public java.sql.Date getCreateDate() throws PersistenceException {

@@ -47,7 +47,7 @@ public abstract class Actor extends PersistentObject implements PersistentActor{
     }
     
     static public long getTypeId() {
-        return 114;
+        return 115;
     }
     
     public long getClassId() {
@@ -89,13 +89,6 @@ public abstract class Actor extends PersistentObject implements PersistentActor{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public RoleSearchList inverseGetRoleOwner() 
-				throws PersistenceException{
-        RoleSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theRoleFacade
-							.inverseGetRoleOwner(this.getId(), this.getClassId());
-		return result;
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
@@ -112,6 +105,13 @@ public abstract class Actor extends PersistentObject implements PersistentActor{
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
+    }
+    public RoleSearchList inverseGetOwner() 
+				throws PersistenceException{
+        RoleSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theRoleFacade
+							.inverseGetOwner(this.getId(), this.getClassId());
+		return result;
     }
     public RoleSearchList getRoles() 
 				throws PersistenceException{

@@ -64,7 +64,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		this.result = "Lieferant";
 	}
 	@Override
-	public void handlePosition(PersistentPosition position)
+	public void handleOrderItem(PersistentOrderItem position)
 			throws PersistenceException {
 		this.result = "Position";
 	}

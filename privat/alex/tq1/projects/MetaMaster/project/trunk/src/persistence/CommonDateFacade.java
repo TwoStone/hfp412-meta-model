@@ -28,14 +28,14 @@ public class CommonDateFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade.getNextId();
         CommonDate result = new CommonDate(createDate,commitDate,id);
         Cache.getTheCache().put(result);
-        return (CommonDateProxi)PersistentProxi.createProxi(id, 115);
+        return (CommonDateProxi)PersistentProxi.createProxi(id, 116);
     }
     
     public CommonDate getCommonDate(long CommonDateId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 115)) return 115;
+        if(Cache.getTheCache().contains(objectId, 116)) return 116;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

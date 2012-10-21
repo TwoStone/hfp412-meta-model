@@ -12,11 +12,11 @@ public abstract class RoleICProxi extends PersistentInCacheProxiOptimistic imple
     }
     
     
-    public PersistentActor getRoleOwner() throws PersistenceException {
-        return ((PersistentRole)this.getTheObject()).getRoleOwner();
+    public PersistentActor getOwner() throws PersistenceException {
+        return ((PersistentRole)this.getTheObject()).getOwner();
     }
-    public void setRoleOwner(PersistentActor newValue) throws PersistenceException {
-        ((PersistentRole)this.getTheObject()).setRoleOwner(newValue);
+    public void setOwner(PersistentActor newValue) throws PersistenceException {
+        ((PersistentRole)this.getTheObject()).setOwner(newValue);
     }
     
     

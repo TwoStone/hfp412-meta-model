@@ -14,7 +14,7 @@ public interface AnythingReturnVisitor<R> extends ActorReturnVisitor<R> ,CommonD
     public R handleCreateActorCommand(PersistentCreateActorCommand createActorCommand) throws PersistenceException;
     public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public R handleServer(PersistentServer server) throws PersistenceException;
+    public R handleOrderItem(PersistentOrderItem orderItem) throws PersistenceException;
     public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
-    public R handlePosition(PersistentPosition position) throws PersistenceException;
     
 }

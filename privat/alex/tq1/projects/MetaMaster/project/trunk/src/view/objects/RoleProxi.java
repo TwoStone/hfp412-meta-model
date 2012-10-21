@@ -10,11 +10,11 @@ public abstract class RoleProxi extends ViewProxi implements RoleView{
     }
     
     
-    public ActorView getRoleOwner() throws ModelException {
-        return ((Role)this.getTheObject()).getRoleOwner();
+    public ActorView getOwner() throws ModelException {
+        return ((Role)this.getTheObject()).getOwner();
     }
-    public void setRoleOwner(ActorView newValue) throws ModelException {
-        ((Role)this.getTheObject()).setRoleOwner(newValue);
+    public void setOwner(ActorView newValue) throws ModelException {
+        ((Role)this.getTheObject()).setOwner(newValue);
     }
     
     

@@ -17,7 +17,7 @@ public class SupplierICProxi extends RoleICProxi implements PersistentSupplier{
     }
     
     public long getClassId() {
-        return 112;
+        return 113;
     }
     
     public Supplier_PortfolioProxi getPortfolio() throws PersistenceException {

@@ -7,6 +7,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleActorManager(ActorManagerView actorManager) throws ModelException;
     
+    public abstract void handleOrderItem(OrderItemView orderItem) throws ModelException;
+    
     public abstract void handleProduct(ProductView product) throws ModelException;
     
     public abstract void handleActor(ActorView actor) throws ModelException;
@@ -18,8 +20,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleActor(naturalPerson);
     }
     public abstract void handleOrder(OrderView order) throws ModelException;
-    
-    public abstract void handlePosition(PositionView position) throws ModelException;
     
     public abstract void handleRole(RoleView role) throws ModelException;
     

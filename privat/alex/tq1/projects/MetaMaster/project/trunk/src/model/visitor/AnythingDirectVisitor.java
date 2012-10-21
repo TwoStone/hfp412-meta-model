@@ -7,6 +7,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleActorManager(PersistentActorManager actorManager) throws PersistenceException;
     
+    public abstract void handleOrderItem(PersistentOrderItem orderItem) throws PersistenceException;
+    
     public abstract void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     
     public abstract void handleProduct(PersistentProduct product) throws PersistenceException;
@@ -30,8 +32,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleCommonDate(createActorCommand);
     }
     public abstract void handleOrder(PersistentOrder order) throws PersistenceException;
-    
-    public abstract void handlePosition(PersistentPosition position) throws PersistenceException;
     
     public abstract void handleRole(PersistentRole role) throws PersistenceException;
     

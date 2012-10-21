@@ -709,11 +709,11 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleNaturalPerson(view.NaturalPersonView object){
         result = new NaturalPersonDefaultDetailPanel(handler, object);
     }
+    public void handleOrderItem(view.OrderItemView object){
+        result = new OrderItemDefaultDetailPanel(handler, object);
+    }
     public void handleSupplier(view.SupplierView object){
         result = new SupplierDefaultDetailPanel(handler, object);
-    }
-    public void handlePosition(view.PositionView object){
-        result = new PositionDefaultDetailPanel(handler, object);
     }
 
 }
@@ -791,7 +791,7 @@ class JuristicPersonDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class OrderDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Order$$position = "Order$$position";
+    protected static final String Order$$items = "Order$$items";
     protected static final String Order$$customer = "Order$$customer";
     protected static final String Order$$contractor = "Order$$contractor";
     
@@ -878,6 +878,30 @@ class NaturalPersonDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class OrderItemDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String OrderItem$$quantity = "OrderItem$$quantity";
+    protected static final String OrderItem$$product = "OrderItem$$product";
+    
+    protected OrderItemDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new IntegerPanel(this, "quantity", this.getAnything().getQuantity());
+            this.getScrollablePane().add(panel);
+            this.panels.put(OrderItem$$quantity, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.OrderItemView getAnything(){
+        return (view.OrderItemView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class SupplierDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Supplier$$portfolio = "Supplier$$portfolio";
@@ -890,29 +914,5 @@ class SupplierDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.SupplierView getAnything(){
         return (view.SupplierView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class PositionDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String Position$$amount = "Position$$amount";
-    protected static final String Position$$relateTo = "Position$$relateTo";
-    
-    protected PositionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        try{
-            BaseTypePanel panel = new IntegerPanel(this, "amount", this.getAnything().getAmount());
-            this.getScrollablePane().add(panel);
-            this.panels.put(Position$$amount, panel);
-        }catch(view.ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        
-    }
-    protected view.PositionView getAnything(){
-        return (view.PositionView)this.anything;
     }
 }

@@ -14,7 +14,7 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleCreateActorCommand(PersistentCreateActorCommand createActorCommand) throws PersistenceException, E;
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
     public void handleServer(PersistentServer server) throws PersistenceException, E;
+    public void handleOrderItem(PersistentOrderItem orderItem) throws PersistenceException, E;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
-    public void handlePosition(PersistentPosition position) throws PersistenceException, E;
     
 }

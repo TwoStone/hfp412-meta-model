@@ -41,14 +41,14 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleSupplier(PersistentSupplier supplier) throws PersistenceException{
         this.standardHandling(supplier);
     }
+    public void handleOrderItem(PersistentOrderItem orderItem) throws PersistenceException{
+        this.standardHandling(orderItem);
+    }
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException{
         this.standardHandling(commandCoordinator);
     }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
-    }
-    public void handlePosition(PersistentPosition position) throws PersistenceException{
-        this.standardHandling(position);
     }
     protected abstract void standardHandling(Anything anything) throws PersistenceException;
 }

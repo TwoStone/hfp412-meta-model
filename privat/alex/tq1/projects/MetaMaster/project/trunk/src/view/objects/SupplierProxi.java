@@ -11,16 +11,16 @@ public class SupplierProxi extends RoleProxi implements SupplierView{
     
     @SuppressWarnings("unchecked")
     public SupplierView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        ViewProxi roleOwner = null;
-        String roleOwner$String = (String)resultTable.get("roleOwner");
-        if (roleOwner$String != null) {
-            common.ProxiInformation roleOwner$Info = common.RPCConstantsAndServices.createProxiInformation(roleOwner$String);
-            roleOwner = ViewProxi.createProxi(roleOwner$Info,connectionKey);
-            roleOwner.setToString(roleOwner$Info.getToString());
+        ViewProxi owner = null;
+        String owner$String = (String)resultTable.get("owner");
+        if (owner$String != null) {
+            common.ProxiInformation owner$Info = common.RPCConstantsAndServices.createProxiInformation(owner$String);
+            owner = ViewProxi.createProxi(owner$Info,connectionKey);
+            owner.setToString(owner$Info.getToString());
         }
         java.util.Vector<String> portfolio_string = (java.util.Vector<String>)resultTable.get("portfolio");
         java.util.Vector<ProductView> portfolio = ViewProxi.getProxiVector(portfolio_string, connectionKey);
-        SupplierView result$$ = new Supplier((ActorView)roleOwner,portfolio, this.getId(), this.getClassId());
+        SupplierView result$$ = new Supplier((ActorView)owner,portfolio, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

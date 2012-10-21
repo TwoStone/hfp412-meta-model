@@ -8,26 +8,26 @@ import view.*;
 
 public abstract class Role extends ViewObject implements RoleView{
     
-    protected ActorView roleOwner;
+    protected ActorView owner;
     
-    public Role(ActorView roleOwner,long id, long classId) {
+    public Role(ActorView owner,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.roleOwner = roleOwner;        
+        this.owner = owner;        
     }
     
-    public ActorView getRoleOwner() throws ModelException {
-        return this.roleOwner;
+    public ActorView getOwner() throws ModelException {
+        return this.owner;
     }
-    public void setRoleOwner(ActorView newValue) throws ModelException {
-        this.roleOwner = newValue;
+    public void setOwner(ActorView newValue) throws ModelException {
+        this.owner = newValue;
     }
     
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        ActorView roleOwner = this.getRoleOwner();
-        if (roleOwner != null) {
-            ((ViewProxi)roleOwner).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(roleOwner.getClassId(), roleOwner.getId())));
+        ActorView owner = this.getOwner();
+        if (owner != null) {
+            ((ViewProxi)owner).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(owner.getClassId(), owner.getId())));
         }
         
     }

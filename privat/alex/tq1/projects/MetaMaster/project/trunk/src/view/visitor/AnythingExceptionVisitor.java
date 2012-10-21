@@ -10,6 +10,6 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleOrder(OrderView order) throws ModelException, E;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
     public void handleServer(ServerView server) throws ModelException, E;
-    public void handlePosition(PositionView position) throws ModelException, E;
+    public void handleOrderItem(OrderItemView orderItem) throws ModelException, E;
     
 }

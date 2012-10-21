@@ -9,21 +9,21 @@ import persistence.*;
 public class Customer extends model.Role implements PersistentCustomer{
     
     
-    public static PersistentCustomer createCustomer(PersistentActor roleOwner) throws PersistenceException {
+    public static PersistentCustomer createCustomer(PersistentActor owner) throws PersistenceException {
         PersistentCustomer result = ConnectionHandler.getTheConnectionHandler().theCustomerFacade
             .newCustomer();
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        final$$Fields.put("roleOwner", roleOwner);
+        final$$Fields.put("owner", owner);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentCustomer createCustomer(PersistentActor roleOwner,PersistentCustomer This) throws PersistenceException {
+    public static PersistentCustomer createCustomer(PersistentActor owner,PersistentCustomer This) throws PersistenceException {
         PersistentCustomer result = ConnectionHandler.getTheConnectionHandler().theCustomerFacade
             .newCustomer();
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        final$$Fields.put("roleOwner", roleOwner);
+        final$$Fields.put("owner", owner);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -41,7 +41,7 @@ public class Customer extends model.Role implements PersistentCustomer{
     
     public Customer provideCopy() throws PersistenceException{
         Customer result = this;
-        result = new Customer(this.roleOwner, 
+        result = new Customer(this.owner, 
                               this.This, 
                               this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -52,9 +52,9 @@ public class Customer extends model.Role implements PersistentCustomer{
         return false;
     }
     
-    public Customer(PersistentActor roleOwner,PersistentRole This,long id) throws persistence.PersistenceException {
+    public Customer(PersistentActor owner,PersistentRole This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentActor)roleOwner,(PersistentRole)This,id);        
+        super((PersistentActor)owner,(PersistentRole)This,id);        
     }
     
     static public long getTypeId() {
@@ -116,7 +116,7 @@ public class Customer extends model.Role implements PersistentCustomer{
 				throws PersistenceException{
         this.setThis((PersistentCustomer)This);
 		if(this.equals(This)){
-			this.setRoleOwner((PersistentActor)final$$Fields.get("roleOwner"));
+			this.setOwner((PersistentActor)final$$Fields.get("owner"));
 		}
     }
     public void initializeOnCreation() 

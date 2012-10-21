@@ -13,7 +13,7 @@ public class SupplierFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theRoleFacade.getNextId();
         Supplier result = new Supplier(null,null,id);
         Cache.getTheCache().put(result);
-        return (SupplierProxi)PersistentProxi.createProxi(id, 112);
+        return (SupplierProxi)PersistentProxi.createProxi(id, 113);
     }
     
     public Supplier getSupplier(long SupplierId) throws PersistenceException{

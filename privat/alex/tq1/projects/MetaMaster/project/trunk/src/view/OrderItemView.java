@@ -2,12 +2,12 @@ package view;
 
 import view.objects.*;
 
-public interface PositionView extends Anything, AbstractViewProxi {
+public interface OrderItemView extends Anything, AbstractViewProxi {
     
-    public long getAmount() throws ModelException ;
-    public void setAmount(long newValue) throws ModelException ;
-    public ProductView getRelateTo() throws ModelException ;
-    public void setRelateTo(ProductView newValue) throws ModelException ;
+    public long getQuantity() throws ModelException ;
+    public void setQuantity(long newValue) throws ModelException ;
+    public ProductView getProduct() throws ModelException ;
+    public void setProduct(ProductView newValue) throws ModelException ;
     
     public void accept(view.visitor.AnythingVisitor visitor) throws ModelException;
     public <R> R accept(view.visitor.AnythingReturnVisitor<R>  visitor) throws ModelException;

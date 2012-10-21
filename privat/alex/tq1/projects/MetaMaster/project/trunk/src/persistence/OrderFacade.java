@@ -26,7 +26,7 @@ public class OrderFacade{
 
     public OrderProxi newOrder() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theOrderFacade.getNextId();
-        Order result = new Order(null,null,null,null,id);
+        Order result = new Order(null,null,null,id);
         Cache.getTheCache().put(result);
         return (OrderProxi)PersistentProxi.createProxi(id, 107);
     }
@@ -40,8 +40,14 @@ public class OrderFacade{
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
-    public void positionSet(long OrderId, PersistentPosition positionVal) throws PersistenceException {
+    public long itemsAdd(long OrderId, PersistentOrderItem itemsVal) throws PersistenceException {
+        return 0;
+    }
+    public void itemsRem(long itemsId) throws PersistenceException {
         
+    }
+    public OrderItemList itemsGet(long OrderId) throws PersistenceException {
+        return new OrderItemList(); // remote access for initialization only!
     }
     public void customerSet(long OrderId, PersistentCustomer customerVal) throws PersistenceException {
         

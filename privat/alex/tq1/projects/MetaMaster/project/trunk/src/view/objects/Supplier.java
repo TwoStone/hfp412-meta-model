@@ -10,14 +10,14 @@ public class Supplier extends view.objects.Role implements SupplierView{
     
     protected java.util.Vector<ProductView> portfolio;
     
-    public Supplier(ActorView roleOwner,java.util.Vector<ProductView> portfolio,long id, long classId) {
+    public Supplier(ActorView owner,java.util.Vector<ProductView> portfolio,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ActorView)roleOwner,id, classId);
+        super((ActorView)owner,id, classId);
         this.portfolio = portfolio;        
     }
     
     static public long getTypeId() {
-        return 112;
+        return 113;
     }
     
     public long getClassId() {
@@ -57,9 +57,9 @@ public class Supplier extends view.objects.Role implements SupplierView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        ActorView roleOwner = this.getRoleOwner();
-        if (roleOwner != null) {
-            ((ViewProxi)roleOwner).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(roleOwner.getClassId(), roleOwner.getId())));
+        ActorView owner = this.getOwner();
+        if (owner != null) {
+            ((ViewProxi)owner).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(owner.getClassId(), owner.getId())));
         }
         java.util.Vector<?> portfolio = this.getPortfolio();
         if (portfolio != null) {

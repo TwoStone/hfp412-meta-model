@@ -4,8 +4,8 @@ import view.objects.*;
 
 public interface RoleView extends Anything, AbstractViewProxi {
     
-    public ActorView getRoleOwner() throws ModelException ;
-    public void setRoleOwner(ActorView newValue) throws ModelException ;
+    public ActorView getOwner() throws ModelException ;
+    public void setOwner(ActorView newValue) throws ModelException ;
     
     public void accept(view.visitor.RoleVisitor visitor) throws ModelException;
     public <R> R accept(view.visitor.RoleReturnVisitor<R>  visitor) throws ModelException;

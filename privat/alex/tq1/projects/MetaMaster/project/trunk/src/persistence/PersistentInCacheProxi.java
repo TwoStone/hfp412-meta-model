@@ -70,22 +70,22 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         };
         iCProxiFactories[11] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
-                return new SupplierICProxi(objectId);
+                return new OrderItemICProxi(objectId);
             }
         };
         iCProxiFactories[12] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
-                return new CommandCoordinatorICProxi(objectId);
+                return new SupplierICProxi(objectId);
             }
         };
-        iCProxiFactories[14] = new ICProxiFactory(){
+        iCProxiFactories[13] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
-                return new CommonDateICProxi(objectId);
+                return new CommandCoordinatorICProxi(objectId);
             }
         };
         iCProxiFactories[15] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
-                return new PositionICProxi(objectId);
+                return new CommonDateICProxi(objectId);
             }
         };
 		}

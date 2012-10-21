@@ -2,8 +2,7 @@ package persistence;
 
 public interface PersistentOrder extends Anything, AbstractPersistentProxi {
     
-    public PersistentPosition getPosition() throws PersistenceException ;
-    public void setPosition(PersistentPosition newValue) throws PersistenceException ;
+    public Order_ItemsProxi getItems() throws PersistenceException ;
     public PersistentCustomer getCustomer() throws PersistenceException ;
     public void setCustomer(PersistentCustomer newValue) throws PersistenceException ;
     public PersistentSupplier getContractor() throws PersistenceException ;

@@ -29,10 +29,6 @@ public abstract class ActorProxi extends PersistentProxi implements PersistentAc
 				throws PersistenceException{
         ((PersistentActor)this.getTheObject()).initializeOnInstantiation();
     }
-    public RoleSearchList inverseGetRoleOwner() 
-				throws PersistenceException{
-        return ((PersistentActor)this.getTheObject()).inverseGetRoleOwner();
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentActor)this.getTheObject()).copyingPrivateUserAttributes(copy);
@@ -52,6 +48,10 @@ public abstract class ActorProxi extends PersistentProxi implements PersistentAc
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentActor)this.getTheObject()).initializeOnCreation();
+    }
+    public RoleSearchList inverseGetOwner() 
+				throws PersistenceException{
+        return ((PersistentActor)this.getTheObject()).inverseGetOwner();
     }
 
     

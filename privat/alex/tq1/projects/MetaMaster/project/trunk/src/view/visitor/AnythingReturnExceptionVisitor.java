@@ -10,6 +10,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleOrder(OrderView order) throws ModelException, E;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
     public R handleServer(ServerView server) throws ModelException, E;
-    public R handlePosition(PositionView position) throws ModelException, E;
+    public R handleOrderItem(OrderItemView orderItem) throws ModelException, E;
     
 }

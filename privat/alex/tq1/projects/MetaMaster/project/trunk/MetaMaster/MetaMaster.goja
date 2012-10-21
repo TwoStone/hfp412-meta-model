@@ -14,14 +14,14 @@ model metaMaster {
 	/*** Order ***/
 	
 	class Order {
-		prior final Position position;
+		OrderItem ** items;
 		prior final Customer customer;
 		prior final Supplier contractor;
 	}
 
-	class Position {
-		prior Integer amount;
-		prior final Product relateTo;
+	class OrderItem {
+		prior Integer quantity;
+		prior final Product product;
 	}
 
 	class Product {
@@ -50,7 +50,7 @@ model metaMaster {
 	/*** Role ***/
 
 	string-factory abstract class Role {
-		no-view symmetric prior final Actor roleOwner;
+		no-view symmetric prior final Actor owner;
 	}
 	
 	class Customer extends Role {

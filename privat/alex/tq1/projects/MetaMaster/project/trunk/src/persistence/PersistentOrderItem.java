@@ -1,12 +1,12 @@
 package persistence;
 
-public interface PersistentPosition extends Anything, AbstractPersistentProxi {
+public interface PersistentOrderItem extends Anything, AbstractPersistentProxi {
     
-    public long getAmount() throws PersistenceException ;
-    public void setAmount(long newValue) throws PersistenceException ;
-    public PersistentProduct getRelateTo() throws PersistenceException ;
-    public void setRelateTo(PersistentProduct newValue) throws PersistenceException ;
-    public PersistentPosition getThis() throws PersistenceException ;
+    public long getQuantity() throws PersistenceException ;
+    public void setQuantity(long newValue) throws PersistenceException ;
+    public PersistentProduct getProduct() throws PersistenceException ;
+    public void setProduct(PersistentProduct newValue) throws PersistenceException ;
+    public PersistentOrderItem getThis() throws PersistenceException ;
     
     public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(model.visitor.AnythingReturnVisitor<R>  visitor) throws PersistenceException;

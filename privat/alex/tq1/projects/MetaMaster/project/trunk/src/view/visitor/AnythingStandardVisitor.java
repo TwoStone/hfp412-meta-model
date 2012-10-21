@@ -32,8 +32,8 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleSupplier(SupplierView supplier) throws ModelException{
         this.standardHandling(supplier);
     }
-    public void handlePosition(PositionView position) throws ModelException{
-        this.standardHandling(position);
+    public void handleOrderItem(OrderItemView orderItem) throws ModelException{
+        this.standardHandling(orderItem);
     }
     protected abstract void standardHandling(Anything anything) throws ModelException;
 }

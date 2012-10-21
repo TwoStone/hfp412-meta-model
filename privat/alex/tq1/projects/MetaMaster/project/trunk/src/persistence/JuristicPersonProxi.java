@@ -62,10 +62,6 @@ public class JuristicPersonProxi extends ActorProxi implements PersistentJuristi
 				throws PersistenceException{
         ((PersistentJuristicPerson)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public RoleSearchList inverseGetRoleOwner() 
-				throws PersistenceException{
-        return ((PersistentJuristicPerson)this.getTheObject()).inverseGetRoleOwner();
-    }
     public RoleSearchList getRoles() 
 				throws PersistenceException{
         return ((PersistentJuristicPerson)this.getTheObject()).getRoles();
@@ -81,6 +77,10 @@ public class JuristicPersonProxi extends ActorProxi implements PersistentJuristi
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentJuristicPerson)this.getTheObject()).initializeOnCreation();
+    }
+    public RoleSearchList inverseGetOwner() 
+				throws PersistenceException{
+        return ((PersistentJuristicPerson)this.getTheObject()).inverseGetOwner();
     }
 
     

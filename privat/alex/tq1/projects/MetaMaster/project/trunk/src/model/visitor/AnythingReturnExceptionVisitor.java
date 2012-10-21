@@ -14,7 +14,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleCreateActorCommand(PersistentCreateActorCommand createActorCommand) throws PersistenceException, E;
     public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
     public R handleServer(PersistentServer server) throws PersistenceException, E;
+    public R handleOrderItem(PersistentOrderItem orderItem) throws PersistenceException, E;
     public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
-    public R handlePosition(PersistentPosition position) throws PersistenceException, E;
     
 }

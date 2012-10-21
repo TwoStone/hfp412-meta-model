@@ -10,6 +10,6 @@ public interface AnythingReturnVisitor<R> extends ActorReturnVisitor<R> ,RoleRet
     public R handleOrder(OrderView order) throws ModelException;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public R handleServer(ServerView server) throws ModelException;
-    public R handlePosition(PositionView position) throws ModelException;
+    public R handleOrderItem(OrderItemView orderItem) throws ModelException;
     
 }

@@ -13,6 +13,6 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
     public abstract void handleNaturalPerson(PersistentNaturalPerson naturalPerson) throws PersistenceException;
     public abstract void handleSupplier(PersistentSupplier supplier) throws PersistenceException;
-    public abstract void handlePosition(PersistentPosition position) throws PersistenceException;
+    public abstract void handleOrderItem(PersistentOrderItem orderItem) throws PersistenceException;
     
 }

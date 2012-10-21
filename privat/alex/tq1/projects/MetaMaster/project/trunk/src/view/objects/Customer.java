@@ -9,9 +9,9 @@ import view.*;
 public class Customer extends view.objects.Role implements CustomerView{
     
     
-    public Customer(ActorView roleOwner,long id, long classId) {
+    public Customer(ActorView owner,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ActorView)roleOwner,id, classId);        
+        super((ActorView)owner,id, classId);        
     }
     
     static public long getTypeId() {
@@ -49,9 +49,9 @@ public class Customer extends view.objects.Role implements CustomerView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        ActorView roleOwner = this.getRoleOwner();
-        if (roleOwner != null) {
-            ((ViewProxi)roleOwner).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(roleOwner.getClassId(), roleOwner.getId())));
+        ActorView owner = this.getOwner();
+        if (owner != null) {
+            ((ViewProxi)owner).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(owner.getClassId(), owner.getId())));
         }
         
     }

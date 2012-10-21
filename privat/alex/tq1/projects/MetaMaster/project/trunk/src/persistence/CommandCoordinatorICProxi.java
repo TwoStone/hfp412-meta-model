@@ -17,7 +17,7 @@ public class CommandCoordinatorICProxi extends PersistentInCacheProxi implements
     }
     
     public long getClassId() {
-        return -113;
+        return -114;
     }
     
     public CommandCoordinator_ExecuterProxi getExecuter() throws PersistenceException {

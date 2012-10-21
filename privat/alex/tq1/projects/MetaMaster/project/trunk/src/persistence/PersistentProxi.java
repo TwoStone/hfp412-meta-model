@@ -74,22 +74,22 @@ public abstract class PersistentProxi extends PersistentRoot {
         };
         listProxiFactories[11] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
-                return new SupplierListEntryProxi(objectId, entryId);
+                return new OrderItemListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[12] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
-                return new CommandCoordinatorListEntryProxi(objectId, entryId);
+                return new SupplierListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[14] = new ListProxiFactory(){
+        listProxiFactories[13] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
-                return new CommonDateListEntryProxi(objectId, entryId);
+                return new CommandCoordinatorListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[15] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
-                return new PositionListEntryProxi(objectId, entryId);
+                return new CommonDateListEntryProxi(objectId, entryId);
             }
         };
 	}
@@ -155,22 +155,22 @@ public abstract class PersistentProxi extends PersistentRoot {
         };
         proxiFactories[11] = new ProxiFactory(){
             PersistentProxi create(long objectId){
-                return new SupplierProxi(objectId);
+                return new OrderItemProxi(objectId);
             }
         };
         proxiFactories[12] = new ProxiFactory(){
             PersistentProxi create(long objectId){
-                return new CommandCoordinatorProxi(objectId);
+                return new SupplierProxi(objectId);
             }
         };
-        proxiFactories[14] = new ProxiFactory(){
+        proxiFactories[13] = new ProxiFactory(){
             PersistentProxi create(long objectId){
-                return new CommonDateProxi(objectId);
+                return new CommandCoordinatorProxi(objectId);
             }
         };
         proxiFactories[15] = new ProxiFactory(){
             PersistentProxi create(long objectId){
-                return new PositionProxi(objectId);
+                return new CommonDateProxi(objectId);
             }
         };
 	}

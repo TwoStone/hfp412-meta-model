@@ -2,8 +2,8 @@ package persistence;
 
 public interface PersistentRole extends Anything, AbstractPersistentProxi {
     
-    public PersistentActor getRoleOwner() throws PersistenceException ;
-    public void setRoleOwner(PersistentActor newValue) throws PersistenceException ;
+    public PersistentActor getOwner() throws PersistenceException ;
+    public void setOwner(PersistentActor newValue) throws PersistenceException ;
     public abstract PersistentRole getThis() throws PersistenceException ;
     
     public void accept(model.visitor.RoleVisitor visitor) throws PersistenceException;

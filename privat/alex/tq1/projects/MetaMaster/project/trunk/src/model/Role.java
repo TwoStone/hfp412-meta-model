@@ -18,13 +18,13 @@ public abstract class Role extends PersistentObject implements PersistentRole{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot roleOwner = (AbstractPersistentRoot)this.getRoleOwner();
-            if (roleOwner != null) {
-                result.put("roleOwner", roleOwner.createProxiInformation());
+            AbstractPersistentRoot owner = (AbstractPersistentRoot)this.getOwner();
+            if (owner != null) {
+                result.put("owner", owner.createProxiInformation());
                 if(depth > 1) {
-                    roleOwner.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    owner.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && roleOwner.hasEssentialFields())roleOwner.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && owner.hasEssentialFields())owner.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -38,13 +38,13 @@ public abstract class Role extends PersistentObject implements PersistentRole{
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentActor roleOwner;
+    protected PersistentActor owner;
     protected PersistentRole This;
     
-    public Role(PersistentActor roleOwner,PersistentRole This,long id) throws persistence.PersistenceException {
+    public Role(PersistentActor owner,PersistentRole This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.roleOwner = roleOwner;
+        this.owner = owner;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -56,17 +56,17 @@ public abstract class Role extends PersistentObject implements PersistentRole{
         return getTypeId();
     }
     
-    public PersistentActor getRoleOwner() throws PersistenceException {
-        return this.roleOwner;
+    public PersistentActor getOwner() throws PersistenceException {
+        return this.owner;
     }
-    public void setRoleOwner(PersistentActor newValue) throws PersistenceException {
+    public void setOwner(PersistentActor newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.roleOwner)) return;
-        if(getThis().getRoleOwner() != null)throw new PersistenceException("Final field roleOwner in type Role has been set already!",0);
+        if(newValue.equals(this.owner)) return;
+        if(getThis().getOwner() != null)throw new PersistenceException("Final field owner in type Role has been set already!",0);
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.roleOwner = (PersistentActor)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theRoleFacade.roleOwnerSet(this.getId(), newValue);
+        this.owner = (PersistentActor)PersistentProxi.createProxi(objectId, classId);
+        ConnectionHandler.getTheConnectionHandler().theRoleFacade.ownerSet(this.getId(), newValue);
     }
     protected void setThis(PersistentRole newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -98,7 +98,7 @@ public abstract class Role extends PersistentObject implements PersistentRole{
 				throws PersistenceException{
         this.setThis((PersistentRole)This);
 		if(this.equals(This)){
-			this.setRoleOwner((PersistentActor)final$$Fields.get("roleOwner"));
+			this.setOwner((PersistentActor)final$$Fields.get("owner"));
 		}
     }
     public void initializeOnCreation() 
