@@ -9,14 +9,14 @@ import viewClient.*;
 
 public class Server extends ViewObject implements ServerView{
     
-    protected AkteurManagerView akteurManager;
+    protected TransactionManagerView transactionManager;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(AkteurManagerView akteurManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(TransactionManagerView transactionManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.akteurManager = akteurManager;
+        this.transactionManager = transactionManager;
         this.errors = errors;
         this.user = user;        
     }
@@ -29,8 +29,8 @@ public class Server extends ViewObject implements ServerView{
         return getTypeId();
     }
     
-    public AkteurManagerView getAkteurManager() throws ModelException {
-        return this.akteurManager;
+    public TransactionManagerView getTransactionManager() throws ModelException {
+        return this.transactionManager;
     }
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException {
         return this.errors;
@@ -71,9 +71,9 @@ public class Server extends ViewObject implements ServerView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        AkteurManagerView akteurManager = this.getAkteurManager();
-        if (akteurManager != null) {
-            ((ViewProxi)akteurManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(akteurManager.getClassId(), akteurManager.getId())));
+        TransactionManagerView transactionManager = this.getTransactionManager();
+        if (transactionManager != null) {
+            ((ViewProxi)transactionManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(transactionManager.getClassId(), transactionManager.getId())));
         }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
@@ -86,27 +86,27 @@ public class Server extends ViewObject implements ServerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(this.getAkteurManager() != null && index < this.getAkteurManager().getTheObject().getChildCount())
-            return this.getAkteurManager().getTheObject().getChild(index);
-        if(this.getAkteurManager() != null) index = index - this.getAkteurManager().getTheObject().getChildCount();
+        if(this.getTransactionManager() != null && index < this.getTransactionManager().getTheObject().getChildCount())
+            return this.getTransactionManager().getTheObject().getChild(index);
+        if(this.getTransactionManager() != null) index = index - this.getTransactionManager().getTheObject().getChildCount();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getAkteurManager() == null ? 0 : this.getAkteurManager().getTheObject().getChildCount());
+            + (this.getTransactionManager() == null ? 0 : this.getTransactionManager().getTheObject().getChildCount());
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getAkteurManager() == null ? true : this.getAkteurManager().getTheObject().isLeaf());
+            && (this.getTransactionManager() == null ? true : this.getTransactionManager().getTheObject().isLeaf());
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getAkteurManager() != null && this.getAkteurManager().equals(child)) return result;
-        if(this.getAkteurManager() != null) result = result + 1;
+        if(this.getTransactionManager() != null && this.getTransactionManager().equals(child)) return result;
+        if(this.getTransactionManager() != null) result = result + 1;
         return -1;
     }
     public int getUserIndex() throws ModelException {
-        return 0 + (this.getAkteurManager() == null ? 0 : 1);
+        return 0 + (this.getTransactionManager() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

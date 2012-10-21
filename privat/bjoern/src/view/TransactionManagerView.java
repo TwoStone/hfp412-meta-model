@@ -2,7 +2,7 @@ package view;
 
 import view.objects.*;
 
-public interface AkteurManagerView extends Anything, AbstractViewProxi {
+public interface TransactionManagerView extends Anything, AbstractViewProxi {
     
     public java.util.Vector<AkteurView> getAkteure() throws ModelException ;
     public void setAkteure(java.util.Vector<AkteurView> newValue) throws ModelException ;

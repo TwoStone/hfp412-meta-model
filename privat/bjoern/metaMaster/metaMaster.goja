@@ -1,14 +1,21 @@
 model metaMaster {
 
 	server Server {
-		derived skip-view AkteurManager akteurManager;
+		derived skip-view TransactionManager transactionManager;
+
 		void createAkteur(String name);
-		void addRole(Akteur akteur, RolleSUBTYPEName rollenName);
-		void deleteErrors();
 		void changeName(Akteur akteur, String nme [;akteur;name]);
+		void addRole(Akteur akteur, RolleSUBTYPEName rollenName);
+
+		void createProdukt(Akteur lieferant, String name);
+
+		void createAuftrag(Akteur kunde, Akteur lieferant, Position** positionen);
+		void addPosition(Auftrag auftrag, Produkt produkt, Integer anzahl);
+
+		void deleteErrors();
 	}
 
-	singleton AkteurManager {
+	singleton TransactionManager {
 		Akteur ** akteure;
 		active void createAkteur(String name) throws DoubleDefinition;
 		active void addRole(Akteur akteur, RolleSUBTYPEName rollenName);
@@ -35,7 +42,9 @@ model metaMaster {
 		Position** positionen;
 	}
 
-	class Produkt {}
+	class Produkt {
+		String name;
+	}
 
 	class Position {
 		Produkt beziehtSichAuf;

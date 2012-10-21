@@ -376,6 +376,53 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     
                 });
                 result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createAuftrag ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateAuftragAkteurAkteurPositionLSTMssgWizard wizard = new ServerCreateAuftragAkteurAkteurPositionLSTMssgWizard("createAuftrag");
+                        wizard.setFirstArgument((AkteurView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createProdukt ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateProduktAkteurStringMssgWizard wizard = new ServerCreateProduktAkteurStringMssgWizard("createProdukt");
+                        wizard.setFirstArgument((AkteurView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof AuftragView){
+                item = new javax.swing.JMenuItem();
+                item.setText("addPosition ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAddPositionAuftragProduktIntegerMssgWizard wizard = new ServerAddPositionAuftragProduktIntegerMssgWizard("addPosition");
+                        wizard.setFirstArgument((AuftragView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
             }
             
         }
@@ -384,6 +431,248 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         return result;
     }
     
+	class ServerCreateAkteurStringMssgWizard extends Wizard {
+
+		protected ServerCreateAkteurStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateAkteurStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().createAkteur(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class ServerCreateProduktAkteurStringMssgWizard extends Wizard {
+
+		protected ServerCreateProduktAkteurStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateProduktAkteurStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().createProdukt(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AkteurView firstArgument; 
+	
+		public void setFirstArgument(AkteurView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
+				selectionPanel.preset(firstArgument.getName());
+				if (!selectionPanel.check()) selectionPanel.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerAddRoleAkteurRolleSUBTYPENameMssgWizard extends Wizard {
+
+		protected ServerAddRoleAkteurRolleSUBTYPENameMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddRoleAkteurRolleSUBTYPENameMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().addRole(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new RegExprSelectionPanel("rollenName", this, common.RegularExpressionManager.rolleSUBTYPEName.getRegExpr()));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AkteurView firstArgument; 
+	
+		public void setFirstArgument(AkteurView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerAddPositionAuftragProduktIntegerMssgWizard extends Wizard {
+
+		protected ServerAddPositionAuftragProduktIntegerMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddPositionAuftragProduktIntegerMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().addPosition(firstArgument, (ProduktView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									((IntegerSelectionPanel)getParametersPanel().getComponent(1)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("produkt", "view.ProduktView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new IntegerSelectionPanel("anzahl", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AuftragView firstArgument; 
+	
+		public void setFirstArgument(AuftragView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateAuftragAkteurAkteurPositionLSTMssgWizard extends Wizard {
+
+		protected ServerCreateAuftragAkteurAkteurPositionLSTMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateAuftragAkteurAkteurPositionLSTMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().createAuftrag(firstArgument, (AkteurView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(java.util.Vector<PositionView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(1)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("lieferant", "view.AkteurView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("positionen", "view.PositionView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AkteurView firstArgument; 
+	
+		public void setFirstArgument(AkteurView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerChangeNameAkteurStringMssgWizard extends Wizard {
 
 		protected ServerChangeNameAkteurStringMssgWizard(String operationName){
@@ -433,93 +722,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			}catch(ModelException me){
 				 handleException(me);
 			}
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateAkteurStringMssgWizard extends Wizard {
-
-		protected ServerCreateAkteurStringMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateAkteurStringMssgWizard.help";
-			super.initialize();			
-		}
-				
-		@SuppressWarnings("unchecked")
-		protected void perform() {
-			try {
-				getConnection().createAkteur(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-	}
-
-	class ServerAddRoleAkteurRolleSUBTYPENameMssgWizard extends Wizard {
-
-		protected ServerAddRoleAkteurRolleSUBTYPENameMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerAddRoleAkteurRolleSUBTYPENameMssgWizard.help";
-			super.initialize();			
-		}
-				
-		@SuppressWarnings("unchecked")
-		protected void perform() {
-			try {
-				getConnection().addRole(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new RegExprSelectionPanel("rollenName", this, common.RegularExpressionManager.rolleSUBTYPEName.getRegExpr()));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private AkteurView firstArgument; 
-	
-		public void setFirstArgument(AkteurView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
 			this.check();
 		}
 		

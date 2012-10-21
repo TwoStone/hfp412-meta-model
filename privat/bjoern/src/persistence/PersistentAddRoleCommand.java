@@ -1,7 +1,7 @@
 package persistence;
 
 import model.*;
-public interface PersistentAddRoleCommand extends Anything, AkteurManagerCommand, PersistentCommonDate, AbstractPersistentProxi {
+public interface PersistentAddRoleCommand extends TransactionManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
     
     public PersistentAkteur getAkteur() throws PersistenceException ;
     public void setAkteur(PersistentAkteur newValue) throws PersistenceException ;
@@ -9,8 +9,8 @@ public interface PersistentAddRoleCommand extends Anything, AkteurManagerCommand
     public void setRollenName(String newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
-    public PersistentAkteurManager getCommandReceiver() throws PersistenceException ;
-    public void setCommandReceiver(PersistentAkteurManager newValue) throws PersistenceException ;
+    public PersistentTransactionManager getCommandReceiver() throws PersistenceException ;
+    public void setCommandReceiver(PersistentTransactionManager newValue) throws PersistenceException ;
     public PersistentCommonDate getMyCommonDate() throws PersistenceException ;
     public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException ;
     
@@ -26,10 +26,10 @@ public interface PersistentAddRoleCommand extends Anything, AkteurManagerCommand
     public <R> R accept(model.visitor.CommandReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(model.visitor.CommandExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(model.visitor.CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
-    public void accept(model.visitor.AkteurManagerCommandVisitor visitor) throws PersistenceException;
-    public <R> R accept(model.visitor.AkteurManagerCommandReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends model.UserException>  void accept(model.visitor.AkteurManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends model.UserException> R accept(model.visitor.AkteurManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(model.visitor.TransactionManagerCommandVisitor visitor) throws PersistenceException;
+    public <R> R accept(model.visitor.TransactionManagerCommandReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(model.visitor.TransactionManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(model.visitor.TransactionManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public void execute() 
 				throws PersistenceException;

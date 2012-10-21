@@ -16,7 +16,7 @@ public class Produkt extends PersistentObject implements PersistentProdukt{
     
     public static PersistentProdukt createProdukt() throws PersistenceException {
         PersistentProdukt result = ConnectionHandler.getTheConnectionHandler().theProduktFacade
-            .newProdukt();
+            .newProdukt("");
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
@@ -25,7 +25,7 @@ public class Produkt extends PersistentObject implements PersistentProdukt{
     
     public static PersistentProdukt createProdukt(PersistentProdukt This) throws PersistenceException {
         PersistentProdukt result = ConnectionHandler.getTheConnectionHandler().theProduktFacade
-            .newProdukt();
+            .newProdukt("");
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -36,6 +36,7 @@ public class Produkt extends PersistentObject implements PersistentProdukt{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("name", this.getName());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -44,7 +45,8 @@ public class Produkt extends PersistentObject implements PersistentProdukt{
     
     public Produkt provideCopy() throws PersistenceException{
         Produkt result = this;
-        result = new Produkt(this.This, 
+        result = new Produkt(this.name, 
+                             this.This, 
                              this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -53,11 +55,13 @@ public class Produkt extends PersistentObject implements PersistentProdukt{
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
+    protected String name;
     protected PersistentProdukt This;
     
-    public Produkt(PersistentProdukt This,long id) throws persistence.PersistenceException {
+    public Produkt(String name,PersistentProdukt This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.name = name;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -69,6 +73,14 @@ public class Produkt extends PersistentObject implements PersistentProdukt{
         return getTypeId();
     }
     
+    public String getName() throws PersistenceException {
+        return this.name;
+    }
+    public void setName(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        ConnectionHandler.getTheConnectionHandler().theProduktFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
+    }
     protected void setThis(PersistentProdukt newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.equals(this)){

@@ -49,7 +49,7 @@ public class AddRoleCommandFacade{
     public void invokerSet(long AddRoleCommandId, Invoker invokerVal) throws PersistenceException {
         
     }
-    public void commandReceiverSet(long AddRoleCommandId, PersistentAkteurManager commandReceiverVal) throws PersistenceException {
+    public void commandReceiverSet(long AddRoleCommandId, PersistentTransactionManager commandReceiverVal) throws PersistenceException {
         
     }
     public void myCommonDateSet(long AddRoleCommandId, PersistentCommonDate myCommonDateVal) throws PersistenceException {

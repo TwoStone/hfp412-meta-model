@@ -20,6 +20,12 @@ public class ProduktICProxi extends PersistentInCacheProxiOptimistic implements 
         return 125;
     }
     
+    public String getName() throws PersistenceException {
+        return ((PersistentProdukt)this.getTheObject()).getName();
+    }
+    public void setName(String newValue) throws PersistenceException {
+        ((PersistentProdukt)this.getTheObject()).setName(newValue);
+    }
     public PersistentProdukt getThis() throws PersistenceException {
         return ((PersistentProdukt)this.getTheObject()).getThis();
     }

@@ -48,13 +48,13 @@ public class Server extends PersistentObject implements PersistentServer{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot akteurManager = (AbstractPersistentRoot)this.getAkteurManager();
-            if (akteurManager != null) {
-                result.put("akteurManager", akteurManager.createProxiInformation());
+            AbstractPersistentRoot transactionManager = (AbstractPersistentRoot)this.getTransactionManager();
+            if (transactionManager != null) {
+                result.put("transactionManager", transactionManager.createProxiInformation());
                 if(depth > 1) {
-                    akteurManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    transactionManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && akteurManager.hasEssentialFields())akteurManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && transactionManager.hasEssentialFields())transactionManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver));
@@ -208,7 +208,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + (this.getAkteurManager() == null ? 0 : this.getAkteurManager().getTheObject().getLeafInfo()));
+            + (this.getTransactionManager() == null ? 0 : this.getTransactionManager().getTheObject().getLeafInfo()));
     }
     
     
@@ -237,35 +237,55 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         this.changed = signal;
     }
+    public PersistentTransactionManager getTransactionManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentTransactionManager result = getThis().getTransactionManager();
+		observer.updateTransientDerived(getThis(), "transactionManager", result);
+		return result;
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+        //TODO: implement method: initializeOnInstantiation
+        
+    }
+    public PersistentTransactionManager getTransactionManager() 
+				throws PersistenceException{
+        return model.TransactionManager.getTheTransactionManager();
+    }
+    public void connected(final String user) 
+				throws PersistenceException{
+        //TODO: implement method: connected
         
     }
     public void createAkteur(final String name) 
 				throws PersistenceException{
-        getThis().getAkteurManager().createAkteur(name, getThis());
-    }
-    public void connected(final String user) 
-				throws PersistenceException{
-           
+        //TODO: implement method: createAkteur
+    	getThis().getTransactionManager().createAkteur(name, getThis());
+        
     }
     public void deleteErrors() 
 				throws PersistenceException{
-    	getThis().getErrors().filter(new Predcate<PersistentErrorDisplay>() {
-			public boolean test(PersistentErrorDisplay argument)
-					throws PersistenceException {
-				return false;
-			}
-		});
-    	getThis().signalChanged(true);
+        //TODO: implement method: deleteErrors
+        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
+        //TODO: implement method: initializeOnCreation
+        
+    }
+    public void createProdukt(final PersistentAkteur lieferant, final String name) 
+				throws PersistenceException{
+        //TODO: implement method: createProdukt
         
     }
     public void addRole(final PersistentAkteur akteur, final String rollenName) 
 				throws PersistenceException{
-        getThis().getAkteurManager().addRole(akteur, rollenName, getThis());
+    	getThis().getTransactionManager().addRole(akteur, rollenName, getThis());        
+    }
+    public void disconnected() 
+				throws PersistenceException{
+        //TODO: implement method: disconnected
+        
     }
     public boolean hasChanged() 
 				throws PersistenceException{
@@ -273,23 +293,24 @@ public class Server extends PersistentObject implements PersistentServer{
 		this.changed = false;
 		return result;
     }
-    public void disconnected() 
+    public void addPosition(final PersistentAuftrag auftrag, final PersistentProdukt produkt, final long anzahl) 
 				throws PersistenceException{
-           
+        //TODO: implement method: addPosition
+        
     }
-    public PersistentAkteurManager getAkteurManager(final TDObserver observer) 
+    public void createAuftrag(final PersistentAkteur kunde, final PersistentAkteur lieferant, final PositionSearchList positionen) 
 				throws PersistenceException{
-        PersistentAkteurManager result = getThis().getAkteurManager();
-		observer.updateTransientDerived(getThis(), "akteurManager", result);
-		return result;
-    }
-    public void changeName(final PersistentAkteur akteur, final String nme) 
-				throws PersistenceException{
-        //TODO: implement method: changeName
+        //TODO: implement method: createAuftrag
         
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
+    public void changeName(final PersistentAkteur akteur, final String nme) 
+				throws PersistenceException{
+        //TODO: implement method: changeName
         
     }
     public void handleException(final Command command, final PersistenceException exception) 
@@ -309,10 +330,6 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackCount((Long)final$$Fields.get("hackCount"));
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
-    }
-    public PersistentAkteurManager getAkteurManager() 
-				throws PersistenceException{
-        return model.AkteurManager.getTheAkteurManager();
     }
 
     /* Start of protected part that is not overridden by persistence generator */

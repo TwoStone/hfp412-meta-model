@@ -11,17 +11,17 @@ public class ServerProxi extends ViewProxi implements ServerView{
     
     @SuppressWarnings("unchecked")
     public ServerView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        ViewProxi akteurManager = null;
-        String akteurManager$String = (String)resultTable.get("akteurManager");
-        if (akteurManager$String != null) {
-            common.ProxiInformation akteurManager$Info = common.RPCConstantsAndServices.createProxiInformation(akteurManager$String);
-            akteurManager = ViewProxi.createProxi(akteurManager$Info,connectionKey);
-            akteurManager.setToString(akteurManager$Info.getToString());
+        ViewProxi transactionManager = null;
+        String transactionManager$String = (String)resultTable.get("transactionManager");
+        if (transactionManager$String != null) {
+            common.ProxiInformation transactionManager$Info = common.RPCConstantsAndServices.createProxiInformation(transactionManager$String);
+            transactionManager = ViewProxi.createProxi(transactionManager$Info,connectionKey);
+            transactionManager.setToString(transactionManager$Info.getToString());
         }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server((AkteurManagerView)akteurManager,errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server((TransactionManagerView)transactionManager,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -31,29 +31,29 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(this.getAkteurManager() != null && index < this.getAkteurManager().getTheObject().getChildCount())
-            return this.getAkteurManager().getTheObject().getChild(index);
-        if(this.getAkteurManager() != null) index = index - this.getAkteurManager().getTheObject().getChildCount();
+        if(this.getTransactionManager() != null && index < this.getTransactionManager().getTheObject().getChildCount())
+            return this.getTransactionManager().getTheObject().getChild(index);
+        if(this.getTransactionManager() != null) index = index - this.getTransactionManager().getTheObject().getChildCount();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getAkteurManager() == null ? 0 : this.getAkteurManager().getTheObject().getChildCount());
+            + (this.getTransactionManager() == null ? 0 : this.getTransactionManager().getTheObject().getChildCount());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getAkteurManager() == null ? true : this.getAkteurManager().getTheObject().isLeaf());
+            && (this.getTransactionManager() == null ? true : this.getTransactionManager().getTheObject().isLeaf());
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getAkteurManager() != null && this.getAkteurManager().equals(child)) return result;
-        if(this.getAkteurManager() != null) result = result + 1;
+        if(this.getTransactionManager() != null && this.getTransactionManager().equals(child)) return result;
+        if(this.getTransactionManager() != null) result = result + 1;
         return -1;
     }
     
-    public AkteurManagerView getAkteurManager() throws ModelException {
-        return ((Server)this.getTheObject()).getAkteurManager();
+    public TransactionManagerView getTransactionManager() throws ModelException {
+        return ((Server)this.getTheObject()).getTransactionManager();
     }
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException {
         return ((Server)this.getTheObject()).getErrors();

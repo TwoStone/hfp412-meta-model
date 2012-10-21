@@ -2,6 +2,8 @@ package persistence;
 
 public interface PersistentProdukt extends Anything, AbstractPersistentProxi {
     
+    public String getName() throws PersistenceException ;
+    public void setName(String newValue) throws PersistenceException ;
     public PersistentProdukt getThis() throws PersistenceException ;
     
     public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException;

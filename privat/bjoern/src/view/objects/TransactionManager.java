@@ -6,18 +6,18 @@ import view.*;
 
 /* Additional import section end */
 
-public class AkteurManager extends ViewObject implements AkteurManagerView{
+public class TransactionManager extends ViewObject implements TransactionManagerView{
     
     protected java.util.Vector<AkteurView> akteure;
     
-    public AkteurManager(java.util.Vector<AkteurView> akteure,long id, long classId) {
+    public TransactionManager(java.util.Vector<AkteurView> akteure,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.akteure = akteure;        
     }
     
     static public long getTypeId() {
-        return 117;
+        return 129;
     }
     
     public long getClassId() {
@@ -32,16 +32,16 @@ public class AkteurManager extends ViewObject implements AkteurManagerView{
     }
     
     public void accept(view.visitor.AnythingVisitor visitor) throws ModelException {
-        visitor.handleAkteurManager(this);
+        visitor.handleTransactionManager(this);
     }
     public <R> R accept(view.visitor.AnythingReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleAkteurManager(this);
+         return visitor.handleTransactionManager(this);
     }
     public <E extends model.UserException>  void accept(view.visitor.AnythingExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleAkteurManager(this);
+         visitor.handleTransactionManager(this);
     }
     public <R, E extends model.UserException> R accept(view.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleAkteurManager(this);
+         return visitor.handleTransactionManager(this);
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
@@ -56,7 +56,7 @@ public class AkteurManager extends ViewObject implements AkteurManagerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index < this.getAkteure().size()) return new AkteureAkteurManagerWrapper(this, originalIndex, (ViewRoot)this.getAkteure().get(index));
+        if(index < this.getAkteure().size()) return new AkteureTransactionManagerWrapper(this, originalIndex, (ViewRoot)this.getAkteure().get(index));
         index = index - this.getAkteure().size();
         return null;
     }
@@ -104,7 +104,7 @@ public class AkteurManager extends ViewObject implements AkteurManagerView{
     
     public void setIcon(IconRenderer renderer) {
         renderer.setIcon(null);
-            //TODO: implement setIcon in view class AkteurManager
+            //TODO: implement setIcon in view class TransactionManager
     }
     /* End of protected part that is not overridden by persistence generator */
     

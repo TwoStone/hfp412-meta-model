@@ -262,7 +262,6 @@ public class Cache {
 		this.number2NameMap = new Hashtable<Integer,String>();
 		this.number2NameMap.put(120, "AddRoleCommand");
 		this.number2NameMap.put(111, "Akteur");
-		this.number2NameMap.put(117, "AkteurManager");
 		this.number2NameMap.put(124, "Auftrag");
 		this.number2NameMap.put(-115, "CommandCoordinator");
 		this.number2NameMap.put(-114, "CommandExecuter");
@@ -273,7 +272,8 @@ public class Cache {
 		this.number2NameMap.put(121, "Lieferant");
 		this.number2NameMap.put(123, "Position");
 		this.number2NameMap.put(125, "Produkt");
-		this.number2NameMap.put(-102, "Server");	
+		this.number2NameMap.put(-102, "Server");
+		this.number2NameMap.put(129, "TransactionManager");	
 	}
 	
 }

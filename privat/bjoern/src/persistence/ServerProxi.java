@@ -97,13 +97,57 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
     }
-    public PersistentAkteurManager getAkteurManager(final TDObserver observer) 
+    public PersistentTransactionManager getTransactionManager(final TDObserver observer) 
 				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getAkteurManager(observer);
+        return ((PersistentServer)this.getTheObject()).getTransactionManager(observer);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
+    }
+    public PersistentTransactionManager getTransactionManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getTransactionManager();
+    }
+    public void connected(final String user) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).connected(user);
+    }
+    public void createAkteur(final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAkteur(name);
+    }
+    public void deleteErrors() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).deleteErrors();
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).initializeOnCreation();
+    }
+    public void createProdukt(final PersistentAkteur lieferant, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createProdukt(lieferant, name);
+    }
+    public void addRole(final PersistentAkteur akteur, final String rollenName) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).addRole(akteur, rollenName);
+    }
+    public boolean hasChanged() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).hasChanged();
+    }
+    public void disconnected() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).disconnected();
+    }
+    public void addPosition(final PersistentAuftrag auftrag, final PersistentProdukt produkt, final long anzahl) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).addPosition(auftrag, produkt, anzahl);
+    }
+    public void createAuftrag(final PersistentAkteur kunde, final PersistentAkteur lieferant, final PositionSearchList positionen) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAuftrag(kunde, lieferant, positionen);
     }
     public void changeName(final PersistentAkteur akteur, final String nme) 
 				throws PersistenceException{
@@ -117,41 +161,9 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleException(command, exception);
     }
-    public void createAkteur(final String name) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createAkteur(name);
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public void connected(final String user) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).connected(user);
-    }
-    public PersistentAkteurManager getAkteurManager() 
-				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getAkteurManager();
-    }
-    public void deleteErrors() 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).deleteErrors();
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).initializeOnCreation();
-    }
-    public void addRole(final PersistentAkteur akteur, final String rollenName) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addRole(akteur, rollenName);
-    }
-    public void disconnected() 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).disconnected();
-    }
-    public boolean hasChanged() 
-				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).hasChanged();
     }
 
     

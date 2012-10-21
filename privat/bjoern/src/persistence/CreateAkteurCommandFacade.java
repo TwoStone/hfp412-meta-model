@@ -46,7 +46,7 @@ public class CreateAkteurCommandFacade{
     public void invokerSet(long CreateAkteurCommandId, Invoker invokerVal) throws PersistenceException {
         
     }
-    public void commandReceiverSet(long CreateAkteurCommandId, PersistentAkteurManager commandReceiverVal) throws PersistenceException {
+    public void commandReceiverSet(long CreateAkteurCommandId, PersistentTransactionManager commandReceiverVal) throws PersistenceException {
         
     }
     public void myCommonDateSet(long CreateAkteurCommandId, PersistentCommonDate myCommonDateVal) throws PersistenceException {

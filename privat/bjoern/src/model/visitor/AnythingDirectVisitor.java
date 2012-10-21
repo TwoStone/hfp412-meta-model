@@ -5,6 +5,8 @@ import persistence.*;
 
 public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
+    public abstract void handleTransactionManager(PersistentTransactionManager transactionManager) throws PersistenceException;
+    
     public abstract void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     
     public abstract void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
@@ -30,8 +32,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handlePosition(PersistentPosition position) throws PersistenceException;
     
     public abstract void handleAuftrag(PersistentAuftrag auftrag) throws PersistenceException;
-    
-    public abstract void handleAkteurManager(PersistentAkteurManager akteurManager) throws PersistenceException;
     
     public abstract void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     

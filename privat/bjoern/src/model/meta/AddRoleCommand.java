@@ -29,12 +29,12 @@ public class AddRoleCommand extends PersistentObject implements PersistentAddRol
     protected PersistentAkteur akteur;
     protected String rollenName;
     protected Invoker invoker;
-    protected PersistentAkteurManager commandReceiver;
+    protected PersistentTransactionManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public AddRoleCommand(PersistentAkteur akteur,String rollenName,Invoker invoker,PersistentAkteurManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public AddRoleCommand(PersistentAkteur akteur,String rollenName,Invoker invoker,PersistentTransactionManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.akteur = akteur;
@@ -82,15 +82,15 @@ public class AddRoleCommand extends PersistentObject implements PersistentAddRol
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         ConnectionHandler.getTheConnectionHandler().theAddRoleCommandFacade.invokerSet(this.getId(), newValue);
     }
-    public PersistentAkteurManager getCommandReceiver() throws PersistenceException {
+    public PersistentTransactionManager getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(PersistentAkteurManager newValue) throws PersistenceException {
+    public void setCommandReceiver(PersistentTransactionManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentAkteurManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentTransactionManager)PersistentProxi.createProxi(objectId, classId);
         ConnectionHandler.getTheConnectionHandler().theAddRoleCommandFacade.commandReceiverSet(this.getId(), newValue);
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -157,16 +157,16 @@ public class AddRoleCommand extends PersistentObject implements PersistentAddRol
     public <R, E extends model.UserException> R accept(model.visitor.CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAddRoleCommand(this);
     }
-    public void accept(model.visitor.AkteurManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(model.visitor.TransactionManagerCommandVisitor visitor) throws PersistenceException {
         visitor.handleAddRoleCommand(this);
     }
-    public <R> R accept(model.visitor.AkteurManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(model.visitor.TransactionManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleAddRoleCommand(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.AkteurManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(model.visitor.TransactionManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleAddRoleCommand(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.AkteurManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(model.visitor.TransactionManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAddRoleCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{

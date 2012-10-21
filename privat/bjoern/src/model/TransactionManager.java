@@ -6,21 +6,21 @@ import persistence.*;
 
 /* Additional import section end */
 
-public class AkteurManager extends PersistentObject implements PersistentAkteurManager{
+public class TransactionManager extends PersistentObject implements PersistentTransactionManager{
     
-    private static PersistentAkteurManager theAkteurManager = null;
+    private static PersistentTransactionManager theTransactionManager = null;
     private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
-    public static PersistentAkteurManager getTheAkteurManager() throws PersistenceException{
-        if (theAkteurManager == null || reset$For$Test){
+    public static PersistentTransactionManager getTheTransactionManager() throws PersistenceException{
+        if (theTransactionManager == null || reset$For$Test){
             class Initializer implements Runnable {
                 PersistenceException exception = null;
                 public void run(){
                     try {
-                        AkteurManagerProxi proxi = null;
+                        TransactionManagerProxi proxi = null;
                         synchronized ($$lock){
-                            proxi = ConnectionHandler.getTheConnectionHandler().theAkteurManagerFacade.getTheAkteurManager();
-                            theAkteurManager = proxi;
+                            proxi = ConnectionHandler.getTheConnectionHandler().theTransactionManagerFacade.getTheTransactionManager();
+                            theTransactionManager = proxi;
                         }
                         if(proxi.getId() < 0) {
                             proxi.setId(proxi.getId() * -1);
@@ -32,9 +32,9 @@ public class AkteurManager extends PersistentObject implements PersistentAkteurM
                     }
                     synchronized ($$lock){$$lock.notify();}
                 }
-                PersistentAkteurManager getResult() throws PersistenceException{
+                PersistentTransactionManager getResult() throws PersistenceException{
                     if(exception != null) throw exception;
-                    return theAkteurManager;
+                    return theTransactionManager;
                 }
             }
             synchronized ($$lock) {
@@ -45,7 +45,7 @@ public class AkteurManager extends PersistentObject implements PersistentAkteurM
                 return initializer.getResult();
             }
         }
-        return theAkteurManager;
+        return theTransactionManager;
     }
     public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
@@ -58,10 +58,10 @@ public class AkteurManager extends PersistentObject implements PersistentAkteurM
         return result;
     }
     
-    public AkteurManager provideCopy() throws PersistenceException{
-        AkteurManager result = this;
-        result = new AkteurManager(this.This, 
-                                   this.getId());
+    public TransactionManager provideCopy() throws PersistenceException{
+        TransactionManager result = this;
+        result = new TransactionManager(this.This, 
+                                        this.getId());
         result.akteure = this.akteure.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -70,28 +70,28 @@ public class AkteurManager extends PersistentObject implements PersistentAkteurM
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected AkteurManager_AkteureProxi akteure;
-    protected PersistentAkteurManager This;
+    protected TransactionManager_AkteureProxi akteure;
+    protected PersistentTransactionManager This;
     
-    public AkteurManager(PersistentAkteurManager This,long id) throws persistence.PersistenceException {
+    public TransactionManager(PersistentTransactionManager This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.akteure = new AkteurManager_AkteureProxi(this);
+        this.akteure = new TransactionManager_AkteureProxi(this);
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
     static public long getTypeId() {
-        return 117;
+        return 129;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
-    public AkteurManager_AkteureProxi getAkteure() throws PersistenceException {
+    public TransactionManager_AkteureProxi getAkteure() throws PersistenceException {
         return this.akteure;
     }
-    protected void setThis(PersistentAkteurManager newValue) throws PersistenceException {
+    protected void setThis(PersistentTransactionManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.equals(this)){
             this.This = null;
@@ -100,28 +100,28 @@ public class AkteurManager extends PersistentObject implements PersistentAkteurM
         if(newValue.equals(this.This)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.This = (PersistentAkteurManager)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAkteurManagerFacade.ThisSet(this.getId(), newValue);
+        this.This = (PersistentTransactionManager)PersistentProxi.createProxi(objectId, classId);
+        ConnectionHandler.getTheConnectionHandler().theTransactionManagerFacade.ThisSet(this.getId(), newValue);
     }
-    public PersistentAkteurManager getThis() throws PersistenceException {
+    public PersistentTransactionManager getThis() throws PersistenceException {
         if(this.This == null){
-            PersistentAkteurManager result = new AkteurManagerProxi(this.getId());
+            PersistentTransactionManager result = new TransactionManagerProxi(this.getId());
             result.getTheObject();
             return result;
-        }return (PersistentAkteurManager)this.This;
+        }return (PersistentTransactionManager)this.This;
     }
     
     public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleAkteurManager(this);
+        visitor.handleTransactionManager(this);
     }
     public <R> R accept(model.visitor.AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAkteurManager(this);
+         return visitor.handleTransactionManager(this);
     }
     public <E extends model.UserException>  void accept(model.visitor.AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAkteurManager(this);
+         visitor.handleTransactionManager(this);
     }
     public <R, E extends model.UserException> R accept(model.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAkteurManager(this);
+         return visitor.handleTransactionManager(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
@@ -158,7 +158,7 @@ public class AkteurManager extends PersistentObject implements PersistentAkteurM
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
-        this.setThis((PersistentAkteurManager)This);
+        this.setThis((PersistentTransactionManager)This);
 		if(this.equals(This)){
 		}
     }
@@ -175,7 +175,7 @@ public class AkteurManager extends PersistentObject implements PersistentAkteurM
     }
     public void addRole(final PersistentAkteur akteur, final String rollenName) 
 				throws PersistenceException{
-        akteur.addRole(rollenName);
+    	akteur.addRole(rollenName);        
     }
 
     /* Start of protected part that is not overridden by persistence generator */

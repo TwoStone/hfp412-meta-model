@@ -30,17 +30,11 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
-    public PersistentAkteurManager getAkteurManager(final TDObserver observer) 
+    public PersistentTransactionManager getTransactionManager(final TDObserver observer) 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException;
-    public void changeName(final PersistentAkteur akteur, final String nme) 
-				throws PersistenceException;
-    public void handleException(final Command command, final PersistenceException exception) 
-				throws PersistenceException;
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public PersistentTransactionManager getTransactionManager() 
 				throws PersistenceException;
     /**
      * 
@@ -49,15 +43,27 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
      */
     public void createAkteur(final String name) 
 				throws PersistenceException;
-    public PersistentAkteurManager getAkteurManager() 
-				throws PersistenceException;
     public void deleteErrors() 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void addRole(final PersistentAkteur akteur, final String rollenName) 
 				throws PersistenceException;
+    public void createProdukt(final PersistentAkteur lieferant, final String name) 
+				throws PersistenceException;
     public boolean hasChanged() 
+				throws PersistenceException;
+    public void addPosition(final PersistentAuftrag auftrag, final PersistentProdukt produkt, final long anzahl) 
+				throws PersistenceException;
+    public void createAuftrag(final PersistentAkteur kunde, final PersistentAkteur lieferant, final PositionSearchList positionen) 
+				throws PersistenceException;
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public void changeName(final PersistentAkteur akteur, final String nme) 
+				throws PersistenceException;
+    public void handleException(final Command command, final PersistenceException exception) 
+				throws PersistenceException;
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
 
 }

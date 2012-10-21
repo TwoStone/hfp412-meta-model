@@ -685,26 +685,14 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 	public DetailPanelFactory(ExceptionAndEventHandler handler) {
 		this.handler = handler;
 	}
-    public void handleAkteur(view.AkteurView object){
-        result = new AkteurDefaultDetailPanel(handler, object);
-    }
-    public void handlePosition(view.PositionView object){
-        result = new PositionDefaultDetailPanel(handler, object);
+    public void handleTransactionManager(view.TransactionManagerView object){
+        result = new TransactionManagerDefaultDetailPanel(handler, object);
     }
     public void handleAuftrag(view.AuftragView object){
         result = new AuftragDefaultDetailPanel(handler, object);
     }
-    public void handleAkteurManager(view.AkteurManagerView object){
-        result = new AkteurManagerDefaultDetailPanel(handler, object);
-    }
-    public void handleLieferant(view.LieferantView object){
-        result = new LieferantDefaultDetailPanel(handler, object);
-    }
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
-    }
-    public void handleProdukt(view.ProduktView object){
-        result = new ProduktDefaultDetailPanel(handler, object);
     }
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
@@ -712,10 +700,117 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleKunde(view.KundeView object){
         result = new KundeDefaultDetailPanel(handler, object);
     }
+    public void handleAkteur(view.AkteurView object){
+        result = new AkteurDefaultDetailPanel(handler, object);
+    }
+    public void handlePosition(view.PositionView object){
+        result = new PositionDefaultDetailPanel(handler, object);
+    }
+    public void handleLieferant(view.LieferantView object){
+        result = new LieferantDefaultDetailPanel(handler, object);
+    }
+    public void handleProdukt(view.ProduktView object){
+        result = new ProduktDefaultDetailPanel(handler, object);
+    }
 
 }
 
 
+
+@SuppressWarnings("serial")
+class TransactionManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String TransactionManager$$akteure = "TransactionManager$$akteure";
+    
+    protected TransactionManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.TransactionManagerView getAnything(){
+        return (view.TransactionManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class AuftragDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Auftrag$$auftraggeber = "Auftrag$$auftraggeber";
+    protected static final String Auftrag$$auftragnehmer = "Auftrag$$auftragnehmer";
+    protected static final String Auftrag$$positionen = "Auftrag$$positionen";
+    
+    protected AuftragDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.AuftragView getAnything(){
+        return (view.AuftragView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ErrorDisplay$$message = "ErrorDisplay$$message";
+    
+    protected ErrorDisplayDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "message", this.getAnything().getMessage());
+            this.getScrollablePane().add(panel);
+            this.panels.put(ErrorDisplay$$message, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ErrorDisplayView getAnything(){
+        return (view.ErrorDisplayView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ServerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Server$$transactionManager = "Server$$transactionManager";
+    protected static final String Server$$user = "Server$$user";
+    
+    protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "user", this.getAnything().getUser());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Server$$user, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ServerView getAnything(){
+        return (view.ServerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class KundeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected KundeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.KundeView getAnything(){
+        return (view.KundeView)this.anything;
+    }
+}
 
 @SuppressWarnings("serial")
 class AkteurDefaultDetailPanel extends DefaultDetailPanel{
@@ -758,40 +853,6 @@ class PositionDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class AuftragDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String Auftrag$$auftraggeber = "Auftrag$$auftraggeber";
-    protected static final String Auftrag$$auftragnehmer = "Auftrag$$auftragnehmer";
-    protected static final String Auftrag$$positionen = "Auftrag$$positionen";
-    
-    protected AuftragDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.AuftragView getAnything(){
-        return (view.AuftragView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class AkteurManagerDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String AkteurManager$$akteure = "AkteurManager$$akteure";
-    
-    protected AkteurManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.AkteurManagerView getAnything(){
-        return (view.AkteurManagerView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
 class LieferantDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Lieferant$$portfolio = "Lieferant$$portfolio";
@@ -808,76 +869,24 @@ class LieferantDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String ErrorDisplay$$message = "ErrorDisplay$$message";
-    
-    protected ErrorDisplayDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        try{
-            BaseTypePanel panel = new StringPanel(this, "message", this.getAnything().getMessage());
-            this.getScrollablePane().add(panel);
-            this.panels.put(ErrorDisplay$$message, panel);
-        }catch(view.ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        
-    }
-    protected view.ErrorDisplayView getAnything(){
-        return (view.ErrorDisplayView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
 class ProduktDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Produkt$$name = "Produkt$$name";
     
     protected ProduktDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
-        
-    }
-    protected view.ProduktView getAnything(){
-        return (view.ProduktView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class ServerDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String Server$$akteurManager = "Server$$akteurManager";
-    protected static final String Server$$user = "Server$$user";
-    
-    protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
         try{
-            BaseTypePanel panel = new StringPanel(this, "user", this.getAnything().getUser());
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
             this.getScrollablePane().add(panel);
-            this.panels.put(Server$$user, panel);
+            this.panels.put(Produkt$$name, panel);
         }catch(view.ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         
     }
-    protected view.ServerView getAnything(){
-        return (view.ServerView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class KundeDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected KundeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.KundeView getAnything(){
-        return (view.KundeView)this.anything;
+    protected view.ProduktView getAnything(){
+        return (view.ProduktView)this.anything;
     }
 }

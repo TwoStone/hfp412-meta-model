@@ -20,28 +20,9 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = anything.getClassId() + ";" + anything.getId();
 	}
 	@Override
-	public void handleServer(PersistentServer server)
+	public void handleTransactionManager(
+			PersistentTransactionManager transactionManager)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void handleAkteur(PersistentAkteur akteur)
-			throws PersistenceException {
-		result = akteur.getName();
-	}
-	@Override
-	public void handleAkteurManager(PersistentAkteurManager akteurManager)
-			throws PersistenceException {
-	}
-	@Override
-	public void handleLieferant(PersistentLieferant lieferant)
-			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void handleKunde(PersistentKunde kunde) throws PersistenceException {
 		// TODO Auto-generated method stub
 		
 	}
@@ -52,7 +33,29 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		
 	}
 	@Override
+	public void handleServer(PersistentServer server)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleKunde(PersistentKunde kunde) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleAkteur(PersistentAkteur akteur)
+			throws PersistenceException {
+		result = akteur.getName();
+	}
+	@Override
 	public void handlePosition(PersistentPosition position)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleLieferant(PersistentLieferant lieferant)
 			throws PersistenceException {
 		// TODO Auto-generated method stub
 		

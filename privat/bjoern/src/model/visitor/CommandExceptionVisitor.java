@@ -1,7 +1,7 @@
 
 package model.visitor;
 
-public interface CommandExceptionVisitor<E extends model.UserException> extends AkteurManagerCommandExceptionVisitor<E>{
+public interface CommandExceptionVisitor<E extends model.UserException> extends TransactionManagerCommandExceptionVisitor<E>{
     
     
 }

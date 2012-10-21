@@ -16,7 +16,7 @@ public abstract class PersistentProxi extends PersistentRoot {
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[25];
+		listProxiFactories = new ListProxiFactory[30];
         listProxiFactories[12] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new CreateAkteurCommandListEntryProxi(objectId, entryId);
@@ -27,9 +27,34 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new CommandExecuterListEntryProxi(objectId, entryId);
             }
         };
+        listProxiFactories[28] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new TransactionManagerListEntryProxi(objectId, entryId);
+            }
+        };
         listProxiFactories[19] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new AddRoleCommandListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[23] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new AuftragListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[0] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new ErrorDisplayListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[1] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new ServerListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[21] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new KundeListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[14] = new ListProxiFactory(){
@@ -52,24 +77,9 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new PositionListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[23] = new ListProxiFactory(){
-            PersistentListEntryProxi create(long objectId, long entryId){
-                return new AuftragListEntryProxi(objectId, entryId);
-            }
-        };
-        listProxiFactories[16] = new ListProxiFactory(){
-            PersistentListEntryProxi create(long objectId, long entryId){
-                return new AkteurManagerListEntryProxi(objectId, entryId);
-            }
-        };
         listProxiFactories[20] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new LieferantListEntryProxi(objectId, entryId);
-            }
-        };
-        listProxiFactories[0] = new ListProxiFactory(){
-            PersistentListEntryProxi create(long objectId, long entryId){
-                return new ErrorDisplayListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[24] = new ListProxiFactory(){
@@ -77,22 +87,12 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new ProduktListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[1] = new ListProxiFactory(){
-            PersistentListEntryProxi create(long objectId, long entryId){
-                return new ServerListEntryProxi(objectId, entryId);
-            }
-        };
-        listProxiFactories[21] = new ListProxiFactory(){
-            PersistentListEntryProxi create(long objectId, long entryId){
-                return new KundeListEntryProxi(objectId, entryId);
-            }
-        };
 	}
 	return listProxiFactories;
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [25];
+		proxiFactories = new ProxiFactory [30];
         proxiFactories[12] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new CreateAkteurCommandProxi(objectId);
@@ -103,9 +103,34 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new CommandExecuterProxi(objectId);
             }
         };
+        proxiFactories[28] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new TransactionManagerProxi(objectId);
+            }
+        };
         proxiFactories[19] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new AddRoleCommandProxi(objectId);
+            }
+        };
+        proxiFactories[23] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new AuftragProxi(objectId);
+            }
+        };
+        proxiFactories[0] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new ErrorDisplayProxi(objectId);
+            }
+        };
+        proxiFactories[1] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new ServerProxi(objectId);
+            }
+        };
+        proxiFactories[21] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new KundeProxi(objectId);
             }
         };
         proxiFactories[14] = new ProxiFactory(){
@@ -128,39 +153,14 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new PositionProxi(objectId);
             }
         };
-        proxiFactories[23] = new ProxiFactory(){
-            PersistentProxi create(long objectId){
-                return new AuftragProxi(objectId);
-            }
-        };
-        proxiFactories[16] = new ProxiFactory(){
-            PersistentProxi create(long objectId){
-                return new AkteurManagerProxi(objectId);
-            }
-        };
         proxiFactories[20] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new LieferantProxi(objectId);
             }
         };
-        proxiFactories[0] = new ProxiFactory(){
-            PersistentProxi create(long objectId){
-                return new ErrorDisplayProxi(objectId);
-            }
-        };
         proxiFactories[24] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new ProduktProxi(objectId);
-            }
-        };
-        proxiFactories[1] = new ProxiFactory(){
-            PersistentProxi create(long objectId){
-                return new ServerProxi(objectId);
-            }
-        };
-        proxiFactories[21] = new ProxiFactory(){
-            PersistentProxi create(long objectId){
-                return new KundeProxi(objectId);
             }
         };
 	}

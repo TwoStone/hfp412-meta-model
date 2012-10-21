@@ -5,7 +5,7 @@ import view.objects.*;
 
 public interface ServerView extends Remote, Anything, AbstractViewProxi {
     
-    public AkteurManagerView getAkteurManager() throws ModelException ;
+    public TransactionManagerView getTransactionManager() throws ModelException ;
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException ;
     public void setErrors(java.util.Vector<ErrorDisplayView> newValue) throws ModelException ;
     public String getUser() throws ModelException ;

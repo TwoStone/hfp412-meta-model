@@ -5,6 +5,9 @@ import view.*;
 
 public abstract class AnythingStandardVisitor implements AnythingVisitor {
     
+    public void handleTransactionManager(TransactionManagerView transactionManager) throws ModelException{
+        this.standardHandling(transactionManager);
+    }
     public void handleAuftrag(AuftragView auftrag) throws ModelException{
         this.standardHandling(auftrag);
     }
@@ -22,9 +25,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handlePosition(PositionView position) throws ModelException{
         this.standardHandling(position);
-    }
-    public void handleAkteurManager(AkteurManagerView akteurManager) throws ModelException{
-        this.standardHandling(akteurManager);
     }
     public void handleLieferant(LieferantView lieferant) throws ModelException{
         this.standardHandling(lieferant);

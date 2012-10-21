@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[25];
+			iCProxiFactories = new ICProxiFactory[30];
         iCProxiFactories[12] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateAkteurCommandICProxi(objectId);
@@ -23,9 +23,34 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new CommandExecuterICProxi(objectId);
             }
         };
+        iCProxiFactories[28] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new TransactionManagerICProxi(objectId);
+            }
+        };
         iCProxiFactories[19] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new AddRoleCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[23] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new AuftragICProxi(objectId);
+            }
+        };
+        iCProxiFactories[0] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ErrorDisplayICProxi(objectId);
+            }
+        };
+        iCProxiFactories[1] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ServerICProxi(objectId);
+            }
+        };
+        iCProxiFactories[21] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new KundeICProxi(objectId);
             }
         };
         iCProxiFactories[14] = new ICProxiFactory(){
@@ -48,39 +73,14 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new PositionICProxi(objectId);
             }
         };
-        iCProxiFactories[23] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new AuftragICProxi(objectId);
-            }
-        };
-        iCProxiFactories[16] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new AkteurManagerICProxi(objectId);
-            }
-        };
         iCProxiFactories[20] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new LieferantICProxi(objectId);
             }
         };
-        iCProxiFactories[0] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new ErrorDisplayICProxi(objectId);
-            }
-        };
         iCProxiFactories[24] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ProduktICProxi(objectId);
-            }
-        };
-        iCProxiFactories[1] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new ServerICProxi(objectId);
-            }
-        };
-        iCProxiFactories[21] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new KundeICProxi(objectId);
             }
         };
 		}

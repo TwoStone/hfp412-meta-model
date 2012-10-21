@@ -1,10 +1,10 @@
 package persistence;
 
 import model.*;
-public interface PersistentAkteurManager extends Anything, AbstractPersistentProxi {
+public interface PersistentTransactionManager extends Anything, AbstractPersistentProxi {
     
-    public AkteurManager_AkteureProxi getAkteure() throws PersistenceException ;
-    public PersistentAkteurManager getThis() throws PersistenceException ;
+    public TransactionManager_AkteureProxi getAkteure() throws PersistenceException ;
+    public PersistentTransactionManager getThis() throws PersistenceException ;
     
     public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(model.visitor.AnythingReturnVisitor<R>  visitor) throws PersistenceException;

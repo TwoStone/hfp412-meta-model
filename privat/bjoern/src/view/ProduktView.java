@@ -4,6 +4,8 @@ import view.objects.*;
 
 public interface ProduktView extends Anything, AbstractViewProxi {
     
+    public String getName() throws ModelException ;
+    public void setName(String newValue) throws ModelException ;
     
     public void accept(view.visitor.AnythingVisitor visitor) throws ModelException;
     public <R> R accept(view.visitor.AnythingReturnVisitor<R>  visitor) throws ModelException;

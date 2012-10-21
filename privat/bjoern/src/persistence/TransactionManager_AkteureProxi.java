@@ -4,19 +4,19 @@ import model.*;
 
 import java.util.Iterator;
 
-public class AkteurManager_AkteureProxi extends PersistentListProxi<PersistentAkteur> {
+public class TransactionManager_AkteureProxi extends PersistentListProxi<PersistentAkteur> {
 
   private AkteurList list;
-  private AkteurManager owner;
+  private TransactionManager owner;
 
-  public AkteurManager_AkteureProxi(AkteurManager owner) {
+  public TransactionManager_AkteureProxi(TransactionManager owner) {
     this.owner = owner;
   }
   public AkteurList getList() throws PersistenceException{
     if (this.list == null) {
       this.list = ConnectionHandler
                     .getTheConnectionHandler()
-                      .theAkteurManagerFacade.akteureGet(this.owner.getId());
+                      .theTransactionManagerFacade.akteureGet(this.owner.getId());
     }
     return this.list;
   }
@@ -29,7 +29,7 @@ public class AkteurManager_AkteureProxi extends PersistentListProxi<PersistentAk
   public void add(PersistentAkteur entry) throws PersistenceException {
     if (entry != null) {
       AkteurList list = this.getList();
-      long entryId = ConnectionHandler.getTheConnectionHandler().theAkteurManagerFacade
+      long entryId = ConnectionHandler.getTheConnectionHandler().theTransactionManagerFacade
                        .akteureAdd(owner.getId(), entry);
       list.add((PersistentAkteur)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
@@ -38,11 +38,11 @@ public class AkteurManager_AkteureProxi extends PersistentListProxi<PersistentAk
     }
   }
   protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    ConnectionHandler.getTheConnectionHandler().theAkteurManagerFacade.akteureRem(entry.getListEntryId());
+    ConnectionHandler.getTheConnectionHandler().theTransactionManagerFacade.akteureRem(entry.getListEntryId());
     
   }
-  public AkteurManager_AkteureProxi copy(AkteurManager owner) throws PersistenceException {
-  	AkteurManager_AkteureProxi result = new AkteurManager_AkteureProxi(owner);
+  public TransactionManager_AkteureProxi copy(TransactionManager owner) throws PersistenceException {
+  	TransactionManager_AkteureProxi result = new TransactionManager_AkteureProxi(owner);
   	result.list = this.getList().copy();
   	return result;
   } 

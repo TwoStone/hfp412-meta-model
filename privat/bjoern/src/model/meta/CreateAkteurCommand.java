@@ -28,12 +28,12 @@ public class CreateAkteurCommand extends PersistentObject implements PersistentC
     }
     protected String name;
     protected Invoker invoker;
-    protected PersistentAkteurManager commandReceiver;
+    protected PersistentTransactionManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateAkteurCommand(String name,Invoker invoker,PersistentAkteurManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateAkteurCommand(String name,Invoker invoker,PersistentTransactionManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
@@ -69,15 +69,15 @@ public class CreateAkteurCommand extends PersistentObject implements PersistentC
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         ConnectionHandler.getTheConnectionHandler().theCreateAkteurCommandFacade.invokerSet(this.getId(), newValue);
     }
-    public PersistentAkteurManager getCommandReceiver() throws PersistenceException {
+    public PersistentTransactionManager getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(PersistentAkteurManager newValue) throws PersistenceException {
+    public void setCommandReceiver(PersistentTransactionManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentAkteurManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentTransactionManager)PersistentProxi.createProxi(objectId, classId);
         ConnectionHandler.getTheConnectionHandler().theCreateAkteurCommandFacade.commandReceiverSet(this.getId(), newValue);
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -144,16 +144,16 @@ public class CreateAkteurCommand extends PersistentObject implements PersistentC
     public <R, E extends model.UserException> R accept(model.visitor.CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateAkteurCommand(this);
     }
-    public void accept(model.visitor.AkteurManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(model.visitor.TransactionManagerCommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateAkteurCommand(this);
     }
-    public <R> R accept(model.visitor.AkteurManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(model.visitor.TransactionManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCreateAkteurCommand(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.AkteurManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(model.visitor.TransactionManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCreateAkteurCommand(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.AkteurManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(model.visitor.TransactionManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateAkteurCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{

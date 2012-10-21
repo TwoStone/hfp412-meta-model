@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class PositionList {
+public class PositionList  extends PositionSearchList{
 
-	protected Vector<PersistentPosition> data; //List of proxies
 	protected PositionList() {
-		this.data = new Vector<PersistentPosition>();
+		super();
 	}
 	public Iterator<PersistentPosition> iterator(PersistentListProxi<PersistentPosition> listProxi) {
 		return new PersistentListIterator<PersistentPosition>(listProxi, this.data);

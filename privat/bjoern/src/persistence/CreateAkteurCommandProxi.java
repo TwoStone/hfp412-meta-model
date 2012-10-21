@@ -32,10 +32,10 @@ public class CreateAkteurCommandProxi extends PersistentProxi implements Persist
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentCreateAkteurCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public PersistentAkteurManager getCommandReceiver() throws PersistenceException {
+    public PersistentTransactionManager getCommandReceiver() throws PersistenceException {
         return ((PersistentCreateAkteurCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(PersistentAkteurManager newValue) throws PersistenceException {
+    public void setCommandReceiver(PersistentTransactionManager newValue) throws PersistenceException {
         ((PersistentCreateAkteurCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -93,16 +93,16 @@ public class CreateAkteurCommandProxi extends PersistentProxi implements Persist
     public <R, E extends model.UserException> R accept(model.visitor.CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateAkteurCommand(this);
     }
-    public void accept(model.visitor.AkteurManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(model.visitor.TransactionManagerCommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateAkteurCommand(this);
     }
-    public <R> R accept(model.visitor.AkteurManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(model.visitor.TransactionManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCreateAkteurCommand(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.AkteurManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(model.visitor.TransactionManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCreateAkteurCommand(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.AkteurManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(model.visitor.TransactionManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateAkteurCommand(this);
     }
     

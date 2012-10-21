@@ -10,7 +10,8 @@ public class ProduktProxi extends ViewProxi implements ProduktView{
     }
     
     public ProduktView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        ProduktView result$$ = new Produkt( this.getId(), this.getClassId());
+        String name = (String)resultTable.get("name");
+        ProduktView result$$ = new Produkt((String)name, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -33,6 +34,12 @@ public class ProduktProxi extends ViewProxi implements ProduktView{
         return -1;
     }
     
+    public String getName() throws ModelException {
+        return ((Produkt)this.getTheObject()).getName();
+    }
+    public void setName(String newValue) throws ModelException {
+        ((Produkt)this.getTheObject()).setName(newValue);
+    }
     
     public void accept(view.visitor.AnythingVisitor visitor) throws ModelException {
         visitor.handleProdukt(this);
