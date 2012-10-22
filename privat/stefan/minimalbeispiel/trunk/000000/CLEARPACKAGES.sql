@@ -1,9 +1,0 @@
-drop package CrtCntnCMDFacade;
-drop package AnMngrFacade;
-drop package CmmndExctrFacade;
-drop package CmmndCrdntrFacade;
-drop package CmmnDtFacade;
-drop package CntnFacade;
-drop package SrvrFacade;
-drop package ManyServices;
-drop package ClassFacade;
