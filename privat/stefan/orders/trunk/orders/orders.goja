@@ -1,0 +1,32 @@
+model orders {
+
+server Server {
+	derived ActorManager actorManager;
+	void createActor(String name);
+	void addRole(Actor actor, RoleSUBTYPEName roleName);
+	void deleteErrors();
+	void changeName(Actor actor, String nme [;actor;name]);
+}
+
+singleton ActorManager {
+ 	Actor ** actors;
+	active void createActor(String name) throws DoubleDefinition;
+	active void addRole(Actor actor, RoleSUBTYPEName roleName);
+}
+class Actor {
+	indexed prior String name;
+	derived Role** myRoles;
+	void addRole(RoleSUBTYPEName roleName);
+}
+string-factory abstract class Role {
+	no-view symmetric prior final Actor roleFor;
+}
+class Customer extends Role {}
+class Supplier extends Role {}
+
+
+exception DoubleDefinition {}
+
+}
+
+	

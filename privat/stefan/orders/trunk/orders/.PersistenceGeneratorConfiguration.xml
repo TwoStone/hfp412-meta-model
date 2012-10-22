@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<Configuration FinalParameters="" FontSize="16" MessagesForEventsOnly="" StaticOperationsasTools="" WithErrorService=""><Model>D:\PG\workspace\orders\orders</Model><OracleTarget>D:\PG\DB</OracleTarget><JavaTarget>D:\PG\workspace</JavaTarget><JavaBackup>D:\PG\Backup</JavaBackup><DatabaseConnection>127.0.0.1:1521</DatabaseConnection><DatabaseUser>STEFAN</DatabaseUser></Configuration>
