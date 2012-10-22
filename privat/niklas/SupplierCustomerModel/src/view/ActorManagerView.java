@@ -6,6 +6,8 @@ public interface ActorManagerView extends Anything, AbstractViewProxi {
     
     public java.util.Vector<ActorView> getActors() throws ModelException ;
     public void setActors(java.util.Vector<ActorView> newValue) throws ModelException ;
+    public long getNextOrderId() throws ModelException ;
+    public void setNextOrderId(long newValue) throws ModelException ;
     
     public void accept(view.visitor.AnythingVisitor visitor) throws ModelException;
     public <R> R accept(view.visitor.AnythingReturnVisitor<R>  visitor) throws ModelException;

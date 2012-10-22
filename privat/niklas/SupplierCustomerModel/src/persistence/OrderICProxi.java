@@ -35,6 +35,12 @@ public class OrderICProxi extends PersistentInCacheProxiOptimistic implements Pe
     public Order_PositionsProxi getPositions() throws PersistenceException {
         return ((PersistentOrder)this.getTheObject()).getPositions();
     }
+    public long getOrderId() throws PersistenceException {
+        return ((PersistentOrder)this.getTheObject()).getOrderId();
+    }
+    public void setOrderId(long newValue) throws PersistenceException {
+        ((PersistentOrder)this.getTheObject()).setOrderId(newValue);
+    }
     public PersistentOrder getThis() throws PersistenceException {
         return ((PersistentOrder)this.getTheObject()).getThis();
     }

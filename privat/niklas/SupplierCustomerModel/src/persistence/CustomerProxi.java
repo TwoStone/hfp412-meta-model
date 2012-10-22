@@ -50,10 +50,6 @@ public class CustomerProxi extends RoleProxi implements PersistentCustomer{
     }
     
     
-    public void createOrder(final PersistentSupplier supplier) 
-				throws PersistenceException{
-        ((PersistentCustomer)this.getTheObject()).createOrder(supplier);
-    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentCustomer)this.getTheObject()).initializeOnInstantiation();
@@ -85,6 +81,10 @@ public class CustomerProxi extends RoleProxi implements PersistentCustomer{
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentCustomer)this.getTheObject()).initializeOnCreation();
+    }
+    public void createOrder(final PersistentSupplier supplier, final long orderId) 
+				throws PersistenceException{
+        ((PersistentCustomer)this.getTheObject()).createOrder(supplier, orderId);
     }
 
     

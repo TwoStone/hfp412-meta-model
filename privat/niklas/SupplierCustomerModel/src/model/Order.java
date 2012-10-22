@@ -14,23 +14,25 @@ public class Order extends PersistentObject implements PersistentOrder{
         return (PersistentOrder)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentOrder createOrder(PersistentCustomer customer,PersistentSupplier supplier) throws PersistenceException {
+    public static PersistentOrder createOrder(PersistentCustomer customer,PersistentSupplier supplier,long orderId) throws PersistenceException {
         PersistentOrder result = ConnectionHandler.getTheConnectionHandler().theOrderFacade
-            .newOrder();
+            .newOrder(orderId);
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("customer", customer);
         final$$Fields.put("supplier", supplier);
+        final$$Fields.put("orderId", orderId);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentOrder createOrder(PersistentCustomer customer,PersistentSupplier supplier,PersistentOrder This) throws PersistenceException {
+    public static PersistentOrder createOrder(PersistentCustomer customer,PersistentSupplier supplier,long orderId,PersistentOrder This) throws PersistenceException {
         PersistentOrder result = ConnectionHandler.getTheConnectionHandler().theOrderFacade
-            .newOrder();
+            .newOrder(orderId);
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("customer", customer);
         final$$Fields.put("supplier", supplier);
+        final$$Fields.put("orderId", orderId);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -59,6 +61,7 @@ public class Order extends PersistentObject implements PersistentOrder{
                 }
             }
             result.put("positions", this.getPositions().getVector(allResults, depth, essentialLevel, forGUI, tdObserver));
+            result.put("orderId", new Long(this.getOrderId()).toString());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -69,6 +72,7 @@ public class Order extends PersistentObject implements PersistentOrder{
         Order result = this;
         result = new Order(this.customer, 
                            this.supplier, 
+                           this.orderId, 
                            this.This, 
                            this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -81,14 +85,16 @@ public class Order extends PersistentObject implements PersistentOrder{
     protected PersistentCustomer customer;
     protected PersistentSupplier supplier;
     protected Order_PositionsProxi positions;
+    protected long orderId;
     protected PersistentOrder This;
     
-    public Order(PersistentCustomer customer,PersistentSupplier supplier,PersistentOrder This,long id) throws persistence.PersistenceException {
+    public Order(PersistentCustomer customer,PersistentSupplier supplier,long orderId,PersistentOrder This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.customer = customer;
         this.supplier = supplier;
         this.positions = new Order_PositionsProxi(this);
+        this.orderId = orderId;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -125,6 +131,13 @@ public class Order extends PersistentObject implements PersistentOrder{
     public Order_PositionsProxi getPositions() throws PersistenceException {
         return this.positions;
     }
+    public long getOrderId() throws PersistenceException {
+        return this.orderId;
+    }
+    public void setOrderId(long newValue) throws PersistenceException {
+        ConnectionHandler.getTheConnectionHandler().theOrderFacade.orderIdSet(this.getId(), newValue);
+        this.orderId = newValue;
+    }
     protected void setThis(PersistentOrder newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.equals(this)){
@@ -159,6 +172,7 @@ public class Order extends PersistentObject implements PersistentOrder{
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
+            + (this.getSupplier() == null ? 0 : 1)
             + this.getPositions().getLength());
     }
     
@@ -175,6 +189,7 @@ public class Order extends PersistentObject implements PersistentOrder{
 		if(this.equals(This)){
 			this.setCustomer((PersistentCustomer)final$$Fields.get("customer"));
 			this.setSupplier((PersistentSupplier)final$$Fields.get("supplier"));
+			this.setOrderId((Long)final$$Fields.get("orderId"));
 		}
     }
     public void initializeOnCreation() 

@@ -13,7 +13,8 @@ public class ActorManagerProxi extends ViewProxi implements ActorManagerView{
     public ActorManagerView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> actors_string = (java.util.Vector<String>)resultTable.get("actors");
         java.util.Vector<ActorView> actors = ViewProxi.getProxiVector(actors_string, connectionKey);
-        ActorManagerView result$$ = new ActorManager(actors, this.getId(), this.getClassId());
+        long nextOrderId = new Long((String)resultTable.get("nextOrderId")).longValue();
+        ActorManagerView result$$ = new ActorManager(actors,(long)nextOrderId, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -51,6 +52,12 @@ public class ActorManagerProxi extends ViewProxi implements ActorManagerView{
     }
     public void setActors(java.util.Vector<ActorView> newValue) throws ModelException {
         ((ActorManager)this.getTheObject()).setActors(newValue);
+    }
+    public long getNextOrderId() throws ModelException {
+        return ((ActorManager)this.getTheObject()).getNextOrderId();
+    }
+    public void setNextOrderId(long newValue) throws ModelException {
+        ((ActorManager)this.getTheObject()).setNextOrderId(newValue);
     }
     
     public void accept(view.visitor.AnythingVisitor visitor) throws ModelException {

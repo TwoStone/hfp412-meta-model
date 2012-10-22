@@ -15,15 +15,16 @@ public class OrderFacade{
 		this.con = con;
 	}
 
-    public OrderProxi newOrder() throws PersistenceException {
+    public OrderProxi newOrder(long orderId) throws PersistenceException {
         OracleCallableStatement callable;
         try{
-            callable = (OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".OrdrFacade.newOrdr; end;");
+            callable = (OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".OrdrFacade.newOrdr(?); end;");
             callable.registerOutParameter(1, OracleTypes.NUMBER);
+            callable.setLong(2, orderId);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Order result = new Order(null,null,null,id);
+            Order result = new Order(null,null,orderId,null,id);
             Cache.getTheCache().put(result);
             return (OrderProxi)PersistentProxi.createProxi(id, 106);
         }catch(SQLException se) {
@@ -51,10 +52,11 @@ public class OrderFacade{
             if (obj.getLong(4) != 0)
                 supplier = (PersistentSupplier)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
             PersistentOrder This = null;
-            if (obj.getLong(6) != 0)
-                This = (PersistentOrder)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
+            if (obj.getLong(7) != 0)
+                This = (PersistentOrder)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
             Order result = new Order(customer,
                                      supplier,
+                                     obj.getLong(6),
                                      This,
                                      OrderId);
             obj.close();
@@ -149,6 +151,18 @@ public class OrderFacade{
             list.close();
             callable.close();
             return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void orderIdSet(long OrderId, long orderIdVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".OrdrFacade.ordrIdSet(?, ?); end;");
+            callable.setLong(1, OrderId);
+            callable.setLong(2, orderIdVal);
+            callable.execute();
+            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

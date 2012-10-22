@@ -43,9 +43,10 @@ public class ActorManagerFacade{
                 return null;
             }
             PersistentActorManager This = null;
-            if (obj.getLong(2) != 0)
-                This = (PersistentActorManager)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            ActorManager result = new ActorManager(This,
+            if (obj.getLong(3) != 0)
+                This = (PersistentActorManager)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+            ActorManager result = new ActorManager(obj.getLong(2),
+                                                   This,
                                                    ActorManagerId);
             obj.close();
             callable.close();
@@ -113,6 +114,18 @@ public class ActorManagerFacade{
             list.close();
             callable.close();
             return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void nextOrderIdSet(long ActorManagerId, long nextOrderIdVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".ActrMngrFacade.nxtOrdrIdSet(?, ?); end;");
+            callable.setLong(1, ActorManagerId);
+            callable.setLong(2, nextOrderIdVal);
+            callable.execute();
+            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

@@ -7,6 +7,8 @@ public interface PersistentOrder extends Anything, AbstractPersistentProxi {
     public PersistentSupplier getSupplier() throws PersistenceException ;
     public void setSupplier(PersistentSupplier newValue) throws PersistenceException ;
     public Order_PositionsProxi getPositions() throws PersistenceException ;
+    public long getOrderId() throws PersistenceException ;
+    public void setOrderId(long newValue) throws PersistenceException ;
     public PersistentOrder getThis() throws PersistenceException ;
     
     public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException;

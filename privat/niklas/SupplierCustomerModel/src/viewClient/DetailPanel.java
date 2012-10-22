@@ -783,12 +783,21 @@ class ProductDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class OrderDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String Order$$supplier = "Order$$supplier";
     protected static final String Order$$positions = "Order$$positions";
+    protected static final String Order$$orderId = "Order$$orderId";
     
     protected OrderDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
+        try{
+            BaseTypePanel panel = new IntegerPanel(this, "orderId", this.getAnything().getOrderId());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Order$$orderId, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
         
     }
     protected view.OrderView getAnything(){

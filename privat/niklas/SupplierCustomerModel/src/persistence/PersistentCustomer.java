@@ -15,8 +15,6 @@ public interface PersistentCustomer extends PersistentRole {
     
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void createOrder(final PersistentSupplier supplier) 
-				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public OrderSearchList getMyOrders(final TDObserver observer) 
@@ -28,6 +26,8 @@ public interface PersistentCustomer extends PersistentRole {
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void initializeOnCreation() 
+				throws PersistenceException;
+    public void createOrder(final PersistentSupplier supplier, final long orderId) 
 				throws PersistenceException;
 
 }

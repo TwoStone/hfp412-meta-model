@@ -27,7 +27,8 @@ public class OrderProxi extends ViewProxi implements OrderView{
         }
         java.util.Vector<String> positions_string = (java.util.Vector<String>)resultTable.get("positions");
         java.util.Vector<PositionView> positions = ViewProxi.getProxiVector(positions_string, connectionKey);
-        OrderView result$$ = new Order((CustomerView)customer,(SupplierView)supplier,positions, this.getId(), this.getClassId());
+        long orderId = new Long((String)resultTable.get("orderId")).longValue();
+        OrderView result$$ = new Order((CustomerView)customer,(SupplierView)supplier,positions,(long)orderId, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -37,21 +38,27 @@ public class OrderProxi extends ViewProxi implements OrderView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
+        if(index == 0 && this.getSupplier() != null) return new SupplierOrderWrapper(this, originalIndex, (ViewRoot)this.getSupplier());
+        if(this.getSupplier() != null) index = index - 1;
         if(index < this.getPositions().size()) return new PositionsOrderWrapper(this, originalIndex, (ViewRoot)this.getPositions().get(index));
         index = index - this.getPositions().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
+            + (this.getSupplier() == null ? 0 : 1)
             + (this.getPositions().size());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
+            && (this.getSupplier() == null ? true : false)
             && (this.getPositions().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
+        if(this.getSupplier() != null && this.getSupplier().equals(child)) return result;
+        if(this.getSupplier() != null) result = result + 1;
         java.util.Iterator<?> getPositionsIterator = this.getPositions().iterator();
         while(getPositionsIterator.hasNext()){
             if(getPositionsIterator.next().equals(child)) return result;
@@ -77,6 +84,12 @@ public class OrderProxi extends ViewProxi implements OrderView{
     }
     public void setPositions(java.util.Vector<PositionView> newValue) throws ModelException {
         ((Order)this.getTheObject()).setPositions(newValue);
+    }
+    public long getOrderId() throws ModelException {
+        return ((Order)this.getTheObject()).getOrderId();
+    }
+    public void setOrderId(long newValue) throws ModelException {
+        ((Order)this.getTheObject()).setOrderId(newValue);
     }
     
     public void accept(view.visitor.AnythingVisitor visitor) throws ModelException {

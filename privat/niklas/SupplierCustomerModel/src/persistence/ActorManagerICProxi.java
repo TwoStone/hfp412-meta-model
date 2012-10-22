@@ -23,6 +23,12 @@ public class ActorManagerICProxi extends PersistentInCacheProxiOptimistic implem
     public ActorManager_ActorsProxi getActors() throws PersistenceException {
         return ((PersistentActorManager)this.getTheObject()).getActors();
     }
+    public long getNextOrderId() throws PersistenceException {
+        return ((PersistentActorManager)this.getTheObject()).getNextOrderId();
+    }
+    public void setNextOrderId(long newValue) throws PersistenceException {
+        ((PersistentActorManager)this.getTheObject()).setNextOrderId(newValue);
+    }
     public PersistentActorManager getThis() throws PersistenceException {
         return ((PersistentActorManager)this.getTheObject()).getThis();
     }

@@ -52,6 +52,7 @@ public class ActorManager extends PersistentObject implements PersistentActorMan
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("actors", this.getActors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver));
+            result.put("nextOrderId", new Long(this.getNextOrderId()).toString());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -60,7 +61,8 @@ public class ActorManager extends PersistentObject implements PersistentActorMan
     
     public ActorManager provideCopy() throws PersistenceException{
         ActorManager result = this;
-        result = new ActorManager(this.This, 
+        result = new ActorManager(this.nextOrderId, 
+                                  this.This, 
                                   this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -70,12 +72,14 @@ public class ActorManager extends PersistentObject implements PersistentActorMan
         return false;
     }
     protected ActorManager_ActorsProxi actors;
+    protected long nextOrderId;
     protected PersistentActorManager This;
     
-    public ActorManager(PersistentActorManager This,long id) throws persistence.PersistenceException {
+    public ActorManager(long nextOrderId,PersistentActorManager This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.actors = new ActorManager_ActorsProxi(this);
+        this.nextOrderId = nextOrderId;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -89,6 +93,13 @@ public class ActorManager extends PersistentObject implements PersistentActorMan
     
     public ActorManager_ActorsProxi getActors() throws PersistenceException {
         return this.actors;
+    }
+    public long getNextOrderId() throws PersistenceException {
+        return this.nextOrderId;
+    }
+    public void setNextOrderId(long newValue) throws PersistenceException {
+        ConnectionHandler.getTheConnectionHandler().theActorManagerFacade.nextOrderIdSet(this.getId(), newValue);
+        this.nextOrderId = newValue;
     }
     protected void setThis(PersistentActorManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -224,7 +235,8 @@ public class ActorManager extends PersistentObject implements PersistentActorMan
     }
     public void createOrder(final PersistentCustomer customer, final PersistentSupplier supplier) 
 				throws PersistenceException{
-		customer.createOrder(supplier);
+		customer.createOrder(supplier, this.getThis().getNextOrderId());
+		this.getThis().setNextOrderId(this.getThis().getNextOrderId() + 1);
 	}
     public void addRole(final PersistentActor actor, final String roleName) 
 				throws PersistenceException{

@@ -27,6 +27,8 @@ singleton ActorManager {
 	active void addPosition(Order order, Product product, Integer quanitity);
 
 	Actor ** actors;
+
+	no-view Integer nextOrderId;
 }
 
 exception DoubleDefinition {}
@@ -45,7 +47,7 @@ string-factory abstract class Role {
 class Customer extends Role {
 	derived Order ** myOrders;
 	
-	void createOrder(Supplier supplier);
+	void createOrder(Supplier supplier, Integer orderId);
 }
 
 class Supplier extends Role {
@@ -61,9 +63,10 @@ class Product {
 
 class Order {
 	no-view prior symmetric Customer customer;
-	no-view prior Supplier supplier;
+	prior Supplier supplier;
 
 	Position ** positions;
+	prior Integer orderId;
 
 	void addPosition(Product product, Integer quanitity);
 }

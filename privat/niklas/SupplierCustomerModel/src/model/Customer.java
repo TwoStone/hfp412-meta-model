@@ -112,10 +112,6 @@ public class Customer extends model.Role implements PersistentCustomer{
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
-    public void createOrder(final PersistentSupplier supplier) 
-				throws PersistenceException{
-		Order.createOrder(this.getThis(), supplier);
-	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
@@ -144,6 +140,10 @@ public class Customer extends model.Role implements PersistentCustomer{
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
+	}
+    public void createOrder(final PersistentSupplier supplier, final long orderId) 
+				throws PersistenceException{
+		Order.createOrder(this.getThis(), supplier, orderId);
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

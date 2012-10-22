@@ -9,11 +9,13 @@ import view.*;
 public class ActorManager extends ViewObject implements ActorManagerView{
     
     protected java.util.Vector<ActorView> actors;
+    protected long nextOrderId;
     
-    public ActorManager(java.util.Vector<ActorView> actors,long id, long classId) {
+    public ActorManager(java.util.Vector<ActorView> actors,long nextOrderId,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.actors = actors;        
+        this.actors = actors;
+        this.nextOrderId = nextOrderId;        
     }
     
     static public long getTypeId() {
@@ -29,6 +31,12 @@ public class ActorManager extends ViewObject implements ActorManagerView{
     }
     public void setActors(java.util.Vector<ActorView> newValue) throws ModelException {
         this.actors = newValue;
+    }
+    public long getNextOrderId() throws ModelException {
+        return this.nextOrderId;
+    }
+    public void setNextOrderId(long newValue) throws ModelException {
+        this.nextOrderId = newValue;
     }
     
     public void accept(view.visitor.AnythingVisitor visitor) throws ModelException {

@@ -4,6 +4,8 @@ import model.*;
 public interface PersistentActorManager extends Anything, AbstractPersistentProxi {
     
     public ActorManager_ActorsProxi getActors() throws PersistenceException ;
+    public long getNextOrderId() throws PersistenceException ;
+    public void setNextOrderId(long newValue) throws PersistenceException ;
     public PersistentActorManager getThis() throws PersistenceException ;
     
     public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException;

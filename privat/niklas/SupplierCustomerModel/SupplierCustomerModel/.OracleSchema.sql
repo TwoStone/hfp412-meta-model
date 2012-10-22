@@ -47,6 +47,7 @@ create sequence SActrMngr nocache;
 create table ActrMngr(
     id number primary key,
     Cls number not null,
+    ActrMngrNxtOrdrId number,
     ActrMngrThis number,
     ActrMngrThisCls number,
     constraint FActrMngrThis foreign key (ActrMngrThisCls) references Cls (id)    
@@ -126,6 +127,7 @@ create table Ordr(
     OrdrSpplr number,
     OrdrSpplrCls number,
     constraint FOrdrSpplr foreign key (OrdrSpplrCls) references Cls (id),
+    OrdrOrdrId number,
     OrdrThis number,
     OrdrThisCls number,
     constraint FOrdrThis foreign key (OrdrThisCls) references Cls (id)    

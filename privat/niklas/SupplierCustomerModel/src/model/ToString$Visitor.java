@@ -36,7 +36,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleOrder(final PersistentOrder order) throws PersistenceException {
-		this.result = "Auftrag";
+		this.result = "Auftrag " + order.getOrderId();
 	}
 	@Override
 	public void handleServer(final PersistentServer server)

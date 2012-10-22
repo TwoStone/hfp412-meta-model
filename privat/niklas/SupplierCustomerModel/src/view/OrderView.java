@@ -10,6 +10,8 @@ public interface OrderView extends Anything, AbstractViewProxi {
     public void setSupplier(SupplierView newValue) throws ModelException ;
     public java.util.Vector<PositionView> getPositions() throws ModelException ;
     public void setPositions(java.util.Vector<PositionView> newValue) throws ModelException ;
+    public long getOrderId() throws ModelException ;
+    public void setOrderId(long newValue) throws ModelException ;
     
     public void accept(view.visitor.AnythingVisitor visitor) throws ModelException;
     public <R> R accept(view.visitor.AnythingReturnVisitor<R>  visitor) throws ModelException;
