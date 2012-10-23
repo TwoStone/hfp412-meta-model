@@ -132,13 +132,12 @@ public class Fraction extends PersistentObject implements PersistentFraction{
     }
     
     
-    public PersistentFraction add(final PersistentFraction fraction) 
-				throws PersistenceException{
-	PersistentFraction result = Fraction.createFraction(fraction.getEnumerator()*this.denominator+this.enumerator*fraction.getDenominator(), this.denominator*fraction.getDenominator());
-	return result.toRational();
-}
-    public PersistentFraction toRational() 
-				throws PersistenceException{
+    public PersistentFraction add(final PersistentFraction fraction) throws PersistenceException{
+    	// e1/d1 + e2/d2 = (e1*d2+e2*d1) / d1*d2 und Kürzen. 
+    	PersistentFraction result = Fraction.createFraction(fraction.getEnumerator()*this.denominator+this.enumerator*fraction.getDenominator(), this.denominator*fraction.getDenominator()).toRational();
+    	return result;
+    }
+    public PersistentFraction toRational() throws PersistenceException{
     	long localGcd = this.gcd(this.enumerator, this.denominator);
     	PersistentFraction resultFraction = Fraction.createFraction(this.getEnumerator() / localGcd, this.getDenominator() / localGcd);
     	return resultFraction;
@@ -148,25 +147,19 @@ public class Fraction extends PersistentObject implements PersistentFraction{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public PersistentFraction mul(final PersistentFraction fraction) 
-				throws PersistenceException{
-
+    public PersistentFraction mul(final PersistentFraction fraction) throws PersistenceException{
     	// e1/d1 * e2/d2 = kuerzen(e1/d2) * kuerzen(e2/d1)
     	
-    	// Kreuzprodukt Bruch 1
-    	PersistentFraction frac1 = Fraction.createFraction(this.enumerator,fraction.getDenominator());
-    	// Kürzen
-    	PersistentFraction frac1Rat = frac1.toRational();
+    	// Kreuzprodukt Bruch 1 und Kürzen.
+    	PersistentFraction frac1 = Fraction.createFraction(this.enumerator,fraction.getDenominator()).toRational();
     	
-    	// Kreuzprodukt Bruch 2
-    	PersistentFraction frac2 = Fraction.createFraction(fraction.getEnumerator(),this.denominator);
-    	// Kürzen
-    	PersistentFraction frac2Rat = frac2.toRational();
+    	// Kreuzprodukt Bruch 2 und Kürzen.
+    	PersistentFraction frac2 = Fraction.createFraction(fraction.getEnumerator(),this.denominator).toRational();
     	
-    	PersistentFraction result = Fraction.createFraction(frac1Rat.getEnumerator()*frac2Rat.getEnumerator(),frac1Rat.getDenominator()*frac2Rat.getDenominator());
+    	PersistentFraction result = Fraction.createFraction(frac1.getEnumerator()*frac2.getEnumerator(),frac1.getDenominator()*frac2.getDenominator()).toRational();
     	return result;
-    	
     }
+    
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
@@ -198,7 +191,7 @@ public class Fraction extends PersistentObject implements PersistentFraction{
         
         long a,b,g,z;
 
-        if(x1>x2) {
+        if (x1>x2) {
             a = x1;
             b = x2;
         } else {
@@ -206,7 +199,7 @@ public class Fraction extends PersistentObject implements PersistentFraction{
             b = x1;
         }
 
-        if(b==0) return 0;
+        if (b==0) return 0;
 
         g = b;
         while (g!=0) {
