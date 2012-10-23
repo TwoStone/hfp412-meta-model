@@ -1,0 +1,29 @@
+model metaModel{
+
+server Server {
+
+}
+
+
+interface MType@@Type {
+	String fetchName();
+}
+
+class MAtomicType@@AtomicType implements MType {
+	String name;
+}
+
+abstract class MComplexType@@ComplexType implements MType {
+	MType** containedTypes hierarchy MCTypeHierarchy;
+	derived String TypeLinkOperator;	
+}
+
+class MProductType@@ProductType extends MComplexType {
+}
+
+class MSumType@@SumType extends MComplexType {
+}
+
+hierarchy MCTypeHierarchy;
+
+}
