@@ -1,0 +1,68 @@
+model MetaModel {
+
+server Server  {
+	derived AspectManager aspectManager;
+	derived TypeManager typeManager;
+
+	void createType(String name, MetaAspect aspect);
+	
+	void createAspect(String name);
+	
+	void addSupertype(MetaType type, MetaType superType {;type;myAspect;types});
+	void createSumType(AbstractMetaType ** types {typeManager;allTypes});
+}
+
+singleton AspectManager {
+	MetaAspect ** aspects;
+	
+	active void createAspect(String name) throws DoubleDefinitionException;
+}
+
+singleton TypeManager {
+	AbstractMetaType ** allTypes;	
+
+	active void createType(String name,  MetaAspect aspect);
+}
+
+abstract class NamedEntity {
+	prior indexed String name;
+}
+
+class MetaAssociation extends NamedEntity {
+	prior AbstractMetaType source;
+	prior AbstractMetaType target;
+
+	symmetric MetaHierarchy ** hierarchies;
+}
+
+class MetaHierarchy extends NamedEntity {
+}
+
+abstract class AbstractMetaType {
+	extern java.lang.Boolean specializes(AbstractMetaType metaType);
+}
+
+abstract class ComposedMetaType extends AbstractMetaType {
+	AbstractMetaType ** components;
+
+	derived OrMetaType disjunctiveNormalform;
+}
+
+class AndMetaType extends ComposedMetaType {
+}
+
+class OrMetaType  extends ComposedMetaType {
+}
+
+class MetaType extends AbstractMetaType covers NamedEntity {
+	symmetric MetaType ** subtypes;
+	
+	prior symmetric MetaAspect myAspect;
+}
+
+class MetaAspect extends NamedEntity {
+	derived MetaType ** types;
+}
+
+exception DoubleDefinitionException {}
+}
