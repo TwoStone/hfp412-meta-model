@@ -3,4 +3,12 @@ model quantity {
 	server Server {
 		
 	}
+
+	class Fraction {
+		Integer enumerator;
+		Integer denominator;
+		Fraction toRational(); // Bruch kürzen
+		Fraction add(Fraction fraction); // Addition von zwei Brüchen
+		Fraction mul(Fraction fraction); // Multiplikation von zwei Brüchen
+	}
 }

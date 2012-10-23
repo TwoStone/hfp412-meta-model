@@ -48,12 +48,14 @@ public class ConnectionHandler {
 
 
     public ErrorDisplayFacade theErrorDisplayFacade;
+    public FractionFacade theFractionFacade;
     public ServerFacade theServerFacade;
 
 	protected ConnectionHandler() throws PersistenceException {
 	}
 	public void connect(String databaseName, String currentSchemaName, String user, char[] pw, boolean autoCommit) throws PersistenceException {
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
+            this.theFractionFacade= new FractionFacade();
             this.theServerFacade= new ServerFacade();
 	}
 	public static void initializeMapsForMappedFields() throws PersistenceException {

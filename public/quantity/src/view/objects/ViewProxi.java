@@ -47,10 +47,15 @@ public abstract class ViewProxi extends ViewRoot {
 	
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [10];
+		proxiFactories = new ProxiFactory [11];
         proxiFactories[0] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ErrorDisplayProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[10] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new FractionProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[1] = new ProxiFactory(){

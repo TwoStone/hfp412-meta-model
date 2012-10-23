@@ -16,10 +16,15 @@ public abstract class PersistentProxi extends PersistentRoot {
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[10];
+		listProxiFactories = new ListProxiFactory[11];
         listProxiFactories[0] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new ErrorDisplayListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[10] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new FractionListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[1] = new ListProxiFactory(){
@@ -32,10 +37,15 @@ public abstract class PersistentProxi extends PersistentRoot {
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [10];
+		proxiFactories = new ProxiFactory [11];
         proxiFactories[0] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new ErrorDisplayProxi(objectId);
+            }
+        };
+        proxiFactories[10] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new FractionProxi(objectId);
             }
         };
         proxiFactories[1] = new ProxiFactory(){

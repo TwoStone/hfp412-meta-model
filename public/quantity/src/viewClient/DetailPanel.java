@@ -580,6 +580,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
     }
+    public void handleFraction(view.FractionView object){
+        result = new FractionDefaultDetailPanel(handler, object);
+    }
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
     }
@@ -608,6 +611,37 @@ class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ErrorDisplayView getAnything(){
         return (view.ErrorDisplayView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class FractionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Fraction$$enumerator = "Fraction$$enumerator";
+    protected static final String Fraction$$denominator = "Fraction$$denominator";
+    
+    protected FractionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new IntegerPanel(this, "enumerator", this.getAnything().getEnumerator());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Fraction$$enumerator, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new IntegerPanel(this, "denominator", this.getAnything().getDenominator());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Fraction$$denominator, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.FractionView getAnything(){
+        return (view.FractionView)this.anything;
     }
 }
 

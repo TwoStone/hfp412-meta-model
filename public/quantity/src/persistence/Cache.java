@@ -261,6 +261,7 @@ public class Cache {
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
 		this.number2NameMap.put(-101, "ErrorDisplay");
+		this.number2NameMap.put(111, "Fraction");
 		this.number2NameMap.put(-102, "Server");	
 	}
 	

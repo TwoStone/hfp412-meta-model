@@ -25,5 +25,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void handleFraction(PersistentFraction fraction)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
