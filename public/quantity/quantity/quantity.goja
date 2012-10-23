@@ -5,8 +5,8 @@ model quantity {
 	}
 
 	class Fraction {
-		Integer enumerator;							// Zähler
-		Integer denominator;							// Nenner
+		prior Integer enumerator;							// Zähler
+		prior Integer denominator;							// Nenner
 		Fraction toRational(); 						// Bruch kürzen
 		Fraction add(Fraction fraction); 	// Addition von zwei Brüchen
 		Fraction mul(Fraction fraction); 	// Multiplikation von zwei Brüchen

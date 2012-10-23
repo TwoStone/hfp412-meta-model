@@ -14,19 +14,23 @@ public class Fraction extends PersistentObject implements PersistentFraction{
         return (PersistentFraction)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentFraction createFraction() throws PersistenceException {
+    public static PersistentFraction createFraction(long enumerator,long denominator) throws PersistenceException {
         PersistentFraction result = ConnectionHandler.getTheConnectionHandler().theFractionFacade
-            .newFraction(0,0);
+            .newFraction(enumerator,denominator);
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("enumerator", enumerator);
+        final$$Fields.put("denominator", denominator);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentFraction createFraction(PersistentFraction This) throws PersistenceException {
+    public static PersistentFraction createFraction(long enumerator,long denominator,PersistentFraction This) throws PersistenceException {
         PersistentFraction result = ConnectionHandler.getTheConnectionHandler().theFractionFacade
-            .newFraction(0,0);
+            .newFraction(enumerator,denominator);
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("enumerator", enumerator);
+        final$$Fields.put("denominator", denominator);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -85,13 +89,10 @@ public class Fraction extends PersistentObject implements PersistentFraction{
         this.enumerator = newValue;
     }
     public long getDenominator() throws PersistenceException {
-        
-    	return this.denominator;
+        return this.denominator;
     }
     public void setDenominator(long newValue) throws PersistenceException {
         ConnectionHandler.getTheConnectionHandler().theFractionFacade.denominatorSet(this.getId(), newValue);
-        if(newValue == 0)
-    		throw new PersistenceException(constants.ExceptionConstants.NENNER_IST_0, 0);
         this.denominator = newValue;
     }
     protected void setThis(PersistentFraction newValue) throws PersistenceException {
@@ -132,20 +133,18 @@ public class Fraction extends PersistentObject implements PersistentFraction{
     
     
     public PersistentFraction add(final PersistentFraction fraction) 
-				throws PersistenceException{
-    	PersistentFraction result = Fraction.createFraction();
-    	result.setEnumerator(fraction.getEnumerator()*this.denominator+this.enumerator*fraction.getDenominator());
-    	result.setDenominator(this.denominator*fraction.getDenominator());
-    	return result.toRational();
-    }
+			throws PersistenceException{
+	PersistentFraction result = Fraction.createFraction(fraction.getEnumerator()*this.denominator+this.enumerator*fraction.getDenominator(), this.denominator*fraction.getDenominator());
+	return result.toRational();
+}
+    
     public PersistentFraction toRational() 
 				throws PersistenceException{
     	long localGcd = this.gcd(this.enumerator, this.denominator);
-    	PersistentFraction resultFraction = Fraction.createFraction();
-    	resultFraction.setEnumerator(this.getEnumerator() / localGcd);
-    	resultFraction.setDenominator(this.getDenominator() / localGcd);
+    	PersistentFraction resultFraction = Fraction.createFraction(this.getEnumerator() / localGcd, this.getDenominator() / localGcd);
     	return resultFraction;
     }
+    
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
@@ -156,22 +155,16 @@ public class Fraction extends PersistentObject implements PersistentFraction{
     	// e1/d1 * e2/d2 = kuerzen(e1/d2) * kuerzen(e2/d1)
     	
     	// Kreuzprodukt Bruch 1
-    	PersistentFraction frac1 = Fraction.createFraction();
-    	frac1.setEnumerator(this.enumerator);
-    	frac1.setDenominator(fraction.getDenominator());
+    	PersistentFraction frac1 = Fraction.createFraction(this.enumerator,fraction.getDenominator());
     	// Kürzen
     	PersistentFraction frac1Rat = frac1.toRational();
     	
     	// Kreuzprodukt Bruch 2
-    	PersistentFraction frac2 = Fraction.createFraction();
-    	frac2.setEnumerator(fraction.getEnumerator());
-    	frac2.setDenominator(this.denominator);
+    	PersistentFraction frac2 = Fraction.createFraction(fraction.getEnumerator(),this.denominator);
     	// Kürzen
     	PersistentFraction frac2Rat = frac2.toRational();
     	
-    	PersistentFraction result = Fraction.createFraction();
-    	result.setEnumerator(frac1Rat.getEnumerator()*frac2Rat.getEnumerator());
-    	result.setDenominator(frac1Rat.getDenominator()*frac2Rat.getDenominator());
+    	PersistentFraction result = Fraction.createFraction(frac1Rat.getEnumerator()*frac2Rat.getEnumerator(),frac1Rat.getDenominator()*frac2Rat.getDenominator());
     	return result;
     	
     }
@@ -184,14 +177,17 @@ public class Fraction extends PersistentObject implements PersistentFraction{
 				throws PersistenceException{
         this.setThis((PersistentFraction)This);
 		if(this.equals(This)){
+			this.setEnumerator((Long)final$$Fields.get("enumerator"));
+			this.setDenominator((Long)final$$Fields.get("denominator"));
 		}
     }
-    public void initializeOnCreation() throws PersistenceException{
-    	
+    public void initializeOnCreation() 
+				throws PersistenceException{
+    	if(this.getThis().getDenominator() == 0)
+    		throw new PersistenceException(constants.ExceptionConstants.NENNER_IST_0, 0);        
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
     /** 
      * GGT
      * @param x1
