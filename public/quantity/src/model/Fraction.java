@@ -133,24 +133,23 @@ public class Fraction extends PersistentObject implements PersistentFraction{
     
     
     public PersistentFraction add(final PersistentFraction fraction) 
-			throws PersistenceException{
+				throws PersistenceException{
 	PersistentFraction result = Fraction.createFraction(fraction.getEnumerator()*this.denominator+this.enumerator*fraction.getDenominator(), this.denominator*fraction.getDenominator());
 	return result.toRational();
 }
-    
     public PersistentFraction toRational() 
 				throws PersistenceException{
     	long localGcd = this.gcd(this.enumerator, this.denominator);
     	PersistentFraction resultFraction = Fraction.createFraction(this.getEnumerator() / localGcd, this.getDenominator() / localGcd);
     	return resultFraction;
     }
-    
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public PersistentFraction mul(final PersistentFraction fraction) throws PersistenceException{
+    public PersistentFraction mul(final PersistentFraction fraction) 
+				throws PersistenceException{
 
     	// e1/d1 * e2/d2 = kuerzen(e1/d2) * kuerzen(e2/d1)
     	
