@@ -1,0 +1,6 @@
+model quantity {
+
+	server Server {
+		
+	}
+}
