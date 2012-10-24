@@ -4,11 +4,45 @@ model quantity {
 		
 	}
 
-	class Fraction {
-		prior Integer enumerator;							// Zähler
-		prior Integer denominator;							// Nenner
-		Fraction toRational(); 						// Bruch kürzen
-		Fraction add(Fraction fraction); 	// Addition von zwei Brüchen
-		Fraction mul(Fraction fraction); 	// Multiplikation von zwei Brüchen
+	class Fraction {																				// Bruch
+		prior Integer enumerator;															// Zähler
+		prior Integer denominator;														// Nenner
+		Fraction toRational(); 																// Bruch kürzen
+		Fraction add(Fraction fraction); 											// Addition von zwei Brüchen
+		Fraction mul(Fraction fraction); 											// Multiplikation von zwei Brüchen
 	}
+
+	abstract class AbsUnitType {}														// Abstrakter Einheitentyp
+	class UnitType extends AbsUnitType { 										// Einheitentyp (z.B. Länge, Währung, etc.)
+		prior Unit defaultUnit;																// Standard Einheit
+	}
+	class TypeReference extends AbsUnitType {}
+	class CompoundUnitType extends AbsUnitType {	// Zusammengesetzter Einheitentyp (z.B. Geschwindigkeit)
+	}	
+
+	abstract class AbsUnit {																	// Abstrakte Einheit
+		prior String name;
+	}
+	class Unit extends AbsUnit {															// Einheit (z.B. cm, EUR, etc.)
+		prior UnitType unitType;																// Einheitentyp
+	}
+	class UnitReference extends AbsUnit {}
+	class CompoundUnit extends AbsUnit {} 											// Zusammengesetzte Einheit (z.B. m/s)
+
+	class ConversionRate {																			// Umrechungsfaktor
+		prior Unit fromUnit;																			// Von Einheit
+		prior Unit toUnit;																				// Nach Einheit
+		prior Fraction conversionRate;														// Umrechnungsfaktor
+	}
+
+	abstract class AbsQuantity {}																// Abstrakte Anzahl
+	class Quantity extends AbsQuantity {												// Anzahl
+		prior Fraction amount;																		// Betrag
+		prior Unit unit;																					// Einheit
+	}
+	class ComposedQuantity extends AbsQuantity { // Zusammengesetzte Anzahl
+		Quantity** parts;
+	}	
+
+
 }

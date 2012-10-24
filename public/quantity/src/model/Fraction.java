@@ -132,12 +132,14 @@ public class Fraction extends PersistentObject implements PersistentFraction{
     }
     
     
-    public PersistentFraction add(final PersistentFraction fraction) throws PersistenceException{
+    public PersistentFraction add(final PersistentFraction fraction) 
+				throws PersistenceException{
     	// e1/d1 + e2/d2 = (e1*d2+e2*d1) / d1*d2 und Kürzen. 
     	PersistentFraction result = Fraction.createFraction(fraction.getEnumerator()*this.denominator+this.enumerator*fraction.getDenominator(), this.denominator*fraction.getDenominator()).toRational();
     	return result;
     }
-    public PersistentFraction toRational() throws PersistenceException{
+    public PersistentFraction toRational() 
+				throws PersistenceException{
     	long localGcd = this.gcd(this.enumerator, this.denominator);
     	PersistentFraction resultFraction = Fraction.createFraction(this.getEnumerator() / localGcd, this.getDenominator() / localGcd);
     	return resultFraction;
@@ -147,7 +149,8 @@ public class Fraction extends PersistentObject implements PersistentFraction{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public PersistentFraction mul(final PersistentFraction fraction) throws PersistenceException{
+    public PersistentFraction mul(final PersistentFraction fraction) 
+				throws PersistenceException{
     	// e1/d1 * e2/d2 = kuerzen(e1/d2) * kuerzen(e2/d1)
     	
     	// Kreuzprodukt Bruch 1 und Kürzen.
@@ -159,7 +162,6 @@ public class Fraction extends PersistentObject implements PersistentFraction{
     	PersistentFraction result = Fraction.createFraction(frac1.getEnumerator()*frac2.getEnumerator(),frac1.getDenominator()*frac2.getDenominator()).toRational();
     	return result;
     }
-    
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes

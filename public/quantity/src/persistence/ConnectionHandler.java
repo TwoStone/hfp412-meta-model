@@ -47,16 +47,40 @@ public class ConnectionHandler {
 
 
 
+    public QuantityFacade theQuantityFacade;
+    public TypeReferenceFacade theTypeReferenceFacade;
+    public CompoundUnitTypeFacade theCompoundUnitTypeFacade;
+    public AbsUnitTypeFacade theAbsUnitTypeFacade;
+    public AbsUnitFacade theAbsUnitFacade;
     public ErrorDisplayFacade theErrorDisplayFacade;
-    public FractionFacade theFractionFacade;
     public ServerFacade theServerFacade;
+    public FractionFacade theFractionFacade;
+    public UnitTypeFacade theUnitTypeFacade;
+    public UnitFacade theUnitFacade;
+    public UnitReferenceFacade theUnitReferenceFacade;
+    public ConversionRateFacade theConversionRateFacade;
+    public AbsQuantityFacade theAbsQuantityFacade;
+    public CompoundUnitFacade theCompoundUnitFacade;
+    public ComposedQuantityFacade theComposedQuantityFacade;
 
 	protected ConnectionHandler() throws PersistenceException {
 	}
 	public void connect(String databaseName, String currentSchemaName, String user, char[] pw, boolean autoCommit) throws PersistenceException {
+            this.theQuantityFacade= new QuantityFacade();
+            this.theTypeReferenceFacade= new TypeReferenceFacade();
+            this.theCompoundUnitTypeFacade= new CompoundUnitTypeFacade();
+            this.theAbsUnitTypeFacade= new AbsUnitTypeFacade();
+            this.theAbsUnitFacade= new AbsUnitFacade();
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
-            this.theFractionFacade= new FractionFacade();
             this.theServerFacade= new ServerFacade();
+            this.theFractionFacade= new FractionFacade();
+            this.theUnitTypeFacade= new UnitTypeFacade();
+            this.theUnitFacade= new UnitFacade();
+            this.theUnitReferenceFacade= new UnitReferenceFacade();
+            this.theConversionRateFacade= new ConversionRateFacade();
+            this.theAbsQuantityFacade= new AbsQuantityFacade();
+            this.theCompoundUnitFacade= new CompoundUnitFacade();
+            this.theComposedQuantityFacade= new ComposedQuantityFacade();
 	}
 	public static void initializeMapsForMappedFields() throws PersistenceException {
 		

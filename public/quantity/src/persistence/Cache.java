@@ -260,9 +260,18 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
+		this.number2NameMap.put(123, "ComposedQuantity");
+		this.number2NameMap.put(122, "CompoundUnit");
+		this.number2NameMap.put(114, "CompoundUnitType");
+		this.number2NameMap.put(120, "ConversionRate");
 		this.number2NameMap.put(-101, "ErrorDisplay");
 		this.number2NameMap.put(111, "Fraction");
-		this.number2NameMap.put(-102, "Server");	
+		this.number2NameMap.put(112, "Quantity");
+		this.number2NameMap.put(-102, "Server");
+		this.number2NameMap.put(113, "TypeReference");
+		this.number2NameMap.put(118, "Unit");
+		this.number2NameMap.put(119, "UnitReference");
+		this.number2NameMap.put(117, "UnitType");	
 	}
 	
 }

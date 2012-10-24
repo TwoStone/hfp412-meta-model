@@ -577,19 +577,91 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 	public DetailPanelFactory(ExceptionAndEventHandler handler) {
 		this.handler = handler;
 	}
+    public void handleQuantity(view.QuantityView object){
+        result = new QuantityDefaultDetailPanel(handler, object);
+    }
+    public void handleTypeReference(view.TypeReferenceView object){
+        result = new TypeReferenceDefaultDetailPanel(handler, object);
+    }
+    public void handleCompoundUnitType(view.CompoundUnitTypeView object){
+        result = new CompoundUnitTypeDefaultDetailPanel(handler, object);
+    }
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
+    }
+    public void handleServer(view.ServerView object){
+        result = new ServerDefaultDetailPanel(handler, object);
     }
     public void handleFraction(view.FractionView object){
         result = new FractionDefaultDetailPanel(handler, object);
     }
-    public void handleServer(view.ServerView object){
-        result = new ServerDefaultDetailPanel(handler, object);
+    public void handleUnitType(view.UnitTypeView object){
+        result = new UnitTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleUnit(view.UnitView object){
+        result = new UnitDefaultDetailPanel(handler, object);
+    }
+    public void handleUnitReference(view.UnitReferenceView object){
+        result = new UnitReferenceDefaultDetailPanel(handler, object);
+    }
+    public void handleConversionRate(view.ConversionRateView object){
+        result = new ConversionRateDefaultDetailPanel(handler, object);
+    }
+    public void handleCompoundUnit(view.CompoundUnitView object){
+        result = new CompoundUnitDefaultDetailPanel(handler, object);
+    }
+    public void handleComposedQuantity(view.ComposedQuantityView object){
+        result = new ComposedQuantityDefaultDetailPanel(handler, object);
     }
 
 }
 
 
+
+@SuppressWarnings("serial")
+class QuantityDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Quantity$$amount = "Quantity$$amount";
+    protected static final String Quantity$$unit = "Quantity$$unit";
+    
+    protected QuantityDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.QuantityView getAnything(){
+        return (view.QuantityView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class TypeReferenceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected TypeReferenceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.TypeReferenceView getAnything(){
+        return (view.TypeReferenceView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class CompoundUnitTypeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected CompoundUnitTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.CompoundUnitTypeView getAnything(){
+        return (view.CompoundUnitTypeView)this.anything;
+    }
+}
 
 @SuppressWarnings("serial")
 class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
@@ -611,6 +683,29 @@ class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ErrorDisplayView getAnything(){
         return (view.ErrorDisplayView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ServerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Server$$user = "Server$$user";
+    
+    protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "user", this.getAnything().getUser());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Server$$user, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ServerView getAnything(){
+        return (view.ServerView)this.anything;
     }
 }
 
@@ -646,24 +741,121 @@ class FractionDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class ServerDefaultDetailPanel extends DefaultDetailPanel{
+class UnitTypeDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Server$$user = "Server$$user";
+    protected static final String UnitType$$defaultUnit = "UnitType$$defaultUnit";
     
-    protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected UnitTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.UnitTypeView getAnything(){
+        return (view.UnitTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class UnitDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AbsUnit$$name = "AbsUnit$$name";
+    protected static final String Unit$$unitType = "Unit$$unitType";
+    
+    protected UnitDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new StringPanel(this, "user", this.getAnything().getUser());
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
             this.getScrollablePane().add(panel);
-            this.panels.put(Server$$user, panel);
+            this.panels.put(AbsUnit$$name, panel);
         }catch(view.ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         
     }
-    protected view.ServerView getAnything(){
-        return (view.ServerView)this.anything;
+    protected view.UnitView getAnything(){
+        return (view.UnitView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class UnitReferenceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AbsUnit$$name = "AbsUnit$$name";
+    
+    protected UnitReferenceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(AbsUnit$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.UnitReferenceView getAnything(){
+        return (view.UnitReferenceView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ConversionRateDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ConversionRate$$fromUnit = "ConversionRate$$fromUnit";
+    protected static final String ConversionRate$$toUnit = "ConversionRate$$toUnit";
+    protected static final String ConversionRate$$conversionRate = "ConversionRate$$conversionRate";
+    
+    protected ConversionRateDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ConversionRateView getAnything(){
+        return (view.ConversionRateView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class CompoundUnitDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AbsUnit$$name = "AbsUnit$$name";
+    
+    protected CompoundUnitDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(AbsUnit$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.CompoundUnitView getAnything(){
+        return (view.CompoundUnitView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ComposedQuantityDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ComposedQuantity$$parts = "ComposedQuantity$$parts";
+    
+    protected ComposedQuantityDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ComposedQuantityView getAnything(){
+        return (view.ComposedQuantityView)this.anything;
     }
 }

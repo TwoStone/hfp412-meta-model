@@ -50,21 +50,15 @@ public class Fraction extends TestCase {
 		assertEquals(1, multFraction.getDenominator());
 	}
 
-	public void testFractionMul02() {
-		try {
-			PersistentFraction fraction1 = model.Fraction.createFraction(1,2);
-			PersistentFraction fraction2 = model.Fraction.createFraction(2,3);
+	public void testFractionMul02() throws Exception {
+		PersistentFraction fraction1 = model.Fraction.createFraction(1,2);
+		PersistentFraction fraction2 = model.Fraction.createFraction(2,3);
 
-			PersistentFraction result = fraction1.mul(fraction2);
-			assertEquals(1, result.getEnumerator());
-			assertEquals(3, result.getDenominator());
-
-		} catch (PersistenceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PersistentFraction result = fraction1.mul(fraction2);
+		assertEquals(1, result.getEnumerator());
+		assertEquals(3, result.getDenominator());
 	}
-	
+
 	public void testFractionToRational() throws Exception {
 		PersistentFraction bruch1 = model.Fraction.createFraction(10,2);
 		PersistentFraction bruch2 = model.Fraction.createFraction(3,9);

@@ -31,5 +31,60 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void handleConversionRate(PersistentConversionRate conversionRate)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleQuantity(PersistentQuantity quantity)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleTypeReference(PersistentTypeReference typeReference)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleCompoundUnitType(
+			PersistentCompoundUnitType compoundUnitType)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleCompoundUnit(PersistentCompoundUnit compoundUnit)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleUnit(PersistentUnit unit) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleUnitReference(PersistentUnitReference unitReference)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleUnitType(PersistentUnitType unitType)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleComposedQuantity(
+			PersistentComposedQuantity composedQuantity)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
