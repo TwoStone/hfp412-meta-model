@@ -1,48 +1,111 @@
 model quantity {
+/*-------------------------------------------------------------------------
+	FASSADEN
+-------------------------------------------------------------------------*/
+
 
 	server Server {
 		
 	}
 
-	class Fraction {																				// Bruch
-		prior Integer enumerator;															// Zähler
-		prior Integer denominator;														// Nenner
-		Fraction toRational(); 																// Bruch kürzen
-		Fraction add(Fraction fraction); 											// Addition von zwei Brüchen
-		Fraction mul(Fraction fraction); 											// Multiplikation von zwei Brüchen
+	singleton TransactionFcde {
+
 	}
 
-	abstract class AbsUnitType {}														// Abstrakter Einheitentyp
-	class UnitType extends AbsUnitType { 										// Einheitentyp (z.B. Länge, Währung, etc.)
-		prior Unit defaultUnit;																// Standard Einheit
-	}
-	class TypeReference extends AbsUnitType {}
-	class CompoundUnitType extends AbsUnitType {	// Zusammengesetzter Einheitentyp (z.B. Geschwindigkeit)
-	}	
 
-	abstract class AbsUnit {																	// Abstrakte Einheit
-		prior String name;
-	}
-	class Unit extends AbsUnit {															// Einheit (z.B. cm, EUR, etc.)
-		prior UnitType unitType;																// Einheitentyp
-	}
-	class UnitReference extends AbsUnit {}
-	class CompoundUnit extends AbsUnit {} 											// Zusammengesetzte Einheit (z.B. m/s)
+/*-------------------------------------------------------------------------
+	MANAGER KLASSEN
+-------------------------------------------------------------------------*/
 
-	class ConversionRate {																			// Umrechungsfaktor
-		prior Unit fromUnit;																			// Von Einheit
-		prior Unit toUnit;																				// Nach Einheit
-		prior Fraction conversionRate;														// Umrechnungsfaktor
+	singleton TypeManager {
+		AbsUnitType ** unitTypes;
 	}
 
-	abstract class AbsQuantity {}																// Abstrakte Anzahl
-	class Quantity extends AbsQuantity {												// Anzahl
-		prior Fraction amount;																		// Betrag
-		prior Unit unit;																					// Einheit
+	singleton QuantityManager {
+		Quantity ** quantities;
 	}
-	class ComposedQuantity extends AbsQuantity { // Zusammengesetzte Anzahl
-		Quantity** parts;
-	}	
 
+	singleton UnitManager {
+		AbsUnit ** units;
+	}
+
+	singleton ConversionManager {
+		Conversion ** conversions;
+	}
+
+/*-------------------------------------------------------------------------
+	MODELL KLASSEN
+-------------------------------------------------------------------------*/
+	abstract	class AbsQuantity {
+		/*
+		Rückgabetyp AbstractQuantity oder void?
+		Verschmelzen zwei Quantitäten miteinander?
+		*/
+		AbsQuantity add(AbsQuantity summand);
+		AbsQuantity subtract(AbsQuantity minuend);
+		AbsQuantity mult(AbsQuantity factor);
+		AbsQuantity divide(AbsQuantity divisor);
+	}
+
+	class Quantity extends AbsQuantity {
+		
+		Fraction amount;
+		Unit unit;
+	
+	}
+
+	class CompoundQuantity extends AbsQuantity {
+		Quantity ** parts; // +
+	}
+
+	abstract class AbsUnit {
+		AbsUnitType type; // 1
+		String name;
+	}
+
+	class CompUnit extends AbsUnit {
+		Reference ** refs;
+	}
+	class Unit extends AbsUnit {}
+
+	abstract class AbsUnitType {
+		AbsUnit defaultUnit; // 0..1
+		String name;
+	}
+
+	class CompUnitType extends AbsUnitType {
+		ReferenceType ** refs;	
+	}
+
+	class UnitType extends AbsUnitType {}
+
+	class ReferenceType {
+		Integer exponent;
+		UnitType ref;
+	}
+	class Reference {
+		ReferenceType type;
+		Integer exponent;
+		Unit ref;
+	}
+	
+	class Conversion {
+		// from und to sind Oracle-Schlüsselwörter.
+		Unit source;
+		Unit target;
+
+		Fraction factor;
+		Fraction constant;
+		Function f;
+	}
+
+	/*
+	Wie muss eine Function aussehen?
+	*/
+	class Function {}
+
+	
+	
+	
 
 }
