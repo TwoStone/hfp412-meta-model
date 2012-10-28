@@ -1,0 +1,111 @@
+model quantity {
+/*-------------------------------------------------------------------------
+	FASSADEN
+-------------------------------------------------------------------------*/
+
+
+	server Server {
+		
+	}
+
+	singleton TransactionFcde {
+
+	}
+
+
+/*-------------------------------------------------------------------------
+	MANAGER KLASSEN
+-------------------------------------------------------------------------*/
+
+	singleton TypeManager {
+		AbsUnitType ** unitTypes;
+	}
+
+	singleton QuantityManager {
+		Quantity ** quantities;
+	}
+
+	singleton UnitManager {
+		AbsUnit ** units;
+	}
+
+	singleton ConversionManager {
+		Conversion ** conversions;
+	}
+
+/*-------------------------------------------------------------------------
+	MODELL KLASSEN
+-------------------------------------------------------------------------*/
+	abstract	class AbsQuantity {
+		/*
+		Rückgabetyp AbstractQuantity oder void?
+		Verschmelzen zwei Quantitäten miteinander?
+		*/
+		AbsQuantity add(AbsQuantity summand);
+		AbsQuantity subtract(AbsQuantity minuend);
+		AbsQuantity mult(AbsQuantity factor);
+		AbsQuantity divide(AbsQuantity divisor);
+	}
+
+	class Quantity extends AbsQuantity {
+		
+		Fraction amount;
+		Unit unit;
+	
+	}
+
+	class CompoundQuantity extends AbsQuantity {
+		Quantity ** parts; // +
+	}
+
+	abstract class AbsUnit {
+		AbsUnitType type; // 1
+		String name;
+	}
+
+	class CompUnit extends AbsUnit {
+		Reference ** refs;
+	}
+	class Unit extends AbsUnit {}
+
+	abstract class AbsUnitType {
+		AbsUnit defaultUnit; // 0..1
+		String name;
+	}
+
+	class CompUnitType extends AbsUnitType {
+		ReferenceType ** refs;	
+	}
+
+	class UnitType extends AbsUnitType {}
+
+	class ReferenceType {
+		Integer exponent;
+		UnitType ref;
+	}
+	class Reference {
+		ReferenceType type;
+		Integer exponent;
+		Unit ref;
+	}
+	
+	class Conversion {
+		// from und to sind Oracle-Schlüsselwörter.
+		Unit source;
+		Unit target;
+
+		Fraction factor;
+		Fraction constant;
+		Function f;
+	}
+
+	/*
+	Wie muss eine Function aussehen?
+	*/
+	class Function {}
+
+	
+	
+	
+
+}
