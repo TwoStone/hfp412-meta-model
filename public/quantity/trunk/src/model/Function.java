@@ -15,19 +15,23 @@ public class Function extends PersistentObject implements PersistentFunction{
         return (PersistentFunction)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentFunction createFunction() throws PersistenceException {
+    public static PersistentFunction createFunction(common.Fraction factor,common.Fraction constant) throws PersistenceException {
         PersistentFunction result = ConnectionHandler.getTheConnectionHandler().theFunctionFacade
-            .newFunction();
+            .newFunction(factor,constant);
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("factor", factor);
+        final$$Fields.put("constant", constant);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentFunction createFunction(PersistentFunction This) throws PersistenceException {
+    public static PersistentFunction createFunction(common.Fraction factor,common.Fraction constant,PersistentFunction This) throws PersistenceException {
         PersistentFunction result = ConnectionHandler.getTheConnectionHandler().theFunctionFacade
-            .newFunction();
+            .newFunction(factor,constant);
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("factor", factor);
+        final$$Fields.put("constant", constant);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -37,6 +41,8 @@ public class Function extends PersistentObject implements PersistentFunction{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("factor", this.getFactor().toString());
+            result.put("constant", this.getConstant().toString());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -45,7 +51,9 @@ public class Function extends PersistentObject implements PersistentFunction{
     
     public Function provideCopy() throws PersistenceException{
         Function result = this;
-        result = new Function(this.This, 
+        result = new Function(this.factor, 
+                              this.constant, 
+                              this.This, 
                               this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -54,22 +62,40 @@ public class Function extends PersistentObject implements PersistentFunction{
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
+    protected common.Fraction factor;
+    protected common.Fraction constant;
     protected PersistentFunction This;
     
-    public Function(PersistentFunction This,long id) throws persistence.PersistenceException {
+    public Function(common.Fraction factor,common.Fraction constant,PersistentFunction This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.factor = factor;
+        this.constant = constant;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
     static public long getTypeId() {
-        return 107;
+        return 129;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
+    public common.Fraction getFactor() throws PersistenceException {
+        return this.factor;
+    }
+    public void setFactor(common.Fraction newValue) throws PersistenceException {
+        ConnectionHandler.getTheConnectionHandler().theFunctionFacade.factorSet(this.getId(), newValue);
+        this.factor = newValue;
+    }
+    public common.Fraction getConstant() throws PersistenceException {
+        return this.constant;
+    }
+    public void setConstant(common.Fraction newValue) throws PersistenceException {
+        ConnectionHandler.getTheConnectionHandler().theFunctionFacade.constantSet(this.getId(), newValue);
+        this.constant = newValue;
+    }
     protected void setThis(PersistentFunction newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.equals(this)){
@@ -107,6 +133,16 @@ public class Function extends PersistentObject implements PersistentFunction{
     }
     
     
+    public common.Fraction execute(final common.Fraction factor, final common.Fraction constant) 
+				throws PersistenceException{
+        //TODO: implement method: execute
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"execute\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
@@ -121,6 +157,8 @@ public class Function extends PersistentObject implements PersistentFunction{
 				throws PersistenceException{
         this.setThis((PersistentFunction)This);
 		if(this.equals(This)){
+			this.setFactor((common.Fraction)final$$Fields.get("factor"));
+			this.setConstant((common.Fraction)final$$Fields.get("constant"));
 		}
     }
     public void initializeOnCreation() 

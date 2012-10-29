@@ -19,9 +19,21 @@ public class FunctionICProxi extends PersistentInCacheProxiOptimistic implements
     }
     
     public long getClassId() {
-        return 107;
+        return 129;
     }
     
+    public common.Fraction getFactor() throws PersistenceException {
+        return ((PersistentFunction)this.getTheObject()).getFactor();
+    }
+    public void setFactor(common.Fraction newValue) throws PersistenceException {
+        ((PersistentFunction)this.getTheObject()).setFactor(newValue);
+    }
+    public common.Fraction getConstant() throws PersistenceException {
+        return ((PersistentFunction)this.getTheObject()).getConstant();
+    }
+    public void setConstant(common.Fraction newValue) throws PersistenceException {
+        ((PersistentFunction)this.getTheObject()).setConstant(newValue);
+    }
     public PersistentFunction getThis() throws PersistenceException {
         return ((PersistentFunction)this.getTheObject()).getThis();
     }
@@ -40,6 +52,10 @@ public class FunctionICProxi extends PersistentInCacheProxiOptimistic implements
     }
     
     
+    public common.Fraction execute(final common.Fraction factor, final common.Fraction constant) 
+				throws PersistenceException{
+        return ((PersistentFunction)this.getTheObject()).execute(factor, constant);
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentFunction)this.getTheObject()).initializeOnInstantiation();

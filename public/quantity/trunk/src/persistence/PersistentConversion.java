@@ -10,12 +10,8 @@ public interface PersistentConversion extends Anything, AbstractPersistentProxi 
     public void setSource(PersistentUnit newValue) throws PersistenceException ;
     public PersistentUnit getTarget() throws PersistenceException ;
     public void setTarget(PersistentUnit newValue) throws PersistenceException ;
-    public common.Fraction getFactor() throws PersistenceException ;
-    public void setFactor(common.Fraction newValue) throws PersistenceException ;
-    public common.Fraction getConstant() throws PersistenceException ;
-    public void setConstant(common.Fraction newValue) throws PersistenceException ;
-    public PersistentFunction getF() throws PersistenceException ;
-    public void setF(PersistentFunction newValue) throws PersistenceException ;
+    public PersistentFunction getConvFunction() throws PersistenceException ;
+    public void setConvFunction(PersistentFunction newValue) throws PersistenceException ;
     public PersistentConversion getThis() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;

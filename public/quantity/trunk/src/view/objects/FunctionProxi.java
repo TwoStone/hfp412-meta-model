@@ -12,7 +12,9 @@ public class FunctionProxi extends ViewProxi implements FunctionView{
     }
     
     public FunctionView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        FunctionView result$$ = new Function( this.getId(), this.getClassId());
+        common.Fraction factor = common.Fraction.parse((String)resultTable.get("factor"));
+        common.Fraction constant = common.Fraction.parse((String)resultTable.get("constant"));
+        FunctionView result$$ = new Function((common.Fraction)factor,(common.Fraction)constant, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -35,6 +37,18 @@ public class FunctionProxi extends ViewProxi implements FunctionView{
         return -1;
     }
     
+    public common.Fraction getFactor() throws ModelException {
+        return ((Function)this.getTheObject()).getFactor();
+    }
+    public void setFactor(common.Fraction newValue) throws ModelException {
+        ((Function)this.getTheObject()).setFactor(newValue);
+    }
+    public common.Fraction getConstant() throws ModelException {
+        return ((Function)this.getTheObject()).getConstant();
+    }
+    public void setConstant(common.Fraction newValue) throws ModelException {
+        ((Function)this.getTheObject()).setConstant(newValue);
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleFunction(this);

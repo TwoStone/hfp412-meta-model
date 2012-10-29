@@ -9,20 +9,36 @@ import view.visitor.*;
 
 public class Function extends ViewObject implements FunctionView{
     
+    protected common.Fraction factor;
+    protected common.Fraction constant;
     
-    public Function(long id, long classId) {
+    public Function(common.Fraction factor,common.Fraction constant,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(id, classId);        
+        super(id, classId);
+        this.factor = factor;
+        this.constant = constant;        
     }
     
     static public long getTypeId() {
-        return 107;
+        return 129;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
+    public common.Fraction getFactor() throws ModelException {
+        return this.factor;
+    }
+    public void setFactor(common.Fraction newValue) throws ModelException {
+        this.factor = newValue;
+    }
+    public common.Fraction getConstant() throws ModelException {
+        return this.constant;
+    }
+    public void setConstant(common.Fraction newValue) throws ModelException {
+        this.constant = newValue;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleFunction(this);
@@ -57,13 +73,29 @@ public class Function extends ViewObject implements FunctionView{
         
         return -1;
     }
+    public int getFactorIndex() throws ModelException {
+        return 0;
+    }
+    public int getConstantIndex() throws ModelException {
+        return 0 + 1;
+    }
     public int getRowCount(){
-        return 0 ;
+        return 0 
+            + 1
+            + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
+                if(rowIndex == 0) return "factor";
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "constant";
+                rowIndex = rowIndex - 1;
             } else {
+                if(rowIndex == 0) return this.getFactor();
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getConstant();
+                rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
         } catch (ModelException e){
@@ -75,7 +107,16 @@ public class Function extends ViewObject implements FunctionView{
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        
+        if(rowIndex == 0){
+            this.setFactor(common.Fraction.parse(newValue));
+            return;
+        }
+        rowIndex = rowIndex - 1;
+        if(rowIndex == 0){
+            this.setConstant(common.Fraction.parse(newValue));
+            return;
+        }
+        rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
         return false;

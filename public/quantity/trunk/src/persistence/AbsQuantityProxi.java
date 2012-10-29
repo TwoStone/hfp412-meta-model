@@ -15,17 +15,21 @@ public abstract class AbsQuantityProxi extends PersistentProxi implements Persis
     
     
     
-    public PersistentAbsQuantity divide(final PersistentAbsQuantity divisor) 
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend) 
 				throws PersistenceException{
-        return ((PersistentAbsQuantity)this.getTheObject()).divide(divisor);
+        return ((PersistentAbsQuantity)this.getTheObject()).sub(minuend);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentAbsQuantity)this.getTheObject()).initializeOnInstantiation();
     }
-    public PersistentAbsQuantity subtract(final PersistentAbsQuantity minuend) 
+    public PersistentAbsQuantity mul(final PersistentAbsQuantity factor) 
 				throws PersistenceException{
-        return ((PersistentAbsQuantity)this.getTheObject()).subtract(minuend);
+        return ((PersistentAbsQuantity)this.getTheObject()).mul(factor);
+    }
+    public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
+				throws PersistenceException{
+        return ((PersistentAbsQuantity)this.getTheObject()).div(divisor);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -34,10 +38,6 @@ public abstract class AbsQuantityProxi extends PersistentProxi implements Persis
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentAbsQuantity)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public PersistentAbsQuantity mult(final PersistentAbsQuantity factor) 
-				throws PersistenceException{
-        return ((PersistentAbsQuantity)this.getTheObject()).mult(factor);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

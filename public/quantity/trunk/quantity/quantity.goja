@@ -42,16 +42,14 @@ model quantity {
 		Verschmelzen zwei Quantitäten miteinander?
 		*/
 		AbsQuantity add(AbsQuantity summand);
-		AbsQuantity subtract(AbsQuantity minuend);
-		AbsQuantity mult(AbsQuantity factor);
-		AbsQuantity divide(AbsQuantity divisor);
+		AbsQuantity sub(AbsQuantity minuend);
+		AbsQuantity mul(AbsQuantity factor);
+		AbsQuantity div(AbsQuantity divisor);
 	}
 
 	class Quantity extends AbsQuantity {
-		
 		Fraction amount;
 		Unit unit;
-	
 	}
 
 	class CompoundQuantity extends AbsQuantity {
@@ -94,17 +92,15 @@ model quantity {
 		Unit source;
 		Unit target;
 
-		Fraction factor;
-		Fraction constant;
-		Function f;
+		Function convFunction;
+
 	}
 
-	/*
-	Wie muss eine Function aussehen?
-	*/
-	class Function {}
-	
-	
-	
+		//Wie muss eine Function aussehen? --> y=a*x+b	
+	class 	Function{
+		prior Fraction factor;
+		prior Fraction constant;
+		Fraction execute(Fraction factor, Fraction constant);
+	}
 
 }

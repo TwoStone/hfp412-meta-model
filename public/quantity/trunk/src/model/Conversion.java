@@ -17,7 +17,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     public static PersistentConversion createConversion() throws PersistenceException {
         PersistentConversion result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
-            .newConversion(common.Fraction.Null,common.Fraction.Null);
+            .newConversion();
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
@@ -26,7 +26,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     public static PersistentConversion createConversion(PersistentConversion This) throws PersistenceException {
         PersistentConversion result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
-            .newConversion(common.Fraction.Null,common.Fraction.Null);
+            .newConversion();
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -55,15 +55,13 @@ public class Conversion extends PersistentObject implements PersistentConversion
                     if(forGUI && target.hasEssentialFields())target.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            result.put("factor", this.getFactor().toString());
-            result.put("constant", this.getConstant().toString());
-            AbstractPersistentRoot f = (AbstractPersistentRoot)this.getF();
-            if (f != null) {
-                result.put("f", f.createProxiInformation(false));
+            AbstractPersistentRoot convFunction = (AbstractPersistentRoot)this.getConvFunction();
+            if (convFunction != null) {
+                result.put("convFunction", convFunction.createProxiInformation(false));
                 if(depth > 1) {
-                    f.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    convFunction.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && f.hasEssentialFields())f.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && convFunction.hasEssentialFields())convFunction.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -76,9 +74,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
         Conversion result = this;
         result = new Conversion(this.source, 
                                 this.target, 
-                                this.factor, 
-                                this.constant, 
-                                this.f, 
+                                this.convFunction, 
                                 this.This, 
                                 this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -90,19 +86,15 @@ public class Conversion extends PersistentObject implements PersistentConversion
     }
     protected PersistentUnit source;
     protected PersistentUnit target;
-    protected common.Fraction factor;
-    protected common.Fraction constant;
-    protected PersistentFunction f;
+    protected PersistentFunction convFunction;
     protected PersistentConversion This;
     
-    public Conversion(PersistentUnit source,PersistentUnit target,common.Fraction factor,common.Fraction constant,PersistentFunction f,PersistentConversion This,long id) throws persistence.PersistenceException {
+    public Conversion(PersistentUnit source,PersistentUnit target,PersistentFunction convFunction,PersistentConversion This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.source = source;
         this.target = target;
-        this.factor = factor;
-        this.constant = constant;
-        this.f = f;
+        this.convFunction = convFunction;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -136,30 +128,16 @@ public class Conversion extends PersistentObject implements PersistentConversion
         this.target = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
         ConnectionHandler.getTheConnectionHandler().theConversionFacade.targetSet(this.getId(), newValue);
     }
-    public common.Fraction getFactor() throws PersistenceException {
-        return this.factor;
+    public PersistentFunction getConvFunction() throws PersistenceException {
+        return this.convFunction;
     }
-    public void setFactor(common.Fraction newValue) throws PersistenceException {
-        ConnectionHandler.getTheConnectionHandler().theConversionFacade.factorSet(this.getId(), newValue);
-        this.factor = newValue;
-    }
-    public common.Fraction getConstant() throws PersistenceException {
-        return this.constant;
-    }
-    public void setConstant(common.Fraction newValue) throws PersistenceException {
-        ConnectionHandler.getTheConnectionHandler().theConversionFacade.constantSet(this.getId(), newValue);
-        this.constant = newValue;
-    }
-    public PersistentFunction getF() throws PersistenceException {
-        return this.f;
-    }
-    public void setF(PersistentFunction newValue) throws PersistenceException {
+    public void setConvFunction(PersistentFunction newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.f)) return;
+        if(newValue.equals(this.convFunction)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.f = (PersistentFunction)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theConversionFacade.fSet(this.getId(), newValue);
+        this.convFunction = (PersistentFunction)PersistentProxi.createProxi(objectId, classId);
+        ConnectionHandler.getTheConnectionHandler().theConversionFacade.convFunctionSet(this.getId(), newValue);
     }
     protected void setThis(PersistentConversion newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -197,7 +175,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
         return (int) (0 
             + (this.getSource() == null ? 0 : 1)
             + (this.getTarget() == null ? 0 : 1)
-            + (this.getF() == null ? 0 : 1));
+            + (this.getConvFunction() == null ? 0 : 1));
     }
     
     

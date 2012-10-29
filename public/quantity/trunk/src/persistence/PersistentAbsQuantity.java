@@ -13,19 +13,19 @@ public interface PersistentAbsQuantity extends Anything, AbstractPersistentProxi
     public <E extends UserException>  void accept(AbsQuantityExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AbsQuantityReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public PersistentAbsQuantity divide(final PersistentAbsQuantity divisor) 
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend) 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public PersistentAbsQuantity subtract(final PersistentAbsQuantity minuend) 
+    public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
+				throws PersistenceException;
+    public PersistentAbsQuantity mul(final PersistentAbsQuantity factor) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void initializeOnCreation() 
-				throws PersistenceException;
-    public PersistentAbsQuantity mult(final PersistentAbsQuantity factor) 
 				throws PersistenceException;
     public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
 				throws PersistenceException;

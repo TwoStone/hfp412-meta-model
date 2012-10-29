@@ -34,23 +34,11 @@ public class ConversionProxi extends PersistentProxi implements PersistentConver
     public void setTarget(PersistentUnit newValue) throws PersistenceException {
         ((PersistentConversion)this.getTheObject()).setTarget(newValue);
     }
-    public common.Fraction getFactor() throws PersistenceException {
-        return ((PersistentConversion)this.getTheObject()).getFactor();
+    public PersistentFunction getConvFunction() throws PersistenceException {
+        return ((PersistentConversion)this.getTheObject()).getConvFunction();
     }
-    public void setFactor(common.Fraction newValue) throws PersistenceException {
-        ((PersistentConversion)this.getTheObject()).setFactor(newValue);
-    }
-    public common.Fraction getConstant() throws PersistenceException {
-        return ((PersistentConversion)this.getTheObject()).getConstant();
-    }
-    public void setConstant(common.Fraction newValue) throws PersistenceException {
-        ((PersistentConversion)this.getTheObject()).setConstant(newValue);
-    }
-    public PersistentFunction getF() throws PersistenceException {
-        return ((PersistentConversion)this.getTheObject()).getF();
-    }
-    public void setF(PersistentFunction newValue) throws PersistenceException {
-        ((PersistentConversion)this.getTheObject()).setF(newValue);
+    public void setConvFunction(PersistentFunction newValue) throws PersistenceException {
+        ((PersistentConversion)this.getTheObject()).setConvFunction(newValue);
     }
     public PersistentConversion getThis() throws PersistenceException {
         return ((PersistentConversion)this.getTheObject()).getThis();

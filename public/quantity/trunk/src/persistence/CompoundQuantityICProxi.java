@@ -55,9 +55,9 @@ public class CompoundQuantityICProxi extends AbsQuantityICProxi implements Persi
     }
     
     
-    public PersistentAbsQuantity divide(final PersistentAbsQuantity divisor) 
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend) 
 				throws PersistenceException{
-        return ((PersistentCompoundQuantity)this.getTheObject()).divide(divisor);
+        return ((PersistentCompoundQuantity)this.getTheObject()).sub(minuend);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -67,9 +67,13 @@ public class CompoundQuantityICProxi extends AbsQuantityICProxi implements Persi
 				throws PersistenceException{
         ((PersistentCompoundQuantity)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public PersistentAbsQuantity subtract(final PersistentAbsQuantity minuend) 
+    public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
 				throws PersistenceException{
-        return ((PersistentCompoundQuantity)this.getTheObject()).subtract(minuend);
+        return ((PersistentCompoundQuantity)this.getTheObject()).div(divisor);
+    }
+    public PersistentAbsQuantity mul(final PersistentAbsQuantity factor) 
+				throws PersistenceException{
+        return ((PersistentCompoundQuantity)this.getTheObject()).mul(factor);
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -78,10 +82,6 @@ public class CompoundQuantityICProxi extends AbsQuantityICProxi implements Persi
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentCompoundQuantity)this.getTheObject()).initializeOnCreation();
-    }
-    public PersistentAbsQuantity mult(final PersistentAbsQuantity factor) 
-				throws PersistenceException{
-        return ((PersistentCompoundQuantity)this.getTheObject()).mult(factor);
     }
     public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
 				throws PersistenceException{

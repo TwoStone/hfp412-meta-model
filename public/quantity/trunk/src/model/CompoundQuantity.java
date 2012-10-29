@@ -164,21 +164,21 @@ public class CompoundQuantity extends model.AbsQuantity implements PersistentCom
     }
 
 	@Override
-	public PersistentAbsQuantity divide(PersistentAbsQuantity divisor)
+	public PersistentAbsQuantity sub(PersistentAbsQuantity minuend)
 			throws PersistenceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PersistentAbsQuantity subtract(PersistentAbsQuantity minuend)
+	public PersistentAbsQuantity div(PersistentAbsQuantity divisor)
 			throws PersistenceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PersistentAbsQuantity mult(PersistentAbsQuantity factor)
+	public PersistentAbsQuantity mul(PersistentAbsQuantity factor)
 			throws PersistenceException {
 		// TODO Auto-generated method stub
 		return null;

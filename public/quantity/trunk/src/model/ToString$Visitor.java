@@ -76,12 +76,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		
 	}
 	@Override
-	public void handleFunction(PersistentFunction function)
-			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public void handleQuantityManager(PersistentQuantityManager quantityManager)
 			throws PersistenceException {
 		// TODO Auto-generated method stub
@@ -130,6 +124,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleCompUnitType(PersistentCompUnitType compUnitType)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleFunction(PersistentFunction function)
 			throws PersistenceException {
 		// TODO Auto-generated method stub
 		
