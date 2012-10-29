@@ -1,0 +1,39 @@
+% Kurzanleitung (weiteres siehe Commands-Datei)
+
+% Eine Abkürzung wird folgendermaßen hinzugefügt:
+%	\addAc{Label}{Kurzform}{Langform}
+% Das Label sollte dabei nur [A-Za-z0-9] enthalten
+% und wird nur zum Referenzieren benutzt (nie im Dokument).
+% Es muss natürlich global eindeutig sein.
+
+% Alternativ lässt sich eine Abkürzung mit Pluralform hinzufügen:
+%	\addAcp{Label}{Kurzform}{Kurzform im Plural}{Langform}{Langform im Plural}
+
+% Eine Abkürzung wird im Text folgendermaßen referenziert:
+%	\ac{Label}	Gibt beim ersten Vorkommen Beschreibung + Abkürzung aus, danach nur noch die Abkürzung
+%	\acf{Label}	Beschreibung + Abkürzung wird ausgegeben
+%	\acs{Label}	Nur die Abkürzung wird ausgegeben
+%	\acl{Label}	Nur die Beschreibung wird ausgegeben
+
+% Für die Pluralformen gibt es analog:
+%	\acp{Label}
+%	\acfp{Label}
+%	\acsp{Label}
+% Leider gibt es \aclp{Label} aufgrund eines internen Fehlers nicht.
+
+% Möchte man nicht die normale Kurz- bzw. Langform ausgeben,
+% gibt es zudem die folgende Möglichkeit:
+%	\aca{Label}{Alternative Beschriftung}
+
+% Und falls man z. B. den Genitiv bilden möchte:
+%	\ace{Label}{Suffix}	Gibt die Kurzform mit angehängtem Suffix aus
+
+\addAc	{EDV}{EDV}{Elektronische Datenverarbeitung}
+\addAc	{GmbH}{GmbH}{Gesellschaft mit beschränkter Haftung}
+\addAcp	{ibA}{ibA}{ibAs}{iVAS-basierende Anwendung}{iVAS-basierende Anwendungen}
+\addAc	{IT}{IT}{Informationstechnologie}
+\addAc	{iVAS}{iVAS}{ivv Versicherungsanwendungssystem}
+\addAc	{ivv}{ivv}{Informationsverarbeitung für Versicherungen GmbH}
+\addAc	{Java EE}{Java EE}{Java Platform, Enterprise Edition}
+\addAc	{OEVO}{ÖVO}{Öffentliche Versicherung Oldenburg}
+\addAc	{VGH}{VGH}{Versicherungsgruppe Hannover}
