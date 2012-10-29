@@ -140,6 +140,8 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
+    
+    
     public boolean containsMCTypeHierarchy(final MCTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;

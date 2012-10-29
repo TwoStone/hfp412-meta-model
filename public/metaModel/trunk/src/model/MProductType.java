@@ -175,4 +175,5 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
     /* Start of protected part that is not overridden by persistence generator */
 	public static final String TYPE_LINK_OPERATOR = "*"; 
     /* End of protected part that is not overridden by persistence generator */
+    
 }
