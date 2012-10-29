@@ -58,6 +58,15 @@ public class Server extends PersistentObject implements PersistentServer{
                     if(forGUI && typeManager.hasEssentialFields())typeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            AbstractPersistentRoot aspectManager = (AbstractPersistentRoot)this.getAspectManager(tdObserver);
+            if (aspectManager != null) {
+                result.put("aspectManager", aspectManager.createProxiInformation(false));
+                if(depth > 1) {
+                    aspectManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && aspectManager.hasEssentialFields())aspectManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             result.put("user", this.getUser());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -208,19 +217,11 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + (this.getTypeManager() == null ? 0 : 1));
+            + (this.getTypeManager() == null ? 0 : 1)
+            + (this.getAspectManager() == null ? 0 : 1));
     }
     
     
-    public void addAtomicType(final String name) 
-				throws PersistenceException{
-        //TODO: implement method: addAtomicType
-        
-    }
-    public PersistentTypeManager getTypeManager() 
-				throws PersistenceException{
-        return model.TypeManager.getTheTypeManager();
-    }
     public void handleResult(final Command command) 
 				throws PersistenceException{
         new Thread(new Runnable(){
@@ -242,6 +243,10 @@ public class Server extends PersistentObject implements PersistentServer{
 			}
 		}).start();
     }
+    public PersistentTypeManager getTypeManager() 
+				throws PersistenceException{
+        return model.TypeManager.getTheTypeManager();
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         this.changed = signal;
@@ -250,6 +255,12 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
+    }
+    public PersistentAspectManager getAspectManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentAspectManager result = getThis().getAspectManager();
+		observer.updateTransientDerived(getThis(), "aspectManager", result);
+		return result;
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -278,6 +289,10 @@ public class Server extends PersistentObject implements PersistentServer{
 		observer.updateTransientDerived(getThis(), "typeManager", result);
 		return result;
     }
+    public PersistentAspectManager getAspectManager() 
+				throws PersistenceException{
+        return model.AspectManager.getTheAspectManager();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
@@ -300,6 +315,11 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackCount((Long)final$$Fields.get("hackCount"));
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
+    }
+    public void addAtomicType(final PersistentMAspect aspect, final String name) 
+				throws PersistenceException{
+        //TODO: implement method: addAtomicType
+        
     }
 
     /* Start of protected part that is not overridden by persistence generator */

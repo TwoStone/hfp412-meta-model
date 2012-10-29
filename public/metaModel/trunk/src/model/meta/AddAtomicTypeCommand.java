@@ -27,6 +27,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected PersistentMAspect aspect;
     protected String name;
     protected Invoker invoker;
     protected PersistentTypeManager commandReceiver;
@@ -34,9 +35,10 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     
     private model.UserException commandException = null;
     
-    public AddAtomicTypeCommand(String name,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public AddAtomicTypeCommand(PersistentMAspect aspect,String name,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.aspect = aspect;
         this.name = name;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
@@ -51,6 +53,17 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
         return getTypeId();
     }
     
+    public PersistentMAspect getAspect() throws PersistenceException {
+        return this.aspect;
+    }
+    public void setAspect(PersistentMAspect newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.aspect)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.aspect = (PersistentMAspect)PersistentProxi.createProxi(objectId, classId);
+        ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.aspectSet(this.getId(), newValue);
+    }
     public String getName() throws PersistenceException {
         return this.name;
     }
@@ -159,6 +172,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
+            + (this.getAspect() == null ? 0 : 1)
             + (this.getCommandReceiver() == null ? 0 : 1));
     }
     
@@ -166,7 +180,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().addAtomicType(this.getName());
+			this.getCommandReceiver().addAtomicType(this.getAspect(), this.getName());
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;

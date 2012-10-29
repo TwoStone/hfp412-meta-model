@@ -10,11 +10,13 @@ import view.visitor.*;
 public class MAtomicType extends ViewObject implements MAtomicTypeView{
     
     protected String name;
+    protected MAspectView aspect;
     
-    public MAtomicType(String name,long id, long classId) {
+    public MAtomicType(String name,MAspectView aspect,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.name = name;        
+        this.name = name;
+        this.aspect = aspect;        
     }
     
     static public long getTypeId() {
@@ -30,6 +32,12 @@ public class MAtomicType extends ViewObject implements MAtomicTypeView{
     }
     public void setName(String newValue) throws ModelException {
         this.name = newValue;
+    }
+    public MAspectView getAspect() throws ModelException {
+        return this.aspect;
+    }
+    public void setAspect(MAspectView newValue) throws ModelException {
+        this.aspect = newValue;
     }
     
     public void accept(MTypeVisitor visitor) throws ModelException {
@@ -58,23 +66,33 @@ public class MAtomicType extends ViewObject implements MAtomicTypeView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
+        MAspectView aspect = this.getAspect();
+        if (aspect != null) {
+            ((ViewProxi)aspect).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(aspect.getClassId(), aspect.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
-        
+        int index = originalIndex;
+        if(index == 0 && this.getAspect() != null) return new AspectMAtomicTypeWrapper(this, originalIndex, (ViewRoot)this.getAspect());
+        if(this.getAspect() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getAspect() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        return true 
+            && (this.getAspect() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getAspect() != null && this.getAspect().equals(child)) return result;
+        if(this.getAspect() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {

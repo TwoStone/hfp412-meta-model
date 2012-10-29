@@ -13,7 +13,14 @@ public class MAtomicTypeProxi extends ViewProxi implements MAtomicTypeView{
     
     public MAtomicTypeView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
-        MAtomicTypeView result$$ = new MAtomicType((String)name, this.getId(), this.getClassId());
+        ViewProxi aspect = null;
+        String aspect$String = (String)resultTable.get("aspect");
+        if (aspect$String != null) {
+            common.ProxiInformation aspect$Info = common.RPCConstantsAndServices.createProxiInformation(aspect$String);
+            aspect = ViewProxi.createProxi(aspect$Info,connectionKey);
+            aspect.setToString(aspect$Info.getToString());
+        }
+        MAtomicTypeView result$$ = new MAtomicType((String)name,(MAspectView)aspect, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -22,17 +29,24 @@ public class MAtomicTypeProxi extends ViewProxi implements MAtomicTypeView{
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
-        
+        int index = originalIndex;
+        if(index == 0 && this.getAspect() != null) return new AspectMAtomicTypeWrapper(this, originalIndex, (ViewRoot)this.getAspect());
+        if(this.getAspect() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getAspect() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        if (this.object == null) return this.getLeafInfo() == 0;
+        return true 
+            && (this.getAspect() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getAspect() != null && this.getAspect().equals(child)) return result;
+        if(this.getAspect() != null) result = result + 1;
         return -1;
     }
     
@@ -41,6 +55,12 @@ public class MAtomicTypeProxi extends ViewProxi implements MAtomicTypeView{
     }
     public void setName(String newValue) throws ModelException {
         ((MAtomicType)this.getTheObject()).setName(newValue);
+    }
+    public MAspectView getAspect() throws ModelException {
+        return ((MAtomicType)this.getTheObject()).getAspect();
+    }
+    public void setAspect(MAspectView newValue) throws ModelException {
+        ((MAtomicType)this.getTheObject()).setAspect(newValue);
     }
     
     public void accept(MTypeVisitor visitor) throws ModelException {

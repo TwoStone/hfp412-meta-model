@@ -45,5 +45,16 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			throws PersistenceException {
 		result= "[TypeManager]";
 	}
+	@Override
+	public void handleAspectManager(PersistentAspectManager aspectManager)
+			throws PersistenceException {
+		result= "[AspectManager]";
+		
+	}
+	@Override
+	public void handleMAspect(PersistentMAspect mAspect)
+			throws PersistenceException {
+		result = "[Aspect] " + mAspect.getName();
+	}
 
 }

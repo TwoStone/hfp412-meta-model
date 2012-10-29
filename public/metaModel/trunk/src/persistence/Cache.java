@@ -260,11 +260,14 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
+		this.number2NameMap.put(125, "AddAspectCommand");
 		this.number2NameMap.put(122, "AddAtomicTypeCommand");
+		this.number2NameMap.put(126, "AspectManager");
 		this.number2NameMap.put(-120, "CommandCoordinator");
 		this.number2NameMap.put(-119, "CommandExecuter");
 		this.number2NameMap.put(121, "CommonDate");
 		this.number2NameMap.put(-104, "ErrorDisplay");
+		this.number2NameMap.put(127, "MAspect");
 		this.number2NameMap.put(102, "MAtomicType");
 		this.number2NameMap.put(101, "MProductType");
 		this.number2NameMap.put(103, "MSumType");

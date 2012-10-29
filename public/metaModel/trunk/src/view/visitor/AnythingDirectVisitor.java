@@ -9,6 +9,10 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleTypeManager(TypeManagerView typeManager) throws ModelException;
     
+    public abstract void handleMAspect(MAspectView mAspect) throws ModelException;
+    
+    public abstract void handleAspectManager(AspectManagerView aspectManager) throws ModelException;
+    
     public abstract void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     
     public abstract void handleServer(ServerView server) throws ModelException;

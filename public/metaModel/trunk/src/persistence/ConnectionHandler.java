@@ -105,16 +105,19 @@ public class ConnectionHandler {
 	private String name;
 
     public MProductTypeFacade theMProductTypeFacade;
-    public MAtomicTypeFacade theMAtomicTypeFacade;
     public TypeManagerFacade theTypeManagerFacade;
     public CommandExecuterFacade theCommandExecuterFacade;
-    public CommandCoordinatorFacade theCommandCoordinatorFacade;
-    public CommonDateFacade theCommonDateFacade;
-    public AddAtomicTypeCommandFacade theAddAtomicTypeCommandFacade;
-    public MSumTypeFacade theMSumTypeFacade;
+    public AddAspectCommandFacade theAddAspectCommandFacade;
+    public AspectManagerFacade theAspectManagerFacade;
     public ErrorDisplayFacade theErrorDisplayFacade;
     public ServerFacade theServerFacade;
     public MComplexTypeFacade theMComplexTypeFacade;
+    public MAtomicTypeFacade theMAtomicTypeFacade;
+    public CommandCoordinatorFacade theCommandCoordinatorFacade;
+    public MAspectFacade theMAspectFacade;
+    public CommonDateFacade theCommonDateFacade;
+    public MSumTypeFacade theMSumTypeFacade;
+    public AddAtomicTypeCommandFacade theAddAtomicTypeCommandFacade;
 
 	protected ConnectionHandler(String name) throws PersistenceException {
 		this.name = name;
@@ -137,16 +140,19 @@ public class ConnectionHandler {
 			callable.execute();
 			callable.close();
             this.theMProductTypeFacade= new MProductTypeFacade(this.schemaName, this.con);
-            this.theMAtomicTypeFacade= new MAtomicTypeFacade(this.schemaName, this.con);
             this.theTypeManagerFacade= new TypeManagerFacade(this.schemaName, this.con);
             this.theCommandExecuterFacade= new CommandExecuterFacade(this.schemaName, this.con);
-            this.theCommandCoordinatorFacade= new CommandCoordinatorFacade(this.schemaName, this.con);
-            this.theCommonDateFacade= new CommonDateFacade(this.schemaName, this.con);
-            this.theAddAtomicTypeCommandFacade= new AddAtomicTypeCommandFacade(this.schemaName, this.con);
-            this.theMSumTypeFacade= new MSumTypeFacade(this.schemaName, this.con);
+            this.theAddAspectCommandFacade= new AddAspectCommandFacade(this.schemaName, this.con);
+            this.theAspectManagerFacade= new AspectManagerFacade(this.schemaName, this.con);
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
             this.theServerFacade= new ServerFacade(this.schemaName, this.con);
             this.theMComplexTypeFacade= new MComplexTypeFacade(this.schemaName, this.con);
+            this.theMAtomicTypeFacade= new MAtomicTypeFacade(this.schemaName, this.con);
+            this.theCommandCoordinatorFacade= new CommandCoordinatorFacade(this.schemaName, this.con);
+            this.theMAspectFacade= new MAspectFacade(this.schemaName, this.con);
+            this.theCommonDateFacade= new CommonDateFacade(this.schemaName, this.con);
+            this.theMSumTypeFacade= new MSumTypeFacade(this.schemaName, this.con);
+            this.theAddAtomicTypeCommandFacade= new AddAtomicTypeCommandFacade(this.schemaName, this.con);
 		} catch (SQLException sqlExc) {
 			throw new PersistenceException(sqlExc.getMessage(), sqlExc.getErrorCode());
 		}

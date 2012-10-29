@@ -22,6 +22,12 @@ public class AddAtomicTypeCommandProxi extends PersistentProxi implements Persis
         return 122;
     }
     
+    public PersistentMAspect getAspect() throws PersistenceException {
+        return ((PersistentAddAtomicTypeCommand)this.getTheObject()).getAspect();
+    }
+    public void setAspect(PersistentMAspect newValue) throws PersistenceException {
+        ((PersistentAddAtomicTypeCommand)this.getTheObject()).setAspect(newValue);
+    }
     public String getName() throws PersistenceException {
         return ((PersistentAddAtomicTypeCommand)this.getTheObject()).getName();
     }

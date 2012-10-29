@@ -143,11 +143,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     
     
-    public void addAtomicType(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: addAtomicType
-        
-    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
@@ -164,18 +159,26 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		if(this.equals(This)){
 		}
     }
-    public void addAtomicType(final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddAtomicTypeCommand command = model.meta.AddAtomicTypeCommand.createAddAtomicTypeCommand(name, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    public void addAtomicType(final PersistentMAspect aspect, final String name) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        if (MAtomicType.getMAtomicTypeByName(name).getLength() > 0){
+        	throw new DoubleDefinitionException("AtomicType-names must be unique. An AtomicType with name " + name +" is already existing.");
+        }
+        getThis().getAtomicTypes().add(MAtomicType.createMAtomicType(name, aspect));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
+    }
+    public void addAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddAtomicTypeCommand command = model.meta.AddAtomicTypeCommand.createAddAtomicTypeCommand(name, now, now);
+		command.setAspect(aspect);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
 
     /* Start of protected part that is not overridden by persistence generator */

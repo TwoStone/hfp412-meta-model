@@ -8,6 +8,8 @@ public interface PersistentMAtomicType extends MType, Anything, AbstractPersiste
     
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
+    public PersistentMAspect getAspect() throws PersistenceException ;
+    public void setAspect(PersistentMAspect newValue) throws PersistenceException ;
     public PersistentMAtomicType getThis() throws PersistenceException ;
     
     public void accept(MTypeVisitor visitor) throws PersistenceException;

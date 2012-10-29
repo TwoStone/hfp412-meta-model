@@ -18,9 +18,10 @@ public class ServerConnection extends ConnectionMaster {
 		return (ServerView)super.getServer();
 	}
 
-    public synchronized void addAtomicType(String name) throws ModelException{
+    public synchronized void addAtomicType(MAspectView aspect, String name) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)aspect).createProxiInformation());
             parameters.add(name);
             Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "addAtomicType", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){

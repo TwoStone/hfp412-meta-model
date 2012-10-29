@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class MAtomicTypeList {
+public class MAtomicTypeList  extends MAtomicTypeSearchList{
 
-	protected Vector<PersistentMAtomicType> data; //List of proxies
 	protected MAtomicTypeList() {
-		this.data = new Vector<PersistentMAtomicType>();
+		super();
 	}
 	public Iterator<PersistentMAtomicType> iterator(PersistentListProxi<PersistentMAtomicType> listProxi) {
 		return new PersistentListIterator<PersistentMAtomicType>(listProxi, this.data);

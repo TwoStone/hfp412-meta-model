@@ -24,7 +24,7 @@ public class AddAtomicTypeCommandFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            AddAtomicTypeCommand result = new AddAtomicTypeCommand(name,null,null,null,id);
+            AddAtomicTypeCommand result = new AddAtomicTypeCommand(null,name,null,null,null,id);
             Cache.getTheCache().put(result);
             return (AddAtomicTypeCommandProxi)PersistentProxi.createProxi(id, 122);
         }catch(SQLException se) {
@@ -45,16 +45,20 @@ public class AddAtomicTypeCommandFacade{
                 callable.close();
                 return null;
             }
+            PersistentMAspect aspect = null;
+            if (obj.getLong(2) != 0)
+                aspect = (PersistentMAspect)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             Invoker invoker = null;
-            if (obj.getLong(3) != 0)
-                invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
-            PersistentTypeManager commandReceiver = null;
             if (obj.getLong(5) != 0)
-                commandReceiver = (PersistentTypeManager)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
-            PersistentCommonDate myCommonDate = null;
+                invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            PersistentTypeManager commandReceiver = null;
             if (obj.getLong(7) != 0)
-                myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
-            AddAtomicTypeCommand result = new AddAtomicTypeCommand(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+                commandReceiver = (PersistentTypeManager)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
+            PersistentCommonDate myCommonDate = null;
+            if (obj.getLong(9) != 0)
+                myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(9), obj.getLong(10));
+            AddAtomicTypeCommand result = new AddAtomicTypeCommand(aspect,
+                                                                   obj.getString(4) == null ? "" : obj.getString(4) /* In Oracle "" = null !!! */,
                                                                    invoker,
                                                                    commandReceiver,
                                                                    myCommonDate,
@@ -78,6 +82,19 @@ public class AddAtomicTypeCommandFacade{
             long result = callable.getLong(1);
             callable.close();
             return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void aspectSet(long AddAtomicTypeCommandId, PersistentMAspect aspectVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".AddAtmcTpCMDFacade.aspctSet(?, ?, ?); end;");
+            callable.setLong(1, AddAtomicTypeCommandId);
+            callable.setLong(2, aspectVal.getId());
+            callable.setLong(3, aspectVal.getClassId());
+            callable.execute();
+            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

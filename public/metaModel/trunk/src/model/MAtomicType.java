@@ -15,23 +15,25 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         return (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentMAtomicType createMAtomicType(String name) throws PersistenceException {
+    public static PersistentMAtomicType createMAtomicType(String name,PersistentMAspect aspect) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMAtomicType result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
             .newMAtomicType(name);
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("name", name);
+        final$$Fields.put("aspect", aspect);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentMAtomicType createMAtomicType(String name,PersistentMAtomicType This) throws PersistenceException {
+    public static PersistentMAtomicType createMAtomicType(String name,PersistentMAspect aspect,PersistentMAtomicType This) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMAtomicType result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
             .newMAtomicType(name);
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("name", name);
+        final$$Fields.put("aspect", aspect);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -42,15 +44,30 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("name", this.getName());
+            AbstractPersistentRoot aspect = (AbstractPersistentRoot)this.getAspect();
+            if (aspect != null) {
+                result.put("aspect", aspect.createProxiInformation(false));
+                if(depth > 1) {
+                    aspect.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && aspect.hasEssentialFields())aspect.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
         return result;
     }
     
+    public static MAtomicTypeSearchList getMAtomicTypeByName(String name) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+            .getMAtomicTypeByName(name);
+    }
+    
     public MAtomicType provideCopy() throws PersistenceException{
         MAtomicType result = this;
         result = new MAtomicType(this.name, 
+                                 this.aspect, 
                                  this.This, 
                                  this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -61,12 +78,14 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         return false;
     }
     protected String name;
+    protected PersistentMAspect aspect;
     protected PersistentMAtomicType This;
     
-    public MAtomicType(String name,PersistentMAtomicType This,long id) throws persistence.PersistenceException {
+    public MAtomicType(String name,PersistentMAspect aspect,PersistentMAtomicType This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
+        this.aspect = aspect;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -85,6 +104,17 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
+    }
+    public PersistentMAspect getAspect() throws PersistenceException {
+        return this.aspect;
+    }
+    public void setAspect(PersistentMAspect newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.aspect)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.aspect = (PersistentMAspect)PersistentProxi.createProxi(objectId, classId);
+        ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.aspectSet(this.getId(), newValue);
     }
     protected void setThis(PersistentMAtomicType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -143,7 +173,8 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
          return visitor.handleMAtomicType(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        return 0;
+        return (int) (0 
+            + (this.getAspect() == null ? 0 : 1));
     }
     
     
@@ -175,6 +206,7 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         this.setThis((PersistentMAtomicType)This);
 		if(this.equals(This)){
 			this.setName((String)final$$Fields.get("name"));
+			this.setAspect((PersistentMAspect)final$$Fields.get("aspect"));
 		}
     }
     public void initializeOnCreation() 

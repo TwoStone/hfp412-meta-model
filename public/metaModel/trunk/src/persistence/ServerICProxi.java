@@ -91,29 +91,49 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     
-    public void addAtomicType(final String name) 
+    public void handleResult(final Command command) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addAtomicType(name);
+        ((PersistentServer)this.getTheObject()).handleResult(command);
     }
     public PersistentTypeManager getTypeManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getTypeManager();
     }
-    public void handleResult(final Command command) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).handleResult(command);
-    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
+    }
+    public PersistentAspectManager getAspectManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getAspectManager(observer);
+    }
+    public void connected(final String user) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).connected(user);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).initializeOnCreation();
+    }
+    public boolean hasChanged() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).hasChanged();
+    }
+    public void disconnected() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).disconnected();
     }
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getTypeManager(observer);
     }
-    public void initializeOnInstantiation() 
+    public PersistentAspectManager getAspectManager() 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
+        return ((PersistentServer)this.getTheObject()).getAspectManager();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -127,21 +147,9 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void connected(final String user) 
+    public void addAtomicType(final PersistentMAspect aspect, final String name) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).connected(user);
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).initializeOnCreation();
-    }
-    public void disconnected() 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).disconnected();
-    }
-    public boolean hasChanged() 
-				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).hasChanged();
+        ((PersistentServer)this.getTheObject()).addAtomicType(aspect, name);
     }
 
     

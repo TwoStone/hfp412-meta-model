@@ -49,10 +49,6 @@ public class TypeManagerICProxi extends PersistentInCacheProxiOptimistic impleme
     }
     
     
-    public void addAtomicType(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).addAtomicType(name);
-    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).initializeOnInstantiation();
@@ -61,17 +57,21 @@ public class TypeManagerICProxi extends PersistentInCacheProxiOptimistic impleme
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void addAtomicType(final String name, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).addAtomicType(name, invoker);
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void addAtomicType(final PersistentMAspect aspect, final String name) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).addAtomicType(aspect, name);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).initializeOnCreation();
+    }
+    public void addAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).addAtomicType(aspect, name, invoker);
     }
 
     

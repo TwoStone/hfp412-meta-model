@@ -9,6 +9,7 @@ import view.visitor.*;
 public interface ServerView extends Remote, Anything, AbstractViewProxi {
     
     public TypeManagerView getTypeManager() throws ModelException ;
+    public AspectManagerView getAspectManager() throws ModelException ;
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException ;
     public void setErrors(java.util.Vector<ErrorDisplayView> newValue) throws ModelException ;
     public String getUser() throws ModelException ;

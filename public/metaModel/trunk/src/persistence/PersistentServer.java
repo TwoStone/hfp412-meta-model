@@ -30,17 +30,23 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public PersistentTypeManager getTypeManager() 
-				throws PersistenceException;
     public void handleResult(final Command command) 
 				throws PersistenceException;
-    public void addAtomicType(final String name) 
-				throws PersistenceException;
-    public PersistentTypeManager getTypeManager(final TDObserver observer) 
+    public PersistentTypeManager getTypeManager() 
 				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
+				throws PersistenceException;
+    public PersistentAspectManager getAspectManager(final TDObserver observer) 
+				throws PersistenceException;
+    public void initializeOnCreation() 
+				throws PersistenceException;
+    public boolean hasChanged() 
+				throws PersistenceException;
+    public PersistentTypeManager getTypeManager(final TDObserver observer) 
+				throws PersistenceException;
+    public PersistentAspectManager getAspectManager() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
@@ -48,9 +54,7 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void initializeOnCreation() 
-				throws PersistenceException;
-    public boolean hasChanged() 
+    public void addAtomicType(final PersistentMAspect aspect, final String name) 
 				throws PersistenceException;
 
 }

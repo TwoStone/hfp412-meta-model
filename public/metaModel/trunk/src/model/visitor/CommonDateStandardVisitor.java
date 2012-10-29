@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     
+    public void handleAddAspectCommand(PersistentAddAspectCommand addAspectCommand) throws PersistenceException{
+        this.standardHandling(addAspectCommand);
+    }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
     }

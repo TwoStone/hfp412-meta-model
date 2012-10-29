@@ -28,6 +28,12 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
     public void setName(String newValue) throws PersistenceException {
         ((PersistentMAtomicType)this.getTheObject()).setName(newValue);
     }
+    public PersistentMAspect getAspect() throws PersistenceException {
+        return ((PersistentMAtomicType)this.getTheObject()).getAspect();
+    }
+    public void setAspect(PersistentMAspect newValue) throws PersistenceException {
+        ((PersistentMAtomicType)this.getTheObject()).setAspect(newValue);
+    }
     public PersistentMAtomicType getThis() throws PersistenceException {
         return ((PersistentMAtomicType)this.getTheObject()).getThis();
     }

@@ -1,15 +1,25 @@
 model metaModel{
 
 server Server {
-	derived TypeManager typeManager@@Types;
-	void addAtomicType(String name);
+	derived TypeManager typeManager;
+	derived AspectManager aspectManager;
+	void addAtomicType(MAspect aspect, String name);
+}
+
+singleton AspectManager {
+	MAspect** aspects;
+	active void addAspect(String name) throws DoubleDefinitionException;
 }
 
 singleton TypeManager {
 	MAtomicType** atomicTypes;
 	MProductType** productTypes;
 	MSumType** sumTypes;
-	active void addAtomicType(String name) throws DoubleDefinitionException;
+	active void addAtomicType(MAspect aspect, String name) throws DoubleDefinitionException;
+}
+
+class MAspect {
+	prior indexed String name; 
 }
 
 interface MType@@Type {
@@ -17,7 +27,8 @@ interface MType@@Type {
 }
 
 class MAtomicType@@AtomicType implements MType {
-	prior String name;
+	prior indexed String name;
+	prior symmetric(types) MAspect aspect; 
 }
 
 abstract class MComplexType@@ComplexType implements MType {
@@ -33,6 +44,5 @@ class MSumType@@SumType extends MComplexType {
 
 hierarchy MCTypeHierarchy;
 exception DoubleDefinitionException{}
-
 
 }

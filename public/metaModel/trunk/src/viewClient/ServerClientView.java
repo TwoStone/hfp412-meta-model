@@ -283,38 +283,29 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private java.util.Vector<javax.swing.JButton> getToolButtonsForStaticOperations() {
         java.util.Vector<javax.swing.JButton> result = new java.util.Vector<javax.swing.JButton>();
         javax.swing.JButton currentButton = null;
-        currentButton = new javax.swing.JButton("addAtomicType ... ");
-        currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerAddAtomicTypeStringMssgWizard wizard = new ServerAddAtomicTypeStringMssgWizard("addAtomicType");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });result.add(currentButton);
         return result;
     }
     private JPopupMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations) {
         JPopupMenu result = new JPopupMenu();
         javax.swing.JMenuItem item = null;
-        item = new javax.swing.JMenuItem();
-        item.setText("(S) addAtomicType ... ");
-        item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerAddAtomicTypeStringMssgWizard wizard = new ServerAddAtomicTypeStringMssgWizard("addAtomicType");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });
-        if (withStaticOperations) result.add(item);
         if (selected != null){
+            if (selected instanceof MAspectView){
+                item = new javax.swing.JMenuItem();
+                item.setText("addAtomicType ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAddAtomicTypeMAspectStringMssgWizard wizard = new ServerAddAtomicTypeMAspectStringMssgWizard("addAtomicType");
+                        wizard.setFirstArgument((MAspectView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             
         }
         
@@ -322,21 +313,21 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         return result;
     }
     
-	class ServerAddAtomicTypeStringMssgWizard extends Wizard {
+	class ServerAddAtomicTypeMAspectStringMssgWizard extends Wizard {
 
-		protected ServerAddAtomicTypeStringMssgWizard(String operationName){
+		protected ServerAddAtomicTypeMAspectStringMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerAddAtomicTypeStringMssgWizard.help";
+			this.helpFileName = "ServerAddAtomicTypeMAspectStringMssgWizard.help";
 			super.initialize();			
 		}
 				
 		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
-				getConnection().addAtomicType(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().addAtomicType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -356,6 +347,22 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			getParametersPanel().add(new StringSelectionPanel("name", this));		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MAspectView firstArgument; 
+	
+		public void setFirstArgument(MAspectView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
+				selectionPanel.preset(firstArgument.getName());
+				if (!selectionPanel.check()) selectionPanel.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
 		}
 		
 		

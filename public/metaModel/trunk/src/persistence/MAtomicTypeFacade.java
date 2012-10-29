@@ -24,7 +24,7 @@ public class MAtomicTypeFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            MAtomicType result = new MAtomicType(name,null,id);
+            MAtomicType result = new MAtomicType(name,null,null,id);
             Cache.getTheCache().put(result);
             return (MAtomicTypeProxi)PersistentProxi.createProxi(id, 102);
         }catch(SQLException se) {
@@ -45,10 +45,14 @@ public class MAtomicTypeFacade{
                 callable.close();
                 return null;
             }
-            PersistentMAtomicType This = null;
+            PersistentMAspect aspect = null;
             if (obj.getLong(3) != 0)
-                This = (PersistentMAtomicType)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+                aspect = (PersistentMAspect)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+            PersistentMAtomicType This = null;
+            if (obj.getLong(5) != 0)
+                This = (PersistentMAtomicType)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
             MAtomicType result = new MAtomicType(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+                                                 aspect,
                                                  This,
                                                  MAtomicTypeId);
             obj.close();
@@ -75,12 +79,47 @@ public class MAtomicTypeFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public MAtomicTypeSearchList getMAtomicTypeByName(String name) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".MAtmcTpFacade.getMAtmcTpByNm(?); end;");
+            callable.registerOutParameter(1, OracleTypes.CURSOR);
+            callable.setString(2, name);
+            callable.execute();
+            ResultSet list = ((OracleCallableStatement)callable).getCursor(1);
+            MAtomicTypeSearchList result = new MAtomicTypeSearchList();
+            while (list.next()) {
+                long classId = list.getLong(2);
+                long objectId = list.getLong(1);
+                MAtomicTypeProxi proxi = (MAtomicTypeProxi)PersistentProxi.createProxi(objectId, classId);
+                result.add(proxi);
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void nameSet(long MAtomicTypeId, String nameVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin " + this.schemaName + ".MAtmcTpFacade.nmSet(?, ?); end;");
             callable.setLong(1, MAtomicTypeId);
             callable.setString(2, nameVal);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void aspectSet(long MAtomicTypeId, PersistentMAspect aspectVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".MAtmcTpFacade.aspctSet(?, ?, ?); end;");
+            callable.setLong(1, MAtomicTypeId);
+            callable.setLong(2, aspectVal.getId());
+            callable.setLong(3, aspectVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {
@@ -96,6 +135,27 @@ public class MAtomicTypeFacade{
             callable.setLong(3, ThisVal.getClassId());
             callable.execute();
             callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public MAtomicTypeSearchList inverseGetAspect(long objectId, long classId)throws PersistenceException{
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".MAtmcTpFacade.iGetAspct(?, ?); end;");
+            callable.registerOutParameter(1, OracleTypes.CURSOR);
+            callable.setLong(2, objectId);
+            callable.setLong(3, classId);
+            callable.execute();
+            ResultSet list = ((OracleCallableStatement)callable).getCursor(1);
+            MAtomicTypeSearchList result = new MAtomicTypeSearchList();
+            while (list.next()) {
+                if (list.getLong(3) != 0) result.add((PersistentMAtomicType)PersistentProxi.createProxi(list.getLong(3), list.getLong(4)));
+                else result.add((PersistentMAtomicType)PersistentProxi.createProxi(list.getLong(1), list.getLong(2)));
+            }
+            list.close();
+            callable.close();
+            return result;
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

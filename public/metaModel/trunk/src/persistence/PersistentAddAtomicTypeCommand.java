@@ -6,6 +6,8 @@ import model.visitor.*;
 
 public interface PersistentAddAtomicTypeCommand extends TypeManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
     
+    public PersistentMAspect getAspect() throws PersistenceException ;
+    public void setAspect(PersistentMAspect newValue) throws PersistenceException ;
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
