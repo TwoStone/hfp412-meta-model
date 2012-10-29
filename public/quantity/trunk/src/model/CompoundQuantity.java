@@ -42,7 +42,8 @@ public class CompoundQuantity extends model.AbsQuantity implements PersistentCom
         return result;
     }
     
-    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    @Override
+	public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
@@ -53,7 +54,8 @@ public class CompoundQuantity extends model.AbsQuantity implements PersistentCom
         return result;
     }
     
-    public CompoundQuantity provideCopy() throws PersistenceException{
+    @Override
+	public CompoundQuantity provideCopy() throws PersistenceException{
         CompoundQuantity result = this;
         result = new CompoundQuantity(this.This, 
                                       this.getId());
@@ -62,14 +64,15 @@ public class CompoundQuantity extends model.AbsQuantity implements PersistentCom
         return result;
     }
     
-    public boolean hasEssentialFields() throws PersistenceException{
+    @Override
+	public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
     protected CompoundQuantity_PartsProxi parts;
     
     public CompoundQuantity(PersistentAbsQuantity This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentAbsQuantity)This,id);
+        super(This,id);
         this.parts = new CompoundQuantity_PartsProxi(this);        
     }
     
@@ -77,14 +80,17 @@ public class CompoundQuantity extends model.AbsQuantity implements PersistentCom
         return 105;
     }
     
-    public long getClassId() {
+    @Override
+	public long getClassId() {
         return getTypeId();
     }
     
-    public CompoundQuantity_PartsProxi getParts() throws PersistenceException {
+    @Override
+	public CompoundQuantity_PartsProxi getParts() throws PersistenceException {
         return this.parts;
     }
-    public PersistentCompoundQuantity getThis() throws PersistenceException {
+    @Override
+	public PersistentCompoundQuantity getThis() throws PersistenceException {
         if(this.This == null){
             PersistentCompoundQuantity result = new CompoundQuantityProxi(this.getId());
             result.getTheObject();
@@ -92,57 +98,98 @@ public class CompoundQuantity extends model.AbsQuantity implements PersistentCom
         }return (PersistentCompoundQuantity)this.This;
     }
     
-    public void accept(AbsQuantityVisitor visitor) throws PersistenceException {
+    @Override
+	public void accept(AbsQuantityVisitor visitor) throws PersistenceException {
         visitor.handleCompoundQuantity(this);
     }
-    public <R> R accept(AbsQuantityReturnVisitor<R>  visitor) throws PersistenceException {
+    @Override
+	public <R> R accept(AbsQuantityReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCompoundQuantity(this);
     }
-    public <E extends UserException>  void accept(AbsQuantityExceptionVisitor<E> visitor) throws PersistenceException, E {
+    @Override
+	public <E extends UserException>  void accept(AbsQuantityExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCompoundQuantity(this);
     }
-    public <R, E extends UserException> R accept(AbsQuantityReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    @Override
+	public <R, E extends UserException> R accept(AbsQuantityReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCompoundQuantity(this);
     }
-    public void accept(AnythingVisitor visitor) throws PersistenceException {
+    @Override
+	public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleCompoundQuantity(this);
     }
-    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+    @Override
+	public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCompoundQuantity(this);
     }
-    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+    @Override
+	public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCompoundQuantity(this);
     }
-    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    @Override
+	public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCompoundQuantity(this);
     }
-    public int getLeafInfo() throws PersistenceException{
+    @Override
+	public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + this.getParts().getLength());
     }
     
     
-    public void initializeOnInstantiation() 
+    @Override
+	public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    @Override
+	public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    @Override
+	public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentCompoundQuantity)This);
 		if(this.equals(This)){
 		}
     }
-    public void initializeOnCreation() 
+    @Override
+	public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
     }
+
+	@Override
+	public PersistentAbsQuantity divide(PersistentAbsQuantity divisor)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PersistentAbsQuantity subtract(PersistentAbsQuantity minuend)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PersistentAbsQuantity mult(PersistentAbsQuantity factor)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PersistentAbsQuantity add(PersistentAbsQuantity summand)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
     

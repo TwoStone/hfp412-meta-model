@@ -103,8 +103,6 @@ model quantity {
 	Wie muss eine Function aussehen?
 	*/
 	class Function {}
-
-	exception DivisionByZeroException{}
 	
 	
 	
