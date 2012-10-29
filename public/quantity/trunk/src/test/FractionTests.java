@@ -31,63 +31,55 @@ public class FractionTests extends TestCase {
 		Fraction fraction = new Fraction(BigInteger.valueOf(2), BigInteger.valueOf(10));
 		assertNotNull(fraction);
 	}
-/*
+
 	public void testToRational() throws Exception {
-		PersistentFraction bruch1 = model.Fraction.createFraction(10,2);
-		assertEquals(5, bruch1.toRational().getEnumerator());
-		assertEquals(1, bruch1.toRational().getDenominator());
+		Fraction bruch1 = new Fraction(BigInteger.valueOf(10),BigInteger.valueOf(2));
+		assertEquals(BigInteger.valueOf(5), bruch1.getEnumerator());
+		assertEquals(BigInteger.valueOf(1), bruch1.getDenominator());
 
-		PersistentFraction bruch2 = model.Fraction.createFraction(10,3);
-		assertEquals(10, bruch2.toRational().getEnumerator());
-		assertEquals(3, bruch2.toRational().getDenominator());
+		Fraction bruch2 = new Fraction(BigInteger.valueOf(10),BigInteger.valueOf(3));
+		assertEquals(BigInteger.valueOf(10), bruch2.getEnumerator());
+		assertEquals(BigInteger.valueOf(3), bruch2.getDenominator());
 	}
 
-	public void testFractionMul01() throws Exception {
-		PersistentFraction bruch1 = model.Fraction.createFraction(10,2);
-		PersistentFraction bruch2 = model.Fraction.createFraction(10,2);
+	public void testFractionMul01() throws Throwable {
+		Fraction bruch1 = new Fraction(BigInteger.valueOf(10),BigInteger.valueOf(2));
+		Fraction bruch2 = new Fraction(BigInteger.valueOf(10),BigInteger.valueOf(2));
 		// Funktion mul testen
-		PersistentFraction multFraction = bruch1.mul(bruch2);
-		assertEquals(25, multFraction.getEnumerator());
-		assertEquals(1, multFraction.getDenominator());
+		Fraction multFraction = bruch1.mul(bruch2);
+		assertEquals(BigInteger.valueOf(25), multFraction.getEnumerator());
+		assertEquals(BigInteger.valueOf(1), multFraction.getDenominator());
 	}
 
-	public void testFractionMul02() throws Exception {
-		PersistentFraction fraction1 = model.Fraction.createFraction(1,2);
-		PersistentFraction fraction2 = model.Fraction.createFraction(2,3);
-
-		PersistentFraction result = fraction1.mul(fraction2);
-		assertEquals(1, result.getEnumerator());
-		assertEquals(3, result.getDenominator());
+	public void testFractionMul02() throws Throwable {
+		Fraction fraction1 = new Fraction(BigInteger.valueOf(1),BigInteger.valueOf(2));
+		Fraction fraction2 = new Fraction(BigInteger.valueOf(2),BigInteger.valueOf(3));
+		
+		Fraction result = fraction1.mul(fraction2);
+		assertEquals(BigInteger.valueOf(1), result.getEnumerator());
+		assertEquals(BigInteger.valueOf(3), result.getDenominator());
 	}
 
 	public void testFractionToRational() throws Exception {
-		PersistentFraction bruch1 = model.Fraction.createFraction(10,2);
-		PersistentFraction bruch2 = model.Fraction.createFraction(3,9);
+		Fraction bruch1 = new Fraction(BigInteger.valueOf(10),BigInteger.valueOf(2));
+		Fraction bruch2 = new Fraction(BigInteger.valueOf(3),BigInteger.valueOf(9));
 
 		// Funktion toRational testen
-		assertEquals(5, bruch1.toRational().getEnumerator());
-		assertEquals(1, bruch1.toRational().getDenominator());
-		assertEquals(1, bruch2.toRational().getEnumerator());
-		assertEquals(3, bruch2.toRational().getDenominator());
+		assertEquals(BigInteger.valueOf(5), bruch1.getEnumerator());
+		assertEquals(BigInteger.valueOf(1), bruch1.getDenominator());
+		assertEquals(BigInteger.valueOf(1), bruch2.getEnumerator());
+		assertEquals(BigInteger.valueOf(3), bruch2.getDenominator());
 	}
 
-	public void testFractionAdd() throws Exception {
-		PersistentFraction bruch1 = model.Fraction.createFraction(10,2);
-		PersistentFraction bruch2 = model.Fraction.createFraction(10,3);
+	public void testFractionAdd() throws Throwable {
+		Fraction bruch1 = new Fraction(BigInteger.valueOf(10),BigInteger.valueOf(2));
+		Fraction bruch2 = new Fraction(BigInteger.valueOf(10),BigInteger.valueOf(3));
 		
 		// Funktion add testen
-		PersistentFraction multFraction = bruch1.add(bruch2);
-		assertEquals(25, multFraction.getEnumerator());
-		assertEquals(3, multFraction.getDenominator());
+		Fraction multFraction = bruch1.add(bruch2);
+		assertEquals(BigInteger.valueOf(25), multFraction.getEnumerator());
+		assertEquals(BigInteger.valueOf(3), multFraction.getDenominator());
 	}
 
-	public void testFractionNennerNull() throws Exception {
-		try {
-			model.Fraction.createFraction(3,0);
-			fail();
-		} catch (PersistenceException e) {
-			assertEquals(constants.ExceptionConstants.NENNER_IST_0,	e.getMessage());
-		}
-	}
-*/
+
 }

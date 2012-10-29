@@ -29,15 +29,15 @@ public class Fraction {
 		return new Fraction(enumarator,denominator);
 	}
 
-	private BigInteger enumerator;
-	private BigInteger getEnumerator() {
+	private final BigInteger enumerator;
+	public BigInteger getEnumerator() {
 		return enumerator;
 	}
-	private BigInteger getDenominator() {
+	public BigInteger getDenominator() {
 		return denominator;
 	}
 
-	private BigInteger denominator;
+	private final BigInteger denominator;
 
 	public Fraction(BigInteger enumarator, BigInteger denominator) {
 		BigInteger gcd = enumarator.gcd(denominator);
@@ -45,10 +45,12 @@ public class Fraction {
 		this.enumerator = enumarator.divide(gcd).multiply(negativeDenominator ? BIMinusOne : BIOne);
 		this.denominator = denominator.divide(gcd).multiply(negativeDenominator ? BIMinusOne : BIOne);
 	}
+	@Override
 	public String toString(){
 		return this.getEnumerator().toString() + (this.getDenominator().equals(BIOne) ? "" : (FractionStroke + this.getDenominator().toString())); 
 	}
 
+	@Override
 	public boolean equals(Object argument){
 		if (argument instanceof common.Fraction){
 			Fraction argumentAsFraction = (Fraction) argument;
@@ -57,7 +59,31 @@ public class Fraction {
 			return false;
 		}
 	}
+	@Override
 	public int hashCode(){
 		return this.getEnumerator().multiply(this.getDenominator()).hashCode();
+	}
+	
+	public Fraction mul(Fraction fraction) throws Throwable{
+		//TODO: implement logic...
+		// e1/d1 * e2/d2 = finalize(finalize(e1/d2) * finalize(e2/d1))
+		
+		// Kreuzprodukt Bruch 1 und Kürzen.
+    	Fraction frac1 = new Fraction(this.enumerator,fraction.denominator);
+
+    	// Kreuzprodukt Bruch 2 und Kürzen.
+    	Fraction frac2 = new Fraction(fraction.enumerator,this.denominator);
+    	Fraction result = new Fraction(frac1.enumerator.multiply(frac2.enumerator),frac1.denominator.multiply(frac2.denominator));
+    	
+		return result;
+	}
+	
+
+	public Fraction add(Fraction fraction) throws Throwable{
+		//TODO: implement logic...
+		//// e1/d1 + e2/d2 = (e1*d2+e2*d1) / d1*d2 und finalize.
+		
+		Fraction result = new Fraction(fraction.enumerator.multiply(denominator).add(this.enumerator.multiply(fraction.denominator)), this.denominator.multiply(fraction.denominator));
+		return result;
 	}
 }

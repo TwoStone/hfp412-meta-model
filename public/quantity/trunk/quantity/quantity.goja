@@ -104,6 +104,7 @@ model quantity {
 	*/
 	class Function {}
 
+	exception DivisionByZeroException{}
 	
 	
 	
