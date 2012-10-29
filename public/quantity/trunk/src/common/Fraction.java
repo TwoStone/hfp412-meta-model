@@ -4,18 +4,17 @@ import java.math.BigInteger;
 
 public class Fraction {
 
-	private static final BigInteger BIZero = new BigInteger("0");
-	private static final BigInteger BIOne = new BigInteger("1");
+	
 	private static final BigInteger BIMinusOne = new BigInteger("-1");
 	
-	public static final Fraction Null = new Fraction(BIZero, BIOne);
+	public static final Fraction Null = new Fraction(BigInteger.ZERO, BigInteger.ONE);
 	
 	private static final String FractionStroke = "/";
 
 	public static Fraction parse(String fraction) {
 		
-		BigInteger denominator = BIOne;
-		BigInteger enumarator = BIOne;
+		BigInteger denominator = BigInteger.ONE;
+		BigInteger enumarator = BigInteger.ONE;
 		try {
 			int fractionStrokePosition = fraction.indexOf(FractionStroke);
 			String enumaratorText = fraction.substring(0,fractionStrokePosition);
@@ -25,7 +24,7 @@ public class Fraction {
 		} catch (IndexOutOfBoundsException iobe){
 			enumarator = new BigInteger(fraction);
 		}
-		if (denominator.equals(BIZero)) throw new NumberFormatException("Denominator must not be zero!");
+		if (denominator.equals(BigInteger.ZERO)) throw new NumberFormatException(constants.ExceptionConstants.DENOMINATOR_MUST_NOT_BE_ZERO);
 		return new Fraction(enumarator,denominator);
 	}
 
@@ -41,13 +40,13 @@ public class Fraction {
 
 	public Fraction(BigInteger enumarator, BigInteger denominator) {
 		BigInteger gcd = enumarator.gcd(denominator);
-		boolean negativeDenominator = denominator.compareTo(BIZero) < 0;
-		this.enumerator = enumarator.divide(gcd).multiply(negativeDenominator ? BIMinusOne : BIOne);
-		this.denominator = denominator.divide(gcd).multiply(negativeDenominator ? BIMinusOne : BIOne);
+		boolean negativeDenominator = denominator.compareTo(BigInteger.ZERO) < 0;
+		this.enumerator = enumarator.divide(gcd).multiply(negativeDenominator ? BIMinusOne : BigInteger.ONE);
+		this.denominator = denominator.divide(gcd).multiply(negativeDenominator ? BIMinusOne : BigInteger.ONE);
 	}
 	@Override
 	public String toString(){
-		return this.getEnumerator().toString() + (this.getDenominator().equals(BIOne) ? "" : (FractionStroke + this.getDenominator().toString())); 
+		return this.getEnumerator().toString() + (this.getDenominator().equals(BigInteger.ONE) ? "" : (FractionStroke + this.getDenominator().toString())); 
 	}
 
 	@Override
