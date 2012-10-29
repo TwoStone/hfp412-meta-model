@@ -43,9 +43,9 @@ public abstract class PersistentRoot {
 	  ConnectionHandler.getTheConnectionHandler().dltObjct(this);
   }
 
-  public String createProxiInformation() throws PersistenceException {
+  public String createProxiInformation(boolean asLeaf) throws PersistenceException {
 	  return common.RPCConstantsAndServices.createProxiRepresentation(this.getClassId(), this.getId(), 
-			  														  this.getIconInfo(), this.getLeafInfo(), this.toString());
+			  														  this.getIconInfo(), asLeaf ? 0 : this.getLeafInfo(), this.toString());
   }
 
   public int getLeafInfo() throws PersistenceException {

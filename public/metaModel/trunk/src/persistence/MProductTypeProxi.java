@@ -1,6 +1,8 @@
 package persistence;
 
+import model.UserException;
 
+import model.visitor.*;
 
 public class MProductTypeProxi extends MComplexTypeProxi implements PersistentMProductType{
     
@@ -17,59 +19,59 @@ public class MProductTypeProxi extends MComplexTypeProxi implements PersistentMP
     }
     
     public long getClassId() {
-        return 138;
+        return 101;
     }
     
     public PersistentMProductType getThis() throws PersistenceException {
         return ((PersistentMProductType)this.getTheObject()).getThis();
     }
     
-    public void accept(model.visitor.MComplexTypeVisitor visitor) throws PersistenceException {
+    public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
         visitor.handleMProductType(this);
     }
-    public <R> R accept(model.visitor.MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleMProductType(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleMProductType(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMProductType(this);
     }
-    public void accept(model.visitor.MTypeVisitor visitor) throws PersistenceException {
+    public void accept(MTypeVisitor visitor) throws PersistenceException {
         visitor.handleMProductType(this);
     }
-    public <R> R accept(model.visitor.MTypeReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleMProductType(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleMProductType(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMProductType(this);
     }
-    public void accept(model.visitor.MCTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+    public void accept(MCTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleMProductType(this);
     }
-    public <R> R accept(model.visitor.MCTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(MCTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleMProductType(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.MCTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(MCTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleMProductType(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.MCTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(MCTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMProductType(this);
     }
-    public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException {
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleMProductType(this);
     }
-    public <R> R accept(model.visitor.AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleMProductType(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleMProductType(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMProductType(this);
     }
     

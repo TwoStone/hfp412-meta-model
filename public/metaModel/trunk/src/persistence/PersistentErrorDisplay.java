@@ -1,15 +1,19 @@
 package persistence;
 
+import model.UserException;
+
+import model.visitor.*;
+
 public interface PersistentErrorDisplay extends Anything, AbstractPersistentProxi {
     
     public String getMessage() throws PersistenceException ;
     public void setMessage(String newValue) throws PersistenceException ;
     public PersistentErrorDisplay getThis() throws PersistenceException ;
     
-    public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException;
-    public <R> R accept(model.visitor.AnythingReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends model.UserException>  void accept(model.visitor.AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends model.UserException> R accept(model.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(AnythingVisitor visitor) throws PersistenceException;
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public void initializeOnInstantiation() 
 				throws PersistenceException;

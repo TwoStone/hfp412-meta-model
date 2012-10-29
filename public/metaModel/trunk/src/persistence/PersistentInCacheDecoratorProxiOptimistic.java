@@ -8,8 +8,8 @@ abstract public class PersistentInCacheDecoratorProxiOptimistic extends Persiste
 	protected PersistentInCacheDecoratorProxiOptimistic(long id) {
 		super(id);
 	}
-	public String createProxiInformation() throws PersistenceException {
-		return this.getTheObject().createProxiInformation();
+	public String createProxiInformation(boolean asLeaf) throws PersistenceException {
+		return this.getTheObject().createProxiInformation(asLeaf);
 	}
 
 }

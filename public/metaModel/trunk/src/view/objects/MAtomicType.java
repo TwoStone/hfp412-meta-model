@@ -2,6 +2,7 @@
 package view.objects;
 
 import view.*;
+import view.visitor.*;
 
 
 /* Additional import section end */
@@ -17,7 +18,7 @@ public class MAtomicType extends ViewObject implements MAtomicTypeView{
     }
     
     static public long getTypeId() {
-        return 139;
+        return 102;
     }
     
     public long getClassId() {
@@ -31,28 +32,28 @@ public class MAtomicType extends ViewObject implements MAtomicTypeView{
         this.name = newValue;
     }
     
-    public void accept(view.visitor.MTypeVisitor visitor) throws ModelException {
+    public void accept(MTypeVisitor visitor) throws ModelException {
         visitor.handleMAtomicType(this);
     }
-    public <R> R accept(view.visitor.MTypeReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMAtomicType(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.MTypeExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMAtomicType(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.MTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMAtomicType(this);
     }
-    public void accept(view.visitor.AnythingVisitor visitor) throws ModelException {
+    public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleMAtomicType(this);
     }
-    public <R> R accept(view.visitor.AnythingReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMAtomicType(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.AnythingExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMAtomicType(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMAtomicType(this);
     }
     

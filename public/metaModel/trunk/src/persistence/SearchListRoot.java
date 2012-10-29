@@ -159,21 +159,21 @@ public abstract class SearchListRoot<T extends AbstractPersistentRoot> {
 		}
 		return result;
 	}
-	public Vector<String> getVector(int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver) throws PersistenceException{
-		return this.getVector(new Hashtable<String, Object>(), depth, essentialLevel, forGUI, tdObserver);
+	public Vector<String> getVector(int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver, boolean asLeaf) throws PersistenceException{
+		return this.getVector(new Hashtable<String, Object>(), depth, essentialLevel, forGUI, tdObserver, asLeaf);
 	}
-	public Vector<String> getVector(java.util.Hashtable<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver) throws PersistenceException {
+	public Vector<String> getVector(java.util.Hashtable<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver, boolean asLeaf) throws PersistenceException {
 		Vector<String> result = new Vector<String>();
 		Iterator<T> entries = this.iterator();
 		while (entries.hasNext()){
 			T current = entries.next();
-			if (depth > 1){
+			if (!asLeaf && depth > 1){
 				current.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true, tdObserver);
 			}else{
 				if (forGUI && current.hasEssentialFields())
 					current.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
 			}
-			result.add(current.createProxiInformation());
+			result.add(current.createProxiInformation(asLeaf));
 		}
 		return result;
 	}

@@ -3,6 +3,8 @@ package view.objects;
 import view.*;
 import viewClient.*;
 
+import view.visitor.*;
+
 public class ErrorDisplayProxi extends ViewProxi implements ErrorDisplayView{
     
     public ErrorDisplayProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
@@ -41,16 +43,16 @@ public class ErrorDisplayProxi extends ViewProxi implements ErrorDisplayView{
         ((ErrorDisplay)this.getTheObject()).setMessage(newValue);
     }
     
-    public void accept(view.visitor.AnythingVisitor visitor) throws ModelException {
+    public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleErrorDisplay(this);
     }
-    public <R> R accept(view.visitor.AnythingReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleErrorDisplay(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.AnythingExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleErrorDisplay(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleErrorDisplay(this);
     }
     

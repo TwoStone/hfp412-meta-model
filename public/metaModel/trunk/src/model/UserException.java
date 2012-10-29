@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -29,7 +30,7 @@ public abstract class UserException extends Exception{
     }
     
     static public long getTypeId() {
-        return -136;
+        return -116;
     }
     
     public long getClassId() {
@@ -37,10 +38,10 @@ public abstract class UserException extends Exception{
     }
     
     
-    abstract public void accept(model.visitor.UserExceptionVisitor visitor) throws PersistenceException;
-    abstract public <R> R accept(model.visitor.UserExceptionReturnVisitor<R>  visitor) throws PersistenceException;
-    abstract public <E extends model.UserException>  void accept(model.visitor.UserExceptionExceptionVisitor<E> visitor) throws PersistenceException, E;
-    abstract public <R, E extends model.UserException> R accept(model.visitor.UserExceptionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    abstract public void accept(UserExceptionVisitor visitor) throws PersistenceException;
+    abstract public <R> R accept(UserExceptionReturnVisitor<R>  visitor) throws PersistenceException;
+    abstract public <E extends UserException>  void accept(UserExceptionExceptionVisitor<E> visitor) throws PersistenceException, E;
+    abstract public <R, E extends UserException> R accept(UserExceptionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     
 

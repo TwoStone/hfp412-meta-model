@@ -25,7 +25,7 @@ public class MProductTypeFacade{
             callable.close();
             MProductType result = new MProductType(null,id);
             Cache.getTheCache().put(result);
-            return (MProductTypeProxi)PersistentProxi.createProxi(id, 138);
+            return (MProductTypeProxi)PersistentProxi.createProxi(id, 101);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

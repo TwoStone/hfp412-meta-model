@@ -3,6 +3,7 @@ package view.objects;
 
 import view.*;
 import viewClient.*;
+import view.visitor.*;
 
 
 /* Additional import section end */
@@ -20,7 +21,7 @@ public class Server extends ViewObject implements ServerView{
     }
     
     static public long getTypeId() {
-        return -111;
+        return -105;
     }
     
     public long getClassId() {
@@ -40,28 +41,28 @@ public class Server extends ViewObject implements ServerView{
         this.user = newValue;
     }
     
-    public void accept(view.visitor.RemoteVisitor visitor) throws ModelException {
+    public void accept(RemoteVisitor visitor) throws ModelException {
         visitor.handleServer(this);
     }
-    public <R> R accept(view.visitor.RemoteReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(RemoteReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleServer(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.RemoteExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(RemoteExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleServer(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.RemoteReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(RemoteReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleServer(this);
     }
-    public void accept(view.visitor.AnythingVisitor visitor) throws ModelException {
+    public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleServer(this);
     }
-    public <R> R accept(view.visitor.AnythingReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleServer(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.AnythingExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleServer(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleServer(this);
     }
     

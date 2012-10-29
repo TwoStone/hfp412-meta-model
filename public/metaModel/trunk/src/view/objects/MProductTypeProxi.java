@@ -3,6 +3,8 @@ package view.objects;
 import view.*;
 import viewClient.*;
 
+import view.visitor.*;
+
 public class MProductTypeProxi extends MComplexTypeProxi implements MProductTypeView{
     
     public MProductTypeProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
@@ -48,40 +50,40 @@ public class MProductTypeProxi extends MComplexTypeProxi implements MProductType
     }
     
     
-    public void accept(view.visitor.MComplexTypeVisitor visitor) throws ModelException {
+    public void accept(MComplexTypeVisitor visitor) throws ModelException {
         visitor.handleMProductType(this);
     }
-    public <R> R accept(view.visitor.MComplexTypeReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMProductType(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.MComplexTypeExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMProductType(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMProductType(this);
     }
-    public void accept(view.visitor.MTypeVisitor visitor) throws ModelException {
+    public void accept(MTypeVisitor visitor) throws ModelException {
         visitor.handleMProductType(this);
     }
-    public <R> R accept(view.visitor.MTypeReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMProductType(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.MTypeExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMProductType(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.MTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMProductType(this);
     }
-    public void accept(view.visitor.AnythingVisitor visitor) throws ModelException {
+    public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleMProductType(this);
     }
-    public <R> R accept(view.visitor.AnythingReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMProductType(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.AnythingExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMProductType(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMProductType(this);
     }
     

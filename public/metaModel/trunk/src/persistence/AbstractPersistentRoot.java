@@ -13,7 +13,7 @@ public interface AbstractPersistentRoot {
   abstract boolean hasEssentialFields() throws PersistenceException;
   abstract public String toString(boolean inner) throws PersistenceException;
   abstract public void delete$Me() throws PersistenceException ;
-  abstract public String createProxiInformation() throws PersistenceException; 
+  abstract public String createProxiInformation(boolean asLeaf) throws PersistenceException; 
   
   abstract public int getIconInfo() throws PersistenceException;
   abstract public int getLeafInfo() throws PersistenceException;

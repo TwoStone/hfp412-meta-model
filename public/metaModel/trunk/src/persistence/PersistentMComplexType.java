@@ -1,14 +1,18 @@
 package persistence;
 
+import model.UserException;
+
+import model.visitor.*;
+
 public interface PersistentMComplexType extends MType, Anything, AbstractPersistentProxi {
     
     public MComplexType_ContainedTypesProxi getContainedTypes() throws PersistenceException ;
     public abstract PersistentMComplexType getThis() throws PersistenceException ;
     
-    public void accept(model.visitor.MComplexTypeVisitor visitor) throws PersistenceException;
-    public <R> R accept(model.visitor.MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends model.UserException>  void accept(model.visitor.MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends model.UserException> R accept(model.visitor.MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(MComplexTypeVisitor visitor) throws PersistenceException;
+    public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public void initializeOnInstantiation() 
 				throws PersistenceException;

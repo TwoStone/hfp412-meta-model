@@ -200,6 +200,12 @@ class IntegerPanel extends BaseTypePanel {
 	}
 }
 @SuppressWarnings("serial")
+class FractionPanel extends BaseTypePanel {
+	protected FractionPanel(DefaultDetailPanel master, String name, common.Fraction value) {
+		super(master, name, value.toString());
+	}
+}
+@SuppressWarnings("serial")
 class StringPanel extends BaseTypePanel {
 	protected StringPanel(DefaultDetailPanel master, String name, String value) {
 		super(master, name, value);

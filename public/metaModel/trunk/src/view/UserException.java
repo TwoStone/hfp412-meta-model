@@ -2,6 +2,7 @@
 package view;
 
 
+import view.visitor.*;
 
 
 /* Additional import section end */
@@ -16,10 +17,10 @@ public abstract class UserException extends Exception{
     }
     
     
-    abstract public void accept(view.visitor.UserExceptionVisitor visitor) throws ModelException;
-    abstract public <R> R accept(view.visitor.UserExceptionReturnVisitor<R>  visitor) throws ModelException;
-    abstract public <E extends model.UserException>  void accept(view.visitor.UserExceptionExceptionVisitor<E> visitor) throws ModelException, E;
-    abstract public <R, E extends model.UserException> R accept(view.visitor.UserExceptionReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
+    abstract public void accept(UserExceptionVisitor visitor) throws ModelException;
+    abstract public <R> R accept(UserExceptionReturnVisitor<R>  visitor) throws ModelException;
+    abstract public <E extends UserException>  void accept(UserExceptionExceptionVisitor<E> visitor) throws ModelException, E;
+    abstract public <R, E extends UserException> R accept(UserExceptionReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
     
     
 }

@@ -260,11 +260,11 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
-		this.number2NameMap.put(-134, "ErrorDisplay");
-		this.number2NameMap.put(139, "MAtomicType");
-		this.number2NameMap.put(138, "MProductType");
-		this.number2NameMap.put(141, "MSumType");
-		this.number2NameMap.put(-111, "Server");	
+		this.number2NameMap.put(-104, "ErrorDisplay");
+		this.number2NameMap.put(102, "MAtomicType");
+		this.number2NameMap.put(101, "MProductType");
+		this.number2NameMap.put(103, "MSumType");
+		this.number2NameMap.put(-105, "Server");	
 	}
 	
 }

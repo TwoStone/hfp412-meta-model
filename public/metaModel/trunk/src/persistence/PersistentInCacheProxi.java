@@ -12,28 +12,28 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[44];
-        iCProxiFactories[37] = new ICProxiFactory(){
+			iCProxiFactories = new ICProxiFactory[17];
+        iCProxiFactories[0] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new MProductTypeICProxi(objectId);
             }
         };
-        iCProxiFactories[38] = new ICProxiFactory(){
+        iCProxiFactories[1] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new MAtomicTypeICProxi(objectId);
             }
         };
-        iCProxiFactories[40] = new ICProxiFactory(){
+        iCProxiFactories[2] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new MSumTypeICProxi(objectId);
             }
         };
-        iCProxiFactories[33] = new ICProxiFactory(){
+        iCProxiFactories[3] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ErrorDisplayICProxi(objectId);
             }
         };
-        iCProxiFactories[10] = new ICProxiFactory(){
+        iCProxiFactories[4] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ServerICProxi(objectId);
             }

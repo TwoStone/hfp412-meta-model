@@ -16,28 +16,28 @@ public abstract class PersistentProxi extends PersistentRoot {
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[44];
-        listProxiFactories[37] = new ListProxiFactory(){
+		listProxiFactories = new ListProxiFactory[17];
+        listProxiFactories[0] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new MProductTypeListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[38] = new ListProxiFactory(){
+        listProxiFactories[1] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new MAtomicTypeListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[40] = new ListProxiFactory(){
+        listProxiFactories[2] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new MSumTypeListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[33] = new ListProxiFactory(){
+        listProxiFactories[3] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new ErrorDisplayListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[10] = new ListProxiFactory(){
+        listProxiFactories[4] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new ServerListEntryProxi(objectId, entryId);
             }
@@ -47,28 +47,28 @@ public abstract class PersistentProxi extends PersistentRoot {
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [44];
-        proxiFactories[37] = new ProxiFactory(){
+		proxiFactories = new ProxiFactory [17];
+        proxiFactories[0] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new MProductTypeProxi(objectId);
             }
         };
-        proxiFactories[38] = new ProxiFactory(){
+        proxiFactories[1] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new MAtomicTypeProxi(objectId);
             }
         };
-        proxiFactories[40] = new ProxiFactory(){
+        proxiFactories[2] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new MSumTypeProxi(objectId);
             }
         };
-        proxiFactories[33] = new ProxiFactory(){
+        proxiFactories[3] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new ErrorDisplayProxi(objectId);
             }
         };
-        proxiFactories[10] = new ProxiFactory(){
+        proxiFactories[4] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new ServerProxi(objectId);
             }

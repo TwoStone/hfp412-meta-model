@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -48,7 +49,7 @@ public class Server extends PersistentObject implements PersistentServer{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver));
+            result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             result.put("user", this.getUser());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
@@ -56,9 +57,9 @@ public class Server extends PersistentObject implements PersistentServer{
         return result;
     }
     
-    public static ServerSearchList getServerByUser(String index) throws PersistenceException{
+    public static ServerSearchList getServerByUser(String user) throws PersistenceException{
         return ConnectionHandler.getTheConnectionHandler().theServerFacade
-            .getServerByUser(index);
+            .getServerByUser(user);
     }
     
     public Server provideCopy() throws PersistenceException{
@@ -100,7 +101,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     static public long getTypeId() {
-        return -111;
+        return -105;
     }
     
     public long getClassId() {
@@ -160,28 +161,28 @@ public class Server extends PersistentObject implements PersistentServer{
         }return (PersistentServer)this.This;
     }
     
-    public void accept(model.visitor.RemoteVisitor visitor) throws PersistenceException {
+    public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
-    public <R> R accept(model.visitor.RemoteReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(RemoteReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleServer(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.RemoteExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(RemoteExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleServer(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.RemoteReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(RemoteReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleServer(this);
     }
-    public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException {
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
-    public <R> R accept(model.visitor.AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleServer(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleServer(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleServer(this);
     }
     public int getLeafInfo() throws PersistenceException{

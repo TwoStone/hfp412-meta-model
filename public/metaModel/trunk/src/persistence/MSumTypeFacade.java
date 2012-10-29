@@ -25,7 +25,7 @@ public class MSumTypeFacade{
             callable.close();
             MSumType result = new MSumType(null,id);
             Cache.getTheCache().put(result);
-            return (MSumTypeProxi)PersistentProxi.createProxi(id, 141);
+            return (MSumTypeProxi)PersistentProxi.createProxi(id, 103);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

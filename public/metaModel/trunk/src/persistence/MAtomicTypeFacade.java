@@ -26,7 +26,7 @@ public class MAtomicTypeFacade{
             callable.close();
             MAtomicType result = new MAtomicType(name,null,id);
             Cache.getTheCache().put(result);
-            return (MAtomicTypeProxi)PersistentProxi.createProxi(id, 139);
+            return (MAtomicTypeProxi)PersistentProxi.createProxi(id, 102);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

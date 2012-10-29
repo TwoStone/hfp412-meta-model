@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -28,7 +29,7 @@ public class RestrictionException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -137;
+        return -117;
     }
     
     public long getClassId() {
@@ -36,16 +37,16 @@ public class RestrictionException extends model.UserException{
     }
     
     
-    public void accept(model.visitor.UserExceptionVisitor visitor) throws PersistenceException {
+    public void accept(UserExceptionVisitor visitor) throws PersistenceException {
         visitor.handleRestrictionException(this);
     }
-    public <R> R accept(model.visitor.UserExceptionReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(UserExceptionReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleRestrictionException(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.UserExceptionExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(UserExceptionExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleRestrictionException(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.UserExceptionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(UserExceptionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleRestrictionException(this);
     }
     public int getLeafInfo() throws PersistenceException{

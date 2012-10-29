@@ -1,7 +1,7 @@
 
 package model.visitor;
-
-public interface MCTypeHierarchyHIERARCHYExceptionVisitor<E extends model.UserException> extends MTypeExceptionVisitor<E>{
+import model.UserException;
+public interface MCTypeHierarchyHIERARCHYExceptionVisitor<E extends UserException> extends MTypeExceptionVisitor<E>{
     
     
 }

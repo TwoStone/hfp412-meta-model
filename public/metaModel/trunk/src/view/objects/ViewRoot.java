@@ -147,4 +147,5 @@ public abstract class ViewRoot extends ViewObjectInTree implements TableModel, T
 	}
 	public abstract boolean hasTransientFields();
 	
+		
 }

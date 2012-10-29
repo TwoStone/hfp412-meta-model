@@ -1,9 +1,9 @@
 
 package model.visitor;
-
+import model.UserException;
 import persistence.*;
 
-public interface AnythingExceptionVisitor<E extends model.UserException> extends MComplexTypeExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends UserException> extends MComplexTypeExceptionVisitor<E>{
     
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException, E;
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;

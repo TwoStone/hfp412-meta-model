@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -66,7 +67,7 @@ public class ErrorDisplay extends PersistentObject implements PersistentErrorDis
     }
     
     static public long getTypeId() {
-        return -134;
+        return -104;
     }
     
     public long getClassId() {
@@ -99,16 +100,16 @@ public class ErrorDisplay extends PersistentObject implements PersistentErrorDis
         }return (PersistentErrorDisplay)this.This;
     }
     
-    public void accept(model.visitor.AnythingVisitor visitor) throws PersistenceException {
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleErrorDisplay(this);
     }
-    public <R> R accept(model.visitor.AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleErrorDisplay(this);
     }
-    public <E extends model.UserException>  void accept(model.visitor.AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleErrorDisplay(this);
     }
-    public <R, E extends model.UserException> R accept(model.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleErrorDisplay(this);
     }
     public int getLeafInfo() throws PersistenceException{

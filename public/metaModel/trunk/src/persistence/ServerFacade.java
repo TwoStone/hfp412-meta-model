@@ -29,7 +29,7 @@ public class ServerFacade{
             callable.close();
             Server result = new Server(null,password,user,hackCount,hackDelay,id);
             Cache.getTheCache().put(result);
-            return (ServerProxi)PersistentProxi.createProxi(id, -111);
+            return (ServerProxi)PersistentProxi.createProxi(id, -105);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

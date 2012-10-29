@@ -29,7 +29,7 @@ public abstract class RemoteServerMaster implements TDObserver {
 		else
 			try {
 				result.put(common.RPCConstantsAndServices.ResultFieldName, object.toHashtable(depth, 0, false, tdObserver));
-				result.put(common.RPCConstantsAndServices.RootFieldName, ((PersistentProxi)object).createProxiInformation());
+				result.put(common.RPCConstantsAndServices.RootFieldName, ((PersistentProxi)object).createProxiInformation(false));
 			} catch (PersistenceException e) {
 				return createExceptionResult(e);
 			}
@@ -54,6 +54,13 @@ public abstract class RemoteServerMaster implements TDObserver {
 		result.put(common.RPCConstantsAndServices.ResultFieldName, new Long(integer).toString());
 		return result;
 	}
+	protected static Hashtable<String,Object> createOKResult(common.Fraction fraction){
+		Hashtable<String,Object> result = new Hashtable<String,Object>();
+		result.put(common.RPCConstantsAndServices.OKOrNotOKResultFieldName, new Boolean(true));
+		result.put(common.RPCConstantsAndServices.ResultFieldName, fraction.toString());
+		return result;
+	}
+	
 	private Hashtable<String,Object> createOKResult(boolean b) {
 		Hashtable<String,Object> result = new Hashtable<String,Object>();
 		result.put(common.RPCConstantsAndServices.OKOrNotOKResultFieldName, new Boolean(true));

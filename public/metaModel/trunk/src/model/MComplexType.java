@@ -3,9 +3,6 @@ package model;
 
 import java.util.Iterator;
 
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.MCTypeHierarchyHIERARCHYReturnVisitor;
-import model.visitor.MTypeReturnVisitor;
 import persistence.*;
 
 
@@ -23,7 +20,7 @@ public abstract class MComplexType extends PersistentObject implements Persisten
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("containedTypes", this.getContainedTypes().getVector(allResults, depth, essentialLevel, forGUI, tdObserver));
+            result.put("containedTypes", this.getContainedTypes().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             result.put("TypeLinkOperator", this.getTypeLinkOperator());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
@@ -47,7 +44,7 @@ public abstract class MComplexType extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 142;
+        return 106;
     }
     
     public long getClassId() {
@@ -96,14 +93,14 @@ public abstract class MComplexType extends PersistentObject implements Persisten
     }
     public String fetchName() 
 				throws PersistenceException{
-    	StringBuilder result = new StringBuilder();
+	StringBuilder result = new StringBuilder();
     	
     	Iterator<MType> i = getThis().getContainedTypes().iterator();
     	
     	while (i.hasNext()) {
     		MType currentSubType = i.next(); 
     		result.append(
-    		currentSubType.accept(new MTypeReturnVisitor<String>() {
+    		currentSubType.accept(new model.visitor.MTypeReturnVisitor<String>() {
 
     			@Override
     			public String handleMProductType(PersistentMProductType mProductType)

@@ -3,6 +3,7 @@ package view;
 
 
 import viewClient.*;
+import view.visitor.*;
 
 
 /* Additional import section end */
@@ -21,16 +22,16 @@ public class CycleException extends view.UserException{
     }
     
     
-    public void accept(view.visitor.UserExceptionVisitor visitor) throws ModelException {
+    public void accept(UserExceptionVisitor visitor) throws ModelException {
         visitor.handleCycleException(this);
     }
-    public <R> R accept(view.visitor.UserExceptionReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(UserExceptionReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleCycleException(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.UserExceptionExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(UserExceptionExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleCycleException(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.UserExceptionReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(UserExceptionReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleCycleException(this);
     }
     

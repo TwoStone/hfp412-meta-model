@@ -35,7 +35,7 @@ public class ConnectionServer extends RemoteServerMaster {
 	}
 	public RemoteServerMaster createRemoteServer(String connectionName, String userName, long objectId, long classId){
 		try {
-			if(classId == -111)return new RemoteServer(connectionName, userName, (PersistentServer)PersistentProxi.createProxi(objectId, classId));
+			if(classId == -105)return new RemoteServer(connectionName, userName, (PersistentServer)PersistentProxi.createProxi(objectId, classId));
 			
 		}catch(PersistenceException pe){
 			return null;

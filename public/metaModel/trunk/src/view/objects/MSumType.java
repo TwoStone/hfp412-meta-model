@@ -2,6 +2,7 @@
 package view.objects;
 
 import view.*;
+import view.visitor.*;
 
 
 /* Additional import section end */
@@ -15,7 +16,7 @@ public class MSumType extends view.objects.MComplexType implements MSumTypeView{
     }
     
     static public long getTypeId() {
-        return 141;
+        return 103;
     }
     
     public long getClassId() {
@@ -23,40 +24,40 @@ public class MSumType extends view.objects.MComplexType implements MSumTypeView{
     }
     
     
-    public void accept(view.visitor.MComplexTypeVisitor visitor) throws ModelException {
+    public void accept(MComplexTypeVisitor visitor) throws ModelException {
         visitor.handleMSumType(this);
     }
-    public <R> R accept(view.visitor.MComplexTypeReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMSumType(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.MComplexTypeExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMSumType(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMSumType(this);
     }
-    public void accept(view.visitor.MTypeVisitor visitor) throws ModelException {
+    public void accept(MTypeVisitor visitor) throws ModelException {
         visitor.handleMSumType(this);
     }
-    public <R> R accept(view.visitor.MTypeReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMSumType(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.MTypeExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMSumType(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.MTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMSumType(this);
     }
-    public void accept(view.visitor.AnythingVisitor visitor) throws ModelException {
+    public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleMSumType(this);
     }
-    public <R> R accept(view.visitor.AnythingReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMSumType(this);
     }
-    public <E extends model.UserException>  void accept(view.visitor.AnythingExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMSumType(this);
     }
-    public <R, E extends model.UserException> R accept(view.visitor.AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMSumType(this);
     }
     
