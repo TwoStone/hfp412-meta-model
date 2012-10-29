@@ -91,9 +91,7 @@ model quantity {
 		// from und to sind Oracle-Schlüsselwörter.
 		Unit source;
 		Unit target;
-
 		Function convFunction;
-
 	}
 
 		//Wie muss eine Function aussehen? --> y=a*x+b	
