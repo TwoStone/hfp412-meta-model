@@ -49,6 +49,15 @@ public class Server extends PersistentObject implements PersistentServer{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            AbstractPersistentRoot typeManager = (AbstractPersistentRoot)this.getTypeManager(tdObserver);
+            if (typeManager != null) {
+                result.put("typeManager", typeManager.createProxiInformation(false));
+                if(depth > 1) {
+                    typeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && typeManager.hasEssentialFields())typeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             result.put("user", this.getUser());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -161,6 +170,18 @@ public class Server extends PersistentObject implements PersistentServer{
         }return (PersistentServer)this.This;
     }
     
+    public void accept(InvokerVisitor visitor) throws PersistenceException {
+        visitor.handleServer(this);
+    }
+    public <R> R accept(InvokerReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleServer(this);
+    }
+    public <E extends UserException>  void accept(InvokerExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleServer(this);
+    }
+    public <R, E extends UserException> R accept(InvokerReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleServer(this);
+    }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
@@ -186,10 +207,41 @@ public class Server extends PersistentObject implements PersistentServer{
          return visitor.handleServer(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        return 0;
+        return (int) (0 
+            + (this.getTypeManager() == null ? 0 : 1));
     }
     
     
+    public void addAtomicType(final String name) 
+				throws PersistenceException{
+        //TODO: implement method: addAtomicType
+        
+    }
+    public PersistentTypeManager getTypeManager() 
+				throws PersistenceException{
+        return model.TypeManager.getTheTypeManager();
+    }
+    public void handleResult(final Command command) 
+				throws PersistenceException{
+        new Thread(new Runnable(){
+			public void  /*INTERNAL*/  run() {
+				try {
+					try {
+						command.checkException();
+						//Handle result!
+						signalChanged(true);
+					} catch (model.UserException e) {
+						model.UserExceptionToDisplayVisitor visitor = new model.UserExceptionToDisplayVisitor();
+						e.accept(visitor);
+						getErrors().add(visitor.getResult());
+						signalChanged(true);
+					}
+				} catch (PersistenceException e) {
+					//Handle fatal exception!
+				}
+			}
+		}).start();
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         this.changed = signal;
@@ -199,25 +251,10 @@ public class Server extends PersistentObject implements PersistentServer{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
     public void connected(final String user) 
 				throws PersistenceException{
         //TODO: implement method: connected
         
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentServer)This);
-		if(this.equals(This)){
-			this.setPassword((String)final$$Fields.get("password"));
-			this.setUser((String)final$$Fields.get("user"));
-			this.setHackCount((Long)final$$Fields.get("hackCount"));
-			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
-		}
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -234,6 +271,35 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         //TODO: implement method: disconnected
         
+    }
+    public PersistentTypeManager getTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentTypeManager result = getThis().getTypeManager();
+		observer.updateTransientDerived(getThis(), "typeManager", result);
+		return result;
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
+    public void handleException(final Command command, final PersistenceException exception) 
+				throws PersistenceException{
+        new Thread(new Runnable(){
+			public /*INTERNAL*/ void run() {
+				//Handle exception!
+			}
+		}).start();
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentServer)This);
+		if(this.equals(This)){
+			this.setPassword((String)final$$Fields.get("password"));
+			this.setUser((String)final$$Fields.get("user"));
+			this.setHackCount((Long)final$$Fields.get("hackCount"));
+			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
+		}
     }
 
     /* Start of protected part that is not overridden by persistence generator */

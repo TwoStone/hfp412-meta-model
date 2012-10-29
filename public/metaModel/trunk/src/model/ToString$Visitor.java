@@ -40,5 +40,10 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			throws PersistenceException {
 		// TODO Auto-generated method stub
 	}
+	@Override
+	public void handleTypeManager(PersistentTypeManager typeManager)
+			throws PersistenceException {
+		result= "[TypeManager]";
+	}
 
 }

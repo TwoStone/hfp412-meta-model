@@ -53,6 +53,56 @@ create table MAtmcTp(
     constraint FMAtmcTpThis foreign key (MAtmcTpThisCls) references Cls (id)    
 );
 
+create sequence STpMngr nocache;
+
+create table TpMngr(
+    id number primary key,
+    Cls number not null,
+    TpMngrThis number,
+    TpMngrThisCls number,
+    constraint FTpMngrThis foreign key (TpMngrThisCls) references Cls (id)    
+);
+
+create sequence SCmmndExctr nocache;
+
+create table CmmndExctr(
+    id number primary key,
+    Cls number not null    
+);
+
+create sequence SCmmndCrdntr nocache;
+
+create table CmmndCrdntr(
+    id number primary key,
+    Cls number not null    
+);
+
+create sequence SCmmnDt nocache;
+
+create table CmmnDt(
+    id number primary key,
+    Cls number not null,
+    CmmnDtCrtdt Date,
+    CmmnDtCmmtdt Date    
+);
+
+create sequence SAddAtmcTpCMD nocache;
+
+create table AddAtmcTpCMD(
+    id number primary key,
+    Cls number not null,
+    AddAtmcTpCMDNm varchar2(2000),
+    AddAtmcTpCMDInvoker number,
+    AddAtmcTpCMDInvokerCls number,
+    constraint FAddAtmcTpCMDInvoker foreign key (AddAtmcTpCMDInvokerCls) references Cls (id),
+    AddAtmcTpCMDCReceiver number,
+    AddAtmcTpCMDCReceiverCls number,
+    constraint FAddAtmcTpCMDCReceiver foreign key (AddAtmcTpCMDCReceiverCls) references Cls (id),
+    AddAtmcTpCMDMyCmmnDt number,
+    AddAtmcTpCMDMyCmmnDtCls number,
+    constraint FAddAtmcTpCMDMyCmmnDt foreign key (AddAtmcTpCMDMyCmmnDtCls) references Cls (id)    
+);
+
 create sequence SSrvr nocache;
 
 create table Srvr(
@@ -78,6 +128,66 @@ create table MCmplxTp(
     MCmplxTpThisCls number,
     constraint FMCmplxTpThis foreign key (MCmplxTpThisCls) references Cls (id)    
 );
+
+create sequence STpMngrAtmcTps nocache;
+
+create table TpMngrAtmcTps(
+    id number primary key,
+    frm number not null,
+    atmcTps number not null,
+    Cls number not null,
+    constraint FTpMngrAtmcTpsCls foreign key(Cls) references Cls(id),
+    constraint FTpMngrAtmcTpsfrm foreign key(frm) references TpMngr(id)
+);
+create index IFrmTpMngrAtmcTps on TpMngrAtmcTps(frm);
+
+create sequence STpMngrPrdctTps nocache;
+
+create table TpMngrPrdctTps(
+    id number primary key,
+    frm number not null,
+    prdctTps number not null,
+    Cls number not null,
+    constraint FTpMngrPrdctTpsCls foreign key(Cls) references Cls(id),
+    constraint FTpMngrPrdctTpsfrm foreign key(frm) references TpMngr(id)
+);
+create index IFrmTpMngrPrdctTps on TpMngrPrdctTps(frm);
+
+create sequence STpMngrSmTps nocache;
+
+create table TpMngrSmTps(
+    id number primary key,
+    frm number not null,
+    smTps number not null,
+    Cls number not null,
+    constraint FTpMngrSmTpsCls foreign key(Cls) references Cls(id),
+    constraint FTpMngrSmTpsfrm foreign key(frm) references TpMngr(id)
+);
+create index IFrmTpMngrSmTps on TpMngrSmTps(frm);
+
+create sequence SCmmndExctrCommands nocache;
+
+create table CmmndExctrCommands(
+    id number primary key,
+    frm number not null,
+    commands number not null,
+    Cls number not null,
+    constraint FCmmndExctrCommandsCls foreign key(Cls) references Cls(id),
+    constraint FCmmndExctrCommandsfrm foreign key(frm) references CmmndExctr(id)
+);
+create index IFrmCmmndExctrCommands on CmmndExctrCommands(frm);
+
+create sequence SCmmndCrdntrExctr nocache;
+
+create table CmmndCrdntrExctr(
+    id number primary key,
+    frm number not null,
+    exctr number not null,
+    Cls number not null,
+    constraint FCmmndCrdntrExctrCls foreign key(Cls) references Cls(id),
+    constraint FCmmndCrdntrExctrfrm foreign key(frm) references CmmndCrdntr(id)
+);
+create index IFrmCmmndCrdntrExctr on CmmndCrdntrExctr(frm);
 
 create sequence SMCmplxTpCntndTps nocache;
 

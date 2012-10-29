@@ -15,19 +15,23 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         return (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentMAtomicType createMAtomicType() throws PersistenceException {
+    public static PersistentMAtomicType createMAtomicType(String name) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMAtomicType result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-            .newMAtomicType("");
+            .newMAtomicType(name);
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("name", name);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentMAtomicType createMAtomicType(PersistentMAtomicType This) throws PersistenceException {
+    public static PersistentMAtomicType createMAtomicType(String name,PersistentMAtomicType This) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMAtomicType result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-            .newMAtomicType("");
+            .newMAtomicType(name);
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("name", name);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -170,6 +174,7 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 				throws PersistenceException{
         this.setThis((PersistentMAtomicType)This);
 		if(this.equals(This)){
+			this.setName((String)final$$Fields.get("name"));
 		}
     }
     public void initializeOnCreation() 

@@ -18,6 +18,15 @@ public  class RemoteServer extends RemoteServerMaster {
         return this.server;
     } 
 
+    public synchronized java.util.Hashtable<?,?> addAtomicType(String name){
+        try {
+            ((PersistentServer)this.server).addAtomicType(name);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
 
 
 }

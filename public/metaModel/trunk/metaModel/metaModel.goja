@@ -1,16 +1,23 @@
 model metaModel{
 
 server Server {
-
+	derived TypeManager typeManager@@Types;
+	void addAtomicType(String name);
 }
 
+singleton TypeManager {
+	MAtomicType** atomicTypes;
+	MProductType** productTypes;
+	MSumType** sumTypes;
+	active void addAtomicType(String name) throws DoubleDefinitionException;
+}
 
 interface MType@@Type {
 	String fetchName();
 }
 
 class MAtomicType@@AtomicType implements MType {
-	String name;
+	prior String name;
 }
 
 abstract class MComplexType@@ComplexType implements MType {
@@ -25,5 +32,7 @@ class MSumType@@SumType extends MComplexType {
 }
 
 hierarchy MCTypeHierarchy;
+exception DoubleDefinitionException{}
+
 
 }
