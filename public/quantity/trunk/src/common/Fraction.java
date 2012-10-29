@@ -29,10 +29,10 @@ public class Fraction {
 	}
 
 	private final BigInteger enumerator;
-	public BigInteger getEnumerator() {
+	private BigInteger getEnumerator() {
 		return enumerator;
 	}
-	public BigInteger getDenominator() {
+	private BigInteger getDenominator() {
 		return denominator;
 	}
 

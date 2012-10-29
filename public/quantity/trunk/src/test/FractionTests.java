@@ -1,7 +1,5 @@
 package test;
 
-import java.math.BigInteger;
-
 import junit.framework.TestCase;
 
 import common.Fraction;
@@ -34,12 +32,10 @@ public class FractionTests extends TestCase {
 
 	public void testToRational() throws Exception {
 		Fraction bruch1 = Fraction.parse("10/2");
-		assertEquals(BigInteger.valueOf(5), bruch1.getEnumerator());
-		assertEquals(BigInteger.valueOf(1), bruch1.getDenominator());
+		assertEquals(Fraction.parse("5/1"), bruch1);
 
 		Fraction bruch2 = Fraction.parse("10/3");
-		assertEquals(BigInteger.valueOf(10), bruch2.getEnumerator());
-		assertEquals(BigInteger.valueOf(3), bruch2.getDenominator());
+		assertEquals(Fraction.parse("10/3"), bruch2);
 	}
 
 	public void testFractionMul01() throws Throwable {
@@ -47,8 +43,7 @@ public class FractionTests extends TestCase {
 		Fraction bruch2 = Fraction.parse("10/2");
 		// Funktion mul testen
 		Fraction multFraction = bruch1.mul(bruch2);
-		assertEquals(BigInteger.valueOf(25), multFraction.getEnumerator());
-		assertEquals(BigInteger.valueOf(1), multFraction.getDenominator());
+		assertEquals(Fraction.parse("25/1"), multFraction);
 	}
 
 	public void testFractionMul02() throws Throwable {
@@ -56,19 +51,14 @@ public class FractionTests extends TestCase {
 		Fraction fraction2 = Fraction.parse("2/3");
 		
 		Fraction result = fraction1.mul(fraction2);
-		assertEquals(BigInteger.valueOf(1), result.getEnumerator());
-		assertEquals(BigInteger.valueOf(3), result.getDenominator());
+		assertEquals(Fraction.parse("1/3"), result);
 	}
 
 	public void testFractionToRational() throws Exception {
 		Fraction bruch1 = Fraction.parse("10/2");
 		Fraction bruch2 = Fraction.parse("3/9");
-
-		// Funktion toRational testen
-		assertEquals(BigInteger.valueOf(5), bruch1.getEnumerator());
-		assertEquals(BigInteger.valueOf(1), bruch1.getDenominator());
-		assertEquals(BigInteger.valueOf(1), bruch2.getEnumerator());
-		assertEquals(BigInteger.valueOf(3), bruch2.getDenominator());
+		assertEquals(Fraction.parse("5/1"), bruch1);
+		assertEquals(Fraction.parse("1/3"), bruch2);
 	}
 
 	public void testFractionAdd() throws Throwable {
@@ -77,8 +67,7 @@ public class FractionTests extends TestCase {
 		
 		// Funktion add testen
 		Fraction multFraction = bruch1.add(bruch2);
-		assertEquals(BigInteger.valueOf(25), multFraction.getEnumerator());
-		assertEquals(BigInteger.valueOf(3), multFraction.getDenominator());
+		assertEquals(Fraction.parse("25/3"), multFraction);
 	}
 	
 	public void testFractionDivisionByZero() {
