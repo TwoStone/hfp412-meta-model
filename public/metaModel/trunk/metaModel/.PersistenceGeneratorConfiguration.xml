@@ -1,2 +1,0 @@
-<?xml version="1.0"?>
-<Configuration FinalParameters="" FontSize="16" MessagesForEventsOnly="" StaticOperationsasTools="" WithErrorService=""><Model>D:\GOJA\Workspace\metaModel\metaModel</Model><OracleTarget>D:\GOJA\DB</OracleTarget><JavaTarget>D:\GOJA\Workspace</JavaTarget><JavaBackup>D:\GOJA\Backup</JavaBackup><DatabaseConnection>localhost:1521</DatabaseConnection><DatabaseUser>PG</DatabaseUser></Configuration>
