@@ -1,5 +1,6 @@
 package de.hfp412.piAutomatonCreator;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -12,6 +13,10 @@ import javax.xml.transform.TransformerConfigurationException;
 
 import org.jgrapht.Graph;
 import org.jgrapht.ext.StringNameProvider;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
 import org.xml.sax.SAXException;
 
 import parser.exception.SyntaxErrorException;
@@ -24,19 +29,32 @@ import basis.InternalException;
 import com.google.common.base.Charsets;
 
 public class Main {
+	
+	@Argument(required = true, usage ="Ein .prm Datei aus der der Prozessausdruck verwendet wird.")
+	private File inputFile;
+	
+	@Option(name="-o", usage="Pfad der Ausgabedatei")
+	private File outputFile;
 
 	/**
-	 */
-	public static void main(String[] args) throws ScannerException, SyntaxErrorException, InfiniteStateSpaceException, InternalException, IOException, URISyntaxException, TransformerConfigurationException, SAXException {
+s	 */
+	public static void main(String[] args) throws ScannerException, SyntaxErrorException, InfiniteStateSpaceException, InternalException, IOException, URISyntaxException, TransformerConfigurationException, SAXException, CmdLineException {
+		new Main().doMain(args);
+	}
+
+	private void doMain(String[] args) throws ScannerException,
+			SyntaxErrorException, IOException, CmdLineException {
+		
+		CmdLineParser cmdLineParser = new CmdLineParser(this);
+		cmdLineParser.parseArgument(args);
+		
 		final ProcessExpression expression; 
 		
-		String inputFileName;
-		if (args.length >= 1) {
-			inputFileName = args[0];
-			System.out.println("Loading file "+ inputFileName);
-			expression = PicardInterface.loadExpressionFromFile(Paths.get(inputFileName));
+		if (inputFile != null) {
+			System.out.println("Loading file "+ inputFile.getName());
+			expression = PicardInterface.loadExpressionFromFile(inputFile.toPath());
 		} else {
-			System.err.println("No file argument passed");
+			cmdLineParser.printUsage(System.out);
 			return;
 		}
 		ProcessTermWithRestrictedNames p1 = PicardInterface.parseProcess(expression);
@@ -49,10 +67,9 @@ public class Main {
 		
 		System.out.println(output.asDOT());
 				
-		if (args.length >= 2) {
+		if (outputFile != null) {
 			Path outputFile = Paths.get(args[1]);		
 			Files.write(outputFile, Collections.singletonList(output.asDOT()), Charsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 		}
-				
 	}
 }

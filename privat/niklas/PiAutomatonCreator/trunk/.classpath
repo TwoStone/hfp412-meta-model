@@ -10,5 +10,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/jgraphx.jar"/>
+	<classpathentry kind="lib" path="libs/args4j-2.0.21.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/Nik/Downloads/args4j-2.0.21-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
