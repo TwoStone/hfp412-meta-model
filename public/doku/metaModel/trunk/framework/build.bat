@@ -4,14 +4,14 @@ cd %~f0\..\..
 REM ##### KONSTANTEN ######
 
 REM Bin-Verzeichnis von MiKTeX. Standard: "C:\Programme\MiKTeX 2.9\miktex\bin\".
-set miktexBinDir="C:\Programme\MiKTeX 2.9\miktex\bin\"
+set miktexBinDir="C:\Program Files\MiKTeX 2.9\miktex\bin\"
 
 REM Name des Hauptdokuments ohne die Dateiendung. Standard: "document".
 set document=document
 
 REM Synctex-Archiv für die Rückwärtssuche in Pdf4Eclipse generieren?
 REM Standard: "0", zum Aktivieren auf den Wert "1" setzen.
-set synctex=0
+set synctex=1
 
 
 REM ##### PARAMETER AUSWERTEN ######
