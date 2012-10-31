@@ -322,7 +322,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void addAtomicType(final PersistentMAspect aspect, final String name) 
 				throws PersistenceException{
-        //TODO: implement method: addAtomicType
+        TypeManager.getTheTypeManager().addAtomicType(aspect, name, getThis());
         
     }
 

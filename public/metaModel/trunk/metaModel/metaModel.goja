@@ -30,7 +30,7 @@ interface MType@@Type {
 
 class MAtomicType@@AtomicType implements MType {
 	prior indexed String name;
-	prior symmetric(types) MAspect aspect; 
+	no-view prior symmetric(types) MAspect aspect; 
 }
 
 abstract class MComplexType@@ComplexType implements MType {

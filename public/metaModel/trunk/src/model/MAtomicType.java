@@ -173,8 +173,7 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
          return visitor.handleMAtomicType(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        return (int) (0 
-            + (this.getAspect() == null ? 0 : 1));
+        return 0;
     }
     
     
