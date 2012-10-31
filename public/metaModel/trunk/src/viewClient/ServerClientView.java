@@ -283,11 +283,37 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private java.util.Vector<javax.swing.JButton> getToolButtonsForStaticOperations() {
         java.util.Vector<javax.swing.JButton> result = new java.util.Vector<javax.swing.JButton>();
         javax.swing.JButton currentButton = null;
+        currentButton = new javax.swing.JButton("addAspect ... ");
+        currentButton.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                ServerAddAspectStringMssgWizard wizard = new ServerAddAspectStringMssgWizard("addAspect");
+                wizard.pack();
+                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                wizard.pack();
+                wizard.setLocationRelativeTo(getNavigationPanel());
+                wizard.setVisible(true);
+            }
+            
+        });result.add(currentButton);
         return result;
     }
     private JPopupMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations) {
         JPopupMenu result = new JPopupMenu();
         javax.swing.JMenuItem item = null;
+        item = new javax.swing.JMenuItem();
+        item.setText("(S) addAspect ... ");
+        item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                ServerAddAspectStringMssgWizard wizard = new ServerAddAspectStringMssgWizard("addAspect");
+                wizard.pack();
+                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                wizard.pack();
+                wizard.setLocationRelativeTo(getNavigationPanel());
+                wizard.setVisible(true);
+            }
+            
+        });
+        if (withStaticOperations) result.add(item);
         if (selected != null){
             if (selected instanceof MAspectView){
                 item = new javax.swing.JMenuItem();
@@ -313,6 +339,48 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         return result;
     }
     
+	class ServerAddAspectStringMssgWizard extends Wizard {
+
+		protected ServerAddAspectStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddAspectStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().addAspect(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			catch(DoubleDefinitionException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
 	class ServerAddAtomicTypeMAspectStringMssgWizard extends Wizard {
 
 		protected ServerAddAtomicTypeMAspectStringMssgWizard(String operationName){

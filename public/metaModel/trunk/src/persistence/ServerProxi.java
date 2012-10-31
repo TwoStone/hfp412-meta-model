@@ -115,6 +115,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).connected(user);
     }
+    public void addAspect(final String name) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        ((PersistentServer)this.getTheObject()).addAspect(name);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnCreation();

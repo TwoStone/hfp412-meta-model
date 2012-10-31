@@ -267,6 +267,10 @@ public class Server extends PersistentObject implements PersistentServer{
         //TODO: implement method: connected
         
     }
+    public void addAspect(final String name) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        AspectManager.getTheAspectManager().addAspect(name, getThis());
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation

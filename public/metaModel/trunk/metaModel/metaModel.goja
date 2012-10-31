@@ -4,6 +4,8 @@ server Server {
 	derived TypeManager typeManager;
 	derived AspectManager aspectManager;
 	void addAtomicType(MAspect aspect, String name);
+
+	void addAspect(String name) throws DoubleDefinitionException;
 }
 
 singleton AspectManager {

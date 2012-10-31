@@ -40,13 +40,15 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public PersistentAspectManager getAspectManager(final TDObserver observer) 
 				throws PersistenceException;
+    public void addAspect(final String name) 
+				throws model.DoubleDefinitionException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public boolean hasChanged() 
 				throws PersistenceException;
-    public PersistentTypeManager getTypeManager(final TDObserver observer) 
-				throws PersistenceException;
     public PersistentAspectManager getAspectManager() 
+				throws PersistenceException;
+    public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

@@ -160,7 +160,11 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     }
     public void addAspect(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: addAspect
+    	if(MAspect.getMAspectByName(name).getLength()>0){
+    		throw new DoubleDefinitionException("Aspect with name '"+name+"' already exists.");
+    	}else{
+    		getThis().getAspects().add(MAspect.createMAspect(name));
+    	}
         
     }
 
