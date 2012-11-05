@@ -6,7 +6,7 @@ import model.*;
 
 /* Additional import section end */
 
-public interface MType extends  MCTypeHierarchyHIERARCHY {
+public interface MType extends  MComplexTypeHierarchyHIERARCHY {
     
     public String fetchName() 
 				throws PersistenceException;

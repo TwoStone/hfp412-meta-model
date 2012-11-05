@@ -53,6 +53,17 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
                     if(forGUI && aspect.hasEssentialFields())aspect.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            AbstractPersistentRoot superType = (AbstractPersistentRoot)this.getSuperType();
+            if (superType != null) {
+                result.put("superType", superType.createProxiInformation(false));
+                if(depth > 1) {
+                    superType.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && superType.hasEssentialFields())superType.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            result.put("superTypes", this.getSuperTypes(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
+            result.put("subTypes", this.getSubTypes().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -68,6 +79,7 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         MAtomicType result = this;
         result = new MAtomicType(this.name, 
                                  this.aspect, 
+                                 this.superType, 
                                  this.This, 
                                  this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -79,13 +91,15 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
     }
     protected String name;
     protected PersistentMAspect aspect;
+    protected PersistentMAtomicType superType;
     protected PersistentMAtomicType This;
     
-    public MAtomicType(String name,PersistentMAspect aspect,PersistentMAtomicType This,long id) throws persistence.PersistenceException {
+    public MAtomicType(String name,PersistentMAspect aspect,PersistentMAtomicType superType,PersistentMAtomicType This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.aspect = aspect;
+        this.superType = superType;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -116,6 +130,18 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         this.aspect = (PersistentMAspect)PersistentProxi.createProxi(objectId, classId);
         ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.aspectSet(this.getId(), newValue);
     }
+    public PersistentMAtomicType getSuperType() throws PersistenceException {
+        return this.superType;
+    }
+    public void setSuperType(PersistentMAtomicType newValue) throws PersistenceException , model.CycleException{
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if (newValue.containsMAtomicTypeHierarchy(getThis())) throw new model.CycleException("Cycle in MAtomicTypeHierarchy detected!");
+        if(newValue.equals(this.superType)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.superType = (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
+        ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.superTypeSet(this.getId(), newValue);
+    }
     protected void setThis(PersistentMAtomicType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.equals(this)){
@@ -136,6 +162,18 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         }return (PersistentMAtomicType)this.This;
     }
     
+    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleMAtomicType(this);
+    }
+    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMAtomicType(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMAtomicType(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMAtomicType(this);
+    }
     public void accept(MTypeVisitor visitor) throws PersistenceException {
         visitor.handleMAtomicType(this);
     }
@@ -148,16 +186,16 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
     public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMAtomicType(this);
     }
-    public void accept(MCTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+    public void accept(MAtomicTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleMAtomicType(this);
     }
-    public <R> R accept(MCTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(MAtomicTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleMAtomicType(this);
     }
-    public <E extends UserException>  void accept(MCTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(MAtomicTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleMAtomicType(this);
     }
-    public <R, E extends UserException> R accept(MCTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(MAtomicTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMAtomicType(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -173,28 +211,45 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
          return visitor.handleMAtomicType(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        return 0;
+        return (int) (0 
+            + (this.getSuperType() == null ? 0 : 1)
+            + this.getSuperTypes().getLength()
+            + this.getSubTypes().getLength());
     }
     
     
-    public boolean containsMCTypeHierarchy(final MCTypeHierarchyHIERARCHY part) 
+    public boolean containsMAtomicTypeHierarchy(final MAtomicTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
+		if(getThis().getSuperType() != null && getThis().getSuperType().containsMAtomicTypeHierarchy(part)) return true;
 		return false;
+    }
+    public <T> T strategyMAtomicTypeHierarchy(final T parameter, final MAtomicTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$superType$$MAtomicType = strategy.initialize$$MAtomicType$$superType(getThis(), parameter);
+		result$$superType$$MAtomicType = this.getSuperType().strategyMAtomicTypeHierarchy(result$$superType$$MAtomicType, strategy);
+		return strategy.finalize$$MAtomicType(getThis(), parameter,result$$superType$$MAtomicType);
+    }
+    public MTypeSearchList getSuperTypes(final TDObserver observer) 
+				throws PersistenceException{
+        MTypeSearchList result = getThis().getSuperTypes();
+		observer.updateTransientDerived(getThis(), "superTypes", result);
+		return result;
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public <T> T strategyMCTypeHierarchy(final T parameter, final MCTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return strategy.finalize$$MAtomicType(getThis(), parameter);
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
+    }
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		return false;
     }
     public String fetchName() 
 				throws PersistenceException{
@@ -208,10 +263,31 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 			this.setAspect((PersistentMAspect)final$$Fields.get("aspect"));
 		}
     }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return strategy.finalize$$MAtomicType(getThis(), parameter);
+    }
+    public MTypeSearchList getSuperTypes() 
+				throws PersistenceException{
+        //TODO: implement method: getSuperTypes
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"getSuperTypes\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
+    }
+    public MAtomicTypeSearchList getSubTypes() 
+				throws PersistenceException{
+        MAtomicTypeSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+							.inverseGetSuperType(this.getId(), this.getClassId());
+		return result;
     }
 
     /* Start of protected part that is not overridden by persistence generator */

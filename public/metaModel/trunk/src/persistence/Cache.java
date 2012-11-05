@@ -42,22 +42,22 @@ public class Cache {
 				while (!garbageCollector.isInterrupted()){
 					synchronized(lock){try {lock.wait(GarbageCollectorReportInterval);} catch (InterruptedException e) {}}//Do nothing and terminate!
 					reporter.reportCurrentCacheSize(size);
-					if (Cache.this.heapSpaceFree < HeapSpaceReserve){
-						Cache.this.heapSpaceFree = Long.MAX_VALUE;
-						Object[] classes = classMap.keySet().toArray();
-						for (int i = 0; i < classes.length; i++){
-							long currentKey = (Long) classes[i];
-							if (currentKey > 0){
-								Hashtable<Long, PersistentInCacheProxi> objectMap = classMap.get(classes[i]);
-								Object[] objects = objectMap.keySet().toArray();
-								for (int j = 0; j < objects.length; j++){
-									PersistentInCacheProxi current = objectMap.get(objects[j]);
-									if (current != null) current.tryBreak();
-								}
-							}
-						}
-						System.gc();
-					}
+//					if (Cache.this.heapSpaceFree < HeapSpaceReserve){
+//						Cache.this.heapSpaceFree = Long.MAX_VALUE;
+//						Object[] classes = classMap.keySet().toArray();
+//						for (int i = 0; i < classes.length; i++){
+//							long currentKey = (Long) classes[i];
+//							if (currentKey > 0){
+//								Hashtable<Long, PersistentInCacheProxi> objectMap = classMap.get(classes[i]);
+//								Object[] objects = objectMap.keySet().toArray();
+//								for (int j = 0; j < objects.length; j++){
+//									PersistentInCacheProxi current = objectMap.get(objects[j]);
+//									if (current != null) current.tryBreak();
+//								}
+//							}
+//						}
+//						System.gc();
+//					}
 				}
 			}
 		},"Cache Garbage Collector");

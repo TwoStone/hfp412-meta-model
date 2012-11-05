@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public abstract class MCTypeHierarchyHIERARCHYStandardVisitor implements MCTypeHierarchyHIERARCHYVisitor {
+public abstract class MComplexTypeHierarchyHIERARCHYStandardVisitor implements MComplexTypeHierarchyHIERARCHYVisitor {
     
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
         this.standardHandling(mAtomicType);
@@ -14,5 +14,5 @@ public abstract class MCTypeHierarchyHIERARCHYStandardVisitor implements MCTypeH
     public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
         this.standardHandling(mSumType);
     }
-    protected abstract void standardHandling(MCTypeHierarchyHIERARCHY mCTypeHierarchyHIERARCHY) throws PersistenceException;
+    protected abstract void standardHandling(MComplexTypeHierarchyHIERARCHY mComplexTypeHierarchyHIERARCHY) throws PersistenceException;
 }

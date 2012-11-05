@@ -42,6 +42,7 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         MProductType result = this;
         result = new MProductType(this.This, 
                                   this.getId());
+        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -83,6 +84,18 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
     public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMProductType(this);
     }
+    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleMProductType(this);
+    }
+    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMProductType(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMProductType(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMProductType(this);
+    }
     public void accept(MTypeVisitor visitor) throws PersistenceException {
         visitor.handleMProductType(this);
     }
@@ -93,18 +106,6 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
          visitor.handleMProductType(this);
     }
     public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMProductType(this);
-    }
-    public void accept(MCTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-        visitor.handleMProductType(this);
-    }
-    public <R> R accept(MCTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMProductType(this);
-    }
-    public <E extends UserException>  void accept(MCTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMProductType(this);
-    }
-    public <R, E extends UserException> R accept(MCTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMProductType(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -125,14 +126,6 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
     }
     
     
-    public boolean containsMCTypeHierarchy(final MCTypeHierarchyHIERARCHY part) 
-				throws PersistenceException{
-        if(getThis().equals(part)) return true;
-		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
-		while(iterator0.hasNext())
-			if(((MCTypeHierarchyHIERARCHY)iterator0.next()).containsMCTypeHierarchy(part)) return true; 
-		return false;
-    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
@@ -143,22 +136,30 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public <T> T strategyMCTypeHierarchy(final T parameter, final MCTypeHierarchyHIERARCHYStrategy<T> strategy) 
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        T result$$containedTypes$$MProductType = strategy.initialize$$MProductType$$containedTypes(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
-		while (iterator$$.hasNext()){
-			MType current$$Field = (MType)iterator$$.next();
-			T current$$ = current$$Field.strategyMCTypeHierarchy(result$$containedTypes$$MProductType, strategy);
-			result$$containedTypes$$MProductType = strategy.consolidate$$MProductType$$containedTypes(getThis(), result$$containedTypes$$MProductType, current$$);
-		}
-		return strategy.finalize$$MProductType(getThis(), parameter,result$$containedTypes$$MProductType);
+        if(getThis().equals(part)) return true;
+		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
+		while(iterator0.hasNext())
+			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
+		return false;
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMProductType)This);
 		if(this.equals(This)){
 		}
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$containedTypes$$MProductType = strategy.initialize$$MProductType$$containedTypes(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
+		while (iterator$$.hasNext()){
+			MType current$$Field = (MType)iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MProductType, strategy);
+			result$$containedTypes$$MProductType = strategy.consolidate$$MProductType$$containedTypes(getThis(), result$$containedTypes$$MProductType, current$$);
+		}
+		return strategy.finalize$$MProductType(getThis(), parameter,result$$containedTypes$$MProductType);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

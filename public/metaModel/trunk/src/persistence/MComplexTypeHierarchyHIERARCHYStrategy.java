@@ -3,7 +3,7 @@ package persistence;
 
 /* Additional import section end */
 
-public interface MCTypeHierarchyHIERARCHYStrategy<T> {
+public interface MComplexTypeHierarchyHIERARCHYStrategy<T> {
     
     public T finalize$$MAtomicType(final PersistentMAtomicType ths, final T parameter) 
 				throws PersistenceException;

@@ -18,10 +18,6 @@ public abstract class MComplexTypeProxi extends PersistentProxi implements Persi
     
     
     
-    public boolean containsMCTypeHierarchy(final MCTypeHierarchyHIERARCHY part) 
-				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).containsMCTypeHierarchy(part);
-    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentMComplexType)this.getTheObject()).initializeOnInstantiation();
@@ -30,9 +26,9 @@ public abstract class MComplexTypeProxi extends PersistentProxi implements Persi
 				throws PersistenceException{
         ((PersistentMComplexType)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public <T> T strategyMCTypeHierarchy(final T parameter, final MCTypeHierarchyHIERARCHYStrategy<T> strategy) 
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).strategyMCTypeHierarchy(parameter, strategy);
+        return ((PersistentMComplexType)this.getTheObject()).containsMComplexTypeHierarchy(part);
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -41,6 +37,10 @@ public abstract class MComplexTypeProxi extends PersistentProxi implements Persi
     public String fetchName() 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).fetchName();
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

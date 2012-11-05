@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public abstract class MCTypeHierarchyHIERARCHYDirectVisitor implements MCTypeHierarchyHIERARCHYVisitor {
+public abstract class MComplexTypeHierarchyHIERARCHYDirectVisitor implements MComplexTypeHierarchyHIERARCHYVisitor {
     
     public abstract void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException;
     

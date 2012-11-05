@@ -51,5 +51,12 @@ public abstract class PersistentObject extends PersistentRoot {
 	public Anything getThis() throws PersistenceException {
 		return (Anything) this;
 	}
-    	
+    boolean dltd;
+    protected void setDltd(){
+        this.dltd = true;
+    }
+    public boolean isDltd(){
+        return this.dltd;
+    }
+	
 }

@@ -34,10 +34,28 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
     public void setAspect(PersistentMAspect newValue) throws PersistenceException {
         ((PersistentMAtomicType)this.getTheObject()).setAspect(newValue);
     }
+    public PersistentMAtomicType getSuperType() throws PersistenceException {
+        return ((PersistentMAtomicType)this.getTheObject()).getSuperType();
+    }
+    public void setSuperType(PersistentMAtomicType newValue) throws PersistenceException , model.CycleException{
+        ((PersistentMAtomicType)this.getTheObject()).setSuperType(newValue);
+    }
     public PersistentMAtomicType getThis() throws PersistenceException {
         return ((PersistentMAtomicType)this.getTheObject()).getThis();
     }
     
+    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleMAtomicType(this);
+    }
+    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMAtomicType(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMAtomicType(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMAtomicType(this);
+    }
     public void accept(MTypeVisitor visitor) throws PersistenceException {
         visitor.handleMAtomicType(this);
     }
@@ -50,16 +68,16 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
     public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMAtomicType(this);
     }
-    public void accept(MCTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+    public void accept(MAtomicTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleMAtomicType(this);
     }
-    public <R> R accept(MCTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(MAtomicTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleMAtomicType(this);
     }
-    public <E extends UserException>  void accept(MCTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(MAtomicTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleMAtomicType(this);
     }
-    public <R, E extends UserException> R accept(MCTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(MAtomicTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMAtomicType(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -76,9 +94,17 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
     }
     
     
-    public boolean containsMCTypeHierarchy(final MCTypeHierarchyHIERARCHY part) 
+    public <T> T strategyMAtomicTypeHierarchy(final T parameter, final MAtomicTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).containsMCTypeHierarchy(part);
+        return ((PersistentMAtomicType)this.getTheObject()).strategyMAtomicTypeHierarchy(parameter, strategy);
+    }
+    public boolean containsMAtomicTypeHierarchy(final MAtomicTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).containsMAtomicTypeHierarchy(part);
+    }
+    public MTypeSearchList getSuperTypes(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).getSuperTypes(observer);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -88,9 +114,9 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public <T> T strategyMCTypeHierarchy(final T parameter, final MCTypeHierarchyHIERARCHYStrategy<T> strategy) 
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).strategyMCTypeHierarchy(parameter, strategy);
+        return ((PersistentMAtomicType)this.getTheObject()).containsMComplexTypeHierarchy(part);
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -100,9 +126,21 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).fetchName();
     }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).initializeOnCreation();
+    }
+    public MTypeSearchList getSuperTypes() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).getSuperTypes();
+    }
+    public MAtomicTypeSearchList getSubTypes() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).getSubTypes();
     }
 
     

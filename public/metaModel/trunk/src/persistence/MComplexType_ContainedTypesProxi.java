@@ -28,7 +28,7 @@ public class MComplexType_ContainedTypesProxi extends PersistentListProxi<MType>
   }
   public void add(MType entry) throws PersistenceException , model.CycleException{
     if (entry != null) {
-      if (entry.containsMCTypeHierarchy(this.owner)) throw new model.CycleException("Cycle in MCTypeHierarchy detected!");
+      if (entry.containsMComplexTypeHierarchy(this.owner)) throw new model.CycleException("Cycle in MComplexTypeHierarchy detected!");
       MTypeList list = this.getList();
       long entryId = ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade
                        .containedTypesAdd(owner.getId(), entry);

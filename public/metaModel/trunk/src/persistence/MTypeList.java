@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class MTypeList {
+public class MTypeList  extends MTypeSearchList{
 
-	protected Vector<MType> data; //List of proxies
 	protected MTypeList() {
-		this.data = new Vector<MType>();
+		super();
 	}
 	public Iterator<MType> iterator(PersistentListProxi<MType> listProxi) {
 		return new PersistentListIterator<MType>(listProxi, this.data);

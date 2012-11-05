@@ -722,6 +722,9 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
 class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MAtomicType$$name = "MAtomicType$$name";
+    protected static final String MAtomicType$$superType = "MAtomicType$$superType";
+    protected static final String MAtomicType$$superTypes = "MAtomicType$$superTypes";
+    protected static final String MAtomicType$$subTypes = "MAtomicType$$subTypes";
     
     protected MAtomicTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

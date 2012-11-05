@@ -16,7 +16,7 @@ public abstract class PersistentProxi extends PersistentRoot {
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[28];
+		listProxiFactories = new ListProxiFactory[32];
         listProxiFactories[0] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new MProductTypeListEntryProxi(objectId, entryId);
@@ -87,7 +87,7 @@ public abstract class PersistentProxi extends PersistentRoot {
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [28];
+		proxiFactories = new ProxiFactory [32];
         proxiFactories[0] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new MProductTypeProxi(objectId);
@@ -263,9 +263,15 @@ public abstract class PersistentProxi extends PersistentRoot {
 		this.getTheObject().delete$Me();
 	}
 	
-    	
+    protected void setDltd() throws PersistenceException{
+        this.getTheObject().setDltd();
+    }
+    public boolean isDltd() throws PersistenceException {
+        return this.getTheObject().isDltd();
+    }
 	
-	public void finalize(){
-		if (this.object != null)this.object.decrementUserCount();
-	}
+	
+//	public void finalize(){
+//		if (this.object != null)this.object.decrementUserCount();
+//	}
 }

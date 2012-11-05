@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[28];
+			iCProxiFactories = new ICProxiFactory[32];
         iCProxiFactories[0] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new MProductTypeICProxi(objectId);
@@ -179,5 +179,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		this.getTheObject().delete$Me();
 	}
 	
-    
+    protected void setDltd() throws PersistenceException {
+        this.getTheObject().setDltd();
+    }
+    public boolean isDltd() throws PersistenceException {
+        return this.getTheObject().isDltd();
+    }
+
 }
