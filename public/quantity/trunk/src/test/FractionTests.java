@@ -1,5 +1,7 @@
 package test;
 
+import java.math.BigInteger;
+
 import junit.framework.TestCase;
 
 import common.Fraction;
@@ -27,6 +29,11 @@ public class FractionTests extends TestCase {
 
 	public void testFractionCreate() throws Exception {
 		Fraction fraction = Fraction.parse("2/10");
+		assertNotNull(fraction);
+	}
+	
+	public void testFractionCreateConst() throws Exception {
+		Fraction fraction = new Fraction(BigInteger.valueOf(10), BigInteger.valueOf(2));
 		assertNotNull(fraction);
 	}
 
@@ -79,6 +86,17 @@ public class FractionTests extends TestCase {
 			assertEquals(constants.ExceptionConstants.DENOMINATOR_MUST_NOT_BE_ZERO,	e.getMessage());
 		}
 	}
+	
+	public void testFractionDivisionByZeroConst() {
+		try{
+			Fraction fraction = new Fraction(BigInteger.valueOf(10), BigInteger.valueOf(0));
+			fail();
+		}
+		catch (NumberFormatException e){
+			assertEquals(constants.ExceptionConstants.DENOMINATOR_MUST_NOT_BE_ZERO,	e.getMessage());
+		}
+	}
+	
 
 
 }

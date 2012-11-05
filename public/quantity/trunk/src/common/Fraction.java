@@ -29,16 +29,17 @@ public class Fraction {
 	}
 
 	private final BigInteger enumerator;
-	private BigInteger getEnumerator() {
+	public BigInteger getEnumerator() {
 		return enumerator;
 	}
-	private BigInteger getDenominator() {
+	public BigInteger getDenominator() {
 		return denominator;
 	}
 
 	private final BigInteger denominator;
 
 	public Fraction(BigInteger enumarator, BigInteger denominator) {
+		if (denominator.equals(BigInteger.ZERO)) throw new NumberFormatException(constants.ExceptionConstants.DENOMINATOR_MUST_NOT_BE_ZERO);
 		BigInteger gcd = enumarator.gcd(denominator);
 		boolean negativeDenominator = denominator.compareTo(BigInteger.ZERO) < 0;
 		this.enumerator = enumarator.divide(gcd).multiply(negativeDenominator ? BIMinusOne : BigInteger.ONE);
