@@ -10,18 +10,36 @@ import model.visitor.*;
 public class MProductType extends model.MComplexType implements PersistentMProductType{
     
     
-    public static PersistentMProductType createMProductType() throws PersistenceException {
-        PersistentMProductType result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
-            .newMProductType();
+    public static PersistentMProductType createMProductType() throws PersistenceException{
+        return createMProductType(false);
+    }
+    
+    public static PersistentMProductType createMProductType(boolean delayed$Persistence) throws PersistenceException {
+        PersistentMProductType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+                .newDelayedMProductType();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+                .newMProductType(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentMProductType createMProductType(PersistentMProductType This) throws PersistenceException {
-        PersistentMProductType result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
-            .newMProductType();
+    public static PersistentMProductType createMProductType(boolean delayed$Persistence,PersistentMProductType This) throws PersistenceException {
+        PersistentMProductType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+                .newDelayedMProductType();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+                .newMProductType(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -42,6 +60,7 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         MProductType result = this;
         result = new MProductType(this.This, 
                                   this.getId());
+        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -61,6 +80,14 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
     
     public long getClassId() {
         return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 101) ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+            .newMProductType(this.getId());
+        super.store();
+        
     }
     
     public PersistentMProductType getThis() throws PersistenceException {
@@ -171,7 +198,9 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
     public static final String TYPE_LINK_OPERATOR = "++"; 
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -12,5 +12,8 @@ public class CommandCoordinatorListEntryProxi extends CommandCoordinatorProxi im
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

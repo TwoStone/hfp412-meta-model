@@ -10,7 +10,7 @@ import model.visitor.*;
 public class TypeManager extends PersistentObject implements PersistentTypeManager{
     
     private static PersistentTypeManager theTypeManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentTypeManager getTheTypeManager() throws PersistenceException{
         if (theTypeManager == null || reset$For$Test){
@@ -65,6 +65,9 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         TypeManager result = this;
         result = new TypeManager(this.This, 
                                  this.getId());
+        result.atomicTypes = this.atomicTypes.copy(result);
+        result.productTypes = this.productTypes.copy(result);
+        result.sumTypes = this.sumTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -94,6 +97,10 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        // Singletons cannot be delayed!
+    }
+    
     public TypeManager_AtomicTypesProxi getAtomicTypes() throws PersistenceException {
         return this.atomicTypes;
     }
@@ -113,7 +120,10 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentTypeManager)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentTypeManager getThis() throws PersistenceException {
         if(this.This == null){
@@ -209,11 +219,13 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+    
     private void checkForDuplicateMAtomicTypeName(String name) throws PersistenceException, DoubleDefinitionException{
     	if(MAtomicType.getMAtomicTypeByName(name).getLength()>0){
     		throw new DoubleDefinitionException("AtomicType-names must be unique. An AtomicType with name " + name +" is already existing.");
     	}
     }
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

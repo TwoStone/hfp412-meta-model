@@ -15,10 +15,21 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         return (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentMAtomicType createMAtomicType(String name,PersistentMAspect aspect) throws PersistenceException {
+    public static PersistentMAtomicType createMAtomicType(String name,PersistentMAspect aspect) throws PersistenceException{
+        return createMAtomicType(name,aspect,false);
+    }
+    
+    public static PersistentMAtomicType createMAtomicType(String name,PersistentMAspect aspect,boolean delayed$Persistence) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentMAtomicType result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-            .newMAtomicType(name);
+        PersistentMAtomicType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+                .newDelayedMAtomicType(name);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+                .newMAtomicType(name,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("name", name);
         final$$Fields.put("aspect", aspect);
@@ -27,10 +38,17 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         return result;
     }
     
-    public static PersistentMAtomicType createMAtomicType(String name,PersistentMAspect aspect,PersistentMAtomicType This) throws PersistenceException {
+    public static PersistentMAtomicType createMAtomicType(String name,PersistentMAspect aspect,boolean delayed$Persistence,PersistentMAtomicType This) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentMAtomicType result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-            .newMAtomicType(name);
+        PersistentMAtomicType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+                .newDelayedMAtomicType(name);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+                .newMAtomicType(name,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("name", name);
         final$$Fields.put("aspect", aspect);
@@ -110,12 +128,32 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 102) ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+            .newMAtomicType(name,this.getId());
+        super.store();
+        if(this.getAspect() != null){
+            this.getAspect().store();
+            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.aspectSet(this.getId(), getAspect());
+        }
+        if(this.getSuperType() != null){
+            this.getSuperType().store();
+            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.superTypeSet(this.getId(), getSuperType());
+        }
+        if(!this.equals(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
     public String getName() throws PersistenceException {
         return this.name;
     }
     public void setName(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.nameSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
     }
     public PersistentMAspect getAspect() throws PersistenceException {
@@ -127,7 +165,10 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.aspect = (PersistentMAspect)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.aspectSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.aspectSet(this.getId(), newValue);
+        }
     }
     public PersistentMAtomicType getSuperType() throws PersistenceException {
         return this.superType;
@@ -139,7 +180,10 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.superType = (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.superTypeSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.superTypeSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentMAtomicType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -151,7 +195,10 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentMAtomicType getThis() throws PersistenceException {
         if(this.This == null){
@@ -281,12 +328,14 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 //    public MTypeSearchList getSuperTypes(final TDObserver observer) 
 //				throws PersistenceException{
 //        MTypeSearchList result = getThis().getSuperTypes();
 //		observer.updateTransientDerived(getThis(), "superTypes", result);
 //		return result;
 //    }
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

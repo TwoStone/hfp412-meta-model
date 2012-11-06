@@ -12,5 +12,8 @@ public class MProductTypeListEntryProxi extends MProductTypeProxi implements Per
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

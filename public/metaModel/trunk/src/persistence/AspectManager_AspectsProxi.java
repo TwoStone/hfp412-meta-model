@@ -14,9 +14,13 @@ public class AspectManager_AspectsProxi extends PersistentListProxi<PersistentMA
   }
   public MAspectList getList() throws PersistenceException{
     if (this.list == null) {
-      this.list = ConnectionHandler
+      if (this.owner.isDelayed$Persistence()) {
+        this.list = new MAspectList();
+      } else {
+        this.list = ConnectionHandler
                     .getTheConnectionHandler()
                       .theAspectManagerFacade.aspectsGet(this.owner.getId());
+      }
     }
     return this.list;
   }
@@ -29,8 +33,12 @@ public class AspectManager_AspectsProxi extends PersistentListProxi<PersistentMA
   public void add(PersistentMAspect entry) throws PersistenceException {
     if (entry != null) {
       MAspectList list = this.getList();
-      long entryId = ConnectionHandler.getTheConnectionHandler().theAspectManagerFacade
+      long entryId = 0;
+      if (!this.owner.isDelayed$Persistence()) {
+        entry.store();  	
+        entryId = ConnectionHandler.getTheConnectionHandler().theAspectManagerFacade
                        .aspectsAdd(owner.getId(), entry);
+      }
       list.add((PersistentMAspect)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
@@ -38,7 +46,9 @@ public class AspectManager_AspectsProxi extends PersistentListProxi<PersistentMA
     }
   }
   protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    ConnectionHandler.getTheConnectionHandler().theAspectManagerFacade.aspectsRem(entry.getListEntryId());
+    if (!this.owner.isDelayed$Persistence()) {
+      ConnectionHandler.getTheConnectionHandler().theAspectManagerFacade.aspectsRem(entry.getListEntryId());
+    }
     
   }
   public AspectManager_AspectsProxi copy(AspectManager owner) throws PersistenceException {
@@ -46,5 +56,14 @@ public class AspectManager_AspectsProxi extends PersistentListProxi<PersistentMA
   	result.list = this.getList().copy();
   	return result;
   } 
-
+  public void store() throws PersistenceException {
+  	java.util.Iterator<PersistentMAspect> entries = (this.list == null ? new java.util.Vector<PersistentMAspect>().iterator() : this.list.iterator(this));
+  	while (entries.hasNext()){
+  		PersistentMAspect current = entries.next();
+  		current.store();
+      	long entryId = ConnectionHandler.getTheConnectionHandler().theAspectManagerFacade
+                       .aspectsAdd(owner.getId(), current);
+        ((PersistentListEntryProxi)current).setListEntryId(entryId);
+  	}
+  }	
 }

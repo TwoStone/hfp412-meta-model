@@ -14,9 +14,13 @@ public class MComplexType_ContainedTypesProxi extends PersistentListProxi<MType>
   }
   public MTypeList getList() throws PersistenceException{
     if (this.list == null) {
-      this.list = ConnectionHandler
+      if (this.owner.isDelayed$Persistence()) {
+        this.list = new MTypeList();
+      } else {
+        this.list = ConnectionHandler
                     .getTheConnectionHandler()
                       .theMComplexTypeFacade.containedTypesGet(this.owner.getId());
+      }
     }
     return this.list;
   }
@@ -30,8 +34,12 @@ public class MComplexType_ContainedTypesProxi extends PersistentListProxi<MType>
     if (entry != null) {
       if (entry.containsMComplexTypeHierarchy(this.owner)) throw new model.CycleException("Cycle in MComplexTypeHierarchy detected!");
       MTypeList list = this.getList();
-      long entryId = ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade
+      long entryId = 0;
+      if (!this.owner.isDelayed$Persistence()) {
+        entry.store();  	
+        entryId = ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade
                        .containedTypesAdd(owner.getId(), entry);
+      }
       list.add((MType)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
@@ -39,7 +47,9 @@ public class MComplexType_ContainedTypesProxi extends PersistentListProxi<MType>
     }
   }
   protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade.containedTypesRem(entry.getListEntryId());
+    if (!this.owner.isDelayed$Persistence()) {
+      ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade.containedTypesRem(entry.getListEntryId());
+    }
     
   }
   public MComplexType_ContainedTypesProxi copy(MComplexType owner) throws PersistenceException {
@@ -47,5 +57,14 @@ public class MComplexType_ContainedTypesProxi extends PersistentListProxi<MType>
   	result.list = this.getList().copy();
   	return result;
   } 
-
+  public void store() throws PersistenceException {
+  	java.util.Iterator<MType> entries = (this.list == null ? new java.util.Vector<MType>().iterator() : this.list.iterator(this));
+  	while (entries.hasNext()){
+  		MType current = entries.next();
+  		current.store();
+      	long entryId = ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade
+                       .containedTypesAdd(owner.getId(), current);
+        ((PersistentListEntryProxi)current).setListEntryId(entryId);
+  	}
+  }	
 }

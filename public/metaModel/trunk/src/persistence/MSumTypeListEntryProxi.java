@@ -12,5 +12,8 @@ public class MSumTypeListEntryProxi extends MSumTypeProxi implements PersistentM
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

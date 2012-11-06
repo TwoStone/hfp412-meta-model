@@ -14,9 +14,13 @@ public class TypeManager_SumTypesProxi extends PersistentListProxi<PersistentMSu
   }
   public MSumTypeList getList() throws PersistenceException{
     if (this.list == null) {
-      this.list = ConnectionHandler
+      if (this.owner.isDelayed$Persistence()) {
+        this.list = new MSumTypeList();
+      } else {
+        this.list = ConnectionHandler
                     .getTheConnectionHandler()
                       .theTypeManagerFacade.sumTypesGet(this.owner.getId());
+      }
     }
     return this.list;
   }
@@ -29,8 +33,12 @@ public class TypeManager_SumTypesProxi extends PersistentListProxi<PersistentMSu
   public void add(PersistentMSumType entry) throws PersistenceException {
     if (entry != null) {
       MSumTypeList list = this.getList();
-      long entryId = ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade
+      long entryId = 0;
+      if (!this.owner.isDelayed$Persistence()) {
+        entry.store();  	
+        entryId = ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade
                        .sumTypesAdd(owner.getId(), entry);
+      }
       list.add((PersistentMSumType)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
@@ -38,7 +46,9 @@ public class TypeManager_SumTypesProxi extends PersistentListProxi<PersistentMSu
     }
   }
   protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade.sumTypesRem(entry.getListEntryId());
+    if (!this.owner.isDelayed$Persistence()) {
+      ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade.sumTypesRem(entry.getListEntryId());
+    }
     
   }
   public TypeManager_SumTypesProxi copy(TypeManager owner) throws PersistenceException {
@@ -46,5 +56,14 @@ public class TypeManager_SumTypesProxi extends PersistentListProxi<PersistentMSu
   	result.list = this.getList().copy();
   	return result;
   } 
-
+  public void store() throws PersistenceException {
+  	java.util.Iterator<PersistentMSumType> entries = (this.list == null ? new java.util.Vector<PersistentMSumType>().iterator() : this.list.iterator(this));
+  	while (entries.hasNext()){
+  		PersistentMSumType current = entries.next();
+  		current.store();
+      	long entryId = ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade
+                       .sumTypesAdd(owner.getId(), current);
+        ((PersistentListEntryProxi)current).setListEntryId(entryId);
+  	}
+  }	
 }

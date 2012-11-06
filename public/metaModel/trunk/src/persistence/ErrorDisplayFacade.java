@@ -24,7 +24,15 @@ public class ErrorDisplayFacade{
 	public ErrorDisplayFacade() {
 	}
 
-    public ErrorDisplayProxi newErrorDisplay() throws PersistenceException {
+    public ErrorDisplayProxi newErrorDisplay(long createMinusStorePlus) throws PersistenceException {
+        if(createMinusStorePlus > 0) return (ErrorDisplayProxi)PersistentProxi.createProxi(createMinusStorePlus, -104);
+        long id = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade.getNextId();
+        ErrorDisplay result = new ErrorDisplay(id);
+        Cache.getTheCache().put(result);
+        return (ErrorDisplayProxi)PersistentProxi.createProxi(id, -104);
+    }
+    
+    public ErrorDisplayProxi newDelayedErrorDisplay() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade.getNextId();
         ErrorDisplay result = new ErrorDisplay(id);
         Cache.getTheCache().put(result);

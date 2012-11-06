@@ -12,5 +12,8 @@ public class AddAspectCommandListEntryProxi extends AddAspectCommandProxi implem
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

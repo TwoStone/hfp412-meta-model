@@ -15,10 +15,21 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
         return (PersistentMAspect)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentMAspect createMAspect(String name) throws PersistenceException {
+    public static PersistentMAspect createMAspect(String name) throws PersistenceException{
+        return createMAspect(name,false);
+    }
+    
+    public static PersistentMAspect createMAspect(String name,boolean delayed$Persistence) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentMAspect result = ConnectionHandler.getTheConnectionHandler().theMAspectFacade
-            .newMAspect(name);
+        PersistentMAspect result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMAspectFacade
+                .newDelayedMAspect(name);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMAspectFacade
+                .newMAspect(name,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("name", name);
         result.initialize(result, final$$Fields);
@@ -26,10 +37,17 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
         return result;
     }
     
-    public static PersistentMAspect createMAspect(String name,PersistentMAspect This) throws PersistenceException {
+    public static PersistentMAspect createMAspect(String name,boolean delayed$Persistence,PersistentMAspect This) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentMAspect result = ConnectionHandler.getTheConnectionHandler().theMAspectFacade
-            .newMAspect(name);
+        PersistentMAspect result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMAspectFacade
+                .newDelayedMAspect(name);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMAspectFacade
+                .newMAspect(name,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("name", name);
         result.initialize(This, final$$Fields);
@@ -84,12 +102,24 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 127) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
+            .newMAspect(name,this.getId());
+        super.store();
+        if(!this.equals(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theMAspectFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
     public String getName() throws PersistenceException {
         return this.name;
     }
     public void setName(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        ConnectionHandler.getTheConnectionHandler().theMAspectFacade.nameSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theMAspectFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
     }
     protected void setThis(PersistentMAspect newValue) throws PersistenceException {
@@ -102,7 +132,10 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentMAspect)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theMAspectFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theMAspectFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentMAspect getThis() throws PersistenceException {
         if(this.This == null){
@@ -161,6 +194,8 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

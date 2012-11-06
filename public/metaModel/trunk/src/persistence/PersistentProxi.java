@@ -223,6 +223,16 @@ public abstract class PersistentProxi extends PersistentRoot {
 		super(object.getId());
 		this.object = object;
 	}
+	public boolean isDelayed$Persistence() throws PersistenceException {
+		return this.getTheObject().isDelayed$Persistence();
+	}
+
+	public void setDelayed$Persistence(boolean b) throws PersistenceException {
+		this.getTheObject().setDelayed$Persistence(b);
+	}
+	public void store() throws PersistenceException{
+		this.getTheObject().store();
+	}
 	public void setId(long id) {
 		super.setId(id);
 		try {
@@ -283,9 +293,15 @@ public abstract class PersistentProxi extends PersistentRoot {
 		this.getTheObject().delete$Me();
 	}
 	
-    	
+    protected void setDltd() throws PersistenceException{
+        this.getTheObject().setDltd();
+    }
+    public boolean isDltd() throws PersistenceException {
+        return this.getTheObject().isDltd();
+    }
 	
-	public void finalize(){
-		if (this.object != null)this.object.decrementUserCount();
-	}
+	
+//	public void finalize(){
+//		if (this.object != null)this.object.decrementUserCount();
+//	}
 }

@@ -74,7 +74,12 @@ public abstract class PersistentInCacheProxiOptimistic extends PersistentInCache
 		return super.isRemovable() && this.copies.isEmpty();
 	}
 	public synchronized void tryBreak() {
-		if(this.copies.isEmpty())this.object = null;
+		try {
+			if(!this.isDelayed$Persistence() && this.copies.isEmpty())this.object = null;
+		} catch (PersistenceException e) {
+			return;
+		}
 	}
+
 
 }

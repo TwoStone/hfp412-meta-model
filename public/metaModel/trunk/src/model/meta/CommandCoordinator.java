@@ -11,7 +11,7 @@ import model.visitor.*;
 public class CommandCoordinator extends PersistentObject implements PersistentCommandCoordinator{
     
     private static PersistentCommandCoordinator theCommandCoordinator = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentCommandCoordinator getTheCommandCoordinator() throws PersistenceException{
         if (theCommandCoordinator == null || reset$For$Test){
@@ -78,6 +78,10 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        // Singletons cannot be delayed!
+    }
+    
     public CommandCoordinator_ExecuterProxi getExecuter() throws PersistenceException {
         return this.executer;
     }
@@ -124,6 +128,8 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

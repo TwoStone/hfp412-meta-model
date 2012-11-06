@@ -12,5 +12,8 @@ public class CommandExecuterListEntryProxi extends CommandExecuterProxi implemen
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

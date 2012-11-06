@@ -16,9 +16,20 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
         return (PersistentAddSubTypeCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentAddSubTypeCommand createAddSubTypeCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException {
-        PersistentAddSubTypeCommand result = ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade
-            .newAddSubTypeCommand();
+    public static PersistentAddSubTypeCommand createAddSubTypeCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createAddSubTypeCommand(createDate,commitDate,false);
+    }
+    
+    public static PersistentAddSubTypeCommand createAddSubTypeCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        PersistentAddSubTypeCommand result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade
+                .newDelayedAddSubTypeCommand();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade
+                .newAddSubTypeCommand(-1);
+        }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
     }
@@ -52,6 +63,34 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 133) ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade
+            .newAddSubTypeCommand(this.getId());
+        super.store();
+        if(this.getSuperType() != null){
+            this.getSuperType().store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.superTypeSet(this.getId(), getSuperType());
+        }
+        if(this.getTypeunder() != null){
+            this.getTypeunder().store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.typeunderSet(this.getId(), getTypeunder());
+        }
+        if(this.getInvoker() != null){
+            this.getInvoker().store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.invokerSet(this.getId(), getInvoker());
+        }
+        if(this.getCommandReceiver() != null){
+            this.getCommandReceiver().store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getMyCommonDate() != null){
+            this.getMyCommonDate().store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
+        }
+        
+    }
+    
     public PersistentMAtomicType getSuperType() throws PersistenceException {
         return this.superType;
     }
@@ -61,7 +100,10 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.superType = (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.superTypeSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.superTypeSet(this.getId(), newValue);
+        }
     }
     public PersistentMAtomicType getTypeunder() throws PersistenceException {
         return this.typeunder;
@@ -72,7 +114,10 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.typeunder = (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.typeunderSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.typeunderSet(this.getId(), newValue);
+        }
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -83,7 +128,10 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.invokerSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.invokerSet(this.getId(), newValue);
+        }
     }
     public PersistentTypeManager getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
@@ -94,7 +142,10 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.commandReceiver = (PersistentTypeManager)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.commandReceiverSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return this.myCommonDate;
@@ -105,7 +156,10 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.myCommonDateSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.myCommonDateSet(this.getId(), newValue);
+        }
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
         return this.getMyCommonDate().getCreateDate();
@@ -210,6 +264,8 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

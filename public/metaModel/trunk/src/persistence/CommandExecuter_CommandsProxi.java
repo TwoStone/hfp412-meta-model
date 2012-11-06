@@ -14,9 +14,13 @@ public class CommandExecuter_CommandsProxi extends PersistentListProxi<Command> 
   }
   public CommandList getList() throws PersistenceException{
     if (this.list == null) {
-      this.list = ConnectionHandler
+      if (this.owner.isDelayed$Persistence()) {
+        this.list = new CommandList();
+      } else {
+        this.list = ConnectionHandler
                     .getTheConnectionHandler()
                       .theCommandExecuterFacade.commandsGet(this.owner.getId());
+      }
     }
     return this.list;
   }
@@ -29,8 +33,12 @@ public class CommandExecuter_CommandsProxi extends PersistentListProxi<Command> 
   public void add(Command entry) throws PersistenceException {
     if (entry != null) {
       CommandList list = this.getList();
-      long entryId = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
+      long entryId = 0;
+      if (!this.owner.isDelayed$Persistence()) {
+        entry.store();  	
+        entryId = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
                        .commandsAdd(owner.getId(), entry);
+      }
       list.add((Command)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
@@ -38,7 +46,9 @@ public class CommandExecuter_CommandsProxi extends PersistentListProxi<Command> 
     }
   }
   protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade.commandsRem(entry.getListEntryId());
+    if (!this.owner.isDelayed$Persistence()) {
+      ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade.commandsRem(entry.getListEntryId());
+    }
     
   }
   public CommandExecuter_CommandsProxi copy(CommandExecuter owner) throws PersistenceException {
@@ -46,5 +56,14 @@ public class CommandExecuter_CommandsProxi extends PersistentListProxi<Command> 
   	result.list = this.getList().copy();
   	return result;
   } 
-
+  public void store() throws PersistenceException {
+  	java.util.Iterator<Command> entries = (this.list == null ? new java.util.Vector<Command>().iterator() : this.list.iterator(this));
+  	while (entries.hasNext()){
+  		Command current = entries.next();
+  		current.store();
+      	long entryId = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
+                       .commandsAdd(owner.getId(), current);
+        ((PersistentListEntryProxi)current).setListEntryId(entryId);
+  	}
+  }	
 }

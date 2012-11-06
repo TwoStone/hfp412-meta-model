@@ -4,6 +4,19 @@ import java.util.Hashtable;
 
 public abstract class PersistentObject extends PersistentRoot {
 
+	private boolean delayed$Persistence;
+
+	public boolean isDelayed$Persistence() {
+		return delayed$Persistence;
+	}
+	public void store() throws PersistenceException{
+		this.setDelayed$Persistence(false);
+	}
+
+	public void setDelayed$Persistence(boolean delayed$Persistence) {
+		this.delayed$Persistence = delayed$Persistence;
+	}
+
 	public PersistentObject(long id) {
 		super(id);
 	}
@@ -51,5 +64,12 @@ public abstract class PersistentObject extends PersistentRoot {
 	public Anything getThis() throws PersistenceException {
 		return (Anything) this;
 	}
-    	
+    boolean dltd;
+    protected void setDltd(){
+        this.dltd = true;
+    }
+    public boolean isDltd(){
+        return this.dltd;
+    }
+	
 }

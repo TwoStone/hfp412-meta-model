@@ -3,7 +3,7 @@ package common;
 public abstract class RPCConstantsAndServices {
 
 	public static final int CurrentVersion = 0;
-	public static final String VersionErrorText = "Bitte neue Version der Software von der üblichen Stelle laden!";
+	public static final String VersionErrorText = "Bitte neue Version der Software von der ?blichen Stelle laden!";
 
 	public static boolean test = false;
 

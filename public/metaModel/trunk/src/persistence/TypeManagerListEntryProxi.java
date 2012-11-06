@@ -12,5 +12,8 @@ public class TypeManagerListEntryProxi extends TypeManagerProxi implements Persi
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

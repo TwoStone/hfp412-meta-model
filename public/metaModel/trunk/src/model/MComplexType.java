@@ -51,6 +51,17 @@ public abstract class MComplexType extends PersistentObject implements Persisten
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        super.store();
+        this.getContainedTypes().store();
+        if(!this.equals(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
     public MComplexType_ContainedTypesProxi getContainedTypes() throws PersistenceException {
         return this.containedTypes;
     }
@@ -64,7 +75,10 @@ public abstract class MComplexType extends PersistentObject implements Persisten
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentMComplexType)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public abstract PersistentMComplexType getThis() throws PersistenceException ;
     
@@ -129,6 +143,8 @@ public abstract class MComplexType extends PersistentObject implements Persisten
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

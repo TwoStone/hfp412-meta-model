@@ -15,6 +15,7 @@ public abstract class MComplexTypeProxi extends PersistentProxi implements Persi
     public MComplexType_ContainedTypesProxi getContainedTypes() throws PersistenceException {
         return ((PersistentMComplexType)this.getTheObject()).getContainedTypes();
     }
+    public abstract PersistentMComplexType getThis() throws PersistenceException ;
     
     
     

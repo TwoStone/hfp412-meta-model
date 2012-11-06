@@ -47,6 +47,8 @@ public abstract class UserException extends Exception{
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

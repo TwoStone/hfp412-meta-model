@@ -16,15 +16,33 @@ public class CommonDate extends PersistentObject implements PersistentCommonDate
         return (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentCommonDate createCommonDate(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException {
-        PersistentCommonDate result = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade
-            .newCommonDate(createDate,commitDate);
+    public static PersistentCommonDate createCommonDate(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createCommonDate(createDate,commitDate,false);
+    }
+    
+    public static PersistentCommonDate createCommonDate(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        PersistentCommonDate result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade
+                .newDelayedCommonDate(createDate,commitDate);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade
+                .newCommonDate(createDate,commitDate,-1);
+        }
         return result;
     }
     
-    public static PersistentCommonDate createCommonDate(java.sql.Date createDate,java.sql.Date commitDate,PersistentCommonDate This) throws PersistenceException {
-        PersistentCommonDate result = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade
-            .newCommonDate(createDate,commitDate);
+    public static PersistentCommonDate createCommonDate(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence,PersistentCommonDate This) throws PersistenceException {
+        PersistentCommonDate result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade
+                .newDelayedCommonDate(createDate,commitDate);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade
+                .newCommonDate(createDate,commitDate,-1);
+        }
         return result;
     }
     
@@ -49,18 +67,26 @@ public class CommonDate extends PersistentObject implements PersistentCommonDate
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 121) ConnectionHandler.getTheConnectionHandler().theCommonDateFacade
+            .newCommonDate(createDate,commitDate,this.getId());
+        super.store();
+        
+    }
+    
     public java.sql.Date getCreateDate() throws PersistenceException {
         return this.createDate;
     }
     public void setCreateDate(java.sql.Date newValue) throws PersistenceException {
-        ConnectionHandler.getTheConnectionHandler().theCommonDateFacade.createDateSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCommonDateFacade.createDateSet(this.getId(), newValue);
         this.createDate = newValue;
     }
     public java.sql.Date getCommitDate() throws PersistenceException {
         return this.commitDate;
     }
     public void setCommitDate(java.sql.Date newValue) throws PersistenceException {
-        ConnectionHandler.getTheConnectionHandler().theCommonDateFacade.commitDateSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCommonDateFacade.commitDateSet(this.getId(), newValue);
         this.commitDate = newValue;
     }
     
@@ -95,6 +121,8 @@ public class CommonDate extends PersistentObject implements PersistentCommonDate
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

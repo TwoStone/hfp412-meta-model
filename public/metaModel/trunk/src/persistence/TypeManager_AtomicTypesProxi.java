@@ -14,9 +14,13 @@ public class TypeManager_AtomicTypesProxi extends PersistentListProxi<Persistent
   }
   public MAtomicTypeList getList() throws PersistenceException{
     if (this.list == null) {
-      this.list = ConnectionHandler
+      if (this.owner.isDelayed$Persistence()) {
+        this.list = new MAtomicTypeList();
+      } else {
+        this.list = ConnectionHandler
                     .getTheConnectionHandler()
                       .theTypeManagerFacade.atomicTypesGet(this.owner.getId());
+      }
     }
     return this.list;
   }
@@ -29,8 +33,12 @@ public class TypeManager_AtomicTypesProxi extends PersistentListProxi<Persistent
   public void add(PersistentMAtomicType entry) throws PersistenceException {
     if (entry != null) {
       MAtomicTypeList list = this.getList();
-      long entryId = ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade
+      long entryId = 0;
+      if (!this.owner.isDelayed$Persistence()) {
+        entry.store();  	
+        entryId = ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade
                        .atomicTypesAdd(owner.getId(), entry);
+      }
       list.add((PersistentMAtomicType)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
@@ -38,7 +46,9 @@ public class TypeManager_AtomicTypesProxi extends PersistentListProxi<Persistent
     }
   }
   protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade.atomicTypesRem(entry.getListEntryId());
+    if (!this.owner.isDelayed$Persistence()) {
+      ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade.atomicTypesRem(entry.getListEntryId());
+    }
     
   }
   public TypeManager_AtomicTypesProxi copy(TypeManager owner) throws PersistenceException {
@@ -46,5 +56,14 @@ public class TypeManager_AtomicTypesProxi extends PersistentListProxi<Persistent
   	result.list = this.getList().copy();
   	return result;
   } 
-
+  public void store() throws PersistenceException {
+  	java.util.Iterator<PersistentMAtomicType> entries = (this.list == null ? new java.util.Vector<PersistentMAtomicType>().iterator() : this.list.iterator(this));
+  	while (entries.hasNext()){
+  		PersistentMAtomicType current = entries.next();
+  		current.store();
+      	long entryId = ConnectionHandler.getTheConnectionHandler().theTypeManagerFacade
+                       .atomicTypesAdd(owner.getId(), current);
+        ((PersistentListEntryProxi)current).setListEntryId(entryId);
+  	}
+  }	
 }

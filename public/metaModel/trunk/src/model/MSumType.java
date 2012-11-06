@@ -10,18 +10,36 @@ import model.visitor.*;
 public class MSumType extends model.MComplexType implements PersistentMSumType{
     
     
-    public static PersistentMSumType createMSumType() throws PersistenceException {
-        PersistentMSumType result = ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
-            .newMSumType();
+    public static PersistentMSumType createMSumType() throws PersistenceException{
+        return createMSumType(false);
+    }
+    
+    public static PersistentMSumType createMSumType(boolean delayed$Persistence) throws PersistenceException {
+        PersistentMSumType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
+                .newDelayedMSumType();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
+                .newMSumType(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentMSumType createMSumType(PersistentMSumType This) throws PersistenceException {
-        PersistentMSumType result = ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
-            .newMSumType();
+    public static PersistentMSumType createMSumType(boolean delayed$Persistence,PersistentMSumType This) throws PersistenceException {
+        PersistentMSumType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
+                .newDelayedMSumType();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
+                .newMSumType(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -42,6 +60,7 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
         MSumType result = this;
         result = new MSumType(this.This, 
                               this.getId());
+        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -61,6 +80,14 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
     
     public long getClassId() {
         return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 103) ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
+            .newMSumType(this.getId());
+        super.store();
+        
     }
     
     public PersistentMSumType getThis() throws PersistenceException {
@@ -181,7 +208,9 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 	private static final String TYPE_LINK_OPERATOR = "*";
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

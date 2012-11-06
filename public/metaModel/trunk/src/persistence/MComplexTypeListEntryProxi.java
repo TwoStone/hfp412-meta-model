@@ -12,5 +12,8 @@ public abstract class MComplexTypeListEntryProxi extends MComplexTypeProxi imple
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

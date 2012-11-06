@@ -16,18 +16,36 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
         return (PersistentCommandExecuter)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentCommandExecuter createCommandExecuter() throws PersistenceException {
-        PersistentCommandExecuter result = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
-            .newCommandExecuter();
+    public static PersistentCommandExecuter createCommandExecuter() throws PersistenceException{
+        return createCommandExecuter(false);
+    }
+    
+    public static PersistentCommandExecuter createCommandExecuter(boolean delayed$Persistence) throws PersistenceException {
+        PersistentCommandExecuter result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
+                .newDelayedCommandExecuter();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
+                .newCommandExecuter(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentCommandExecuter createCommandExecuter(PersistentCommandExecuter This) throws PersistenceException {
-        PersistentCommandExecuter result = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
-            .newCommandExecuter();
+    public static PersistentCommandExecuter createCommandExecuter(boolean delayed$Persistence,PersistentCommandExecuter This) throws PersistenceException {
+        PersistentCommandExecuter result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
+                .newDelayedCommandExecuter();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
+                .newCommandExecuter(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -61,6 +79,15 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
     
     public long getClassId() {
         return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == -119) ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
+            .newCommandExecuter(this.getId());
+        super.store();
+        this.getCommands().store();
+        
     }
     
     public CommandExecuter_CommandsProxi getCommands() throws PersistenceException {
@@ -173,6 +200,8 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

@@ -10,7 +10,7 @@ import model.visitor.*;
 public class AspectManager extends PersistentObject implements PersistentAspectManager{
     
     private static PersistentAspectManager theAspectManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentAspectManager getTheAspectManager() throws PersistenceException{
         if (theAspectManager == null || reset$For$Test){
@@ -63,6 +63,7 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
         AspectManager result = this;
         result = new AspectManager(this.This, 
                                    this.getId());
+        result.aspects = this.aspects.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -88,6 +89,10 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        // Singletons cannot be delayed!
+    }
+    
     public AspectManager_AspectsProxi getAspects() throws PersistenceException {
         return this.aspects;
     }
@@ -101,7 +106,10 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentAspectManager)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAspectManagerFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAspectManagerFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentAspectManager getThis() throws PersistenceException {
         if(this.This == null){
@@ -169,6 +177,8 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     
