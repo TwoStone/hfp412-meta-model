@@ -26,18 +26,36 @@ import persistence.TDObserver;
 public class Quantity extends model.AbsQuantity implements PersistentQuantity{
     
     
-    public static PersistentQuantity createQuantity() throws PersistenceException {
-        PersistentQuantity result = ConnectionHandler.getTheConnectionHandler().theQuantityFacade
-            .newQuantity(common.Fraction.Null);
+    public static PersistentQuantity createQuantity() throws PersistenceException{
+        return createQuantity(false);
+    }
+    
+    public static PersistentQuantity createQuantity(boolean delayed$Persistence) throws PersistenceException {
+        PersistentQuantity result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theQuantityFacade
+                .newDelayedQuantity(common.Fraction.Null);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theQuantityFacade
+                .newQuantity(common.Fraction.Null,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentQuantity createQuantity(PersistentQuantity This) throws PersistenceException {
-        PersistentQuantity result = ConnectionHandler.getTheConnectionHandler().theQuantityFacade
-            .newQuantity(common.Fraction.Null);
+    public static PersistentQuantity createQuantity(boolean delayed$Persistence,PersistentQuantity This) throws PersistenceException {
+        PersistentQuantity result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theQuantityFacade
+                .newDelayedQuantity(common.Fraction.Null);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theQuantityFacade
+                .newQuantity(common.Fraction.Null,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -100,12 +118,25 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
     }
     
     @Override
+	public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 103) ConnectionHandler.getTheConnectionHandler().theQuantityFacade
+            .newQuantity(common.Fraction.Null,this.getId());
+        super.store();
+        if(this.getUnit() != null){
+            this.getUnit().store();
+            ConnectionHandler.getTheConnectionHandler().theQuantityFacade.unitSet(this.getId(), getUnit());
+        }
+        
+    }
+    
+    @Override
 	public common.Fraction getAmount() throws PersistenceException {
         return this.amount;
     }
     @Override
 	public void setAmount(common.Fraction newValue) throws PersistenceException {
-        ConnectionHandler.getTheConnectionHandler().theQuantityFacade.amountSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theQuantityFacade.amountSet(this.getId(), newValue);
         this.amount = newValue;
     }
     @Override
@@ -119,7 +150,10 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.unit = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theQuantityFacade.unitSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theQuantityFacade.unitSet(this.getId(), newValue);
+        }
     }
     @Override
 	public PersistentQuantity getThis() throws PersistenceException {

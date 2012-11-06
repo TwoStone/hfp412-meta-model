@@ -145,7 +145,7 @@ public class ConnectionServer extends RemoteServerMaster {
 			PersistentServer server;
 			if (!serverIterator.hasNext()){
 				if (user.equals(AdministratorName) || createUserIfNotPresent){
-					server = Server.createServer(password, user, 0, new java.sql.Timestamp(0));
+					server = Server.createServer(password, user, 0, new java.sql.Timestamp(0), false);
 				}else{
 					return createExceptionResult(new PersistenceException("Unknown user!",0));
 				}

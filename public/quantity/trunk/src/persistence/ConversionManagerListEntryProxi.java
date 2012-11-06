@@ -12,5 +12,8 @@ public class ConversionManagerListEntryProxi extends ConversionManagerProxi impl
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

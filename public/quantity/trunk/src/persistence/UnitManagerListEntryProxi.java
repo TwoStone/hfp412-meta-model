@@ -12,5 +12,8 @@ public class UnitManagerListEntryProxi extends UnitManagerProxi implements Persi
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

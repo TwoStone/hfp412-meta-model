@@ -7,6 +7,11 @@ public interface AbstractPersistentRoot {
   public long getId();
   public long getClassId();
   public PersistentRoot getTheObject()  throws PersistenceException;
+  
+  public void setDelayed$Persistence(boolean b) throws PersistenceException; 
+  public boolean isDelayed$Persistence() throws PersistenceException; 
+  public void store() throws PersistenceException;
+  
   public Hashtable<String, Object> toHashtable(int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver)throws PersistenceException;
   public Hashtable<String, Object> toHashtable(Hashtable<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver)throws PersistenceException;
  

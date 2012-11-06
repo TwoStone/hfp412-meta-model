@@ -14,9 +14,13 @@ public class UnitManager_UnitsProxi extends PersistentListProxi<PersistentAbsUni
   }
   public AbsUnitList getList() throws PersistenceException{
     if (this.list == null) {
-      this.list = ConnectionHandler
+      if (this.owner.isDelayed$Persistence()) {
+        this.list = new AbsUnitList();
+      } else {
+        this.list = ConnectionHandler
                     .getTheConnectionHandler()
                       .theUnitManagerFacade.unitsGet(this.owner.getId());
+      }
     }
     return this.list;
   }
@@ -29,8 +33,12 @@ public class UnitManager_UnitsProxi extends PersistentListProxi<PersistentAbsUni
   public void add(PersistentAbsUnit entry) throws PersistenceException {
     if (entry != null) {
       AbsUnitList list = this.getList();
-      long entryId = ConnectionHandler.getTheConnectionHandler().theUnitManagerFacade
+      long entryId = 0;
+      if (!this.owner.isDelayed$Persistence()) {
+        entry.store();  	
+        entryId = ConnectionHandler.getTheConnectionHandler().theUnitManagerFacade
                        .unitsAdd(owner.getId(), entry);
+      }
       list.add((PersistentAbsUnit)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
@@ -38,7 +46,9 @@ public class UnitManager_UnitsProxi extends PersistentListProxi<PersistentAbsUni
     }
   }
   protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    ConnectionHandler.getTheConnectionHandler().theUnitManagerFacade.unitsRem(entry.getListEntryId());
+    if (!this.owner.isDelayed$Persistence()) {
+      ConnectionHandler.getTheConnectionHandler().theUnitManagerFacade.unitsRem(entry.getListEntryId());
+    }
     
   }
   public UnitManager_UnitsProxi copy(UnitManager owner) throws PersistenceException {
@@ -46,5 +56,14 @@ public class UnitManager_UnitsProxi extends PersistentListProxi<PersistentAbsUni
   	result.list = this.getList().copy();
   	return result;
   } 
-
+  public void store() throws PersistenceException {
+  	java.util.Iterator<PersistentAbsUnit> entries = (this.list == null ? new java.util.Vector<PersistentAbsUnit>().iterator() : this.list.iterator(this));
+  	while (entries.hasNext()){
+  		PersistentAbsUnit current = entries.next();
+  		current.store();
+      	long entryId = ConnectionHandler.getTheConnectionHandler().theUnitManagerFacade
+                       .unitsAdd(owner.getId(), current);
+        ((PersistentListEntryProxi)current).setListEntryId(entryId);
+  	}
+  }	
 }

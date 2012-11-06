@@ -73,8 +73,7 @@ public class UnitManagerProxi extends ViewProxi implements UnitManagerView{
     }
     
     public void setIcon(IconRenderer renderer){
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class UnitManager
+        super.setIcon(renderer);
     }
 
 	/* Start of protected part that is not overridden by persistence generator */

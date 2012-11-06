@@ -15,18 +15,36 @@ public class Conversion extends PersistentObject implements PersistentConversion
         return (PersistentConversion)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentConversion createConversion() throws PersistenceException {
-        PersistentConversion result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
-            .newConversion();
+    public static PersistentConversion createConversion() throws PersistenceException{
+        return createConversion(false);
+    }
+    
+    public static PersistentConversion createConversion(boolean delayed$Persistence) throws PersistenceException {
+        PersistentConversion result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
+                .newDelayedConversion();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
+                .newConversion(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentConversion createConversion(PersistentConversion This) throws PersistenceException {
-        PersistentConversion result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
-            .newConversion();
+    public static PersistentConversion createConversion(boolean delayed$Persistence,PersistentConversion This) throws PersistenceException {
+        PersistentConversion result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
+                .newDelayedConversion();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
+                .newConversion(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -106,6 +124,30 @@ public class Conversion extends PersistentObject implements PersistentConversion
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 116) ConnectionHandler.getTheConnectionHandler().theConversionFacade
+            .newConversion(this.getId());
+        super.store();
+        if(this.getSource() != null){
+            this.getSource().store();
+            ConnectionHandler.getTheConnectionHandler().theConversionFacade.sourceSet(this.getId(), getSource());
+        }
+        if(this.getTarget() != null){
+            this.getTarget().store();
+            ConnectionHandler.getTheConnectionHandler().theConversionFacade.targetSet(this.getId(), getTarget());
+        }
+        if(this.getConvFunction() != null){
+            this.getConvFunction().store();
+            ConnectionHandler.getTheConnectionHandler().theConversionFacade.convFunctionSet(this.getId(), getConvFunction());
+        }
+        if(!this.equals(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theConversionFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
     public PersistentUnit getSource() throws PersistenceException {
         return this.source;
     }
@@ -115,7 +157,10 @@ public class Conversion extends PersistentObject implements PersistentConversion
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.source = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theConversionFacade.sourceSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theConversionFacade.sourceSet(this.getId(), newValue);
+        }
     }
     public PersistentUnit getTarget() throws PersistenceException {
         return this.target;
@@ -126,7 +171,10 @@ public class Conversion extends PersistentObject implements PersistentConversion
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.target = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theConversionFacade.targetSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theConversionFacade.targetSet(this.getId(), newValue);
+        }
     }
     public PersistentFunction getConvFunction() throws PersistenceException {
         return this.convFunction;
@@ -137,7 +185,10 @@ public class Conversion extends PersistentObject implements PersistentConversion
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.convFunction = (PersistentFunction)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theConversionFacade.convFunctionSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theConversionFacade.convFunctionSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentConversion newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -149,7 +200,10 @@ public class Conversion extends PersistentObject implements PersistentConversion
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentConversion)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theConversionFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theConversionFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentConversion getThis() throws PersistenceException {
         if(this.This == null){

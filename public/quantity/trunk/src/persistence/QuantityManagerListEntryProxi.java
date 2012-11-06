@@ -12,5 +12,8 @@ public class QuantityManagerListEntryProxi extends QuantityManagerProxi implemen
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

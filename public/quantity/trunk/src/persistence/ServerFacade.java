@@ -24,7 +24,15 @@ public class ServerFacade{
 	public ServerFacade() {
 	}
 
-    public ServerProxi newServer(String password,String user,long hackCount,java.sql.Timestamp hackDelay) throws PersistenceException {
+    public ServerProxi newServer(String password,String user,long hackCount,java.sql.Timestamp hackDelay,long createMinusStorePlus) throws PersistenceException {
+        if(createMinusStorePlus > 0) return (ServerProxi)PersistentProxi.createProxi(createMinusStorePlus, -114);
+        long id = ConnectionHandler.getTheConnectionHandler().theServerFacade.getNextId();
+        Server result = new Server(null,password,user,hackCount,hackDelay,id);
+        Cache.getTheCache().put(result);
+        return (ServerProxi)PersistentProxi.createProxi(id, -114);
+    }
+    
+    public ServerProxi newDelayedServer(String password,String user,long hackCount,java.sql.Timestamp hackDelay) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theServerFacade.getNextId();
         Server result = new Server(null,password,user,hackCount,hackDelay,id);
         Cache.getTheCache().put(result);

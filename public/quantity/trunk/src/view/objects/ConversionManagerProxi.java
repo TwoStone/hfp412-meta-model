@@ -73,8 +73,7 @@ public class ConversionManagerProxi extends ViewProxi implements ConversionManag
     }
     
     public void setIcon(IconRenderer renderer){
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class ConversionManager
+        super.setIcon(renderer);
     }
 
 	/* Start of protected part that is not overridden by persistence generator */

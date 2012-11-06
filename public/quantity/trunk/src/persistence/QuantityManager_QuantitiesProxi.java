@@ -14,9 +14,13 @@ public class QuantityManager_QuantitiesProxi extends PersistentListProxi<Persist
   }
   public QuantityList getList() throws PersistenceException{
     if (this.list == null) {
-      this.list = ConnectionHandler
+      if (this.owner.isDelayed$Persistence()) {
+        this.list = new QuantityList();
+      } else {
+        this.list = ConnectionHandler
                     .getTheConnectionHandler()
                       .theQuantityManagerFacade.quantitiesGet(this.owner.getId());
+      }
     }
     return this.list;
   }
@@ -29,8 +33,12 @@ public class QuantityManager_QuantitiesProxi extends PersistentListProxi<Persist
   public void add(PersistentQuantity entry) throws PersistenceException {
     if (entry != null) {
       QuantityList list = this.getList();
-      long entryId = ConnectionHandler.getTheConnectionHandler().theQuantityManagerFacade
+      long entryId = 0;
+      if (!this.owner.isDelayed$Persistence()) {
+        entry.store();  	
+        entryId = ConnectionHandler.getTheConnectionHandler().theQuantityManagerFacade
                        .quantitiesAdd(owner.getId(), entry);
+      }
       list.add((PersistentQuantity)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
@@ -38,7 +46,9 @@ public class QuantityManager_QuantitiesProxi extends PersistentListProxi<Persist
     }
   }
   protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    ConnectionHandler.getTheConnectionHandler().theQuantityManagerFacade.quantitiesRem(entry.getListEntryId());
+    if (!this.owner.isDelayed$Persistence()) {
+      ConnectionHandler.getTheConnectionHandler().theQuantityManagerFacade.quantitiesRem(entry.getListEntryId());
+    }
     
   }
   public QuantityManager_QuantitiesProxi copy(QuantityManager owner) throws PersistenceException {
@@ -46,5 +56,14 @@ public class QuantityManager_QuantitiesProxi extends PersistentListProxi<Persist
   	result.list = this.getList().copy();
   	return result;
   } 
-
+  public void store() throws PersistenceException {
+  	java.util.Iterator<PersistentQuantity> entries = (this.list == null ? new java.util.Vector<PersistentQuantity>().iterator() : this.list.iterator(this));
+  	while (entries.hasNext()){
+  		PersistentQuantity current = entries.next();
+  		current.store();
+      	long entryId = ConnectionHandler.getTheConnectionHandler().theQuantityManagerFacade
+                       .quantitiesAdd(owner.getId(), current);
+        ((PersistentListEntryProxi)current).setListEntryId(entryId);
+  	}
+  }	
 }

@@ -10,18 +10,36 @@ import model.visitor.*;
 public class Unit extends model.AbsUnit implements PersistentUnit{
     
     
-    public static PersistentUnit createUnit() throws PersistenceException {
-        PersistentUnit result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
-            .newUnit("");
+    public static PersistentUnit createUnit() throws PersistenceException{
+        return createUnit(false);
+    }
+    
+    public static PersistentUnit createUnit(boolean delayed$Persistence) throws PersistenceException {
+        PersistentUnit result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
+                .newDelayedUnit("");
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
+                .newUnit("",-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentUnit createUnit(PersistentUnit This) throws PersistenceException {
-        PersistentUnit result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
-            .newUnit("");
+    public static PersistentUnit createUnit(boolean delayed$Persistence,PersistentUnit This) throws PersistenceException {
+        PersistentUnit result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
+                .newDelayedUnit("");
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
+                .newUnit("",-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -63,6 +81,14 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
     
     public long getClassId() {
         return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 113) ConnectionHandler.getTheConnectionHandler().theUnitFacade
+            .newUnit("",this.getId());
+        super.store();
+        
     }
     
     public PersistentUnit getThis() throws PersistenceException {

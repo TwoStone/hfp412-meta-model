@@ -19,7 +19,7 @@ public class FunctionICProxi extends PersistentInCacheProxiOptimistic implements
     }
     
     public long getClassId() {
-        return 129;
+        return 107;
     }
     
     public common.Fraction getFactor() throws PersistenceException {

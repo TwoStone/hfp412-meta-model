@@ -61,8 +61,7 @@ public class ErrorDisplayProxi extends ViewProxi implements ErrorDisplayView{
     }
     
     public void setIcon(IconRenderer renderer){
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class ErrorDisplay
+        super.setIcon(renderer);
     }
 
 	/* Start of protected part that is not overridden by persistence generator */

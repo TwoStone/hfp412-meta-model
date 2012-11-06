@@ -12,5 +12,8 @@ public class QuantityListEntryProxi extends QuantityProxi implements PersistentQ
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

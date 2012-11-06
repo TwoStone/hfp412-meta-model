@@ -24,18 +24,26 @@ public class FunctionFacade{
 	public FunctionFacade() {
 	}
 
-    public FunctionProxi newFunction(common.Fraction factor,common.Fraction constant) throws PersistenceException {
+    public FunctionProxi newFunction(common.Fraction factor,common.Fraction constant,long createMinusStorePlus) throws PersistenceException {
+        if(createMinusStorePlus > 0) return (FunctionProxi)PersistentProxi.createProxi(createMinusStorePlus, 107);
         long id = ConnectionHandler.getTheConnectionHandler().theFunctionFacade.getNextId();
         Function result = new Function(factor,constant,null,id);
         Cache.getTheCache().put(result);
-        return (FunctionProxi)PersistentProxi.createProxi(id, 129);
+        return (FunctionProxi)PersistentProxi.createProxi(id, 107);
+    }
+    
+    public FunctionProxi newDelayedFunction(common.Fraction factor,common.Fraction constant) throws PersistenceException {
+        long id = ConnectionHandler.getTheConnectionHandler().theFunctionFacade.getNextId();
+        Function result = new Function(factor,constant,null,id);
+        Cache.getTheCache().put(result);
+        return (FunctionProxi)PersistentProxi.createProxi(id, 107);
     }
     
     public Function getFunction(long FunctionId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 129)) return 129;
+        if(Cache.getTheCache().contains(objectId, 107)) return 107;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

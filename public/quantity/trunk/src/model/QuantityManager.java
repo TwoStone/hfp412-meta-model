@@ -89,6 +89,10 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        // Singletons cannot be delayed!
+    }
+    
     public QuantityManager_QuantitiesProxi getQuantities() throws PersistenceException {
         return this.quantities;
     }
@@ -102,7 +106,10 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentQuantityManager)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theQuantityManagerFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theQuantityManagerFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentQuantityManager getThis() throws PersistenceException {
         if(this.This == null){

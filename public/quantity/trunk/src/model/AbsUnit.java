@@ -59,6 +59,20 @@ public abstract class AbsUnit extends PersistentObject implements PersistentAbsU
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        super.store();
+        if(this.getType() != null){
+            this.getType().store();
+            ConnectionHandler.getTheConnectionHandler().theAbsUnitFacade.typeSet(this.getId(), getType());
+        }
+        if(!this.equals(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theAbsUnitFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
     public PersistentAbsUnitType getType() throws PersistenceException {
         return this.type;
     }
@@ -68,14 +82,17 @@ public abstract class AbsUnit extends PersistentObject implements PersistentAbsU
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.type = (PersistentAbsUnitType)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAbsUnitFacade.typeSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAbsUnitFacade.typeSet(this.getId(), newValue);
+        }
     }
     public String getName() throws PersistenceException {
         return this.name;
     }
     public void setName(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        ConnectionHandler.getTheConnectionHandler().theAbsUnitFacade.nameSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theAbsUnitFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
     }
     protected void setThis(PersistentAbsUnit newValue) throws PersistenceException {
@@ -88,7 +105,10 @@ public abstract class AbsUnit extends PersistentObject implements PersistentAbsU
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentAbsUnit)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAbsUnitFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAbsUnitFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public abstract PersistentAbsUnit getThis() throws PersistenceException ;
     

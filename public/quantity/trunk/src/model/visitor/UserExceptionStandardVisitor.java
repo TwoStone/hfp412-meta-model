@@ -1,7 +1,6 @@
 
 package model.visitor;
 
-import model.*;
 import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {

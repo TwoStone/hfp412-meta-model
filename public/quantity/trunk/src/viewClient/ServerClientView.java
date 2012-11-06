@@ -38,6 +38,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		this.service = service;
 		initialize();
 	}
+	@SuppressWarnings("unused")
 	private ServerView getService(){
 		return this.service;
 	}

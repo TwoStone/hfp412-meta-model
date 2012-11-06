@@ -12,6 +12,7 @@ public abstract class AbsQuantityICProxi extends PersistentInCacheProxiOptimisti
     }
     
     
+    public abstract PersistentAbsQuantity getThis() throws PersistenceException ;
     
     
     

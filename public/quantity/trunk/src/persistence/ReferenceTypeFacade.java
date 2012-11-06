@@ -24,7 +24,15 @@ public class ReferenceTypeFacade{
 	public ReferenceTypeFacade() {
 	}
 
-    public ReferenceTypeProxi newReferenceType(long exponent) throws PersistenceException {
+    public ReferenceTypeProxi newReferenceType(long exponent,long createMinusStorePlus) throws PersistenceException {
+        if(createMinusStorePlus > 0) return (ReferenceTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 106);
+        long id = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.getNextId();
+        ReferenceType result = new ReferenceType(exponent,null,null,id);
+        Cache.getTheCache().put(result);
+        return (ReferenceTypeProxi)PersistentProxi.createProxi(id, 106);
+    }
+    
+    public ReferenceTypeProxi newDelayedReferenceType(long exponent) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.getNextId();
         ReferenceType result = new ReferenceType(exponent,null,null,id);
         Cache.getTheCache().put(result);

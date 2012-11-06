@@ -12,5 +12,8 @@ public abstract class AbsQuantityListEntryProxi extends AbsQuantityProxi impleme
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

@@ -4,6 +4,19 @@ import java.util.Hashtable;
 
 public abstract class PersistentObject extends PersistentRoot {
 
+	private boolean delayed$Persistence;
+
+	public boolean isDelayed$Persistence() {
+		return delayed$Persistence;
+	}
+	public void store() throws PersistenceException{
+		this.setDelayed$Persistence(false);
+	}
+
+	public void setDelayed$Persistence(boolean delayed$Persistence) {
+		this.delayed$Persistence = delayed$Persistence;
+	}
+
 	public PersistentObject(long id) {
 		super(id);
 	}

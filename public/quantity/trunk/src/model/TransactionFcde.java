@@ -85,6 +85,10 @@ public class TransactionFcde extends PersistentObject implements PersistentTrans
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        // Singletons cannot be delayed!
+    }
+    
     protected void setThis(PersistentTransactionFcde newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.equals(this)){
@@ -95,7 +99,10 @@ public class TransactionFcde extends PersistentObject implements PersistentTrans
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentTransactionFcde)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theTransactionFcdeFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theTransactionFcdeFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentTransactionFcde getThis() throws PersistenceException {
         if(this.This == null){

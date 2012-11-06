@@ -89,6 +89,10 @@ public class ConversionManager extends PersistentObject implements PersistentCon
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        // Singletons cannot be delayed!
+    }
+    
     public ConversionManager_ConversionsProxi getConversions() throws PersistenceException {
         return this.conversions;
     }
@@ -102,7 +106,10 @@ public class ConversionManager extends PersistentObject implements PersistentCon
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentConversionManager)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theConversionManagerFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theConversionManagerFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentConversionManager getThis() throws PersistenceException {
         if(this.This == null){

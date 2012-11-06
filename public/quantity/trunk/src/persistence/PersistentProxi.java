@@ -16,7 +16,7 @@ public abstract class PersistentProxi extends PersistentRoot {
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[29];
+		listProxiFactories = new ListProxiFactory[28];
         listProxiFactories[0] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new TypeManagerListEntryProxi(objectId, entryId);
@@ -47,7 +47,7 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new ReferenceTypeListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[28] = new ListProxiFactory(){
+        listProxiFactories[6] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new FunctionListEntryProxi(objectId, entryId);
             }
@@ -107,7 +107,7 @@ public abstract class PersistentProxi extends PersistentRoot {
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [29];
+		proxiFactories = new ProxiFactory [28];
         proxiFactories[0] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new TypeManagerProxi(objectId);
@@ -138,7 +138,7 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new ReferenceTypeProxi(objectId);
             }
         };
-        proxiFactories[28] = new ProxiFactory(){
+        proxiFactories[6] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new FunctionProxi(objectId);
             }
@@ -242,6 +242,16 @@ public abstract class PersistentProxi extends PersistentRoot {
 		//TODO Check if used anywhere!?
 		super(object.getId());
 		this.object = object;
+	}
+	public boolean isDelayed$Persistence() throws PersistenceException {
+		return this.getTheObject().isDelayed$Persistence();
+	}
+
+	public void setDelayed$Persistence(boolean b) throws PersistenceException {
+		this.getTheObject().setDelayed$Persistence(b);
+	}
+	public void store() throws PersistenceException{
+		this.getTheObject().store();
 	}
 	public void setId(long id) {
 		super.setId(id);

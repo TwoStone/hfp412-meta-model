@@ -12,5 +12,8 @@ public class CompoundQuantityListEntryProxi extends CompoundQuantityProxi implem
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

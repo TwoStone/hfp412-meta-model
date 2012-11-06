@@ -15,11 +15,22 @@ public class Server extends PersistentObject implements PersistentServer{
         return (PersistentServer)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentServer createServer(String password,String user,long hackCount,java.sql.Timestamp hackDelay) throws PersistenceException {
+    public static PersistentServer createServer(String password,String user,long hackCount,java.sql.Timestamp hackDelay) throws PersistenceException{
+        return createServer(password,user,hackCount,hackDelay,false);
+    }
+    
+    public static PersistentServer createServer(String password,String user,long hackCount,java.sql.Timestamp hackDelay,boolean delayed$Persistence) throws PersistenceException {
         if (password == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if (user == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentServer result = ConnectionHandler.getTheConnectionHandler().theServerFacade
-            .newServer(password,user,hackCount,hackDelay);
+        PersistentServer result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theServerFacade
+                .newDelayedServer(password,user,hackCount,hackDelay);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theServerFacade
+                .newServer(password,user,hackCount,hackDelay,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("password", password);
         final$$Fields.put("user", user);
@@ -30,11 +41,18 @@ public class Server extends PersistentObject implements PersistentServer{
         return result;
     }
     
-    public static PersistentServer createServer(String password,String user,long hackCount,java.sql.Timestamp hackDelay,PersistentServer This) throws PersistenceException {
+    public static PersistentServer createServer(String password,String user,long hackCount,java.sql.Timestamp hackDelay,boolean delayed$Persistence,PersistentServer This) throws PersistenceException {
         if (password == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if (user == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentServer result = ConnectionHandler.getTheConnectionHandler().theServerFacade
-            .newServer(password,user,hackCount,hackDelay);
+        PersistentServer result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theServerFacade
+                .newDelayedServer(password,user,hackCount,hackDelay);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theServerFacade
+                .newServer(password,user,hackCount,hackDelay,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("password", password);
         final$$Fields.put("user", user);
@@ -109,6 +127,18 @@ public class Server extends PersistentObject implements PersistentServer{
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == -114) ConnectionHandler.getTheConnectionHandler().theServerFacade
+            .newServer(password,user,hackCount,hackDelay,this.getId());
+        super.store();
+        if(!this.equals(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
     protected void setThis(PersistentServer newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.equals(this)){
@@ -119,7 +149,10 @@ public class Server extends PersistentObject implements PersistentServer{
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentServer)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theServerFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public Server_ErrorsProxi getErrors() throws PersistenceException {
         return this.errors;
@@ -129,7 +162,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void setPassword(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        ConnectionHandler.getTheConnectionHandler().theServerFacade.passwordSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theServerFacade.passwordSet(this.getId(), newValue);
         this.password = newValue;
     }
     public String getUser() throws PersistenceException {
@@ -137,21 +170,21 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void setUser(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        ConnectionHandler.getTheConnectionHandler().theServerFacade.userSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theServerFacade.userSet(this.getId(), newValue);
         this.user = newValue;
     }
     public long getHackCount() throws PersistenceException {
         return this.hackCount;
     }
     public void setHackCount(long newValue) throws PersistenceException {
-        ConnectionHandler.getTheConnectionHandler().theServerFacade.hackCountSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theServerFacade.hackCountSet(this.getId(), newValue);
         this.hackCount = newValue;
     }
     public java.sql.Timestamp getHackDelay() throws PersistenceException {
         return this.hackDelay;
     }
     public void setHackDelay(java.sql.Timestamp newValue) throws PersistenceException {
-        ConnectionHandler.getTheConnectionHandler().theServerFacade.hackDelaySet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theServerFacade.hackDelaySet(this.getId(), newValue);
         this.hackDelay = newValue;
     }
     public PersistentServer getThis() throws PersistenceException {

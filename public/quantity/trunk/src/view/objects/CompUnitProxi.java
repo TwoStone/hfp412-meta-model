@@ -99,8 +99,7 @@ public class CompUnitProxi extends AbsUnitProxi implements CompUnitView{
     }
     
     public void setIcon(IconRenderer renderer){
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class CompUnit
+        super.setIcon(renderer);
     }
 
 	/* Start of protected part that is not overridden by persistence generator */

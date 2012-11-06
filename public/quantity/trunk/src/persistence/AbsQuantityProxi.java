@@ -12,6 +12,7 @@ public abstract class AbsQuantityProxi extends PersistentProxi implements Persis
     }
     
     
+    public abstract PersistentAbsQuantity getThis() throws PersistenceException ;
     
     
     

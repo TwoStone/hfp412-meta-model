@@ -15,9 +15,20 @@ public class ErrorDisplay extends PersistentObject implements PersistentErrorDis
         return (PersistentErrorDisplay)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentErrorDisplay createErrorDisplay(String message) throws PersistenceException {
-        PersistentErrorDisplay result = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade
-            .newErrorDisplay();
+    public static PersistentErrorDisplay createErrorDisplay(String message) throws PersistenceException{
+        return createErrorDisplay(message,false);
+    }
+    
+    public static PersistentErrorDisplay createErrorDisplay(String message,boolean delayed$Persistence) throws PersistenceException {
+        PersistentErrorDisplay result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade
+                .newDelayedErrorDisplay();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade
+                .newErrorDisplay(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("message", message);
         result.initialize(result, final$$Fields);
@@ -25,9 +36,16 @@ public class ErrorDisplay extends PersistentObject implements PersistentErrorDis
         return result;
     }
     
-    public static PersistentErrorDisplay createErrorDisplay(String message,PersistentErrorDisplay This) throws PersistenceException {
-        PersistentErrorDisplay result = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade
-            .newErrorDisplay();
+    public static PersistentErrorDisplay createErrorDisplay(String message,boolean delayed$Persistence,PersistentErrorDisplay This) throws PersistenceException {
+        PersistentErrorDisplay result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade
+                .newDelayedErrorDisplay();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade
+                .newErrorDisplay(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("message", message);
         result.initialize(This, final$$Fields);
@@ -72,6 +90,14 @@ public class ErrorDisplay extends PersistentObject implements PersistentErrorDis
     
     public long getClassId() {
         return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == -111) ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade
+            .newErrorDisplay(this.getId());
+        super.store();
+        
     }
     
     public String getMessage() throws PersistenceException {

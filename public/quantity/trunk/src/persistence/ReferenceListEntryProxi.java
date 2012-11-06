@@ -12,5 +12,8 @@ public class ReferenceListEntryProxi extends ReferenceProxi implements Persisten
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

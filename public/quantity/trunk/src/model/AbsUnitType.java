@@ -59,6 +59,20 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        super.store();
+        if(this.getDefaultUnit() != null){
+            this.getDefaultUnit().store();
+            ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.defaultUnitSet(this.getId(), getDefaultUnit());
+        }
+        if(!this.equals(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
     public PersistentAbsUnit getDefaultUnit() throws PersistenceException {
         return this.defaultUnit;
     }
@@ -68,14 +82,17 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.defaultUnit = (PersistentAbsUnit)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.defaultUnitSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.defaultUnitSet(this.getId(), newValue);
+        }
     }
     public String getName() throws PersistenceException {
         return this.name;
     }
     public void setName(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.nameSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
     }
     protected void setThis(PersistentAbsUnitType newValue) throws PersistenceException {
@@ -88,7 +105,10 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentAbsUnitType)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public abstract PersistentAbsUnitType getThis() throws PersistenceException ;
     

@@ -24,7 +24,15 @@ public class ConversionFacade{
 	public ConversionFacade() {
 	}
 
-    public ConversionProxi newConversion() throws PersistenceException {
+    public ConversionProxi newConversion(long createMinusStorePlus) throws PersistenceException {
+        if(createMinusStorePlus > 0) return (ConversionProxi)PersistentProxi.createProxi(createMinusStorePlus, 116);
+        long id = ConnectionHandler.getTheConnectionHandler().theConversionFacade.getNextId();
+        Conversion result = new Conversion(null,null,null,null,id);
+        Cache.getTheCache().put(result);
+        return (ConversionProxi)PersistentProxi.createProxi(id, 116);
+    }
+    
+    public ConversionProxi newDelayedConversion() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theConversionFacade.getNextId();
         Conversion result = new Conversion(null,null,null,null,id);
         Cache.getTheCache().put(result);

@@ -15,9 +15,20 @@ public class Function extends PersistentObject implements PersistentFunction{
         return (PersistentFunction)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentFunction createFunction(common.Fraction factor,common.Fraction constant) throws PersistenceException {
-        PersistentFunction result = ConnectionHandler.getTheConnectionHandler().theFunctionFacade
-            .newFunction(factor,constant);
+    public static PersistentFunction createFunction(common.Fraction factor,common.Fraction constant) throws PersistenceException{
+        return createFunction(factor,constant,false);
+    }
+    
+    public static PersistentFunction createFunction(common.Fraction factor,common.Fraction constant,boolean delayed$Persistence) throws PersistenceException {
+        PersistentFunction result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theFunctionFacade
+                .newDelayedFunction(factor,constant);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theFunctionFacade
+                .newFunction(factor,constant,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("factor", factor);
         final$$Fields.put("constant", constant);
@@ -26,9 +37,16 @@ public class Function extends PersistentObject implements PersistentFunction{
         return result;
     }
     
-    public static PersistentFunction createFunction(common.Fraction factor,common.Fraction constant,PersistentFunction This) throws PersistenceException {
-        PersistentFunction result = ConnectionHandler.getTheConnectionHandler().theFunctionFacade
-            .newFunction(factor,constant);
+    public static PersistentFunction createFunction(common.Fraction factor,common.Fraction constant,boolean delayed$Persistence,PersistentFunction This) throws PersistenceException {
+        PersistentFunction result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theFunctionFacade
+                .newDelayedFunction(factor,constant);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theFunctionFacade
+                .newFunction(factor,constant,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("factor", factor);
         final$$Fields.put("constant", constant);
@@ -75,25 +93,37 @@ public class Function extends PersistentObject implements PersistentFunction{
     }
     
     static public long getTypeId() {
-        return 129;
+        return 107;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 107) ConnectionHandler.getTheConnectionHandler().theFunctionFacade
+            .newFunction(factor,constant,this.getId());
+        super.store();
+        if(!this.equals(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theFunctionFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
     public common.Fraction getFactor() throws PersistenceException {
         return this.factor;
     }
     public void setFactor(common.Fraction newValue) throws PersistenceException {
-        ConnectionHandler.getTheConnectionHandler().theFunctionFacade.factorSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theFunctionFacade.factorSet(this.getId(), newValue);
         this.factor = newValue;
     }
     public common.Fraction getConstant() throws PersistenceException {
         return this.constant;
     }
     public void setConstant(common.Fraction newValue) throws PersistenceException {
-        ConnectionHandler.getTheConnectionHandler().theFunctionFacade.constantSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theFunctionFacade.constantSet(this.getId(), newValue);
         this.constant = newValue;
     }
     protected void setThis(PersistentFunction newValue) throws PersistenceException {
@@ -106,7 +136,10 @@ public class Function extends PersistentObject implements PersistentFunction{
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentFunction)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theFunctionFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theFunctionFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentFunction getThis() throws PersistenceException {
         if(this.This == null){

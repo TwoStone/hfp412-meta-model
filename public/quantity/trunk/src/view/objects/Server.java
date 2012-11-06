@@ -142,8 +142,7 @@ public class Server extends ViewObject implements ServerView{
     /* Start of protected part that is not overridden by persistence generator */
     
     public void setIcon(IconRenderer renderer) {
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class Server
+        super.setIcon(renderer);
     }
     /* End of protected part that is not overridden by persistence generator */
     

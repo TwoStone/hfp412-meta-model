@@ -10,6 +10,8 @@ public class JListRefresh extends JList {
 	public JListRefresh(){
 		super();
 	}
+	
+	@Override
 	public void setListData(Vector data){
 		Object[] selected = this.getSelectedValues();
 		super.setListData(data);

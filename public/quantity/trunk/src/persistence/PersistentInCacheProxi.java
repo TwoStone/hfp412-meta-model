@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[29];
+			iCProxiFactories = new ICProxiFactory[28];
         iCProxiFactories[0] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new TypeManagerICProxi(objectId);
@@ -43,7 +43,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ReferenceTypeICProxi(objectId);
             }
         };
-        iCProxiFactories[28] = new ICProxiFactory(){
+        iCProxiFactories[6] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new FunctionICProxi(objectId);
             }
@@ -125,6 +125,17 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		this(object.getId());
 	}
 	
+	public boolean isDelayed$Persistence() throws PersistenceException {
+		return this.getTheObject().isDelayed$Persistence();
+	}
+
+	public void setDelayed$Persistence(boolean b) throws PersistenceException {
+		this.getTheObject().setDelayed$Persistence(b);
+	}
+	public void store() throws PersistenceException{
+		this.getTheObject().store();
+	}
+
 	public void setId(long id) {
 		super.setId(id);
 		try {
@@ -190,8 +201,13 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		return this.userCount == 0 ;
 	}
 	public synchronized void tryBreak() {
-		this.object = null;
+		try {
+			if (!this.isDelayed$Persistence())this.object = null;
+		} catch (PersistenceException e) {
+			return;
+		}
 	}
+
 	public boolean hasEssentialFields() throws PersistenceException{
 		return this.getTheObject().hasEssentialFields();
 	}

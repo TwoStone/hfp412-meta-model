@@ -12,5 +12,8 @@ public class FunctionListEntryProxi extends FunctionProxi implements PersistentF
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

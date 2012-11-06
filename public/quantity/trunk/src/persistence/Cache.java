@@ -266,7 +266,7 @@ public class Cache {
 		this.number2NameMap.put(116, "Conversion");
 		this.number2NameMap.put(102, "ConversionManager");
 		this.number2NameMap.put(-111, "ErrorDisplay");
-		this.number2NameMap.put(129, "Function");
+		this.number2NameMap.put(107, "Function");
 		this.number2NameMap.put(103, "Quantity");
 		this.number2NameMap.put(109, "QuantityManager");
 		this.number2NameMap.put(117, "Reference");

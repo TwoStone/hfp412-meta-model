@@ -20,7 +20,7 @@ public class Function extends ViewObject implements FunctionView{
     }
     
     static public long getTypeId() {
-        return 129;
+        return 107;
     }
     
     public long getClassId() {
@@ -124,8 +124,7 @@ public class Function extends ViewObject implements FunctionView{
     /* Start of protected part that is not overridden by persistence generator */
     
     public void setIcon(IconRenderer renderer) {
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class Function
+        super.setIcon(renderer);
     }
     /* End of protected part that is not overridden by persistence generator */
     

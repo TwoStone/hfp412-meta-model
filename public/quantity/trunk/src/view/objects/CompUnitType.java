@@ -138,8 +138,7 @@ public class CompUnitType extends view.objects.AbsUnitType implements CompUnitTy
     /* Start of protected part that is not overridden by persistence generator */
     
     public void setIcon(IconRenderer renderer) {
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class CompUnitType
+        super.setIcon(renderer);
     }
     /* End of protected part that is not overridden by persistence generator */
     

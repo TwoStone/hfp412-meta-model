@@ -104,8 +104,7 @@ public class ConversionManager extends ViewObject implements ConversionManagerVi
     /* Start of protected part that is not overridden by persistence generator */
     
     public void setIcon(IconRenderer renderer) {
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class ConversionManager
+        super.setIcon(renderer);
     }
     /* End of protected part that is not overridden by persistence generator */
     

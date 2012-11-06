@@ -24,6 +24,7 @@ public abstract class AbsUnitTypeICProxi extends PersistentInCacheProxiOptimisti
     public void setName(String newValue) throws PersistenceException {
         ((PersistentAbsUnitType)this.getTheObject()).setName(newValue);
     }
+    public abstract PersistentAbsUnitType getThis() throws PersistenceException ;
     
     
     

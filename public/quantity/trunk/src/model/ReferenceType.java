@@ -15,18 +15,36 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
         return (PersistentReferenceType)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentReferenceType createReferenceType() throws PersistenceException {
-        PersistentReferenceType result = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
-            .newReferenceType(0);
+    public static PersistentReferenceType createReferenceType() throws PersistenceException{
+        return createReferenceType(false);
+    }
+    
+    public static PersistentReferenceType createReferenceType(boolean delayed$Persistence) throws PersistenceException {
+        PersistentReferenceType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
+                .newDelayedReferenceType(0);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
+                .newReferenceType(0,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentReferenceType createReferenceType(PersistentReferenceType This) throws PersistenceException {
-        PersistentReferenceType result = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
-            .newReferenceType(0);
+    public static PersistentReferenceType createReferenceType(boolean delayed$Persistence,PersistentReferenceType This) throws PersistenceException {
+        PersistentReferenceType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
+                .newDelayedReferenceType(0);
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
+                .newReferenceType(0,-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -86,11 +104,27 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 106) ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
+            .newReferenceType(0,this.getId());
+        super.store();
+        if(this.getRef() != null){
+            this.getRef().store();
+            ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.refSet(this.getId(), getRef());
+        }
+        if(!this.equals(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
     public long getExponent() throws PersistenceException {
         return this.exponent;
     }
     public void setExponent(long newValue) throws PersistenceException {
-        ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.exponentSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.exponentSet(this.getId(), newValue);
         this.exponent = newValue;
     }
     public PersistentUnitType getRef() throws PersistenceException {
@@ -102,7 +136,10 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.ref = (PersistentUnitType)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.refSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.refSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentReferenceType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -114,7 +151,10 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentReferenceType)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentReferenceType getThis() throws PersistenceException {
         if(this.This == null){

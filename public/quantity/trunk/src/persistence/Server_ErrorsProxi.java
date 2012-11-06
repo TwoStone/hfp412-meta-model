@@ -38,4 +38,6 @@ public class Server_ErrorsProxi extends PersistentListProxi<PersistentErrorDispl
   	result.list = this.getList().copy();
   	return result;
   } 
+  public void store(){}	
+  
 }

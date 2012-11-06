@@ -45,6 +45,16 @@ public abstract class AbsQuantity extends PersistentObject implements Persistent
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        super.store();
+        if(!this.equals(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
     protected void setThis(PersistentAbsQuantity newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.equals(this)){
@@ -55,7 +65,10 @@ public abstract class AbsQuantity extends PersistentObject implements Persistent
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentAbsQuantity)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public abstract PersistentAbsQuantity getThis() throws PersistenceException ;
     

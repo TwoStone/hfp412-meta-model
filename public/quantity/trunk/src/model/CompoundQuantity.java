@@ -24,18 +24,36 @@ import persistence.TDObserver;
 public class CompoundQuantity extends model.AbsQuantity implements PersistentCompoundQuantity{
     
     
-    public static PersistentCompoundQuantity createCompoundQuantity() throws PersistenceException {
-        PersistentCompoundQuantity result = ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
-            .newCompoundQuantity();
+    public static PersistentCompoundQuantity createCompoundQuantity() throws PersistenceException{
+        return createCompoundQuantity(false);
+    }
+    
+    public static PersistentCompoundQuantity createCompoundQuantity(boolean delayed$Persistence) throws PersistenceException {
+        PersistentCompoundQuantity result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
+                .newDelayedCompoundQuantity();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
+                .newCompoundQuantity(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentCompoundQuantity createCompoundQuantity(PersistentCompoundQuantity This) throws PersistenceException {
-        PersistentCompoundQuantity result = ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
-            .newCompoundQuantity();
+    public static PersistentCompoundQuantity createCompoundQuantity(boolean delayed$Persistence,PersistentCompoundQuantity This) throws PersistenceException {
+        PersistentCompoundQuantity result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
+                .newDelayedCompoundQuantity();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
+                .newCompoundQuantity(-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -83,6 +101,16 @@ public class CompoundQuantity extends model.AbsQuantity implements PersistentCom
     @Override
 	public long getClassId() {
         return getTypeId();
+    }
+    
+    @Override
+	public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 105) ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
+            .newCompoundQuantity(this.getId());
+        super.store();
+        this.getParts().store();
+        
     }
     
     @Override

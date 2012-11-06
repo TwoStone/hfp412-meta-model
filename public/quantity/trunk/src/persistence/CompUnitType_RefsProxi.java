@@ -14,9 +14,13 @@ public class CompUnitType_RefsProxi extends PersistentListProxi<PersistentRefere
   }
   public ReferenceTypeList getList() throws PersistenceException{
     if (this.list == null) {
-      this.list = ConnectionHandler
+      if (this.owner.isDelayed$Persistence()) {
+        this.list = new ReferenceTypeList();
+      } else {
+        this.list = ConnectionHandler
                     .getTheConnectionHandler()
                       .theCompUnitTypeFacade.refsGet(this.owner.getId());
+      }
     }
     return this.list;
   }
@@ -29,8 +33,12 @@ public class CompUnitType_RefsProxi extends PersistentListProxi<PersistentRefere
   public void add(PersistentReferenceType entry) throws PersistenceException {
     if (entry != null) {
       ReferenceTypeList list = this.getList();
-      long entryId = ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
+      long entryId = 0;
+      if (!this.owner.isDelayed$Persistence()) {
+        entry.store();  	
+        entryId = ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
                        .refsAdd(owner.getId(), entry);
+      }
       list.add((PersistentReferenceType)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
@@ -38,7 +46,9 @@ public class CompUnitType_RefsProxi extends PersistentListProxi<PersistentRefere
     }
   }
   protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade.refsRem(entry.getListEntryId());
+    if (!this.owner.isDelayed$Persistence()) {
+      ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade.refsRem(entry.getListEntryId());
+    }
     
   }
   public CompUnitType_RefsProxi copy(CompUnitType owner) throws PersistenceException {
@@ -46,5 +56,14 @@ public class CompUnitType_RefsProxi extends PersistentListProxi<PersistentRefere
   	result.list = this.getList().copy();
   	return result;
   } 
-
+  public void store() throws PersistenceException {
+  	java.util.Iterator<PersistentReferenceType> entries = (this.list == null ? new java.util.Vector<PersistentReferenceType>().iterator() : this.list.iterator(this));
+  	while (entries.hasNext()){
+  		PersistentReferenceType current = entries.next();
+  		current.store();
+      	long entryId = ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
+                       .refsAdd(owner.getId(), current);
+        ((PersistentListEntryProxi)current).setListEntryId(entryId);
+  	}
+  }	
 }

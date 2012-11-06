@@ -95,8 +95,7 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     
     public void setIcon(IconRenderer renderer){
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class Server
+        super.setIcon(renderer);
     }
 
 	/* Start of protected part that is not overridden by persistence generator */

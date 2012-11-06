@@ -12,5 +12,8 @@ public abstract class AbsUnitListEntryProxi extends AbsUnitProxi implements Pers
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

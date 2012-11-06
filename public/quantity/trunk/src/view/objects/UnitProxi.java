@@ -81,8 +81,7 @@ public class UnitProxi extends AbsUnitProxi implements UnitView{
     }
     
     public void setIcon(IconRenderer renderer){
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class Unit
+        super.setIcon(renderer);
     }
 
 	/* Start of protected part that is not overridden by persistence generator */

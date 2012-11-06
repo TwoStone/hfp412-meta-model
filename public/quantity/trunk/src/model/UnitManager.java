@@ -89,6 +89,10 @@ public class UnitManager extends PersistentObject implements PersistentUnitManag
         return getTypeId();
     }
     
+    public void store() throws PersistenceException {
+        // Singletons cannot be delayed!
+    }
+    
     public UnitManager_UnitsProxi getUnits() throws PersistenceException {
         return this.units;
     }
@@ -102,7 +106,10 @@ public class UnitManager extends PersistentObject implements PersistentUnitManag
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
         this.This = (PersistentUnitManager)PersistentProxi.createProxi(objectId, classId);
-        ConnectionHandler.getTheConnectionHandler().theUnitManagerFacade.ThisSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theUnitManagerFacade.ThisSet(this.getId(), newValue);
+        }
     }
     public PersistentUnitManager getThis() throws PersistenceException {
         if(this.This == null){

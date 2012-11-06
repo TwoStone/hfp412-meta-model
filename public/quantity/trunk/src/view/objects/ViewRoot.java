@@ -147,4 +147,7 @@ public abstract class ViewRoot extends ViewObjectInTree implements TableModel, T
 	}
 	public abstract boolean hasTransientFields();
 	
+	public void setIcon(IconRenderer renderer) {
+		renderer.setIcon(viewClient.IconManager.getIcon(this.getIconInfo()));
+	}	
 }

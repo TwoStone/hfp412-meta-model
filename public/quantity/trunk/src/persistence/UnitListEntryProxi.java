@@ -12,5 +12,8 @@ public class UnitListEntryProxi extends UnitProxi implements PersistentUnitListE
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }

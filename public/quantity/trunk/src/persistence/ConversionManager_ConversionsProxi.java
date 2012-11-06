@@ -14,9 +14,13 @@ public class ConversionManager_ConversionsProxi extends PersistentListProxi<Pers
   }
   public ConversionList getList() throws PersistenceException{
     if (this.list == null) {
-      this.list = ConnectionHandler
+      if (this.owner.isDelayed$Persistence()) {
+        this.list = new ConversionList();
+      } else {
+        this.list = ConnectionHandler
                     .getTheConnectionHandler()
                       .theConversionManagerFacade.conversionsGet(this.owner.getId());
+      }
     }
     return this.list;
   }
@@ -29,8 +33,12 @@ public class ConversionManager_ConversionsProxi extends PersistentListProxi<Pers
   public void add(PersistentConversion entry) throws PersistenceException {
     if (entry != null) {
       ConversionList list = this.getList();
-      long entryId = ConnectionHandler.getTheConnectionHandler().theConversionManagerFacade
+      long entryId = 0;
+      if (!this.owner.isDelayed$Persistence()) {
+        entry.store();  	
+        entryId = ConnectionHandler.getTheConnectionHandler().theConversionManagerFacade
                        .conversionsAdd(owner.getId(), entry);
+      }
       list.add((PersistentConversion)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
@@ -38,7 +46,9 @@ public class ConversionManager_ConversionsProxi extends PersistentListProxi<Pers
     }
   }
   protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    ConnectionHandler.getTheConnectionHandler().theConversionManagerFacade.conversionsRem(entry.getListEntryId());
+    if (!this.owner.isDelayed$Persistence()) {
+      ConnectionHandler.getTheConnectionHandler().theConversionManagerFacade.conversionsRem(entry.getListEntryId());
+    }
     
   }
   public ConversionManager_ConversionsProxi copy(ConversionManager owner) throws PersistenceException {
@@ -46,5 +56,14 @@ public class ConversionManager_ConversionsProxi extends PersistentListProxi<Pers
   	result.list = this.getList().copy();
   	return result;
   } 
-
+  public void store() throws PersistenceException {
+  	java.util.Iterator<PersistentConversion> entries = (this.list == null ? new java.util.Vector<PersistentConversion>().iterator() : this.list.iterator(this));
+  	while (entries.hasNext()){
+  		PersistentConversion current = entries.next();
+  		current.store();
+      	long entryId = ConnectionHandler.getTheConnectionHandler().theConversionManagerFacade
+                       .conversionsAdd(owner.getId(), current);
+        ((PersistentListEntryProxi)current).setListEntryId(entryId);
+  	}
+  }	
 }

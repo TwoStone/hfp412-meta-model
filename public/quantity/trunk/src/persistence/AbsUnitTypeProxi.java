@@ -24,6 +24,7 @@ public abstract class AbsUnitTypeProxi extends PersistentProxi implements Persis
     public void setName(String newValue) throws PersistenceException {
         ((PersistentAbsUnitType)this.getTheObject()).setName(newValue);
     }
+    public abstract PersistentAbsUnitType getThis() throws PersistenceException ;
     
     
     

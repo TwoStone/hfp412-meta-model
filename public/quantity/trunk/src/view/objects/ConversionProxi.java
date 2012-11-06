@@ -112,8 +112,7 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
     }
     
     public void setIcon(IconRenderer renderer){
-        renderer.setIcon(null);
-            //TODO: implement setIcon in view class Conversion
+        super.setIcon(renderer);
     }
 
 	/* Start of protected part that is not overridden by persistence generator */

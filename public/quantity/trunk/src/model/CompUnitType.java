@@ -10,18 +10,36 @@ import model.visitor.*;
 public class CompUnitType extends model.AbsUnitType implements PersistentCompUnitType{
     
     
-    public static PersistentCompUnitType createCompUnitType() throws PersistenceException {
-        PersistentCompUnitType result = ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
-            .newCompUnitType("");
+    public static PersistentCompUnitType createCompUnitType() throws PersistenceException{
+        return createCompUnitType(false);
+    }
+    
+    public static PersistentCompUnitType createCompUnitType(boolean delayed$Persistence) throws PersistenceException {
+        PersistentCompUnitType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
+                .newDelayedCompUnitType("");
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
+                .newCompUnitType("",-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentCompUnitType createCompUnitType(PersistentCompUnitType This) throws PersistenceException {
-        PersistentCompUnitType result = ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
-            .newCompUnitType("");
+    public static PersistentCompUnitType createCompUnitType(boolean delayed$Persistence,PersistentCompUnitType This) throws PersistenceException {
+        PersistentCompUnitType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
+                .newDelayedCompUnitType("");
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
+                .newCompUnitType("",-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -67,6 +85,15 @@ public class CompUnitType extends model.AbsUnitType implements PersistentCompUni
     
     public long getClassId() {
         return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 120) ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
+            .newCompUnitType("",this.getId());
+        super.store();
+        this.getRefs().store();
+        
     }
     
     public CompUnitType_RefsProxi getRefs() throws PersistenceException {

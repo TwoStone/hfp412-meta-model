@@ -10,18 +10,36 @@ import model.visitor.*;
 public class UnitType extends model.AbsUnitType implements PersistentUnitType{
     
     
-    public static PersistentUnitType createUnitType() throws PersistenceException {
-        PersistentUnitType result = ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
-            .newUnitType("");
+    public static PersistentUnitType createUnitType() throws PersistenceException{
+        return createUnitType(false);
+    }
+    
+    public static PersistentUnitType createUnitType(boolean delayed$Persistence) throws PersistenceException {
+        PersistentUnitType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
+                .newDelayedUnitType("");
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
+                .newUnitType("",-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentUnitType createUnitType(PersistentUnitType This) throws PersistenceException {
-        PersistentUnitType result = ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
-            .newUnitType("");
+    public static PersistentUnitType createUnitType(boolean delayed$Persistence,PersistentUnitType This) throws PersistenceException {
+        PersistentUnitType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
+                .newDelayedUnitType("");
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
+                .newUnitType("",-1);
+        }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -63,6 +81,14 @@ public class UnitType extends model.AbsUnitType implements PersistentUnitType{
     
     public long getClassId() {
         return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 112) ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
+            .newUnitType("",this.getId());
+        super.store();
+        
     }
     
     public PersistentUnitType getThis() throws PersistenceException {

@@ -2,9 +2,9 @@ package persistence;
 
 import java.util.Hashtable;;
 
-public abstract class PersistentRoot {
+public abstract class PersistentRoot implements AbstractPersistentRoot {
 
-  private long id;
+  private long id; 
 
   public PersistentRoot(long id) {
     this.id = id;
@@ -31,6 +31,9 @@ public abstract class PersistentRoot {
   public int hashCode(){
 	return new Long(id).intValue();
   }
+  
+  abstract public void setDelayed$Persistence(boolean b) throws PersistenceException;
+  abstract public boolean isDelayed$Persistence() throws PersistenceException;
 
   public abstract long getClassId();
   public abstract PersistentRoot getTheObject()  throws PersistenceException;
@@ -42,7 +45,7 @@ public abstract class PersistentRoot {
   public abstract String toString(boolean inner)throws PersistenceException;
 
   public void delete$Me() throws PersistenceException{
-	  ConnectionHandler.getTheConnectionHandler().dltObjct(this);
+	  if (!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().dltObjct(this);
   }
 
   public String createProxiInformation(boolean asLeaf) throws PersistenceException {

@@ -9,7 +9,15 @@ public class UnitFacade{
 	public UnitFacade() {
 	}
 
-    public UnitProxi newUnit(String name) throws PersistenceException {
+    public UnitProxi newUnit(String name,long createMinusStorePlus) throws PersistenceException {
+        if(createMinusStorePlus > 0) return (UnitProxi)PersistentProxi.createProxi(createMinusStorePlus, 113);
+        long id = ConnectionHandler.getTheConnectionHandler().theAbsUnitFacade.getNextId();
+        Unit result = new Unit(null,name,null,id);
+        Cache.getTheCache().put(result);
+        return (UnitProxi)PersistentProxi.createProxi(id, 113);
+    }
+    
+    public UnitProxi newDelayedUnit(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theAbsUnitFacade.getNextId();
         Unit result = new Unit(null,name,null,id);
         Cache.getTheCache().put(result);

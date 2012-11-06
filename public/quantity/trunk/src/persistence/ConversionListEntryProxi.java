@@ -12,5 +12,8 @@ public class ConversionListEntryProxi extends ConversionProxi implements Persist
   public long getListEntryId() {
     return this.entryId;
   }
+  public void setListEntryId(long id){
+	this.entryId = id;  
+  }
 
 }
