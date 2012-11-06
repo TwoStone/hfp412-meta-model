@@ -12,16 +12,14 @@ public class MAtomicType extends ViewObject implements MAtomicTypeView{
     protected String name;
     protected MAspectView aspect;
     protected MAtomicTypeView superType;
-    protected java.util.Vector<MType> superTypes;
     protected java.util.Vector<MAtomicTypeView> subTypes;
     
-    public MAtomicType(String name,MAspectView aspect,MAtomicTypeView superType,java.util.Vector<MType> superTypes,java.util.Vector<MAtomicTypeView> subTypes,long id, long classId) {
+    public MAtomicType(String name,MAspectView aspect,MAtomicTypeView superType,java.util.Vector<MAtomicTypeView> subTypes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
         this.aspect = aspect;
         this.superType = superType;
-        this.superTypes = superTypes;
         this.subTypes = subTypes;        
     }
     
@@ -50,9 +48,6 @@ public class MAtomicType extends ViewObject implements MAtomicTypeView{
     }
     public void setSuperType(MAtomicTypeView newValue) throws ModelException {
         this.superType = newValue;
-    }
-    public java.util.Vector<MType> getSuperTypes() throws ModelException {
-        return this.superTypes;
     }
     public java.util.Vector<MAtomicTypeView> getSubTypes() throws ModelException {
         return this.subTypes;
@@ -92,10 +87,6 @@ public class MAtomicType extends ViewObject implements MAtomicTypeView{
         if (superType != null) {
             ((ViewProxi)superType).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(superType.getClassId(), superType.getId())));
         }
-        java.util.Vector<?> superTypes = this.getSuperTypes();
-        if (superTypes != null) {
-            ViewObject.resolveVectorProxies(superTypes, resultTable);
-        }
         java.util.Vector<?> subTypes = this.getSubTypes();
         if (subTypes != null) {
             ViewObject.resolveVectorProxies(subTypes, resultTable);
@@ -107,35 +98,20 @@ public class MAtomicType extends ViewObject implements MAtomicTypeView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index == 0 && this.getSuperType() != null) return new SuperTypeMAtomicTypeWrapper(this, originalIndex, (ViewRoot)this.getSuperType());
-        if(this.getSuperType() != null) index = index - 1;
-        if(index < this.getSuperTypes().size()) return new SuperTypesMAtomicTypeWrapper(this, originalIndex, (ViewRoot)this.getSuperTypes().get(index));
-        index = index - this.getSuperTypes().size();
         if(index < this.getSubTypes().size()) return new SubTypesMAtomicTypeWrapper(this, originalIndex, (ViewRoot)this.getSubTypes().get(index));
         index = index - this.getSubTypes().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getSuperType() == null ? 0 : 1)
-            + (this.getSuperTypes().size())
             + (this.getSubTypes().size());
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getSuperType() == null ? true : false)
-            && (this.getSuperTypes().size() == 0)
             && (this.getSubTypes().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getSuperType() != null && this.getSuperType().equals(child)) return result;
-        if(this.getSuperType() != null) result = result + 1;
-        java.util.Iterator<?> getSuperTypesIterator = this.getSuperTypes().iterator();
-        while(getSuperTypesIterator.hasNext()){
-            if(getSuperTypesIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
         java.util.Iterator<?> getSubTypesIterator = this.getSubTypes().iterator();
         while(getSubTypesIterator.hasNext()){
             if(getSubTypesIterator.next().equals(child)) return result;

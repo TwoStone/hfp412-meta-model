@@ -47,5 +47,8 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
         this.standardHandling(mSumType);
     }
+    public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException{
+        this.standardHandling(createSubTypeCommand);
+    }
     protected abstract void standardHandling(Anything anything) throws PersistenceException;
 }

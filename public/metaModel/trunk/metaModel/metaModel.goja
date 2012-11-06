@@ -10,6 +10,7 @@ server Server {
 
 	void addAspect(String name) throws DoubleDefinitionException;
 	void addSubType(MAtomicType superType, MAtomicType typeunder);
+	void createSubType(MAtomicType superType, String name);
 }
 
 
@@ -26,6 +27,7 @@ singleton TypeManager {
 	MSumType** sumTypes;
 	active void addAtomicType(MAspect aspect, String name) throws DoubleDefinitionException;
 	active void addSubType(MAtomicType superType, MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
+	active void createSubType(MAtomicType superType, String name) throws CycleException, WrongSubTypeAspectException, DoubleDefinitionException;
 }
 
 
@@ -44,12 +46,9 @@ hierarchy MAtomicTypeHierarchy##MATypeHier;
 class MAtomicType@@AtomicType implements MType {
 	prior indexed String name;
 	no-view prior symmetric(types) MAspect aspect;
-	symmetric(subTypes) MAtomicType superType hierarchy MAtomicTypeHierarchy;
-	derived MType** superTypes;
+   symmetric(subTypes) no-view MAtomicType superType hierarchy MAtomicTypeHierarchy;
 
 	void addSubType(MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
-
-	
 }
 
 hierarchy MComplexTypeHierarchy##MCTypeHier;

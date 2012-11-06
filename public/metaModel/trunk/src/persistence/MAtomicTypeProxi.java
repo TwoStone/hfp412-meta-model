@@ -102,10 +102,6 @@ public class MAtomicTypeProxi extends PersistentProxi implements PersistentMAtom
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).containsMAtomicTypeHierarchy(part);
     }
-    public MTypeSearchList getSuperTypes(final TDObserver observer) 
-				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).getSuperTypes(observer);
-    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).initializeOnInstantiation();
@@ -133,10 +129,6 @@ public class MAtomicTypeProxi extends PersistentProxi implements PersistentMAtom
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).initializeOnCreation();
-    }
-    public MTypeSearchList getSuperTypes() 
-				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).getSuperTypes();
     }
     public void addSubType(final PersistentMAtomicType typeunder) 
 				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException{

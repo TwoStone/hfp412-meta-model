@@ -17,5 +17,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleMAspect(PersistentMAspect mAspect) throws PersistenceException, E;
     public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
     public R handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException, E;
+    public R handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException, E;
     
 }

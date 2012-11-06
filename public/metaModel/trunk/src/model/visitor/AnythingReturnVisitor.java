@@ -17,5 +17,6 @@ public interface AnythingReturnVisitor<R> extends MComplexTypeReturnVisitor<R> ,
     public R handleMAspect(PersistentMAspect mAspect) throws PersistenceException;
     public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     public R handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException;
+    public R handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException;
     
 }

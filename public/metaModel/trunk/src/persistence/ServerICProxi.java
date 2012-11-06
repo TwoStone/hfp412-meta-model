@@ -95,13 +95,13 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleResult(command);
     }
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addSubType(superType, typeunder);
-    }
     public PersistentTypeManager getTypeManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getTypeManager();
+    }
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).addSubType(superType, typeunder);
     }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
@@ -134,6 +134,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void disconnected() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).disconnected();
+    }
+    public void createSubType(final PersistentMAtomicType superType, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createSubType(superType, name);
     }
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException{

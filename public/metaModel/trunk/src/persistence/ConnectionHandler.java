@@ -117,8 +117,9 @@ public class ConnectionHandler {
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public MAspectFacade theMAspectFacade;
     public CommonDateFacade theCommonDateFacade;
-    public MSumTypeFacade theMSumTypeFacade;
     public AddAtomicTypeCommandFacade theAddAtomicTypeCommandFacade;
+    public MSumTypeFacade theMSumTypeFacade;
+    public CreateSubTypeCommandFacade theCreateSubTypeCommandFacade;
 
 	protected ConnectionHandler(String name) throws PersistenceException {
 		this.name = name;
@@ -153,8 +154,9 @@ public class ConnectionHandler {
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade(this.schemaName, this.con);
             this.theMAspectFacade= new MAspectFacade(this.schemaName, this.con);
             this.theCommonDateFacade= new CommonDateFacade(this.schemaName, this.con);
-            this.theMSumTypeFacade= new MSumTypeFacade(this.schemaName, this.con);
             this.theAddAtomicTypeCommandFacade= new AddAtomicTypeCommandFacade(this.schemaName, this.con);
+            this.theMSumTypeFacade= new MSumTypeFacade(this.schemaName, this.con);
+            this.theCreateSubTypeCommandFacade= new CreateSubTypeCommandFacade(this.schemaName, this.con);
 		} catch (SQLException sqlExc) {
 			throw new PersistenceException(sqlExc.getMessage(), sqlExc.getErrorCode());
 		}

@@ -243,13 +243,13 @@ public class Server extends PersistentObject implements PersistentServer{
 			}
 		}).start();
     }
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
-				throws PersistenceException{
-        TypeManager.getTheTypeManager().addSubType(superType, typeunder, getThis());
-    }
     public PersistentTypeManager getTypeManager() 
 				throws PersistenceException{
         return model.TypeManager.getTheTypeManager();
+    }
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+				throws PersistenceException{
+        TypeManager.getTheTypeManager().addSubType(superType, typeunder, getThis());
     }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
@@ -300,6 +300,10 @@ public class Server extends PersistentObject implements PersistentServer{
         PersistentTypeManager result = getThis().getTypeManager();
 		observer.updateTransientDerived(getThis(), "typeManager", result);
 		return result;
+    }
+    public void createSubType(final PersistentMAtomicType superType, final String name) 
+				throws PersistenceException{
+        TypeManager.getTheTypeManager().createSubType(superType, name, getThis());
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

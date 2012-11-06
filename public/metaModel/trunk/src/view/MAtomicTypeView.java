@@ -12,7 +12,6 @@ public interface MAtomicTypeView extends MType, Anything, AbstractViewProxi {
     public void setAspect(MAspectView newValue) throws ModelException ;
     public MAtomicTypeView getSuperType() throws ModelException ;
     public void setSuperType(MAtomicTypeView newValue) throws ModelException ;
-    public java.util.Vector<MType> getSuperTypes() throws ModelException ;
     public java.util.Vector<MAtomicTypeView> getSubTypes() throws ModelException ;
     
     public void accept(MTypeVisitor visitor) throws ModelException;

@@ -147,6 +147,12 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException{
         superType.addSubType(typeunder);   
     }
+    public void createSubType(final PersistentMAtomicType superType, final String name) 
+				throws model.WrongSubTypeAspectException, model.DoubleDefinitionException, model.CycleException, PersistenceException{
+    	checkForDuplicateMAtomicTypeName(name);
+    	PersistentMAtomicType atype = MAtomicType.createMAtomicType(name, superType.getAspect());
+        getThis().addSubType(superType, atype);
+    }
     public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -167,6 +173,15 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
+    public void createSubType(final PersistentMAtomicType superType, final String name, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateSubTypeCommand command = model.meta.CreateSubTypeCommand.createCreateSubTypeCommand(name, now, now);
+		command.setSuperType(superType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentTypeManager)This);
@@ -175,9 +190,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     public void addAtomicType(final PersistentMAspect aspect, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        if (MAtomicType.getMAtomicTypeByName(name).getLength() > 0){
-        	throw new DoubleDefinitionException("AtomicType-names must be unique. An AtomicType with name " + name +" is already existing.");
-        }
+    	checkForDuplicateMAtomicTypeName(name);
         getThis().getAtomicTypes().add(MAtomicType.createMAtomicType(name, aspect));
     }
     public void initializeOnCreation() 
@@ -196,7 +209,11 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+    private void checkForDuplicateMAtomicTypeName(String name) throws PersistenceException, DoubleDefinitionException{
+    	if(MAtomicType.getMAtomicTypeByName(name).getLength()>0){
+    		throw new DoubleDefinitionException("AtomicType-names must be unique. An AtomicType with name " + name +" is already existing.");
+    	}
+    }
     /* End of protected part that is not overridden by persistence generator */
     
 }

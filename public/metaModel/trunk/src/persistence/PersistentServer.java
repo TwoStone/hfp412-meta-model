@@ -30,11 +30,11 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public PersistentTypeManager getTypeManager() 
+				throws PersistenceException;
     public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
 				throws PersistenceException;
     public void handleResult(final Command command) 
-				throws PersistenceException;
-    public PersistentTypeManager getTypeManager() 
 				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
@@ -51,6 +51,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public PersistentAspectManager getAspectManager() 
 				throws PersistenceException;
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
+				throws PersistenceException;
+    public void createSubType(final PersistentMAtomicType superType, final String name) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

@@ -35,8 +35,6 @@ public interface PersistentMAtomicType extends MType, MAtomicTypeHierarchyHIERAR
 				throws PersistenceException;
     public boolean containsMAtomicTypeHierarchy(final MAtomicTypeHierarchyHIERARCHY part) 
 				throws PersistenceException;
-    public MTypeSearchList getSuperTypes(final TDObserver observer) 
-				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -46,8 +44,6 @@ public interface PersistentMAtomicType extends MType, MAtomicTypeHierarchyHIERAR
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException;
-    public MTypeSearchList getSuperTypes() 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

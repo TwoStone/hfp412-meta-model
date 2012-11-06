@@ -331,6 +331,21 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     
                 });
                 result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createSubType ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateSubTypeMAtomicTypeStringMssgWizard wizard = new ServerCreateSubTypeMAtomicTypeStringMssgWizard("createSubType");
+                        wizard.setFirstArgument((MAtomicTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
             }
             if (selected instanceof MAspectView){
                 item = new javax.swing.JMenuItem();
@@ -441,6 +456,61 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			getParametersPanel().add(new StringSelectionPanel("name", this));		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class ServerCreateSubTypeMAtomicTypeStringMssgWizard extends Wizard {
+
+		protected ServerCreateSubTypeMAtomicTypeStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateSubTypeMAtomicTypeStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().createSubType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MAtomicTypeView firstArgument; 
+	
+		public void setFirstArgument(MAtomicTypeView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
+				selectionPanel.preset(firstArgument.getName());
+				if (!selectionPanel.check()) selectionPanel.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
 		}
 		
 		

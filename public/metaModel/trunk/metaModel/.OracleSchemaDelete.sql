@@ -28,6 +28,8 @@ drop sequence SCmmnDt;
 drop table CmmnDt cascade constraints;
 drop sequence SAddAtmcTpCMD;
 drop table AddAtmcTpCMD cascade constraints;
+drop sequence SCrtSbTpCMD;
+drop table CrtSbTpCMD cascade constraints;
 drop sequence STpMngrAtmcTps;
 drop table TpMngrAtmcTps cascade constraints;
 drop sequence STpMngrPrdctTps;

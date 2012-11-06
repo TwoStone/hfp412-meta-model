@@ -62,7 +62,6 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
                     if(forGUI && superType.hasEssentialFields())superType.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            result.put("superTypes", this.getSuperTypes(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             result.put("subTypes", this.getSubTypes().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
@@ -212,8 +211,6 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + (this.getSuperType() == null ? 0 : 1)
-            + this.getSuperTypes().getLength()
             + this.getSubTypes().getLength());
     }
     
@@ -229,12 +226,6 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
         T result$$superType$$MAtomicType = strategy.initialize$$MAtomicType$$superType(getThis(), parameter);
 		result$$superType$$MAtomicType = this.getSuperType().strategyMAtomicTypeHierarchy(result$$superType$$MAtomicType, strategy);
 		return strategy.finalize$$MAtomicType(getThis(), parameter,result$$superType$$MAtomicType);
-    }
-    public MTypeSearchList getSuperTypes(final TDObserver observer) 
-				throws PersistenceException{
-        MTypeSearchList result = getThis().getSuperTypes();
-		observer.updateTransientDerived(getThis(), "superTypes", result);
-		return result;
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -267,17 +258,6 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 				throws PersistenceException{
         return strategy.finalize$$MAtomicType(getThis(), parameter);
     }
-    public MTypeSearchList getSuperTypes() 
-				throws PersistenceException{
-    	MTypeSearchList result = new MTypeSearchList();
-    	result.add(getThis());
-    	
-    	if(getThis().getSuperType()!=null){
-    		result.add(getThis().getSuperType().getSuperTypes());
-    	}
-    	
-        return result;
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
@@ -301,7 +281,12 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+//    public MTypeSearchList getSuperTypes(final TDObserver observer) 
+//				throws PersistenceException{
+//        MTypeSearchList result = getThis().getSuperTypes();
+//		observer.updateTransientDerived(getThis(), "superTypes", result);
+//		return result;
+//    }
     /* End of protected part that is not overridden by persistence generator */
     
 }

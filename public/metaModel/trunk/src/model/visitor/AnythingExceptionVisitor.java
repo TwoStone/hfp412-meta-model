@@ -17,5 +17,6 @@ public interface AnythingExceptionVisitor<E extends UserException> extends MComp
     public void handleMAspect(PersistentMAspect mAspect) throws PersistenceException, E;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
     public void handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException, E;
+    public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException, E;
     
 }

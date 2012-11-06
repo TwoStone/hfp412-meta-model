@@ -204,6 +204,26 @@ create table AddAtmcTpCMD(
     constraint FAddAtmcTpCMDMyCmmnDt foreign key (AddAtmcTpCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence SCrtSbTpCMD nocache;
+
+create table CrtSbTpCMD(
+    id number primary key,
+    Cls number not null,
+    CrtSbTpCMDSprTp number,
+    CrtSbTpCMDSprTpCls number,
+    constraint FCrtSbTpCMDSprTp foreign key (CrtSbTpCMDSprTpCls) references Cls (id),
+    CrtSbTpCMDNm varchar2(2000),
+    CrtSbTpCMDInvoker number,
+    CrtSbTpCMDInvokerCls number,
+    constraint FCrtSbTpCMDInvoker foreign key (CrtSbTpCMDInvokerCls) references Cls (id),
+    CrtSbTpCMDCReceiver number,
+    CrtSbTpCMDCReceiverCls number,
+    constraint FCrtSbTpCMDCReceiver foreign key (CrtSbTpCMDCReceiverCls) references Cls (id),
+    CrtSbTpCMDMyCmmnDt number,
+    CrtSbTpCMDMyCmmnDtCls number,
+    constraint FCrtSbTpCMDMyCmmnDt foreign key (CrtSbTpCMDMyCmmnDtCls) references Cls (id)    
+);
+
 create sequence STpMngrAtmcTps nocache;
 
 create table TpMngrAtmcTps(

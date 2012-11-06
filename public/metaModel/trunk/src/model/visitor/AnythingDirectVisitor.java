@@ -23,6 +23,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException{
         this.handleCommonDate(addAtomicTypeCommand);
     }
+    public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException{
+        this.handleCommonDate(createSubTypeCommand);
+    }
     public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException{
         this.handleCommonDate(addSubTypeCommand);
     }
