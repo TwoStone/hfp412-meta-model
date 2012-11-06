@@ -40,8 +40,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleTypeManager(PersistentTypeManager typeManager)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		this.result = constants.TextConstants.TYPE_MANAGER_LABEL;		
 	}
 	@Override
 	public void handleQuantity(PersistentQuantity quantity)
@@ -53,8 +52,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleConversionManager(
 			PersistentConversionManager conversionManager)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		this.result = constants.TextConstants.CONVERSION_MANAGER_LABEL;
 	}
 	@Override
 	public void handleTransactionFcde(PersistentTransactionFcde transactionFcde)
@@ -84,8 +82,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleQuantityManager(PersistentQuantityManager quantityManager)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		this.result = constants.TextConstants.QUANTITY_MANAGER_LABEL;		
 	}
 	@Override
 	public void handleUnitType(PersistentUnitType unitType)
@@ -125,8 +122,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleUnitManager(PersistentUnitManager unitManager)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		this.result = constants.TextConstants.UNIT_MANAGER_LABEL;		
 	}
 	@Override
 	public void handleCompUnitType(PersistentCompUnitType compUnitType)

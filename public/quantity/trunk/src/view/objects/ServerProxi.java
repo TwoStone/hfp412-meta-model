@@ -13,10 +13,38 @@ public class ServerProxi extends ViewProxi implements ServerView{
     
     @SuppressWarnings("unchecked")
     public ServerView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
+        ViewProxi typeManager = null;
+        String typeManager$String = (String)resultTable.get("typeManager");
+        if (typeManager$String != null) {
+            common.ProxiInformation typeManager$Info = common.RPCConstantsAndServices.createProxiInformation(typeManager$String);
+            typeManager = ViewProxi.createProxi(typeManager$Info,connectionKey);
+            typeManager.setToString(typeManager$Info.getToString());
+        }
+        ViewProxi quantityManager = null;
+        String quantityManager$String = (String)resultTable.get("quantityManager");
+        if (quantityManager$String != null) {
+            common.ProxiInformation quantityManager$Info = common.RPCConstantsAndServices.createProxiInformation(quantityManager$String);
+            quantityManager = ViewProxi.createProxi(quantityManager$Info,connectionKey);
+            quantityManager.setToString(quantityManager$Info.getToString());
+        }
+        ViewProxi unitManager = null;
+        String unitManager$String = (String)resultTable.get("unitManager");
+        if (unitManager$String != null) {
+            common.ProxiInformation unitManager$Info = common.RPCConstantsAndServices.createProxiInformation(unitManager$String);
+            unitManager = ViewProxi.createProxi(unitManager$Info,connectionKey);
+            unitManager.setToString(unitManager$Info.getToString());
+        }
+        ViewProxi conversionManager = null;
+        String conversionManager$String = (String)resultTable.get("conversionManager");
+        if (conversionManager$String != null) {
+            common.ProxiInformation conversionManager$Info = common.RPCConstantsAndServices.createProxiInformation(conversionManager$String);
+            conversionManager = ViewProxi.createProxi(conversionManager$Info,connectionKey);
+            conversionManager.setToString(conversionManager$Info.getToString());
+        }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server(errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server((TypeManagerView)typeManager,(QuantityManagerView)quantityManager,(UnitManagerView)unitManager,(ConversionManagerView)conversionManager,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -25,20 +53,57 @@ public class ServerProxi extends ViewProxi implements ServerView{
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
-        
+        int index = originalIndex;
+        if(index == 0 && this.getTypeManager() != null) return new TypeManagerServerWrapper(this, originalIndex, (ViewRoot)this.getTypeManager());
+        if(this.getTypeManager() != null) index = index - 1;
+        if(index == 0 && this.getQuantityManager() != null) return new QuantityManagerServerWrapper(this, originalIndex, (ViewRoot)this.getQuantityManager());
+        if(this.getQuantityManager() != null) index = index - 1;
+        if(index == 0 && this.getUnitManager() != null) return new UnitManagerServerWrapper(this, originalIndex, (ViewRoot)this.getUnitManager());
+        if(this.getUnitManager() != null) index = index - 1;
+        if(index == 0 && this.getConversionManager() != null) return new ConversionManagerServerWrapper(this, originalIndex, (ViewRoot)this.getConversionManager());
+        if(this.getConversionManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getTypeManager() == null ? 0 : 1)
+            + (this.getQuantityManager() == null ? 0 : 1)
+            + (this.getUnitManager() == null ? 0 : 1)
+            + (this.getConversionManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        if (this.object == null) return this.getLeafInfo() == 0;
+        return true 
+            && (this.getTypeManager() == null ? true : false)
+            && (this.getQuantityManager() == null ? true : false)
+            && (this.getUnitManager() == null ? true : false)
+            && (this.getConversionManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getTypeManager() != null && this.getTypeManager().equals(child)) return result;
+        if(this.getTypeManager() != null) result = result + 1;
+        if(this.getQuantityManager() != null && this.getQuantityManager().equals(child)) return result;
+        if(this.getQuantityManager() != null) result = result + 1;
+        if(this.getUnitManager() != null && this.getUnitManager().equals(child)) return result;
+        if(this.getUnitManager() != null) result = result + 1;
+        if(this.getConversionManager() != null && this.getConversionManager().equals(child)) return result;
+        if(this.getConversionManager() != null) result = result + 1;
         return -1;
     }
     
+    public TypeManagerView getTypeManager() throws ModelException {
+        return ((Server)this.getTheObject()).getTypeManager();
+    }
+    public QuantityManagerView getQuantityManager() throws ModelException {
+        return ((Server)this.getTheObject()).getQuantityManager();
+    }
+    public UnitManagerView getUnitManager() throws ModelException {
+        return ((Server)this.getTheObject()).getUnitManager();
+    }
+    public ConversionManagerView getConversionManager() throws ModelException {
+        return ((Server)this.getTheObject()).getConversionManager();
+    }
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException {
         return ((Server)this.getTheObject()).getErrors();
     }
@@ -91,7 +156,7 @@ public class ServerProxi extends ViewProxi implements ServerView{
 		handler.initializeConnection();
 		return result;
     }public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     
     public void setIcon(IconRenderer renderer){

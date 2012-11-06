@@ -870,6 +870,10 @@ class UnitDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String Server$$typeManager = "Server$$typeManager";
+    protected static final String Server$$quantityManager = "Server$$quantityManager";
+    protected static final String Server$$unitManager = "Server$$unitManager";
+    protected static final String Server$$conversionManager = "Server$$conversionManager";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

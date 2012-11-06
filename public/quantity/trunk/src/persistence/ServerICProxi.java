@@ -79,21 +79,29 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     
+    public PersistentTypeManager getTypeManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getTypeManager();
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
+    }
+    public PersistentQuantityManager getQuantityManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getQuantityManager();
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
+        return ((PersistentServer)this.getTheObject()).getQuantityManager(observer);
     }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public PersistentUnitManager getUnitManager() 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
+        return ((PersistentServer)this.getTheObject()).getUnitManager();
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -103,13 +111,37 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnCreation();
     }
+    public boolean hasChanged() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).hasChanged();
+    }
     public void disconnected() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).disconnected();
     }
-    public boolean hasChanged() 
+    public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).hasChanged();
+        return ((PersistentServer)this.getTheObject()).getTypeManager(observer);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public PersistentConversionManager getConversionManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getConversionManager();
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public PersistentUnitManager getUnitManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getUnitManager(observer);
+    }
+    public PersistentConversionManager getConversionManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getConversionManager(observer);
     }
 
     

@@ -26,17 +26,33 @@ public interface PersistentServer extends Remote, Anything, AbstractPersistentPr
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public PersistentTypeManager getTypeManager() 
+				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
+    public PersistentQuantityManager getQuantityManager() 
+				throws PersistenceException;
     public void initializeOnInstantiation() 
+				throws PersistenceException;
+    public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
+				throws PersistenceException;
+    public PersistentUnitManager getUnitManager() 
+				throws PersistenceException;
+    public void initializeOnCreation() 
+				throws PersistenceException;
+    public boolean hasChanged() 
+				throws PersistenceException;
+    public PersistentTypeManager getTypeManager(final TDObserver observer) 
+				throws PersistenceException;
+    public PersistentConversionManager getConversionManager() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void initializeOnCreation() 
+    public PersistentUnitManager getUnitManager(final TDObserver observer) 
 				throws PersistenceException;
-    public boolean hasChanged() 
+    public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException;
 
 }

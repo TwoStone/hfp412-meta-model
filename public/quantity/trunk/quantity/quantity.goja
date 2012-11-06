@@ -5,7 +5,10 @@ model quantity {
 
 
 	server Server {
-		
+		derived TypeManager typeManager;
+		derived QuantityManager quantityManager;
+		derived UnitManager unitManager;
+		derived ConversionManager conversionManager;
 	}
 
 	singleton TransactionFcde {

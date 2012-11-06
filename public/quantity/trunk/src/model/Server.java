@@ -67,6 +67,42 @@ public class Server extends PersistentObject implements PersistentServer{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            AbstractPersistentRoot typeManager = (AbstractPersistentRoot)this.getTypeManager(tdObserver);
+            if (typeManager != null) {
+                result.put("typeManager", typeManager.createProxiInformation(false));
+                if(depth > 1) {
+                    typeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && typeManager.hasEssentialFields())typeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot quantityManager = (AbstractPersistentRoot)this.getQuantityManager(tdObserver);
+            if (quantityManager != null) {
+                result.put("quantityManager", quantityManager.createProxiInformation(false));
+                if(depth > 1) {
+                    quantityManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && quantityManager.hasEssentialFields())quantityManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot unitManager = (AbstractPersistentRoot)this.getUnitManager(tdObserver);
+            if (unitManager != null) {
+                result.put("unitManager", unitManager.createProxiInformation(false));
+                if(depth > 1) {
+                    unitManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && unitManager.hasEssentialFields())unitManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot conversionManager = (AbstractPersistentRoot)this.getConversionManager(tdObserver);
+            if (conversionManager != null) {
+                result.put("conversionManager", conversionManager.createProxiInformation(false));
+                if(depth > 1) {
+                    conversionManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && conversionManager.hasEssentialFields())conversionManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             result.put("user", this.getUser());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -220,38 +256,45 @@ public class Server extends PersistentObject implements PersistentServer{
          return visitor.handleServer(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        return 0;
+        return (int) (0 
+            + (this.getTypeManager() == null ? 0 : 1)
+            + (this.getQuantityManager() == null ? 0 : 1)
+            + (this.getUnitManager() == null ? 0 : 1)
+            + (this.getConversionManager() == null ? 0 : 1));
     }
     
     
+    public PersistentTypeManager getTypeManager() 
+				throws PersistenceException{
+        return model.TypeManager.getTheTypeManager();
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         this.changed = signal;
+    }
+    public PersistentQuantityManager getQuantityManager() 
+				throws PersistenceException{
+        return model.QuantityManager.getTheQuantityManager();
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
+        PersistentQuantityManager result = getThis().getQuantityManager();
+		observer.updateTransientDerived(getThis(), "quantityManager", result);
+		return result;
+    }
+    public PersistentUnitManager getUnitManager() 
+				throws PersistenceException{
+        return model.UnitManager.getTheUnitManager();
     }
     public void connected(final String user) 
 				throws PersistenceException{
         //TODO: implement method: connected
         
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentServer)This);
-		if(this.equals(This)){
-			this.setPassword((String)final$$Fields.get("password"));
-			this.setUser((String)final$$Fields.get("user"));
-			this.setHackCount((Long)final$$Fields.get("hackCount"));
-			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
-		}
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -268,6 +311,43 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         //TODO: implement method: disconnected
         
+    }
+    public PersistentTypeManager getTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentTypeManager result = getThis().getTypeManager();
+		observer.updateTransientDerived(getThis(), "typeManager", result);
+		return result;
+    }
+    public PersistentConversionManager getConversionManager() 
+				throws PersistenceException{
+        return model.ConversionManager.getTheConversionManager();
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentServer)This);
+		if(this.equals(This)){
+			this.setPassword((String)final$$Fields.get("password"));
+			this.setUser((String)final$$Fields.get("user"));
+			this.setHackCount((Long)final$$Fields.get("hackCount"));
+			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
+		}
+    }
+    public PersistentUnitManager getUnitManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentUnitManager result = getThis().getUnitManager();
+		observer.updateTransientDerived(getThis(), "unitManager", result);
+		return result;
+    }
+    public PersistentConversionManager getConversionManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentConversionManager result = getThis().getConversionManager();
+		observer.updateTransientDerived(getThis(), "conversionManager", result);
+		return result;
     }
 
     /* Start of protected part that is not overridden by persistence generator */

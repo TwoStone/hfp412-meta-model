@@ -3,7 +3,10 @@ package viewClient;
 import view.*;
 import java.net.MalformedURLException;
 
-
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Vector;
+import org.apache.xmlrpc.XmlRpcException;
 
 public class ServerConnection extends ConnectionMaster {
 
