@@ -89,7 +89,6 @@ public class Server extends PersistentObject implements PersistentServer{
                             this.hackDelay, 
                             this.getId());
         result.errors = this.errors.copy(result);
-        result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -244,6 +243,10 @@ public class Server extends PersistentObject implements PersistentServer{
 			}
 		}).start();
     }
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+				throws PersistenceException{
+        TypeManager.getTheTypeManager().addSubType(superType, typeunder, getThis());
+    }
     public PersistentTypeManager getTypeManager() 
 				throws PersistenceException{
         return model.TypeManager.getTheTypeManager();
@@ -288,15 +291,15 @@ public class Server extends PersistentObject implements PersistentServer{
         //TODO: implement method: disconnected
         
     }
+    public PersistentAspectManager getAspectManager() 
+				throws PersistenceException{
+        return model.AspectManager.getTheAspectManager();
+    }
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentTypeManager result = getThis().getTypeManager();
 		observer.updateTransientDerived(getThis(), "typeManager", result);
 		return result;
-    }
-    public PersistentAspectManager getAspectManager() 
-				throws PersistenceException{
-        return model.AspectManager.getTheAspectManager();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

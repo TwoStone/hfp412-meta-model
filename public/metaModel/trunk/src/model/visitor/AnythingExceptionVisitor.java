@@ -12,6 +12,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends MComp
     public void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException, E;
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
     public void handleServer(PersistentServer server) throws PersistenceException, E;
+    public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException, E;
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException, E;
     public void handleMAspect(PersistentMAspect mAspect) throws PersistenceException, E;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;

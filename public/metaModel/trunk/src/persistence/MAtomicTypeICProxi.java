@@ -138,6 +138,10 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).getSuperTypes();
     }
+    public void addSubType(final PersistentMAtomicType typeunder) 
+				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException{
+        ((PersistentMAtomicType)this.getTheObject()).addSubType(typeunder);
+    }
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).getSubTypes();

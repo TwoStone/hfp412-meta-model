@@ -12,6 +12,7 @@ public interface AnythingReturnVisitor<R> extends MComplexTypeReturnVisitor<R> ,
     public R handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
     public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public R handleServer(PersistentServer server) throws PersistenceException;
+    public R handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException;
     public R handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException;
     public R handleMAspect(PersistentMAspect mAspect) throws PersistenceException;
     public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;

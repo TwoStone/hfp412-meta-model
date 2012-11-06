@@ -18,6 +18,17 @@ public  class RemoteServer extends RemoteServerMaster {
         return this.server;
     } 
 
+    public synchronized java.util.Hashtable<?,?> addSubType(String superTypeProxiString, String typeunderProxiString){
+        try {
+            PersistentMAtomicType superType = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(superTypeProxiString));
+            PersistentMAtomicType typeunder = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeunderProxiString));
+            ((PersistentServer)this.server).addSubType(superType, typeunder);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> addAspect(String name){
         try {
             ((PersistentServer)this.server).addAspect(name);

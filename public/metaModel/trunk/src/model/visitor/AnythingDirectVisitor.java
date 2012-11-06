@@ -11,9 +11,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     
-    public abstract void handleMAspect(PersistentMAspect mAspect) throws PersistenceException;
-    
     public abstract void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
+    
+    public abstract void handleMAspect(PersistentMAspect mAspect) throws PersistenceException;
     
     public abstract void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     
@@ -22,6 +22,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException{
         this.handleCommonDate(addAtomicTypeCommand);
+    }
+    public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException{
+        this.handleCommonDate(addSubTypeCommand);
     }
     public abstract void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
     

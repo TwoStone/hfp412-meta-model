@@ -269,17 +269,27 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
     }
     public MTypeSearchList getSuperTypes() 
 				throws PersistenceException{
-        //TODO: implement method: getSuperTypes
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"getSuperTypes\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	MTypeSearchList result = new MTypeSearchList();
+    	result.add(getThis());
+    	
+    	if(getThis().getSuperType()!=null){
+    		result.add(getThis().getSuperType().getSuperTypes());
+    	}
+    	
+        return result;
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
+        
+    }
+    public void addSubType(final PersistentMAtomicType typeunder) 
+				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException{
+       if(typeunder.getAspect().equals(getThis().getAspect())){
+    	   typeunder.setSuperType(getThis());
+       }else{
+    	   throw new WrongSubTypeAspectException("Subtype has not the aspect of the super type!");
+       }
         
     }
     public MAtomicTypeSearchList getSubTypes() 

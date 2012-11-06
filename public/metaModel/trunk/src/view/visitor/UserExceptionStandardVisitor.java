@@ -5,6 +5,9 @@ import view.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleWrongSubTypeAspectException(WrongSubTypeAspectException wrongSubTypeAspectException) throws ModelException{
+        this.standardHandling(wrongSubTypeAspectException);
+    }
     public void handleCycleException(CycleException cycleException) throws ModelException{
         this.standardHandling(cycleException);
     }

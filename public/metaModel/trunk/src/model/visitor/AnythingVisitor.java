@@ -12,6 +12,7 @@ public interface AnythingVisitor extends MComplexTypeVisitor,CommonDateVisitor{
     public void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public void handleServer(PersistentServer server) throws PersistenceException;
+    public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException;
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException;
     public void handleMAspect(PersistentMAspect mAspect) throws PersistenceException;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;

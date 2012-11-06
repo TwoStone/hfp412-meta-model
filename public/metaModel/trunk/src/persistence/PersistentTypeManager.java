@@ -16,6 +16,10 @@ public interface PersistentTypeManager extends Anything, AbstractPersistentProxi
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException;
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder, final Invoker invoker) 
+				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 

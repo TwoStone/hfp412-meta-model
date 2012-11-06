@@ -102,6 +102,28 @@ create table Srvr(
 create index IUserSrvr on Srvr (SrvrUser);
 
 
+create sequence SAddSbTpCMD nocache;
+
+create table AddSbTpCMD(
+    id number primary key,
+    Cls number not null,
+    AddSbTpCMDSprTp number,
+    AddSbTpCMDSprTpCls number,
+    constraint FAddSbTpCMDSprTp foreign key (AddSbTpCMDSprTpCls) references Cls (id),
+    AddSbTpCMDTpndr number,
+    AddSbTpCMDTpndrCls number,
+    constraint FAddSbTpCMDTpndr foreign key (AddSbTpCMDTpndrCls) references Cls (id),
+    AddSbTpCMDInvoker number,
+    AddSbTpCMDInvokerCls number,
+    constraint FAddSbTpCMDInvoker foreign key (AddSbTpCMDInvokerCls) references Cls (id),
+    AddSbTpCMDCReceiver number,
+    AddSbTpCMDCReceiverCls number,
+    constraint FAddSbTpCMDCReceiver foreign key (AddSbTpCMDCReceiverCls) references Cls (id),
+    AddSbTpCMDMyCmmnDt number,
+    AddSbTpCMDMyCmmnDtCls number,
+    constraint FAddSbTpCMDMyCmmnDt foreign key (AddSbTpCMDMyCmmnDtCls) references Cls (id)    
+);
+
 create sequence SMCmplxTp nocache;
 
 create table MCmplxTp(
@@ -121,12 +143,16 @@ create table MAtmcTp(
     MAtmcTpAspct number,
     MAtmcTpAspctCls number,
     constraint FMAtmcTpAspct foreign key (MAtmcTpAspctCls) references Cls (id),
+    MAtmcTpSprTp number,
+    MAtmcTpSprTpCls number,
+    constraint FMAtmcTpSprTp foreign key (MAtmcTpSprTpCls) references Cls (id),
     MAtmcTpThis number,
     MAtmcTpThisCls number,
     constraint FMAtmcTpThis foreign key (MAtmcTpThisCls) references Cls (id)    
 );
 create index INmMAtmcTp on MAtmcTp (MAtmcTpNm);
 create index IAspctMAtmcTp on MAtmcTp (MAtmcTpAspct, MAtmcTpAspctCls);
+create index ISprTpMAtmcTp on MAtmcTp (MAtmcTpSprTp, MAtmcTpSprTpCls);
 
 
 create sequence SCmmndCrdntr nocache;

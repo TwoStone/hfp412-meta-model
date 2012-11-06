@@ -16,7 +16,7 @@ public abstract class PersistentProxi extends PersistentRoot {
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[32];
+		listProxiFactories = new ListProxiFactory[34];
         listProxiFactories[0] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new MProductTypeListEntryProxi(objectId, entryId);
@@ -50,6 +50,11 @@ public abstract class PersistentProxi extends PersistentRoot {
         listProxiFactories[4] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new ServerListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[32] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new AddSubTypeCommandListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[1] = new ListProxiFactory(){
@@ -87,7 +92,7 @@ public abstract class PersistentProxi extends PersistentRoot {
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [32];
+		proxiFactories = new ProxiFactory [34];
         proxiFactories[0] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new MProductTypeProxi(objectId);
@@ -121,6 +126,11 @@ public abstract class PersistentProxi extends PersistentRoot {
         proxiFactories[4] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new ServerProxi(objectId);
+            }
+        };
+        proxiFactories[32] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new AddSubTypeCommandProxi(objectId);
             }
         };
         proxiFactories[1] = new ProxiFactory(){
@@ -263,15 +273,9 @@ public abstract class PersistentProxi extends PersistentRoot {
 		this.getTheObject().delete$Me();
 	}
 	
-    protected void setDltd() throws PersistenceException{
-        this.getTheObject().setDltd();
-    }
-    public boolean isDltd() throws PersistenceException {
-        return this.getTheObject().isDltd();
-    }
+    	
 	
-	
-//	public void finalize(){
-//		if (this.object != null)this.object.decrementUserCount();
-//	}
+	public void finalize(){
+		if (this.object != null)this.object.decrementUserCount();
+	}
 }

@@ -30,6 +30,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+				throws PersistenceException;
     public void handleResult(final Command command) 
 				throws PersistenceException;
     public PersistentTypeManager getTypeManager() 

@@ -95,6 +95,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleResult(command);
     }
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).addSubType(superType, typeunder);
+    }
     public PersistentTypeManager getTypeManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getTypeManager();

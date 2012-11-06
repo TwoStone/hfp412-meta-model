@@ -65,9 +65,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         TypeManager result = this;
         result = new TypeManager(this.This, 
                                  this.getId());
-        result.atomicTypes = this.atomicTypes.copy(result);
-        result.productTypes = this.productTypes.copy(result);
-        result.sumTypes = this.sumTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -146,6 +143,20 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     
     
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException{
+        superType.addSubType(typeunder);   
+    }
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddSubTypeCommand command = model.meta.AddSubTypeCommand.createAddSubTypeCommand(now, now);
+		command.setSuperType(superType);
+		command.setTypeunder(typeunder);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation

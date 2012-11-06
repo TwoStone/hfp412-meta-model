@@ -26,6 +26,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleServer(PersistentServer server) throws PersistenceException{
         this.standardHandling(server);
     }
+    public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException{
+        this.standardHandling(addSubTypeCommand);
+    }
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
         this.standardHandling(mAtomicType);
     }

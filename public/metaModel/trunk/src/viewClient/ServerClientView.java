@@ -315,6 +315,23 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         });
         if (withStaticOperations) result.add(item);
         if (selected != null){
+            if (selected instanceof MAtomicTypeView){
+                item = new javax.swing.JMenuItem();
+                item.setText("addSubType ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard wizard = new ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard("addSubType");
+                        wizard.setFirstArgument((MAtomicTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             if (selected instanceof MAspectView){
                 item = new javax.swing.JMenuItem();
                 item.setText("addAtomicType ... ");
@@ -339,6 +356,54 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         return result;
     }
     
+	class ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard extends Wizard {
+
+		protected ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().addSubType(firstArgument, (MAtomicTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("typeunder", "view.MAtomicTypeView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MAtomicTypeView firstArgument; 
+	
+		public void setFirstArgument(MAtomicTypeView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerAddAspectStringMssgWizard extends Wizard {
 
 		protected ServerAddAspectStringMssgWizard(String operationName){

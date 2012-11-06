@@ -11,5 +11,8 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException{
         this.standardHandling(addAtomicTypeCommand);
     }
+    public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException{
+        this.standardHandling(addSubTypeCommand);
+    }
     protected abstract void standardHandling(Command command) throws PersistenceException;
 }

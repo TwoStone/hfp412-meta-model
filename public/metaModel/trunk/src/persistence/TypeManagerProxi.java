@@ -49,6 +49,14 @@ public class TypeManagerProxi extends PersistentProxi implements PersistentTypeM
     }
     
     
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).addSubType(superType, typeunder);
+    }
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).addSubType(superType, typeunder, invoker);
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).initializeOnInstantiation();

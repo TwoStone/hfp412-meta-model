@@ -42,7 +42,6 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         MProductType result = this;
         result = new MProductType(this.This, 
                                   this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

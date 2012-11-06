@@ -14,6 +14,8 @@ drop sequence SAspctMngr;
 drop table AspctMngr cascade constraints;
 drop sequence SSrvr;
 drop table Srvr cascade constraints;
+drop sequence SAddSbTpCMD;
+drop table AddSbTpCMD cascade constraints;
 drop sequence SMCmplxTp;
 drop table MCmplxTp cascade constraints;
 drop sequence SMAtmcTp;

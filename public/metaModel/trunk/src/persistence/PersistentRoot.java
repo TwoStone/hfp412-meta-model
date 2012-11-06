@@ -9,8 +9,6 @@ public abstract class PersistentRoot {
   public PersistentRoot(long id) {
     this.id = id;
   }
-  abstract protected void setDltd() throws PersistenceException;
-  public abstract boolean isDltd() throws PersistenceException;
 
   public long getId(){
     return this.id;
