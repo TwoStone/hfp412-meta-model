@@ -9,7 +9,6 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,A
     public R handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     public R handleTransactionFcde(PersistentTransactionFcde transactionFcde) throws PersistenceException;
     public R handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
-    public R handleFunction(PersistentFunction function) throws PersistenceException;
     public R handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
     public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public R handleServer(PersistentServer server) throws PersistenceException;

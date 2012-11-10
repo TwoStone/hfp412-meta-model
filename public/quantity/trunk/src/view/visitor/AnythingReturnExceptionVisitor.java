@@ -9,7 +9,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleConversionManager(ConversionManagerView conversionManager) throws ModelException, E;
     public R handleTransactionFcde(TransactionFcdeView transactionFcde) throws ModelException, E;
     public R handleReferenceType(ReferenceTypeView referenceType) throws ModelException, E;
-    public R handleFunction(FunctionView function) throws ModelException, E;
     public R handleQuantityManager(QuantityManagerView quantityManager) throws ModelException, E;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
     public R handleServer(ServerView server) throws ModelException, E;

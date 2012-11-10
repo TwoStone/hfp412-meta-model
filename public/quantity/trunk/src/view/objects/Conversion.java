@@ -11,14 +11,16 @@ public class Conversion extends ViewObject implements ConversionView{
     
     protected UnitView source;
     protected UnitView target;
-    protected FunctionView convFunction;
+    protected common.Fraction factor;
+    protected common.Fraction constant;
     
-    public Conversion(UnitView source,UnitView target,FunctionView convFunction,long id, long classId) {
+    public Conversion(UnitView source,UnitView target,common.Fraction factor,common.Fraction constant,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.source = source;
         this.target = target;
-        this.convFunction = convFunction;        
+        this.factor = factor;
+        this.constant = constant;        
     }
     
     static public long getTypeId() {
@@ -41,11 +43,17 @@ public class Conversion extends ViewObject implements ConversionView{
     public void setTarget(UnitView newValue) throws ModelException {
         this.target = newValue;
     }
-    public FunctionView getConvFunction() throws ModelException {
-        return this.convFunction;
+    public common.Fraction getFactor() throws ModelException {
+        return this.factor;
     }
-    public void setConvFunction(FunctionView newValue) throws ModelException {
-        this.convFunction = newValue;
+    public void setFactor(common.Fraction newValue) throws ModelException {
+        this.factor = newValue;
+    }
+    public common.Fraction getConstant() throws ModelException {
+        return this.constant;
+    }
+    public void setConstant(common.Fraction newValue) throws ModelException {
+        this.constant = newValue;
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
@@ -70,10 +78,6 @@ public class Conversion extends ViewObject implements ConversionView{
         if (target != null) {
             ((ViewProxi)target).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(target.getClassId(), target.getId())));
         }
-        FunctionView convFunction = this.getConvFunction();
-        if (convFunction != null) {
-            ((ViewProxi)convFunction).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(convFunction.getClassId(), convFunction.getId())));
-        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -85,21 +89,17 @@ public class Conversion extends ViewObject implements ConversionView{
         if(this.getSource() != null) index = index - 1;
         if(index == 0 && this.getTarget() != null) return new TargetConversionWrapper(this, originalIndex, (ViewRoot)this.getTarget());
         if(this.getTarget() != null) index = index - 1;
-        if(index == 0 && this.getConvFunction() != null) return new ConvFunctionConversionWrapper(this, originalIndex, (ViewRoot)this.getConvFunction());
-        if(this.getConvFunction() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getSource() == null ? 0 : 1)
-            + (this.getTarget() == null ? 0 : 1)
-            + (this.getConvFunction() == null ? 0 : 1);
+            + (this.getTarget() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getSource() == null ? true : false)
-            && (this.getTarget() == null ? true : false)
-            && (this.getConvFunction() == null ? true : false);
+            && (this.getTarget() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -107,17 +107,31 @@ public class Conversion extends ViewObject implements ConversionView{
         if(this.getSource() != null) result = result + 1;
         if(this.getTarget() != null && this.getTarget().equals(child)) return result;
         if(this.getTarget() != null) result = result + 1;
-        if(this.getConvFunction() != null && this.getConvFunction().equals(child)) return result;
-        if(this.getConvFunction() != null) result = result + 1;
         return -1;
     }
+    public int getFactorIndex() throws ModelException {
+        return 0 + (this.getSource() == null ? 0 : 1) + (this.getTarget() == null ? 0 : 1);
+    }
+    public int getConstantIndex() throws ModelException {
+        return 0 + (this.getSource() == null ? 0 : 1) + (this.getTarget() == null ? 0 : 1) + 1;
+    }
     public int getRowCount(){
-        return 0 ;
+        return 0 
+            + 1
+            + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
+                if(rowIndex == 0) return "factor";
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "constant";
+                rowIndex = rowIndex - 1;
             } else {
+                if(rowIndex == 0) return this.getFactor();
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getConstant();
+                rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
         } catch (ModelException e){
@@ -129,7 +143,16 @@ public class Conversion extends ViewObject implements ConversionView{
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        
+        if(rowIndex == 0){
+            this.setFactor(common.Fraction.parse(newValue));
+            return;
+        }
+        rowIndex = rowIndex - 1;
+        if(rowIndex == 0){
+            this.setConstant(common.Fraction.parse(newValue));
+            return;
+        }
+        rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
         return false;

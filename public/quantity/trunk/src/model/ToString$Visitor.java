@@ -7,7 +7,6 @@ import persistence.PersistentCompUnitType;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentConversion;
 import persistence.PersistentConversionManager;
-import persistence.PersistentFunction;
 import persistence.PersistentQuantity;
 import persistence.PersistentQuantityManager;
 import persistence.PersistentReference;
@@ -69,12 +68,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleReferenceType(PersistentReferenceType referenceType)
-			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void handleFunction(PersistentFunction function)
 			throws PersistenceException {
 		// TODO Auto-generated method stub
 		

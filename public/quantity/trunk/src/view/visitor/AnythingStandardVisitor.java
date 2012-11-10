@@ -8,11 +8,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleTypeManager(TypeManagerView typeManager) throws ModelException{
         this.standardHandling(typeManager);
     }
-    public void handleQuantity(QuantityView quantity) throws ModelException{
-        this.standardHandling(quantity);
-    }
     public void handleConversionManager(ConversionManagerView conversionManager) throws ModelException{
         this.standardHandling(conversionManager);
+    }
+    public void handleQuantity(QuantityView quantity) throws ModelException{
+        this.standardHandling(quantity);
     }
     public void handleTransactionFcde(TransactionFcdeView transactionFcde) throws ModelException{
         this.standardHandling(transactionFcde);
@@ -22,9 +22,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException{
         this.standardHandling(referenceType);
-    }
-    public void handleFunction(FunctionView function) throws ModelException{
-        this.standardHandling(function);
     }
     public void handleQuantityManager(QuantityManagerView quantityManager) throws ModelException{
         this.standardHandling(quantityManager);

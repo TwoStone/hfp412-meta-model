@@ -10,8 +10,10 @@ public interface PersistentConversion extends Anything, AbstractPersistentProxi 
     public void setSource(PersistentUnit newValue) throws PersistenceException ;
     public PersistentUnit getTarget() throws PersistenceException ;
     public void setTarget(PersistentUnit newValue) throws PersistenceException ;
-    public PersistentFunction getConvFunction() throws PersistenceException ;
-    public void setConvFunction(PersistentFunction newValue) throws PersistenceException ;
+    public common.Fraction getFactor() throws PersistenceException ;
+    public void setFactor(common.Fraction newValue) throws PersistenceException ;
+    public common.Fraction getConstant() throws PersistenceException ;
+    public void setConstant(common.Fraction newValue) throws PersistenceException ;
     public PersistentConversion getThis() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
@@ -22,6 +24,8 @@ public interface PersistentConversion extends Anything, AbstractPersistentProxi 
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public common.Fraction convert() 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;

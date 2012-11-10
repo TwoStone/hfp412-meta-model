@@ -8,11 +8,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException{
         this.standardHandling(typeManager);
     }
-    public void handleQuantity(PersistentQuantity quantity) throws PersistenceException{
-        this.standardHandling(quantity);
-    }
     public void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException{
         this.standardHandling(conversionManager);
+    }
+    public void handleQuantity(PersistentQuantity quantity) throws PersistenceException{
+        this.standardHandling(quantity);
     }
     public void handleTransactionFcde(PersistentTransactionFcde transactionFcde) throws PersistenceException{
         this.standardHandling(transactionFcde);
@@ -22,9 +22,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException{
         this.standardHandling(referenceType);
-    }
-    public void handleFunction(PersistentFunction function) throws PersistenceException{
-        this.standardHandling(function);
     }
     public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException{
         this.standardHandling(quantityManager);

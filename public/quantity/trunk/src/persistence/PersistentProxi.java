@@ -47,11 +47,6 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new ReferenceTypeListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[6] = new ListProxiFactory(){
-            PersistentListEntryProxi create(long objectId, long entryId){
-                return new FunctionListEntryProxi(objectId, entryId);
-            }
-        };
         listProxiFactories[8] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new QuantityManagerListEntryProxi(objectId, entryId);
@@ -136,11 +131,6 @@ public abstract class PersistentProxi extends PersistentRoot {
         proxiFactories[5] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new ReferenceTypeProxi(objectId);
-            }
-        };
-        proxiFactories[6] = new ProxiFactory(){
-            PersistentProxi create(long objectId){
-                return new FunctionProxi(objectId);
             }
         };
         proxiFactories[8] = new ProxiFactory(){

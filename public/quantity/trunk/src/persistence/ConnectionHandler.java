@@ -53,7 +53,6 @@ public class ConnectionHandler {
     public TransactionFcdeFacade theTransactionFcdeFacade;
     public CompoundQuantityFacade theCompoundQuantityFacade;
     public ReferenceTypeFacade theReferenceTypeFacade;
-    public FunctionFacade theFunctionFacade;
     public AbsUnitTypeFacade theAbsUnitTypeFacade;
     public QuantityManagerFacade theQuantityManagerFacade;
     public AbsUnitFacade theAbsUnitFacade;
@@ -77,7 +76,6 @@ public class ConnectionHandler {
             this.theTransactionFcdeFacade= new TransactionFcdeFacade();
             this.theCompoundQuantityFacade= new CompoundQuantityFacade();
             this.theReferenceTypeFacade= new ReferenceTypeFacade();
-            this.theFunctionFacade= new FunctionFacade();
             this.theAbsUnitTypeFacade= new AbsUnitTypeFacade();
             this.theQuantityManagerFacade= new QuantityManagerFacade();
             this.theAbsUnitFacade= new AbsUnitFacade();

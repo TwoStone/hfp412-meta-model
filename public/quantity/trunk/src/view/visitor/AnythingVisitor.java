@@ -9,7 +9,6 @@ public interface AnythingVisitor extends AbsUnitTypeVisitor,AbsUnitVisitor,AbsQu
     public void handleConversionManager(ConversionManagerView conversionManager) throws ModelException;
     public void handleTransactionFcde(TransactionFcdeView transactionFcde) throws ModelException;
     public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException;
-    public void handleFunction(FunctionView function) throws ModelException;
     public void handleQuantityManager(QuantityManagerView quantityManager) throws ModelException;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public void handleServer(ServerView server) throws ModelException;

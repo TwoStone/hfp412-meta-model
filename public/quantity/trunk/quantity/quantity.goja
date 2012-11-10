@@ -92,16 +92,12 @@ model quantity {
 	
 	class Conversion {
 		// from und to sind Oracle-Schlüsselwörter.
-		Unit source;
-		Unit target;
-		Function convFunction;
-	}
-
-		//Wie muss eine Function aussehen? --> y=a*x+b	
-	class 	Function{
+		prior Unit source;
+		prior Unit target;
 		prior Fraction factor;
 		prior Fraction constant;
-		Fraction execute(Fraction factor, Fraction constant);
+		//Wie muss eine Function aussehen? --> y=a*x+b	
+		Fraction convert();
 	}
 
 }

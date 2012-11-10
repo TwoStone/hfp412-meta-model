@@ -9,7 +9,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException, E;
     public R handleTransactionFcde(PersistentTransactionFcde transactionFcde) throws PersistenceException, E;
     public R handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException, E;
-    public R handleFunction(PersistentFunction function) throws PersistenceException, E;
     public R handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException, E;
     public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
     public R handleServer(PersistentServer server) throws PersistenceException, E;

@@ -34,11 +34,17 @@ public class ConversionICProxi extends PersistentInCacheProxiOptimistic implemen
     public void setTarget(PersistentUnit newValue) throws PersistenceException {
         ((PersistentConversion)this.getTheObject()).setTarget(newValue);
     }
-    public PersistentFunction getConvFunction() throws PersistenceException {
-        return ((PersistentConversion)this.getTheObject()).getConvFunction();
+    public common.Fraction getFactor() throws PersistenceException {
+        return ((PersistentConversion)this.getTheObject()).getFactor();
     }
-    public void setConvFunction(PersistentFunction newValue) throws PersistenceException {
-        ((PersistentConversion)this.getTheObject()).setConvFunction(newValue);
+    public void setFactor(common.Fraction newValue) throws PersistenceException {
+        ((PersistentConversion)this.getTheObject()).setFactor(newValue);
+    }
+    public common.Fraction getConstant() throws PersistenceException {
+        return ((PersistentConversion)this.getTheObject()).getConstant();
+    }
+    public void setConstant(common.Fraction newValue) throws PersistenceException {
+        ((PersistentConversion)this.getTheObject()).setConstant(newValue);
     }
     public PersistentConversion getThis() throws PersistenceException {
         return ((PersistentConversion)this.getTheObject()).getThis();
@@ -65,6 +71,10 @@ public class ConversionICProxi extends PersistentInCacheProxiOptimistic implemen
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentConversion)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public common.Fraction convert() 
+				throws PersistenceException{
+        return ((PersistentConversion)this.getTheObject()).convert();
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{

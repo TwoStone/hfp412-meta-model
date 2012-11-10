@@ -24,17 +24,17 @@ public class ConversionFacade{
 	public ConversionFacade() {
 	}
 
-    public ConversionProxi newConversion(long createMinusStorePlus) throws PersistenceException {
+    public ConversionProxi newConversion(common.Fraction factor,common.Fraction constant,long createMinusStorePlus) throws PersistenceException {
         if(createMinusStorePlus > 0) return (ConversionProxi)PersistentProxi.createProxi(createMinusStorePlus, 116);
         long id = ConnectionHandler.getTheConnectionHandler().theConversionFacade.getNextId();
-        Conversion result = new Conversion(null,null,null,null,id);
+        Conversion result = new Conversion(null,null,factor,constant,null,id);
         Cache.getTheCache().put(result);
         return (ConversionProxi)PersistentProxi.createProxi(id, 116);
     }
     
-    public ConversionProxi newDelayedConversion() throws PersistenceException {
+    public ConversionProxi newDelayedConversion(common.Fraction factor,common.Fraction constant) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theConversionFacade.getNextId();
-        Conversion result = new Conversion(null,null,null,null,id);
+        Conversion result = new Conversion(null,null,factor,constant,null,id);
         Cache.getTheCache().put(result);
         return (ConversionProxi)PersistentProxi.createProxi(id, 116);
     }
@@ -54,7 +54,10 @@ public class ConversionFacade{
     public void targetSet(long ConversionId, PersistentUnit targetVal) throws PersistenceException {
         
     }
-    public void convFunctionSet(long ConversionId, PersistentFunction convFunctionVal) throws PersistenceException {
+    public void factorSet(long ConversionId, common.Fraction factorVal) throws PersistenceException {
+        
+    }
+    public void constantSet(long ConversionId, common.Fraction constantVal) throws PersistenceException {
         
     }
     public void ThisSet(long ConversionId, PersistentConversion ThisVal) throws PersistenceException {

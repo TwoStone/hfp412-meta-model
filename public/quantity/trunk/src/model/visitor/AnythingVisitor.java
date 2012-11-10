@@ -9,7 +9,6 @@ public interface AnythingVisitor extends AbsUnitTypeVisitor,AbsUnitVisitor,AbsQu
     public void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     public void handleTransactionFcde(PersistentTransactionFcde transactionFcde) throws PersistenceException;
     public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
-    public void handleFunction(PersistentFunction function) throws PersistenceException;
     public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public void handleServer(PersistentServer server) throws PersistenceException;

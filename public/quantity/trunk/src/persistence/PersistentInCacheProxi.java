@@ -43,11 +43,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ReferenceTypeICProxi(objectId);
             }
         };
-        iCProxiFactories[6] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new FunctionICProxi(objectId);
-            }
-        };
         iCProxiFactories[8] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new QuantityManagerICProxi(objectId);
