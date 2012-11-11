@@ -10,37 +10,39 @@ import model.visitor.*;
 public class Unit extends model.AbsUnit implements PersistentUnit{
     
     
-    public static PersistentUnit createUnit() throws PersistenceException{
-        return createUnit(false);
+    public static PersistentUnit createUnit(String name) throws PersistenceException{
+        return createUnit(name,false);
     }
     
-    public static PersistentUnit createUnit(boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentUnit createUnit(String name,boolean delayed$Persistence) throws PersistenceException {
         PersistentUnit result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
-                .newDelayedUnit("");
+                .newDelayedUnit(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
-                .newUnit("",-1);
+                .newUnit(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("name", name);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentUnit createUnit(boolean delayed$Persistence,PersistentUnit This) throws PersistenceException {
+    public static PersistentUnit createUnit(String name,boolean delayed$Persistence,PersistentUnit This) throws PersistenceException {
         PersistentUnit result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
-                .newDelayedUnit("");
+                .newDelayedUnit(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
-                .newUnit("",-1);
+                .newUnit(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("name", name);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -85,7 +87,7 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
     }
     
     static public long getTypeId() {
-        return 113;
+        return 112;
     }
     
     public long getClassId() {
@@ -94,8 +96,8 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 113) ConnectionHandler.getTheConnectionHandler().theUnitFacade
-            .newUnit("",this.getId());
+        if (this.getClassId() == 112) ConnectionHandler.getTheConnectionHandler().theUnitFacade
+            .newUnit(name,this.getId());
         super.store();
         
     }
@@ -162,6 +164,7 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
 				throws PersistenceException{
         this.setThis((PersistentUnit)This);
 		if(this.equals(This)){
+			this.setName((String)final$$Fields.get("name"));
 		}
     }
     public void initializeOnCreation() 

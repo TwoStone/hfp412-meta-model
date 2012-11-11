@@ -22,7 +22,7 @@ model quantity {
 
 	singleton TypeManager {
 		AbsUnitType ** unitTypes;
-		active void createUnitType(String name);
+		active void createUnitType(String name) throws DoubleDefinitionException;
 		active void addDefaultUnit(AbsUnitType type, AbsUnit unit);
 		//TODO: CompoundUnitType erstellen!
 	}
@@ -35,7 +35,7 @@ model quantity {
 
 	singleton UnitManager {
 		AbsUnit ** units;
-		active void createUnit(UnitType type, String name);
+		active void createUnit(UnitType type, String name) throws DoubleDefinitionException;
 	}
 
 	singleton ConversionManager {
@@ -68,7 +68,7 @@ model quantity {
 
 	abstract class AbsUnit {
 		AbsUnitType type; // 1
-		String name;
+		indexed prior String name;
 	}
 
 	class CompUnit extends AbsUnit {
@@ -78,7 +78,7 @@ model quantity {
 
 	abstract class AbsUnitType {
 		AbsUnit defaultUnit; // 0..1
-		String name;
+		indexed prior String name;
 	}
 
 	class CompUnitType extends AbsUnitType {
@@ -108,4 +108,9 @@ model quantity {
 		Quantity convertInverse(Fraction amount);
 	}
 
+
+/*-------------------------------------------------------------------------
+	EXCEPTIONS
+-------------------------------------------------------------------------*/
+	exception DoubleDefinitionException{}
 }

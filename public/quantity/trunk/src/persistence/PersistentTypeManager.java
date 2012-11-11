@@ -29,7 +29,7 @@ public interface PersistentTypeManager extends Anything, AbstractPersistentProxi
     public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit) 
 				throws PersistenceException;
     public void createUnitType(final String name) 
-				throws PersistenceException;
+				throws model.DoubleDefinitionException, PersistenceException;
 
 }
 

@@ -55,7 +55,7 @@ public class CreateUnitTypeCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 129;
+        return 128;
     }
     
     public long getClassId() {
@@ -64,7 +64,7 @@ public class CreateUnitTypeCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 129) ConnectionHandler.getTheConnectionHandler().theCreateUnitTypeCommandFacade
+        if (this.getClassId() == 128) ConnectionHandler.getTheConnectionHandler().theCreateUnitTypeCommandFacade
             .newCreateUnitTypeCommand(name,this.getId());
         super.store();
         if(this.getInvoker() != null){
@@ -205,8 +205,12 @@ public class CreateUnitTypeCommand extends PersistentObject implements Persisten
     
     public void execute() 
 				throws PersistenceException{
-        this.getCommandReceiver().createUnitType(this.getName());
-		
+        try{
+			this.getCommandReceiver().createUnitType(this.getName());
+		}
+		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
+		}
     }
     public void checkException() 
 				throws UserException, PersistenceException{

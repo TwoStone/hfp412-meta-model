@@ -25,25 +25,25 @@ public class CommandExecuterFacade{
 	}
 
     public CommandExecuterProxi newCommandExecuter(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CommandExecuterProxi)PersistentProxi.createProxi(createMinusStorePlus, -135);
+        if(createMinusStorePlus > 0) return (CommandExecuterProxi)PersistentProxi.createProxi(createMinusStorePlus, -134);
         long id = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade.getNextId();
         CommandExecuter result = new CommandExecuter(id);
         Cache.getTheCache().put(result);
-        return (CommandExecuterProxi)PersistentProxi.createProxi(id, -135);
+        return (CommandExecuterProxi)PersistentProxi.createProxi(id, -134);
     }
     
     public CommandExecuterProxi newDelayedCommandExecuter() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade.getNextId();
         CommandExecuter result = new CommandExecuter(id);
         Cache.getTheCache().put(result);
-        return (CommandExecuterProxi)PersistentProxi.createProxi(id, -135);
+        return (CommandExecuterProxi)PersistentProxi.createProxi(id, -134);
     }
     
     public CommandExecuter getCommandExecuter(long CommandExecuterId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, -135)) return -135;
+        if(Cache.getTheCache().contains(objectId, -134)) return -134;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

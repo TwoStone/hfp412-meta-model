@@ -19,7 +19,7 @@ public class CreateUnitTypeCommandProxi extends PersistentProxi implements Persi
     }
     
     public long getClassId() {
-        return 129;
+        return 128;
     }
     
     public String getName() throws PersistenceException {

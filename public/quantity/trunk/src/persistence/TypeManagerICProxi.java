@@ -72,7 +72,7 @@ public class TypeManagerICProxi extends PersistentInCacheProxiOptimistic impleme
         ((PersistentTypeManager)this.getTheObject()).addDefaultUnit(type, unit);
     }
     public void createUnitType(final String name) 
-				throws PersistenceException{
+				throws model.DoubleDefinitionException, PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).createUnitType(name);
     }
 

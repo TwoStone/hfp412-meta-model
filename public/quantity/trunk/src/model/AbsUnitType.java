@@ -34,6 +34,11 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
         return result;
     }
     
+    public static AbsUnitTypeSearchList getAbsUnitTypeByName(String name) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade
+            .getAbsUnitTypeByName(name);
+    }
+    
     public abstract AbsUnitType provideCopy() throws PersistenceException;
     
     public boolean hasEssentialFields() throws PersistenceException{
@@ -52,7 +57,7 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 108;
+        return 107;
     }
     
     public long getClassId() {
@@ -128,6 +133,7 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
 				throws PersistenceException{
         this.setThis((PersistentAbsUnitType)This);
 		if(this.equals(This)){
+			this.setName((String)final$$Fields.get("name"));
 		}
     }
     public void initializeOnCreation() 

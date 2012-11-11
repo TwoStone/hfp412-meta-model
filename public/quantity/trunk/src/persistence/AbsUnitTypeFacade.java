@@ -25,11 +25,28 @@ public class AbsUnitTypeFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 112)) return 112;
-        if(Cache.getTheCache().contains(objectId, 120)) return 120;
+        if(Cache.getTheCache().contains(objectId, 111)) return 111;
+        if(Cache.getTheCache().contains(objectId, 119)) return 119;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
+    }
+    public AbsUnitTypeSearchList getAbsUnitTypeByName(String name) throws PersistenceException {
+        AbsUnitTypeSearchList result = new AbsUnitTypeSearchList();
+        java.util.Iterator<?> candidates;
+        candidates = Cache.getTheCache().iterator(111);
+        while (candidates.hasNext()){
+            PersistentAbsUnitType current = (PersistentAbsUnitType)((PersistentRoot)candidates.next()).getTheObject();
+            if (current != null && !current.isDltd() && current.getName().equals(name))
+                result.add((PersistentAbsUnitType)PersistentProxi.createProxi(current.getId(), current.getClassId()));
+        }
+        candidates = Cache.getTheCache().iterator(119);
+        while (candidates.hasNext()){
+            PersistentAbsUnitType current = (PersistentAbsUnitType)((PersistentRoot)candidates.next()).getTheObject();
+            if (current != null && !current.isDltd() && current.getName().equals(name))
+                result.add((PersistentAbsUnitType)PersistentProxi.createProxi(current.getId(), current.getClassId()));
+        }
+        return result;
     }
     public void defaultUnitSet(long AbsUnitTypeId, PersistentAbsUnit defaultUnitVal) throws PersistenceException {
         

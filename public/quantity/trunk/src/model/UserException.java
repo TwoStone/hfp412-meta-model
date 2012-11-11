@@ -30,7 +30,7 @@ public abstract class UserException extends Exception{
     }
     
     static public long getTypeId() {
-        return -127;
+        return -126;
     }
     
     public long getClassId() {

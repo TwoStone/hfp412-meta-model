@@ -1,8 +1,24 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAbsUnit;
+import persistence.PersistentAbsUnitType;
+import persistence.PersistentAddDefaultUnitCommand;
+import persistence.PersistentCreateUnitTypeCommand;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentTypeManager;
+import persistence.TDObserver;
+import persistence.TypeManagerProxi;
+import persistence.TypeManager_UnitTypesProxi;
 
 
 /* Additional import section end */
@@ -182,8 +198,8 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         
     }
     public void createUnitType(final String name) 
-				throws PersistenceException{
-        //TODO: implement method: createUnitType
+				throws model.DoubleDefinitionException, PersistenceException{
+    	
         
     }
 

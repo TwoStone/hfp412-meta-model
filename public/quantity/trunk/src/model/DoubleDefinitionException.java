@@ -8,7 +8,7 @@ import model.visitor.*;
 /* Additional import section end */
 
 @SuppressWarnings("serial")
-public class CycleException extends model.UserException{
+public class DoubleDefinitionException extends model.UserException{
     
     
     public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
@@ -24,12 +24,12 @@ public class CycleException extends model.UserException{
         return false;
     }
     
-    public CycleException(String message) throws persistence.PersistenceException {
+    public DoubleDefinitionException(String message) throws persistence.PersistenceException {
         super(message);        
     }
     
     static public long getTypeId() {
-        return -125;
+        return -140;
     }
     
     public long getClassId() {
@@ -38,16 +38,16 @@ public class CycleException extends model.UserException{
     
     
     public void accept(UserExceptionVisitor visitor) throws PersistenceException {
-        visitor.handleCycleException(this);
+        visitor.handleDoubleDefinitionException(this);
     }
     public <R> R accept(UserExceptionReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCycleException(this);
+         return visitor.handleDoubleDefinitionException(this);
     }
     public <E extends UserException>  void accept(UserExceptionExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCycleException(this);
+         visitor.handleDoubleDefinitionException(this);
     }
     public <R, E extends UserException> R accept(UserExceptionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCycleException(this);
+         return visitor.handleDoubleDefinitionException(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return 0;

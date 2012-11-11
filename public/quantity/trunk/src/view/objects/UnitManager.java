@@ -18,7 +18,7 @@ public class UnitManager extends ViewObject implements UnitManagerView{
     }
     
     static public long getTypeId() {
-        return 119;
+        return 118;
     }
     
     public long getClassId() {

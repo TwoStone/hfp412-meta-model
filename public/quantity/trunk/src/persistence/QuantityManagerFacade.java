@@ -28,14 +28,14 @@ public class QuantityManagerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theQuantityManagerFacade.getNextId();
         QuantityManager result = new QuantityManager(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (QuantityManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 109);
+        return (QuantityManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 108);
     }
     
     public QuantityManager getQuantityManager(long QuantityManagerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 109)) return 109;
+        if(Cache.getTheCache().contains(objectId, 108)) return 108;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

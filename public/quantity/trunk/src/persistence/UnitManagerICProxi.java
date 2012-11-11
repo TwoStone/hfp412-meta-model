@@ -19,7 +19,7 @@ public class UnitManagerICProxi extends PersistentInCacheProxiOptimistic impleme
     }
     
     public long getClassId() {
-        return 119;
+        return 118;
     }
     
     public UnitManager_UnitsProxi getUnits() throws PersistenceException {
@@ -60,7 +60,7 @@ public class UnitManagerICProxi extends PersistentInCacheProxiOptimistic impleme
         ((PersistentUnitManager)this.getTheObject()).initialize(This, final$$Fields);
     }
     public void createUnit(final PersistentUnitType type, final String name) 
-				throws PersistenceException{
+				throws model.DoubleDefinitionException, PersistenceException{
         ((PersistentUnitManager)this.getTheObject()).createUnit(type, name);
     }
     public void initializeOnCreation() 

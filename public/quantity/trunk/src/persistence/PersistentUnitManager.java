@@ -23,7 +23,7 @@ public interface PersistentUnitManager extends Anything, AbstractPersistentProxi
     public void createUnit(final PersistentUnitType type, final String name, final Invoker invoker) 
 				throws PersistenceException;
     public void createUnit(final PersistentUnitType type, final String name) 
-				throws PersistenceException;
+				throws model.DoubleDefinitionException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
 

@@ -82,7 +82,7 @@ public class UnitManager extends PersistentObject implements PersistentUnitManag
     }
     
     static public long getTypeId() {
-        return 119;
+        return 118;
     }
     
     public long getClassId() {
@@ -163,7 +163,7 @@ public class UnitManager extends PersistentObject implements PersistentUnitManag
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void createUnit(final PersistentUnitType type, final String name) 
-				throws PersistenceException{
+				throws model.DoubleDefinitionException, PersistenceException{
         //TODO: implement method: createUnit
         
     }

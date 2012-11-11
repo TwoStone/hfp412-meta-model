@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class AbsUnitList {
+public class AbsUnitList  extends AbsUnitSearchList{
 
-	protected Vector<PersistentAbsUnit> data; //List of proxies
 	protected AbsUnitList() {
-		this.data = new Vector<PersistentAbsUnit>();
+		super();
 	}
 	public Iterator<PersistentAbsUnit> iterator(PersistentListProxi<PersistentAbsUnit> listProxi) {
 		return new PersistentListIterator<PersistentAbsUnit>(listProxi, this.data);
