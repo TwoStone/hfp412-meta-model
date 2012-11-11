@@ -29,20 +29,20 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException{
         this.standardHandling(errorDisplay);
     }
-    public void handleUnitType(UnitTypeView unitType) throws ModelException{
-        this.standardHandling(unitType);
+    public void handleServer(ServerView server) throws ModelException{
+        this.standardHandling(server);
     }
     public void handleUnit(UnitView unit) throws ModelException{
         this.standardHandling(unit);
     }
-    public void handleServer(ServerView server) throws ModelException{
-        this.standardHandling(server);
-    }
-    public void handleReference(ReferenceView reference) throws ModelException{
-        this.standardHandling(reference);
+    public void handleUnitType(UnitTypeView unitType) throws ModelException{
+        this.standardHandling(unitType);
     }
     public void handleConversion(ConversionView conversion) throws ModelException{
         this.standardHandling(conversion);
+    }
+    public void handleReference(ReferenceView reference) throws ModelException{
+        this.standardHandling(reference);
     }
     public void handleCompUnit(CompUnitView compUnit) throws ModelException{
         this.standardHandling(compUnit);

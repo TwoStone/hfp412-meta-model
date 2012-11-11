@@ -142,6 +142,15 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
         //TODO: implement method: initializeOnInstantiation
         
     }
+    public void createQuantity(final PersistentUnit unit, final common.Fraction amount, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateQuantityCommand command = model.meta.CreateQuantityCommand.createCreateQuantityCommand(amount, now, now);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
@@ -152,6 +161,11 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
         this.setThis((PersistentQuantityManager)This);
 		if(this.equals(This)){
 		}
+    }
+    public void createQuantity(final PersistentUnit unit, final common.Fraction amount) 
+				throws PersistenceException{
+        //TODO: implement method: createQuantity
+        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

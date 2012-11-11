@@ -8,6 +8,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException{
         this.standardHandling(typeManager);
     }
+    public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException{
+        this.standardHandling(commandExecuter);
+    }
     public void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException{
         this.standardHandling(conversionManager);
     }
@@ -23,26 +26,47 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException{
         this.standardHandling(referenceType);
     }
+    public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException{
+        this.standardHandling(addDefaultUnitCommand);
+    }
     public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException{
         this.standardHandling(quantityManager);
     }
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException{
         this.standardHandling(errorDisplay);
     }
-    public void handleUnitType(PersistentUnitType unitType) throws PersistenceException{
-        this.standardHandling(unitType);
+    public void handleServer(PersistentServer server) throws PersistenceException{
+        this.standardHandling(server);
     }
     public void handleUnit(PersistentUnit unit) throws PersistenceException{
         this.standardHandling(unit);
     }
-    public void handleServer(PersistentServer server) throws PersistenceException{
-        this.standardHandling(server);
+    public void handleUnitType(PersistentUnitType unitType) throws PersistenceException{
+        this.standardHandling(unitType);
     }
-    public void handleReference(PersistentReference reference) throws PersistenceException{
-        this.standardHandling(reference);
+    public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException{
+        this.standardHandling(createUnitTypeCommand);
+    }
+    public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
+        this.standardHandling(createConversionCommand);
+    }
+    public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
+        this.standardHandling(createUnitCommand);
+    }
+    public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException{
+        this.standardHandling(commandCoordinator);
+    }
+    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
+        this.standardHandling(commonDate);
+    }
+    public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
+        this.standardHandling(createQuantityCommand);
     }
     public void handleConversion(PersistentConversion conversion) throws PersistenceException{
         this.standardHandling(conversion);
+    }
+    public void handleReference(PersistentReference reference) throws PersistenceException{
+        this.standardHandling(reference);
     }
     public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException{
         this.standardHandling(compUnit);

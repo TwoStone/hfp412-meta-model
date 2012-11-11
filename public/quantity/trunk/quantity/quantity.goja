@@ -22,18 +22,25 @@ model quantity {
 
 	singleton TypeManager {
 		AbsUnitType ** unitTypes;
+		active void createUnitType(String name);
+		active void addDefaultUnit(AbsUnitType type, AbsUnit unit);
+		//TODO: CompoundUnitType erstellen!
 	}
 
 	singleton QuantityManager {
+		//Nicht lieber AbsQuantity?
 		Quantity ** quantities;
+		active void createQuantity(Unit unit, Fraction amount);
 	}
 
 	singleton UnitManager {
 		AbsUnit ** units;
+		active void createUnit(UnitType type, String name);
 	}
 
 	singleton ConversionManager {
 		Conversion ** conversions;
+		active void createConversion(Unit unit, Fraction factor, Fraction constant);
 	}
 
 /*-------------------------------------------------------------------------

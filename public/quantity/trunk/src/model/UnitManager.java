@@ -153,6 +153,20 @@ public class UnitManager extends PersistentObject implements PersistentUnitManag
 		if(this.equals(This)){
 		}
     }
+    public void createUnit(final PersistentUnitType type, final String name, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateUnitCommand command = model.meta.CreateUnitCommand.createCreateUnitCommand(name, now, now);
+		command.setType(type);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createUnit(final PersistentUnitType type, final String name) 
+				throws PersistenceException{
+        //TODO: implement method: createUnit
+        
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation

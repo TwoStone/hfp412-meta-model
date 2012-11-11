@@ -147,15 +147,43 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
+    public void createUnitType(final String name, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateUnitTypeCommand command = model.meta.CreateUnitTypeCommand.createCreateUnitTypeCommand(name, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentTypeManager)This);
 		if(this.equals(This)){
 		}
     }
+    public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddDefaultUnitCommand command = model.meta.AddDefaultUnitCommand.createAddDefaultUnitCommand(now, now);
+		command.setType(type);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
+        
+    }
+    public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit) 
+				throws PersistenceException{
+        //TODO: implement method: addDefaultUnit
+        
+    }
+    public void createUnitType(final String name) 
+				throws PersistenceException{
+        //TODO: implement method: createUnitType
         
     }
 

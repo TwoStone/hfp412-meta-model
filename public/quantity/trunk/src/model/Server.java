@@ -231,6 +231,18 @@ public class Server extends PersistentObject implements PersistentServer{
         }return (PersistentServer)this.This;
     }
     
+    public void accept(InvokerVisitor visitor) throws PersistenceException {
+        visitor.handleServer(this);
+    }
+    public <R> R accept(InvokerReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleServer(this);
+    }
+    public <E extends UserException>  void accept(InvokerExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleServer(this);
+    }
+    public <R, E extends UserException> R accept(InvokerReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleServer(this);
+    }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
@@ -264,6 +276,27 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     
+    public void handleResult(final Command command) 
+				throws PersistenceException{
+        new Thread(new Runnable(){
+			public void  /*INTERNAL*/  run() {
+				try {
+					try {
+						command.checkException();
+						//Handle result!
+						signalChanged(true);
+					} catch (model.UserException e) {
+						model.UserExceptionToDisplayVisitor visitor = new model.UserExceptionToDisplayVisitor();
+						e.accept(visitor);
+						getErrors().add(visitor.getResult());
+						signalChanged(true);
+					}
+				} catch (PersistenceException e) {
+					//Handle fatal exception!
+				}
+			}
+		}).start();
+    }
     public PersistentTypeManager getTypeManager() 
 				throws PersistenceException{
         return model.TypeManager.getTheTypeManager();
@@ -281,15 +314,15 @@ public class Server extends PersistentObject implements PersistentServer{
         //TODO: implement method: initializeOnInstantiation
         
     }
+    public PersistentUnitManager getUnitManager() 
+				throws PersistenceException{
+        return model.UnitManager.getTheUnitManager();
+    }
     public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentQuantityManager result = getThis().getQuantityManager();
 		observer.updateTransientDerived(getThis(), "quantityManager", result);
 		return result;
-    }
-    public PersistentUnitManager getUnitManager() 
-				throws PersistenceException{
-        return model.UnitManager.getTheUnitManager();
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -326,6 +359,14 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
+    }
+    public void handleException(final Command command, final PersistenceException exception) 
+				throws PersistenceException{
+        new Thread(new Runnable(){
+			public /*INTERNAL*/ void run() {
+				//Handle exception!
+			}
+		}).start();
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{

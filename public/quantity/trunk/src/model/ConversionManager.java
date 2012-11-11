@@ -137,6 +137,11 @@ public class ConversionManager extends PersistentObject implements PersistentCon
     }
     
     
+    public void createConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
+				throws PersistenceException{
+        //TODO: implement method: createConversion
+        
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
@@ -157,6 +162,15 @@ public class ConversionManager extends PersistentObject implements PersistentCon
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
+    }
+    public void createConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateConversionCommand command = model.meta.CreateConversionCommand.createCreateConversionCommand(factor, constant, now, now);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
 
     /* Start of protected part that is not overridden by persistence generator */
