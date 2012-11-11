@@ -4,7 +4,7 @@ import view.visitor.*;
 
 public interface UnitView extends AbsUnitView {
     
-    public java.util.Vector<ConversionView> getMyConversions() throws ModelException ;
+    public ConversionView getMyConversion() throws ModelException ;
     
     public void accept(AbsUnitVisitor visitor) throws ModelException;
     public <R> R accept(AbsUnitReturnVisitor<R>  visitor) throws ModelException;

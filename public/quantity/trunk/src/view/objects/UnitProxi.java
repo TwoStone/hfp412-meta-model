@@ -11,7 +11,6 @@ public class UnitProxi extends AbsUnitProxi implements UnitView{
         super(objectId, classId, connectionKey);
     }
     
-    @SuppressWarnings("unchecked")
     public UnitView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         ViewProxi type = null;
         String type$String = (String)resultTable.get("type");
@@ -21,9 +20,14 @@ public class UnitProxi extends AbsUnitProxi implements UnitView{
             type.setToString(type$Info.getToString());
         }
         String name = (String)resultTable.get("name");
-        java.util.Vector<String> myConversions_string = (java.util.Vector<String>)resultTable.get("myConversions");
-        java.util.Vector<ConversionView> myConversions = ViewProxi.getProxiVector(myConversions_string, connectionKey);
-        UnitView result$$ = new Unit((AbsUnitTypeView)type,(String)name,myConversions, this.getId(), this.getClassId());
+        ViewProxi myConversion = null;
+        String myConversion$String = (String)resultTable.get("myConversion");
+        if (myConversion$String != null) {
+            common.ProxiInformation myConversion$Info = common.RPCConstantsAndServices.createProxiInformation(myConversion$String);
+            myConversion = ViewProxi.createProxi(myConversion$Info,connectionKey);
+            myConversion.setToString(myConversion$Info.getToString());
+        }
+        UnitView result$$ = new Unit((AbsUnitTypeView)type,(String)name,(ConversionView)myConversion, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -35,35 +39,32 @@ public class UnitProxi extends AbsUnitProxi implements UnitView{
         int index = originalIndex;
         if(index == 0 && this.getType() != null) return new TypeAbsUnitWrapper(this, originalIndex, (ViewRoot)this.getType());
         if(this.getType() != null) index = index - 1;
-        if(index < this.getMyConversions().size()) return new MyConversionsUnitWrapper(this, originalIndex, (ViewRoot)this.getMyConversions().get(index));
-        index = index - this.getMyConversions().size();
+        if(index == 0 && this.getMyConversion() != null) return new MyConversionUnitWrapper(this, originalIndex, (ViewRoot)this.getMyConversion());
+        if(this.getMyConversion() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getType() == null ? 0 : 1)
-            + (this.getMyConversions().size());
+            + (this.getMyConversion() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getType() == null ? true : false)
-            && (this.getMyConversions().size() == 0);
+            && (this.getMyConversion() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getType() != null && this.getType().equals(child)) return result;
         if(this.getType() != null) result = result + 1;
-        java.util.Iterator<?> getMyConversionsIterator = this.getMyConversions().iterator();
-        while(getMyConversionsIterator.hasNext()){
-            if(getMyConversionsIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
+        if(this.getMyConversion() != null && this.getMyConversion().equals(child)) return result;
+        if(this.getMyConversion() != null) result = result + 1;
         return -1;
     }
     
-    public java.util.Vector<ConversionView> getMyConversions() throws ModelException {
-        return ((Unit)this.getTheObject()).getMyConversions();
+    public ConversionView getMyConversion() throws ModelException {
+        return ((Unit)this.getTheObject()).getMyConversion();
     }
     
     public void accept(AbsUnitVisitor visitor) throws ModelException {

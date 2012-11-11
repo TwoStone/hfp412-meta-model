@@ -92,7 +92,7 @@ model quantity {
 	
 	class Conversion {
 		// from und to sind Oracle-Schlüsselwörter.
-		prior symmetric (myConversions) Unit source;
+		prior one-to-one (myConversion) Unit source;
 		prior UnitType type;
 		prior Fraction factor;
 		prior Fraction constant;

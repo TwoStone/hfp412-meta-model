@@ -814,7 +814,7 @@ class UnitDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String AbsUnit$$type = "AbsUnit$$type";
     protected static final String AbsUnit$$name = "AbsUnit$$name";
-    protected static final String Unit$$myConversions = "Unit$$myConversions";
+    protected static final String Unit$$myConversion = "Unit$$myConversion";
     
     protected UnitDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

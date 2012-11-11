@@ -17,13 +17,13 @@ public interface PersistentUnit extends PersistentAbsUnit {
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public PersistentConversion getMyConversion() 
+				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException;
-    public ConversionSearchList getMyConversions() 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

@@ -52,6 +52,10 @@ public class UnitProxi extends AbsUnitProxi implements PersistentUnit{
     }
     
     
+    public PersistentConversion getMyConversion() 
+				throws PersistenceException{
+        return ((PersistentUnit)this.getTheObject()).getMyConversion();
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentUnit)this.getTheObject()).initializeOnInstantiation();
@@ -63,10 +67,6 @@ public class UnitProxi extends AbsUnitProxi implements PersistentUnit{
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentUnit)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public ConversionSearchList getMyConversions() 
-				throws PersistenceException{
-        return ((PersistentUnit)this.getTheObject()).getMyConversions();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

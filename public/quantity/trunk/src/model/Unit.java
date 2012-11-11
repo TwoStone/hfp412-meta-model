@@ -50,7 +50,15 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("myConversions", this.getMyConversions().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
+            AbstractPersistentRoot myConversion = (AbstractPersistentRoot)this.getMyConversion();
+            if (myConversion != null) {
+                result.put("myConversion", myConversion.createProxiInformation(false));
+                if(depth > 1) {
+                    myConversion.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && myConversion.hasEssentialFields())myConversion.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -127,10 +135,19 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + (this.getType() == null ? 0 : 1)
-            + this.getMyConversions().getLength());
+            + (this.getMyConversion() == null ? 0 : 1));
     }
     
     
+    public PersistentConversion getMyConversion() 
+				throws PersistenceException{
+        PersistentConversion result = null;
+		try {
+			if (result == null) result = (PersistentConversion)ConnectionHandler.getTheConnectionHandler().theConversionFacade
+							.inverseGetSource(this.getId(), this.getClassId()).iterator().next();
+		} catch (java.util.NoSuchElementException nsee){}
+		return result;
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
@@ -146,13 +163,6 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
         this.setThis((PersistentUnit)This);
 		if(this.equals(This)){
 		}
-    }
-    public ConversionSearchList getMyConversions() 
-				throws PersistenceException{
-        ConversionSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
-							.inverseGetSource(this.getId(), this.getClassId());
-		return result;
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

@@ -9,12 +9,12 @@ import view.visitor.*;
 
 public class Unit extends view.objects.AbsUnit implements UnitView{
     
-    protected java.util.Vector<ConversionView> myConversions;
+    protected ConversionView myConversion;
     
-    public Unit(AbsUnitTypeView type,String name,java.util.Vector<ConversionView> myConversions,long id, long classId) {
+    public Unit(AbsUnitTypeView type,String name,ConversionView myConversion,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((AbsUnitTypeView)type,(String)name,id, classId);
-        this.myConversions = myConversions;        
+        this.myConversion = myConversion;        
     }
     
     static public long getTypeId() {
@@ -25,8 +25,8 @@ public class Unit extends view.objects.AbsUnit implements UnitView{
         return getTypeId();
     }
     
-    public java.util.Vector<ConversionView> getMyConversions() throws ModelException {
-        return this.myConversions;
+    public ConversionView getMyConversion() throws ModelException {
+        return this.myConversion;
     }
     
     public void accept(AbsUnitVisitor visitor) throws ModelException {
@@ -59,9 +59,9 @@ public class Unit extends view.objects.AbsUnit implements UnitView{
         if (type != null) {
             ((ViewProxi)type).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(type.getClassId(), type.getId())));
         }
-        java.util.Vector<?> myConversions = this.getMyConversions();
-        if (myConversions != null) {
-            ViewObject.resolveVectorProxies(myConversions, resultTable);
+        ConversionView myConversion = this.getMyConversion();
+        if (myConversion != null) {
+            ((ViewProxi)myConversion).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(myConversion.getClassId(), myConversion.getId())));
         }
         
     }
@@ -72,29 +72,26 @@ public class Unit extends view.objects.AbsUnit implements UnitView{
         int index = originalIndex;
         if(index == 0 && this.getType() != null) return new TypeAbsUnitWrapper(this, originalIndex, (ViewRoot)this.getType());
         if(this.getType() != null) index = index - 1;
-        if(index < this.getMyConversions().size()) return new MyConversionsUnitWrapper(this, originalIndex, (ViewRoot)this.getMyConversions().get(index));
-        index = index - this.getMyConversions().size();
+        if(index == 0 && this.getMyConversion() != null) return new MyConversionUnitWrapper(this, originalIndex, (ViewRoot)this.getMyConversion());
+        if(this.getMyConversion() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getType() == null ? 0 : 1)
-            + (this.getMyConversions().size());
+            + (this.getMyConversion() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getType() == null ? true : false)
-            && (this.getMyConversions().size() == 0);
+            && (this.getMyConversion() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getType() != null && this.getType().equals(child)) return result;
         if(this.getType() != null) result = result + 1;
-        java.util.Iterator<?> getMyConversionsIterator = this.getMyConversions().iterator();
-        while(getMyConversionsIterator.hasNext()){
-            if(getMyConversionsIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
+        if(this.getMyConversion() != null && this.getMyConversion().equals(child)) return result;
+        if(this.getMyConversion() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {
