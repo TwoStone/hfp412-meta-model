@@ -10,11 +10,11 @@ import model.visitor.*;
 public class Unit extends model.AbsUnit implements PersistentUnit{
     
     
-    public static PersistentUnit createUnit(String name) throws PersistenceException{
-        return createUnit(name,false);
+    public static PersistentUnit createUnit(PersistentAbsUnitType type,String name) throws PersistenceException{
+        return createUnit(type,name,false);
     }
     
-    public static PersistentUnit createUnit(String name,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentUnit createUnit(PersistentAbsUnitType type,String name,boolean delayed$Persistence) throws PersistenceException {
         PersistentUnit result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
@@ -25,13 +25,14 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
                 .newUnit(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("type", type);
         final$$Fields.put("name", name);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentUnit createUnit(String name,boolean delayed$Persistence,PersistentUnit This) throws PersistenceException {
+    public static PersistentUnit createUnit(PersistentAbsUnitType type,String name,boolean delayed$Persistence,PersistentUnit This) throws PersistenceException {
         PersistentUnit result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theUnitFacade
@@ -42,6 +43,7 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
                 .newUnit(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("type", type);
         final$$Fields.put("name", name);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -164,6 +166,7 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
 				throws PersistenceException{
         this.setThis((PersistentUnit)This);
 		if(this.equals(This)){
+			this.setType((PersistentAbsUnitType)final$$Fields.get("type"));
 			this.setName((String)final$$Fields.get("name"));
 		}
     }

@@ -18,6 +18,15 @@ public  class RemoteServer extends RemoteServerMaster {
         return this.server;
     } 
 
+    public synchronized java.util.Hashtable<?,?> createUnitType(String name){
+        try {
+            ((PersistentServer)this.server).createUnitType(name);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
 
 
 }

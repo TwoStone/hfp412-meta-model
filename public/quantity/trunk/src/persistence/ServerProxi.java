@@ -163,6 +163,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getConversionManager(observer);
     }
+    public void createUnitType(final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createUnitType(name);
+    }
 
     
 }

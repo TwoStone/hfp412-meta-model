@@ -80,12 +80,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleUnitType(PersistentUnitType unitType)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
+		this.result = unitType.getName();
 		
 	}
 	@Override
 	public void handleUnit(PersistentUnit unit) throws PersistenceException {
-		// TODO Auto-generated method stub
+		this.result = unit.getName();
 		
 	}
 	@Override

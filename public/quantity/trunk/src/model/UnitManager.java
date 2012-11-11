@@ -1,8 +1,24 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.AbsUnitSearchList;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCreateUnitCommand;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentUnitManager;
+import persistence.PersistentUnitType;
+import persistence.TDObserver;
+import persistence.UnitManagerProxi;
+import persistence.UnitManager_UnitsProxi;
+import constants.ExceptionConstants;
 
 
 /* Additional import section end */
@@ -164,7 +180,11 @@ public class UnitManager extends PersistentObject implements PersistentUnitManag
     }
     public void createUnit(final PersistentUnitType type, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: createUnit
+        AbsUnitSearchList old = Unit.getAbsUnitByName(name);
+        if(old.iterator().hasNext()){
+        	throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION + name);
+        }
+        getThis().getUnits().add(Unit.createUnit(type, name));
         
     }
     public void initializeOnCreation() 

@@ -284,14 +284,84 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private java.util.Vector<javax.swing.JButton> getToolButtonsForStaticOperations() {
         java.util.Vector<javax.swing.JButton> result = new java.util.Vector<javax.swing.JButton>();
         javax.swing.JButton currentButton = null;
+        currentButton = new javax.swing.JButton("createUnitType ... ");
+        currentButton.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                ServerCreateUnitTypeStringMssgWizard wizard = new ServerCreateUnitTypeStringMssgWizard("createUnitType");
+                wizard.pack();
+                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                wizard.pack();
+                wizard.setLocationRelativeTo(getNavigationPanel());
+                wizard.setVisible(true);
+            }
+            
+        });result.add(currentButton);
         return result;
     }
     private JPopupMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations) {
-        JPopupMenu result = new JPopupMenu();        
+        JPopupMenu result = new JPopupMenu();
+        javax.swing.JMenuItem item = null;
+        item = new javax.swing.JMenuItem();
+        item.setText("(S) createUnitType ... ");
+        item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                ServerCreateUnitTypeStringMssgWizard wizard = new ServerCreateUnitTypeStringMssgWizard("createUnitType");
+                wizard.pack();
+                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                wizard.pack();
+                wizard.setLocationRelativeTo(getNavigationPanel());
+                wizard.setVisible(true);
+            }
+            
+        });
+        if (withStaticOperations) result.add(item);
+        if (selected != null){
+            
+        }
+        
         this.addNotGeneratedItems(result,selected);
         return result;
     }
     
+	class ServerCreateUnitTypeStringMssgWizard extends Wizard {
+
+		protected ServerCreateUnitTypeStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateUnitTypeStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().createUnitType(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
 	/* Menu and wizard section end */
 	
 	private void addNotGeneratedItems(JPopupMenu result, ViewRoot selected) {

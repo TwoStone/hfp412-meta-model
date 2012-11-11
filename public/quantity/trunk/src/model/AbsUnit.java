@@ -133,6 +133,7 @@ public abstract class AbsUnit extends PersistentObject implements PersistentAbsU
 				throws PersistenceException{
         this.setThis((PersistentAbsUnit)This);
 		if(this.equals(This)){
+			this.setType((PersistentAbsUnitType)final$$Fields.get("type"));
 			this.setName((String)final$$Fields.get("name"));
 		}
     }

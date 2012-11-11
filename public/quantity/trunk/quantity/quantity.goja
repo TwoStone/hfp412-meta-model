@@ -9,6 +9,8 @@ model quantity {
 		derived QuantityManager quantityManager;
 		derived UnitManager unitManager;
 		derived ConversionManager conversionManager;
+
+		void createUnitType(String name);
 	}
 
 	singleton TransactionFcde {
@@ -46,7 +48,7 @@ model quantity {
 /*-------------------------------------------------------------------------
 	MODELL KLASSEN
 -------------------------------------------------------------------------*/
-	abstract	class AbsQuantity {
+	abstract class AbsQuantity {
 		/*
 		Rückgabetyp AbstractQuantity oder void?
 		Verschmelzen zwei Quantitäten miteinander?
@@ -67,7 +69,7 @@ model quantity {
 	}
 
 	abstract class AbsUnit {
-		AbsUnitType type; // 1
+		prior AbsUnitType type; // 1
 		indexed prior String name;
 	}
 
@@ -101,8 +103,8 @@ model quantity {
 		// from und to sind Oracle-Schlüsselwörter.
 		prior one-to-one (myConversion) Unit source;
 		prior UnitType type;
-		prior Fraction factor;
-		prior Fraction constant;
+		Fraction factor;
+		Fraction constant;
 		//Wie muss eine Function aussehen? --> y=a*x+b	
 		Quantity convert(Fraction amount);
 		Quantity convertInverse(Fraction amount);

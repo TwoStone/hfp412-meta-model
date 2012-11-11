@@ -1,8 +1,34 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.InvokerExceptionVisitor;
+import model.visitor.InvokerReturnExceptionVisitor;
+import model.visitor.InvokerReturnVisitor;
+import model.visitor.InvokerVisitor;
+import model.visitor.RemoteExceptionVisitor;
+import model.visitor.RemoteReturnExceptionVisitor;
+import model.visitor.RemoteReturnVisitor;
+import model.visitor.RemoteVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.Command;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentConversionManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentQuantityManager;
+import persistence.PersistentServer;
+import persistence.PersistentTypeManager;
+import persistence.PersistentUnitManager;
+import persistence.ServerProxi;
+import persistence.ServerSearchList;
+import persistence.Server_ErrorsProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -279,6 +305,7 @@ public class Server extends PersistentObject implements PersistentServer{
     public void handleResult(final Command command) 
 				throws PersistenceException{
         new Thread(new Runnable(){
+			@Override
 			public void  /*INTERNAL*/  run() {
 				try {
 					try {
@@ -363,6 +390,7 @@ public class Server extends PersistentObject implements PersistentServer{
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
         new Thread(new Runnable(){
+			@Override
 			public /*INTERNAL*/ void run() {
 				//Handle exception!
 			}
@@ -389,6 +417,11 @@ public class Server extends PersistentObject implements PersistentServer{
         PersistentConversionManager result = getThis().getConversionManager();
 		observer.updateTransientDerived(getThis(), "conversionManager", result);
 		return result;
+    }
+    public void createUnitType(final String name) 
+				throws PersistenceException{
+        this.getThis().getTypeManager().createUnitType(name, getThis());
+        
     }
 
     /* Start of protected part that is not overridden by persistence generator */

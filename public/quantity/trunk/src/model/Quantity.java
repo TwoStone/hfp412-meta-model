@@ -62,13 +62,12 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
         return result;
     }
     
-    @Override
-	public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("amount", this.getAmount().toString());
-            AbstractPersistentRoot unit = this.getUnit();
+            AbstractPersistentRoot unit = (AbstractPersistentRoot)this.getUnit();
             if (unit != null) {
                 result.put("unit", unit.createProxiInformation(false));
                 if(depth > 1) {
@@ -83,8 +82,7 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
         return result;
     }
     
-    @Override
-	public Quantity provideCopy() throws PersistenceException{
+    public Quantity provideCopy() throws PersistenceException{
         Quantity result = this;
         result = new Quantity(this.This, 
                               this.amount, 
@@ -94,8 +92,7 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
         return result;
     }
     
-    @Override
-	public boolean hasEssentialFields() throws PersistenceException{
+    public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
     protected common.Fraction amount;
@@ -103,7 +100,7 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
     
     public Quantity(PersistentAbsQuantity This,common.Fraction amount,PersistentUnit unit,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super(This,id);
+        super((PersistentAbsQuantity)This,id);
         this.amount = amount;
         this.unit = unit;        
     }
@@ -112,13 +109,11 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
         return 103;
     }
     
-    @Override
-	public long getClassId() {
+    public long getClassId() {
         return getTypeId();
     }
     
-    @Override
-	public void store() throws PersistenceException {
+    public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 103) ConnectionHandler.getTheConnectionHandler().theQuantityFacade
             .newQuantity(common.Fraction.Null,this.getId());
@@ -130,21 +125,17 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
         
     }
     
-    @Override
-	public common.Fraction getAmount() throws PersistenceException {
+    public common.Fraction getAmount() throws PersistenceException {
         return this.amount;
     }
-    @Override
-	public void setAmount(common.Fraction newValue) throws PersistenceException {
+    public void setAmount(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theQuantityFacade.amountSet(this.getId(), newValue);
         this.amount = newValue;
     }
-    @Override
-	public PersistentUnit getUnit() throws PersistenceException {
+    public PersistentUnit getUnit() throws PersistenceException {
         return this.unit;
     }
-    @Override
-	public void setUnit(PersistentUnit newValue) throws PersistenceException {
+    public void setUnit(PersistentUnit newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.unit)) return;
         long objectId = newValue.getId();
@@ -155,8 +146,7 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
             ConnectionHandler.getTheConnectionHandler().theQuantityFacade.unitSet(this.getId(), newValue);
         }
     }
-    @Override
-	public PersistentQuantity getThis() throws PersistenceException {
+    public PersistentQuantity getThis() throws PersistenceException {
         if(this.This == null){
             PersistentQuantity result = new QuantityProxi(this.getId());
             result.getTheObject();
@@ -164,70 +154,60 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
         }return (PersistentQuantity)this.This;
     }
     
-    @Override
-	public void accept(AbsQuantityVisitor visitor) throws PersistenceException {
+    public void accept(AbsQuantityVisitor visitor) throws PersistenceException {
         visitor.handleQuantity(this);
     }
-    @Override
-	public <R> R accept(AbsQuantityReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(AbsQuantityReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleQuantity(this);
     }
-    @Override
-	public <E extends UserException>  void accept(AbsQuantityExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(AbsQuantityExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleQuantity(this);
     }
-    @Override
-	public <R, E extends UserException> R accept(AbsQuantityReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(AbsQuantityReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleQuantity(this);
     }
-    @Override
-	public void accept(AnythingVisitor visitor) throws PersistenceException {
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleQuantity(this);
     }
-    @Override
-	public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleQuantity(this);
     }
-    @Override
-	public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleQuantity(this);
     }
-    @Override
-	public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleQuantity(this);
     }
-    @Override
-	public int getLeafInfo() throws PersistenceException{
-        return 0 
-            + (this.getUnit() == null ? 0 : 1);
+    public int getLeafInfo() throws PersistenceException{
+        return (int) (0 
+            + (this.getUnit() == null ? 0 : 1));
     }
     
     
-    @Override
-	public void initializeOnInstantiation() 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    @Override
-	public void copyingPrivateUserAttributes(final Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    @Override
-	public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentQuantity)This);
 		if(this.equals(This)){
 		}
     }
-    @Override
-	public void initializeOnCreation() 
+    public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
     }
+
+    /* Start of protected part that is not overridden by persistence generator */
+
 
 	@Override
 	public PersistentAbsQuantity sub(PersistentAbsQuantity minuend)
@@ -256,9 +236,6 @@ public class Quantity extends model.AbsQuantity implements PersistentQuantity{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-    /* Start of protected part that is not overridden by persistence generator */
-    
     /* End of protected part that is not overridden by persistence generator */
     
 }

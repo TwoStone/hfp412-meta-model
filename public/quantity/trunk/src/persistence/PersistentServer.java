@@ -62,6 +62,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException;
+    public void createUnitType(final String name) 
+				throws PersistenceException;
 
 }
 

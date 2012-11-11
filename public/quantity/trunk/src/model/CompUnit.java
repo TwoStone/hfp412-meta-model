@@ -10,11 +10,11 @@ import model.visitor.*;
 public class CompUnit extends model.AbsUnit implements PersistentCompUnit{
     
     
-    public static PersistentCompUnit createCompUnit(String name) throws PersistenceException{
-        return createCompUnit(name,false);
+    public static PersistentCompUnit createCompUnit(PersistentAbsUnitType type,String name) throws PersistenceException{
+        return createCompUnit(type,name,false);
     }
     
-    public static PersistentCompUnit createCompUnit(String name,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentCompUnit createCompUnit(PersistentAbsUnitType type,String name,boolean delayed$Persistence) throws PersistenceException {
         PersistentCompUnit result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCompUnitFacade
@@ -25,13 +25,14 @@ public class CompUnit extends model.AbsUnit implements PersistentCompUnit{
                 .newCompUnit(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("type", type);
         final$$Fields.put("name", name);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentCompUnit createCompUnit(String name,boolean delayed$Persistence,PersistentCompUnit This) throws PersistenceException {
+    public static PersistentCompUnit createCompUnit(PersistentAbsUnitType type,String name,boolean delayed$Persistence,PersistentCompUnit This) throws PersistenceException {
         PersistentCompUnit result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCompUnitFacade
@@ -42,6 +43,7 @@ public class CompUnit extends model.AbsUnit implements PersistentCompUnit{
                 .newCompUnit(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("type", type);
         final$$Fields.put("name", name);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -154,6 +156,7 @@ public class CompUnit extends model.AbsUnit implements PersistentCompUnit{
 				throws PersistenceException{
         this.setThis((PersistentCompUnit)This);
 		if(this.equals(This)){
+			this.setType((PersistentAbsUnitType)final$$Fields.get("type"));
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
