@@ -13,7 +13,9 @@ import persistence.PersistenceException;
 import persistence.PersistentConversion;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
+import persistence.PersistentQuantity;
 import persistence.PersistentUnit;
+import persistence.PersistentUnitType;
 import persistence.TDObserver;
 
 
@@ -27,11 +29,11 @@ public class Conversion extends PersistentObject implements PersistentConversion
         return (PersistentConversion)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentConversion createConversion(PersistentUnit source,PersistentUnit target,common.Fraction factor,common.Fraction constant) throws PersistenceException{
-        return createConversion(source,target,factor,constant,false);
+    public static PersistentConversion createConversion(PersistentUnit source,PersistentUnitType type,common.Fraction factor,common.Fraction constant) throws PersistenceException{
+        return createConversion(source,type,factor,constant,false);
     }
     
-    public static PersistentConversion createConversion(PersistentUnit source,PersistentUnit target,common.Fraction factor,common.Fraction constant,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentConversion createConversion(PersistentUnit source,PersistentUnitType type,common.Fraction factor,common.Fraction constant,boolean delayed$Persistence) throws PersistenceException {
         PersistentConversion result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
@@ -43,7 +45,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("source", source);
-        final$$Fields.put("target", target);
+        final$$Fields.put("type", type);
         final$$Fields.put("factor", factor);
         final$$Fields.put("constant", constant);
         result.initialize(result, final$$Fields);
@@ -51,7 +53,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
         return result;
     }
     
-    public static PersistentConversion createConversion(PersistentUnit source,PersistentUnit target,common.Fraction factor,common.Fraction constant,boolean delayed$Persistence,PersistentConversion This) throws PersistenceException {
+    public static PersistentConversion createConversion(PersistentUnit source,PersistentUnitType type,common.Fraction factor,common.Fraction constant,boolean delayed$Persistence,PersistentConversion This) throws PersistenceException {
         PersistentConversion result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
@@ -63,7 +65,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("source", source);
-        final$$Fields.put("target", target);
+        final$$Fields.put("type", type);
         final$$Fields.put("factor", factor);
         final$$Fields.put("constant", constant);
         result.initialize(This, final$$Fields);
@@ -85,13 +87,13 @@ public class Conversion extends PersistentObject implements PersistentConversion
                     if(forGUI && source.hasEssentialFields())source.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot target = this.getTarget();
-            if (target != null) {
-                result.put("target", target.createProxiInformation(false));
+            AbstractPersistentRoot type = this.getType();
+            if (type != null) {
+                result.put("type", type.createProxiInformation(false));
                 if(depth > 1) {
-                    target.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    type.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && target.hasEssentialFields())target.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && type.hasEssentialFields())type.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             result.put("factor", this.getFactor().toString());
@@ -106,7 +108,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
 	public Conversion provideCopy() throws PersistenceException{
         Conversion result = this;
         result = new Conversion(this.source, 
-                                this.target, 
+                                this.type, 
                                 this.factor, 
                                 this.constant, 
                                 this.This, 
@@ -120,16 +122,16 @@ public class Conversion extends PersistentObject implements PersistentConversion
         return false;
     }
     protected PersistentUnit source;
-    protected PersistentUnit target;
+    protected PersistentUnitType type;
     protected common.Fraction factor;
     protected common.Fraction constant;
     protected PersistentConversion This;
     
-    public Conversion(PersistentUnit source,PersistentUnit target,common.Fraction factor,common.Fraction constant,PersistentConversion This,long id) throws persistence.PersistenceException {
+    public Conversion(PersistentUnit source,PersistentUnitType type,common.Fraction factor,common.Fraction constant,PersistentConversion This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.source = source;
-        this.target = target;
+        this.type = type;
         this.factor = factor;
         this.constant = constant;
         if (This != null && !(this.equals(This))) this.This = This;        
@@ -154,9 +156,9 @@ public class Conversion extends PersistentObject implements PersistentConversion
             this.getSource().store();
             ConnectionHandler.getTheConnectionHandler().theConversionFacade.sourceSet(this.getId(), getSource());
         }
-        if(this.getTarget() != null){
-            this.getTarget().store();
-            ConnectionHandler.getTheConnectionHandler().theConversionFacade.targetSet(this.getId(), getTarget());
+        if(this.getType() != null){
+            this.getType().store();
+            ConnectionHandler.getTheConnectionHandler().theConversionFacade.typeSet(this.getId(), getType());
         }
         if(!this.equals(this.getThis())){
             this.getThis().store();
@@ -182,19 +184,19 @@ public class Conversion extends PersistentObject implements PersistentConversion
         }
     }
     @Override
-	public PersistentUnit getTarget() throws PersistenceException {
-        return this.target;
+	public PersistentUnitType getType() throws PersistenceException {
+        return this.type;
     }
     @Override
-	public void setTarget(PersistentUnit newValue) throws PersistenceException {
+	public void setType(PersistentUnitType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.target)) return;
+        if(newValue.equals(this.type)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.target = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
+        this.type = (PersistentUnitType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theConversionFacade.targetSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theConversionFacade.typeSet(this.getId(), newValue);
         }
     }
     @Override
@@ -259,10 +261,21 @@ public class Conversion extends PersistentObject implements PersistentConversion
 	public int getLeafInfo() throws PersistenceException{
         return 0 
             + (this.getSource() == null ? 0 : 1)
-            + (this.getTarget() == null ? 0 : 1);
+            + (this.getType() == null ? 0 : 1);
     }
     
     
+    @Override
+	public PersistentQuantity convert(final common.Fraction amount) 
+				throws PersistenceException{
+        //TODO: implement method: convert
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"convert\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     @Override
 	public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -276,28 +289,26 @@ public class Conversion extends PersistentObject implements PersistentConversion
         
     }
     @Override
-	public common.Fraction convert() 
-				throws PersistenceException{
-        //TODO: implement method: convert
-    	//y=a*x+b
-    	//result = amount * this.factor + this.constant
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"convert\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
-    @Override
 	public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentConversion)This);
 		if(this.equals(This)){
 			this.setSource((PersistentUnit)final$$Fields.get("source"));
-			this.setTarget((PersistentUnit)final$$Fields.get("target"));
+			this.setType((PersistentUnitType)final$$Fields.get("type"));
 			this.setFactor((common.Fraction)final$$Fields.get("factor"));
 			this.setConstant((common.Fraction)final$$Fields.get("constant"));
 		}
+    }
+    @Override
+	public PersistentQuantity convertInverse(final common.Fraction amount) 
+				throws PersistenceException{
+        //TODO: implement method: convertInverse
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"convertInverse\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
     @Override
 	public void initializeOnCreation() 
@@ -305,6 +316,8 @@ public class Conversion extends PersistentObject implements PersistentConversion
         //TODO: implement method: initializeOnCreation
         
     }
+
+
 
     /* Start of protected part that is not overridden by persistence generator */
     

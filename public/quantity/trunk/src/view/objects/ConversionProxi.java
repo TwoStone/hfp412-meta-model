@@ -19,16 +19,16 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
             source = ViewProxi.createProxi(source$Info,connectionKey);
             source.setToString(source$Info.getToString());
         }
-        ViewProxi target = null;
-        String target$String = (String)resultTable.get("target");
-        if (target$String != null) {
-            common.ProxiInformation target$Info = common.RPCConstantsAndServices.createProxiInformation(target$String);
-            target = ViewProxi.createProxi(target$Info,connectionKey);
-            target.setToString(target$Info.getToString());
+        ViewProxi type = null;
+        String type$String = (String)resultTable.get("type");
+        if (type$String != null) {
+            common.ProxiInformation type$Info = common.RPCConstantsAndServices.createProxiInformation(type$String);
+            type = ViewProxi.createProxi(type$Info,connectionKey);
+            type.setToString(type$Info.getToString());
         }
         common.Fraction factor = common.Fraction.parse((String)resultTable.get("factor"));
         common.Fraction constant = common.Fraction.parse((String)resultTable.get("constant"));
-        ConversionView result$$ = new Conversion((UnitView)source,(UnitView)target,(common.Fraction)factor,(common.Fraction)constant, this.getId(), this.getClassId());
+        ConversionView result$$ = new Conversion((UnitView)source,(UnitTypeView)type,(common.Fraction)factor,(common.Fraction)constant, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -40,27 +40,27 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
         int index = originalIndex;
         if(index == 0 && this.getSource() != null) return new SourceConversionWrapper(this, originalIndex, (ViewRoot)this.getSource());
         if(this.getSource() != null) index = index - 1;
-        if(index == 0 && this.getTarget() != null) return new TargetConversionWrapper(this, originalIndex, (ViewRoot)this.getTarget());
-        if(this.getTarget() != null) index = index - 1;
+        if(index == 0 && this.getType() != null) return new TypeConversionWrapper(this, originalIndex, (ViewRoot)this.getType());
+        if(this.getType() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getSource() == null ? 0 : 1)
-            + (this.getTarget() == null ? 0 : 1);
+            + (this.getType() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getSource() == null ? true : false)
-            && (this.getTarget() == null ? true : false);
+            && (this.getType() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getSource() != null && this.getSource().equals(child)) return result;
         if(this.getSource() != null) result = result + 1;
-        if(this.getTarget() != null && this.getTarget().equals(child)) return result;
-        if(this.getTarget() != null) result = result + 1;
+        if(this.getType() != null && this.getType().equals(child)) return result;
+        if(this.getType() != null) result = result + 1;
         return -1;
     }
     
@@ -70,11 +70,11 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
     public void setSource(UnitView newValue) throws ModelException {
         ((Conversion)this.getTheObject()).setSource(newValue);
     }
-    public UnitView getTarget() throws ModelException {
-        return ((Conversion)this.getTheObject()).getTarget();
+    public UnitTypeView getType() throws ModelException {
+        return ((Conversion)this.getTheObject()).getType();
     }
-    public void setTarget(UnitView newValue) throws ModelException {
-        ((Conversion)this.getTheObject()).setTarget(newValue);
+    public void setType(UnitTypeView newValue) throws ModelException {
+        ((Conversion)this.getTheObject()).setType(newValue);
     }
     public common.Fraction getFactor() throws ModelException {
         return ((Conversion)this.getTheObject()).getFactor();

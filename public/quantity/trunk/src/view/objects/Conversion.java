@@ -10,15 +10,15 @@ import view.visitor.*;
 public class Conversion extends ViewObject implements ConversionView{
     
     protected UnitView source;
-    protected UnitView target;
+    protected UnitTypeView type;
     protected common.Fraction factor;
     protected common.Fraction constant;
     
-    public Conversion(UnitView source,UnitView target,common.Fraction factor,common.Fraction constant,long id, long classId) {
+    public Conversion(UnitView source,UnitTypeView type,common.Fraction factor,common.Fraction constant,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.source = source;
-        this.target = target;
+        this.type = type;
         this.factor = factor;
         this.constant = constant;        
     }
@@ -37,11 +37,11 @@ public class Conversion extends ViewObject implements ConversionView{
     public void setSource(UnitView newValue) throws ModelException {
         this.source = newValue;
     }
-    public UnitView getTarget() throws ModelException {
-        return this.target;
+    public UnitTypeView getType() throws ModelException {
+        return this.type;
     }
-    public void setTarget(UnitView newValue) throws ModelException {
-        this.target = newValue;
+    public void setType(UnitTypeView newValue) throws ModelException {
+        this.type = newValue;
     }
     public common.Fraction getFactor() throws ModelException {
         return this.factor;
@@ -74,9 +74,9 @@ public class Conversion extends ViewObject implements ConversionView{
         if (source != null) {
             ((ViewProxi)source).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(source.getClassId(), source.getId())));
         }
-        UnitView target = this.getTarget();
-        if (target != null) {
-            ((ViewProxi)target).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(target.getClassId(), target.getId())));
+        UnitTypeView type = this.getType();
+        if (type != null) {
+            ((ViewProxi)type).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(type.getClassId(), type.getId())));
         }
         
     }
@@ -87,33 +87,33 @@ public class Conversion extends ViewObject implements ConversionView{
         int index = originalIndex;
         if(index == 0 && this.getSource() != null) return new SourceConversionWrapper(this, originalIndex, (ViewRoot)this.getSource());
         if(this.getSource() != null) index = index - 1;
-        if(index == 0 && this.getTarget() != null) return new TargetConversionWrapper(this, originalIndex, (ViewRoot)this.getTarget());
-        if(this.getTarget() != null) index = index - 1;
+        if(index == 0 && this.getType() != null) return new TypeConversionWrapper(this, originalIndex, (ViewRoot)this.getType());
+        if(this.getType() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getSource() == null ? 0 : 1)
-            + (this.getTarget() == null ? 0 : 1);
+            + (this.getType() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getSource() == null ? true : false)
-            && (this.getTarget() == null ? true : false);
+            && (this.getType() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getSource() != null && this.getSource().equals(child)) return result;
         if(this.getSource() != null) result = result + 1;
-        if(this.getTarget() != null && this.getTarget().equals(child)) return result;
-        if(this.getTarget() != null) result = result + 1;
+        if(this.getType() != null && this.getType().equals(child)) return result;
+        if(this.getType() != null) result = result + 1;
         return -1;
     }
     public int getFactorIndex() throws ModelException {
-        return 0 + (this.getSource() == null ? 0 : 1) + (this.getTarget() == null ? 0 : 1);
+        return 0 + (this.getSource() == null ? 0 : 1) + (this.getType() == null ? 0 : 1);
     }
     public int getConstantIndex() throws ModelException {
-        return 0 + (this.getSource() == null ? 0 : 1) + (this.getTarget() == null ? 0 : 1) + 1;
+        return 0 + (this.getSource() == null ? 0 : 1) + (this.getType() == null ? 0 : 1) + 1;
     }
     public int getRowCount(){
         return 0 

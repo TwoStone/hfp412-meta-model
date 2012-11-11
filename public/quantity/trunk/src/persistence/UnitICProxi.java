@@ -64,6 +64,10 @@ public class UnitICProxi extends AbsUnitICProxi implements PersistentUnit{
 				throws PersistenceException{
         ((PersistentUnit)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public ConversionSearchList getMyConversions() 
+				throws PersistenceException{
+        return ((PersistentUnit)this.getTheObject()).getMyConversions();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentUnit)this.getTheObject()).initializeOnCreation();

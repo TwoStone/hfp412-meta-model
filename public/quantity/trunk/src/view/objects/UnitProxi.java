@@ -11,6 +11,7 @@ public class UnitProxi extends AbsUnitProxi implements UnitView{
         super(objectId, classId, connectionKey);
     }
     
+    @SuppressWarnings("unchecked")
     public UnitView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         ViewProxi type = null;
         String type$String = (String)resultTable.get("type");
@@ -20,7 +21,9 @@ public class UnitProxi extends AbsUnitProxi implements UnitView{
             type.setToString(type$Info.getToString());
         }
         String name = (String)resultTable.get("name");
-        UnitView result$$ = new Unit((AbsUnitTypeView)type,(String)name, this.getId(), this.getClassId());
+        java.util.Vector<String> myConversions_string = (java.util.Vector<String>)resultTable.get("myConversions");
+        java.util.Vector<ConversionView> myConversions = ViewProxi.getProxiVector(myConversions_string, connectionKey);
+        UnitView result$$ = new Unit((AbsUnitTypeView)type,(String)name,myConversions, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -32,24 +35,36 @@ public class UnitProxi extends AbsUnitProxi implements UnitView{
         int index = originalIndex;
         if(index == 0 && this.getType() != null) return new TypeAbsUnitWrapper(this, originalIndex, (ViewRoot)this.getType());
         if(this.getType() != null) index = index - 1;
+        if(index < this.getMyConversions().size()) return new MyConversionsUnitWrapper(this, originalIndex, (ViewRoot)this.getMyConversions().get(index));
+        index = index - this.getMyConversions().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getType() == null ? 0 : 1);
+            + (this.getType() == null ? 0 : 1)
+            + (this.getMyConversions().size());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getType() == null ? true : false);
+            && (this.getType() == null ? true : false)
+            && (this.getMyConversions().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getType() != null && this.getType().equals(child)) return result;
         if(this.getType() != null) result = result + 1;
+        java.util.Iterator<?> getMyConversionsIterator = this.getMyConversions().iterator();
+        while(getMyConversionsIterator.hasNext()){
+            if(getMyConversionsIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     
+    public java.util.Vector<ConversionView> getMyConversions() throws ModelException {
+        return ((Unit)this.getTheObject()).getMyConversions();
+    }
     
     public void accept(AbsUnitVisitor visitor) throws ModelException {
         visitor.handleUnit(this);
@@ -77,7 +92,7 @@ public class UnitProxi extends AbsUnitProxi implements UnitView{
     }
     
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     
     public void setIcon(IconRenderer renderer){

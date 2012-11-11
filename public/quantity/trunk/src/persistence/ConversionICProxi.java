@@ -28,11 +28,11 @@ public class ConversionICProxi extends PersistentInCacheProxiOptimistic implemen
     public void setSource(PersistentUnit newValue) throws PersistenceException {
         ((PersistentConversion)this.getTheObject()).setSource(newValue);
     }
-    public PersistentUnit getTarget() throws PersistenceException {
-        return ((PersistentConversion)this.getTheObject()).getTarget();
+    public PersistentUnitType getType() throws PersistenceException {
+        return ((PersistentConversion)this.getTheObject()).getType();
     }
-    public void setTarget(PersistentUnit newValue) throws PersistenceException {
-        ((PersistentConversion)this.getTheObject()).setTarget(newValue);
+    public void setType(PersistentUnitType newValue) throws PersistenceException {
+        ((PersistentConversion)this.getTheObject()).setType(newValue);
     }
     public common.Fraction getFactor() throws PersistenceException {
         return ((PersistentConversion)this.getTheObject()).getFactor();
@@ -64,6 +64,10 @@ public class ConversionICProxi extends PersistentInCacheProxiOptimistic implemen
     }
     
     
+    public PersistentQuantity convert(final common.Fraction amount) 
+				throws PersistenceException{
+        return ((PersistentConversion)this.getTheObject()).convert(amount);
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentConversion)this.getTheObject()).initializeOnInstantiation();
@@ -72,13 +76,13 @@ public class ConversionICProxi extends PersistentInCacheProxiOptimistic implemen
 				throws PersistenceException{
         ((PersistentConversion)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public common.Fraction convert() 
-				throws PersistenceException{
-        return ((PersistentConversion)this.getTheObject()).convert();
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentConversion)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public PersistentQuantity convertInverse(final common.Fraction amount) 
+				throws PersistenceException{
+        return ((PersistentConversion)this.getTheObject()).convertInverse(amount);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

@@ -814,6 +814,7 @@ class UnitDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String AbsUnit$$type = "AbsUnit$$type";
     protected static final String AbsUnit$$name = "AbsUnit$$name";
+    protected static final String Unit$$myConversions = "Unit$$myConversions";
     
     protected UnitDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -864,7 +865,7 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
 class ConversionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Conversion$$source = "Conversion$$source";
-    protected static final String Conversion$$target = "Conversion$$target";
+    protected static final String Conversion$$type = "Conversion$$type";
     protected static final String Conversion$$factor = "Conversion$$factor";
     protected static final String Conversion$$constant = "Conversion$$constant";
     

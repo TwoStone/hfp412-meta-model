@@ -67,7 +67,7 @@ model quantity {
 	class CompUnit extends AbsUnit {
 		Reference ** refs;
 	}
-	class Unit extends AbsUnit {}
+	class Unit extends AbsUnit {	}
 
 	abstract class AbsUnitType {
 		AbsUnit defaultUnit; // 0..1
@@ -92,12 +92,13 @@ model quantity {
 	
 	class Conversion {
 		// from und to sind Oracle-Schlüsselwörter.
-		prior Unit source;
-		prior Unit target;
+		prior symmetric (myConversions) Unit source;
+		prior UnitType type;
 		prior Fraction factor;
 		prior Fraction constant;
 		//Wie muss eine Function aussehen? --> y=a*x+b	
-		Fraction convert();
+		Quantity convert(Fraction amount);
+		Quantity convertInverse(Fraction amount);
 	}
 
 }

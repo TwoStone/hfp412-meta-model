@@ -51,7 +51,7 @@ public class ConversionFacade{
     public void sourceSet(long ConversionId, PersistentUnit sourceVal) throws PersistenceException {
         
     }
-    public void targetSet(long ConversionId, PersistentUnit targetVal) throws PersistenceException {
+    public void typeSet(long ConversionId, PersistentUnitType typeVal) throws PersistenceException {
         
     }
     public void factorSet(long ConversionId, common.Fraction factorVal) throws PersistenceException {
@@ -62,6 +62,21 @@ public class ConversionFacade{
     }
     public void ThisSet(long ConversionId, PersistentConversion ThisVal) throws PersistenceException {
         
+    }
+    public ConversionSearchList inverseGetSource(long objectId, long classId)throws PersistenceException{
+        ConversionSearchList result = new ConversionSearchList();
+        java.util.Iterator<PersistentInCacheProxi> candidates;
+        candidates = Cache.getTheCache().iterator(116);
+        while (candidates.hasNext()){
+            PersistentConversion current = (PersistentConversion)((PersistentRoot)candidates.next()).getTheObject();
+            if (current != null && !current.isDltd() && current.getSource() != null){
+                if (current.getSource().getClassId() == classId && current.getSource().getId() == objectId) {
+                    PersistentConversion proxi = (PersistentConversion)PersistentProxi.createProxi(current.getId(), current.getClassId());
+                    result.add((PersistentConversion)proxi.getThis());
+                }
+            }
+        }
+        return result;
     }
 
 }

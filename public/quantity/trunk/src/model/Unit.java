@@ -50,6 +50,7 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("myConversions", this.getMyConversions().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -125,7 +126,8 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + (this.getType() == null ? 0 : 1));
+            + (this.getType() == null ? 0 : 1)
+            + this.getMyConversions().getLength());
     }
     
     
@@ -144,6 +146,13 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
         this.setThis((PersistentUnit)This);
 		if(this.equals(This)){
 		}
+    }
+    public ConversionSearchList getMyConversions() 
+				throws PersistenceException{
+        ConversionSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
+							.inverseGetSource(this.getId(), this.getClassId());
+		return result;
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

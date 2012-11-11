@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class ConversionList {
+public class ConversionList  extends ConversionSearchList{
 
-	protected Vector<PersistentConversion> data; //List of proxies
 	protected ConversionList() {
-		this.data = new Vector<PersistentConversion>();
+		super();
 	}
 	public Iterator<PersistentConversion> iterator(PersistentListProxi<PersistentConversion> listProxi) {
 		return new PersistentListIterator<PersistentConversion>(listProxi, this.data);

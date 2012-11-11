@@ -23,6 +23,8 @@ public interface PersistentUnit extends PersistentAbsUnit {
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public ConversionSearchList getMyConversions() 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
 
