@@ -5,6 +5,7 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import persistence.AbsUnitSearchList;
 import persistence.AbsUnitTypeSearchList;
 import persistence.Anything;
 import persistence.ConnectionHandler;
@@ -221,7 +222,11 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     @Override
 	public void createUnit(final PersistentUnitType type, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: createUnit
+    	AbsUnitSearchList old = Unit.getAbsUnitByName(name);
+        if(old.iterator().hasNext()){
+        	throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION + name);
+        }
+        getThis().getUnits().add(Unit.createUnit(type, name));
         
     }
     @Override
