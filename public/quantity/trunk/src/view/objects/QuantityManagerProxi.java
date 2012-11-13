@@ -14,7 +14,7 @@ public class QuantityManagerProxi extends ViewProxi implements QuantityManagerVi
     @SuppressWarnings("unchecked")
     public QuantityManagerView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> quantities_string = (java.util.Vector<String>)resultTable.get("quantities");
-        java.util.Vector<QuantityView> quantities = ViewProxi.getProxiVector(quantities_string, connectionKey);
+        java.util.Vector<AbsQuantityView> quantities = ViewProxi.getProxiVector(quantities_string, connectionKey);
         QuantityManagerView result$$ = new QuantityManager(quantities, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
@@ -48,10 +48,10 @@ public class QuantityManagerProxi extends ViewProxi implements QuantityManagerVi
         return -1;
     }
     
-    public java.util.Vector<QuantityView> getQuantities() throws ModelException {
+    public java.util.Vector<AbsQuantityView> getQuantities() throws ModelException {
         return ((QuantityManager)this.getTheObject()).getQuantities();
     }
-    public void setQuantities(java.util.Vector<QuantityView> newValue) throws ModelException {
+    public void setQuantities(java.util.Vector<AbsQuantityView> newValue) throws ModelException {
         ((QuantityManager)this.getTheObject()).setQuantities(newValue);
     }
     

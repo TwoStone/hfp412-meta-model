@@ -6,8 +6,8 @@ import view.visitor.*;
 
 public interface QuantityManagerView extends Anything, AbstractViewProxi {
     
-    public java.util.Vector<QuantityView> getQuantities() throws ModelException ;
-    public void setQuantities(java.util.Vector<QuantityView> newValue) throws ModelException ;
+    public java.util.Vector<AbsQuantityView> getQuantities() throws ModelException ;
+    public void setQuantities(java.util.Vector<AbsQuantityView> newValue) throws ModelException ;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

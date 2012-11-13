@@ -16,12 +16,11 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException, E;
     public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
     public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
-    public R handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException, E;
-    public R handleTransactionFcde(PersistentTransactionFcde transactionFcde) throws PersistenceException, E;
+    public R handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException, E;
     public R handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException, E;
     public R handleServer(PersistentServer server) throws PersistenceException, E;
+    public R handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException, E;
     public R handleReference(PersistentReference reference) throws PersistenceException, E;
     public R handleConversion(PersistentConversion conversion) throws PersistenceException, E;
-    public R handleUnitManager(PersistentUnitManager unitManager) throws PersistenceException, E;
     
 }

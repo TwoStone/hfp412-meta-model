@@ -5,9 +5,6 @@ import persistence.*;
 
 public abstract class AnythingStandardVisitor implements AnythingVisitor {
     
-    public void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException{
-        this.standardHandling(typeManager);
-    }
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException{
         this.standardHandling(commandExecuter);
     }
@@ -17,8 +14,8 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleQuantity(PersistentQuantity quantity) throws PersistenceException{
         this.standardHandling(quantity);
     }
-    public void handleTransactionFcde(PersistentTransactionFcde transactionFcde) throws PersistenceException{
-        this.standardHandling(transactionFcde);
+    public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException{
+        this.standardHandling(unitTypeManager);
     }
     public void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException{
         this.standardHandling(compoundQuantity);
@@ -53,6 +50,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.standardHandling(createUnitCommand);
     }
+    public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException{
+        this.standardHandling(fractionManager);
+    }
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException{
         this.standardHandling(commandCoordinator);
     }
@@ -70,9 +70,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException{
         this.standardHandling(compUnit);
-    }
-    public void handleUnitManager(PersistentUnitManager unitManager) throws PersistenceException{
-        this.standardHandling(unitManager);
     }
     public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException{
         this.standardHandling(compUnitType);

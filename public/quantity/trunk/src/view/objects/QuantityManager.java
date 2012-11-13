@@ -9,26 +9,26 @@ import view.visitor.*;
 
 public class QuantityManager extends ViewObject implements QuantityManagerView{
     
-    protected java.util.Vector<QuantityView> quantities;
+    protected java.util.Vector<AbsQuantityView> quantities;
     
-    public QuantityManager(java.util.Vector<QuantityView> quantities,long id, long classId) {
+    public QuantityManager(java.util.Vector<AbsQuantityView> quantities,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.quantities = quantities;        
     }
     
     static public long getTypeId() {
-        return 108;
+        return 104;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
-    public java.util.Vector<QuantityView> getQuantities() throws ModelException {
+    public java.util.Vector<AbsQuantityView> getQuantities() throws ModelException {
         return this.quantities;
     }
-    public void setQuantities(java.util.Vector<QuantityView> newValue) throws ModelException {
+    public void setQuantities(java.util.Vector<AbsQuantityView> newValue) throws ModelException {
         this.quantities = newValue;
     }
     

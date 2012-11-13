@@ -7,16 +7,15 @@ import persistence.PersistentCompUnitType;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentConversion;
 import persistence.PersistentConversionManager;
+import persistence.PersistentFractionManager;
 import persistence.PersistentQuantity;
 import persistence.PersistentQuantityManager;
 import persistence.PersistentReference;
 import persistence.PersistentReferenceType;
 import persistence.PersistentServer;
-import persistence.PersistentTransactionFcde;
-import persistence.PersistentTypeManager;
 import persistence.PersistentUnit;
-import persistence.PersistentUnitManager;
 import persistence.PersistentUnitType;
+import persistence.PersistentUnitTypeManager;
 
 public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
@@ -36,11 +35,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	protected void standardHandling(Anything anything) {
 		result = anything.getClassId() + ";" + anything.getId();
 	}
-	@Override
-	public void handleTypeManager(PersistentTypeManager typeManager)
-			throws PersistenceException {
-		this.result = constants.TextConstants.TYPE_MANAGER_LABEL;		
-	}
+
 	@Override
 	public void handleQuantity(PersistentQuantity quantity)
 			throws PersistenceException {
@@ -53,12 +48,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			throws PersistenceException {
 		this.result = constants.TextConstants.CONVERSION_MANAGER_LABEL;
 	}
-	@Override
-	public void handleTransactionFcde(PersistentTransactionFcde transactionFcde)
-			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
-	}
+
 	@Override
 	public void handleCompoundQuantity(
 			PersistentCompoundQuantity compoundQuantity)
@@ -112,15 +102,23 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void handleUnitManager(PersistentUnitManager unitManager)
-			throws PersistenceException {
-		this.result = constants.TextConstants.UNIT_MANAGER_LABEL;		
-	}
+
 	@Override
 	public void handleCompUnitType(PersistentCompUnitType compUnitType)
 			throws PersistenceException {
 		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager)
+			throws PersistenceException {
+		this.result = constants.TextConstants.UNIT_TYPE_MANAGER_LABEL;
+		
+	}
+	@Override
+	public void handleFractionManager(PersistentFractionManager fractionManager)
+			throws PersistenceException {
+		this.result = constants.TextConstants.FRACTION_MANAGER_LABEL;
 		
 	}
 

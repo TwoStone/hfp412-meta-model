@@ -40,12 +40,12 @@ public class CreateUnitTypeCommand extends PersistentObject implements Persisten
     }
     protected String name;
     protected Invoker invoker;
-    protected PersistentTypeManager commandReceiver;
+    protected PersistentUnitTypeManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateUnitTypeCommand(String name,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateUnitTypeCommand(String name,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
@@ -55,7 +55,7 @@ public class CreateUnitTypeCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 128;
+        return 108;
     }
     
     public long getClassId() {
@@ -64,7 +64,7 @@ public class CreateUnitTypeCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 128) ConnectionHandler.getTheConnectionHandler().theCreateUnitTypeCommandFacade
+        if (this.getClassId() == 108) ConnectionHandler.getTheConnectionHandler().theCreateUnitTypeCommandFacade
             .newCreateUnitTypeCommand(name,this.getId());
         super.store();
         if(this.getInvoker() != null){
@@ -104,15 +104,15 @@ public class CreateUnitTypeCommand extends PersistentObject implements Persisten
             ConnectionHandler.getTheConnectionHandler().theCreateUnitTypeCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public PersistentTypeManager getCommandReceiver() throws PersistenceException {
+    public PersistentUnitTypeManager getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(PersistentTypeManager newValue) throws PersistenceException {
+    public void setCommandReceiver(PersistentUnitTypeManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentTypeManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentUnitTypeManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateUnitTypeCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -185,16 +185,16 @@ public class CreateUnitTypeCommand extends PersistentObject implements Persisten
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateUnitTypeCommand(this);
     }
-    public void accept(TypeManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(UnitTypeManagerCommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateUnitTypeCommand(this);
     }
-    public <R> R accept(TypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(UnitTypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCreateUnitTypeCommand(this);
     }
-    public <E extends UserException>  void accept(TypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(UnitTypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCreateUnitTypeCommand(this);
     }
-    public <R, E extends UserException> R accept(TypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(UnitTypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateUnitTypeCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{

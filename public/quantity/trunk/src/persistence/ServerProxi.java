@@ -19,7 +19,7 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     }
     
     public long getClassId() {
-        return -113;
+        return -121;
     }
     
     public Server_ErrorsProxi getErrors() throws PersistenceException {
@@ -95,10 +95,6 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleResult(command);
     }
-    public PersistentTypeManager getTypeManager() 
-				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getTypeManager();
-    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
@@ -107,13 +103,17 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getQuantityManager();
     }
+    public PersistentUnitTypeManager getUnitTypeManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getUnitTypeManager();
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
     }
-    public PersistentUnitManager getUnitManager() 
+    public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
 				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getUnitManager();
+        return ((PersistentServer)this.getTheObject()).getUnitTypeManager(observer);
     }
     public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -127,6 +127,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnCreation();
     }
+    public PersistentFractionManager getFractionManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getFractionManager();
+    }
     public boolean hasChanged() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).hasChanged();
@@ -135,9 +139,9 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).disconnected();
     }
-    public PersistentTypeManager getTypeManager(final TDObserver observer) 
+    public PersistentFractionManager getFractionManager(final TDObserver observer) 
 				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getTypeManager(observer);
+        return ((PersistentServer)this.getTheObject()).getFractionManager(observer);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -154,10 +158,6 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public PersistentUnitManager getUnitManager(final TDObserver observer) 
-				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getUnitManager(observer);
     }
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException{

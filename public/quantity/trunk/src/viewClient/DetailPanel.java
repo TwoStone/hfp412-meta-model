@@ -601,20 +601,20 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleUnitType(view.UnitTypeView object){
         result = new UnitTypeDefaultDetailPanel(handler, object);
     }
-    public void handleTypeManager(view.TypeManagerView object){
-        result = new TypeManagerDefaultDetailPanel(handler, object);
-    }
     public void handleQuantity(view.QuantityView object){
         result = new QuantityDefaultDetailPanel(handler, object);
-    }
-    public void handleTransactionFcde(view.TransactionFcdeView object){
-        result = new TransactionFcdeDefaultDetailPanel(handler, object);
     }
     public void handleCompoundQuantity(view.CompoundQuantityView object){
         result = new CompoundQuantityDefaultDetailPanel(handler, object);
     }
+    public void handleUnitTypeManager(view.UnitTypeManagerView object){
+        result = new UnitTypeManagerDefaultDetailPanel(handler, object);
+    }
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
+    }
+    public void handleFractionManager(view.FractionManagerView object){
+        result = new FractionManagerDefaultDetailPanel(handler, object);
     }
     public void handleCompUnit(view.CompUnitView object){
         result = new CompUnitDefaultDetailPanel(handler, object);
@@ -624,9 +624,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleConversion(view.ConversionView object){
         result = new ConversionDefaultDetailPanel(handler, object);
-    }
-    public void handleUnitManager(view.UnitManagerView object){
-        result = new UnitManagerDefaultDetailPanel(handler, object);
     }
     public void handleCompUnitType(view.CompUnitTypeView object){
         result = new CompUnitTypeDefaultDetailPanel(handler, object);
@@ -765,22 +762,6 @@ class UnitTypeDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class TypeManagerDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String TypeManager$$unitTypes = "TypeManager$$unitTypes";
-    
-    protected TypeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.TypeManagerView getAnything(){
-        return (view.TypeManagerView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
 class QuantityDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Quantity$$amount = "Quantity$$amount";
@@ -805,20 +786,6 @@ class QuantityDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class TransactionFcdeDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected TransactionFcdeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.TransactionFcdeView getAnything(){
-        return (view.TransactionFcdeView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
 class CompoundQuantityDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String CompoundQuantity$$parts = "CompoundQuantity$$parts";
@@ -835,12 +802,29 @@ class CompoundQuantityDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String UnitTypeManager$$unitTypes = "UnitTypeManager$$unitTypes";
+    protected static final String UnitTypeManager$$units = "UnitTypeManager$$units";
+    
+    protected UnitTypeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.UnitTypeManagerView getAnything(){
+        return (view.UnitTypeManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Server$$typeManager = "Server$$typeManager";
     protected static final String Server$$quantityManager = "Server$$quantityManager";
-    protected static final String Server$$unitManager = "Server$$unitManager";
+    protected static final String Server$$unitTypeManager = "Server$$unitTypeManager";
     protected static final String Server$$conversionManager = "Server$$conversionManager";
+    protected static final String Server$$fractionManager = "Server$$fractionManager";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -858,6 +842,20 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ServerView getAnything(){
         return (view.ServerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class FractionManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected FractionManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.FractionManagerView getAnything(){
+        return (view.FractionManagerView)this.anything;
     }
 }
 
@@ -941,22 +939,6 @@ class ConversionDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ConversionView getAnything(){
         return (view.ConversionView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class UnitManagerDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String UnitManager$$units = "UnitManager$$units";
-    
-    protected UnitManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.UnitManagerView getAnything(){
-        return (view.UnitManagerView)this.anything;
     }
 }
 

@@ -38,7 +38,7 @@ public abstract class AbsQuantity extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 114;
+        return 110;
     }
     
     public long getClassId() {

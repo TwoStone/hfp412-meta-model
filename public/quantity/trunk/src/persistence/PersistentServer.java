@@ -32,23 +32,25 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     
     public void handleResult(final Command command) 
 				throws PersistenceException;
-    public PersistentTypeManager getTypeManager() 
-				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
     public PersistentQuantityManager getQuantityManager() 
 				throws PersistenceException;
+    public PersistentUnitTypeManager getUnitTypeManager() 
+				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public PersistentUnitManager getUnitManager() 
+    public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
 				throws PersistenceException;
     public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
+    public PersistentFractionManager getFractionManager() 
+				throws PersistenceException;
     public boolean hasChanged() 
 				throws PersistenceException;
-    public PersistentTypeManager getTypeManager(final TDObserver observer) 
+    public PersistentFractionManager getFractionManager(final TDObserver observer) 
 				throws PersistenceException;
     public PersistentConversionManager getConversionManager() 
 				throws PersistenceException;
@@ -57,8 +59,6 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException;
-    public PersistentUnitManager getUnitManager(final TDObserver observer) 
 				throws PersistenceException;
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException;

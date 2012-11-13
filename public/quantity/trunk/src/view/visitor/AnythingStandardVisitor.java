@@ -5,17 +5,14 @@ import view.*;
 
 public abstract class AnythingStandardVisitor implements AnythingVisitor {
     
-    public void handleTypeManager(TypeManagerView typeManager) throws ModelException{
-        this.standardHandling(typeManager);
-    }
     public void handleConversionManager(ConversionManagerView conversionManager) throws ModelException{
         this.standardHandling(conversionManager);
     }
     public void handleQuantity(QuantityView quantity) throws ModelException{
         this.standardHandling(quantity);
     }
-    public void handleTransactionFcde(TransactionFcdeView transactionFcde) throws ModelException{
-        this.standardHandling(transactionFcde);
+    public void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException{
+        this.standardHandling(unitTypeManager);
     }
     public void handleCompoundQuantity(CompoundQuantityView compoundQuantity) throws ModelException{
         this.standardHandling(compoundQuantity);
@@ -38,6 +35,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleUnitType(UnitTypeView unitType) throws ModelException{
         this.standardHandling(unitType);
     }
+    public void handleFractionManager(FractionManagerView fractionManager) throws ModelException{
+        this.standardHandling(fractionManager);
+    }
     public void handleConversion(ConversionView conversion) throws ModelException{
         this.standardHandling(conversion);
     }
@@ -46,9 +46,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCompUnit(CompUnitView compUnit) throws ModelException{
         this.standardHandling(compUnit);
-    }
-    public void handleUnitManager(UnitManagerView unitManager) throws ModelException{
-        this.standardHandling(unitManager);
     }
     public void handleCompUnitType(CompUnitTypeView compUnitType) throws ModelException{
         this.standardHandling(compUnitType);

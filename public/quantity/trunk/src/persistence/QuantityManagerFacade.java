@@ -28,26 +28,26 @@ public class QuantityManagerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theQuantityManagerFacade.getNextId();
         QuantityManager result = new QuantityManager(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (QuantityManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 108);
+        return (QuantityManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 104);
     }
     
     public QuantityManager getQuantityManager(long QuantityManagerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 108)) return 108;
+        if(Cache.getTheCache().contains(objectId, 104)) return 104;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
-    public long quantitiesAdd(long QuantityManagerId, PersistentQuantity quantitiesVal) throws PersistenceException {
+    public long quantitiesAdd(long QuantityManagerId, PersistentAbsQuantity quantitiesVal) throws PersistenceException {
         return 0;
     }
     public void quantitiesRem(long quantitiesId) throws PersistenceException {
         
     }
-    public QuantityList quantitiesGet(long QuantityManagerId) throws PersistenceException {
-        return new QuantityList(); // remote access for initialization only!
+    public AbsQuantityList quantitiesGet(long QuantityManagerId) throws PersistenceException {
+        return new AbsQuantityList(); // remote access for initialization only!
     }
     public void ThisSet(long QuantityManagerId, PersistentQuantityManager ThisVal) throws PersistenceException {
         

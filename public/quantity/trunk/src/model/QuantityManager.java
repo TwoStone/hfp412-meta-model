@@ -31,8 +31,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
         if (theQuantityManager == null || reset$For$Test){
             class Initializer implements Runnable {
                 PersistenceException exception = null;
-                @Override
-				public void run(){
+                public void run(){
                     try {
                         QuantityManagerProxi proxi = null;
                         synchronized ($$lock){
@@ -64,8 +63,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
         }
         return theQuantityManager;
     }
-    @Override
-	public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
@@ -76,8 +74,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
         return result;
     }
     
-    @Override
-	public QuantityManager provideCopy() throws PersistenceException{
+    public QuantityManager provideCopy() throws PersistenceException{
         QuantityManager result = this;
         result = new QuantityManager(this.This, 
                                      this.getId());
@@ -86,8 +83,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
         return result;
     }
     
-    @Override
-	public boolean hasEssentialFields() throws PersistenceException{
+    public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
     protected QuantityManager_QuantitiesProxi quantities;
@@ -101,21 +97,18 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     }
     
     static public long getTypeId() {
-        return 108;
+        return 104;
     }
     
-    @Override
-	public long getClassId() {
+    public long getClassId() {
         return getTypeId();
     }
     
-    @Override
-	public void store() throws PersistenceException {
+    public void store() throws PersistenceException {
         // Singletons cannot be delayed!
     }
     
-    @Override
-	public QuantityManager_QuantitiesProxi getQuantities() throws PersistenceException {
+    public QuantityManager_QuantitiesProxi getQuantities() throws PersistenceException {
         return this.quantities;
     }
     protected void setThis(PersistentQuantityManager newValue) throws PersistenceException {
@@ -133,46 +126,38 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
             ConnectionHandler.getTheConnectionHandler().theQuantityManagerFacade.ThisSet(this.getId(), newValue);
         }
     }
-    @Override
-	public PersistentQuantityManager getThis() throws PersistenceException {
+    public PersistentQuantityManager getThis() throws PersistenceException {
         if(this.This == null){
             PersistentQuantityManager result = new QuantityManagerProxi(this.getId());
             result.getTheObject();
             return result;
-        }return this.This;
+        }return (PersistentQuantityManager)this.This;
     }
     
-    @Override
-	public void accept(AnythingVisitor visitor) throws PersistenceException {
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleQuantityManager(this);
     }
-    @Override
-	public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleQuantityManager(this);
     }
-    @Override
-	public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleQuantityManager(this);
     }
-    @Override
-	public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleQuantityManager(this);
     }
-    @Override
-	public int getLeafInfo() throws PersistenceException{
+    public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + this.getQuantities().getLength());
     }
     
     
-    @Override
-	public void initializeOnInstantiation() 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    @Override
-	public void createQuantity(final PersistentUnit unit, final common.Fraction amount, final Invoker invoker) 
+    public void createQuantity(final PersistentUnit unit, final common.Fraction amount, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentCreateQuantityCommand command = model.meta.CreateQuantityCommand.createCreateQuantityCommand(amount, now, now);
@@ -181,21 +166,18 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    @Override
-	public void copyingPrivateUserAttributes(final Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    @Override
-	public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentQuantityManager)This);
 		if(this.equals(This)){
 		}
     }
-    @Override
-	public void createQuantity(final PersistentUnit unit, final common.Fraction amount) 
+    public void createQuantity(final PersistentUnit unit, final common.Fraction amount) 
 				throws PersistenceException{
         PersistentQuantity quantity = Quantity.createQuantity();
         quantity.setUnit(unit);
@@ -203,8 +185,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
         this.getThis().getQuantities().add(quantity);
         
     }
-    @Override
-	public void initializeOnCreation() 
+    public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         

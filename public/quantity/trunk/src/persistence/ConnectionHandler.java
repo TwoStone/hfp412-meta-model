@@ -61,18 +61,17 @@ public class ConnectionHandler {
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public CommonDateFacade theCommonDateFacade;
     public CreateQuantityCommandFacade theCreateQuantityCommandFacade;
-    public TypeManagerFacade theTypeManagerFacade;
     public CommandExecuterFacade theCommandExecuterFacade;
     public QuantityFacade theQuantityFacade;
-    public TransactionFcdeFacade theTransactionFcdeFacade;
     public CompoundQuantityFacade theCompoundQuantityFacade;
+    public UnitTypeManagerFacade theUnitTypeManagerFacade;
     public AddDefaultUnitCommandFacade theAddDefaultUnitCommandFacade;
     public AbsUnitFacade theAbsUnitFacade;
     public ServerFacade theServerFacade;
+    public FractionManagerFacade theFractionManagerFacade;
     public CompUnitFacade theCompUnitFacade;
     public ReferenceFacade theReferenceFacade;
     public ConversionFacade theConversionFacade;
-    public UnitManagerFacade theUnitManagerFacade;
     public CompUnitTypeFacade theCompUnitTypeFacade;
 
 	protected ConnectionHandler() throws PersistenceException {
@@ -92,18 +91,17 @@ public class ConnectionHandler {
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade();
             this.theCommonDateFacade= new CommonDateFacade();
             this.theCreateQuantityCommandFacade= new CreateQuantityCommandFacade();
-            this.theTypeManagerFacade= new TypeManagerFacade();
             this.theCommandExecuterFacade= new CommandExecuterFacade();
             this.theQuantityFacade= new QuantityFacade();
-            this.theTransactionFcdeFacade= new TransactionFcdeFacade();
             this.theCompoundQuantityFacade= new CompoundQuantityFacade();
+            this.theUnitTypeManagerFacade= new UnitTypeManagerFacade();
             this.theAddDefaultUnitCommandFacade= new AddDefaultUnitCommandFacade();
             this.theAbsUnitFacade= new AbsUnitFacade();
             this.theServerFacade= new ServerFacade();
+            this.theFractionManagerFacade= new FractionManagerFacade();
             this.theCompUnitFacade= new CompUnitFacade();
             this.theReferenceFacade= new ReferenceFacade();
             this.theConversionFacade= new ConversionFacade();
-            this.theUnitManagerFacade= new UnitManagerFacade();
             this.theCompUnitTypeFacade= new CompUnitTypeFacade();
 	}
 	public static void initializeMapsForMappedFields() throws PersistenceException {

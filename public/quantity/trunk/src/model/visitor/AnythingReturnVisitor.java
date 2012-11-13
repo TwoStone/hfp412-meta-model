@@ -16,12 +16,11 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,A
     public R handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException;
     public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
-    public R handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException;
-    public R handleTransactionFcde(PersistentTransactionFcde transactionFcde) throws PersistenceException;
+    public R handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     public R handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException;
     public R handleServer(PersistentServer server) throws PersistenceException;
+    public R handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     public R handleReference(PersistentReference reference) throws PersistenceException;
     public R handleConversion(PersistentConversion conversion) throws PersistenceException;
-    public R handleUnitManager(PersistentUnitManager unitManager) throws PersistenceException;
     
 }

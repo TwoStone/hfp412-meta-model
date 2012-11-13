@@ -28,14 +28,14 @@ public class CommandCoordinatorFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theCommandCoordinatorFacade.getNextId();
         CommandCoordinator result = new CommandCoordinator(id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (CommandCoordinatorProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), -131);
+        return (CommandCoordinatorProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), -112);
     }
     
     public CommandCoordinator getCommandCoordinator(long CommandCoordinatorId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, -131)) return -131;
+        if(Cache.getTheCache().contains(objectId, -112)) return -112;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

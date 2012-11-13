@@ -16,12 +16,11 @@ public interface AnythingVisitor extends AbsUnitTypeVisitor,AbsQuantityVisitor,C
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
-    public void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException;
-    public void handleTransactionFcde(PersistentTransactionFcde transactionFcde) throws PersistenceException;
+    public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException;
     public void handleServer(PersistentServer server) throws PersistenceException;
+    public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     public void handleReference(PersistentReference reference) throws PersistenceException;
     public void handleConversion(PersistentConversion conversion) throws PersistenceException;
-    public void handleUnitManager(PersistentUnitManager unitManager) throws PersistenceException;
     
 }

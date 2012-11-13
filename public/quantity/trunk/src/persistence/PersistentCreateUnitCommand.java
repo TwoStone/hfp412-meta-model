@@ -4,7 +4,7 @@ import model.UserException;
 
 import model.visitor.*;
 
-public interface PersistentCreateUnitCommand extends Anything, UnitManagerCommand, PersistentCommonDate, AbstractPersistentProxi {
+public interface PersistentCreateUnitCommand extends UnitTypeManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
     
     public PersistentUnitType getType() throws PersistenceException ;
     public void setType(PersistentUnitType newValue) throws PersistenceException ;
@@ -12,8 +12,8 @@ public interface PersistentCreateUnitCommand extends Anything, UnitManagerComman
     public void setName(String newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
-    public PersistentUnitManager getCommandReceiver() throws PersistenceException ;
-    public void setCommandReceiver(PersistentUnitManager newValue) throws PersistenceException ;
+    public PersistentUnitTypeManager getCommandReceiver() throws PersistenceException ;
+    public void setCommandReceiver(PersistentUnitTypeManager newValue) throws PersistenceException ;
     public PersistentCommonDate getMyCommonDate() throws PersistenceException ;
     public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException ;
     
@@ -29,10 +29,10 @@ public interface PersistentCreateUnitCommand extends Anything, UnitManagerComman
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
-    public void accept(UnitManagerCommandVisitor visitor) throws PersistenceException;
-    public <R> R accept(UnitManagerCommandReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends UserException>  void accept(UnitManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends UserException> R accept(UnitManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(UnitTypeManagerCommandVisitor visitor) throws PersistenceException;
+    public <R> R accept(UnitTypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends UserException>  void accept(UnitTypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends UserException> R accept(UnitTypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public void execute() 
 				throws PersistenceException;

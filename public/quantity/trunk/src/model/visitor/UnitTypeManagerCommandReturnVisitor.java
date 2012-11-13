@@ -1,0 +1,12 @@
+
+package model.visitor;
+
+import persistence.*;
+
+public interface UnitTypeManagerCommandReturnVisitor<R> {
+    
+    public R handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;
+    public R handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException;
+    public R handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException;
+    
+}

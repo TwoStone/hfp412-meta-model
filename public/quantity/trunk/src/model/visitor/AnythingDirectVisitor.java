@@ -5,13 +5,11 @@ import persistence.*;
 
 public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
-    public abstract void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException;
-    
     public abstract void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     
     public abstract void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     
-    public abstract void handleTransactionFcde(PersistentTransactionFcde transactionFcde) throws PersistenceException;
+    public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     
@@ -45,6 +43,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException{
         this.handleAbsQuantity(compoundQuantity);
     }
+    public abstract void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
+    
     public abstract void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     
     public abstract void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
@@ -67,8 +67,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handleReference(PersistentReference reference) throws PersistenceException;
     
     public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
-    
-    public abstract void handleUnitManager(PersistentUnitManager unitManager) throws PersistenceException;
     
     
 }

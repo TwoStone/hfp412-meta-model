@@ -10,43 +10,43 @@ import view.visitor.*;
 
 public class Server extends ViewObject implements ServerView{
     
-    protected TypeManagerView typeManager;
     protected QuantityManagerView quantityManager;
-    protected UnitManagerView unitManager;
+    protected UnitTypeManagerView unitTypeManager;
     protected ConversionManagerView conversionManager;
+    protected FractionManagerView fractionManager;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(TypeManagerView typeManager,QuantityManagerView quantityManager,UnitManagerView unitManager,ConversionManagerView conversionManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(QuantityManagerView quantityManager,UnitTypeManagerView unitTypeManager,ConversionManagerView conversionManager,FractionManagerView fractionManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.typeManager = typeManager;
         this.quantityManager = quantityManager;
-        this.unitManager = unitManager;
+        this.unitTypeManager = unitTypeManager;
         this.conversionManager = conversionManager;
+        this.fractionManager = fractionManager;
         this.errors = errors;
         this.user = user;        
     }
     
     static public long getTypeId() {
-        return -113;
+        return -121;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
-    public TypeManagerView getTypeManager() throws ModelException {
-        return this.typeManager;
-    }
     public QuantityManagerView getQuantityManager() throws ModelException {
         return this.quantityManager;
     }
-    public UnitManagerView getUnitManager() throws ModelException {
-        return this.unitManager;
+    public UnitTypeManagerView getUnitTypeManager() throws ModelException {
+        return this.unitTypeManager;
     }
     public ConversionManagerView getConversionManager() throws ModelException {
         return this.conversionManager;
+    }
+    public FractionManagerView getFractionManager() throws ModelException {
+        return this.fractionManager;
     }
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException {
         return this.errors;
@@ -87,21 +87,21 @@ public class Server extends ViewObject implements ServerView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        TypeManagerView typeManager = this.getTypeManager();
-        if (typeManager != null) {
-            ((ViewProxi)typeManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(typeManager.getClassId(), typeManager.getId())));
-        }
         QuantityManagerView quantityManager = this.getQuantityManager();
         if (quantityManager != null) {
             ((ViewProxi)quantityManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(quantityManager.getClassId(), quantityManager.getId())));
         }
-        UnitManagerView unitManager = this.getUnitManager();
-        if (unitManager != null) {
-            ((ViewProxi)unitManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(unitManager.getClassId(), unitManager.getId())));
+        UnitTypeManagerView unitTypeManager = this.getUnitTypeManager();
+        if (unitTypeManager != null) {
+            ((ViewProxi)unitTypeManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(unitTypeManager.getClassId(), unitTypeManager.getId())));
         }
         ConversionManagerView conversionManager = this.getConversionManager();
         if (conversionManager != null) {
             ((ViewProxi)conversionManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(conversionManager.getClassId(), conversionManager.getId())));
+        }
+        FractionManagerView fractionManager = this.getFractionManager();
+        if (fractionManager != null) {
+            ((ViewProxi)fractionManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(fractionManager.getClassId(), fractionManager.getId())));
         }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
@@ -114,44 +114,44 @@ public class Server extends ViewObject implements ServerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index == 0 && this.getTypeManager() != null) return new TypeManagerServerWrapper(this, originalIndex, (ViewRoot)this.getTypeManager());
-        if(this.getTypeManager() != null) index = index - 1;
         if(index == 0 && this.getQuantityManager() != null) return new QuantityManagerServerWrapper(this, originalIndex, (ViewRoot)this.getQuantityManager());
         if(this.getQuantityManager() != null) index = index - 1;
-        if(index == 0 && this.getUnitManager() != null) return new UnitManagerServerWrapper(this, originalIndex, (ViewRoot)this.getUnitManager());
-        if(this.getUnitManager() != null) index = index - 1;
+        if(index == 0 && this.getUnitTypeManager() != null) return new UnitTypeManagerServerWrapper(this, originalIndex, (ViewRoot)this.getUnitTypeManager());
+        if(this.getUnitTypeManager() != null) index = index - 1;
         if(index == 0 && this.getConversionManager() != null) return new ConversionManagerServerWrapper(this, originalIndex, (ViewRoot)this.getConversionManager());
         if(this.getConversionManager() != null) index = index - 1;
+        if(index == 0 && this.getFractionManager() != null) return new FractionManagerServerWrapper(this, originalIndex, (ViewRoot)this.getFractionManager());
+        if(this.getFractionManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getTypeManager() == null ? 0 : 1)
             + (this.getQuantityManager() == null ? 0 : 1)
-            + (this.getUnitManager() == null ? 0 : 1)
-            + (this.getConversionManager() == null ? 0 : 1);
+            + (this.getUnitTypeManager() == null ? 0 : 1)
+            + (this.getConversionManager() == null ? 0 : 1)
+            + (this.getFractionManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getTypeManager() == null ? true : false)
             && (this.getQuantityManager() == null ? true : false)
-            && (this.getUnitManager() == null ? true : false)
-            && (this.getConversionManager() == null ? true : false);
+            && (this.getUnitTypeManager() == null ? true : false)
+            && (this.getConversionManager() == null ? true : false)
+            && (this.getFractionManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getTypeManager() != null && this.getTypeManager().equals(child)) return result;
-        if(this.getTypeManager() != null) result = result + 1;
         if(this.getQuantityManager() != null && this.getQuantityManager().equals(child)) return result;
         if(this.getQuantityManager() != null) result = result + 1;
-        if(this.getUnitManager() != null && this.getUnitManager().equals(child)) return result;
-        if(this.getUnitManager() != null) result = result + 1;
+        if(this.getUnitTypeManager() != null && this.getUnitTypeManager().equals(child)) return result;
+        if(this.getUnitTypeManager() != null) result = result + 1;
         if(this.getConversionManager() != null && this.getConversionManager().equals(child)) return result;
         if(this.getConversionManager() != null) result = result + 1;
+        if(this.getFractionManager() != null && this.getFractionManager().equals(child)) return result;
+        if(this.getFractionManager() != null) result = result + 1;
         return -1;
     }
     public int getUserIndex() throws ModelException {
-        return 0 + (this.getTypeManager() == null ? 0 : 1) + (this.getQuantityManager() == null ? 0 : 1) + (this.getUnitManager() == null ? 0 : 1) + (this.getConversionManager() == null ? 0 : 1);
+        return 0 + (this.getQuantityManager() == null ? 0 : 1) + (this.getUnitTypeManager() == null ? 0 : 1) + (this.getConversionManager() == null ? 0 : 1) + (this.getFractionManager() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

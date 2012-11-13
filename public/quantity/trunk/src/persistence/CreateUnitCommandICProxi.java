@@ -19,7 +19,7 @@ public class CreateUnitCommandICProxi extends PersistentInCacheProxi implements 
     }
     
     public long getClassId() {
-        return 130;
+        return 111;
     }
     
     public PersistentUnitType getType() throws PersistenceException {
@@ -40,10 +40,10 @@ public class CreateUnitCommandICProxi extends PersistentInCacheProxi implements 
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentCreateUnitCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public PersistentUnitManager getCommandReceiver() throws PersistenceException {
+    public PersistentUnitTypeManager getCommandReceiver() throws PersistenceException {
         return ((PersistentCreateUnitCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(PersistentUnitManager newValue) throws PersistenceException {
+    public void setCommandReceiver(PersistentUnitTypeManager newValue) throws PersistenceException {
         ((PersistentCreateUnitCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -101,16 +101,16 @@ public class CreateUnitCommandICProxi extends PersistentInCacheProxi implements 
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateUnitCommand(this);
     }
-    public void accept(UnitManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(UnitTypeManagerCommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateUnitCommand(this);
     }
-    public <R> R accept(UnitManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(UnitTypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCreateUnitCommand(this);
     }
-    public <E extends UserException>  void accept(UnitManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(UnitTypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCreateUnitCommand(this);
     }
-    public <R, E extends UserException> R accept(UnitManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(UnitTypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateUnitCommand(this);
     }
     

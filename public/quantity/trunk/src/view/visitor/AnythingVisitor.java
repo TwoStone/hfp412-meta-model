@@ -9,11 +9,10 @@ public interface AnythingVisitor extends AbsUnitTypeVisitor,AbsQuantityVisitor,A
     public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException;
     public void handleQuantityManager(QuantityManagerView quantityManager) throws ModelException;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
-    public void handleTypeManager(TypeManagerView typeManager) throws ModelException;
-    public void handleTransactionFcde(TransactionFcdeView transactionFcde) throws ModelException;
+    public void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException;
     public void handleServer(ServerView server) throws ModelException;
+    public void handleFractionManager(FractionManagerView fractionManager) throws ModelException;
     public void handleReference(ReferenceView reference) throws ModelException;
     public void handleConversion(ConversionView conversion) throws ModelException;
-    public void handleUnitManager(UnitManagerView unitManager) throws ModelException;
     
 }

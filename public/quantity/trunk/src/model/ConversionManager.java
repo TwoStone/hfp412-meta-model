@@ -32,8 +32,7 @@ public class ConversionManager extends PersistentObject implements PersistentCon
         if (theConversionManager == null || reset$For$Test){
             class Initializer implements Runnable {
                 PersistenceException exception = null;
-                @Override
-				public void run(){
+                public void run(){
                     try {
                         ConversionManagerProxi proxi = null;
                         synchronized ($$lock){
@@ -65,8 +64,7 @@ public class ConversionManager extends PersistentObject implements PersistentCon
         }
         return theConversionManager;
     }
-    @Override
-	public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
@@ -77,8 +75,7 @@ public class ConversionManager extends PersistentObject implements PersistentCon
         return result;
     }
     
-    @Override
-	public ConversionManager provideCopy() throws PersistenceException{
+    public ConversionManager provideCopy() throws PersistenceException{
         ConversionManager result = this;
         result = new ConversionManager(this.This, 
                                        this.getId());
@@ -87,8 +84,7 @@ public class ConversionManager extends PersistentObject implements PersistentCon
         return result;
     }
     
-    @Override
-	public boolean hasEssentialFields() throws PersistenceException{
+    public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
     protected ConversionManager_ConversionsProxi conversions;
@@ -102,21 +98,18 @@ public class ConversionManager extends PersistentObject implements PersistentCon
     }
     
     static public long getTypeId() {
-        return 102;
+        return 101;
     }
     
-    @Override
-	public long getClassId() {
+    public long getClassId() {
         return getTypeId();
     }
     
-    @Override
-	public void store() throws PersistenceException {
+    public void store() throws PersistenceException {
         // Singletons cannot be delayed!
     }
     
-    @Override
-	public ConversionManager_ConversionsProxi getConversions() throws PersistenceException {
+    public ConversionManager_ConversionsProxi getConversions() throws PersistenceException {
         return this.conversions;
     }
     protected void setThis(PersistentConversionManager newValue) throws PersistenceException {
@@ -134,40 +127,33 @@ public class ConversionManager extends PersistentObject implements PersistentCon
             ConnectionHandler.getTheConnectionHandler().theConversionManagerFacade.ThisSet(this.getId(), newValue);
         }
     }
-    @Override
-	public PersistentConversionManager getThis() throws PersistenceException {
+    public PersistentConversionManager getThis() throws PersistenceException {
         if(this.This == null){
             PersistentConversionManager result = new ConversionManagerProxi(this.getId());
             result.getTheObject();
             return result;
-        }return this.This;
+        }return (PersistentConversionManager)this.This;
     }
     
-    @Override
-	public void accept(AnythingVisitor visitor) throws PersistenceException {
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleConversionManager(this);
     }
-    @Override
-	public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleConversionManager(this);
     }
-    @Override
-	public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleConversionManager(this);
     }
-    @Override
-	public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleConversionManager(this);
     }
-    @Override
-	public int getLeafInfo() throws PersistenceException{
+    public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + this.getConversions().getLength());
     }
     
     
-    @Override
-	public void createConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
+    public void createConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
 				throws PersistenceException{
         PersistentConversion conversion = Conversion.createConversion(unit, (PersistentUnitType) unit.getType());
         conversion.setFactor(factor);
@@ -175,33 +161,28 @@ public class ConversionManager extends PersistentObject implements PersistentCon
         this.getThis().getConversions().add(conversion);
         
     }
-    @Override
-	public void initializeOnInstantiation() 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    @Override
-	public void copyingPrivateUserAttributes(final Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    @Override
-	public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentConversionManager)This);
 		if(this.equals(This)){
 		}
     }
-    @Override
-	public void initializeOnCreation() 
+    public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
     }
-    @Override
-	public void createConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant, final Invoker invoker) 
+    public void createConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentCreateConversionCommand command = model.meta.CreateConversionCommand.createCreateConversionCommand(factor, constant, now, now);

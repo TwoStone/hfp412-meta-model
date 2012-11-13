@@ -9,11 +9,10 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException, E;
     public void handleQuantityManager(QuantityManagerView quantityManager) throws ModelException, E;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
-    public void handleTypeManager(TypeManagerView typeManager) throws ModelException, E;
-    public void handleTransactionFcde(TransactionFcdeView transactionFcde) throws ModelException, E;
+    public void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException, E;
     public void handleServer(ServerView server) throws ModelException, E;
+    public void handleFractionManager(FractionManagerView fractionManager) throws ModelException, E;
     public void handleReference(ReferenceView reference) throws ModelException, E;
     public void handleConversion(ConversionView conversion) throws ModelException, E;
-    public void handleUnitManager(UnitManagerView unitManager) throws ModelException, E;
     
 }

@@ -5,11 +5,9 @@ import view.*;
 
 public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
-    public abstract void handleTypeManager(TypeManagerView typeManager) throws ModelException;
-    
     public abstract void handleConversionManager(ConversionManagerView conversionManager) throws ModelException;
     
-    public abstract void handleTransactionFcde(TransactionFcdeView transactionFcde) throws ModelException;
+    public abstract void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException;
     
     public abstract void handleReferenceType(ReferenceTypeView referenceType) throws ModelException;
     
@@ -43,11 +41,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCompoundQuantity(CompoundQuantityView compoundQuantity) throws ModelException{
         this.handleAbsQuantity(compoundQuantity);
     }
+    public abstract void handleFractionManager(FractionManagerView fractionManager) throws ModelException;
+    
     public abstract void handleReference(ReferenceView reference) throws ModelException;
     
     public abstract void handleConversion(ConversionView conversion) throws ModelException;
-    
-    public abstract void handleUnitManager(UnitManagerView unitManager) throws ModelException;
     
     
 }

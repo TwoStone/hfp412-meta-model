@@ -47,83 +47,78 @@ public abstract class ViewProxi extends ViewRoot {
 	
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [40];
-        proxiFactories[1] = new ProxiFactory(){
+		proxiFactories = new ProxiFactory [38];
+        proxiFactories[0] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ConversionManagerProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[5] = new ProxiFactory(){
+        proxiFactories[1] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ReferenceTypeProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[7] = new ProxiFactory(){
+        proxiFactories[3] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new QuantityManagerProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[9] = new ProxiFactory(){
+        proxiFactories[4] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ErrorDisplayProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[11] = new ProxiFactory(){
+        proxiFactories[5] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new UnitProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[10] = new ProxiFactory(){
+        proxiFactories[6] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new UnitTypeProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[0] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new TypeManagerProxi(objectId, classId, connectionKey);
-            }
-        };
-        proxiFactories[2] = new ProxiFactory(){
+        proxiFactories[15] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new QuantityProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[3] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new TransactionFcdeProxi(objectId, classId, connectionKey);
-            }
-        };
-        proxiFactories[4] = new ProxiFactory(){
+        proxiFactories[16] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new CompoundQuantityProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[12] = new ProxiFactory(){
+        proxiFactories[17] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new UnitTypeManagerProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[20] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ServerProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[16] = new ProxiFactory(){
+        proxiFactories[37] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new FractionManagerProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[21] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new CompUnitProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[15] = new ProxiFactory(){
+        proxiFactories[22] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ReferenceProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[14] = new ProxiFactory(){
+        proxiFactories[23] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ConversionProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[17] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new UnitManagerProxi(objectId, classId, connectionKey);
-            }
-        };
-        proxiFactories[18] = new ProxiFactory(){
+        proxiFactories[24] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new CompUnitTypeProxi(objectId, classId, connectionKey);
             }

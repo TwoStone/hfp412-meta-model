@@ -25,25 +25,25 @@ public class CreateUnitCommandFacade{
 	}
 
     public CreateUnitCommandProxi newCreateUnitCommand(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateUnitCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 130);
+        if(createMinusStorePlus > 0) return (CreateUnitCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 111);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateUnitCommandFacade.getNextId();
         CreateUnitCommand result = new CreateUnitCommand(null,name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateUnitCommandProxi)PersistentProxi.createProxi(id, 130);
+        return (CreateUnitCommandProxi)PersistentProxi.createProxi(id, 111);
     }
     
     public CreateUnitCommandProxi newDelayedCreateUnitCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateUnitCommandFacade.getNextId();
         CreateUnitCommand result = new CreateUnitCommand(null,name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateUnitCommandProxi)PersistentProxi.createProxi(id, 130);
+        return (CreateUnitCommandProxi)PersistentProxi.createProxi(id, 111);
     }
     
     public CreateUnitCommand getCreateUnitCommand(long CreateUnitCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 130)) return 130;
+        if(Cache.getTheCache().contains(objectId, 111)) return 111;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -57,7 +57,7 @@ public class CreateUnitCommandFacade{
     public void invokerSet(long CreateUnitCommandId, Invoker invokerVal) throws PersistenceException {
         
     }
-    public void commandReceiverSet(long CreateUnitCommandId, PersistentUnitManager commandReceiverVal) throws PersistenceException {
+    public void commandReceiverSet(long CreateUnitCommandId, PersistentUnitTypeManager commandReceiverVal) throws PersistenceException {
         
     }
     public void myCommonDateSet(long CreateUnitCommandId, PersistentCommonDate myCommonDateVal) throws PersistenceException {

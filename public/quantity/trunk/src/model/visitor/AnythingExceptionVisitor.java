@@ -16,12 +16,11 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException, E;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
-    public void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException, E;
-    public void handleTransactionFcde(PersistentTransactionFcde transactionFcde) throws PersistenceException, E;
+    public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException, E;
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException, E;
     public void handleServer(PersistentServer server) throws PersistenceException, E;
+    public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException, E;
     public void handleReference(PersistentReference reference) throws PersistenceException, E;
     public void handleConversion(PersistentConversion conversion) throws PersistenceException, E;
-    public void handleUnitManager(PersistentUnitManager unitManager) throws PersistenceException, E;
     
 }
