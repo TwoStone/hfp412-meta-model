@@ -5,39 +5,35 @@ model quantity {
 
 
 	server Server {
-		derived TypeManager typeManager;
+
 		derived QuantityManager quantityManager;
-		derived UnitManager unitManager;
+		derived UnitTypeManager unitTypeManager;
 		derived ConversionManager conversionManager;
+		derived FractionManager fractionManager;
 
 		void createUnitType(String name);
 	}
-
-	singleton TransactionFcde {
-
-	}
-
 
 /*-------------------------------------------------------------------------
 	MANAGER KLASSEN
 -------------------------------------------------------------------------*/
 
-	singleton TypeManager {
+	singleton UnitTypeManager {
 		AbsUnitType ** unitTypes;
+		AbsUnit ** units;
+
+		/* Operationen für Typebene */
 		active void createUnitType(String name) throws DoubleDefinitionException;
 		active void addDefaultUnit(AbsUnitType type, AbsUnit unit);
+
+		/* Operationen für Exemplarebene */
+		active void createUnit(UnitType type, String name) throws DoubleDefinitionException;
 		//TODO: CompoundUnitType erstellen!
 	}
 
 	singleton QuantityManager {
-		//Nicht lieber AbsQuantity?
-		Quantity ** quantities;
+		AbsQuantity ** quantities;
 		active void createQuantity(Unit unit, Fraction amount);
-	}
-
-	singleton UnitManager {
-		AbsUnit ** units;
-		active void createUnit(UnitType type, String name) throws DoubleDefinitionException;
 	}
 
 	singleton ConversionManager {
@@ -45,14 +41,16 @@ model quantity {
 		active void createConversion(Unit unit, Fraction factor, Fraction constant);
 	}
 
+	/*Jeder Bruch nur einmal vorhanden*/
+	singleton FractionManager {
+	//	Fraction ** fractions;
+	}
+
 /*-------------------------------------------------------------------------
 	MODELL KLASSEN
 -------------------------------------------------------------------------*/
 	abstract class AbsQuantity {
-		/*
-		Rückgabetyp AbstractQuantity oder void?
-		Verschmelzen zwei Quantitäten miteinander?
-		*/
+	
 		AbsQuantity add(AbsQuantity summand);
 		AbsQuantity sub(AbsQuantity minuend);
 		AbsQuantity mul(AbsQuantity factor);
