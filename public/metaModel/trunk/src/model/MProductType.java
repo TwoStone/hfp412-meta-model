@@ -187,6 +187,16 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 		}
 		return strategy.finalize$$MProductType(getThis(), parameter,result$$containedTypes$$MProductType);
     }
+    public PersistentMBoolean lessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        //TODO: implement method: lessOrEqual
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"lessOrEqual\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation

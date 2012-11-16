@@ -96,6 +96,10 @@ public class MProductTypeProxi extends MComplexTypeProxi implements PersistentMP
 				throws PersistenceException{
         ((PersistentMProductType)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public PersistentMBoolean lessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).lessOrEqual(otherType);
+    }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);

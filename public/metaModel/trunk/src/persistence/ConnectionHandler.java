@@ -53,8 +53,9 @@ public class ConnectionHandler {
     public AddAspectCommandFacade theAddAspectCommandFacade;
     public AspectManagerFacade theAspectManagerFacade;
     public ErrorDisplayFacade theErrorDisplayFacade;
-    public ServerFacade theServerFacade;
     public AddSubTypeCommandFacade theAddSubTypeCommandFacade;
+    public ServerFacade theServerFacade;
+    public MFalseFacade theMFalseFacade;
     public MComplexTypeFacade theMComplexTypeFacade;
     public MAtomicTypeFacade theMAtomicTypeFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
@@ -63,6 +64,8 @@ public class ConnectionHandler {
     public AddAtomicTypeCommandFacade theAddAtomicTypeCommandFacade;
     public MSumTypeFacade theMSumTypeFacade;
     public CreateSubTypeCommandFacade theCreateSubTypeCommandFacade;
+    public MBooleanFacade theMBooleanFacade;
+    public MTrueFacade theMTrueFacade;
 
 	protected ConnectionHandler() throws PersistenceException {
 	}
@@ -73,8 +76,9 @@ public class ConnectionHandler {
             this.theAddAspectCommandFacade= new AddAspectCommandFacade();
             this.theAspectManagerFacade= new AspectManagerFacade();
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
-            this.theServerFacade= new ServerFacade();
             this.theAddSubTypeCommandFacade= new AddSubTypeCommandFacade();
+            this.theServerFacade= new ServerFacade();
+            this.theMFalseFacade= new MFalseFacade();
             this.theMComplexTypeFacade= new MComplexTypeFacade();
             this.theMAtomicTypeFacade= new MAtomicTypeFacade();
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade();
@@ -83,6 +87,8 @@ public class ConnectionHandler {
             this.theAddAtomicTypeCommandFacade= new AddAtomicTypeCommandFacade();
             this.theMSumTypeFacade= new MSumTypeFacade();
             this.theCreateSubTypeCommandFacade= new CreateSubTypeCommandFacade();
+            this.theMBooleanFacade= new MBooleanFacade();
+            this.theMTrueFacade= new MTrueFacade();
 	}
 	public static void initializeMapsForMappedFields() throws PersistenceException {
 		

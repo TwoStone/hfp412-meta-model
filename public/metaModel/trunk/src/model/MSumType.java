@@ -187,6 +187,16 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
 		}
 		return strategy.finalize$$MSumType(getThis(), parameter,result$$containedTypes$$MSumType);
     }
+    public PersistentMBoolean lessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        //TODO: implement method: lessOrEqual
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"lessOrEqual\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation

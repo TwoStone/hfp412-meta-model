@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[35];
+			iCProxiFactories = new ICProxiFactory[38];
         iCProxiFactories[0] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new MProductTypeICProxi(objectId);
@@ -43,14 +43,19 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ErrorDisplayICProxi(objectId);
             }
         };
+        iCProxiFactories[32] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new AddSubTypeCommandICProxi(objectId);
+            }
+        };
         iCProxiFactories[4] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ServerICProxi(objectId);
             }
         };
-        iCProxiFactories[32] = new ICProxiFactory(){
+        iCProxiFactories[35] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
-                return new AddSubTypeCommandICProxi(objectId);
+                return new MFalseICProxi(objectId);
             }
         };
         iCProxiFactories[1] = new ICProxiFactory(){
@@ -86,6 +91,16 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[34] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateSubTypeCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[36] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new MBooleanICProxi(objectId);
+            }
+        };
+        iCProxiFactories[37] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new MTrueICProxi(objectId);
             }
         };
 		}

@@ -3,7 +3,7 @@ package view.visitor;
 import view.UserException;
 import view.*;
 
-public interface AnythingReturnExceptionVisitor<R, E extends UserException> extends MComplexTypeReturnExceptionVisitor<R, E> {
+public interface AnythingReturnExceptionVisitor<R, E extends UserException> extends MComplexTypeReturnExceptionVisitor<R, E> ,MBooleanReturnExceptionVisitor<R, E> {
     
     public R handleTypeManager(TypeManagerView typeManager) throws ModelException, E;
     public R handleAspectManager(AspectManagerView aspectManager) throws ModelException, E;
@@ -11,5 +11,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleServer(ServerView server) throws ModelException, E;
     public R handleMAtomicType(MAtomicTypeView mAtomicType) throws ModelException, E;
     public R handleMAspect(MAspectView mAspect) throws ModelException, E;
+    public R handleMBoolean(MBooleanView mBoolean) throws ModelException, E;
     
 }

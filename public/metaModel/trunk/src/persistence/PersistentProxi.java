@@ -16,7 +16,7 @@ public abstract class PersistentProxi extends PersistentRoot {
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[35];
+		listProxiFactories = new ListProxiFactory[38];
         listProxiFactories[0] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new MProductTypeListEntryProxi(objectId, entryId);
@@ -47,14 +47,19 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new ErrorDisplayListEntryProxi(objectId, entryId);
             }
         };
+        listProxiFactories[32] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new AddSubTypeCommandListEntryProxi(objectId, entryId);
+            }
+        };
         listProxiFactories[4] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new ServerListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[32] = new ListProxiFactory(){
+        listProxiFactories[35] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
-                return new AddSubTypeCommandListEntryProxi(objectId, entryId);
+                return new MFalseListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[1] = new ListProxiFactory(){
@@ -92,12 +97,22 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new CreateSubTypeCommandListEntryProxi(objectId, entryId);
             }
         };
+        listProxiFactories[36] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new MBooleanListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[37] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new MTrueListEntryProxi(objectId, entryId);
+            }
+        };
 	}
 	return listProxiFactories;
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [35];
+		proxiFactories = new ProxiFactory [38];
         proxiFactories[0] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new MProductTypeProxi(objectId);
@@ -128,14 +143,19 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new ErrorDisplayProxi(objectId);
             }
         };
+        proxiFactories[32] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new AddSubTypeCommandProxi(objectId);
+            }
+        };
         proxiFactories[4] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new ServerProxi(objectId);
             }
         };
-        proxiFactories[32] = new ProxiFactory(){
+        proxiFactories[35] = new ProxiFactory(){
             PersistentProxi create(long objectId){
-                return new AddSubTypeCommandProxi(objectId);
+                return new MFalseProxi(objectId);
             }
         };
         proxiFactories[1] = new ProxiFactory(){
@@ -171,6 +191,16 @@ public abstract class PersistentProxi extends PersistentRoot {
         proxiFactories[34] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new CreateSubTypeCommandProxi(objectId);
+            }
+        };
+        proxiFactories[36] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new MBooleanProxi(objectId);
+            }
+        };
+        proxiFactories[37] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new MTrueProxi(objectId);
             }
         };
 	}

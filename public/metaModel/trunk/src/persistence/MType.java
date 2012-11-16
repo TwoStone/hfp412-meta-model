@@ -10,6 +10,8 @@ public interface MType extends  MComplexTypeHierarchyHIERARCHY {
     
     public String fetchName() 
 				throws PersistenceException;
+    public PersistentMBoolean lessOrEqual(final MType otherType) 
+				throws PersistenceException;
 
     public void accept(MTypeVisitor visitor) throws PersistenceException;
     public <R> R accept(MTypeReturnVisitor<R>  visitor) throws PersistenceException;

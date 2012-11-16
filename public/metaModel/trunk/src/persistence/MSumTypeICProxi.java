@@ -96,6 +96,10 @@ public class MSumTypeICProxi extends MComplexTypeICProxi implements PersistentMS
 				throws PersistenceException{
         ((PersistentMSumType)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public PersistentMBoolean lessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).lessOrEqual(otherType);
+    }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);

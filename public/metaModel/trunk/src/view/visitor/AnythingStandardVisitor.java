@@ -17,6 +17,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException{
         this.standardHandling(errorDisplay);
     }
+    public void handleMFalse(MFalseView mFalse) throws ModelException{
+        this.standardHandling(mFalse);
+    }
     public void handleServer(ServerView server) throws ModelException{
         this.standardHandling(server);
     }
@@ -28,6 +31,12 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMSumType(MSumTypeView mSumType) throws ModelException{
         this.standardHandling(mSumType);
+    }
+    public void handleMBoolean(MBooleanView mBoolean) throws ModelException{
+        this.standardHandling(mBoolean);
+    }
+    public void handleMTrue(MTrueView mTrue) throws ModelException{
+        this.standardHandling(mTrue);
     }
     protected abstract void standardHandling(Anything anything) throws ModelException;
 }

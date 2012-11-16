@@ -39,6 +39,7 @@ class MAspect {
 
 interface MType@@Type {
 	String fetchName();
+	MBoolean lessOrEqual(MType otherType); 
 }
 
 hierarchy MAtomicTypeHierarchy##MATypeHier;
@@ -58,9 +59,13 @@ abstract class MComplexType@@ComplexType implements MType {
 	derived String TypeLinkOperator;	
 }
 
+singleton MBoolean(MTrue, MFalse){}
+
 class MProductType@@ProductType extends MComplexType {}
 
-class MSumType@@SumType extends MComplexType {}
+class MSumType@@SumType extends MComplexType {
+	/* TODO: Leere Summen!? oh-oh! */
+}
 
 
 /*** EXCEPTIONS ***/

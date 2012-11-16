@@ -43,6 +43,10 @@ public abstract class MComplexTypeProxi extends PersistentProxi implements Persi
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
+    public PersistentMBoolean lessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).lessOrEqual(otherType);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMComplexType)this.getTheObject()).initializeOnCreation();

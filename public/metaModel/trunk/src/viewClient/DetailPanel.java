@@ -598,6 +598,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
     }
+    public void handleMFalse(view.MFalseView object){
+        result = new MFalseDefaultDetailPanel(handler, object);
+    }
     public void handleMAtomicType(view.MAtomicTypeView object){
         result = new MAtomicTypeDefaultDetailPanel(handler, object);
     }
@@ -606,6 +609,12 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleMSumType(view.MSumTypeView object){
         result = new MSumTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleMBoolean(view.MBooleanView object){
+        result = new MBooleanDefaultDetailPanel(handler, object);
+    }
+    public void handleMTrue(view.MTrueView object){
+        result = new MTrueDefaultDetailPanel(handler, object);
     }
 
 }
@@ -719,6 +728,20 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MFalseDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected MFalseDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MFalseView getAnything(){
+        return (view.MFalseView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MAtomicType$$name = "MAtomicType$$name";
@@ -787,5 +810,33 @@ class MSumTypeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MSumTypeView getAnything(){
         return (view.MSumTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MBooleanDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected MBooleanDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MBooleanView getAnything(){
+        return (view.MBooleanView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MTrueDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected MTrueDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MTrueView getAnything(){
+        return (view.MTrueView)this.anything;
     }
 }

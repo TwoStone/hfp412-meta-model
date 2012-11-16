@@ -33,6 +33,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     
+    public abstract void handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException;
+    
+    public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException{
+        this.handleMBoolean(mFalse);
+    }
+    public void handleMTrue(PersistentMTrue mTrue) throws PersistenceException{
+        this.handleMBoolean(mTrue);
+    }
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
     
     public abstract void handleMComplexType(PersistentMComplexType mComplexType) throws PersistenceException;

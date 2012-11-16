@@ -15,6 +15,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     
+    public abstract void handleMBoolean(MBooleanView mBoolean) throws ModelException;
+    
+    public void handleMFalse(MFalseView mFalse) throws ModelException{
+        this.handleMBoolean(mFalse);
+    }
+    public void handleMTrue(MTrueView mTrue) throws ModelException{
+        this.handleMBoolean(mTrue);
+    }
     public abstract void handleServer(ServerView server) throws ModelException;
     
     public abstract void handleMComplexType(MComplexTypeView mComplexType) throws ModelException;

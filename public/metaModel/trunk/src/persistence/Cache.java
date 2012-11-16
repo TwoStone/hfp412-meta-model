@@ -65,10 +65,10 @@ public class Cache {
 		this.garbageCollector.start();
 	}
 
-	public void reset$For$Test(){
-		this.garbageCollector.interrupt();
-		Cache.theCache = null;
-	}
+//	public void reset$For$Test(){
+//		this.garbageCollector.interrupt();
+//		Cache.theCache = null;
+//	}
 
 	public void finalize(){
 		this.garbageCollector.interrupt();
@@ -271,8 +271,11 @@ public class Cache {
 		this.number2NameMap.put(-104, "ErrorDisplay");
 		this.number2NameMap.put(127, "MAspect");
 		this.number2NameMap.put(102, "MAtomicType");
+		this.number2NameMap.put(137, "MBoolean");
+		this.number2NameMap.put(136, "MFalse");
 		this.number2NameMap.put(101, "MProductType");
 		this.number2NameMap.put(103, "MSumType");
+		this.number2NameMap.put(138, "MTrue");
 		this.number2NameMap.put(-105, "Server");
 		this.number2NameMap.put(118, "TypeManager");	
 	}
