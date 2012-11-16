@@ -108,9 +108,14 @@ model quantity {
 		Quantity convertInverse(Fraction amount);
 	}
 
+	abstract class BooleanValue {}
+	
+	final singleton BooleanTrue extends BooleanValue {}
+	final singleton BooleanFalse extends BooleanValue {}
 
 /*-------------------------------------------------------------------------
 	EXCEPTIONS
 -------------------------------------------------------------------------*/
 	exception DoubleDefinitionException{}
+
 }
