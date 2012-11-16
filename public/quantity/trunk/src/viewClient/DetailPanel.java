@@ -601,6 +601,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleUnitType(view.UnitTypeView object){
         result = new UnitTypeDefaultDetailPanel(handler, object);
     }
+    public void handleBooleanTrue(view.BooleanTrueView object){
+        result = new BooleanTrueDefaultDetailPanel(handler, object);
+    }
     public void handleQuantity(view.QuantityView object){
         result = new QuantityDefaultDetailPanel(handler, object);
     }
@@ -609,6 +612,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleUnitTypeManager(view.UnitTypeManagerView object){
         result = new UnitTypeManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleBooleanFalse(view.BooleanFalseView object){
+        result = new BooleanFalseDefaultDetailPanel(handler, object);
     }
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
@@ -762,6 +768,20 @@ class UnitTypeDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class BooleanTrueDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected BooleanTrueDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.BooleanTrueView getAnything(){
+        return (view.BooleanTrueView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class QuantityDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Quantity$$amount = "Quantity$$amount";
@@ -815,6 +835,20 @@ class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.UnitTypeManagerView getAnything(){
         return (view.UnitTypeManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class BooleanFalseDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected BooleanFalseDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.BooleanFalseView getAnything(){
+        return (view.BooleanFalseView)this.anything;
     }
 }
 

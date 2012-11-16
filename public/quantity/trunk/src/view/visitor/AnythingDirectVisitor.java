@@ -43,6 +43,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleFractionManager(FractionManagerView fractionManager) throws ModelException;
     
+    public abstract void handleBooleanValue(BooleanValueView booleanValue) throws ModelException;
+    
+    public void handleBooleanTrue(BooleanTrueView booleanTrue) throws ModelException{
+        this.handleBooleanValue(booleanTrue);
+    }
+    public void handleBooleanFalse(BooleanFalseView booleanFalse) throws ModelException{
+        this.handleBooleanValue(booleanFalse);
+    }
     public abstract void handleReference(ReferenceView reference) throws ModelException;
     
     public abstract void handleConversion(ConversionView conversion) throws ModelException;

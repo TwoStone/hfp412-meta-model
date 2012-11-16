@@ -2,6 +2,8 @@ package model;
 
 import persistence.Anything;
 import persistence.PersistenceException;
+import persistence.PersistentBooleanFalse;
+import persistence.PersistentBooleanTrue;
 import persistence.PersistentCompUnit;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentCompoundQuantity;
@@ -119,6 +121,18 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleFractionManager(PersistentFractionManager fractionManager)
 			throws PersistenceException {
 		this.result = constants.TextConstants.FRACTION_MANAGER_LABEL;
+		
+	}
+	@Override
+	public void handleBooleanTrue(PersistentBooleanTrue booleanTrue)
+			throws PersistenceException {
+		this.result = constants.TextConstants.BOOLEAN_TRUEFALSE_SCHEME_TRUE;
+		
+	}
+	@Override
+	public void handleBooleanFalse(PersistentBooleanFalse booleanFalse)
+			throws PersistenceException {
+		this.result = constants.TextConstants.BOOLEAN_TRUEFALSE_SCHEME_FALSE;
 		
 	}
 

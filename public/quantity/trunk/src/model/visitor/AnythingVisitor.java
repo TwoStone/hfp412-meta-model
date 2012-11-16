@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingVisitor extends AbsUnitTypeVisitor,AbsQuantityVisitor,CommonDateVisitor,AbsUnitVisitor{
+public interface AnythingVisitor extends AbsUnitTypeVisitor,AbsQuantityVisitor,BooleanValueVisitor,CommonDateVisitor,AbsUnitVisitor{
     
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;

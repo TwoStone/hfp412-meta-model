@@ -3,7 +3,7 @@ package view.visitor;
 import view.UserException;
 import view.*;
 
-public interface AnythingExceptionVisitor<E extends UserException> extends AbsUnitTypeExceptionVisitor<E>,AbsQuantityExceptionVisitor<E>,AbsUnitExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends UserException> extends AbsUnitTypeExceptionVisitor<E>,AbsQuantityExceptionVisitor<E>,BooleanValueExceptionVisitor<E>,AbsUnitExceptionVisitor<E>{
     
     public void handleConversionManager(ConversionManagerView conversionManager) throws ModelException, E;
     public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException, E;

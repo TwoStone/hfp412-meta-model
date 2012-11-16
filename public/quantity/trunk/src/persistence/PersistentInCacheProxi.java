@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[38];
+			iCProxiFactories = new ICProxiFactory[41];
         iCProxiFactories[0] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ConversionManagerICProxi(objectId);
@@ -33,6 +33,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ErrorDisplayICProxi(objectId);
             }
         };
+        iCProxiFactories[7] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateUnitTypeCommandICProxi(objectId);
+            }
+        };
         iCProxiFactories[5] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new UnitICProxi(objectId);
@@ -41,11 +46,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[6] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new UnitTypeICProxi(objectId);
-            }
-        };
-        iCProxiFactories[7] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new CreateUnitTypeCommandICProxi(objectId);
             }
         };
         iCProxiFactories[8] = new ICProxiFactory(){
@@ -61,6 +61,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[11] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommandCoordinatorICProxi(objectId);
+            }
+        };
+        iCProxiFactories[38] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new BooleanTrueICProxi(objectId);
             }
         };
         iCProxiFactories[12] = new ICProxiFactory(){
@@ -96,6 +101,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[18] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new AddDefaultUnitCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[39] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new BooleanFalseICProxi(objectId);
             }
         };
         iCProxiFactories[20] = new ICProxiFactory(){

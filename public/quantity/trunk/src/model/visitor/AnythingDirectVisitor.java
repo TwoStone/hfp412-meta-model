@@ -47,6 +47,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     
+    public abstract void handleBooleanValue(PersistentBooleanValue booleanValue) throws PersistenceException;
+    
+    public void handleBooleanTrue(PersistentBooleanTrue booleanTrue) throws PersistenceException{
+        this.handleBooleanValue(booleanTrue);
+    }
+    public void handleBooleanFalse(PersistentBooleanFalse booleanFalse) throws PersistenceException{
+        this.handleBooleanValue(booleanFalse);
+    }
     public abstract void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{

@@ -3,7 +3,7 @@ package view.visitor;
 
 import view.*;
 
-public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,AbsQuantityReturnVisitor<R> ,AbsUnitReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,AbsQuantityReturnVisitor<R> ,BooleanValueReturnVisitor<R> ,AbsUnitReturnVisitor<R> {
     
     public R handleConversionManager(ConversionManagerView conversionManager) throws ModelException;
     public R handleReferenceType(ReferenceTypeView referenceType) throws ModelException;

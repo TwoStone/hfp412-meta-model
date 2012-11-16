@@ -261,6 +261,8 @@ public class Cache {
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
 		this.number2NameMap.put(119, "AddDefaultUnitCommand");
+		this.number2NameMap.put(140, "BooleanFalse");
+		this.number2NameMap.put(139, "BooleanTrue");
 		this.number2NameMap.put(-112, "CommandCoordinator");
 		this.number2NameMap.put(-115, "CommandExecuter");
 		this.number2NameMap.put(113, "CommonDate");
