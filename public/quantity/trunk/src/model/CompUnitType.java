@@ -82,7 +82,7 @@ public class CompUnitType extends model.AbsUnitType implements PersistentCompUni
     }
     
     static public long getTypeId() {
-        return 125;
+        return 120;
     }
     
     public long getClassId() {
@@ -91,7 +91,7 @@ public class CompUnitType extends model.AbsUnitType implements PersistentCompUni
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 125) ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
+        if (this.getClassId() == 120) ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
             .newCompUnitType(name,this.getId());
         super.store();
         this.getRefs().store();

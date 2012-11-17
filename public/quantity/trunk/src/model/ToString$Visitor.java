@@ -10,6 +10,7 @@ import persistence.PersistentCompoundQuantity;
 import persistence.PersistentConversion;
 import persistence.PersistentConversionManager;
 import persistence.PersistentFractionManager;
+import persistence.PersistentFunction;
 import persistence.PersistentQuantity;
 import persistence.PersistentQuantityManager;
 import persistence.PersistentReference;
@@ -133,6 +134,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleBooleanFalse(PersistentBooleanFalse booleanFalse)
 			throws PersistenceException {
 		this.result = constants.TextConstants.BOOLEAN_TRUEFALSE_SCHEME_FALSE;
+		
+	}
+	@Override
+	public void handleFunction(PersistentFunction function)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
 		
 	}
 

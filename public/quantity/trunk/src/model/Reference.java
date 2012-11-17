@@ -109,7 +109,7 @@ public class Reference extends PersistentObject implements PersistentReference{
     }
     
     static public long getTypeId() {
-        return 123;
+        return 117;
     }
     
     public long getClassId() {
@@ -118,7 +118,7 @@ public class Reference extends PersistentObject implements PersistentReference{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 123) ConnectionHandler.getTheConnectionHandler().theReferenceFacade
+        if (this.getClassId() == 117) ConnectionHandler.getTheConnectionHandler().theReferenceFacade
             .newReference(0,this.getId());
         super.store();
         if(this.getType() != null){

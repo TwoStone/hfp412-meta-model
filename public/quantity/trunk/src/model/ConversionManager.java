@@ -1,24 +1,8 @@
 
 package model;
 
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.ConversionManagerProxi;
-import persistence.ConversionManager_ConversionsProxi;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentConversion;
-import persistence.PersistentConversionManager;
-import persistence.PersistentCreateConversionCommand;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
-import persistence.PersistentUnit;
-import persistence.PersistentUnitType;
-import persistence.TDObserver;
+import persistence.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -98,7 +82,7 @@ public class ConversionManager extends PersistentObject implements PersistentCon
     }
     
     static public long getTypeId() {
-        return 101;
+        return 102;
     }
     
     public long getClassId() {
@@ -155,10 +139,7 @@ public class ConversionManager extends PersistentObject implements PersistentCon
     
     public void createConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
 				throws PersistenceException{
-        PersistentConversion conversion = Conversion.createConversion(unit, (PersistentUnitType) unit.getType());
-        conversion.setFactor(factor);
-        conversion.setConstant(constant);
-        this.getThis().getConversions().add(conversion);
+        //TODO: implement method: createConversion
         
     }
     public void initializeOnInstantiation() 

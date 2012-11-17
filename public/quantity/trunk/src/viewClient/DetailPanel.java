@@ -613,6 +613,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleUnitTypeManager(view.UnitTypeManagerView object){
         result = new UnitTypeManagerDefaultDetailPanel(handler, object);
     }
+    public void handleFunction(view.FunctionView object){
+        result = new FunctionDefaultDetailPanel(handler, object);
+    }
     public void handleBooleanFalse(view.BooleanFalseView object){
         result = new BooleanFalseDefaultDetailPanel(handler, object);
     }
@@ -839,6 +842,37 @@ class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class FunctionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Function$$factor = "Function$$factor";
+    protected static final String Function$$constant = "Function$$constant";
+    
+    protected FunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "factor", this.getAnything().getFactor());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Function$$factor, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "constant", this.getAnything().getConstant());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Function$$constant, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.FunctionView getAnything(){
+        return (view.FunctionView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class BooleanFalseDefaultDetailPanel extends DefaultDetailPanel{
     
     protected BooleanFalseDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -948,27 +982,12 @@ class ConversionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Conversion$$source = "Conversion$$source";
     protected static final String Conversion$$type = "Conversion$$type";
-    protected static final String Conversion$$factor = "Conversion$$factor";
-    protected static final String Conversion$$constant = "Conversion$$constant";
+    protected static final String Conversion$$myFunction = "Conversion$$myFunction";
     
     protected ConversionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
-        try{
-            BaseTypePanel panel = new FractionPanel(this, "factor", this.getAnything().getFactor());
-            this.getScrollablePane().add(panel);
-            this.panels.put(Conversion$$factor, panel);
-        }catch(view.ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        try{
-            BaseTypePanel panel = new FractionPanel(this, "constant", this.getAnything().getConstant());
-            this.getScrollablePane().add(panel);
-            this.panels.put(Conversion$$constant, panel);
-        }catch(view.ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
         
     }
     protected view.ConversionView getAnything(){

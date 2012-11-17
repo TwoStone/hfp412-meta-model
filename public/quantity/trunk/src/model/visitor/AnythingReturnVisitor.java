@@ -18,6 +18,7 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,A
     public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
     public R handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     public R handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException;
+    public R handleFunction(PersistentFunction function) throws PersistenceException;
     public R handleServer(PersistentServer server) throws PersistenceException;
     public R handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     public R handleReference(PersistentReference reference) throws PersistenceException;

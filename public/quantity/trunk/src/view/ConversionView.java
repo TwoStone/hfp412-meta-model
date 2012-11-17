@@ -10,10 +10,8 @@ public interface ConversionView extends Anything, AbstractViewProxi {
     public void setSource(UnitView newValue) throws ModelException ;
     public UnitTypeView getType() throws ModelException ;
     public void setType(UnitTypeView newValue) throws ModelException ;
-    public common.Fraction getFactor() throws ModelException ;
-    public void setFactor(common.Fraction newValue) throws ModelException ;
-    public common.Fraction getConstant() throws ModelException ;
-    public void setConstant(common.Fraction newValue) throws ModelException ;
+    public FunctionView getMyFunction() throws ModelException ;
+    public void setMyFunction(FunctionView newValue) throws ModelException ;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

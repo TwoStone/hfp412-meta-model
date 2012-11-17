@@ -15,11 +15,12 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException;
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     public abstract void handleBooleanFalse(PersistentBooleanFalse booleanFalse) throws PersistenceException;
+    public abstract void handleFunction(PersistentFunction function) throws PersistenceException;
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
     public abstract void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
-    public abstract void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException;
     public abstract void handleReference(PersistentReference reference) throws PersistenceException;
+    public abstract void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException;
     public abstract void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException;
     
 }

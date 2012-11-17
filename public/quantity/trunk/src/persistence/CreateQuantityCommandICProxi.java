@@ -19,7 +19,7 @@ public class CreateQuantityCommandICProxi extends PersistentInCacheProxi impleme
     }
     
     public long getClassId() {
-        return 114;
+        return 134;
     }
     
     public PersistentUnit getUnit() throws PersistenceException {

@@ -26,9 +26,14 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
             type = ViewProxi.createProxi(type$Info,connectionKey);
             type.setToString(type$Info.getToString());
         }
-        common.Fraction factor = common.Fraction.parse((String)resultTable.get("factor"));
-        common.Fraction constant = common.Fraction.parse((String)resultTable.get("constant"));
-        ConversionView result$$ = new Conversion((UnitView)source,(UnitTypeView)type,(common.Fraction)factor,(common.Fraction)constant, this.getId(), this.getClassId());
+        ViewProxi myFunction = null;
+        String myFunction$String = (String)resultTable.get("myFunction");
+        if (myFunction$String != null) {
+            common.ProxiInformation myFunction$Info = common.RPCConstantsAndServices.createProxiInformation(myFunction$String);
+            myFunction = ViewProxi.createProxi(myFunction$Info,connectionKey);
+            myFunction.setToString(myFunction$Info.getToString());
+        }
+        ConversionView result$$ = new Conversion((UnitView)source,(UnitTypeView)type,(FunctionView)myFunction, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -42,18 +47,22 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
         if(this.getSource() != null) index = index - 1;
         if(index == 0 && this.getType() != null) return new TypeConversionWrapper(this, originalIndex, (ViewRoot)this.getType());
         if(this.getType() != null) index = index - 1;
+        if(index == 0 && this.getMyFunction() != null) return new MyFunctionConversionWrapper(this, originalIndex, (ViewRoot)this.getMyFunction());
+        if(this.getMyFunction() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getSource() == null ? 0 : 1)
-            + (this.getType() == null ? 0 : 1);
+            + (this.getType() == null ? 0 : 1)
+            + (this.getMyFunction() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getSource() == null ? true : false)
-            && (this.getType() == null ? true : false);
+            && (this.getType() == null ? true : false)
+            && (this.getMyFunction() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -61,6 +70,8 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
         if(this.getSource() != null) result = result + 1;
         if(this.getType() != null && this.getType().equals(child)) return result;
         if(this.getType() != null) result = result + 1;
+        if(this.getMyFunction() != null && this.getMyFunction().equals(child)) return result;
+        if(this.getMyFunction() != null) result = result + 1;
         return -1;
     }
     
@@ -76,17 +87,11 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
     public void setType(UnitTypeView newValue) throws ModelException {
         ((Conversion)this.getTheObject()).setType(newValue);
     }
-    public common.Fraction getFactor() throws ModelException {
-        return ((Conversion)this.getTheObject()).getFactor();
+    public FunctionView getMyFunction() throws ModelException {
+        return ((Conversion)this.getTheObject()).getMyFunction();
     }
-    public void setFactor(common.Fraction newValue) throws ModelException {
-        ((Conversion)this.getTheObject()).setFactor(newValue);
-    }
-    public common.Fraction getConstant() throws ModelException {
-        return ((Conversion)this.getTheObject()).getConstant();
-    }
-    public void setConstant(common.Fraction newValue) throws ModelException {
-        ((Conversion)this.getTheObject()).setConstant(newValue);
+    public void setMyFunction(FunctionView newValue) throws ModelException {
+        ((Conversion)this.getTheObject()).setMyFunction(newValue);
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

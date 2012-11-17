@@ -18,6 +18,7 @@ public interface AnythingVisitor extends AbsUnitTypeVisitor,AbsQuantityVisitor,B
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
     public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException;
+    public void handleFunction(PersistentFunction function) throws PersistenceException;
     public void handleServer(PersistentServer server) throws PersistenceException;
     public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     public void handleReference(PersistentReference reference) throws PersistenceException;

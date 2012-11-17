@@ -18,6 +18,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
     public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException, E;
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException, E;
+    public void handleFunction(PersistentFunction function) throws PersistenceException, E;
     public void handleServer(PersistentServer server) throws PersistenceException, E;
     public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException, E;
     public void handleReference(PersistentReference reference) throws PersistenceException, E;

@@ -19,7 +19,7 @@ public class CreateQuantityCommandProxi extends PersistentProxi implements Persi
     }
     
     public long getClassId() {
-        return 114;
+        return 134;
     }
     
     public PersistentUnit getUnit() throws PersistenceException {

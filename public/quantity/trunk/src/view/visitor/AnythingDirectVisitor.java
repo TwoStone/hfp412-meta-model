@@ -21,6 +21,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleQuantityManager(QuantityManagerView quantityManager) throws ModelException;
     
+    public abstract void handleFunction(FunctionView function) throws ModelException;
+    
     public abstract void handleAbsUnit(AbsUnitView absUnit) throws ModelException;
     
     public void handleCompUnit(CompUnitView compUnit) throws ModelException{

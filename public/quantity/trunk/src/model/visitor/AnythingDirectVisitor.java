@@ -23,6 +23,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
     
+    public abstract void handleFunction(PersistentFunction function) throws PersistenceException;
+    
     public abstract void handleAbsUnit(PersistentAbsUnit absUnit) throws PersistenceException;
     
     public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException{

@@ -25,25 +25,25 @@ public class ErrorDisplayFacade{
 	}
 
     public ErrorDisplayProxi newErrorDisplay(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (ErrorDisplayProxi)PersistentProxi.createProxi(createMinusStorePlus, -105);
+        if(createMinusStorePlus > 0) return (ErrorDisplayProxi)PersistentProxi.createProxi(createMinusStorePlus, -111);
         long id = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade.getNextId();
         ErrorDisplay result = new ErrorDisplay(id);
         Cache.getTheCache().put(result);
-        return (ErrorDisplayProxi)PersistentProxi.createProxi(id, -105);
+        return (ErrorDisplayProxi)PersistentProxi.createProxi(id, -111);
     }
     
     public ErrorDisplayProxi newDelayedErrorDisplay() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade.getNextId();
         ErrorDisplay result = new ErrorDisplay(id);
         Cache.getTheCache().put(result);
-        return (ErrorDisplayProxi)PersistentProxi.createProxi(id, -105);
+        return (ErrorDisplayProxi)PersistentProxi.createProxi(id, -111);
     }
     
     public ErrorDisplay getErrorDisplay(long ErrorDisplayId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, -105)) return -105;
+        if(Cache.getTheCache().contains(objectId, -111)) return -111;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

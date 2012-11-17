@@ -101,8 +101,12 @@ model quantity {
 		// from und to sind Oracle-Schlüsselwörter.
 		prior one-to-one (myConversion) Unit source;
 		prior UnitType type;
-		Fraction factor;
-		Fraction constant;
+		Function myFunction;
+	}
+
+	class Function {
+		prior Fraction factor;
+		prior Fraction constant;
 		//Wie muss eine Function aussehen? --> y=a*x+b	
 		Quantity convert(Fraction amount);
 		Quantity convertInverse(Fraction amount);

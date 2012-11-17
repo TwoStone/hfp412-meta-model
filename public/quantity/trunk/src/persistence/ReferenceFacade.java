@@ -25,25 +25,25 @@ public class ReferenceFacade{
 	}
 
     public ReferenceProxi newReference(long exponent,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (ReferenceProxi)PersistentProxi.createProxi(createMinusStorePlus, 123);
+        if(createMinusStorePlus > 0) return (ReferenceProxi)PersistentProxi.createProxi(createMinusStorePlus, 117);
         long id = ConnectionHandler.getTheConnectionHandler().theReferenceFacade.getNextId();
         Reference result = new Reference(null,exponent,null,null,id);
         Cache.getTheCache().put(result);
-        return (ReferenceProxi)PersistentProxi.createProxi(id, 123);
+        return (ReferenceProxi)PersistentProxi.createProxi(id, 117);
     }
     
     public ReferenceProxi newDelayedReference(long exponent) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theReferenceFacade.getNextId();
         Reference result = new Reference(null,exponent,null,null,id);
         Cache.getTheCache().put(result);
-        return (ReferenceProxi)PersistentProxi.createProxi(id, 123);
+        return (ReferenceProxi)PersistentProxi.createProxi(id, 117);
     }
     
     public Reference getReference(long ReferenceId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 123)) return 123;
+        if(Cache.getTheCache().contains(objectId, 117)) return 117;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

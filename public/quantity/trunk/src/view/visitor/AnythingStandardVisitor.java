@@ -38,6 +38,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleBooleanFalse(BooleanFalseView booleanFalse) throws ModelException{
         this.standardHandling(booleanFalse);
     }
+    public void handleFunction(FunctionView function) throws ModelException{
+        this.standardHandling(function);
+    }
     public void handleServer(ServerView server) throws ModelException{
         this.standardHandling(server);
     }
@@ -47,11 +50,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleConversion(ConversionView conversion) throws ModelException{
         this.standardHandling(conversion);
     }
-    public void handleCompUnit(CompUnitView compUnit) throws ModelException{
-        this.standardHandling(compUnit);
-    }
     public void handleReference(ReferenceView reference) throws ModelException{
         this.standardHandling(reference);
+    }
+    public void handleCompUnit(CompUnitView compUnit) throws ModelException{
+        this.standardHandling(compUnit);
     }
     public void handleCompUnitType(CompUnitTypeView compUnitType) throws ModelException{
         this.standardHandling(compUnitType);

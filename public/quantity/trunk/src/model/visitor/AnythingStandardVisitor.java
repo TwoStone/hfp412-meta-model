@@ -62,6 +62,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException{
         this.standardHandling(addDefaultUnitCommand);
     }
+    public void handleFunction(PersistentFunction function) throws PersistenceException{
+        this.standardHandling(function);
+    }
     public void handleServer(PersistentServer server) throws PersistenceException{
         this.standardHandling(server);
     }
@@ -71,11 +74,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleConversion(PersistentConversion conversion) throws PersistenceException{
         this.standardHandling(conversion);
     }
-    public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException{
-        this.standardHandling(compUnit);
-    }
     public void handleReference(PersistentReference reference) throws PersistenceException{
         this.standardHandling(reference);
+    }
+    public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException{
+        this.standardHandling(compUnit);
     }
     public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException{
         this.standardHandling(compUnitType);

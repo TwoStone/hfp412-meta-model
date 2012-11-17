@@ -10,6 +10,7 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,A
     public R handleQuantityManager(QuantityManagerView quantityManager) throws ModelException;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public R handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException;
+    public R handleFunction(FunctionView function) throws ModelException;
     public R handleServer(ServerView server) throws ModelException;
     public R handleFractionManager(FractionManagerView fractionManager) throws ModelException;
     public R handleReference(ReferenceView reference) throws ModelException;

@@ -68,6 +68,7 @@ public class ConnectionHandler {
     public CompoundQuantityFacade theCompoundQuantityFacade;
     public UnitTypeManagerFacade theUnitTypeManagerFacade;
     public AddDefaultUnitCommandFacade theAddDefaultUnitCommandFacade;
+    public FunctionFacade theFunctionFacade;
     public BooleanFalseFacade theBooleanFalseFacade;
     public AbsUnitFacade theAbsUnitFacade;
     public ServerFacade theServerFacade;
@@ -101,6 +102,7 @@ public class ConnectionHandler {
             this.theCompoundQuantityFacade= new CompoundQuantityFacade();
             this.theUnitTypeManagerFacade= new UnitTypeManagerFacade();
             this.theAddDefaultUnitCommandFacade= new AddDefaultUnitCommandFacade();
+            this.theFunctionFacade= new FunctionFacade();
             this.theBooleanFalseFacade= new BooleanFalseFacade();
             this.theAbsUnitFacade= new AbsUnitFacade();
             this.theServerFacade= new ServerFacade();
