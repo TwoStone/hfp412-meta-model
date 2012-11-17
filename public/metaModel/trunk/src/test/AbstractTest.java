@@ -37,6 +37,7 @@ public abstract class AbstractTest implements ServerReporter {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		ConnectionServer.stopTheConnectionServer();
 	}
 
 	@Override

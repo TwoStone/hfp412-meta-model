@@ -24,6 +24,8 @@ public class LessThanTest extends AbstractTest {
 	
 	private PersistentMAspect aspect1;
 	private PersistentMAspect aspect2;
+	private PersistentMAspect aspect3;
+
 	private PersistentMBoolean mTrue;
 	private PersistentMBoolean mFalse;
 
@@ -32,7 +34,8 @@ public class LessThanTest extends AbstractTest {
 	public void init() throws PersistenceException {
 		aspect1 = MAspect.createMAspect("Aspekt No. 1");
 		aspect2 = MAspect.createMAspect("Aspekt No. 2");
-		
+		aspect3 = MAspect.createMAspect("Aspekt No. 3");
+
 		mTrue = MTrue.getTheMTrue();
 		mFalse = MFalse.getTheMFalse();
 	}
@@ -45,6 +48,22 @@ public class LessThanTest extends AbstractTest {
 		mat1.setSuperType(mat2);
 		assertEquals(mTrue, mat1.lessOrEqual(mat2));
 		assertEquals(mFalse, mat2.lessOrEqual(mat1));
+		assertEquals(mTrue, mat1.lessOrEqual(mat1));
+	}
+	
+	@Test	
+	public void atomicTypeIndirectLessOrEqualThanAtomicType() throws PersistenceException, CycleException {
+		PersistentMAtomicType mat1 = MAtomicType.createMAtomicType("Typ1",aspect1);
+		PersistentMAtomicType mat2 = MAtomicType.createMAtomicType("Typ2",aspect2);
+		PersistentMAtomicType mat3 = MAtomicType.createMAtomicType("Typ3",aspect3);
+		
+		mat1.setSuperType(mat2);
+		mat2.setSuperType(mat3);
+		
+		assertEquals(mTrue, mat1.lessOrEqual(mat3));
+		assertEquals(mFalse, mat2.lessOrEqual(mat1));
+		assertEquals(mFalse, mat3.lessOrEqual(mat1));
+
 		assertEquals(mTrue, mat1.lessOrEqual(mat1));
 	}
 	
@@ -140,11 +159,11 @@ public class LessThanTest extends AbstractTest {
 	@Test	
 	public void atomicTypeLessOrEqualThanSameSingleSumType() throws PersistenceException, CycleException {
 		PersistentMAtomicType mat1 = MAtomicType.createMAtomicType("Typ1",aspect1);
-		PersistentMSumType mpt = MSumType.createMSumType();
+		PersistentMSumType sumType = MSumType.createMSumType();
 		
-		mpt.getContainedTypes().add(mat1);
+		sumType.getContainedTypes().add(mat1);
 		
-		assertEquals(mTrue, mat1.lessOrEqual(mpt));
+		assertEquals(mTrue, mat1.lessOrEqual(sumType));
 	}
 	
 	@Test	
@@ -152,12 +171,12 @@ public class LessThanTest extends AbstractTest {
 		PersistentMAtomicType mat1 = MAtomicType.createMAtomicType("Typ1",aspect1);
 		PersistentMAtomicType mat2 = MAtomicType.createMAtomicType("Typ2",aspect2);
 
-		PersistentMSumType mpt = MSumType.createMSumType();
+		PersistentMSumType sumType = MSumType.createMSumType();
 		
 		mat2.addSubType(mat1);
-		mpt.getContainedTypes().add(mat2);
+		sumType.getContainedTypes().add(mat2);
 		
-		assertEquals(mTrue, mat1.lessOrEqual(mpt));
+		assertEquals(mTrue, mat1.lessOrEqual(sumType));
 	}
 	
 	@Test	
@@ -165,11 +184,11 @@ public class LessThanTest extends AbstractTest {
 		PersistentMAtomicType mat1 = MAtomicType.createMAtomicType("Typ1",aspect1);
 		PersistentMAtomicType mat2 = MAtomicType.createMAtomicType("Typ2",aspect2);
 
-		PersistentMSumType mpt = MSumType.createMSumType();
+		PersistentMSumType sumType = MSumType.createMSumType();
 		
-		mpt.getContainedTypes().add(mat2);
+		sumType.getContainedTypes().add(mat2);
 		
-		assertEquals(mFalse, mat1.lessOrEqual(mpt));
+		assertEquals(mFalse, mat1.lessOrEqual(sumType));
 	}
 	
 	@Test	
@@ -177,12 +196,12 @@ public class LessThanTest extends AbstractTest {
 		PersistentMAtomicType mat1 = MAtomicType.createMAtomicType("Typ1",aspect1);
 		PersistentMAtomicType mat2 = MAtomicType.createMAtomicType("Typ2",aspect2);
 
-		PersistentMSumType mpt = MSumType.createMSumType();
+		PersistentMSumType sumType = MSumType.createMSumType();
 		
-		mpt.getContainedTypes().add(mat2);
-		mpt.getContainedTypes().add(mat1);
+		sumType.getContainedTypes().add(mat2);
+		sumType.getContainedTypes().add(mat1);
 		
-		assertEquals(mTrue, mat1.lessOrEqual(mpt));
+		assertEquals(mTrue, mat1.lessOrEqual(sumType));
 	}
 	
 	@Test	
@@ -191,12 +210,12 @@ public class LessThanTest extends AbstractTest {
 		PersistentMAtomicType mat2 = MAtomicType.createMAtomicType("Typ2",aspect2);
 		PersistentMAtomicType mat3 = MAtomicType.createMAtomicType("Typ2",aspect2);
 
-		PersistentMSumType mpt = MSumType.createMSumType();
+		PersistentMSumType sumType = MSumType.createMSumType();
 		
-		mpt.getContainedTypes().add(mat2);
-		mpt.getContainedTypes().add(mat3);
+		sumType.getContainedTypes().add(mat2);
+		sumType.getContainedTypes().add(mat3);
 		
-		assertEquals(mFalse, mat1.lessOrEqual(mpt));
+		assertEquals(mFalse, mat1.lessOrEqual(sumType));
 	}
 	
 	@Test	
@@ -205,13 +224,13 @@ public class LessThanTest extends AbstractTest {
 		PersistentMAtomicType mat2 = MAtomicType.createMAtomicType("Typ2",aspect2);
 		PersistentMAtomicType mat3 = MAtomicType.createMAtomicType("Typ2",aspect2);
 
-		PersistentMProductType mpt = MProductType.createMProductType();
+		PersistentMProductType sumType = MProductType.createMProductType();
 		
 		mat3.addSubType(mat1);
-		mpt.getContainedTypes().add(mat2);
-		mpt.getContainedTypes().add(mat3);
+		sumType.getContainedTypes().add(mat2);
+		sumType.getContainedTypes().add(mat3);
 		
-		assertEquals(mTrue, mat1.lessOrEqual(mpt));
+		assertEquals(mTrue, mat1.lessOrEqual(sumType));
 	}
 	
 	
