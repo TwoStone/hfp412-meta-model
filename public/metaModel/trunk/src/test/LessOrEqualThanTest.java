@@ -38,8 +38,7 @@ public class LessOrEqualThanTest extends AbstractTest {
 	private PersistentMSumType mstMultiple2And4;
 	private PersistentMSumType mstMultiple4And5;
 
-	@Before
-	public void init() throws PersistenceException, CycleException {
+	public LessOrEqualThanTest() throws PersistenceException, CycleException {
 		// Boolean
 		mTrue = MTrue.getTheMTrue();
 		mFalse = MFalse.getTheMFalse();
@@ -50,7 +49,7 @@ public class LessOrEqualThanTest extends AbstractTest {
 		mat3 = MAtomicType.createMAtomicType("Typ3", MAspect.createMAspect("Aspekt No. 3"));
 		mat4 = MAtomicType.createMAtomicType("Typ4", MAspect.createMAspect("Aspekt No. 4"));
 		mat5 = MAtomicType.createMAtomicType("Typ5", MAspect.createMAspect("Aspekt No. 5"));
-
+		
 		mat1.setSuperType(mat2);
 		mat2.setSuperType(mat3);
 		
@@ -59,27 +58,28 @@ public class LessOrEqualThanTest extends AbstractTest {
 		mptSingle2 = MProductType.createMProductType();
 		mptSingle4 = MProductType.createMProductType();
 		mptMultiple2And4 = MProductType.createMProductType();
-
+		
 		mptSingle2.getContainedTypes().add(mat2);
 		mptSingle4.getContainedTypes().add(mat4);
 		mptMultiple2And4.getContainedTypes().add(mat2);
 		mptMultiple2And4.getContainedTypes().add(mat4);
-
+		
 		// SumType
 		mstSingle2 = MSumType.createMSumType();
 		mstMultiple2And4 = MSumType.createMSumType();
 		mstMultiple4And5 = MSumType.createMSumType();
-
+		
 		mstSingle2.getContainedTypes().add(mat2);
 		mstMultiple2And4.getContainedTypes().add(mat2);
 		mstMultiple2And4.getContainedTypes().add(mat4);
 		mstMultiple4And5.getContainedTypes().add(mat4);
 		mstMultiple4And5.getContainedTypes().add(mat5);
+		
 	}
 
 	@Test
 	public void atomicTypeLessOrEqualThanAtomicType() throws PersistenceException, CycleException {
-		// Identität
+		// Identitaet
 		assertEquals(mTrue, mat1.lessOrEqual(mat1));
 		// Vererbung eine Ebene
 		assertEquals(mTrue, mat1.lessOrEqual(mat2));
@@ -87,7 +87,7 @@ public class LessOrEqualThanTest extends AbstractTest {
 		// Vererbung zwei Ebenen
 		assertEquals(mTrue, mat1.lessOrEqual(mat3));
 		assertEquals(mFalse, mat3.lessOrEqual(mat1));
-		// voneinander unabhängig
+		// voneinander unabhaengig
 		assertEquals(mFalse, mat4.lessOrEqual(mat1));
 	}
 
