@@ -65,10 +65,10 @@ public class Cache {
 		this.garbageCollector.start();
 	}
 
-//	public void reset$For$Test(){
-//		this.garbageCollector.interrupt();
-//		Cache.theCache = null;
-//	}
+	public void reset$For$Test(){
+		this.garbageCollector.interrupt();
+		Cache.theCache = null;
+	}
 
 	public void finalize(){
 		this.garbageCollector.interrupt();
@@ -260,13 +260,13 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
-		this.number2NameMap.put(125, "AddAspectCommand");
-		this.number2NameMap.put(122, "AddAtomicTypeCommand");
 		this.number2NameMap.put(133, "AddSubTypeCommand");
 		this.number2NameMap.put(126, "AspectManager");
 		this.number2NameMap.put(-120, "CommandCoordinator");
 		this.number2NameMap.put(-119, "CommandExecuter");
 		this.number2NameMap.put(121, "CommonDate");
+		this.number2NameMap.put(139, "CreateAspectCommand");
+		this.number2NameMap.put(140, "CreateAtomicTypeCommand");
 		this.number2NameMap.put(135, "CreateSubTypeCommand");
 		this.number2NameMap.put(-104, "ErrorDisplay");
 		this.number2NameMap.put(127, "MAspect");

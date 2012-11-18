@@ -1,10 +1,10 @@
 package persistence;
 
-public class AddAtomicTypeCommandListEntryProxi extends AddAtomicTypeCommandProxi implements PersistentAddAtomicTypeCommandListEntryProxi {
+public class CreateAtomicTypeCommandListEntryProxi extends CreateAtomicTypeCommandProxi implements PersistentCreateAtomicTypeCommandListEntryProxi {
 
   long entryId;
 
-  public AddAtomicTypeCommandListEntryProxi(long objectId, long entryId) {
+  public CreateAtomicTypeCommandListEntryProxi(long objectId, long entryId) {
     super(objectId);
     this.entryId = entryId;
   }

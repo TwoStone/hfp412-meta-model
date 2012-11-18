@@ -8,28 +8,28 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class AddAtomicTypeCommand extends PersistentObject implements PersistentAddAtomicTypeCommand{
+public class CreateAtomicTypeCommand extends PersistentObject implements PersistentCreateAtomicTypeCommand{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentAddAtomicTypeCommand getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.getClass(objectId);
-        return (PersistentAddAtomicTypeCommand)PersistentProxi.createProxi(objectId, classId);
+    public static PersistentCreateAtomicTypeCommand getById(long objectId) throws PersistenceException{
+        long classId = ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.getClass(objectId);
+        return (PersistentCreateAtomicTypeCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentAddAtomicTypeCommand createAddAtomicTypeCommand(String name,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createAddAtomicTypeCommand(name,createDate,commitDate,false);
+    public static PersistentCreateAtomicTypeCommand createCreateAtomicTypeCommand(String name,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createCreateAtomicTypeCommand(name,createDate,commitDate,false);
     }
     
-    public static PersistentAddAtomicTypeCommand createAddAtomicTypeCommand(String name,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentCreateAtomicTypeCommand createCreateAtomicTypeCommand(String name,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentAddAtomicTypeCommand result = null;
+        PersistentCreateAtomicTypeCommand result = null;
         if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade
-                .newDelayedAddAtomicTypeCommand(name);
+            result = ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade
+                .newDelayedCreateAtomicTypeCommand(name);
             result.setDelayed$Persistence(true);
         }else{
-            result = ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade
-                .newAddAtomicTypeCommand(name,-1);
+            result = ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade
+                .newCreateAtomicTypeCommand(name,-1);
         }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -46,7 +46,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     
     private model.UserException commandException = null;
     
-    public AddAtomicTypeCommand(PersistentMAspect aspect,String name,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateAtomicTypeCommand(PersistentMAspect aspect,String name,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.aspect = aspect;
@@ -57,7 +57,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 122;
+        return 140;
     }
     
     public long getClassId() {
@@ -66,24 +66,24 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 122) ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade
-            .newAddAtomicTypeCommand(name,this.getId());
+        if (this.getClassId() == 140) ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade
+            .newCreateAtomicTypeCommand(name,this.getId());
         super.store();
         if(this.getAspect() != null){
             this.getAspect().store();
-            ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.aspectSet(this.getId(), getAspect());
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.aspectSet(this.getId(), getAspect());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
-            ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.invokerSet(this.getId(), getInvoker());
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.invokerSet(this.getId(), getInvoker());
         }
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
-            ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
-            ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
         }
         
     }
@@ -99,7 +99,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
         this.aspect = (PersistentMAspect)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.aspectSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.aspectSet(this.getId(), newValue);
         }
     }
     public String getName() throws PersistenceException {
@@ -107,7 +107,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     }
     public void setName(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.nameSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -121,7 +121,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.invokerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
     public PersistentTypeManager getCommandReceiver() throws PersistenceException {
@@ -135,7 +135,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
         this.commandReceiver = (PersistentTypeManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.commandReceiverSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -149,7 +149,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
         this.myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddAtomicTypeCommandFacade.myCommonDateSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.myCommonDateSet(this.getId(), newValue);
         }
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
@@ -170,52 +170,52 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     }
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException {
-        visitor.handleAddAtomicTypeCommand(this);
+        visitor.handleCreateAtomicTypeCommand(this);
     }
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddAtomicTypeCommand(this);
+         return visitor.handleCreateAtomicTypeCommand(this);
     }
     public <E extends UserException>  void accept(CommonDateExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddAtomicTypeCommand(this);
+         visitor.handleCreateAtomicTypeCommand(this);
     }
     public <R, E extends UserException> R accept(CommonDateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddAtomicTypeCommand(this);
+         return visitor.handleCreateAtomicTypeCommand(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleAddAtomicTypeCommand(this);
+        visitor.handleCreateAtomicTypeCommand(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddAtomicTypeCommand(this);
+         return visitor.handleCreateAtomicTypeCommand(this);
     }
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddAtomicTypeCommand(this);
+         visitor.handleCreateAtomicTypeCommand(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddAtomicTypeCommand(this);
+         return visitor.handleCreateAtomicTypeCommand(this);
     }
     public void accept(CommandVisitor visitor) throws PersistenceException {
-        visitor.handleAddAtomicTypeCommand(this);
+        visitor.handleCreateAtomicTypeCommand(this);
     }
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddAtomicTypeCommand(this);
+         return visitor.handleCreateAtomicTypeCommand(this);
     }
     public <E extends UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddAtomicTypeCommand(this);
+         visitor.handleCreateAtomicTypeCommand(this);
     }
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddAtomicTypeCommand(this);
+         return visitor.handleCreateAtomicTypeCommand(this);
     }
     public void accept(TypeManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleAddAtomicTypeCommand(this);
+        visitor.handleCreateAtomicTypeCommand(this);
     }
     public <R> R accept(TypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddAtomicTypeCommand(this);
+         return visitor.handleCreateAtomicTypeCommand(this);
     }
     public <E extends UserException>  void accept(TypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddAtomicTypeCommand(this);
+         visitor.handleCreateAtomicTypeCommand(this);
     }
     public <R, E extends UserException> R accept(TypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddAtomicTypeCommand(this);
+         return visitor.handleCreateAtomicTypeCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
@@ -227,7 +227,7 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().addAtomicType(this.getAspect(), this.getName());
+			this.getCommandReceiver().createAtomicType(this.getAspect(), this.getName());
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
@@ -251,8 +251,6 @@ public class AddAtomicTypeCommand extends PersistentObject implements Persistent
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
     
     /* End of protected part that is not overridden by persistence generator */
     

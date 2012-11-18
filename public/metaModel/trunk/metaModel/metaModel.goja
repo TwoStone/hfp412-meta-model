@@ -4,13 +4,19 @@ model metaModel{
 /*** SERVER ***/
 
 server Server {
+	/* TypeManager */
 	derived TypeManager typeManager;
-	derived AspectManager aspectManager;
-	void addAtomicType(MAspect aspect, String name);
 
-	void addAspect(String name) throws DoubleDefinitionException;
-	void addSubType(MAtomicType superType, MAtomicType typeunder);
-	void createSubType(MAtomicType superType, String name);
+	/* AtomicType */
+	void createSubType@@Untertyp_anlegen(MAtomicType superType, String typeName@@Name);
+	void addSubType@@Untertyp_hinzufügen(MAtomicType superType, MAtomicType subType@@Untertyp[typeManager;atomicTypes]);
+
+	/* AspectManager */
+	derived AspectManager aspectManager;
+	void createAspect@@Aspekt_anlegen(AspectManager aspectManager, String aspectName@@Name) throws DoubleDefinitionException;
+
+	/* Aspect */
+	void createAtomicType@@Atomaren_Typ_anlegen(MAspect parent, String typeName@@Name);
 }
 
 
@@ -18,16 +24,16 @@ server Server {
 
 singleton AspectManager {
 	MAspect** aspects;
-	active void addAspect(String name) throws DoubleDefinitionException;
+	active void createAspect(String name) throws DoubleDefinitionException;
 }
 
 singleton TypeManager {
 	MAtomicType** atomicTypes;
 	MProductType** productTypes;
 	MSumType** sumTypes;
-	active void addAtomicType(MAspect aspect, String name) throws DoubleDefinitionException;
-	active void addSubType(MAtomicType superType, MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
+	active void createAtomicType(MAspect aspect, String name) throws DoubleDefinitionException;
 	active void createSubType(MAtomicType superType, String name) throws CycleException, WrongSubTypeAspectException, DoubleDefinitionException;
+	active void addSubType(MAtomicType superType, MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
 }
 
 

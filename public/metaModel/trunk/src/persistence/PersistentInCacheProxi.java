@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[38];
+			iCProxiFactories = new ICProxiFactory[40];
         iCProxiFactories[0] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new MProductTypeICProxi(objectId);
@@ -26,11 +26,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[18] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommandExecuterICProxi(objectId);
-            }
-        };
-        iCProxiFactories[24] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new AddAspectCommandICProxi(objectId);
             }
         };
         iCProxiFactories[25] = new ICProxiFactory(){
@@ -63,6 +58,16 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new MAtomicTypeICProxi(objectId);
             }
         };
+        iCProxiFactories[38] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateAspectCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[39] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateAtomicTypeCommandICProxi(objectId);
+            }
+        };
         iCProxiFactories[19] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommandCoordinatorICProxi(objectId);
@@ -76,11 +81,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[20] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommonDateICProxi(objectId);
-            }
-        };
-        iCProxiFactories[21] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new AddAtomicTypeCommandICProxi(objectId);
             }
         };
         iCProxiFactories[2] = new ICProxiFactory(){

@@ -10,7 +10,7 @@ public class JListRefresh extends JList {
 	public JListRefresh(){
 		super();
 	}
-	public void setListData(Vector<?> data){
+	public void setListData(Vector data){
 		Object[] selected = this.getSelectedValues();
 		super.setListData(data);
 		int[] newSelection = find(selected);

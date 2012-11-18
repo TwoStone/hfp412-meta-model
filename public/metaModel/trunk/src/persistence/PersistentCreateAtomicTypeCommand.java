@@ -4,14 +4,16 @@ import model.UserException;
 
 import model.visitor.*;
 
-public interface PersistentAddAspectCommand extends AspectManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
+public interface PersistentCreateAtomicTypeCommand extends TypeManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
     
+    public PersistentMAspect getAspect() throws PersistenceException ;
+    public void setAspect(PersistentMAspect newValue) throws PersistenceException ;
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
-    public PersistentAspectManager getCommandReceiver() throws PersistenceException ;
-    public void setCommandReceiver(PersistentAspectManager newValue) throws PersistenceException ;
+    public PersistentTypeManager getCommandReceiver() throws PersistenceException ;
+    public void setCommandReceiver(PersistentTypeManager newValue) throws PersistenceException ;
     public PersistentCommonDate getMyCommonDate() throws PersistenceException ;
     public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException ;
     
@@ -27,10 +29,10 @@ public interface PersistentAddAspectCommand extends AspectManagerCommand, Anythi
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
-    public void accept(AspectManagerCommandVisitor visitor) throws PersistenceException;
-    public <R> R accept(AspectManagerCommandReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends UserException>  void accept(AspectManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends UserException> R accept(AspectManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(TypeManagerCommandVisitor visitor) throws PersistenceException;
+    public <R> R accept(TypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends UserException>  void accept(TypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends UserException> R accept(TypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public void execute() 
 				throws PersistenceException;

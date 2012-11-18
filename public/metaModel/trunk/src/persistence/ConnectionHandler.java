@@ -50,7 +50,6 @@ public class ConnectionHandler {
     public MProductTypeFacade theMProductTypeFacade;
     public TypeManagerFacade theTypeManagerFacade;
     public CommandExecuterFacade theCommandExecuterFacade;
-    public AddAspectCommandFacade theAddAspectCommandFacade;
     public AspectManagerFacade theAspectManagerFacade;
     public ErrorDisplayFacade theErrorDisplayFacade;
     public AddSubTypeCommandFacade theAddSubTypeCommandFacade;
@@ -58,10 +57,11 @@ public class ConnectionHandler {
     public MFalseFacade theMFalseFacade;
     public MComplexTypeFacade theMComplexTypeFacade;
     public MAtomicTypeFacade theMAtomicTypeFacade;
+    public CreateAspectCommandFacade theCreateAspectCommandFacade;
+    public CreateAtomicTypeCommandFacade theCreateAtomicTypeCommandFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public MAspectFacade theMAspectFacade;
     public CommonDateFacade theCommonDateFacade;
-    public AddAtomicTypeCommandFacade theAddAtomicTypeCommandFacade;
     public MSumTypeFacade theMSumTypeFacade;
     public CreateSubTypeCommandFacade theCreateSubTypeCommandFacade;
     public MBooleanFacade theMBooleanFacade;
@@ -73,7 +73,6 @@ public class ConnectionHandler {
             this.theMProductTypeFacade= new MProductTypeFacade();
             this.theTypeManagerFacade= new TypeManagerFacade();
             this.theCommandExecuterFacade= new CommandExecuterFacade();
-            this.theAddAspectCommandFacade= new AddAspectCommandFacade();
             this.theAspectManagerFacade= new AspectManagerFacade();
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
             this.theAddSubTypeCommandFacade= new AddSubTypeCommandFacade();
@@ -81,10 +80,11 @@ public class ConnectionHandler {
             this.theMFalseFacade= new MFalseFacade();
             this.theMComplexTypeFacade= new MComplexTypeFacade();
             this.theMAtomicTypeFacade= new MAtomicTypeFacade();
+            this.theCreateAspectCommandFacade= new CreateAspectCommandFacade();
+            this.theCreateAtomicTypeCommandFacade= new CreateAtomicTypeCommandFacade();
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade();
             this.theMAspectFacade= new MAspectFacade();
             this.theCommonDateFacade= new CommonDateFacade();
-            this.theAddAtomicTypeCommandFacade= new AddAtomicTypeCommandFacade();
             this.theMSumTypeFacade= new MSumTypeFacade();
             this.theCreateSubTypeCommandFacade= new CreateSubTypeCommandFacade();
             this.theMBooleanFacade= new MBooleanFacade();

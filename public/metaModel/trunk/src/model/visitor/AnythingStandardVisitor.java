@@ -14,9 +14,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException{
         this.standardHandling(commandExecuter);
     }
-    public void handleAddAspectCommand(PersistentAddAspectCommand addAspectCommand) throws PersistenceException{
-        this.standardHandling(addAspectCommand);
-    }
     public void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException{
         this.standardHandling(aspectManager);
     }
@@ -35,17 +32,20 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
         this.standardHandling(mAtomicType);
     }
-    public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException{
-        this.standardHandling(commandCoordinator);
+    public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
+        this.standardHandling(createAspectCommand);
+    }
+    public void handleCreateAtomicTypeCommand(PersistentCreateAtomicTypeCommand createAtomicTypeCommand) throws PersistenceException{
+        this.standardHandling(createAtomicTypeCommand);
     }
     public void handleMAspect(PersistentMAspect mAspect) throws PersistenceException{
         this.standardHandling(mAspect);
     }
+    public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException{
+        this.standardHandling(commandCoordinator);
+    }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
-    }
-    public void handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException{
-        this.standardHandling(addAtomicTypeCommand);
     }
     public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
         this.standardHandling(mSumType);

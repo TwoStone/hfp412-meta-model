@@ -5,6 +5,6 @@ import persistence.*;
 
 public interface AspectManagerCommandExceptionVisitor<E extends UserException> {
     
-    public void handleAddAspectCommand(PersistentAddAspectCommand addAspectCommand) throws PersistenceException, E;
+    public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException, E;
     
 }

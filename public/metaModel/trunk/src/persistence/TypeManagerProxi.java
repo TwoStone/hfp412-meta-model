@@ -73,21 +73,21 @@ public class TypeManagerProxi extends PersistentProxi implements PersistentTypeM
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).createSubType(superType, name, invoker);
     }
+    public void createAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).createAtomicType(aspect, name, invoker);
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void addAtomicType(final PersistentMAspect aspect, final String name) 
+    public void createAtomicType(final PersistentMAspect aspect, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).addAtomicType(aspect, name);
+        ((PersistentTypeManager)this.getTheObject()).createAtomicType(aspect, name);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).initializeOnCreation();
-    }
-    public void addAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).addAtomicType(aspect, name, invoker);
     }
 
     

@@ -5,11 +5,11 @@ import persistence.*;
 
 public abstract class CommandStandardVisitor implements CommandVisitor {
     
-    public void handleAddAspectCommand(PersistentAddAspectCommand addAspectCommand) throws PersistenceException{
-        this.standardHandling(addAspectCommand);
+    public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
+        this.standardHandling(createAspectCommand);
     }
-    public void handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException{
-        this.standardHandling(addAtomicTypeCommand);
+    public void handleCreateAtomicTypeCommand(PersistentCreateAtomicTypeCommand createAtomicTypeCommand) throws PersistenceException{
+        this.standardHandling(createAtomicTypeCommand);
     }
     public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException{
         this.standardHandling(addSubTypeCommand);

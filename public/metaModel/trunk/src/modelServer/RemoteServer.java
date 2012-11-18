@@ -18,20 +18,31 @@ public  class RemoteServer extends RemoteServerMaster {
         return this.server;
     } 
 
-    public synchronized java.util.Hashtable<?,?> addSubType(String superTypeProxiString, String typeunderProxiString){
+    public synchronized java.util.Hashtable<?,?> addSubType(String superTypeProxiString, String subTypeProxiString){
         try {
             PersistentMAtomicType superType = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(superTypeProxiString));
-            PersistentMAtomicType typeunder = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeunderProxiString));
-            ((PersistentServer)this.server).addSubType(superType, typeunder);
+            PersistentMAtomicType subType = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(subTypeProxiString));
+            ((PersistentServer)this.server).addSubType(superType, subType);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> addAspect(String name){
+    public synchronized java.util.Hashtable<?,?> createAtomicType(String parentProxiString, String typeName){
         try {
-            ((PersistentServer)this.server).addAspect(name);
+            PersistentMAspect parent = (PersistentMAspect)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(parentProxiString));
+            ((PersistentServer)this.server).createAtomicType(parent, typeName);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createAspect(String aspectManagerProxiString, String aspectName){
+        try {
+            PersistentAspectManager aspectManager = (PersistentAspectManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aspectManagerProxiString));
+            ((PersistentServer)this.server).createAspect(aspectManager, aspectName);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -40,20 +51,10 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createSubType(String superTypeProxiString, String name){
+    public synchronized java.util.Hashtable<?,?> createSubType(String superTypeProxiString, String typeName){
         try {
             PersistentMAtomicType superType = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(superTypeProxiString));
-            ((PersistentServer)this.server).createSubType(superType, name);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> addAtomicType(String aspectProxiString, String name){
-        try {
-            PersistentMAspect aspect = (PersistentMAspect)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aspectProxiString));
-            ((PersistentServer)this.server).addAtomicType(aspect, name);
+            ((PersistentServer)this.server).createSubType(superType, typeName);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

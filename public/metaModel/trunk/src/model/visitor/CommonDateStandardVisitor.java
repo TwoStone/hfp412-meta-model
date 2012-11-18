@@ -5,14 +5,14 @@ import persistence.*;
 
 public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     
-    public void handleAddAspectCommand(PersistentAddAspectCommand addAspectCommand) throws PersistenceException{
-        this.standardHandling(addAspectCommand);
+    public void handleCreateAtomicTypeCommand(PersistentCreateAtomicTypeCommand createAtomicTypeCommand) throws PersistenceException{
+        this.standardHandling(createAtomicTypeCommand);
+    }
+    public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
+        this.standardHandling(createAspectCommand);
     }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
-    }
-    public void handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException{
-        this.standardHandling(addAtomicTypeCommand);
     }
     public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException{
         this.standardHandling(createSubTypeCommand);

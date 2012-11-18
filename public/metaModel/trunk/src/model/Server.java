@@ -281,9 +281,9 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         return model.TypeManager.getTheTypeManager();
     }
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType) 
 				throws PersistenceException{
-        TypeManager.getTheTypeManager().addSubType(superType, typeunder, getThis());
+        TypeManager.getTheTypeManager().addSubType(superType, subType, getThis());
     }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
@@ -291,8 +291,6 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     public PersistentAspectManager getAspectManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -302,17 +300,18 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void connected(final String user) 
 				throws PersistenceException{
-        //TODO: implement method: connected
-        
     }
-    public void addAspect(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        AspectManager.getTheAspectManager().addAspect(name, getThis());
+    public void createAtomicType(final PersistentMAspect parent, final String typeName) 
+				throws PersistenceException{
+        TypeManager.getTheTypeManager().createAtomicType(parent, typeName, getThis());
+        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
+    }
+    public void createAspect(final PersistentAspectManager aspectManager, final String aspectName) 
+				throws model.DoubleDefinitionException, PersistenceException{
+    	aspectManager.createAspect(aspectName, getThis());
     }
     public boolean hasChanged() 
 				throws PersistenceException{
@@ -322,8 +321,6 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void disconnected() 
 				throws PersistenceException{
-        //TODO: implement method: disconnected
-        
     }
     public PersistentAspectManager getAspectManager() 
 				throws PersistenceException{
@@ -335,14 +332,12 @@ public class Server extends PersistentObject implements PersistentServer{
 		observer.updateTransientDerived(getThis(), "typeManager", result);
 		return result;
     }
-    public void createSubType(final PersistentMAtomicType superType, final String name) 
+    public void createSubType(final PersistentMAtomicType superType, final String typeName) 
 				throws PersistenceException{
-        TypeManager.getTheTypeManager().createSubType(superType, name, getThis());
+        TypeManager.getTheTypeManager().createSubType(superType, typeName, getThis());
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -361,11 +356,6 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackCount((Long)final$$Fields.get("hackCount"));
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
-    }
-    public void addAtomicType(final PersistentMAspect aspect, final String name) 
-				throws PersistenceException{
-        TypeManager.getTheTypeManager().addAtomicType(aspect, name, getThis());
-        
     }
 
     /* Start of protected part that is not overridden by persistence generator */

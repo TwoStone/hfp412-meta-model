@@ -10,7 +10,7 @@ import model.visitor.*;
 public class TypeManager extends PersistentObject implements PersistentTypeManager{
     
     private static PersistentTypeManager theTypeManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentTypeManager getTheTypeManager() throws PersistenceException{
         if (theTypeManager == null || reset$For$Test){
@@ -183,6 +183,15 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
+    public void createAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateAtomicTypeCommand command = model.meta.CreateAtomicTypeCommand.createCreateAtomicTypeCommand(name, now, now);
+		command.setAspect(aspect);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void createSubType(final PersistentMAtomicType superType, final String name, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -198,7 +207,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		if(this.equals(This)){
 		}
     }
-    public void addAtomicType(final PersistentMAspect aspect, final String name) 
+    public void createAtomicType(final PersistentMAspect aspect, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
     	checkForDuplicateMAtomicTypeName(name);
         getThis().getAtomicTypes().add(MAtomicType.createMAtomicType(name, aspect));
@@ -207,15 +216,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
-    }
-    public void addAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddAtomicTypeCommand command = model.meta.AddAtomicTypeCommand.createAddAtomicTypeCommand(name, now, now);
-		command.setAspect(aspect);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
 
     /* Start of protected part that is not overridden by persistence generator */

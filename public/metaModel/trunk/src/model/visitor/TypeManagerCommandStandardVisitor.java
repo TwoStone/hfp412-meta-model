@@ -5,8 +5,8 @@ import persistence.*;
 
 public abstract class TypeManagerCommandStandardVisitor implements TypeManagerCommandVisitor {
     
-    public void handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException{
-        this.standardHandling(addAtomicTypeCommand);
+    public void handleCreateAtomicTypeCommand(PersistentCreateAtomicTypeCommand createAtomicTypeCommand) throws PersistenceException{
+        this.standardHandling(createAtomicTypeCommand);
     }
     public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException{
         this.standardHandling(createSubTypeCommand);

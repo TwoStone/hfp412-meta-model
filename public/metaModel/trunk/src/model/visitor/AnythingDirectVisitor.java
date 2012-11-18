@@ -17,11 +17,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     
-    public void handleAddAspectCommand(PersistentAddAspectCommand addAspectCommand) throws PersistenceException{
-        this.handleCommonDate(addAspectCommand);
+    public void handleCreateAtomicTypeCommand(PersistentCreateAtomicTypeCommand createAtomicTypeCommand) throws PersistenceException{
+        this.handleCommonDate(createAtomicTypeCommand);
     }
-    public void handleAddAtomicTypeCommand(PersistentAddAtomicTypeCommand addAtomicTypeCommand) throws PersistenceException{
-        this.handleCommonDate(addAtomicTypeCommand);
+    public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
+        this.handleCommonDate(createAspectCommand);
     }
     public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException{
         this.handleCommonDate(createSubTypeCommand);

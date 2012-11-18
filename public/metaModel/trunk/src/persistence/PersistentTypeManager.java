@@ -26,15 +26,15 @@ public interface PersistentTypeManager extends Anything, AbstractPersistentProxi
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public void createAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
+				throws PersistenceException;
     public void createSubType(final PersistentMAtomicType superType, final String name, final Invoker invoker) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void addAtomicType(final PersistentMAspect aspect, final String name) 
+    public void createAtomicType(final PersistentMAspect aspect, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException;
     public void initializeOnCreation() 
-				throws PersistenceException;
-    public void addAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
 				throws PersistenceException;
 
 }

@@ -284,44 +284,18 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private java.util.Vector<javax.swing.JButton> getToolButtonsForStaticOperations() {
         java.util.Vector<javax.swing.JButton> result = new java.util.Vector<javax.swing.JButton>();
         javax.swing.JButton currentButton = null;
-        currentButton = new javax.swing.JButton("addAspect ... ");
-        currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerAddAspectStringMssgWizard wizard = new ServerAddAspectStringMssgWizard("addAspect");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });result.add(currentButton);
         return result;
     }
     private JPopupMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations) {
         JPopupMenu result = new JPopupMenu();
         javax.swing.JMenuItem item = null;
-        item = new javax.swing.JMenuItem();
-        item.setText("(S) addAspect ... ");
-        item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerAddAspectStringMssgWizard wizard = new ServerAddAspectStringMssgWizard("addAspect");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });
-        if (withStaticOperations) result.add(item);
         if (selected != null){
             if (selected instanceof MAtomicTypeView){
                 item = new javax.swing.JMenuItem();
-                item.setText("addSubType ... ");
+                item.setText("Untertyp anlegen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard wizard = new ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard("addSubType");
+                        ServerCreateSubTypeMAtomicTypeStringMssgWizard wizard = new ServerCreateSubTypeMAtomicTypeStringMssgWizard("Untertyp anlegen");
                         wizard.setFirstArgument((MAtomicTypeView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -333,10 +307,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
                 item = new javax.swing.JMenuItem();
-                item.setText("createSubType ... ");
+                item.setText("Untertyp hinzufügen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateSubTypeMAtomicTypeStringMssgWizard wizard = new ServerCreateSubTypeMAtomicTypeStringMssgWizard("createSubType");
+                        ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard wizard = new ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard("Untertyp hinzufügen");
                         wizard.setFirstArgument((MAtomicTypeView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -350,11 +324,28 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
             }
             if (selected instanceof MAspectView){
                 item = new javax.swing.JMenuItem();
-                item.setText("addAtomicType ... ");
+                item.setText("Atomaren Typ anlegen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddAtomicTypeMAspectStringMssgWizard wizard = new ServerAddAtomicTypeMAspectStringMssgWizard("addAtomicType");
+                        ServerCreateAtomicTypeMAspectStringMssgWizard wizard = new ServerCreateAtomicTypeMAspectStringMssgWizard("Atomaren Typ anlegen");
                         wizard.setFirstArgument((MAspectView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof AspectManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Aspekt anlegen ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateAspectAspectManagerStringMssgWizard wizard = new ServerCreateAspectAspectManagerStringMssgWizard("Aspekt anlegen");
+                        wizard.setFirstArgument((AspectManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -403,7 +394,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("typeunder", "view.MAtomicTypeView", (ViewRoot)getConnection().getServerView(), this));		
+			getParametersPanel().add(new ObjectSelectionPanel("Untertyp", "view.MAtomicTypeView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -414,27 +405,82 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		public void setFirstArgument(MAtomicTypeView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
+				selectionPanel.preset(getConnection().getServerView().getTypeManager().getAtomicTypes());
+				if (!selectionPanel.check()) selectionPanel.preset((Anything)null);
+			}catch(ModelException me){
+				 handleException(me);
+			}
 			this.check();
 		}
 		
 		
 	}
 
-	class ServerAddAspectStringMssgWizard extends Wizard {
+	class ServerCreateAtomicTypeMAspectStringMssgWizard extends Wizard {
 
-		protected ServerAddAspectStringMssgWizard(String operationName){
+		protected ServerCreateAtomicTypeMAspectStringMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerAddAspectStringMssgWizard.help";
+			this.helpFileName = "ServerCreateAtomicTypeMAspectStringMssgWizard.help";
 			super.initialize();			
 		}
 				
 		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
-				getConnection().addAspect(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().createAtomicType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("Name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MAspectView firstArgument; 
+	
+		public void setFirstArgument(MAspectView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateAspectAspectManagerStringMssgWizard extends Wizard {
+
+		protected ServerCreateAspectAspectManagerStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateAspectAspectManagerStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().createAspect(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -454,9 +500,18 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
+			getParametersPanel().add(new StringSelectionPanel("Name", this));		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AspectManagerView firstArgument; 
+	
+		public void setFirstArgument(AspectManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
 		}
 		
 		
@@ -493,7 +548,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
+			getParametersPanel().add(new StringSelectionPanel("Name", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -504,68 +559,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		public void setFirstArgument(MAtomicTypeView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
-			try{
-				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
-				selectionPanel.preset(firstArgument.getName());
-				if (!selectionPanel.check()) selectionPanel.preset("");
-			}catch(ModelException me){
-				 handleException(me);
-			}
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerAddAtomicTypeMAspectStringMssgWizard extends Wizard {
-
-		protected ServerAddAtomicTypeMAspectStringMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerAddAtomicTypeMAspectStringMssgWizard.help";
-			super.initialize();			
-		}
-				
-		@SuppressWarnings("unchecked")
-		protected void perform() {
-			try {
-				getConnection().addAtomicType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private MAspectView firstArgument; 
-	
-		public void setFirstArgument(MAspectView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			try{
-				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
-				selectionPanel.preset(firstArgument.getName());
-				if (!selectionPanel.check()) selectionPanel.preset("");
-			}catch(ModelException me){
-				 handleException(me);
-			}
 			this.check();
 		}
 		

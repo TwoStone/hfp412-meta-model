@@ -8,28 +8,28 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class AddAspectCommand extends PersistentObject implements PersistentAddAspectCommand{
+public class CreateAspectCommand extends PersistentObject implements PersistentCreateAspectCommand{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentAddAspectCommand getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade.getClass(objectId);
-        return (PersistentAddAspectCommand)PersistentProxi.createProxi(objectId, classId);
+    public static PersistentCreateAspectCommand getById(long objectId) throws PersistenceException{
+        long classId = ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.getClass(objectId);
+        return (PersistentCreateAspectCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentAddAspectCommand createAddAspectCommand(String name,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createAddAspectCommand(name,createDate,commitDate,false);
+    public static PersistentCreateAspectCommand createCreateAspectCommand(String name,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createCreateAspectCommand(name,createDate,commitDate,false);
     }
     
-    public static PersistentAddAspectCommand createAddAspectCommand(String name,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentCreateAspectCommand createCreateAspectCommand(String name,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentAddAspectCommand result = null;
+        PersistentCreateAspectCommand result = null;
         if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade
-                .newDelayedAddAspectCommand(name);
+            result = ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade
+                .newDelayedCreateAspectCommand(name);
             result.setDelayed$Persistence(true);
         }else{
-            result = ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade
-                .newAddAspectCommand(name,-1);
+            result = ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade
+                .newCreateAspectCommand(name,-1);
         }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -45,7 +45,7 @@ public class AddAspectCommand extends PersistentObject implements PersistentAddA
     
     private model.UserException commandException = null;
     
-    public AddAspectCommand(String name,Invoker invoker,PersistentAspectManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateAspectCommand(String name,Invoker invoker,PersistentAspectManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
@@ -55,7 +55,7 @@ public class AddAspectCommand extends PersistentObject implements PersistentAddA
     }
     
     static public long getTypeId() {
-        return 125;
+        return 139;
     }
     
     public long getClassId() {
@@ -64,20 +64,20 @@ public class AddAspectCommand extends PersistentObject implements PersistentAddA
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 125) ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade
-            .newAddAspectCommand(name,this.getId());
+        if (this.getClassId() == 139) ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade
+            .newCreateAspectCommand(name,this.getId());
         super.store();
         if(this.getInvoker() != null){
             this.getInvoker().store();
-            ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade.invokerSet(this.getId(), getInvoker());
+            ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.invokerSet(this.getId(), getInvoker());
         }
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
-            ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+            ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
-            ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
+            ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
         }
         
     }
@@ -87,7 +87,7 @@ public class AddAspectCommand extends PersistentObject implements PersistentAddA
     }
     public void setName(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade.nameSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -101,7 +101,7 @@ public class AddAspectCommand extends PersistentObject implements PersistentAddA
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade.invokerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
     public PersistentAspectManager getCommandReceiver() throws PersistenceException {
@@ -115,7 +115,7 @@ public class AddAspectCommand extends PersistentObject implements PersistentAddA
         this.commandReceiver = (PersistentAspectManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade.commandReceiverSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -129,7 +129,7 @@ public class AddAspectCommand extends PersistentObject implements PersistentAddA
         this.myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddAspectCommandFacade.myCommonDateSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.myCommonDateSet(this.getId(), newValue);
         }
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
@@ -150,52 +150,52 @@ public class AddAspectCommand extends PersistentObject implements PersistentAddA
     }
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException {
-        visitor.handleAddAspectCommand(this);
+        visitor.handleCreateAspectCommand(this);
     }
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddAspectCommand(this);
+         return visitor.handleCreateAspectCommand(this);
     }
     public <E extends UserException>  void accept(CommonDateExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddAspectCommand(this);
+         visitor.handleCreateAspectCommand(this);
     }
     public <R, E extends UserException> R accept(CommonDateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddAspectCommand(this);
+         return visitor.handleCreateAspectCommand(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleAddAspectCommand(this);
+        visitor.handleCreateAspectCommand(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddAspectCommand(this);
+         return visitor.handleCreateAspectCommand(this);
     }
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddAspectCommand(this);
+         visitor.handleCreateAspectCommand(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddAspectCommand(this);
+         return visitor.handleCreateAspectCommand(this);
     }
     public void accept(CommandVisitor visitor) throws PersistenceException {
-        visitor.handleAddAspectCommand(this);
+        visitor.handleCreateAspectCommand(this);
     }
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddAspectCommand(this);
+         return visitor.handleCreateAspectCommand(this);
     }
     public <E extends UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddAspectCommand(this);
+         visitor.handleCreateAspectCommand(this);
     }
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddAspectCommand(this);
+         return visitor.handleCreateAspectCommand(this);
     }
     public void accept(AspectManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleAddAspectCommand(this);
+        visitor.handleCreateAspectCommand(this);
     }
     public <R> R accept(AspectManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddAspectCommand(this);
+         return visitor.handleCreateAspectCommand(this);
     }
     public <E extends UserException>  void accept(AspectManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddAspectCommand(this);
+         visitor.handleCreateAspectCommand(this);
     }
     public <R, E extends UserException> R accept(AspectManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddAspectCommand(this);
+         return visitor.handleCreateAspectCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
@@ -206,7 +206,7 @@ public class AddAspectCommand extends PersistentObject implements PersistentAddA
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().addAspect(this.getName());
+			this.getCommandReceiver().createAspect(this.getName());
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
@@ -230,8 +230,6 @@ public class AddAspectCommand extends PersistentObject implements PersistentAddA
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
     
     /* End of protected part that is not overridden by persistence generator */
     

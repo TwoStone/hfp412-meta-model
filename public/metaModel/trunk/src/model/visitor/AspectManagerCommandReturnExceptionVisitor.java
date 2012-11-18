@@ -5,6 +5,6 @@ import persistence.*;
 
 public interface AspectManagerCommandReturnExceptionVisitor<R, E extends UserException> {
     
-    public R handleAddAspectCommand(PersistentAddAspectCommand addAspectCommand) throws PersistenceException, E;
+    public R handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException, E;
     
 }

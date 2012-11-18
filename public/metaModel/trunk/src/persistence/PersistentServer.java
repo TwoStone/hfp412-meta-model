@@ -32,7 +32,7 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     
     public PersistentTypeManager getTypeManager() 
 				throws PersistenceException;
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType) 
 				throws PersistenceException;
     public void handleResult(final Command command) 
 				throws PersistenceException;
@@ -42,25 +42,25 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public PersistentAspectManager getAspectManager(final TDObserver observer) 
 				throws PersistenceException;
-    public void addAspect(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException;
+    public void createAtomicType(final PersistentMAspect parent, final String typeName) 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
+    public void createAspect(final PersistentAspectManager aspectManager, final String aspectName) 
+				throws model.DoubleDefinitionException, PersistenceException;
     public boolean hasChanged() 
 				throws PersistenceException;
     public PersistentAspectManager getAspectManager() 
 				throws PersistenceException;
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException;
-    public void createSubType(final PersistentMAtomicType superType, final String name) 
+    public void createSubType(final PersistentMAtomicType superType, final String typeName) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException;
-    public void addAtomicType(final PersistentMAspect aspect, final String name) 
 				throws PersistenceException;
 
 }

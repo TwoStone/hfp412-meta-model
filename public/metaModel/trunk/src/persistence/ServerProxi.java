@@ -99,9 +99,9 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getTypeManager();
     }
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addSubType(superType, typeunder);
+        ((PersistentServer)this.getTheObject()).addSubType(superType, subType);
     }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
@@ -119,13 +119,17 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).connected(user);
     }
-    public void addAspect(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentServer)this.getTheObject()).addAspect(name);
+    public void createAtomicType(final PersistentMAspect parent, final String typeName) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAtomicType(parent, typeName);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnCreation();
+    }
+    public void createAspect(final PersistentAspectManager aspectManager, final String aspectName) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAspect(aspectManager, aspectName);
     }
     public boolean hasChanged() 
 				throws PersistenceException{
@@ -135,9 +139,9 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).disconnected();
     }
-    public void createSubType(final PersistentMAtomicType superType, final String name) 
+    public void createSubType(final PersistentMAtomicType superType, final String typeName) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createSubType(superType, name);
+        ((PersistentServer)this.getTheObject()).createSubType(superType, typeName);
     }
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -158,10 +162,6 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public void addAtomicType(final PersistentMAspect aspect, final String name) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addAtomicType(aspect, name);
     }
 
     

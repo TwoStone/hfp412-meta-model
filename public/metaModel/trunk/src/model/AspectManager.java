@@ -10,7 +10,7 @@ import model.visitor.*;
 public class AspectManager extends PersistentObject implements PersistentAspectManager{
     
     private static PersistentAspectManager theAspectManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentAspectManager getTheAspectManager() throws PersistenceException{
         if (theAspectManager == null || reset$For$Test){
@@ -142,18 +142,19 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
         //TODO: implement method: initializeOnInstantiation
         
     }
+    public void createAspect(final String name) 
+				throws model.DoubleDefinitionException, PersistenceException{
+    	if(MAspect.getMAspectByName(name).getLength()>0){
+    		throw new DoubleDefinitionException("Aspect with name '" + name + "' already exists.");
+    	} else {
+    		getThis().getAspects().add(MAspect.createMAspect(name));
+    	}
+        
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
-    }
-    public void addAspect(final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddAspectCommand command = model.meta.AddAspectCommand.createAddAspectCommand(name, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -161,18 +162,17 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
 		if(this.equals(This)){
 		}
     }
+    public void createAspect(final String name, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateAspectCommand command = model.meta.CreateAspectCommand.createCreateAspectCommand(name, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
-        
-    }
-    public void addAspect(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-    	if(MAspect.getMAspectByName(name).getLength()>0){
-    		throw new DoubleDefinitionException("Aspect with name '"+name+"' already exists.");
-    	}else{
-    		getThis().getAspects().add(MAspect.createMAspect(name));
-    	}
         
     }
 

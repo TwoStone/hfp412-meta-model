@@ -1,10 +1,10 @@
 package persistence;
 
-public class AddAspectCommandListEntryProxi extends AddAspectCommandProxi implements PersistentAddAspectCommandListEntryProxi {
+public class CreateAspectCommandListEntryProxi extends CreateAspectCommandProxi implements PersistentCreateAspectCommandListEntryProxi {
 
   long entryId;
 
-  public AddAspectCommandListEntryProxi(long objectId, long entryId) {
+  public CreateAspectCommandListEntryProxi(long objectId, long entryId) {
     super(objectId);
     this.entryId = entryId;
   }

@@ -17,6 +17,8 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	private static final boolean DEBUG_MODE_ON = true;
 	
+	private static final String APPENDIX_OF_PROXIES = "Proxi";
+	
 	private String result;
 	
 	public ToString$Visitor() {
@@ -28,10 +30,30 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			this.standardHandling(anything);
 		}
 		if (DEBUG_MODE_ON) {
-			result = "[" + anything.getClass().getName() + "] " + result;
+			result = this.formatClassNameForDebug(anything) + result;
 		}
 		return result;
 	}
+	
+	private String formatClassNameForDebug(Object anything) {
+		if (anything == null)
+			return "[null] ";
+		
+		String className = anything.getClass().getSimpleName();
+		
+		if (className == null)
+			return "[null] ";
+		
+		if (className.contains("Manager"))
+			return "";
+		
+		if (className.endsWith(APPENDIX_OF_PROXIES)) {
+			className = className.substring(0, className.length() - APPENDIX_OF_PROXIES.length());
+		}
+
+		return "[" + className + "] ";
+	}
+	
 	@Override
 	protected void standardHandling(Anything anything) {
 		result = anything.getClassId() + ";" + anything.getId();
@@ -55,17 +77,17 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleServer(PersistentServer server)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = server.getUser();
 	}
 	@Override
 	public void handleTypeManager(PersistentTypeManager typeManager)
 			throws PersistenceException {
-		result = "TypeManager";
+		result = "Liste der Typen";
 	}
 	@Override
 	public void handleAspectManager(PersistentAspectManager aspectManager)
 			throws PersistenceException {
-		result = "AspectManager";
+		result = "Liste der Aspekte";
 		
 	}
 	@Override
@@ -82,8 +104,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleMBoolean(PersistentMBoolean mBoolean)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "boolean";
 	}
 	
 	@Override

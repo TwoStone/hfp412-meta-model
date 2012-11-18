@@ -43,6 +43,10 @@ public class AspectManagerICProxi extends PersistentInCacheProxiOptimistic imple
     }
     
     
+    public void createAspect(final String name) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        ((PersistentAspectManager)this.getTheObject()).createAspect(name);
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentAspectManager)this.getTheObject()).initializeOnInstantiation();
@@ -51,17 +55,13 @@ public class AspectManagerICProxi extends PersistentInCacheProxiOptimistic imple
 				throws PersistenceException{
         ((PersistentAspectManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void addAspect(final String name, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentAspectManager)this.getTheObject()).addAspect(name, invoker);
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentAspectManager)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void addAspect(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentAspectManager)this.getTheObject()).addAspect(name);
+    public void createAspect(final String name, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentAspectManager)this.getTheObject()).createAspect(name, invoker);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
