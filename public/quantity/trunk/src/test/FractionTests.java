@@ -79,7 +79,7 @@ public class FractionTests extends TestCase {
 	
 	public void testFractionDivisionByZero() {
 		try{
-			Fraction bruch = Fraction.parse("10/0");
+			Fraction.parse("10/0");
 			fail();
 		}
 		catch (NumberFormatException e){
@@ -89,7 +89,7 @@ public class FractionTests extends TestCase {
 	
 	public void testFractionDivisionByZeroConst() {
 		try{
-			Fraction fraction = new Fraction(BigInteger.valueOf(10), BigInteger.valueOf(0));
+			new Fraction(BigInteger.valueOf(10), BigInteger.valueOf(0));
 			fail();
 		}
 		catch (NumberFormatException e){

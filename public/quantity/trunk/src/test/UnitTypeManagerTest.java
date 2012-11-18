@@ -3,6 +3,7 @@
  */
 package test;
 
+import junit.framework.TestCase;
 import model.AbsUnitType;
 import model.DoubleDefinitionException;
 import model.UnitTypeManager;
@@ -15,18 +16,17 @@ import persistence.PersistenceException;
 import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
 import constants.ExceptionConstants;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * Testet den UnitTypeManager
  *
  */
-public class UnitTypeManagerTest {
+public class UnitTypeManagerTest extends TestCase{
 
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		try {
@@ -39,6 +39,7 @@ public class UnitTypeManagerTest {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Override
 	@After
 	public void tearDown() throws Exception {
 		try {
