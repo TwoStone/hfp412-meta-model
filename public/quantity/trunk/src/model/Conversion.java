@@ -121,7 +121,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
     }
     
     static public long getTypeId() {
-        return 116;
+        return 115;
     }
     
     public long getClassId() {
@@ -130,7 +130,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 116) ConnectionHandler.getTheConnectionHandler().theConversionFacade
+        if (this.getClassId() == 115) ConnectionHandler.getTheConnectionHandler().theConversionFacade
             .newConversion(this.getId());
         super.store();
         if(this.getSource() != null){
@@ -237,6 +237,16 @@ public class Conversion extends PersistentObject implements PersistentConversion
     }
     
     
+    public PersistentQuantity convert(final common.Fraction amount) 
+				throws PersistenceException{
+        //TODO: implement method: convert
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"convert\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
@@ -254,6 +264,16 @@ public class Conversion extends PersistentObject implements PersistentConversion
 			this.setSource((PersistentUnit)final$$Fields.get("source"));
 			this.setType((PersistentUnitType)final$$Fields.get("type"));
 		}
+    }
+    public PersistentQuantity convertInverse(final common.Fraction amount) 
+				throws PersistenceException{
+        //TODO: implement method: convertInverse
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"convertInverse\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

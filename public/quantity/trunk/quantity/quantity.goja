@@ -102,14 +102,17 @@ model quantity {
 		prior one-to-one (myConversion) Unit source;
 		prior UnitType type;
 		Function myFunction;
+
+		Quantity convert(Fraction amount);
+		Quantity convertInverse(Fraction amount);
 	}
 
 	class Function {
 		prior Fraction factor;
 		prior Fraction constant;
 		//Wie muss eine Function aussehen? --> y=a*x+b	
-		Quantity convert(Fraction amount);
-		Quantity convertInverse(Fraction amount);
+		Fraction execute(Fraction amount);
+		Fraction executeInverse(Fraction amount);
 	}
 
 	abstract class BooleanValue {}

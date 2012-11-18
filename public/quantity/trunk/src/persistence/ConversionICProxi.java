@@ -19,7 +19,7 @@ public class ConversionICProxi extends PersistentInCacheProxiOptimistic implemen
     }
     
     public long getClassId() {
-        return 116;
+        return 115;
     }
     
     public PersistentUnit getSource() throws PersistenceException {
@@ -58,6 +58,10 @@ public class ConversionICProxi extends PersistentInCacheProxiOptimistic implemen
     }
     
     
+    public PersistentQuantity convert(final common.Fraction amount) 
+				throws PersistenceException{
+        return ((PersistentConversion)this.getTheObject()).convert(amount);
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentConversion)this.getTheObject()).initializeOnInstantiation();
@@ -69,6 +73,10 @@ public class ConversionICProxi extends PersistentInCacheProxiOptimistic implemen
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentConversion)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public PersistentQuantity convertInverse(final common.Fraction amount) 
+				throws PersistenceException{
+        return ((PersistentConversion)this.getTheObject()).convertInverse(amount);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

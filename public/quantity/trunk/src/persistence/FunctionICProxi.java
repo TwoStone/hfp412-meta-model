@@ -52,10 +52,6 @@ public class FunctionICProxi extends PersistentInCacheProxiOptimistic implements
     }
     
     
-    public PersistentQuantity convert(final common.Fraction amount) 
-				throws PersistenceException{
-        return ((PersistentFunction)this.getTheObject()).convert(amount);
-    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentFunction)this.getTheObject()).initializeOnInstantiation();
@@ -68,13 +64,17 @@ public class FunctionICProxi extends PersistentInCacheProxiOptimistic implements
 				throws PersistenceException{
         ((PersistentFunction)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public PersistentQuantity convertInverse(final common.Fraction amount) 
+    public common.Fraction executeInverse(final common.Fraction amount) 
 				throws PersistenceException{
-        return ((PersistentFunction)this.getTheObject()).convertInverse(amount);
+        return ((PersistentFunction)this.getTheObject()).executeInverse(amount);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentFunction)this.getTheObject()).initializeOnCreation();
+    }
+    public common.Fraction execute(final common.Fraction amount) 
+				throws PersistenceException{
+        return ((PersistentFunction)this.getTheObject()).execute(amount);
     }
 
     

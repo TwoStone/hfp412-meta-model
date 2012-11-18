@@ -29,7 +29,7 @@ public class DoubleDefinitionException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -148;
+        return -140;
     }
     
     public long getClassId() {

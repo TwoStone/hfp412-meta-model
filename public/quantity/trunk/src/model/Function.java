@@ -166,16 +166,6 @@ public class Function extends PersistentObject implements PersistentFunction{
     }
     
     
-    public PersistentQuantity convert(final common.Fraction amount) 
-				throws PersistenceException{
-        //TODO: implement method: convert
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"convert\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
@@ -194,20 +184,30 @@ public class Function extends PersistentObject implements PersistentFunction{
 			this.setConstant((common.Fraction)final$$Fields.get("constant"));
 		}
     }
-    public PersistentQuantity convertInverse(final common.Fraction amount) 
+    public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: convertInverse
+        //TODO: implement method: initializeOnCreation
+        
+    }
+    public common.Fraction executeInverse(final common.Fraction amount) 
+				throws PersistenceException{
+        //TODO: implement method: executeInverse
         try{
-            throw new java.lang.UnsupportedOperationException("Method \"convertInverse\" not implemented yet.");
+            throw new java.lang.UnsupportedOperationException("Method \"executeInverse\" not implemented yet.");
         } catch (java.lang.UnsupportedOperationException uoe){
             uoe.printStackTrace();
             throw uoe;
         }
     }
-    public void initializeOnCreation() 
+    public common.Fraction execute(final common.Fraction amount) 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
+        //TODO: implement method: execute
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"execute\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
 
     /* Start of protected part that is not overridden by persistence generator */

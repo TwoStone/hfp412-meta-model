@@ -97,7 +97,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     }
     
     static public long getTypeId() {
-        return 109;
+        return 108;
     }
     
     public long getClassId() {

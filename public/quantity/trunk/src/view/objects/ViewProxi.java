@@ -47,7 +47,7 @@ public abstract class ViewProxi extends ViewRoot {
 	
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [48];
+		proxiFactories = new ProxiFactory [47];
         proxiFactories[1] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ConversionManagerProxi(objectId, classId, connectionKey);
@@ -58,22 +58,22 @@ public abstract class ViewProxi extends ViewRoot {
                 return new ReferenceTypeProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[8] = new ProxiFactory(){
+        proxiFactories[7] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new QuantityManagerProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[10] = new ProxiFactory(){
+        proxiFactories[9] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ErrorDisplayProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[12] = new ProxiFactory(){
+        proxiFactories[11] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new UnitProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[11] = new ProxiFactory(){
+        proxiFactories[10] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new UnitTypeProxi(objectId, classId, connectionKey);
             }
@@ -108,7 +108,7 @@ public abstract class ViewProxi extends ViewRoot {
                 return new BooleanFalseProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[13] = new ProxiFactory(){
+        proxiFactories[12] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ServerProxi(objectId, classId, connectionKey);
             }
@@ -118,22 +118,22 @@ public abstract class ViewProxi extends ViewRoot {
                 return new FractionManagerProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[17] = new ProxiFactory(){
+        proxiFactories[16] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new CompUnitProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[16] = new ProxiFactory(){
+        proxiFactories[15] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ReferenceProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[15] = new ProxiFactory(){
+        proxiFactories[14] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ConversionProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[19] = new ProxiFactory(){
+        proxiFactories[18] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new CompUnitTypeProxi(objectId, classId, connectionKey);
             }
