@@ -292,10 +292,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         if (selected != null){
             if (selected instanceof MAtomicTypeView){
                 item = new javax.swing.JMenuItem();
-                item.setText("Untertyp anlegen ... ");
+                item.setText("Bestehenden Typ unterordnen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateSubTypeMAtomicTypeStringMssgWizard wizard = new ServerCreateSubTypeMAtomicTypeStringMssgWizard("Untertyp anlegen");
+                        ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard wizard = new ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard("Bestehenden Typ unterordnen");
                         wizard.setFirstArgument((MAtomicTypeView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -307,10 +307,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
                 item = new javax.swing.JMenuItem();
-                item.setText("Untertyp hinzufügen ... ");
+                item.setText("Untertyp anlegen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard wizard = new ServerAddSubTypeMAtomicTypeMAtomicTypeMssgWizard("Untertyp hinzufügen");
+                        ServerCreateSubTypeMAtomicTypeStringMssgWizard wizard = new ServerCreateSubTypeMAtomicTypeStringMssgWizard("Untertyp anlegen");
                         wizard.setFirstArgument((MAtomicTypeView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));

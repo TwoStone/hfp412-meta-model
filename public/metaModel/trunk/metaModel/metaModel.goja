@@ -9,7 +9,7 @@ server Server {
 
 	/* AtomicType */
 	void createSubType@@Untertyp_anlegen(MAtomicType superType, String typeName@@Name);
-	void addSubType@@Untertyp_hinzufügen(MAtomicType superType, MAtomicType subType@@Untertyp[typeManager;atomicTypes]);
+	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp[typeManager;atomicTypes]);
 
 	/* AspectManager */
 	derived AspectManager aspectManager;
