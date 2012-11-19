@@ -19,13 +19,21 @@ public interface PersistentUnitTypeManager extends Anything, AbstractPersistentP
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void createUnit(final PersistentUnitType type, final String name, final Invoker invoker) 
+				throws PersistenceException;
+    public void finalize(final PersistentCompUnitType compUnitType) 
+				throws model.AlreadyFinalizedException, PersistenceException;
+    public void initializeOnCreation() 
+				throws PersistenceException;
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+				throws model.DoubleDefinitionException, model.AlreadyFinalizedException, PersistenceException;
+    public void finalize(final PersistentCompUnitType compUnitType, final Invoker invoker) 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createUnitType(final String name, final Invoker invoker) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException;
-    public void createUnit(final PersistentUnitType type, final String name, final Invoker invoker) 
 				throws PersistenceException;
     public void createCompUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException;
@@ -33,12 +41,8 @@ public interface PersistentUnitTypeManager extends Anything, AbstractPersistentP
 				throws model.DoubleDefinitionException, PersistenceException;
     public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit, final Invoker invoker) 
 				throws PersistenceException;
-    public void initializeOnCreation() 
-				throws PersistenceException;
     public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit) 
 				throws PersistenceException;
-    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
-				throws model.DoubleDefinitionException, PersistenceException;
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException;
     public void createCompUnitType(final String name, final Invoker invoker) 

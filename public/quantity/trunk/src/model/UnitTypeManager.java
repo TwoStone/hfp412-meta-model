@@ -5,6 +5,7 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import model.visitor.BooleanValueExceptionVisitor;
 import persistence.AbsUnitSearchList;
 import persistence.AbsUnitTypeSearchList;
 import persistence.Anything;
@@ -15,10 +16,13 @@ import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentAddDefaultUnitCommand;
 import persistence.PersistentAddReferenceTypeCommand;
+import persistence.PersistentBooleanFalse;
+import persistence.PersistentBooleanTrue;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentCreateCompUnitTypeCommand;
 import persistence.PersistentCreateUnitCommand;
 import persistence.PersistentCreateUnitTypeCommand;
+import persistence.PersistentFinalizeCommand;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentReferenceType;
@@ -204,6 +208,95 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
         
     }
     @Override
+	public void createUnit(final PersistentUnitType type, final String name, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateUnitCommand command = model.meta.CreateUnitCommand.createCreateUnitCommand(name, now, now);
+		command.setType(type);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    @Override
+	public void finalize(final PersistentCompUnitType compUnitType) 
+				throws model.AlreadyFinalizedException, PersistenceException{
+    	
+    	compUnitType.isFinal().accept(new BooleanValueExceptionVisitor<AlreadyFinalizedException>() {
+
+			@Override
+			public void handleBooleanFalse(PersistentBooleanFalse booleanFalse)
+					throws PersistenceException, AlreadyFinalizedException {}
+
+			@Override
+			public void handleBooleanTrue(PersistentBooleanTrue booleanTrue)
+					throws PersistenceException, AlreadyFinalizedException {
+				throw new AlreadyFinalizedException(constants.ExceptionConstants.ALREADY_FINAL_CUT);
+			}
+
+		
+		});
+    	
+    	compUnitType.finalize();
+        
+    }
+    @Override
+	public void initializeOnCreation() 
+				throws PersistenceException{
+        //TODO: implement method: initializeOnCreation
+        
+    }
+    @Override
+	public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+				throws model.DoubleDefinitionException, model.AlreadyFinalizedException, PersistenceException{
+        
+    	//---> isFinal-Attribut prüfen
+    	compUnitType.isFinal().accept(new BooleanValueExceptionVisitor<AlreadyFinalizedException>() {
+
+			@Override
+			public void handleBooleanFalse(PersistentBooleanFalse booleanFalse)
+					throws PersistenceException, AlreadyFinalizedException { }
+
+			@Override
+			public void handleBooleanTrue(PersistentBooleanTrue booleanTrue)
+					throws PersistenceException, AlreadyFinalizedException {
+				throw new AlreadyFinalizedException(constants.ExceptionConstants.ALREADY_FINAL_CUT);
+				
+			}
+		});
+    	//<--- isFinal-Attribut prüfen
+    	
+    	//---> Dublette prüfen
+    	PersistentReferenceType duplicate = compUnitType.getRefs().findFirst(new Predcate<PersistentReferenceType>() {
+			
+			@Override
+			public boolean test(PersistentReferenceType argument)
+					throws PersistenceException {
+				if (argument.getRef().equals(unitType)) return true;
+				return false;
+			}
+		});
+        
+        if (duplicate != null) throw new DoubleDefinitionException(
+        		constants.ExceptionConstants.DOUBLE_REFERENCETYPE_DEFINITION + duplicate.toString());
+      //<--- Dublette prüfen
+        
+        PersistentReferenceType newRefType = ReferenceType.createReferenceType();
+        newRefType.setRef(unitType);
+        newRefType.setExponent(exponent);
+        compUnitType.getRefs().add(newRefType);
+        
+    }
+    @Override
+	public void finalize(final PersistentCompUnitType compUnitType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentFinalizeCommand command = model.meta.FinalizeCommand.createFinalizeCommand(now, now);
+		command.setCompUnitType(compUnitType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    @Override
 	public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
@@ -224,16 +317,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
         this.setThis((PersistentUnitTypeManager)This);
 		if(this.equals(This)){
 		}
-    }
-    @Override
-	public void createUnit(final PersistentUnitType type, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateUnitCommand command = model.meta.CreateUnitCommand.createCreateUnitCommand(name, now, now);
-		command.setType(type);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     @Override
 	public void createCompUnitType(final String name) 
@@ -267,40 +350,10 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     @Override
-	public void initializeOnCreation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
-    @Override
 	public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit) 
 				throws PersistenceException{
     	//TODO Was passiert, wenn es schon eine Default-Unit gibt?
         type.setDefaultUnit(unit);
-        
-    }
-    @Override
-	public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        
-    	
-    	PersistentReferenceType duplicate = compUnitType.getRefs().findFirst(new Predcate<PersistentReferenceType>() {
-			
-			@Override
-			public boolean test(PersistentReferenceType argument)
-					throws PersistenceException {
-				if (argument.getRef().equals(unitType)) return true;
-				return false;
-			}
-		});
-        
-        if (duplicate != null) throw new DoubleDefinitionException(
-        		constants.ExceptionConstants.DOUBLE_REFERENCETYPE_DEFINITION + duplicate.toString());
-        
-        PersistentReferenceType newRefType = ReferenceType.createReferenceType();
-        newRefType.setRef(unitType);
-        newRefType.setExponent(exponent);
-        compUnitType.getRefs().add(newRefType);
         
     }
     @Override
@@ -324,7 +377,8 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+
+
     /* End of protected part that is not overridden by persistence generator */
     
 }

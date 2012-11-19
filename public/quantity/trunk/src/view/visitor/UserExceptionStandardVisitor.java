@@ -8,6 +8,9 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleCycleException(CycleException cycleException) throws ModelException{
         this.standardHandling(cycleException);
     }
+    public void handleAlreadyFinalizedException(AlreadyFinalizedException alreadyFinalizedException) throws ModelException{
+        this.standardHandling(alreadyFinalizedException);
+    }
     public void handleDoubleDefinitionException(DoubleDefinitionException doubleDefinitionException) throws ModelException{
         this.standardHandling(doubleDefinitionException);
     }

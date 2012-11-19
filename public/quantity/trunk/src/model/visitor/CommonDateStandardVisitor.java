@@ -23,6 +23,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
     }
+    public void handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException{
+        this.standardHandling(finalizeCommand);
+    }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);
     }

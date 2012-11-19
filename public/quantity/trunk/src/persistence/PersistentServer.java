@@ -34,15 +34,17 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public PersistentUnitTypeManager getUnitTypeManager() 
 				throws PersistenceException;
-    public void signalChanged(final boolean signal) 
-				throws PersistenceException;
     public PersistentQuantityManager getQuantityManager() 
+				throws PersistenceException;
+    public void signalChanged(final boolean signal) 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
 				throws PersistenceException;
     public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
+				throws PersistenceException;
+    public void finalize(final PersistentCompUnitType compUnitType) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

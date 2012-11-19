@@ -16,6 +16,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException, E;
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException, E;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
+    public void handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException, E;
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException, E;
     public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException, E;

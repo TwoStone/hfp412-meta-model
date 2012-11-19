@@ -7,6 +7,8 @@ import model.visitor.*;
 public interface PersistentCompUnitType extends PersistentAbsUnitType {
     
     public CompUnitType_RefsProxi getRefs() throws PersistenceException ;
+    public PersistentBooleanValue getIsFinal() throws PersistenceException ;
+    public void setIsFinal(PersistentBooleanValue newValue) throws PersistenceException ;
     public PersistentCompUnitType getThis() throws PersistenceException ;
     
     public void accept(AbsUnitTypeVisitor visitor) throws PersistenceException;
@@ -18,12 +20,16 @@ public interface PersistentCompUnitType extends PersistentAbsUnitType {
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public PersistentBooleanValue isFinal() 
+				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void finalize() 
+				throws model.AlreadyFinalizedException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
 

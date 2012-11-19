@@ -17,14 +17,14 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException{
         this.standardHandling(errorDisplay);
     }
+    public void handleUnit(PersistentUnit unit) throws PersistenceException{
+        this.standardHandling(unit);
+    }
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createUnitTypeCommand);
     }
     public void handleUnitType(PersistentUnitType unitType) throws PersistenceException{
         this.standardHandling(unitType);
-    }
-    public void handleUnit(PersistentUnit unit) throws PersistenceException{
-        this.standardHandling(unit);
     }
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
         this.standardHandling(createConversionCommand);
@@ -43,6 +43,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
+    }
+    public void handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException{
+        this.standardHandling(finalizeCommand);
     }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);

@@ -25,6 +25,12 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements PersistentCom
     public CompUnitType_RefsProxi getRefs() throws PersistenceException {
         return ((PersistentCompUnitType)this.getTheObject()).getRefs();
     }
+    public PersistentBooleanValue getIsFinal() throws PersistenceException {
+        return ((PersistentCompUnitType)this.getTheObject()).getIsFinal();
+    }
+    public void setIsFinal(PersistentBooleanValue newValue) throws PersistenceException {
+        ((PersistentCompUnitType)this.getTheObject()).setIsFinal(newValue);
+    }
     public PersistentCompUnitType getThis() throws PersistenceException {
         return ((PersistentCompUnitType)this.getTheObject()).getThis();
     }
@@ -55,6 +61,10 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements PersistentCom
     }
     
     
+    public PersistentBooleanValue isFinal() 
+				throws PersistenceException{
+        return ((PersistentCompUnitType)this.getTheObject()).isFinal();
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentCompUnitType)this.getTheObject()).initializeOnInstantiation();
@@ -66,6 +76,10 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements PersistentCom
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentCompUnitType)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void finalize() 
+				throws model.AlreadyFinalizedException, PersistenceException{
+        ((PersistentCompUnitType)this.getTheObject()).finalize();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

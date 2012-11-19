@@ -17,11 +17,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException{
         this.standardHandling(errorDisplay);
     }
-    public void handleUnitType(UnitTypeView unitType) throws ModelException{
-        this.standardHandling(unitType);
-    }
     public void handleUnit(UnitView unit) throws ModelException{
         this.standardHandling(unit);
+    }
+    public void handleUnitType(UnitTypeView unitType) throws ModelException{
+        this.standardHandling(unitType);
     }
     public void handleBooleanTrue(BooleanTrueView booleanTrue) throws ModelException{
         this.standardHandling(booleanTrue);

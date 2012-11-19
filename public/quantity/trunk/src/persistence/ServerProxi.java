@@ -99,13 +99,13 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getUnitTypeManager();
     }
-    public void signalChanged(final boolean signal) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).signalChanged(signal);
-    }
     public PersistentQuantityManager getQuantityManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getQuantityManager();
+    }
+    public void signalChanged(final boolean signal) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).signalChanged(signal);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -122,6 +122,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public void connected(final String user) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).connected(user);
+    }
+    public void finalize(final PersistentCompUnitType compUnitType) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).finalize(compUnitType);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

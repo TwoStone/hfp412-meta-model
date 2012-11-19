@@ -20,6 +20,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException{
         this.standardHandling(addDefaultUnitCommand);
     }
+    public void handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException{
+        this.standardHandling(finalizeCommand);
+    }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);
     }

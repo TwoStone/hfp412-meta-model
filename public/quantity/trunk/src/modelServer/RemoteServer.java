@@ -18,6 +18,16 @@ public  class RemoteServer extends RemoteServerMaster {
         return this.server;
     } 
 
+    public synchronized java.util.Hashtable<?,?> finalize(String compUnitTypeProxiString){
+        try {
+            PersistentCompUnitType compUnitType = (PersistentCompUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(compUnitTypeProxiString));
+            ((PersistentServer)this.server).finalize(compUnitType);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> addReferenceType(String compUnitTypeProxiString, String unitTypeProxiString, String exponentAsString){
         try {
             PersistentCompUnitType compUnitType = (PersistentCompUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(compUnitTypeProxiString));

@@ -17,6 +17,9 @@ public abstract class UnitTypeManagerCommandStandardVisitor implements UnitTypeM
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createCompUnitTypeCommand);
     }
+    public void handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException{
+        this.standardHandling(finalizeCommand);
+    }
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createUnitTypeCommand);
     }

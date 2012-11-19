@@ -16,6 +16,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException, E;
     public R handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException, E;
     public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
+    public R handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException, E;
     public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
     public R handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException, E;
     public R handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException, E;

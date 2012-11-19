@@ -6,6 +6,8 @@ public interface CompUnitTypeView extends AbsUnitTypeView {
     
     public java.util.Vector<ReferenceTypeView> getRefs() throws ModelException ;
     public void setRefs(java.util.Vector<ReferenceTypeView> newValue) throws ModelException ;
+    public BooleanValueView getIsFinal() throws ModelException ;
+    public void setIsFinal(BooleanValueView newValue) throws ModelException ;
     
     public void accept(AbsUnitTypeVisitor visitor) throws ModelException;
     public <R> R accept(AbsUnitTypeReturnVisitor<R>  visitor) throws ModelException;

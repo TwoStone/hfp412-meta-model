@@ -278,6 +278,7 @@ public class Cache {
 		this.number2NameMap.put(111, "CreateUnitCommand");
 		this.number2NameMap.put(108, "CreateUnitTypeCommand");
 		this.number2NameMap.put(-105, "ErrorDisplay");
+		this.number2NameMap.put(145, "FinalizeCommand");
 		this.number2NameMap.put(138, "FractionManager");
 		this.number2NameMap.put(143, "Function");
 		this.number2NameMap.put(116, "Quantity");

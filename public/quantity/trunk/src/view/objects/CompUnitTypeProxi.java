@@ -23,7 +23,14 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements CompUnitTypeV
         String name = (String)resultTable.get("name");
         java.util.Vector<String> refs_string = (java.util.Vector<String>)resultTable.get("refs");
         java.util.Vector<ReferenceTypeView> refs = ViewProxi.getProxiVector(refs_string, connectionKey);
-        CompUnitTypeView result$$ = new CompUnitType((AbsUnitView)defaultUnit,(String)name,refs, this.getId(), this.getClassId());
+        ViewProxi isFinal = null;
+        String isFinal$String = (String)resultTable.get("isFinal");
+        if (isFinal$String != null) {
+            common.ProxiInformation isFinal$Info = common.RPCConstantsAndServices.createProxiInformation(isFinal$String);
+            isFinal = ViewProxi.createProxi(isFinal$Info,connectionKey);
+            isFinal.setToString(isFinal$Info.getToString());
+        }
+        CompUnitTypeView result$$ = new CompUnitType((AbsUnitView)defaultUnit,(String)name,refs,(BooleanValueView)isFinal, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -37,18 +44,22 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements CompUnitTypeV
         if(this.getDefaultUnit() != null) index = index - 1;
         if(index < this.getRefs().size()) return new RefsCompUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getRefs().get(index));
         index = index - this.getRefs().size();
+        if(index == 0 && this.getIsFinal() != null) return new IsFinalCompUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getIsFinal());
+        if(this.getIsFinal() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getDefaultUnit() == null ? 0 : 1)
-            + (this.getRefs().size());
+            + (this.getRefs().size())
+            + (this.getIsFinal() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getDefaultUnit() == null ? true : false)
-            && (this.getRefs().size() == 0);
+            && (this.getRefs().size() == 0)
+            && (this.getIsFinal() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -59,6 +70,8 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements CompUnitTypeV
             if(getRefsIterator.next().equals(child)) return result;
             result = result + 1;
         }
+        if(this.getIsFinal() != null && this.getIsFinal().equals(child)) return result;
+        if(this.getIsFinal() != null) result = result + 1;
         return -1;
     }
     
@@ -67,6 +80,12 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements CompUnitTypeV
     }
     public void setRefs(java.util.Vector<ReferenceTypeView> newValue) throws ModelException {
         ((CompUnitType)this.getTheObject()).setRefs(newValue);
+    }
+    public BooleanValueView getIsFinal() throws ModelException {
+        return ((CompUnitType)this.getTheObject()).getIsFinal();
+    }
+    public void setIsFinal(BooleanValueView newValue) throws ModelException {
+        ((CompUnitType)this.getTheObject()).setIsFinal(newValue);
     }
     
     public void accept(AbsUnitTypeVisitor visitor) throws ModelException {
