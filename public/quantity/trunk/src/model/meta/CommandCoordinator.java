@@ -71,7 +71,7 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
     }
     
     static public long getTypeId() {
-        return -131;
+        return -112;
     }
     
     public long getClassId() {

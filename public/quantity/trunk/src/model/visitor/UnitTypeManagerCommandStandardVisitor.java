@@ -5,11 +5,17 @@ import persistence.*;
 
 public abstract class UnitTypeManagerCommandStandardVisitor implements UnitTypeManagerCommandVisitor {
     
+    public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
+        this.standardHandling(addReferenceTypeCommand);
+    }
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.standardHandling(createUnitCommand);
     }
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException{
         this.standardHandling(addDefaultUnitCommand);
+    }
+    public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
+        this.standardHandling(createCompUnitTypeCommand);
     }
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createUnitTypeCommand);

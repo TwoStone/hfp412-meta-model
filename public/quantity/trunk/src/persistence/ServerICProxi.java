@@ -19,7 +19,7 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     public long getClassId() {
-        return -113;
+        return -121;
     }
     
     public Server_ErrorsProxi getErrors() throws PersistenceException {
@@ -95,6 +95,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleResult(command);
     }
+    public PersistentUnitTypeManager getUnitTypeManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getUnitTypeManager();
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
@@ -102,10 +106,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public PersistentQuantityManager getQuantityManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getQuantityManager();
-    }
-    public PersistentUnitTypeManager getUnitTypeManager() 
-				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getUnitTypeManager();
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -130,6 +130,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public PersistentFractionManager getFractionManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getFractionManager();
+    }
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent);
     }
     public boolean hasChanged() 
 				throws PersistenceException{
@@ -158,6 +162,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void createCompUnitType(final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createCompUnitType(name);
     }
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException{

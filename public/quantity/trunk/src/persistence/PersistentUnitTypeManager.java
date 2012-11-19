@@ -15,6 +15,8 @@ public interface PersistentUnitTypeManager extends Anything, AbstractPersistentP
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent, final Invoker invoker) 
+				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -25,6 +27,8 @@ public interface PersistentUnitTypeManager extends Anything, AbstractPersistentP
 				throws PersistenceException;
     public void createUnit(final PersistentUnitType type, final String name, final Invoker invoker) 
 				throws PersistenceException;
+    public void createCompUnitType(final String name) 
+				throws model.DoubleDefinitionException, PersistenceException;
     public void createUnit(final PersistentUnitType type, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException;
     public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit, final Invoker invoker) 
@@ -33,8 +37,12 @@ public interface PersistentUnitTypeManager extends Anything, AbstractPersistentP
 				throws PersistenceException;
     public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit) 
 				throws PersistenceException;
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+				throws model.DoubleDefinitionException, PersistenceException;
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException;
+    public void createCompUnitType(final String name, final Invoker invoker) 
+				throws PersistenceException;
 
 }
 

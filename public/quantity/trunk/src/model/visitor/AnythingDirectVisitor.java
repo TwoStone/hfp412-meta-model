@@ -62,11 +62,17 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
         this.handleCommonDate(createConversionCommand);
     }
+    public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
+        this.handleCommonDate(addReferenceTypeCommand);
+    }
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.handleCommonDate(createUnitCommand);
     }
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException{
         this.handleCommonDate(addDefaultUnitCommand);
+    }
+    public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
+        this.handleCommonDate(createCompUnitTypeCommand);
     }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.handleCommonDate(createQuantityCommand);

@@ -19,7 +19,7 @@ public class BooleanFalseProxi extends BooleanValueProxi implements PersistentBo
     }
     
     public long getClassId() {
-        return 145;
+        return 140;
     }
     
     public PersistentBooleanFalse getThis() throws PersistenceException {

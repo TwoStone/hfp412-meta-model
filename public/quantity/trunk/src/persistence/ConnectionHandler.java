@@ -60,10 +60,12 @@ public class ConnectionHandler {
     public CreateUnitCommandFacade theCreateUnitCommandFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public BooleanValueFacade theBooleanValueFacade;
+    public CreateCompUnitTypeCommandFacade theCreateCompUnitTypeCommandFacade;
     public BooleanTrueFacade theBooleanTrueFacade;
     public CommonDateFacade theCommonDateFacade;
     public CreateQuantityCommandFacade theCreateQuantityCommandFacade;
     public CommandExecuterFacade theCommandExecuterFacade;
+    public AddReferenceTypeCommandFacade theAddReferenceTypeCommandFacade;
     public QuantityFacade theQuantityFacade;
     public CompoundQuantityFacade theCompoundQuantityFacade;
     public UnitTypeManagerFacade theUnitTypeManagerFacade;
@@ -94,10 +96,12 @@ public class ConnectionHandler {
             this.theCreateUnitCommandFacade= new CreateUnitCommandFacade();
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade();
             this.theBooleanValueFacade= new BooleanValueFacade();
+            this.theCreateCompUnitTypeCommandFacade= new CreateCompUnitTypeCommandFacade();
             this.theBooleanTrueFacade= new BooleanTrueFacade();
             this.theCommonDateFacade= new CommonDateFacade();
             this.theCreateQuantityCommandFacade= new CreateQuantityCommandFacade();
             this.theCommandExecuterFacade= new CommandExecuterFacade();
+            this.theAddReferenceTypeCommandFacade= new AddReferenceTypeCommandFacade();
             this.theQuantityFacade= new QuantityFacade();
             this.theCompoundQuantityFacade= new CompoundQuantityFacade();
             this.theUnitTypeManagerFacade= new UnitTypeManagerFacade();

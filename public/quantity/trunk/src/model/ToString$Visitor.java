@@ -73,7 +73,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleUnitType(PersistentUnitType unitType)
 			throws PersistenceException {
-		this.result = unitType.getName();
+		this.result = unitType.getName() + constants.TextConstants.UNIT_TYPE_COMMON_TOSTRING;
 		
 	}
 	@Override
@@ -109,7 +109,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleCompUnitType(PersistentCompUnitType compUnitType)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
+		this.result = compUnitType.getName() + constants.TextConstants.COMP_UNIT_TYPE_COMMON_TOSTRING;
 		
 	}
 	@Override

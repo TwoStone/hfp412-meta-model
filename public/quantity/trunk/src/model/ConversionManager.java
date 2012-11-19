@@ -82,7 +82,7 @@ public class ConversionManager extends PersistentObject implements PersistentCon
     }
     
     static public long getTypeId() {
-        return 102;
+        return 101;
     }
     
     public long getClassId() {

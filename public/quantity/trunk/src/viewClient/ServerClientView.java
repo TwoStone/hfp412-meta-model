@@ -284,6 +284,18 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private java.util.Vector<javax.swing.JButton> getToolButtonsForStaticOperations() {
         java.util.Vector<javax.swing.JButton> result = new java.util.Vector<javax.swing.JButton>();
         javax.swing.JButton currentButton = null;
+        currentButton = new javax.swing.JButton("createCompUnitType ... ");
+        currentButton.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                ServerCreateCompUnitTypeStringMssgWizard wizard = new ServerCreateCompUnitTypeStringMssgWizard("createCompUnitType");
+                wizard.pack();
+                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                wizard.pack();
+                wizard.setLocationRelativeTo(getNavigationPanel());
+                wizard.setVisible(true);
+            }
+            
+        });result.add(currentButton);
         currentButton = new javax.swing.JButton("createUnitType ... ");
         currentButton.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -302,6 +314,20 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         JPopupMenu result = new JPopupMenu();
         javax.swing.JMenuItem item = null;
         item = new javax.swing.JMenuItem();
+        item.setText("(S) createCompUnitType ... ");
+        item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                ServerCreateCompUnitTypeStringMssgWizard wizard = new ServerCreateCompUnitTypeStringMssgWizard("createCompUnitType");
+                wizard.pack();
+                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                wizard.pack();
+                wizard.setLocationRelativeTo(getNavigationPanel());
+                wizard.setVisible(true);
+            }
+            
+        });
+        if (withStaticOperations) result.add(item);
+        item = new javax.swing.JMenuItem();
         item.setText("(S) createUnitType ... ");
         item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -316,6 +342,23 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         });
         if (withStaticOperations) result.add(item);
         if (selected != null){
+            if (selected instanceof CompUnitTypeView){
+                item = new javax.swing.JMenuItem();
+                item.setText("addReferenceType ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard wizard = new ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard("addReferenceType");
+                        wizard.setFirstArgument((CompUnitTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             
         }
         
@@ -323,6 +366,95 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         return result;
     }
     
+	class ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard extends Wizard {
+
+		protected ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().addReferenceType(firstArgument, (UnitTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									((IntegerSelectionPanel)getParametersPanel().getComponent(1)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("unitType", "view.UnitTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new IntegerSelectionPanel("exponent", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private CompUnitTypeView firstArgument; 
+	
+		public void setFirstArgument(CompUnitTypeView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateCompUnitTypeStringMssgWizard extends Wizard {
+
+		protected ServerCreateCompUnitTypeStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateCompUnitTypeStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		@SuppressWarnings("unchecked")
+		protected void perform() {
+			try {
+				getConnection().createCompUnitType(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
 	class ServerCreateUnitTypeStringMssgWizard extends Wizard {
 
 		protected ServerCreateUnitTypeStringMssgWizard(String operationName){

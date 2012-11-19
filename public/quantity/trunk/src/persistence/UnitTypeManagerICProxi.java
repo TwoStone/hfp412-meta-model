@@ -19,7 +19,7 @@ public class UnitTypeManagerICProxi extends PersistentInCacheProxiOptimistic imp
     }
     
     public long getClassId() {
-        return 143;
+        return 118;
     }
     
     public UnitTypeManager_UnitTypesProxi getUnitTypes() throws PersistenceException {
@@ -46,6 +46,10 @@ public class UnitTypeManagerICProxi extends PersistentInCacheProxiOptimistic imp
     }
     
     
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent, invoker);
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).initializeOnInstantiation();
@@ -57,6 +61,10 @@ public class UnitTypeManagerICProxi extends PersistentInCacheProxiOptimistic imp
     public void createUnitType(final String name, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).createUnitType(name, invoker);
+    }
+    public void createCompUnitType(final String name) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).createCompUnitType(name);
     }
     public void createUnit(final PersistentUnitType type, final String name, final Invoker invoker) 
 				throws PersistenceException{
@@ -82,9 +90,17 @@ public class UnitTypeManagerICProxi extends PersistentInCacheProxiOptimistic imp
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).addDefaultUnit(type, unit);
     }
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent);
+    }
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).createUnitType(name);
+    }
+    public void createCompUnitType(final String name, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).createCompUnitType(name, invoker);
     }
 
     

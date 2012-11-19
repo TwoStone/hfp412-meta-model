@@ -10,18 +10,18 @@ public class CompoundQuantityFacade{
 	}
 
     public CompoundQuantityProxi newCompoundQuantity(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CompoundQuantityProxi)PersistentProxi.createProxi(createMinusStorePlus, 105);
+        if(createMinusStorePlus > 0) return (CompoundQuantityProxi)PersistentProxi.createProxi(createMinusStorePlus, 117);
         long id = ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.getNextId();
         CompoundQuantity result = new CompoundQuantity(null,id);
         Cache.getTheCache().put(result);
-        return (CompoundQuantityProxi)PersistentProxi.createProxi(id, 105);
+        return (CompoundQuantityProxi)PersistentProxi.createProxi(id, 117);
     }
     
     public CompoundQuantityProxi newDelayedCompoundQuantity() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.getNextId();
         CompoundQuantity result = new CompoundQuantity(null,id);
         Cache.getTheCache().put(result);
-        return (CompoundQuantityProxi)PersistentProxi.createProxi(id, 105);
+        return (CompoundQuantityProxi)PersistentProxi.createProxi(id, 117);
     }
     
     public CompoundQuantity getCompoundQuantity(long CompoundQuantityId) throws PersistenceException{

@@ -12,133 +12,143 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[47];
-        iCProxiFactories[1] = new ICProxiFactory(){
+			iCProxiFactories = new ICProxiFactory[44];
+        iCProxiFactories[0] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ConversionManagerICProxi(objectId);
             }
         };
-        iCProxiFactories[5] = new ICProxiFactory(){
+        iCProxiFactories[1] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ReferenceTypeICProxi(objectId);
             }
         };
-        iCProxiFactories[7] = new ICProxiFactory(){
+        iCProxiFactories[3] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new QuantityManagerICProxi(objectId);
             }
         };
-        iCProxiFactories[9] = new ICProxiFactory(){
+        iCProxiFactories[4] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ErrorDisplayICProxi(objectId);
             }
         };
-        iCProxiFactories[27] = new ICProxiFactory(){
+        iCProxiFactories[7] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateUnitTypeCommandICProxi(objectId);
             }
         };
-        iCProxiFactories[11] = new ICProxiFactory(){
+        iCProxiFactories[5] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new UnitICProxi(objectId);
             }
         };
-        iCProxiFactories[10] = new ICProxiFactory(){
+        iCProxiFactories[6] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new UnitTypeICProxi(objectId);
             }
         };
-        iCProxiFactories[28] = new ICProxiFactory(){
+        iCProxiFactories[8] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateConversionCommandICProxi(objectId);
             }
         };
-        iCProxiFactories[29] = new ICProxiFactory(){
+        iCProxiFactories[10] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateUnitCommandICProxi(objectId);
             }
         };
-        iCProxiFactories[30] = new ICProxiFactory(){
+        iCProxiFactories[11] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommandCoordinatorICProxi(objectId);
             }
         };
-        iCProxiFactories[41] = new ICProxiFactory(){
+        iCProxiFactories[43] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateCompUnitTypeCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[38] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new BooleanTrueICProxi(objectId);
             }
         };
-        iCProxiFactories[31] = new ICProxiFactory(){
+        iCProxiFactories[12] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommonDateICProxi(objectId);
             }
         };
-        iCProxiFactories[32] = new ICProxiFactory(){
+        iCProxiFactories[13] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateQuantityCommandICProxi(objectId);
             }
         };
-        iCProxiFactories[33] = new ICProxiFactory(){
+        iCProxiFactories[14] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommandExecuterICProxi(objectId);
             }
         };
-        iCProxiFactories[2] = new ICProxiFactory(){
+        iCProxiFactories[41] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
-                return new QuantityICProxi(objectId);
-            }
-        };
-        iCProxiFactories[4] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new CompoundQuantityICProxi(objectId);
-            }
-        };
-        iCProxiFactories[42] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new UnitTypeManagerICProxi(objectId);
-            }
-        };
-        iCProxiFactories[34] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new AddDefaultUnitCommandICProxi(objectId);
-            }
-        };
-        iCProxiFactories[43] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new FunctionICProxi(objectId);
-            }
-        };
-        iCProxiFactories[44] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new BooleanFalseICProxi(objectId);
-            }
-        };
-        iCProxiFactories[12] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new ServerICProxi(objectId);
-            }
-        };
-        iCProxiFactories[45] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new FractionManagerICProxi(objectId);
-            }
-        };
-        iCProxiFactories[16] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new CompUnitICProxi(objectId);
+                return new AddReferenceTypeCommandICProxi(objectId);
             }
         };
         iCProxiFactories[15] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
+                return new QuantityICProxi(objectId);
+            }
+        };
+        iCProxiFactories[16] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CompoundQuantityICProxi(objectId);
+            }
+        };
+        iCProxiFactories[17] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new UnitTypeManagerICProxi(objectId);
+            }
+        };
+        iCProxiFactories[18] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new AddDefaultUnitCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[42] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new FunctionICProxi(objectId);
+            }
+        };
+        iCProxiFactories[39] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new BooleanFalseICProxi(objectId);
+            }
+        };
+        iCProxiFactories[20] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ServerICProxi(objectId);
+            }
+        };
+        iCProxiFactories[37] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new FractionManagerICProxi(objectId);
+            }
+        };
+        iCProxiFactories[21] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CompUnitICProxi(objectId);
+            }
+        };
+        iCProxiFactories[22] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
                 return new ReferenceICProxi(objectId);
             }
         };
-        iCProxiFactories[14] = new ICProxiFactory(){
+        iCProxiFactories[23] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ConversionICProxi(objectId);
             }
         };
-        iCProxiFactories[18] = new ICProxiFactory(){
+        iCProxiFactories[24] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CompUnitTypeICProxi(objectId);
             }

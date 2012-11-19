@@ -25,8 +25,8 @@ public class AbsUnitTypeFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 111)) return 111;
-        if(Cache.getTheCache().contains(objectId, 119)) return 119;
+        if(Cache.getTheCache().contains(objectId, 107)) return 107;
+        if(Cache.getTheCache().contains(objectId, 125)) return 125;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -34,13 +34,13 @@ public class AbsUnitTypeFacade{
     public AbsUnitTypeSearchList getAbsUnitTypeByName(String name) throws PersistenceException {
         AbsUnitTypeSearchList result = new AbsUnitTypeSearchList();
         java.util.Iterator<?> candidates;
-        candidates = Cache.getTheCache().iterator(111);
+        candidates = Cache.getTheCache().iterator(107);
         while (candidates.hasNext()){
             PersistentAbsUnitType current = (PersistentAbsUnitType)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getName().equals(name))
                 result.add((PersistentAbsUnitType)PersistentProxi.createProxi(current.getId(), current.getClassId()));
         }
-        candidates = Cache.getTheCache().iterator(119);
+        candidates = Cache.getTheCache().iterator(125);
         while (candidates.hasNext()){
             PersistentAbsUnitType current = (PersistentAbsUnitType)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getName().equals(name))

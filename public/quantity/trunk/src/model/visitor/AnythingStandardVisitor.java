@@ -38,6 +38,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleBooleanTrue(PersistentBooleanTrue booleanTrue) throws PersistenceException{
         this.standardHandling(booleanTrue);
     }
+    public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
+        this.standardHandling(createCompUnitTypeCommand);
+    }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
     }
@@ -49,6 +52,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException{
         this.standardHandling(commandExecuter);
+    }
+    public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
+        this.standardHandling(addReferenceTypeCommand);
     }
     public void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException{
         this.standardHandling(compoundQuantity);

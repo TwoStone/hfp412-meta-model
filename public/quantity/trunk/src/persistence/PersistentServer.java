@@ -32,11 +32,11 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     
     public void handleResult(final Command command) 
 				throws PersistenceException;
+    public PersistentUnitTypeManager getUnitTypeManager() 
+				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
     public PersistentQuantityManager getQuantityManager() 
-				throws PersistenceException;
-    public PersistentUnitTypeManager getUnitTypeManager() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
@@ -48,6 +48,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public PersistentFractionManager getFractionManager() 
 				throws PersistenceException;
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+				throws PersistenceException;
     public boolean hasChanged() 
 				throws PersistenceException;
     public PersistentFractionManager getFractionManager(final TDObserver observer) 
@@ -57,6 +59,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
+				throws PersistenceException;
+    public void createCompUnitType(final String name) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;

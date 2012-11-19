@@ -15,4 +15,6 @@ public final class TextConstants {
 	
 	public static final String BOOLEAN_TRUEFALSE_SCHEME_TRUE = "Wahr";
 	public static final String BOOLEAN_TRUEFALSE_SCHEME_FALSE = "Falsch";
+	public static final String UNIT_TYPE_COMMON_TOSTRING = ": einfach";
+	public static final String COMP_UNIT_TYPE_COMMON_TOSTRING = ": komplex";
 }

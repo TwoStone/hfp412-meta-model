@@ -19,7 +19,7 @@ public class CreateConversionCommandICProxi extends PersistentInCacheProxi imple
     }
     
     public long getClassId() {
-        return 129;
+        return 109;
     }
     
     public PersistentUnit getUnit() throws PersistenceException {
