@@ -38,6 +38,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException{
         this.standardHandling(commandCoordinator);
     }
+    public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
+        this.standardHandling(createCompUnitCommand);
+    }
     public void handleBooleanTrue(PersistentBooleanTrue booleanTrue) throws PersistenceException{
         this.standardHandling(booleanTrue);
     }

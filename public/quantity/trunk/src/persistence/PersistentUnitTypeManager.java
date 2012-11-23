@@ -19,12 +19,16 @@ public interface PersistentUnitTypeManager extends Anything, AbstractPersistentP
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void createUnit(final PersistentUnitType type, final String name, final Invoker invoker) 
+    public void createUnit(final String name, final PersistentUnitType type) 
+				throws model.DoubleDefinitionException, PersistenceException;
+    public void createCompUnit(final String name, final PersistentCompUnitType type, final Invoker invoker) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
 				throws model.DoubleDefinitionException, model.AlreadyFinalizedException, PersistenceException;
+    public void createCompUnit(final String name, final PersistentCompUnitType type) 
+				throws model.DoubleDefinitionException, PersistenceException;
     public void finishModeling(final PersistentCompUnitType compUnitType, final Invoker invoker) 
 				throws PersistenceException;
     public void finishModeling(final PersistentCompUnitType compUnitType) 
@@ -37,14 +41,14 @@ public interface PersistentUnitTypeManager extends Anything, AbstractPersistentP
 				throws PersistenceException;
     public void createCompUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException;
-    public void createUnit(final PersistentUnitType type, final String name) 
-				throws model.DoubleDefinitionException, PersistenceException;
     public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit, final Invoker invoker) 
 				throws PersistenceException;
     public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit) 
 				throws PersistenceException;
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException;
+    public void createUnit(final String name, final PersistentUnitType type, final Invoker invoker) 
+				throws PersistenceException;
     public void createCompUnitType(final String name, final Invoker invoker) 
 				throws PersistenceException;
 

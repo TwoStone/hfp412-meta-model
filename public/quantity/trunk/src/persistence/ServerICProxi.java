@@ -111,6 +111,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
     }
+    public void createUnit(final String name, final PersistentUnitType type) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createUnit(name, type);
+    }
     public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getUnitTypeManager(observer);
@@ -135,6 +139,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent);
     }
+    public void createCompUnit(final String name, final PersistentCompUnitType type) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createCompUnit(name, type);
+    }
     public boolean hasChanged() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).hasChanged();
@@ -158,6 +166,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public PersistentConversionManager getConversionManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getConversionManager();
+    }
+    public void createQuantity(final common.Fraction f, final PersistentAbsUnit unit) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createQuantity(f, unit);
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{

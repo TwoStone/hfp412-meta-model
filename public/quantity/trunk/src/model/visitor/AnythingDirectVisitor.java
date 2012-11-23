@@ -71,6 +71,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.handleCommonDate(createUnitCommand);
     }
+    public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
+        this.handleCommonDate(createCompUnitCommand);
+    }
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException{
         this.handleCommonDate(addDefaultUnitCommand);
     }

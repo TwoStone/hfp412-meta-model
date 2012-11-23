@@ -40,6 +40,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void createUnit(final String name, final PersistentUnitType type) 
+				throws PersistenceException;
     public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
 				throws PersistenceException;
     public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
@@ -50,6 +52,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
 				throws PersistenceException;
+    public void createCompUnit(final String name, final PersistentCompUnitType type) 
+				throws PersistenceException;
     public boolean hasChanged() 
 				throws PersistenceException;
     public PersistentFractionManager getFractionManager(final TDObserver observer) 
@@ -59,6 +63,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public PersistentConversionManager getConversionManager() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public void createQuantity(final common.Fraction f, final PersistentAbsUnit unit) 
 				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException;

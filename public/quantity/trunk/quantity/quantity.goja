@@ -15,6 +15,11 @@ model quantity {
 		void createCompUnitType(String name);
 		void addReferenceType(CompUnitType compUnitType, UnitType unitType, Integer exponent);
 		void finishModeling(CompUnitType compUnitType);
+
+		void createUnit(String name, UnitType type);
+		void createCompUnit(String name, CompUnitType type);
+
+		void createQuantity(Fraction f, AbsUnit unit);
 	}
 
 /*-------------------------------------------------------------------------
@@ -34,7 +39,8 @@ model quantity {
 			throws DoubleDefinitionException, AlreadyFinalizedException;
 
 		/* Operationen für Exemplarebene */
-		active void createUnit(UnitType type, String name) throws DoubleDefinitionException;
+		active void createUnit(String name, UnitType type) throws DoubleDefinitionException;
+		active void createCompUnit(String name, CompUnitType type) throws DoubleDefinitionException;
 
 	}
 

@@ -18,6 +18,7 @@ import persistence.Anything;
 import persistence.Command;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
+import persistence.PersistentAbsUnit;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentConversionManager;
 import persistence.PersistentFractionManager;
@@ -91,11 +92,12 @@ public class Server extends PersistentObject implements PersistentServer{
         return result;
     }
     
-    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    @Override
+	public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot quantityManager = (AbstractPersistentRoot)this.getQuantityManager(tdObserver);
+            AbstractPersistentRoot quantityManager = this.getQuantityManager(tdObserver);
             if (quantityManager != null) {
                 result.put("quantityManager", quantityManager.createProxiInformation(false));
                 if(depth > 1) {
@@ -104,7 +106,7 @@ public class Server extends PersistentObject implements PersistentServer{
                     if(forGUI && quantityManager.hasEssentialFields())quantityManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot unitTypeManager = (AbstractPersistentRoot)this.getUnitTypeManager(tdObserver);
+            AbstractPersistentRoot unitTypeManager = this.getUnitTypeManager(tdObserver);
             if (unitTypeManager != null) {
                 result.put("unitTypeManager", unitTypeManager.createProxiInformation(false));
                 if(depth > 1) {
@@ -113,7 +115,7 @@ public class Server extends PersistentObject implements PersistentServer{
                     if(forGUI && unitTypeManager.hasEssentialFields())unitTypeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot conversionManager = (AbstractPersistentRoot)this.getConversionManager(tdObserver);
+            AbstractPersistentRoot conversionManager = this.getConversionManager(tdObserver);
             if (conversionManager != null) {
                 result.put("conversionManager", conversionManager.createProxiInformation(false));
                 if(depth > 1) {
@@ -122,7 +124,7 @@ public class Server extends PersistentObject implements PersistentServer{
                     if(forGUI && conversionManager.hasEssentialFields())conversionManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot fractionManager = (AbstractPersistentRoot)this.getFractionManager(tdObserver);
+            AbstractPersistentRoot fractionManager = this.getFractionManager(tdObserver);
             if (fractionManager != null) {
                 result.put("fractionManager", fractionManager.createProxiInformation(false));
                 if(depth > 1) {
@@ -144,7 +146,8 @@ public class Server extends PersistentObject implements PersistentServer{
             .getServerByUser(user);
     }
     
-    public Server provideCopy() throws PersistenceException{
+    @Override
+	public Server provideCopy() throws PersistenceException{
         Server result = this;
         result = new Server(this.This, 
                             this.password, 
@@ -158,7 +161,8 @@ public class Server extends PersistentObject implements PersistentServer{
         return result;
     }
     
-    public boolean hasEssentialFields() throws PersistenceException{
+    @Override
+	public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
     protected PersistenceException exception = null;
@@ -187,11 +191,13 @@ public class Server extends PersistentObject implements PersistentServer{
         return -121;
     }
     
-    public long getClassId() {
+    @Override
+	public long getClassId() {
         return getTypeId();
     }
     
-    public void store() throws PersistenceException {
+    @Override
+	public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == -121) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
@@ -218,93 +224,117 @@ public class Server extends PersistentObject implements PersistentServer{
             ConnectionHandler.getTheConnectionHandler().theServerFacade.ThisSet(this.getId(), newValue);
         }
     }
-    public Server_ErrorsProxi getErrors() throws PersistenceException {
+    @Override
+	public Server_ErrorsProxi getErrors() throws PersistenceException {
         return this.errors;
     }
-    public String getPassword() throws PersistenceException {
+    @Override
+	public String getPassword() throws PersistenceException {
         return this.password;
     }
-    public void setPassword(String newValue) throws PersistenceException {
+    @Override
+	public void setPassword(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theServerFacade.passwordSet(this.getId(), newValue);
         this.password = newValue;
     }
-    public String getUser() throws PersistenceException {
+    @Override
+	public String getUser() throws PersistenceException {
         return this.user;
     }
-    public void setUser(String newValue) throws PersistenceException {
+    @Override
+	public void setUser(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theServerFacade.userSet(this.getId(), newValue);
         this.user = newValue;
     }
-    public long getHackCount() throws PersistenceException {
+    @Override
+	public long getHackCount() throws PersistenceException {
         return this.hackCount;
     }
-    public void setHackCount(long newValue) throws PersistenceException {
+    @Override
+	public void setHackCount(long newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theServerFacade.hackCountSet(this.getId(), newValue);
         this.hackCount = newValue;
     }
-    public java.sql.Timestamp getHackDelay() throws PersistenceException {
+    @Override
+	public java.sql.Timestamp getHackDelay() throws PersistenceException {
         return this.hackDelay;
     }
-    public void setHackDelay(java.sql.Timestamp newValue) throws PersistenceException {
+    @Override
+	public void setHackDelay(java.sql.Timestamp newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theServerFacade.hackDelaySet(this.getId(), newValue);
         this.hackDelay = newValue;
     }
-    public PersistentServer getThis() throws PersistenceException {
+    @Override
+	public PersistentServer getThis() throws PersistenceException {
         if(this.This == null){
             PersistentServer result = new ServerProxi(this.getId());
             result.getTheObject();
             return result;
-        }return (PersistentServer)this.This;
+        }return this.This;
     }
     
-    public void accept(InvokerVisitor visitor) throws PersistenceException {
+    @Override
+	public void accept(InvokerVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
-    public <R> R accept(InvokerReturnVisitor<R>  visitor) throws PersistenceException {
+    @Override
+	public <R> R accept(InvokerReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleServer(this);
     }
-    public <E extends UserException>  void accept(InvokerExceptionVisitor<E> visitor) throws PersistenceException, E {
+    @Override
+	public <E extends UserException>  void accept(InvokerExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleServer(this);
     }
-    public <R, E extends UserException> R accept(InvokerReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    @Override
+	public <R, E extends UserException> R accept(InvokerReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleServer(this);
     }
-    public void accept(RemoteVisitor visitor) throws PersistenceException {
+    @Override
+	public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
-    public <R> R accept(RemoteReturnVisitor<R>  visitor) throws PersistenceException {
+    @Override
+	public <R> R accept(RemoteReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleServer(this);
     }
-    public <E extends UserException>  void accept(RemoteExceptionVisitor<E> visitor) throws PersistenceException, E {
+    @Override
+	public <E extends UserException>  void accept(RemoteExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleServer(this);
     }
-    public <R, E extends UserException> R accept(RemoteReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    @Override
+	public <R, E extends UserException> R accept(RemoteReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleServer(this);
     }
-    public void accept(AnythingVisitor visitor) throws PersistenceException {
+    @Override
+	public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
-    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+    @Override
+	public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleServer(this);
     }
-    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+    @Override
+	public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleServer(this);
     }
-    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    @Override
+	public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleServer(this);
     }
-    public int getLeafInfo() throws PersistenceException{
-        return (int) (0 
+    @Override
+	public int getLeafInfo() throws PersistenceException{
+        return 0 
             + (this.getQuantityManager() == null ? 0 : 1)
             + (this.getUnitTypeManager() == null ? 0 : 1)
             + (this.getConversionManager() == null ? 0 : 1)
-            + (this.getFractionManager() == null ? 0 : 1));
+            + (this.getFractionManager() == null ? 0 : 1);
     }
     
     
-    public void handleResult(final Command command) 
+    @Override
+	public void handleResult(final Command command) 
 				throws PersistenceException{
         new Thread(new Runnable(){
 			@Override
@@ -326,85 +356,120 @@ public class Server extends PersistentObject implements PersistentServer{
 			}
 		}).start();
     }
-    public PersistentUnitTypeManager getUnitTypeManager() 
+    @Override
+	public PersistentUnitTypeManager getUnitTypeManager() 
 				throws PersistenceException{
         return model.UnitTypeManager.getTheUnitTypeManager();
     }
-    public PersistentQuantityManager getQuantityManager() 
+    @Override
+	public PersistentQuantityManager getQuantityManager() 
 				throws PersistenceException{
         return model.QuantityManager.getTheQuantityManager();
     }
-    public void signalChanged(final boolean signal) 
+    @Override
+	public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         this.changed = signal;
     }
-    public void initializeOnInstantiation() 
+    @Override
+	public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
+    @Override
+	public void createUnit(final String name, final PersistentUnitType type) 
+				throws PersistenceException{
+        getThis().getUnitTypeManager().createUnit(name, type, getThis());
+        
+    }
+    @Override
+	public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentUnitTypeManager result = getThis().getUnitTypeManager();
 		observer.updateTransientDerived(getThis(), "unitTypeManager", result);
 		return result;
     }
-    public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
+    @Override
+	public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentQuantityManager result = getThis().getQuantityManager();
 		observer.updateTransientDerived(getThis(), "quantityManager", result);
 		return result;
     }
-    public void connected(final String user) 
+    @Override
+	public void connected(final String user) 
 				throws PersistenceException{
         //TODO: implement method: connected
         
     }
-    public void initializeOnCreation() 
+    @Override
+	public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
     }
-    public PersistentFractionManager getFractionManager() 
+    @Override
+	public PersistentFractionManager getFractionManager() 
 				throws PersistenceException{
         return model.FractionManager.getTheFractionManager();
     }
-    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+    @Override
+	public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
 				throws PersistenceException{
         getThis().getUnitTypeManager().addReferenceType(compUnitType, unitType, exponent, getThis());
         
     }
-    public void disconnected() 
+    @Override
+	public void disconnected() 
 				throws PersistenceException{
         //TODO: implement method: disconnected
         
     }
-    public boolean hasChanged() 
+    @Override
+	public boolean hasChanged() 
 				throws PersistenceException{
         boolean result = this.changed;
 		this.changed = false;
 		return result;
     }
-    public PersistentFractionManager getFractionManager(final TDObserver observer) 
+    @Override
+	public void createCompUnit(final String name, final PersistentCompUnitType type) 
+				throws PersistenceException{
+        //TODO: implement method: createCompUnit
+        
+    }
+    @Override
+	public PersistentFractionManager getFractionManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentFractionManager result = getThis().getFractionManager();
 		observer.updateTransientDerived(getThis(), "fractionManager", result);
 		return result;
     }
-    public void finishModeling(final PersistentCompUnitType compUnitType) 
+    @Override
+	public void finishModeling(final PersistentCompUnitType compUnitType) 
 				throws PersistenceException{
     	getThis().getUnitTypeManager().finishModeling(compUnitType, getThis());
     }
-    public PersistentConversionManager getConversionManager() 
+    @Override
+	public PersistentConversionManager getConversionManager() 
 				throws PersistenceException{
         return model.ConversionManager.getTheConversionManager();
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    @Override
+	public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public void handleException(final Command command, final PersistenceException exception) 
+    @Override
+	public void createQuantity(final common.Fraction f, final PersistentAbsUnit unit) 
+				throws PersistenceException{
+        //TODO: implement method: createQuantity
+        
+    }
+    @Override
+	public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
         new Thread(new Runnable(){
 			@Override
@@ -413,12 +478,14 @@ public class Server extends PersistentObject implements PersistentServer{
 			}
 		}).start();
     }
-    public void createCompUnitType(final String name) 
+    @Override
+	public void createCompUnitType(final String name) 
 				throws PersistenceException{
         getThis().getUnitTypeManager().createCompUnitType(name, getThis());
         
     }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    @Override
+	public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentServer)This);
 		if(this.equals(This)){
@@ -428,13 +495,15 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
     }
-    public PersistentConversionManager getConversionManager(final TDObserver observer) 
+    @Override
+	public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentConversionManager result = getThis().getConversionManager();
 		observer.updateTransientDerived(getThis(), "conversionManager", result);
 		return result;
     }
-    public void createUnitType(final String name) 
+    @Override
+	public void createUnitType(final String name) 
 				throws PersistenceException{
         this.getThis().getUnitTypeManager().createUnitType(name, getThis());
         

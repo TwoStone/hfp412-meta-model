@@ -22,17 +22,17 @@ public class CreateUnitCommandICProxi extends PersistentInCacheProxi implements 
         return 111;
     }
     
-    public PersistentUnitType getType() throws PersistenceException {
-        return ((PersistentCreateUnitCommand)this.getTheObject()).getType();
-    }
-    public void setType(PersistentUnitType newValue) throws PersistenceException {
-        ((PersistentCreateUnitCommand)this.getTheObject()).setType(newValue);
-    }
     public String getName() throws PersistenceException {
         return ((PersistentCreateUnitCommand)this.getTheObject()).getName();
     }
     public void setName(String newValue) throws PersistenceException {
         ((PersistentCreateUnitCommand)this.getTheObject()).setName(newValue);
+    }
+    public PersistentUnitType getType() throws PersistenceException {
+        return ((PersistentCreateUnitCommand)this.getTheObject()).getType();
+    }
+    public void setType(PersistentUnitType newValue) throws PersistenceException {
+        ((PersistentCreateUnitCommand)this.getTheObject()).setType(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentCreateUnitCommand)this.getTheObject()).getInvoker();

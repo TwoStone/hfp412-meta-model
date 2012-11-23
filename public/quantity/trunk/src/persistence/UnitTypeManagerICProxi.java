@@ -54,9 +54,13 @@ public class UnitTypeManagerICProxi extends PersistentInCacheProxiOptimistic imp
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).initializeOnInstantiation();
     }
-    public void createUnit(final PersistentUnitType type, final String name, final Invoker invoker) 
+    public void createUnit(final String name, final PersistentUnitType type) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).createUnit(name, type);
+    }
+    public void createCompUnit(final String name, final PersistentCompUnitType type, final Invoker invoker) 
 				throws PersistenceException{
-        ((PersistentUnitTypeManager)this.getTheObject()).createUnit(type, name, invoker);
+        ((PersistentUnitTypeManager)this.getTheObject()).createCompUnit(name, type, invoker);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -65,6 +69,10 @@ public class UnitTypeManagerICProxi extends PersistentInCacheProxiOptimistic imp
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
 				throws model.DoubleDefinitionException, model.AlreadyFinalizedException, PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent);
+    }
+    public void createCompUnit(final String name, final PersistentCompUnitType type) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).createCompUnit(name, type);
     }
     public void finishModeling(final PersistentCompUnitType compUnitType, final Invoker invoker) 
 				throws PersistenceException{
@@ -82,17 +90,13 @@ public class UnitTypeManagerICProxi extends PersistentInCacheProxiOptimistic imp
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).createUnitType(name, invoker);
     }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        ((PersistentUnitTypeManager)this.getTheObject()).initialize(This, final$$Fields);
-    }
     public void createCompUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).createCompUnitType(name);
     }
-    public void createUnit(final PersistentUnitType type, final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentUnitTypeManager)this.getTheObject()).createUnit(type, name);
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).initialize(This, final$$Fields);
     }
     public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit, final Invoker invoker) 
 				throws PersistenceException{
@@ -101,6 +105,10 @@ public class UnitTypeManagerICProxi extends PersistentInCacheProxiOptimistic imp
     public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit) 
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).addDefaultUnit(type, unit);
+    }
+    public void createUnit(final String name, final PersistentUnitType type, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).createUnit(name, type, invoker);
     }
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{

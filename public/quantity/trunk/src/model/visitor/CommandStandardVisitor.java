@@ -17,6 +17,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.standardHandling(createUnitCommand);
     }
+    public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
+        this.standardHandling(createCompUnitCommand);
+    }
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createCompUnitTypeCommand);
     }

@@ -61,6 +61,7 @@ public class ConnectionHandler {
     public CreateUnitCommandFacade theCreateUnitCommandFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public BooleanValueFacade theBooleanValueFacade;
+    public CreateCompUnitCommandFacade theCreateCompUnitCommandFacade;
     public CreateCompUnitTypeCommandFacade theCreateCompUnitTypeCommandFacade;
     public BooleanTrueFacade theBooleanTrueFacade;
     public CommonDateFacade theCommonDateFacade;
@@ -98,6 +99,7 @@ public class ConnectionHandler {
             this.theCreateUnitCommandFacade= new CreateUnitCommandFacade();
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade();
             this.theBooleanValueFacade= new BooleanValueFacade();
+            this.theCreateCompUnitCommandFacade= new CreateCompUnitCommandFacade();
             this.theCreateCompUnitTypeCommandFacade= new CreateCompUnitTypeCommandFacade();
             this.theBooleanTrueFacade= new BooleanTrueFacade();
             this.theCommonDateFacade= new CommonDateFacade();

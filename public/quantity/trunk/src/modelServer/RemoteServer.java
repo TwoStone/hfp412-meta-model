@@ -18,6 +18,16 @@ public  class RemoteServer extends RemoteServerMaster {
         return this.server;
     } 
 
+    public synchronized java.util.Hashtable<?,?> createUnit(String name, String typeProxiString){
+        try {
+            PersistentUnitType type = (PersistentUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            ((PersistentServer)this.server).createUnit(name, type);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> addReferenceType(String compUnitTypeProxiString, String unitTypeProxiString, String exponentAsString){
         try {
             PersistentCompUnitType compUnitType = (PersistentCompUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(compUnitTypeProxiString));
@@ -30,10 +40,31 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> createCompUnit(String name, String typeProxiString){
+        try {
+            PersistentCompUnitType type = (PersistentCompUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            ((PersistentServer)this.server).createCompUnit(name, type);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> finishModeling(String compUnitTypeProxiString){
         try {
             PersistentCompUnitType compUnitType = (PersistentCompUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(compUnitTypeProxiString));
             ((PersistentServer)this.server).finishModeling(compUnitType);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createQuantity(String fAsString, String unitProxiString){
+        try {
+            common.Fraction f = common.Fraction.parse(fAsString);
+            PersistentAbsUnit unit = (PersistentAbsUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
+            ((PersistentServer)this.server).createQuantity(f, unit);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

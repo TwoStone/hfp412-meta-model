@@ -4,12 +4,12 @@ import model.UserException;
 
 import model.visitor.*;
 
-public interface PersistentCreateUnitCommand extends UnitTypeManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
+public interface PersistentCreateCompUnitCommand extends UnitTypeManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
     
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
-    public PersistentUnitType getType() throws PersistenceException ;
-    public void setType(PersistentUnitType newValue) throws PersistenceException ;
+    public PersistentCompUnitType getType() throws PersistenceException ;
+    public void setType(PersistentCompUnitType newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
     public PersistentUnitTypeManager getCommandReceiver() throws PersistenceException ;

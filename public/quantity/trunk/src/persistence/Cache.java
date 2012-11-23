@@ -272,6 +272,7 @@ public class Cache {
 		this.number2NameMap.put(117, "CompoundQuantity");
 		this.number2NameMap.put(124, "Conversion");
 		this.number2NameMap.put(101, "ConversionManager");
+		this.number2NameMap.put(148, "CreateCompUnitCommand");
 		this.number2NameMap.put(144, "CreateCompUnitTypeCommand");
 		this.number2NameMap.put(109, "CreateConversionCommand");
 		this.number2NameMap.put(114, "CreateQuantityCommand");
