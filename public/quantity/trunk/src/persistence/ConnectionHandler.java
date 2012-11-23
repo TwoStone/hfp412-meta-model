@@ -47,6 +47,7 @@ public class ConnectionHandler {
 
 
 
+    public FinishModelingCommandFacade theFinishModelingCommandFacade;
     public ConversionManagerFacade theConversionManagerFacade;
     public ReferenceTypeFacade theReferenceTypeFacade;
     public QuantityManagerFacade theQuantityManagerFacade;
@@ -63,7 +64,6 @@ public class ConnectionHandler {
     public CreateCompUnitTypeCommandFacade theCreateCompUnitTypeCommandFacade;
     public BooleanTrueFacade theBooleanTrueFacade;
     public CommonDateFacade theCommonDateFacade;
-    public FinalizeCommandFacade theFinalizeCommandFacade;
     public CreateQuantityCommandFacade theCreateQuantityCommandFacade;
     public CommandExecuterFacade theCommandExecuterFacade;
     public AddReferenceTypeCommandFacade theAddReferenceTypeCommandFacade;
@@ -84,6 +84,7 @@ public class ConnectionHandler {
 	protected ConnectionHandler() throws PersistenceException {
 	}
 	public void connect(String databaseName, String currentSchemaName, String user, char[] pw, boolean autoCommit) throws PersistenceException {
+            this.theFinishModelingCommandFacade= new FinishModelingCommandFacade();
             this.theConversionManagerFacade= new ConversionManagerFacade();
             this.theReferenceTypeFacade= new ReferenceTypeFacade();
             this.theQuantityManagerFacade= new QuantityManagerFacade();
@@ -100,7 +101,6 @@ public class ConnectionHandler {
             this.theCreateCompUnitTypeCommandFacade= new CreateCompUnitTypeCommandFacade();
             this.theBooleanTrueFacade= new BooleanTrueFacade();
             this.theCommonDateFacade= new CommonDateFacade();
-            this.theFinalizeCommandFacade= new FinalizeCommandFacade();
             this.theCreateQuantityCommandFacade= new CreateQuantityCommandFacade();
             this.theCommandExecuterFacade= new CommandExecuterFacade();
             this.theAddReferenceTypeCommandFacade= new AddReferenceTypeCommandFacade();

@@ -16,7 +16,12 @@ public abstract class PersistentProxi extends PersistentRoot {
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[46];
+		listProxiFactories = new ListProxiFactory[47];
+        listProxiFactories[46] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new FinishModelingCommandListEntryProxi(objectId, entryId);
+            }
+        };
         listProxiFactories[0] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new ConversionManagerListEntryProxi(objectId, entryId);
@@ -80,11 +85,6 @@ public abstract class PersistentProxi extends PersistentRoot {
         listProxiFactories[12] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new CommonDateListEntryProxi(objectId, entryId);
-            }
-        };
-        listProxiFactories[44] = new ListProxiFactory(){
-            PersistentListEntryProxi create(long objectId, long entryId){
-                return new FinalizeCommandListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[13] = new ListProxiFactory(){
@@ -167,7 +167,12 @@ public abstract class PersistentProxi extends PersistentRoot {
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [46];
+		proxiFactories = new ProxiFactory [47];
+        proxiFactories[46] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new FinishModelingCommandProxi(objectId);
+            }
+        };
         proxiFactories[0] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new ConversionManagerProxi(objectId);
@@ -231,11 +236,6 @@ public abstract class PersistentProxi extends PersistentRoot {
         proxiFactories[12] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new CommonDateProxi(objectId);
-            }
-        };
-        proxiFactories[44] = new ProxiFactory(){
-            PersistentProxi create(long objectId){
-                return new FinalizeCommandProxi(objectId);
             }
         };
         proxiFactories[13] = new ProxiFactory(){

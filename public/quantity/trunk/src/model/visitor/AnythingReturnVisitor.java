@@ -7,6 +7,7 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,A
     
     public R handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
+    public R handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException;
     public R handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     public R handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     public R handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
@@ -16,7 +17,6 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,A
     public R handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException;
     public R handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException;
     public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
-    public R handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException;
     public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
     public R handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException;
     public R handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;

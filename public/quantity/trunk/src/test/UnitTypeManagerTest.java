@@ -60,6 +60,7 @@ public class UnitTypeManagerTest extends TestCase{
 	 */
 	@Test
 	public void testCreateUnitType() {
+
 		try {
 			PersistentUnitTypeManager typeManager = UnitTypeManager.getTheUnitTypeManager();
 			String name = "Temperatur";
@@ -167,7 +168,7 @@ public class UnitTypeManagerTest extends TestCase{
 					utm.addReferenceType(speed, length, 1);
 					utm.addReferenceType(speed, time, -1);
 					assertFalse(this.isTrue(speed.isFinal()));
-					speed.finalize();
+					speed.finishModeling();
 				} catch (AlreadyFinalizedException e) {
 					fail("AlreadyFinalizedException vor finalize()-Aufruf!");
 				}

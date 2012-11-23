@@ -4,7 +4,7 @@ import model.UserException;
 
 import model.visitor.*;
 
-public interface PersistentFinalizeCommand extends UnitTypeManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
+public interface PersistentFinishModelingCommand extends UnitTypeManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
     
     public PersistentCompUnitType getCompUnitType() throws PersistenceException ;
     public void setCompUnitType(PersistentCompUnitType newValue) throws PersistenceException ;

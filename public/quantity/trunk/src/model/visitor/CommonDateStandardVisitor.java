@@ -8,6 +8,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
         this.standardHandling(createConversionCommand);
     }
+    public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
+        this.standardHandling(finishModelingCommand);
+    }
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);
     }
@@ -22,9 +25,6 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
-    }
-    public void handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException{
-        this.standardHandling(finalizeCommand);
     }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);

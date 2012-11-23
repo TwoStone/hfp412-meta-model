@@ -77,9 +77,9 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements PersistentCom
 				throws PersistenceException{
         ((PersistentCompUnitType)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void finalize() 
+    public void finishModeling() 
 				throws model.AlreadyFinalizedException, PersistenceException{
-        ((PersistentCompUnitType)this.getTheObject()).finalize();
+        ((PersistentCompUnitType)this.getTheObject()).finishModeling();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

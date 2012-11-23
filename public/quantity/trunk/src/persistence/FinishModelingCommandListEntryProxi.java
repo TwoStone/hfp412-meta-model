@@ -1,10 +1,10 @@
 package persistence;
 
-public class FinalizeCommandListEntryProxi extends FinalizeCommandProxi implements PersistentFinalizeCommandListEntryProxi {
+public class FinishModelingCommandListEntryProxi extends FinishModelingCommandProxi implements PersistentFinishModelingCommandListEntryProxi {
 
   long entryId;
 
-  public FinalizeCommandListEntryProxi(long objectId, long entryId) {
+  public FinishModelingCommandListEntryProxi(long objectId, long entryId) {
     super(objectId);
     this.entryId = entryId;
   }

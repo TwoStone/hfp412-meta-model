@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class AnythingStandardVisitor implements AnythingVisitor {
     
+    public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
+        this.standardHandling(finishModelingCommand);
+    }
     public void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException{
         this.standardHandling(conversionManager);
     }
@@ -43,9 +46,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
-    }
-    public void handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException{
-        this.standardHandling(finalizeCommand);
     }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);

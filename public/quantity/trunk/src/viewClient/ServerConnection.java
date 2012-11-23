@@ -18,11 +18,13 @@ public class ServerConnection extends ConnectionMaster {
 		return (ServerView)super.getServer();
 	}
 
-    public synchronized void finalize(CompUnitTypeView compUnitType) throws ModelException{
+    public synchronized void addReferenceType(CompUnitTypeView compUnitType, UnitTypeView unitType, long exponent) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)compUnitType).createProxiInformation());
-            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "finalize", parameters);
+            parameters.add(((view.objects.ViewProxi)unitType).createProxiInformation());
+            parameters.add(new Long(exponent).toString());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "addReferenceType", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -36,13 +38,11 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void addReferenceType(CompUnitTypeView compUnitType, UnitTypeView unitType, long exponent) throws ModelException{
+    public synchronized void finishModeling(CompUnitTypeView compUnitType) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)compUnitType).createProxiInformation());
-            parameters.add(((view.objects.ViewProxi)unitType).createProxiInformation());
-            parameters.add(new Long(exponent).toString());
-            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "addReferenceType", parameters);
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "finishModeling", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());

@@ -123,10 +123,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).connected(user);
     }
-    public void finalize(final PersistentCompUnitType compUnitType) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).finalize(compUnitType);
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnCreation();
@@ -146,6 +142,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void disconnected() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).disconnected();
+    }
+    public void finishModeling(final PersistentCompUnitType compUnitType) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).finishModeling(compUnitType);
     }
     public PersistentFractionManager getFractionManager(final TDObserver observer) 
 				throws PersistenceException{

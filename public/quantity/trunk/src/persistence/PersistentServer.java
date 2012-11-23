@@ -44,8 +44,6 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException;
-    public void finalize(final PersistentCompUnitType compUnitType) 
-				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public PersistentFractionManager getFractionManager() 
@@ -55,6 +53,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public boolean hasChanged() 
 				throws PersistenceException;
     public PersistentFractionManager getFractionManager(final TDObserver observer) 
+				throws PersistenceException;
+    public void finishModeling(final PersistentCompUnitType compUnitType) 
 				throws PersistenceException;
     public PersistentConversionManager getConversionManager() 
 				throws PersistenceException;

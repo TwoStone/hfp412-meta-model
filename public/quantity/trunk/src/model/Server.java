@@ -360,11 +360,6 @@ public class Server extends PersistentObject implements PersistentServer{
         //TODO: implement method: connected
         
     }
-    public void finalize(final PersistentCompUnitType compUnitType) 
-				throws PersistenceException{
-        UnitTypeManager.getTheUnitTypeManager().finalize(compUnitType, getThis());
-        
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
@@ -395,6 +390,10 @@ public class Server extends PersistentObject implements PersistentServer{
         PersistentFractionManager result = getThis().getFractionManager();
 		observer.updateTransientDerived(getThis(), "fractionManager", result);
 		return result;
+    }
+    public void finishModeling(final PersistentCompUnitType compUnitType) 
+				throws PersistenceException{
+    	getThis().getUnitTypeManager().finishModeling(compUnitType, getThis());
     }
     public PersistentConversionManager getConversionManager() 
 				throws PersistenceException{

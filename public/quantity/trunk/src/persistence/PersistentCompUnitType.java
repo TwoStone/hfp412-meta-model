@@ -28,10 +28,10 @@ public interface PersistentCompUnitType extends PersistentAbsUnitType {
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void finalize() 
-				throws model.AlreadyFinalizedException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
+    public void finishModeling() 
+				throws model.AlreadyFinalizedException, PersistenceException;
 
 }
 

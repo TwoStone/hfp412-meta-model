@@ -8,27 +8,27 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class FinalizeCommand extends PersistentObject implements PersistentFinalizeCommand{
+public class FinishModelingCommand extends PersistentObject implements PersistentFinishModelingCommand{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentFinalizeCommand getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade.getClass(objectId);
-        return (PersistentFinalizeCommand)PersistentProxi.createProxi(objectId, classId);
+    public static PersistentFinishModelingCommand getById(long objectId) throws PersistenceException{
+        long classId = ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.getClass(objectId);
+        return (PersistentFinishModelingCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentFinalizeCommand createFinalizeCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createFinalizeCommand(createDate,commitDate,false);
+    public static PersistentFinishModelingCommand createFinishModelingCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createFinishModelingCommand(createDate,commitDate,false);
     }
     
-    public static PersistentFinalizeCommand createFinalizeCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
-        PersistentFinalizeCommand result = null;
+    public static PersistentFinishModelingCommand createFinishModelingCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        PersistentFinishModelingCommand result = null;
         if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade
-                .newDelayedFinalizeCommand();
+            result = ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade
+                .newDelayedFinishModelingCommand();
             result.setDelayed$Persistence(true);
         }else{
-            result = ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade
-                .newFinalizeCommand(-1);
+            result = ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade
+                .newFinishModelingCommand(-1);
         }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -44,7 +44,7 @@ public class FinalizeCommand extends PersistentObject implements PersistentFinal
     
     private model.UserException commandException = null;
     
-    public FinalizeCommand(PersistentCompUnitType compUnitType,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public FinishModelingCommand(PersistentCompUnitType compUnitType,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.compUnitType = compUnitType;
@@ -54,7 +54,7 @@ public class FinalizeCommand extends PersistentObject implements PersistentFinal
     }
     
     static public long getTypeId() {
-        return 145;
+        return 147;
     }
     
     public long getClassId() {
@@ -63,24 +63,24 @@ public class FinalizeCommand extends PersistentObject implements PersistentFinal
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 145) ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade
-            .newFinalizeCommand(this.getId());
+        if (this.getClassId() == 147) ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade
+            .newFinishModelingCommand(this.getId());
         super.store();
         if(this.getCompUnitType() != null){
             this.getCompUnitType().store();
-            ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade.compUnitTypeSet(this.getId(), getCompUnitType());
+            ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.compUnitTypeSet(this.getId(), getCompUnitType());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
-            ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade.invokerSet(this.getId(), getInvoker());
+            ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.invokerSet(this.getId(), getInvoker());
         }
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
-            ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+            ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
-            ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
+            ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
         }
         
     }
@@ -96,7 +96,7 @@ public class FinalizeCommand extends PersistentObject implements PersistentFinal
         this.compUnitType = (PersistentCompUnitType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade.compUnitTypeSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.compUnitTypeSet(this.getId(), newValue);
         }
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -110,7 +110,7 @@ public class FinalizeCommand extends PersistentObject implements PersistentFinal
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade.invokerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
     public PersistentUnitTypeManager getCommandReceiver() throws PersistenceException {
@@ -124,7 +124,7 @@ public class FinalizeCommand extends PersistentObject implements PersistentFinal
         this.commandReceiver = (PersistentUnitTypeManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade.commandReceiverSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -138,7 +138,7 @@ public class FinalizeCommand extends PersistentObject implements PersistentFinal
         this.myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theFinalizeCommandFacade.myCommonDateSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.myCommonDateSet(this.getId(), newValue);
         }
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
@@ -159,52 +159,52 @@ public class FinalizeCommand extends PersistentObject implements PersistentFinal
     }
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException {
-        visitor.handleFinalizeCommand(this);
+        visitor.handleFinishModelingCommand(this);
     }
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleFinalizeCommand(this);
+         return visitor.handleFinishModelingCommand(this);
     }
     public <E extends UserException>  void accept(CommonDateExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleFinalizeCommand(this);
+         visitor.handleFinishModelingCommand(this);
     }
     public <R, E extends UserException> R accept(CommonDateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleFinalizeCommand(this);
+         return visitor.handleFinishModelingCommand(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleFinalizeCommand(this);
+        visitor.handleFinishModelingCommand(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleFinalizeCommand(this);
+         return visitor.handleFinishModelingCommand(this);
     }
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleFinalizeCommand(this);
+         visitor.handleFinishModelingCommand(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleFinalizeCommand(this);
+         return visitor.handleFinishModelingCommand(this);
     }
     public void accept(CommandVisitor visitor) throws PersistenceException {
-        visitor.handleFinalizeCommand(this);
+        visitor.handleFinishModelingCommand(this);
     }
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleFinalizeCommand(this);
+         return visitor.handleFinishModelingCommand(this);
     }
     public <E extends UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleFinalizeCommand(this);
+         visitor.handleFinishModelingCommand(this);
     }
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleFinalizeCommand(this);
+         return visitor.handleFinishModelingCommand(this);
     }
     public void accept(UnitTypeManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleFinalizeCommand(this);
+        visitor.handleFinishModelingCommand(this);
     }
     public <R> R accept(UnitTypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleFinalizeCommand(this);
+         return visitor.handleFinishModelingCommand(this);
     }
     public <E extends UserException>  void accept(UnitTypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleFinalizeCommand(this);
+         visitor.handleFinishModelingCommand(this);
     }
     public <R, E extends UserException> R accept(UnitTypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleFinalizeCommand(this);
+         return visitor.handleFinishModelingCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
@@ -216,7 +216,7 @@ public class FinalizeCommand extends PersistentObject implements PersistentFinal
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().finalize(this.getCompUnitType());
+			this.getCommandReceiver().finishModeling(this.getCompUnitType());
 		}
 		catch(model.AlreadyFinalizedException e){
 			this.commandException = e;

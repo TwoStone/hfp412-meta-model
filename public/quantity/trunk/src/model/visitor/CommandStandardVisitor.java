@@ -8,6 +8,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
         this.standardHandling(createConversionCommand);
     }
+    public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
+        this.standardHandling(finishModelingCommand);
+    }
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);
     }
@@ -19,9 +22,6 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException{
         this.standardHandling(addDefaultUnitCommand);
-    }
-    public void handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException{
-        this.standardHandling(finalizeCommand);
     }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);

@@ -58,10 +58,6 @@ public class UnitTypeManagerProxi extends PersistentProxi implements PersistentU
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).createUnit(type, name, invoker);
     }
-    public void finalize(final PersistentCompUnitType compUnitType) 
-				throws model.AlreadyFinalizedException, PersistenceException{
-        ((PersistentUnitTypeManager)this.getTheObject()).finalize(compUnitType);
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).initializeOnCreation();
@@ -70,9 +66,13 @@ public class UnitTypeManagerProxi extends PersistentProxi implements PersistentU
 				throws model.DoubleDefinitionException, model.AlreadyFinalizedException, PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent);
     }
-    public void finalize(final PersistentCompUnitType compUnitType, final Invoker invoker) 
+    public void finishModeling(final PersistentCompUnitType compUnitType, final Invoker invoker) 
 				throws PersistenceException{
-        ((PersistentUnitTypeManager)this.getTheObject()).finalize(compUnitType, invoker);
+        ((PersistentUnitTypeManager)this.getTheObject()).finishModeling(compUnitType, invoker);
+    }
+    public void finishModeling(final PersistentCompUnitType compUnitType) 
+				throws model.AlreadyFinalizedException, PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).finishModeling(compUnitType);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

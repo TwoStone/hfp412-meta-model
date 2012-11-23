@@ -7,6 +7,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException, E;
+    public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException, E;
     public void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException, E;
     public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException, E;
     public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException, E;
@@ -16,7 +17,6 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException, E;
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException, E;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
-    public void handleFinalizeCommand(PersistentFinalizeCommand finalizeCommand) throws PersistenceException, E;
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException, E;
     public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException, E;

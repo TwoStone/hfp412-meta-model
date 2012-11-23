@@ -210,14 +210,14 @@ public class CompUnitType extends model.AbsUnitType implements PersistentCompUni
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
-    public void finalize() 
-				throws model.AlreadyFinalizedException, PersistenceException{
-        getThis().setIsFinal(BooleanTrue.getTheBooleanTrue());
-        
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
     	getThis().setIsFinal(BooleanFalse.getTheBooleanFalse());
+    }
+    public void finishModeling() 
+				throws model.AlreadyFinalizedException, PersistenceException{
+        this.setIsFinal(BooleanTrue.getTheBooleanTrue());
+        
     }
 
     /* Start of protected part that is not overridden by persistence generator */

@@ -359,12 +359,12 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
                 item = new javax.swing.JMenuItem();
-                item.setText("finalize");
+                item.setText("finishModeling");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "finalize" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "finishModeling" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
-                                getConnection().finalize((CompUnitTypeView)selected);
+                                getConnection().finishModeling((CompUnitTypeView)selected);
                                 getConnection().setEagerRefresh();
                             }catch(ModelException me){
                                 handleException(me);
