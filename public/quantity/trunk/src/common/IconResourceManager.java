@@ -42,7 +42,6 @@ public class IconResourceManager {
 	}
 
 	public int getClassImageId(Class<? extends Anything> clazz) {
-		//System.out.println(clazz + " : " + clazz.getName().hashCode());
 		return clazz.getName().hashCode();
 	}
 
@@ -53,18 +52,10 @@ public class IconResourceManager {
 		} else {
 			path = DEFAULT_ICON;
 		}
-		//System.out.println(iconInfo);
 		return this.getIconFromPath(path);
 	}
 	
 	private Icon getIconFromPath(String path) {
-		//final URL url = IconResourceManager.class.getClassLoader().getResource(IMAGE_ROOT_PATH + path);
-		//if (url == null) {
-//			throw new Error("Icon-Datei konnte nicht gefunden werden in " + IMAGE_ROOT_PATH + path);
-		//}
-		//return new ImageIcon(url);
-		
-		
 		return new ImageIcon(IMAGE_ROOT_PATH+path);
 	}
 	

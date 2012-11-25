@@ -11,5 +11,7 @@ public class IconConstants {
 	public static final String ICON_BULLET_BALL_GLASS_YELLOW = "bullet_ball_glass_yellow.png";
 	public static final String ICON_BUG_RED = "bug_red.png";
 	
+	public static final String ICON_LARGE_CUBES = "large/cubes.png";
+	
 	
 }

@@ -1,18 +1,24 @@
 package viewClient;
 
-import view.*;
-import view.objects.ViewRoot;
-
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JPopupMenu;
-import javax.swing.JSplitPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.tree.DefaultTreeSelectionModel;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeSelectionModel;
-import javax.swing.tree.DefaultTreeSelectionModel;
+
+import view.AbsUnitView;
+import view.Anything;
+import view.CompUnitTypeView;
+import view.ModelException;
+import view.ServerView;
+import view.UnitTypeView;
+import view.UserException;
+import view.objects.ViewRoot;
 
 
 @SuppressWarnings("serial")
@@ -27,7 +33,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 	private JScrollPane navigationScrollPane = null;
 	private JPanel detailsPanel = null;
 
-	private ServerView service;
+	private final ServerView service;
 
 	/**
 	 * This is the default constructor
@@ -38,6 +44,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		this.service = service;
 		initialize();
 	}
+	
 	@SuppressWarnings("unused")
 	private ServerView getService(){
 		return this.service;
@@ -103,9 +110,11 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			selectionModel.setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 			this.errorJTree.setSelectionModel(selectionModel);
 			this.errorJTree.addMouseListener(new java.awt.event.MouseAdapter() {   
+				@Override
 				public void mouseReleased(MouseEvent e) {    
 					tryShowContextMenu(e,errorJTree,false);
 				}
+				@Override
 				public void mousePressed(MouseEvent e) {
 					tryShowContextMenu(e,errorJTree,false);
 				}
@@ -150,15 +159,18 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			navigationTree.setSelectionModel(selectionModel);
 			navigationTree
 					.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+						@Override
 						public void valueChanged(javax.swing.event.TreeSelectionEvent e) {
 							Anything selected = (Anything) getNavigationTree().getSelectedObject();
 							setDetailsTable(selected);
 						}
 					});
 			navigationTree.addMouseListener(new java.awt.event.MouseAdapter() {   
+				@Override
 				public void mouseReleased(MouseEvent e) {    
 					tryShowContextMenu(e,navigationTree,WithStaticOperations);
 				}
+				@Override
 				public void mousePressed(MouseEvent e) {
 					tryShowContextMenu(e,navigationTree,WithStaticOperations);
 				}
@@ -194,10 +206,17 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			public DetailPanel getResult() {
 				return this.result;
 			}
+			@Override
 			protected void standardHandling(Anything Anything) throws ModelException {
 				this.result = null;
 			}
 			//TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
+			
+			@Override
+			public void handleServer(ServerView Server) throws ModelException{
+				viewClient.custom.SpecialPanel panel = new viewClient.custom.ServerSpecialPanel(ServerClientView.this, Server);
+				this.result = panel;
+			}
 		}
 		PanelDecider decider = new PanelDecider();
 		anything.accept(decider);
@@ -232,6 +251,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 	}
 
+	@Override
 	public void setConnection(ConnectionMaster connection){
 		this.connection = connection;
 	}
@@ -240,8 +260,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 	}
 	/** Is called by the refresher thread if the server object has changed
 	**/
+	@Override
 	public void handleRefresh(){
 		java.awt.EventQueue.invokeLater(new Runnable(){
+			@Override
 			public void run(){
 				try {
 					getNavigationTree().refresh();
@@ -257,8 +279,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 	}
 	/** Is called only once after the connection has been established
 	**/
+	@Override
 	public void initializeConnection(){
 		java.awt.EventQueue.invokeLater(new Runnable(){
+			@Override
 			public void run(){
 				getNavigationTree().setModel((TreeModel) getConnection().getServerView());			
 				getNavigationTree().setSelectionPath(new javax.swing.tree.TreePath(getNavigationTree().getModel().getRoot()));
@@ -266,12 +290,15 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		});
 		//TODO adjust implementation: initializeConnection
 	}
+	@Override
 	public void handleException(ModelException exception) {
 		this.parent.handleException(exception);
 	}
+	@Override
 	public void handleOKMessage(String message) {
 		this.parent.handleOKMessage(message);
 	}
+	@Override
 	public void handleUserException(UserException exception) {
 		this.parent.handleUserException(exception);	
 	}	
@@ -286,7 +313,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         javax.swing.JButton currentButton = null;
         currentButton = new javax.swing.JButton("createCompUnitType ... ");
         currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
                 ServerCreateCompUnitTypeStringMssgWizard wizard = new ServerCreateCompUnitTypeStringMssgWizard("createCompUnitType");
                 wizard.pack();
                 wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -298,7 +326,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         });result.add(currentButton);
         currentButton = new javax.swing.JButton("createCompUnit ... ");
         currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
                 ServerCreateCompUnitStringCompUnitTypeMssgWizard wizard = new ServerCreateCompUnitStringCompUnitTypeMssgWizard("createCompUnit");
                 wizard.pack();
                 wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -310,7 +339,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         });result.add(currentButton);
         currentButton = new javax.swing.JButton("createQuantity ... ");
         currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
                 ServerCreateQuantityFractionAbsUnitMssgWizard wizard = new ServerCreateQuantityFractionAbsUnitMssgWizard("createQuantity");
                 wizard.pack();
                 wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -322,7 +352,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         });result.add(currentButton);
         currentButton = new javax.swing.JButton("createUnitType ... ");
         currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
                 ServerCreateUnitTypeStringMssgWizard wizard = new ServerCreateUnitTypeStringMssgWizard("createUnitType");
                 wizard.pack();
                 wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -334,7 +365,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         });result.add(currentButton);
         currentButton = new javax.swing.JButton("createUnit ... ");
         currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
                 ServerCreateUnitStringUnitTypeMssgWizard wizard = new ServerCreateUnitStringUnitTypeMssgWizard("createUnit");
                 wizard.pack();
                 wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -352,7 +384,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         item = new javax.swing.JMenuItem();
         item.setText("(S) createCompUnitType ... ");
         item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
                 ServerCreateCompUnitTypeStringMssgWizard wizard = new ServerCreateCompUnitTypeStringMssgWizard("createCompUnitType");
                 wizard.pack();
                 wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -366,7 +399,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         item = new javax.swing.JMenuItem();
         item.setText("(S) createCompUnit ... ");
         item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
                 ServerCreateCompUnitStringCompUnitTypeMssgWizard wizard = new ServerCreateCompUnitStringCompUnitTypeMssgWizard("createCompUnit");
                 wizard.pack();
                 wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -380,7 +414,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         item = new javax.swing.JMenuItem();
         item.setText("(S) createQuantity ... ");
         item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
                 ServerCreateQuantityFractionAbsUnitMssgWizard wizard = new ServerCreateQuantityFractionAbsUnitMssgWizard("createQuantity");
                 wizard.pack();
                 wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -394,7 +429,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         item = new javax.swing.JMenuItem();
         item.setText("(S) createUnitType ... ");
         item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
                 ServerCreateUnitTypeStringMssgWizard wizard = new ServerCreateUnitTypeStringMssgWizard("createUnitType");
                 wizard.pack();
                 wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -408,7 +444,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         item = new javax.swing.JMenuItem();
         item.setText("(S) createUnit ... ");
         item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
                 ServerCreateUnitStringUnitTypeMssgWizard wizard = new ServerCreateUnitStringUnitTypeMssgWizard("createUnit");
                 wizard.pack();
                 wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -424,7 +461,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item = new javax.swing.JMenuItem();
                 item.setText("addReferenceType ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                    @Override
+					public void actionPerformed(java.awt.event.ActionEvent e) {
                         ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard wizard = new ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard("addReferenceType");
                         wizard.setFirstArgument((CompUnitTypeView)selected);
                         wizard.pack();
@@ -439,7 +477,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item = new javax.swing.JMenuItem();
                 item.setText("finishModeling");
                 item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                    @Override
+					public void actionPerformed(java.awt.event.ActionEvent e) {
                         if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "finishModeling" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().finishModeling((CompUnitTypeView)selected);
@@ -466,11 +505,13 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			super();
 			getOkButton().setText(operationName);
 		}
+		@Override
 		protected void initialize(){
 			this.helpFileName = "ServerCreateUnitStringUnitTypeMssgWizard.help";
 			super.initialize();			
 		}
 				
+		@Override
 		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
@@ -487,14 +528,17 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			}
 			
 		}
+		@Override
 		protected String checkCompleteParameterSet(){
 			return null;
 		}
 		
+		@Override
 		protected void addParameters(){
 			getParametersPanel().add(new StringSelectionPanel("name", this));
 			getParametersPanel().add(new ObjectSelectionPanel("type", "view.UnitTypeView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
+		@Override
 		protected void handleDependencies(int i) {
 		}
 		
@@ -507,11 +551,13 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			super();
 			getOkButton().setText(operationName);
 		}
+		@Override
 		protected void initialize(){
 			this.helpFileName = "ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard.help";
 			super.initialize();			
 		}
 				
+		@Override
 		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
@@ -528,14 +574,17 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			}
 			
 		}
+		@Override
 		protected String checkCompleteParameterSet(){
 			return null;
 		}
 		
+		@Override
 		protected void addParameters(){
 			getParametersPanel().add(new ObjectSelectionPanel("unitType", "view.UnitTypeView", (ViewRoot)getConnection().getServerView(), this));
 			getParametersPanel().add(new IntegerSelectionPanel("exponent", this));		
 		}	
+		@Override
 		protected void handleDependencies(int i) {
 		}
 		
@@ -557,11 +606,13 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			super();
 			getOkButton().setText(operationName);
 		}
+		@Override
 		protected void initialize(){
 			this.helpFileName = "ServerCreateCompUnitStringCompUnitTypeMssgWizard.help";
 			super.initialize();			
 		}
 				
+		@Override
 		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
@@ -578,14 +629,17 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			}
 			
 		}
+		@Override
 		protected String checkCompleteParameterSet(){
 			return null;
 		}
 		
+		@Override
 		protected void addParameters(){
 			getParametersPanel().add(new StringSelectionPanel("name", this));
 			getParametersPanel().add(new ObjectSelectionPanel("type", "view.CompUnitTypeView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
+		@Override
 		protected void handleDependencies(int i) {
 		}
 		
@@ -598,11 +652,13 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			super();
 			getOkButton().setText(operationName);
 		}
+		@Override
 		protected void initialize(){
 			this.helpFileName = "ServerCreateQuantityFractionAbsUnitMssgWizard.help";
 			super.initialize();			
 		}
 				
+		@Override
 		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
@@ -619,14 +675,17 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			}
 			
 		}
+		@Override
 		protected String checkCompleteParameterSet(){
 			return null;
 		}
 		
+		@Override
 		protected void addParameters(){
 			getParametersPanel().add(new FractionSelectionPanel("f", this));
 			getParametersPanel().add(new ObjectSelectionPanel("unit", "view.AbsUnitView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
+		@Override
 		protected void handleDependencies(int i) {
 		}
 		
@@ -639,11 +698,13 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			super();
 			getOkButton().setText(operationName);
 		}
+		@Override
 		protected void initialize(){
 			this.helpFileName = "ServerCreateCompUnitTypeStringMssgWizard.help";
 			super.initialize();			
 		}
 				
+		@Override
 		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
@@ -659,13 +720,16 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			}
 			
 		}
+		@Override
 		protected String checkCompleteParameterSet(){
 			return null;
 		}
 		
+		@Override
 		protected void addParameters(){
 			getParametersPanel().add(new StringSelectionPanel("name", this));		
 		}	
+		@Override
 		protected void handleDependencies(int i) {
 		}
 		
@@ -678,11 +742,13 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			super();
 			getOkButton().setText(operationName);
 		}
+		@Override
 		protected void initialize(){
 			this.helpFileName = "ServerCreateUnitTypeStringMssgWizard.help";
 			super.initialize();			
 		}
 				
+		@Override
 		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
@@ -698,13 +764,16 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			}
 			
 		}
+		@Override
 		protected String checkCompleteParameterSet(){
 			return null;
 		}
 		
+		@Override
 		protected void addParameters(){
 			getParametersPanel().add(new StringSelectionPanel("name", this));		
 		}	
+		@Override
 		protected void handleDependencies(int i) {
 		}
 		
