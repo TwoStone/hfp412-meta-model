@@ -35,7 +35,6 @@ public class LessOrEqualThanTest extends AbstractTest {
 	private PersistentMProductType mptSingle2;
 	private PersistentMProductType mptSingle3;
 	private PersistentMProductType mptSingle4;
-	private PersistentMProductType mptSingle5;
 	private PersistentMProductType mptMultiple2And4;
 	private PersistentMProductType mptMultiple4And2;
 	private PersistentMProductType mptMultiple5And6;
@@ -45,8 +44,12 @@ public class LessOrEqualThanTest extends AbstractTest {
 	private PersistentMSumType mstSingle2;
 	private PersistentMSumType mstSingle3;
 	private PersistentMSumType mstSingle4;
+	private PersistentMSumType mstSingle5;
 	private PersistentMSumType mstMultiple2And4;
+	private PersistentMSumType mstMultiple4And2;
 	private PersistentMSumType mstMultiple4And5;
+	private PersistentMSumType mstMultiple5And6;
+	private PersistentMSumType mstMultiple2And4And5;
 
 	public LessOrEqualThanTest() throws PersistenceException, CycleException {
 		// Boolean
@@ -70,7 +73,6 @@ public class LessOrEqualThanTest extends AbstractTest {
 		mptSingle2 = MProductType.createMProductType();
 		mptSingle3 = MProductType.createMProductType();
 		mptSingle4 = MProductType.createMProductType();
-		mptSingle5 = MProductType.createMProductType();
 		mptMultiple2And4 = MProductType.createMProductType();
 		mptMultiple4And2 = MProductType.createMProductType();
 		mptMultiple5And6 = MProductType.createMProductType();
@@ -80,7 +82,6 @@ public class LessOrEqualThanTest extends AbstractTest {
 		mptSingle2.getContainedTypes().add(mat2);
 		mptSingle3.getContainedTypes().add(mat3);
 		mptSingle4.getContainedTypes().add(mat4);
-		mptSingle5.getContainedTypes().add(mat5);
 		mptMultiple2And4.getContainedTypes().add(mat2);
 		mptMultiple2And4.getContainedTypes().add(mat4);
 		mptMultiple4And2.getContainedTypes().add(mat4);
@@ -95,17 +96,29 @@ public class LessOrEqualThanTest extends AbstractTest {
 		mstSingle2 = MSumType.createMSumType();
 		mstSingle3 = MSumType.createMSumType();
 		mstSingle4 = MSumType.createMSumType();
+		mstSingle5 = MSumType.createMSumType();
 		mstMultiple2And4 = MSumType.createMSumType();
+		mstMultiple4And2 = MSumType.createMSumType();
 		mstMultiple4And5 = MSumType.createMSumType();
+		mstMultiple5And6 = MSumType.createMSumType();
+		mstMultiple2And4And5 = MSumType.createMSumType();
 
-		mstSingle2.getContainedTypes().add(mat1);
+		mstSingle1.getContainedTypes().add(mat1);
 		mstSingle2.getContainedTypes().add(mat2);
-		mstSingle2.getContainedTypes().add(mat3);
-		mstSingle2.getContainedTypes().add(mat4);
+		mstSingle3.getContainedTypes().add(mat3);
+		mstSingle4.getContainedTypes().add(mat4);
+		mstSingle5.getContainedTypes().add(mat5);
 		mstMultiple2And4.getContainedTypes().add(mat2);
 		mstMultiple2And4.getContainedTypes().add(mat4);
+		mstMultiple4And2.getContainedTypes().add(mat4);
+		mstMultiple4And2.getContainedTypes().add(mat2);
 		mstMultiple4And5.getContainedTypes().add(mat4);
 		mstMultiple4And5.getContainedTypes().add(mat5);
+		mstMultiple5And6.getContainedTypes().add(mat5);
+		mstMultiple5And6.getContainedTypes().add(mat6);
+		mstMultiple2And4And5.getContainedTypes().add(mat2);
+		mstMultiple2And4And5.getContainedTypes().add(mat4);
+		mstMultiple2And4And5.getContainedTypes().add(mat5);
 	}
 
 	@Test
@@ -198,15 +211,16 @@ public class LessOrEqualThanTest extends AbstractTest {
 		assertEquals(mTrue, mptSingle2.lessOrEqual(mstMultiple2And4));
 		assertEquals(mFalse, mptSingle2.lessOrEqual(mstMultiple4And5));
 
-		assertEquals(mFalse, mptMultiple2And4.lessOrEqual(mptEmpty));
-		assertEquals(mFalse, mptMultiple2And4.lessOrEqual(mptSingle1));
-		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mptSingle2));
-		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mptSingle3));
-		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mptSingle4));
-		assertEquals(mFalse, mptMultiple2And4.lessOrEqual(mptSingle5));
-		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mptMultiple4And2));
-		assertEquals(mFalse, mptMultiple2And4.lessOrEqual(mptMultiple5And6));
-		assertEquals(mFalse, mptMultiple2And4.lessOrEqual(mptMultiple4And5));
+		assertEquals(mFalse, mptMultiple2And4.lessOrEqual(mstSingle1));
+		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mstSingle2));
+		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mstSingle3));
+		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mstSingle4));
+		assertEquals(mFalse, mptMultiple2And4.lessOrEqual(mstSingle5));
+		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mstMultiple2And4));
+		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mstMultiple4And2));
+		assertEquals(mFalse, mptMultiple2And4.lessOrEqual(mstMultiple5And6));
+		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mstMultiple2And4And5));
+		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mstMultiple4And5));
 
 	}
 
