@@ -25,6 +25,10 @@ public interface PersistentMBoolean extends Anything, AbstractPersistentProxi {
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
+    public PersistentMBoolean createFromBoolean(final boolean bool) 
+				throws PersistenceException;
+    public boolean toBoolean() 
+				throws PersistenceException;
 
 }
 

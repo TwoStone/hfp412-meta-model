@@ -10,7 +10,7 @@ import model.visitor.*;
 public class TypeManager extends PersistentObject implements PersistentTypeManager{
     
     private static PersistentTypeManager theTypeManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentTypeManager getTheTypeManager() throws PersistenceException{
         if (theTypeManager == null || reset$For$Test){
@@ -65,9 +65,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         TypeManager result = this;
         result = new TypeManager(this.This, 
                                  this.getId());
-        result.atomicTypes = this.atomicTypes.copy(result);
-        result.productTypes = this.productTypes.copy(result);
-        result.sumTypes = this.sumTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -155,13 +152,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     
     public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
 				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException{
-        superType.addSubType(typeunder);   
-    }
-    public void createSubType(final PersistentMAtomicType superType, final String name) 
-				throws model.WrongSubTypeAspectException, model.DoubleDefinitionException, model.CycleException, PersistenceException{
-    	checkForDuplicateMAtomicTypeName(name);
-    	PersistentMAtomicType atype = MAtomicType.createMAtomicType(name, superType.getAspect());
-        getThis().addSubType(superType, atype);
+        superType.addSubType(typeunder);
     }
     public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder, final Invoker invoker) 
 				throws PersistenceException{
@@ -183,44 +174,60 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public void createAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateAtomicTypeCommand command = model.meta.CreateAtomicTypeCommand.createCreateAtomicTypeCommand(name, now, now);
-		command.setAspect(aspect);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void createSubType(final PersistentMAtomicType superType, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateSubTypeCommand command = model.meta.CreateSubTypeCommand.createCreateSubTypeCommand(name, now, now);
-		command.setSuperType(superType);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentTypeManager)This);
 		if(this.equals(This)){
 		}
     }
-    public void createAtomicType(final PersistentMAspect aspect, final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-    	checkForDuplicateMAtomicTypeName(name);
-        getThis().getAtomicTypes().add(MAtomicType.createMAtomicType(name, aspect));
+    public void createSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateSubTypeCommand command = model.meta.CreateSubTypeCommand.createCreateSubTypeCommand(name, now, now);
+		command.setSuperType(superType);
+		command.setSingletonType(singletonType);
+		command.setAbstractType(abstractType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
     }
+    public void createAtomicType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateAtomicTypeCommand command = model.meta.CreateAtomicTypeCommand.createCreateAtomicTypeCommand(name, now, now);
+		command.setAspect(aspect);
+		command.setSingletonType(singletonType);
+		command.setAbstractType(abstractType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws model.WrongSubTypeAspectException, model.DoubleDefinitionException, model.ConsistencyException, model.CycleException, PersistenceException{
+    	checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
+    	PersistentMAtomicType atype = MAtomicType.createMAtomicType(name, singletonType, abstractType, superType.getAspect());
+        getThis().addSubType(superType, atype);
+        getThis().getAtomicTypes().add(atype);
+    }
+    public void createAtomicType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
+    	checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
+        getThis().getAtomicTypes().add(MAtomicType.createMAtomicType(name, singletonType, abstractType, aspect));
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     
-    private void checkForDuplicateMAtomicTypeName(String name) throws PersistenceException, DoubleDefinitionException{
+    private void checkMAtomicTypeNameAndConsitency(String name, PersistentMBoolean singletonType, PersistentMBoolean abstractType) throws PersistenceException, DoubleDefinitionException, ConsistencyException{
+    	if (singletonType.toBoolean() && abstractType.toBoolean()) {
+    		throw new ConsistencyException("Singletons may not be abstract");
+    	}
+    	
+    	
     	if(MAtomicType.getMAtomicTypeByName(name).getLength()>0){
     		throw new DoubleDefinitionException("AtomicType-names must be unique. An AtomicType with name " + name +" is already existing.");
     	}

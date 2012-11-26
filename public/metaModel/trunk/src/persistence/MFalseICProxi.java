@@ -68,6 +68,14 @@ public class MFalseICProxi extends MBooleanICProxi implements PersistentMFalse{
 				throws PersistenceException{
         ((PersistentMFalse)this.getTheObject()).initializeOnCreation();
     }
+    public PersistentMBoolean createFromBoolean(final boolean bool) 
+				throws PersistenceException{
+        return ((PersistentMFalse)this.getTheObject()).createFromBoolean(bool);
+    }
+    public boolean toBoolean() 
+				throws PersistenceException{
+        return ((PersistentMFalse)this.getTheObject()).toBoolean();
+    }
 
     
 }

@@ -28,6 +28,18 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
     public void setName(String newValue) throws PersistenceException {
         ((PersistentMAtomicType)this.getTheObject()).setName(newValue);
     }
+    public PersistentMBoolean getSingletonType() throws PersistenceException {
+        return ((PersistentMAtomicType)this.getTheObject()).getSingletonType();
+    }
+    public void setSingletonType(PersistentMBoolean newValue) throws PersistenceException {
+        ((PersistentMAtomicType)this.getTheObject()).setSingletonType(newValue);
+    }
+    public PersistentMBoolean getAbstractType() throws PersistenceException {
+        return ((PersistentMAtomicType)this.getTheObject()).getAbstractType();
+    }
+    public void setAbstractType(PersistentMBoolean newValue) throws PersistenceException {
+        ((PersistentMAtomicType)this.getTheObject()).setAbstractType(newValue);
+    }
     public PersistentMAspect getAspect() throws PersistenceException {
         return ((PersistentMAtomicType)this.getTheObject()).getAspect();
     }
@@ -94,10 +106,6 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
     }
     
     
-    public <T> T strategyMAtomicTypeHierarchy(final T parameter, final MAtomicTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).strategyMAtomicTypeHierarchy(parameter, strategy);
-    }
     public boolean containsMAtomicTypeHierarchy(final MAtomicTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).containsMAtomicTypeHierarchy(part);
@@ -106,29 +114,21 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).initializeOnInstantiation();
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        ((PersistentMAtomicType)this.getTheObject()).copyingPrivateUserAttributes(copy);
-    }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).containsMComplexTypeHierarchy(part);
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        ((PersistentMAtomicType)this.getTheObject()).initialize(This, final$$Fields);
     }
     public String fetchName() 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).fetchName();
     }
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
-    }
     public PersistentMBoolean lessOrEqual(final MType otherType) 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).lessOrEqual(otherType);
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -141,6 +141,30 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).getSubTypes();
+    }
+    public <T> T strategyMAtomicTypeHierarchy(final T parameter, final MAtomicTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).strategyMAtomicTypeHierarchy(parameter, strategy);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        ((PersistentMAtomicType)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public MAssociationSearchList fetchAssociations() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).fetchAssociations();
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        ((PersistentMAtomicType)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).allObjectsOfTypeAreSingleton();
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).isAbstract();
     }
 
     

@@ -62,7 +62,6 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
         MSumType result = this;
         result = new MSumType(this.This, 
                               this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -214,6 +213,22 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
+    }
+    
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{	
+    	long subTypeCount = getThis().getContainedTypes().getLength();
+    	return subTypeCount == 0 ? 
+    				MTrue.getTheMTrue() : 
+    				subTypeCount == 1 ?
+    						getThis().getContainedTypes().iterator().next().isAbstract() : 
+    						MTrue.getTheMTrue(); 
+    }
+    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
+				throws PersistenceException{
+    	return getThis().getContainedTypes().getLength() == 1 ? 
+    			getThis().getContainedTypes().iterator().next().allObjectsOfTypeAreSingleton() : 
+    				MFalse.getTheMFalse(); 
     }
     public String fetchName() 
 				throws PersistenceException{

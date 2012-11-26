@@ -595,20 +595,29 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
     }
-    public void handleServer(view.ServerView object){
-        result = new ServerDefaultDetailPanel(handler, object);
-    }
     public void handleMFalse(view.MFalseView object){
         result = new MFalseDefaultDetailPanel(handler, object);
     }
+    public void handleServer(view.ServerView object){
+        result = new ServerDefaultDetailPanel(handler, object);
+    }
+    public void handleAssociationManager(view.AssociationManagerView object){
+        result = new AssociationManagerDefaultDetailPanel(handler, object);
+    }
     public void handleMAtomicType(view.MAtomicTypeView object){
         result = new MAtomicTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleMAHierarchy(view.MAHierarchyView object){
+        result = new MAHierarchyDefaultDetailPanel(handler, object);
     }
     public void handleMAspect(view.MAspectView object){
         result = new MAspectDefaultDetailPanel(handler, object);
     }
     public void handleMSumType(view.MSumTypeView object){
         result = new MSumTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleMAssociation(view.MAssociationView object){
+        result = new MAssociationDefaultDetailPanel(handler, object);
     }
     public void handleMBoolean(view.MBooleanView object){
         result = new MBooleanDefaultDetailPanel(handler, object);
@@ -703,10 +712,25 @@ class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MFalseDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected MFalseDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MFalseView getAnything(){
+        return (view.MFalseView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Server$$typeManager = "Server$$typeManager";
     protected static final String Server$$aspectManager = "Server$$aspectManager";
+    protected static final String Server$$associationManager = "Server$$associationManager";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -728,16 +752,19 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class MFalseDefaultDetailPanel extends DefaultDetailPanel{
+class AssociationManagerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected MFalseDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected static final String AssociationManager$$associations = "AssociationManager$$associations";
+    protected static final String AssociationManager$$hierarchies = "AssociationManager$$hierarchies";
+    
+    protected AssociationManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
         
     }
-    protected view.MFalseView getAnything(){
-        return (view.MFalseView)this.anything;
+    protected view.AssociationManagerView getAnything(){
+        return (view.AssociationManagerView)this.anything;
     }
 }
 
@@ -745,6 +772,8 @@ class MFalseDefaultDetailPanel extends DefaultDetailPanel{
 class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MAtomicType$$name = "MAtomicType$$name";
+    protected static final String MAtomicType$$singletonType = "MAtomicType$$singletonType";
+    protected static final String MAtomicType$$abstractType = "MAtomicType$$abstractType";
     protected static final String MAtomicType$$subTypes = "MAtomicType$$subTypes";
     
     protected MAtomicTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -762,6 +791,30 @@ class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MAtomicTypeView getAnything(){
         return (view.MAtomicTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MAHierarchyDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MAHierarchy$$name = "MAHierarchy$$name";
+    protected static final String MAHierarchy$$associations = "MAHierarchy$$associations";
+    
+    protected MAHierarchyDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MAHierarchy$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MAHierarchyView getAnything(){
+        return (view.MAHierarchyView)this.anything;
     }
 }
 
@@ -810,6 +863,32 @@ class MSumTypeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MSumTypeView getAnything(){
         return (view.MSumTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MAssociationDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MAssociation$$name = "MAssociation$$name";
+    protected static final String MAssociation$$source = "MAssociation$$source";
+    protected static final String MAssociation$$target = "MAssociation$$target";
+    protected static final String MAssociation$$hierarchies = "MAssociation$$hierarchies";
+    
+    protected MAssociationDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MAssociation$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MAssociationView getAnything(){
+        return (view.MAssociationView)this.anything;
     }
 }
 

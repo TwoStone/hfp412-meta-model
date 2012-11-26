@@ -84,6 +84,10 @@ public class MSumTypeProxi extends MComplexTypeProxi implements PersistentMSumTy
 				throws PersistenceException{
         ((PersistentMSumType)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public MAssociationSearchList fetchAssociations() 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).fetchAssociations();
+    }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).containsMComplexTypeHierarchy(part);
@@ -111,6 +115,14 @@ public class MSumTypeProxi extends MComplexTypeProxi implements PersistentMSumTy
     public String getTypeLinkOperator() 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).getTypeLinkOperator();
+    }
+    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).allObjectsOfTypeAreSingleton();
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).isAbstract();
     }
 
     

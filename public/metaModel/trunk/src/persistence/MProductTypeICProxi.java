@@ -84,6 +84,10 @@ public class MProductTypeICProxi extends MComplexTypeICProxi implements Persiste
 				throws PersistenceException{
         ((PersistentMProductType)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public MAssociationSearchList fetchAssociations() 
+				throws PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).fetchAssociations();
+    }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).containsMComplexTypeHierarchy(part);
@@ -111,6 +115,14 @@ public class MProductTypeICProxi extends MComplexTypeICProxi implements Persiste
     public String getTypeLinkOperator() 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).getTypeLinkOperator();
+    }
+    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
+				throws PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).allObjectsOfTypeAreSingleton();
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).isAbstract();
     }
 
     

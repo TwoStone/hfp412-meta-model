@@ -3,7 +3,10 @@ package model;
 import persistence.Anything;
 import persistence.PersistenceException;
 import persistence.PersistentAspectManager;
+import persistence.PersistentAssociationManager;
+import persistence.PersistentMAHierarchy;
 import persistence.PersistentMAspect;
+import persistence.PersistentMAssociation;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMFalse;
@@ -111,5 +114,20 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleMTrue(PersistentMTrue mTrue) throws PersistenceException {
 		result = "true";
 	}
-
+	@Override
+	public void handleAssociationManager(
+			PersistentAssociationManager associationManager)
+			throws PersistenceException {
+		result = "[AM]";
+	}
+	@Override
+	public void handleMAHierarchy(PersistentMAHierarchy mAHierarchy)
+			throws PersistenceException {
+		result = mAHierarchy.getName();
+	}
+	@Override
+	public void handleMAssociation(PersistentMAssociation mAssociation)
+			throws PersistenceException {
+		result = mAssociation.getName() + " (" + mAssociation.getSource().fetchName() + ")";  
+	}
 }

@@ -64,6 +64,14 @@ public class MBooleanProxi extends PersistentProxi implements PersistentMBoolean
 				throws PersistenceException{
         ((PersistentMBoolean)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public boolean toBoolean() 
+				throws PersistenceException{
+        return ((PersistentMBoolean)this.getTheObject()).toBoolean();
+    }
+    public PersistentMBoolean createFromBoolean(final boolean bool) 
+				throws PersistenceException{
+        return ((PersistentMBoolean)this.getTheObject()).createFromBoolean(bool);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMBoolean)this.getTheObject()).initializeOnCreation();

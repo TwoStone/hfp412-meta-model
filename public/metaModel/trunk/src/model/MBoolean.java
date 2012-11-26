@@ -10,7 +10,7 @@ import model.visitor.*;
 public class MBoolean extends PersistentObject implements PersistentMBoolean{
     
     private static PersistentMBoolean theMBoolean = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMBoolean getTheMBoolean() throws PersistenceException{
         if (theMBoolean == null || reset$For$Test){
@@ -162,9 +162,26 @@ public class MBoolean extends PersistentObject implements PersistentMBoolean{
         //TODO: implement method: initializeOnCreation
         
     }
+    public PersistentMBoolean createFromBoolean(final boolean bool) 
+				throws PersistenceException{
+    	return bool ? MTrue.getTheMTrue() : MFalse.getTheMFalse();
+    }
+    public boolean toBoolean() 
+				throws PersistenceException{
+        //TODO: implement method: toBoolean
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"toBoolean\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+    public static PersistentMBoolean create(final boolean bool) 
+				throws PersistenceException{
+    	return bool ? MTrue.getTheMTrue() : MFalse.getTheMFalse();
+    }
     /* End of protected part that is not overridden by persistence generator */
     
 }

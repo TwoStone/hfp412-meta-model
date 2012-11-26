@@ -5,4 +5,4 @@ public interface MTypeMssgs {
 }
 
 interface MTypeDOWNMssgs extends Mssgs, MTypeMssgs{}
-interface MTypeUPMssgs extends MAtomicTypeUPMssgs, MComplexTypeUPMssgs, MTypeMssgs{}
+interface MTypeUPMssgs extends MComplexTypeUPMssgs, MAtomicTypeUPMssgs, MTypeMssgs{}

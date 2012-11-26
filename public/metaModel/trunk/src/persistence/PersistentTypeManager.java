@@ -18,24 +18,24 @@ public interface PersistentTypeManager extends Anything, AbstractPersistentProxi
     
     public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder) 
 				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException;
-    public void createSubType(final PersistentMAtomicType superType, final String name) 
-				throws model.WrongSubTypeAspectException, model.DoubleDefinitionException, model.CycleException, PersistenceException;
     public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder, final Invoker invoker) 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void createAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
-				throws PersistenceException;
-    public void createSubType(final PersistentMAtomicType superType, final String name, final Invoker invoker) 
-				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void createAtomicType(final PersistentMAspect aspect, final String name) 
-				throws model.DoubleDefinitionException, PersistenceException;
+    public void createSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
+    public void createAtomicType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
+				throws PersistenceException;
+    public void createSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws model.WrongSubTypeAspectException, model.DoubleDefinitionException, model.ConsistencyException, model.CycleException, PersistenceException;
+    public void createAtomicType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException;
 
 }
 

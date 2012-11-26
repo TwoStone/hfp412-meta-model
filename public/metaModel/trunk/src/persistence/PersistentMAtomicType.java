@@ -8,6 +8,10 @@ public interface PersistentMAtomicType extends MType, MAtomicTypeHierarchyHIERAR
     
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
+    public PersistentMBoolean getSingletonType() throws PersistenceException ;
+    public void setSingletonType(PersistentMBoolean newValue) throws PersistenceException ;
+    public PersistentMBoolean getAbstractType() throws PersistenceException ;
+    public void setAbstractType(PersistentMBoolean newValue) throws PersistenceException ;
     public PersistentMAspect getAspect() throws PersistenceException ;
     public void setAspect(PersistentMAspect newValue) throws PersistenceException ;
     public PersistentMAtomicType getSuperType() throws PersistenceException ;

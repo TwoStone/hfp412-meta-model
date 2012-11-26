@@ -34,6 +34,18 @@ public class CreateAtomicTypeCommandProxi extends PersistentProxi implements Per
     public void setName(String newValue) throws PersistenceException {
         ((PersistentCreateAtomicTypeCommand)this.getTheObject()).setName(newValue);
     }
+    public PersistentMBoolean getSingletonType() throws PersistenceException {
+        return ((PersistentCreateAtomicTypeCommand)this.getTheObject()).getSingletonType();
+    }
+    public void setSingletonType(PersistentMBoolean newValue) throws PersistenceException {
+        ((PersistentCreateAtomicTypeCommand)this.getTheObject()).setSingletonType(newValue);
+    }
+    public PersistentMBoolean getAbstractType() throws PersistenceException {
+        return ((PersistentCreateAtomicTypeCommand)this.getTheObject()).getAbstractType();
+    }
+    public void setAbstractType(PersistentMBoolean newValue) throws PersistenceException {
+        ((PersistentCreateAtomicTypeCommand)this.getTheObject()).setAbstractType(newValue);
+    }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentCreateAtomicTypeCommand)this.getTheObject()).getInvoker();
     }

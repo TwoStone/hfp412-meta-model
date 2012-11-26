@@ -34,6 +34,18 @@ public class CreateSubTypeCommandICProxi extends PersistentInCacheProxi implemen
     public void setName(String newValue) throws PersistenceException {
         ((PersistentCreateSubTypeCommand)this.getTheObject()).setName(newValue);
     }
+    public PersistentMBoolean getSingletonType() throws PersistenceException {
+        return ((PersistentCreateSubTypeCommand)this.getTheObject()).getSingletonType();
+    }
+    public void setSingletonType(PersistentMBoolean newValue) throws PersistenceException {
+        ((PersistentCreateSubTypeCommand)this.getTheObject()).setSingletonType(newValue);
+    }
+    public PersistentMBoolean getAbstractType() throws PersistenceException {
+        return ((PersistentCreateSubTypeCommand)this.getTheObject()).getAbstractType();
+    }
+    public void setAbstractType(PersistentMBoolean newValue) throws PersistenceException {
+        ((PersistentCreateSubTypeCommand)this.getTheObject()).setAbstractType(newValue);
+    }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentCreateSubTypeCommand)this.getTheObject()).getInvoker();
     }

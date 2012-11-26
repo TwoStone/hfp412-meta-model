@@ -42,22 +42,22 @@ public class Cache {
 				while (!garbageCollector.isInterrupted()){
 					synchronized(lock){try {lock.wait(GarbageCollectorReportInterval);} catch (InterruptedException e) {}}//Do nothing and terminate!
 					reporter.reportCurrentCacheSize(size);
-//					if (Cache.this.heapSpaceFree < HeapSpaceReserve){
-//						Cache.this.heapSpaceFree = Long.MAX_VALUE;
-//						Object[] classes = classMap.keySet().toArray();
-//						for (int i = 0; i < classes.length; i++){
-//							long currentKey = (Long) classes[i];
-//							if (currentKey > 0){
-//								Hashtable<Long, PersistentInCacheProxi> objectMap = classMap.get(classes[i]);
-//								Object[] objects = objectMap.keySet().toArray();
-//								for (int j = 0; j < objects.length; j++){
-//									PersistentInCacheProxi current = objectMap.get(objects[j]);
-//									if (current != null) current.tryBreak();
-//								}
-//							}
-//						}
-//						System.gc();
-//					}
+					if (Cache.this.heapSpaceFree < HeapSpaceReserve){
+						Cache.this.heapSpaceFree = Long.MAX_VALUE;
+						Object[] classes = classMap.keySet().toArray();
+						for (int i = 0; i < classes.length; i++){
+							long currentKey = (Long) classes[i];
+							if (currentKey > 0){
+								Hashtable<Long, PersistentInCacheProxi> objectMap = classMap.get(classes[i]);
+								Object[] objects = objectMap.keySet().toArray();
+								for (int j = 0; j < objects.length; j++){
+									PersistentInCacheProxi current = objectMap.get(objects[j]);
+									if (current != null) current.tryBreak();
+								}
+							}
+						}
+						System.gc();
+					}
 				}
 			}
 		},"Cache Garbage Collector");
@@ -65,10 +65,10 @@ public class Cache {
 		this.garbageCollector.start();
 	}
 
-	public void reset$For$Test(){
-		this.garbageCollector.interrupt();
-		Cache.theCache = null;
-	}
+//	public void reset$For$Test(){
+//		this.garbageCollector.interrupt();
+//		Cache.theCache = null;
+//	}
 
 	public void finalize(){
 		this.garbageCollector.interrupt();
@@ -261,15 +261,21 @@ public class Cache {
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
 		this.number2NameMap.put(133, "AddSubTypeCommand");
+		this.number2NameMap.put(145, "AddToHierarchyCommand");
 		this.number2NameMap.put(126, "AspectManager");
+		this.number2NameMap.put(141, "AssociationManager");
 		this.number2NameMap.put(-120, "CommandCoordinator");
 		this.number2NameMap.put(-119, "CommandExecuter");
 		this.number2NameMap.put(121, "CommonDate");
 		this.number2NameMap.put(139, "CreateAspectCommand");
+		this.number2NameMap.put(146, "CreateAssociationCommand");
 		this.number2NameMap.put(140, "CreateAtomicTypeCommand");
+		this.number2NameMap.put(144, "CreateHierarchyCommand");
 		this.number2NameMap.put(135, "CreateSubTypeCommand");
 		this.number2NameMap.put(-104, "ErrorDisplay");
+		this.number2NameMap.put(142, "MAHierarchy");
 		this.number2NameMap.put(127, "MAspect");
+		this.number2NameMap.put(143, "MAssociation");
 		this.number2NameMap.put(102, "MAtomicType");
 		this.number2NameMap.put(137, "MBoolean");
 		this.number2NameMap.put(136, "MFalse");

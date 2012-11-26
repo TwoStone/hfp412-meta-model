@@ -23,11 +23,20 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleServer(ServerView server) throws ModelException{
         this.standardHandling(server);
     }
+    public void handleAssociationManager(AssociationManagerView associationManager) throws ModelException{
+        this.standardHandling(associationManager);
+    }
     public void handleMAtomicType(MAtomicTypeView mAtomicType) throws ModelException{
         this.standardHandling(mAtomicType);
     }
+    public void handleMAHierarchy(MAHierarchyView mAHierarchy) throws ModelException{
+        this.standardHandling(mAHierarchy);
+    }
     public void handleMAspect(MAspectView mAspect) throws ModelException{
         this.standardHandling(mAspect);
+    }
+    public void handleMAssociation(MAssociationView mAssociation) throws ModelException{
+        this.standardHandling(mAssociation);
     }
     public void handleMSumType(MSumTypeView mSumType) throws ModelException{
         this.standardHandling(mSumType);

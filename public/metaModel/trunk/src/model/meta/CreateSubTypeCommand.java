@@ -40,17 +40,21 @@ public class CreateSubTypeCommand extends PersistentObject implements Persistent
     }
     protected PersistentMAtomicType superType;
     protected String name;
+    protected PersistentMBoolean singletonType;
+    protected PersistentMBoolean abstractType;
     protected Invoker invoker;
     protected PersistentTypeManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateSubTypeCommand(PersistentMAtomicType superType,String name,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateSubTypeCommand(PersistentMAtomicType superType,String name,PersistentMBoolean singletonType,PersistentMBoolean abstractType,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.superType = superType;
         this.name = name;
+        this.singletonType = singletonType;
+        this.abstractType = abstractType;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
@@ -72,6 +76,14 @@ public class CreateSubTypeCommand extends PersistentObject implements Persistent
         if(this.getSuperType() != null){
             this.getSuperType().store();
             ConnectionHandler.getTheConnectionHandler().theCreateSubTypeCommandFacade.superTypeSet(this.getId(), getSuperType());
+        }
+        if(this.getSingletonType() != null){
+            this.getSingletonType().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateSubTypeCommandFacade.singletonTypeSet(this.getId(), getSingletonType());
+        }
+        if(this.getAbstractType() != null){
+            this.getAbstractType().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateSubTypeCommandFacade.abstractTypeSet(this.getId(), getAbstractType());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -109,6 +121,34 @@ public class CreateSubTypeCommand extends PersistentObject implements Persistent
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateSubTypeCommandFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
+    }
+    public PersistentMBoolean getSingletonType() throws PersistenceException {
+        return this.singletonType;
+    }
+    public void setSingletonType(PersistentMBoolean newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.singletonType)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.singletonType = (PersistentMBoolean)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateSubTypeCommandFacade.singletonTypeSet(this.getId(), newValue);
+        }
+    }
+    public PersistentMBoolean getAbstractType() throws PersistenceException {
+        return this.abstractType;
+    }
+    public void setAbstractType(PersistentMBoolean newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.abstractType)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.abstractType = (PersistentMBoolean)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateSubTypeCommandFacade.abstractTypeSet(this.getId(), newValue);
+        }
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -220,6 +260,8 @@ public class CreateSubTypeCommand extends PersistentObject implements Persistent
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + (this.getSuperType() == null ? 0 : 1)
+            + (this.getSingletonType() == null ? 0 : 1)
+            + (this.getAbstractType() == null ? 0 : 1)
             + (this.getCommandReceiver() == null ? 0 : 1));
     }
     
@@ -227,12 +269,15 @@ public class CreateSubTypeCommand extends PersistentObject implements Persistent
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createSubType(this.getSuperType(), this.getName());
+			this.getCommandReceiver().createSubType(this.getSuperType(), this.getName(), this.getSingletonType(), this.getAbstractType());
 		}
 		catch(model.WrongSubTypeAspectException e){
 			this.commandException = e;
 		}
 		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
+		}
+		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}
 		catch(model.CycleException e){

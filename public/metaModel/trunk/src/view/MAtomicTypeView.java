@@ -8,6 +8,10 @@ public interface MAtomicTypeView extends MType, Anything, AbstractViewProxi {
     
     public String getName() throws ModelException ;
     public void setName(String newValue) throws ModelException ;
+    public MBooleanView getSingletonType() throws ModelException ;
+    public void setSingletonType(MBooleanView newValue) throws ModelException ;
+    public MBooleanView getAbstractType() throws ModelException ;
+    public void setAbstractType(MBooleanView newValue) throws ModelException ;
     public MAspectView getAspect() throws ModelException ;
     public void setAspect(MAspectView newValue) throws ModelException ;
     public MAtomicTypeView getSuperType() throws ModelException ;

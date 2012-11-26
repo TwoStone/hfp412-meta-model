@@ -38,11 +38,17 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
+    public void addToHierarchy(final PersistentMAssociation association, final PersistentMAHierarchy theHierarchy) 
+				throws PersistenceException;
     public void initializeOnInstantiation() 
+				throws PersistenceException;
+    public void createAssociationFrom(final MType source, final String name, final MType target) 
 				throws PersistenceException;
     public PersistentAspectManager getAspectManager(final TDObserver observer) 
 				throws PersistenceException;
-    public void createAtomicType(final PersistentMAspect parent, final String typeName) 
+    public void createAssociationTo(final MType target, final String name, final MType source) 
+				throws PersistenceException;
+    public void addAssociations(final PersistentMAHierarchy theHierarchy, final PersistentMAssociation association) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
@@ -50,17 +56,27 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws model.DoubleDefinitionException, PersistenceException;
     public boolean hasChanged() 
 				throws PersistenceException;
+    public PersistentAssociationManager getAssociationManager(final TDObserver observer) 
+				throws PersistenceException;
+    public void createAtomicType(final PersistentMAspect parent, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws PersistenceException;
+    public void createHierarchy(final String name) 
+				throws PersistenceException;
     public PersistentAspectManager getAspectManager() 
 				throws PersistenceException;
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException;
-    public void createSubType(final PersistentMAtomicType superType, final String typeName) 
+    public PersistentAssociationManager getAssociationManager() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException;
+    public void createSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws PersistenceException;
+    public void createAssociation(final PersistentAssociationManager manager, final String name, final MType source, final MType target) 
 				throws PersistenceException;
 
 }

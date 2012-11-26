@@ -19,8 +19,10 @@ import model.visitor.MTypeExceptionVisitor;
 import model.visitor.MTypeReturnExceptionVisitor;
 import model.visitor.MTypeReturnVisitor;
 import model.visitor.MTypeVisitor;
+import persistence.Aggregtion;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.MAssociationSearchList;
 import persistence.MComplexTypeHierarchyHIERARCHY;
 import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
 import persistence.MProductTypeProxi;
@@ -88,7 +90,6 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         MProductType result = this;
         result = new MProductType(this.This, 
                                   this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -236,11 +237,42 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 		}
 		return MFalse.getTheMFalse();
     }
-    
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+    	return MBoolean.create(getThis().getContainedTypes().aggregate(new Aggregtion<MType, Boolean>() {
+
+			@Override
+			public Boolean neutral() throws PersistenceException {
+				return false;
+			}
+
+			@Override
+			public Boolean compose(Boolean result, MType argument)
+					throws PersistenceException {
+				return result || argument.isAbstract().toBoolean();
+			}
+		}));
+    }
+    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
+				throws PersistenceException{
+    	return MBoolean.create(getThis().getContainedTypes().aggregate(new Aggregtion<MType, Boolean>() {
+
+			@Override
+			public Boolean neutral() throws PersistenceException {
+				return true;
+			}
+
+			@Override
+			public Boolean compose(Boolean result, MType argument)
+					throws PersistenceException {
+				return result && argument.allObjectsOfTypeAreSingleton().toBoolean();
+			}
+		}));
     }
     public String getTypeLinkOperator() 
 				throws PersistenceException{

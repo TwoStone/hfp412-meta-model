@@ -53,10 +53,6 @@ public class TypeManagerICProxi extends PersistentInCacheProxiOptimistic impleme
 				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).addSubType(superType, typeunder);
     }
-    public void createSubType(final PersistentMAtomicType superType, final String name) 
-				throws model.WrongSubTypeAspectException, model.DoubleDefinitionException, model.CycleException, PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).createSubType(superType, name);
-    }
     public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType typeunder, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).addSubType(superType, typeunder, invoker);
@@ -69,25 +65,29 @@ public class TypeManagerICProxi extends PersistentInCacheProxiOptimistic impleme
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createSubType(final PersistentMAtomicType superType, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).createSubType(superType, name, invoker);
-    }
-    public void createAtomicType(final PersistentMAspect aspect, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).createAtomicType(aspect, name, invoker);
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void createAtomicType(final PersistentMAspect aspect, final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).createAtomicType(aspect, name);
+    public void createSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).createSubType(superType, name, singletonType, abstractType, invoker);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).initializeOnCreation();
+    }
+    public void createSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws model.WrongSubTypeAspectException, model.DoubleDefinitionException, model.ConsistencyException, model.CycleException, PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).createSubType(superType, name, singletonType, abstractType);
+    }
+    public void createAtomicType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).createAtomicType(aspect, name, singletonType, abstractType, invoker);
+    }
+    public void createAtomicType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).createAtomicType(aspect, name, singletonType, abstractType);
     }
 
     

@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleConsistencyException(model.ConsistencyException consistencyException) throws PersistenceException{
+        this.standardHandling(consistencyException);
+    }
     public void handleWrongSubTypeAspectException(model.WrongSubTypeAspectException wrongSubTypeAspectException) throws PersistenceException{
         this.standardHandling(wrongSubTypeAspectException);
     }

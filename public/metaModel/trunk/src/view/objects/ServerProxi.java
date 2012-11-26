@@ -27,10 +27,17 @@ public class ServerProxi extends ViewProxi implements ServerView{
             aspectManager = ViewProxi.createProxi(aspectManager$Info,connectionKey);
             aspectManager.setToString(aspectManager$Info.getToString());
         }
+        ViewProxi associationManager = null;
+        String associationManager$String = (String)resultTable.get("associationManager");
+        if (associationManager$String != null) {
+            common.ProxiInformation associationManager$Info = common.RPCConstantsAndServices.createProxiInformation(associationManager$String);
+            associationManager = ViewProxi.createProxi(associationManager$Info,connectionKey);
+            associationManager.setToString(associationManager$Info.getToString());
+        }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server((TypeManagerView)typeManager,(AspectManagerView)aspectManager,errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server((TypeManagerView)typeManager,(AspectManagerView)aspectManager,(AssociationManagerView)associationManager,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -44,18 +51,22 @@ public class ServerProxi extends ViewProxi implements ServerView{
         if(this.getTypeManager() != null) index = index - 1;
         if(index == 0 && this.getAspectManager() != null) return new AspectManagerServerWrapper(this, originalIndex, (ViewRoot)this.getAspectManager());
         if(this.getAspectManager() != null) index = index - 1;
+        if(index == 0 && this.getAssociationManager() != null) return new AssociationManagerServerWrapper(this, originalIndex, (ViewRoot)this.getAssociationManager());
+        if(this.getAssociationManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getTypeManager() == null ? 0 : 1)
-            + (this.getAspectManager() == null ? 0 : 1);
+            + (this.getAspectManager() == null ? 0 : 1)
+            + (this.getAssociationManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getTypeManager() == null ? true : false)
-            && (this.getAspectManager() == null ? true : false);
+            && (this.getAspectManager() == null ? true : false)
+            && (this.getAssociationManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -63,6 +74,8 @@ public class ServerProxi extends ViewProxi implements ServerView{
         if(this.getTypeManager() != null) result = result + 1;
         if(this.getAspectManager() != null && this.getAspectManager().equals(child)) return result;
         if(this.getAspectManager() != null) result = result + 1;
+        if(this.getAssociationManager() != null && this.getAssociationManager().equals(child)) return result;
+        if(this.getAssociationManager() != null) result = result + 1;
         return -1;
     }
     
@@ -71,6 +84,9 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     public AspectManagerView getAspectManager() throws ModelException {
         return ((Server)this.getTheObject()).getAspectManager();
+    }
+    public AssociationManagerView getAssociationManager() throws ModelException {
+        return ((Server)this.getTheObject()).getAssociationManager();
     }
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException {
         return ((Server)this.getTheObject()).getErrors();

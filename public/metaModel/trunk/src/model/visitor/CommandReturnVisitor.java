@@ -1,7 +1,7 @@
 
 package model.visitor;
 
-public interface CommandReturnVisitor<R> extends TypeManagerCommandReturnVisitor<R> ,AspectManagerCommandReturnVisitor<R> {
+public interface CommandReturnVisitor<R> extends AssociationManagerCommandReturnVisitor<R> ,TypeManagerCommandReturnVisitor<R> ,AspectManagerCommandReturnVisitor<R> {
     
     
 }

@@ -91,41 +91,29 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     
-    public void handleResult(final Command command) 
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).handleResult(command);
+        ((PersistentServer)this.getTheObject()).addSubType(superType, subType);
     }
     public PersistentTypeManager getTypeManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getTypeManager();
     }
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addSubType(superType, subType);
-    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
     }
-    public void initializeOnInstantiation() 
+    public void createAssociationFrom(final MType source, final String name, final MType target) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
+        ((PersistentServer)this.getTheObject()).createAssociationFrom(source, name, target);
     }
-    public PersistentAspectManager getAspectManager(final TDObserver observer) 
+    public void createAssociationTo(final MType target, final String name, final MType source) 
 				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getAspectManager(observer);
+        ((PersistentServer)this.getTheObject()).createAssociationTo(target, name, source);
     }
     public void connected(final String user) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).connected(user);
-    }
-    public void createAtomicType(final PersistentMAspect parent, final String typeName) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createAtomicType(parent, typeName);
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).initializeOnCreation();
     }
     public void createAspect(final PersistentAspectManager aspectManager, final String aspectName) 
 				throws model.DoubleDefinitionException, PersistenceException{
@@ -135,25 +123,69 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).hasChanged();
     }
-    public void disconnected() 
+    public void createAtomicType(final PersistentMAspect parent, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).disconnected();
+        ((PersistentServer)this.getTheObject()).createAtomicType(parent, typeName, singletonType, abstractType);
     }
-    public void createSubType(final PersistentMAtomicType superType, final String typeName) 
+    public void createHierarchy(final String name) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createSubType(superType, typeName);
+        ((PersistentServer)this.getTheObject()).createHierarchy(name);
     }
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getTypeManager(observer);
     }
-    public PersistentAspectManager getAspectManager() 
+    public PersistentAssociationManager getAssociationManager() 
 				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getAspectManager();
+        return ((PersistentServer)this.getTheObject()).getAssociationManager();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void createAssociation(final PersistentAssociationManager manager, final String name, final MType source, final MType target) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAssociation(manager, name, source, target);
+    }
+    public void createSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createSubType(superType, typeName, singletonType, abstractType);
+    }
+    public void handleResult(final Command command) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).handleResult(command);
+    }
+    public void addToHierarchy(final PersistentMAssociation association, final PersistentMAHierarchy theHierarchy) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).addToHierarchy(association, theHierarchy);
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
+    }
+    public PersistentAspectManager getAspectManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getAspectManager(observer);
+    }
+    public void addAssociations(final PersistentMAHierarchy theHierarchy, final PersistentMAssociation association) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).addAssociations(theHierarchy, association);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).initializeOnCreation();
+    }
+    public void disconnected() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).disconnected();
+    }
+    public PersistentAssociationManager getAssociationManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getAssociationManager(observer);
+    }
+    public PersistentAspectManager getAspectManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getAspectManager();
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{

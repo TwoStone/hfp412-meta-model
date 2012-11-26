@@ -40,17 +40,21 @@ public class CreateAtomicTypeCommand extends PersistentObject implements Persist
     }
     protected PersistentMAspect aspect;
     protected String name;
+    protected PersistentMBoolean singletonType;
+    protected PersistentMBoolean abstractType;
     protected Invoker invoker;
     protected PersistentTypeManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateAtomicTypeCommand(PersistentMAspect aspect,String name,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateAtomicTypeCommand(PersistentMAspect aspect,String name,PersistentMBoolean singletonType,PersistentMBoolean abstractType,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.aspect = aspect;
         this.name = name;
+        this.singletonType = singletonType;
+        this.abstractType = abstractType;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
@@ -72,6 +76,14 @@ public class CreateAtomicTypeCommand extends PersistentObject implements Persist
         if(this.getAspect() != null){
             this.getAspect().store();
             ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.aspectSet(this.getId(), getAspect());
+        }
+        if(this.getSingletonType() != null){
+            this.getSingletonType().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.singletonTypeSet(this.getId(), getSingletonType());
+        }
+        if(this.getAbstractType() != null){
+            this.getAbstractType().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.abstractTypeSet(this.getId(), getAbstractType());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -109,6 +121,34 @@ public class CreateAtomicTypeCommand extends PersistentObject implements Persist
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
+    }
+    public PersistentMBoolean getSingletonType() throws PersistenceException {
+        return this.singletonType;
+    }
+    public void setSingletonType(PersistentMBoolean newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.singletonType)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.singletonType = (PersistentMBoolean)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.singletonTypeSet(this.getId(), newValue);
+        }
+    }
+    public PersistentMBoolean getAbstractType() throws PersistenceException {
+        return this.abstractType;
+    }
+    public void setAbstractType(PersistentMBoolean newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.abstractType)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.abstractType = (PersistentMBoolean)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateAtomicTypeCommandFacade.abstractTypeSet(this.getId(), newValue);
+        }
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -220,6 +260,8 @@ public class CreateAtomicTypeCommand extends PersistentObject implements Persist
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + (this.getAspect() == null ? 0 : 1)
+            + (this.getSingletonType() == null ? 0 : 1)
+            + (this.getAbstractType() == null ? 0 : 1)
             + (this.getCommandReceiver() == null ? 0 : 1));
     }
     
@@ -227,9 +269,12 @@ public class CreateAtomicTypeCommand extends PersistentObject implements Persist
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createAtomicType(this.getAspect(), this.getName());
+			this.getCommandReceiver().createAtomicType(this.getAspect(), this.getName(), this.getSingletonType(), this.getAbstractType());
 		}
 		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
+		}
+		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}
     }

@@ -31,6 +31,10 @@ public abstract class MComplexTypeProxi extends PersistentProxi implements Persi
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).containsMComplexTypeHierarchy(part);
     }
+    public MAssociationSearchList fetchAssociations() 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).fetchAssociations();
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentMComplexType)this.getTheObject()).initialize(This, final$$Fields);
@@ -54,6 +58,14 @@ public abstract class MComplexTypeProxi extends PersistentProxi implements Persi
     public String getTypeLinkOperator() 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).getTypeLinkOperator();
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).isAbstract();
+    }
+    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).allObjectsOfTypeAreSingleton();
     }
 
     

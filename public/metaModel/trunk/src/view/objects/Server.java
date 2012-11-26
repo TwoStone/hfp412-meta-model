@@ -12,14 +12,16 @@ public class Server extends ViewObject implements ServerView{
     
     protected TypeManagerView typeManager;
     protected AspectManagerView aspectManager;
+    protected AssociationManagerView associationManager;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(TypeManagerView typeManager,AspectManagerView aspectManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(TypeManagerView typeManager,AspectManagerView aspectManager,AssociationManagerView associationManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.typeManager = typeManager;
         this.aspectManager = aspectManager;
+        this.associationManager = associationManager;
         this.errors = errors;
         this.user = user;        
     }
@@ -37,6 +39,9 @@ public class Server extends ViewObject implements ServerView{
     }
     public AspectManagerView getAspectManager() throws ModelException {
         return this.aspectManager;
+    }
+    public AssociationManagerView getAssociationManager() throws ModelException {
+        return this.associationManager;
     }
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException {
         return this.errors;
@@ -85,6 +90,10 @@ public class Server extends ViewObject implements ServerView{
         if (aspectManager != null) {
             ((ViewProxi)aspectManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(aspectManager.getClassId(), aspectManager.getId())));
         }
+        AssociationManagerView associationManager = this.getAssociationManager();
+        if (associationManager != null) {
+            ((ViewProxi)associationManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(associationManager.getClassId(), associationManager.getId())));
+        }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
             ViewObject.resolveVectorProxies(errors, resultTable);
@@ -100,17 +109,21 @@ public class Server extends ViewObject implements ServerView{
         if(this.getTypeManager() != null) index = index - 1;
         if(index == 0 && this.getAspectManager() != null) return new AspectManagerServerWrapper(this, originalIndex, (ViewRoot)this.getAspectManager());
         if(this.getAspectManager() != null) index = index - 1;
+        if(index == 0 && this.getAssociationManager() != null) return new AssociationManagerServerWrapper(this, originalIndex, (ViewRoot)this.getAssociationManager());
+        if(this.getAssociationManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getTypeManager() == null ? 0 : 1)
-            + (this.getAspectManager() == null ? 0 : 1);
+            + (this.getAspectManager() == null ? 0 : 1)
+            + (this.getAssociationManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getTypeManager() == null ? true : false)
-            && (this.getAspectManager() == null ? true : false);
+            && (this.getAspectManager() == null ? true : false)
+            && (this.getAssociationManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -118,10 +131,12 @@ public class Server extends ViewObject implements ServerView{
         if(this.getTypeManager() != null) result = result + 1;
         if(this.getAspectManager() != null && this.getAspectManager().equals(child)) return result;
         if(this.getAspectManager() != null) result = result + 1;
+        if(this.getAssociationManager() != null && this.getAssociationManager().equals(child)) return result;
+        if(this.getAssociationManager() != null) result = result + 1;
         return -1;
     }
     public int getUserIndex() throws ModelException {
-        return 0 + (this.getTypeManager() == null ? 0 : 1) + (this.getAspectManager() == null ? 0 : 1);
+        return 0 + (this.getTypeManager() == null ? 0 : 1) + (this.getAspectManager() == null ? 0 : 1) + (this.getAssociationManager() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

@@ -10,6 +10,10 @@ public interface PersistentCreateAtomicTypeCommand extends TypeManagerCommand, A
     public void setAspect(PersistentMAspect newValue) throws PersistenceException ;
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
+    public PersistentMBoolean getSingletonType() throws PersistenceException ;
+    public void setSingletonType(PersistentMBoolean newValue) throws PersistenceException ;
+    public PersistentMBoolean getAbstractType() throws PersistenceException ;
+    public void setAbstractType(PersistentMBoolean newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
     public PersistentTypeManager getCommandReceiver() throws PersistenceException ;
