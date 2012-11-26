@@ -1,8 +1,8 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import model.CycleException;
@@ -35,6 +35,7 @@ public class LessOrEqualThanTest extends AbstractTest {
 	private PersistentMProductType mptSingle2;
 	private PersistentMProductType mptSingle3;
 	private PersistentMProductType mptSingle4;
+	private PersistentMProductType mptSingle5;
 	private PersistentMProductType mptMultiple2And4;
 	private PersistentMProductType mptMultiple4And2;
 	private PersistentMProductType mptMultiple5And6;
@@ -73,6 +74,7 @@ public class LessOrEqualThanTest extends AbstractTest {
 		mptSingle2 = MProductType.createMProductType();
 		mptSingle3 = MProductType.createMProductType();
 		mptSingle4 = MProductType.createMProductType();
+		mptSingle5 = MProductType.createMProductType();
 		mptMultiple2And4 = MProductType.createMProductType();
 		mptMultiple4And2 = MProductType.createMProductType();
 		mptMultiple5And6 = MProductType.createMProductType();
@@ -82,6 +84,7 @@ public class LessOrEqualThanTest extends AbstractTest {
 		mptSingle2.getContainedTypes().add(mat2);
 		mptSingle3.getContainedTypes().add(mat3);
 		mptSingle4.getContainedTypes().add(mat4);
+		mptSingle5.getContainedTypes().add(mat5);
 		mptMultiple2And4.getContainedTypes().add(mat2);
 		mptMultiple2And4.getContainedTypes().add(mat4);
 		mptMultiple4And2.getContainedTypes().add(mat4);
@@ -196,6 +199,7 @@ public class LessOrEqualThanTest extends AbstractTest {
 		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mptSingle2));
 		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mptSingle3));
 		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mptSingle4));
+		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mptMultiple2And4));
 		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mptMultiple4And2));
 		assertEquals(mFalse, mptMultiple2And4.lessOrEqual(mptMultiple5And6));
 		assertEquals(mFalse, mptMultiple2And4.lessOrEqual(mptMultiple4And5));
@@ -224,4 +228,42 @@ public class LessOrEqualThanTest extends AbstractTest {
 
 	}
 
+	@Test
+	public void sumTypeLessOrEqualThanAtomicType() throws PersistenceException, CycleException {
+		assertEquals(mFalse, mstSingle2.lessOrEqual(mat1));
+		assertEquals(mTrue, mstSingle2.lessOrEqual(mat2));
+		assertEquals(mTrue, mstSingle2.lessOrEqual(mat3));
+		assertEquals(mFalse, mstSingle2.lessOrEqual(mat4));
+		assertEquals(mTrue, mstSingle1.lessOrEqual(mat3));
+
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mat1));
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mat2));
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mat3));
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mat4));
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mat5));
+	}
+
+	@Test
+	public void sumTypeLessOrEqualThanProductType() throws PersistenceException, CycleException {
+		assertEquals(mFalse, mstSingle2.lessOrEqual(mptEmpty));
+		assertEquals(mFalse, mstSingle2.lessOrEqual(mptSingle1));
+		assertEquals(mTrue, mstSingle2.lessOrEqual(mptSingle2));
+		assertEquals(mTrue, mstSingle2.lessOrEqual(mptSingle3));
+		assertEquals(mFalse, mstSingle2.lessOrEqual(mptSingle4));
+		assertEquals(mFalse, mstSingle2.lessOrEqual(mptMultiple2And4));
+		assertEquals(mFalse, mstSingle2.lessOrEqual(mptMultiple5And6));
+
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mptEmpty));
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mptSingle1));
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mptSingle2));
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mptSingle3));
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mptSingle4));
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mptSingle5));
+		assertEquals(mFalse, mstMultiple2And4.lessOrEqual(mptMultiple2And4));
+	}
+
+	@Test
+	public void sumTypeLessOrEqualThanSumType() throws PersistenceException, CycleException {
+		fail("Testfälle fehlen noch");
+	}
 }
