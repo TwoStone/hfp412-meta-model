@@ -9,6 +9,7 @@ public class ZZ_AllTests {
 		TestSuite suite = new TestSuite("Testsuite für das Quantity-Projekt");
 		
 		suite.addTestSuite(FractionTests.class);
+		suite.addTestSuite(FunctionTests.class);
 		suite.addTestSuite(UnitTypeManagerTest.class);
 		
 		return suite;
