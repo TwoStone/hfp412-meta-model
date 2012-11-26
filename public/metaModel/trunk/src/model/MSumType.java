@@ -1,6 +1,8 @@
 
 package model;
 
+import java.util.Iterator;
+
 import persistence.*;
 import model.visitor.*;
 
@@ -189,13 +191,24 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
     }
     public PersistentMBoolean lessOrEqual(final MType otherType) 
 				throws PersistenceException{
-        //TODO: implement method: lessOrEqual
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"lessOrEqual\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	
+		if (otherType == null) {
+			return MFalse.getTheMFalse();
+		}
+
+		if (getThis().equals(otherType)) {
+			return MTrue.getTheMTrue();
+		}
+
+		Iterator<MType> iterator = getThis().getContainedTypes().iterator();
+
+		while(iterator.hasNext()) {
+			// Wenn alle Elemente kleiner als der uebergebene Typ sind => return true
+			if(iterator.next().lessOrEqual(otherType).equals(MFalse.getTheMFalse())) {
+				return MFalse.getTheMFalse();
+			}
+		}
+		return MTrue.getTheMTrue();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

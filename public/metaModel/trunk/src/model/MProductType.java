@@ -1,8 +1,36 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import java.util.Iterator;
+
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MComplexTypeExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MComplexTypeReturnExceptionVisitor;
+import model.visitor.MComplexTypeReturnVisitor;
+import model.visitor.MComplexTypeVisitor;
+import model.visitor.MTypeExceptionVisitor;
+import model.visitor.MTypeReturnExceptionVisitor;
+import model.visitor.MTypeReturnVisitor;
+import model.visitor.MTypeVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MComplexTypeHierarchyHIERARCHY;
+import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
+import persistence.MProductTypeProxi;
+import persistence.MType;
+import persistence.PersistenceException;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMComplexType;
+import persistence.PersistentMProductType;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -189,14 +217,26 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
     }
     public PersistentMBoolean lessOrEqual(final MType otherType) 
 				throws PersistenceException{
-        //TODO: implement method: lessOrEqual
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"lessOrEqual\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	
+		if (otherType == null) {
+			return MFalse.getTheMFalse();
+		}
+
+		if (getThis().equals(otherType)) {
+			return MTrue.getTheMTrue();
+		}
+
+		Iterator<MType> iterator = getThis().getContainedTypes().iterator();
+
+		while(iterator.hasNext()) {
+			// Sobald ein enthaltenes Element kleinergleich zu etwas anderem ist => return true
+			if(iterator.next().lessOrEqual(otherType).equals(MTrue.getTheMTrue())) {
+				return MTrue.getTheMTrue();
+			}
+		}
+		return MFalse.getTheMFalse();
     }
+    
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
