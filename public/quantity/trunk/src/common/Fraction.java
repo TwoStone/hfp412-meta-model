@@ -49,6 +49,14 @@ public class Fraction {
 	public String toString(){
 		return this.getEnumerator().toString() + (this.getDenominator().equals(BigInteger.ONE) ? "" : (FractionStroke + this.getDenominator().toString())); 
 	}
+	
+	public String toDecimal(){
+		return "~"+ this.getEnumerator().floatValue() / this.getDenominator().floatValue();
+	}
+	
+	public Fraction invert(){
+		return new Fraction(this.denominator,this.enumerator);
+	}
 
 	@Override
 	public boolean equals(Object argument){

@@ -37,6 +37,17 @@ public class FractionTests extends TestCase {
 		assertNotNull(fraction);
 	}
 
+	public void testSimple1() throws Exception {
+		Fraction bruch1 = Fraction.parse("10/1");
+		assertEquals("10", bruch1.toString());
+	}
+	
+	public void testSimple2() throws Exception {
+		Fraction bruch1 = Fraction.parse("10");
+		assertEquals("10", bruch1.toString());
+	}
+
+	
 	public void testToRational() throws Exception {
 		Fraction bruch1 = Fraction.parse("10/2");
 		assertEquals(Fraction.parse("5/1"), bruch1);
