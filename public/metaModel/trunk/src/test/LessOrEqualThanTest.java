@@ -148,6 +148,7 @@ public class LessOrEqualThanTest extends AbstractTest {
 		assertEquals(mFalse, mat1.lessOrEqual(mptSingle4));
 		// Mehrwertige Produkte
 		assertEquals(mFalse, mat2.lessOrEqual(mptMultiple2And4));
+		
 		assertEquals(mFalse, mat5.lessOrEqual(mptMultiple2And4));
 		assertEquals(mFalse, mat1.lessOrEqual(mptMultiple2And4));
 	}
@@ -181,7 +182,7 @@ public class LessOrEqualThanTest extends AbstractTest {
 
 	@Test
 	public void productTypeLessOrEqualThanProductType() throws PersistenceException, CycleException {
-		// Identität
+		// Identitï¿½t
 		assertEquals(mTrue, mptEmpty.lessOrEqual(mptEmpty));
 		assertEquals(mTrue, mptSingle2.lessOrEqual(mptSingle2));
 		assertEquals(mTrue, mptMultiple2And4.lessOrEqual(mptMultiple2And4));
@@ -264,6 +265,6 @@ public class LessOrEqualThanTest extends AbstractTest {
 
 	@Test
 	public void sumTypeLessOrEqualThanSumType() throws PersistenceException, CycleException {
-		fail("Testfälle fehlen noch");
+		fail("Testfï¿½lle fehlen noch");
 	}
 }
