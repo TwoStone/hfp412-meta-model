@@ -407,6 +407,10 @@ public class Server extends PersistentObject implements PersistentServer{
 	public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
+    	getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Gewicht"));
+    	getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Strecke"));
+    	getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Währung"));
+        getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Zeit"));
         
     }
     @Override
