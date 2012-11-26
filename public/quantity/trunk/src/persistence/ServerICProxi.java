@@ -19,7 +19,7 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     public long getClassId() {
-        return -121;
+        return -114;
     }
     
     public Server_ErrorsProxi getErrors() throws PersistenceException {
@@ -111,10 +111,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
     }
-    public void createUnit(final String name, final PersistentUnitType type) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createUnit(name, type);
-    }
     public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getUnitTypeManager(observer);
@@ -122,6 +118,14 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getQuantityManager(observer);
+    }
+    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction f) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createQuantity(unit, f);
+    }
+    public void createCompUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createCompUnitType(unitTypeManager, name);
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -138,10 +142,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent);
-    }
-    public void createCompUnit(final String name, final PersistentCompUnitType type) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createCompUnit(name, type);
     }
     public boolean hasChanged() 
 				throws PersistenceException{
@@ -167,10 +167,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getConversionManager();
     }
-    public void createQuantity(final common.Fraction f, final PersistentAbsUnit unit) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createQuantity(f, unit);
-    }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleException(command, exception);
@@ -179,17 +175,17 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void createCompUnitType(final String name) 
+    public void createUnit(final PersistentAbsUnitType type, final String name) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createCompUnitType(name);
+        ((PersistentServer)this.getTheObject()).createUnit(type, name);
+    }
+    public void createUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createUnitType(unitTypeManager, name);
     }
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getConversionManager(observer);
-    }
-    public void createUnitType(final String name) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createUnitType(name);
     }
 
     

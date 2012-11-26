@@ -29,7 +29,7 @@ public class AlreadyFinalizedException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -146;
+        return -154;
     }
     
     public long getClassId() {

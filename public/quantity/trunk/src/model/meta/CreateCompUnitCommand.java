@@ -57,7 +57,7 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 148;
+        return 150;
     }
     
     public long getClassId() {
@@ -66,7 +66,7 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 148) ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade
+        if (this.getClassId() == 150) ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade
             .newCreateCompUnitCommand(name,this.getId());
         super.store();
         if(this.getType() != null){

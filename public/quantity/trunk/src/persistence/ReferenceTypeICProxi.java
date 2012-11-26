@@ -19,7 +19,7 @@ public class ReferenceTypeICProxi extends PersistentInCacheProxiOptimistic imple
     }
     
     public long getClassId() {
-        return 102;
+        return 106;
     }
     
     public long getExponent() throws PersistenceException {

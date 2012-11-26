@@ -62,21 +62,24 @@ public class UnitTypeManagerTest extends TestCase{
 	public void testCreateUnitType() {
 
 		try {
+			
 			PersistentUnitTypeManager typeManager = UnitTypeManager.getTheUnitTypeManager();
 			String name = "Temperatur";
+			long currentLength = typeManager.getUnitTypes().getLength();
 			try {
 				typeManager.createUnitType(name);
-				assertEquals("Es sollte nur einen UnitType geben.", 1, typeManager.getUnitTypes().getLength());
+				assertEquals("Es sollte nur einen UnitType geben.", currentLength+1, typeManager.getUnitTypes().getLength());
 			} catch (DoubleDefinitionException e) {
 				fail("Es sollte keine DoubleDefinitionException geben.");
 			}
+		
 			
 			try {
 				typeManager.createUnitType(name);
 				fail("Temperatur doppelt definiert, fehlende DoubleDefinitionExcpetion!");
 			} catch (DoubleDefinitionException e) {
 				// Exception korrekt!
-				assertEquals(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name, e.getMessage());
+				assertEquals(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION, e.getMessage());
 			}
 		} catch (PersistenceException e) {
 			fail("Exception: " + e.getMessage());

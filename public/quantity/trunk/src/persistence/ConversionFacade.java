@@ -25,25 +25,25 @@ public class ConversionFacade{
 	}
 
     public ConversionProxi newConversion(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (ConversionProxi)PersistentProxi.createProxi(createMinusStorePlus, 124);
+        if(createMinusStorePlus > 0) return (ConversionProxi)PersistentProxi.createProxi(createMinusStorePlus, 116);
         long id = ConnectionHandler.getTheConnectionHandler().theConversionFacade.getNextId();
         Conversion result = new Conversion(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (ConversionProxi)PersistentProxi.createProxi(id, 124);
+        return (ConversionProxi)PersistentProxi.createProxi(id, 116);
     }
     
     public ConversionProxi newDelayedConversion() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theConversionFacade.getNextId();
         Conversion result = new Conversion(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (ConversionProxi)PersistentProxi.createProxi(id, 124);
+        return (ConversionProxi)PersistentProxi.createProxi(id, 116);
     }
     
     public Conversion getConversion(long ConversionId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 124)) return 124;
+        if(Cache.getTheCache().contains(objectId, 116)) return 116;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -63,7 +63,7 @@ public class ConversionFacade{
     public ConversionSearchList inverseGetSource(long objectId, long classId)throws PersistenceException{
         ConversionSearchList result = new ConversionSearchList();
         java.util.Iterator<PersistentInCacheProxi> candidates;
-        candidates = Cache.getTheCache().iterator(124);
+        candidates = Cache.getTheCache().iterator(116);
         while (candidates.hasNext()){
             PersistentConversion current = (PersistentConversion)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getSource() != null){

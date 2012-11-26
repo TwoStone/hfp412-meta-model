@@ -16,7 +16,7 @@ public class BooleanTrue extends view.objects.BooleanValue implements BooleanTru
     }
     
     static public long getTypeId() {
-        return 139;
+        return 142;
     }
     
     public long getClassId() {

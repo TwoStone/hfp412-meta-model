@@ -20,7 +20,7 @@ public class CompUnitType extends view.objects.AbsUnitType implements CompUnitTy
     }
     
     static public long getTypeId() {
-        return 125;
+        return 120;
     }
     
     public long getClassId() {

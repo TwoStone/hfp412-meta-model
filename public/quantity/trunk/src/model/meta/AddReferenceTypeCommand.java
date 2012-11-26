@@ -58,7 +58,7 @@ public class AddReferenceTypeCommand extends PersistentObject implements Persist
     }
     
     static public long getTypeId() {
-        return 142;
+        return 152;
     }
     
     public long getClassId() {
@@ -67,7 +67,7 @@ public class AddReferenceTypeCommand extends PersistentObject implements Persist
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 142) ConnectionHandler.getTheConnectionHandler().theAddReferenceTypeCommandFacade
+        if (this.getClassId() == 152) ConnectionHandler.getTheConnectionHandler().theAddReferenceTypeCommandFacade
             .newAddReferenceTypeCommand(exponent,this.getId());
         super.store();
         if(this.getCompUnitType() != null){

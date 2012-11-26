@@ -20,55 +20,45 @@ public abstract class AbsUnitType extends ViewObject implements AbsUnitTypeView{
         this.name = name;        
     }
     
-    @Override
-	public AbsUnitView getDefaultUnit() throws ModelException {
+    public AbsUnitView getDefaultUnit() throws ModelException {
         return this.defaultUnit;
     }
-    @Override
-	public void setDefaultUnit(AbsUnitView newValue) throws ModelException {
+    public void setDefaultUnit(AbsUnitView newValue) throws ModelException {
         this.defaultUnit = newValue;
     }
-    @Override
-	public String getName() throws ModelException {
+    public String getName() throws ModelException {
         return this.name;
     }
-    @Override
-	public void setName(String newValue) throws ModelException {
+    public void setName(String newValue) throws ModelException {
         this.name = newValue;
     }
     
     
-    @Override
-	public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
+    public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
         AbsUnitView defaultUnit = this.getDefaultUnit();
         if (defaultUnit != null) {
             ((ViewProxi)defaultUnit).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(defaultUnit.getClassId(), defaultUnit.getId())));
         }
         
     }
-    @Override
-	public void sortSetValuedFields() throws ModelException {
+    public void sortSetValuedFields() throws ModelException {
         
     }
-    @Override
-	public ViewObjectInTree getChild(int originalIndex) throws ModelException {
+    public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
         if(index == 0 && this.getDefaultUnit() != null) return new DefaultUnitAbsUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getDefaultUnit());
         if(this.getDefaultUnit() != null) index = index - 1;
         return null;
     }
-    @Override
-	public int getChildCount() throws ModelException {
+    public int getChildCount() throws ModelException {
         return 0 
             + (this.getDefaultUnit() == null ? 0 : 1);
     }
-    @Override
-	public boolean isLeaf() throws ModelException {
+    public boolean isLeaf() throws ModelException {
         return true 
             && (this.getDefaultUnit() == null ? true : false);
     }
-    @Override
-	public int getIndexOfChild(Object child) throws ModelException {
+    public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getDefaultUnit() != null && this.getDefaultUnit().equals(child)) return result;
         if(this.getDefaultUnit() != null) result = result + 1;
@@ -77,13 +67,11 @@ public abstract class AbsUnitType extends ViewObject implements AbsUnitTypeView{
     public int getNameIndex() throws ModelException {
         return 0 + (this.getDefaultUnit() == null ? 0 : 1);
     }
-    @Override
-	public int getRowCount(){
+    public int getRowCount(){
         return 0 
             + 1;
     }
-    @Override
-	public Object getValueAt(int rowIndex, int columnIndex){
+    public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
                 if(rowIndex == 0) return "name";
@@ -98,12 +86,10 @@ public abstract class AbsUnitType extends ViewObject implements AbsUnitTypeView{
         }
     }
     
-    @Override
-	public boolean isRowEditable(int index){
+    public boolean isRowEditable(int index){
         return true;
     }
-    @Override
-	public void setValueAt(String newValue, int rowIndex) throws Exception {
+    public void setValueAt(String newValue, int rowIndex) throws Exception {
         if(rowIndex == 0){
             this.setName(newValue);
             return;

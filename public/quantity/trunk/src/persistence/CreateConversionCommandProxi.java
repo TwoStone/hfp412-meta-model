@@ -19,7 +19,7 @@ public class CreateConversionCommandProxi extends PersistentProxi implements Per
     }
     
     public long getClassId() {
-        return 109;
+        return 130;
     }
     
     public PersistentUnit getUnit() throws PersistenceException {

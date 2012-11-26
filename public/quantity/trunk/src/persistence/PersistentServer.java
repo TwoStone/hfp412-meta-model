@@ -40,19 +40,19 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void createUnit(final String name, final PersistentUnitType type) 
-				throws PersistenceException;
     public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
 				throws PersistenceException;
     public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
+				throws PersistenceException;
+    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction f) 
+				throws PersistenceException;
+    public void createCompUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public PersistentFractionManager getFractionManager() 
 				throws PersistenceException;
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
-				throws PersistenceException;
-    public void createCompUnit(final String name, final PersistentCompUnitType type) 
 				throws PersistenceException;
     public boolean hasChanged() 
 				throws PersistenceException;
@@ -64,17 +64,15 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void createQuantity(final common.Fraction f, final PersistentAbsUnit unit) 
-				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
-				throws PersistenceException;
-    public void createCompUnitType(final String name) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public PersistentConversionManager getConversionManager(final TDObserver observer) 
+    public void createUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 
 				throws PersistenceException;
-    public void createUnitType(final String name) 
+    public void createUnit(final PersistentAbsUnitType type, final String name) 
+				throws PersistenceException;
+    public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException;
 
 }

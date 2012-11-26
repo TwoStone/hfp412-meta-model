@@ -19,7 +19,7 @@ public class FunctionProxi extends PersistentProxi implements PersistentFunction
     }
     
     public long getClassId() {
-        return 143;
+        return 144;
     }
     
     public common.Fraction getFactor() throws PersistenceException {

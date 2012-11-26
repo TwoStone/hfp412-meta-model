@@ -18,7 +18,7 @@ public class ConversionManager extends ViewObject implements ConversionManagerVi
     }
     
     static public long getTypeId() {
-        return 101;
+        return 102;
     }
     
     public long getClassId() {

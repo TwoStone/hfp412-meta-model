@@ -11,15 +11,14 @@ model quantity {
 		derived ConversionManager conversionManager;
 		derived FractionManager fractionManager;
 
-		void createUnitType(String name);
-		void createCompUnitType(String name);
+		void createUnitType(UnitTypeManager unitTypeManager, String name);
+		void createCompUnitType(UnitTypeManager unitTypeManager, String name);
 		void addReferenceType(CompUnitType compUnitType, UnitType unitType, Integer exponent);
-		void finishModeling(CompUnitType compUnitType);
+		void finishModeling@@Publish(CompUnitType compUnitType);
 
-		void createUnit(String name, UnitType type);
-		void createCompUnit(String name, CompUnitType type);
+		void createUnit(AbsUnitType type, String name);
 
-		void createQuantity(Fraction f, AbsUnit unit);
+		void createQuantity(AbsUnit unit, Fraction f);
 	}
 
 /*-------------------------------------------------------------------------

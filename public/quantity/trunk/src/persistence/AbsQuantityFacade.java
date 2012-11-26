@@ -25,8 +25,8 @@ public class AbsQuantityFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 116)) return 116;
-        if(Cache.getTheCache().contains(objectId, 117)) return 117;
+        if(Cache.getTheCache().contains(objectId, 103)) return 103;
+        if(Cache.getTheCache().contains(objectId, 105)) return 105;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

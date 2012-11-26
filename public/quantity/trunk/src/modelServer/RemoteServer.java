@@ -18,10 +18,21 @@ public  class RemoteServer extends RemoteServerMaster {
         return this.server;
     } 
 
-    public synchronized java.util.Hashtable<?,?> createUnit(String name, String typeProxiString){
+    public synchronized java.util.Hashtable<?,?> createQuantity(String unitProxiString, String fAsString){
         try {
-            PersistentUnitType type = (PersistentUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            ((PersistentServer)this.server).createUnit(name, type);
+            PersistentAbsUnit unit = (PersistentAbsUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
+            common.Fraction f = common.Fraction.parse(fAsString);
+            ((PersistentServer)this.server).createQuantity(unit, f);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createCompUnitType(String unitTypeManagerProxiString, String name){
+        try {
+            PersistentUnitTypeManager unitTypeManager = (PersistentUnitTypeManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitTypeManagerProxiString));
+            ((PersistentServer)this.server).createCompUnitType(unitTypeManager, name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -40,16 +51,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createCompUnit(String name, String typeProxiString){
-        try {
-            PersistentCompUnitType type = (PersistentCompUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            ((PersistentServer)this.server).createCompUnit(name, type);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> finishModeling(String compUnitTypeProxiString){
         try {
             PersistentCompUnitType compUnitType = (PersistentCompUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(compUnitTypeProxiString));
@@ -60,29 +61,20 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createQuantity(String fAsString, String unitProxiString){
+    public synchronized java.util.Hashtable<?,?> createUnit(String typeProxiString, String name){
         try {
-            common.Fraction f = common.Fraction.parse(fAsString);
-            PersistentAbsUnit unit = (PersistentAbsUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
-            ((PersistentServer)this.server).createQuantity(f, unit);
+            PersistentAbsUnitType type = (PersistentAbsUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            ((PersistentServer)this.server).createUnit(type, name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createCompUnitType(String name){
+    public synchronized java.util.Hashtable<?,?> createUnitType(String unitTypeManagerProxiString, String name){
         try {
-            ((PersistentServer)this.server).createCompUnitType(name);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> createUnitType(String name){
-        try {
-            ((PersistentServer)this.server).createUnitType(name);
+            PersistentUnitTypeManager unitTypeManager = (PersistentUnitTypeManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitTypeManagerProxiString));
+            ((PersistentServer)this.server).createUnitType(unitTypeManager, name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

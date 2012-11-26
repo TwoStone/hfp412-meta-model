@@ -76,7 +76,7 @@ public class BooleanTrue extends model.BooleanValue implements PersistentBoolean
     }
     
     static public long getTypeId() {
-        return 139;
+        return 142;
     }
     
     public long getClassId() {

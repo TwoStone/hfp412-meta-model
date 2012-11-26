@@ -24,59 +24,48 @@ public class Unit extends view.objects.AbsUnit implements UnitView{
     
     public Unit(AbsUnitTypeView type,String name,ConversionView myConversion,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(type,name,id, classId);
+        super((AbsUnitTypeView)type,(String)name,id, classId);
         this.myConversion = myConversion;        
     }
     
     static public long getTypeId() {
-        return 106;
+        return 113;
     }
     
-    @Override
-	public long getClassId() {
+    public long getClassId() {
         return getTypeId();
     }
     
-    @Override
-	public ConversionView getMyConversion() throws ModelException {
+    public ConversionView getMyConversion() throws ModelException {
         return this.myConversion;
     }
     
-    @Override
-	public void accept(AbsUnitVisitor visitor) throws ModelException {
+    public void accept(AbsUnitVisitor visitor) throws ModelException {
         visitor.handleUnit(this);
     }
-    @Override
-	public <R> R accept(AbsUnitReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(AbsUnitReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleUnit(this);
     }
-    @Override
-	public <E extends UserException>  void accept(AbsUnitExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(AbsUnitExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleUnit(this);
     }
-    @Override
-	public <R, E extends UserException> R accept(AbsUnitReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(AbsUnitReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleUnit(this);
     }
-    @Override
-	public void accept(AnythingVisitor visitor) throws ModelException {
+    public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleUnit(this);
     }
-    @Override
-	public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleUnit(this);
     }
-    @Override
-	public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleUnit(this);
     }
-    @Override
-	public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleUnit(this);
     }
     
-    @Override
-	public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
+    public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
         AbsUnitTypeView type = this.getType();
         if (type != null) {
             ((ViewProxi)type).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(type.getClassId(), type.getId())));
@@ -87,12 +76,10 @@ public class Unit extends view.objects.AbsUnit implements UnitView{
         }
         
     }
-    @Override
-	public void sortSetValuedFields() throws ModelException {
+    public void sortSetValuedFields() throws ModelException {
         
     }
-    @Override
-	public ViewObjectInTree getChild(int originalIndex) throws ModelException {
+    public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
         if(index == 0 && this.getType() != null) return new TypeAbsUnitWrapper(this, originalIndex, (ViewRoot)this.getType());
         if(this.getType() != null) index = index - 1;
@@ -100,20 +87,17 @@ public class Unit extends view.objects.AbsUnit implements UnitView{
         if(this.getMyConversion() != null) index = index - 1;
         return null;
     }
-    @Override
-	public int getChildCount() throws ModelException {
+    public int getChildCount() throws ModelException {
         return 0 
             + (this.getType() == null ? 0 : 1)
             + (this.getMyConversion() == null ? 0 : 1);
     }
-    @Override
-	public boolean isLeaf() throws ModelException {
+    public boolean isLeaf() throws ModelException {
         return true 
             && (this.getType() == null ? true : false)
             && (this.getMyConversion() == null ? true : false);
     }
-    @Override
-	public int getIndexOfChild(Object child) throws ModelException {
+    public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getType() != null && this.getType().equals(child)) return result;
         if(this.getType() != null) result = result + 1;
@@ -121,17 +105,14 @@ public class Unit extends view.objects.AbsUnit implements UnitView{
         if(this.getMyConversion() != null) result = result + 1;
         return -1;
     }
-    @Override
-	public int getNameIndex() throws ModelException {
+    public int getNameIndex() throws ModelException {
         return 0 + (this.getType() == null ? 0 : 1);
     }
-    @Override
-	public int getRowCount(){
+    public int getRowCount(){
         return 0 
             + 1;
     }
-    @Override
-	public Object getValueAt(int rowIndex, int columnIndex){
+    public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
                 if(rowIndex == 0) return "name";
@@ -146,20 +127,17 @@ public class Unit extends view.objects.AbsUnit implements UnitView{
         }
     }
     
-    @Override
-	public boolean isRowEditable(int index){
+    public boolean isRowEditable(int index){
         return true;
     }
-    @Override
-	public void setValueAt(String newValue, int rowIndex) throws Exception {
+    public void setValueAt(String newValue, int rowIndex) throws Exception {
         if(rowIndex == 0){
             this.setName(newValue);
             return;
         }
         rowIndex = rowIndex - 1;
     }
-    @Override
-	public boolean hasTransientFields(){
+    public boolean hasTransientFields(){
         return true;
     }
     /* Start of protected part that is not overridden by persistence generator */

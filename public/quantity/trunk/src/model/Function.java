@@ -105,7 +105,7 @@ public class Function extends PersistentObject implements PersistentFunction{
     }
     
     static public long getTypeId() {
-        return 143;
+        return 144;
     }
     
     public long getClassId() {
@@ -114,7 +114,7 @@ public class Function extends PersistentObject implements PersistentFunction{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 143) ConnectionHandler.getTheConnectionHandler().theFunctionFacade
+        if (this.getClassId() == 144) ConnectionHandler.getTheConnectionHandler().theFunctionFacade
             .newFunction(factor,constant,this.getId());
         super.store();
         if(!this.equals(this.getThis())){

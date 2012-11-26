@@ -19,7 +19,7 @@ public class BooleanTrueICProxi extends BooleanValueICProxi implements Persisten
     }
     
     public long getClassId() {
-        return 139;
+        return 142;
     }
     
     public PersistentBooleanTrue getThis() throws PersistenceException {

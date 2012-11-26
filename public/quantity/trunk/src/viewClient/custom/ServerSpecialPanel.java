@@ -10,6 +10,11 @@ import viewClient.ExceptionAndEventHandler;
 
 public class ServerSpecialPanel extends SpecialPanel {
 
+	/**
+	 * Start Detail Panel.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ServerSpecialPanel(ExceptionAndEventHandler exceptionHandler, ServerView server) {
 		super(exceptionHandler);
 
