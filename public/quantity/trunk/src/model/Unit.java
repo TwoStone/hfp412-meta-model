@@ -138,7 +138,6 @@ public class Unit extends model.AbsUnit implements PersistentUnit{
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + (this.getType() == null ? 0 : 1)
             + (this.getMyConversion() == null ? 0 : 1));
     }
     

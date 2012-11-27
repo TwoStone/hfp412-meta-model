@@ -32,9 +32,9 @@ public class IconResourceManager {
 	private final HashMap<Integer, String> iconPaths = new HashMap<Integer, String>();
 	
 	private IconResourceManager() {
-		this.getIconPaths().put(this.getClassImageId(UnitTypeManagerProxi.class), IconConstants.ICON_BULLET_BALL_GLASS_BLUE);
-		this.getIconPaths().put(this.getClassImageId(ConversionManagerProxi.class), IconConstants.ICON_BULLET_BALL_GLASS_GREEN);
-		this.getIconPaths().put(this.getClassImageId(QuantityManagerProxi.class), IconConstants.ICON_BULLET_BALL_GLASS_YELLOW);
+		this.getIconPaths().put(this.getClassImageId(UnitTypeManagerProxi.class), IconConstants.ICON_SHELF);
+		this.getIconPaths().put(this.getClassImageId(ConversionManagerProxi.class), IconConstants.ICON_SCALES);
+		this.getIconPaths().put(this.getClassImageId(QuantityManagerProxi.class), IconConstants.ICON_SHOPPINGCART_FULL);
 		this.getIconPaths().put(this.getClassImageId(FractionManagerProxi.class), IconConstants.ICON_BULLET_BALL_GLASS_GREY);
 
 		this.getIconPaths().put(this.getClassImageId(CompUnitProxi.class), IconConstants.ICON_CUBES_BLUE);

@@ -43,27 +43,21 @@ public abstract class AbsUnit extends ViewObject implements AbsUnitView{
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
-        int index = originalIndex;
-        if(index == 0 && this.getType() != null) return new TypeAbsUnitWrapper(this, originalIndex, (ViewRoot)this.getType());
-        if(this.getType() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getType() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        return true 
-            && (this.getType() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getType() != null && this.getType().equals(child)) return result;
-        if(this.getType() != null) result = result + 1;
+        
         return -1;
     }
     public int getNameIndex() throws ModelException {
-        return 0 + (this.getType() == null ? 0 : 1);
+        return 0;
     }
     public int getRowCount(){
         return 0 

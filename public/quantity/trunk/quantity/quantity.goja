@@ -79,7 +79,7 @@ model quantity {
 	}
 
 	abstract class AbsUnit {
-		prior AbsUnitType type; // 1
+		no-view prior AbsUnitType type; // 1
 		indexed prior String name;
 	}
 

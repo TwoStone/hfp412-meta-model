@@ -37,27 +37,21 @@ public class UnitProxi extends AbsUnitProxi implements UnitView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index == 0 && this.getType() != null) return new TypeAbsUnitWrapper(this, originalIndex, (ViewRoot)this.getType());
-        if(this.getType() != null) index = index - 1;
         if(index == 0 && this.getMyConversion() != null) return new MyConversionUnitWrapper(this, originalIndex, (ViewRoot)this.getMyConversion());
         if(this.getMyConversion() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getType() == null ? 0 : 1)
             + (this.getMyConversion() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getType() == null ? true : false)
             && (this.getMyConversion() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getType() != null && this.getType().equals(child)) return result;
-        if(this.getType() != null) result = result + 1;
         if(this.getMyConversion() != null && this.getMyConversion().equals(child)) return result;
         if(this.getMyConversion() != null) result = result + 1;
         return -1;

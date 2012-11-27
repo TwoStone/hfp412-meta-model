@@ -723,7 +723,6 @@ class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class UnitDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String AbsUnit$$type = "AbsUnit$$type";
     protected static final String AbsUnit$$name = "AbsUnit$$name";
     protected static final String Unit$$myConversion = "Unit$$myConversion";
     
@@ -929,7 +928,6 @@ class FractionManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class CompUnitDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String AbsUnit$$type = "AbsUnit$$type";
     protected static final String AbsUnit$$name = "AbsUnit$$name";
     protected static final String CompUnit$$refs = "CompUnit$$refs";
     

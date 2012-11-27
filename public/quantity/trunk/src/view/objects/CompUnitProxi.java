@@ -33,27 +33,21 @@ public class CompUnitProxi extends AbsUnitProxi implements CompUnitView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index == 0 && this.getType() != null) return new TypeAbsUnitWrapper(this, originalIndex, (ViewRoot)this.getType());
-        if(this.getType() != null) index = index - 1;
         if(index < this.getRefs().size()) return new RefsCompUnitWrapper(this, originalIndex, (ViewRoot)this.getRefs().get(index));
         index = index - this.getRefs().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getType() == null ? 0 : 1)
             + (this.getRefs().size());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getType() == null ? true : false)
             && (this.getRefs().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getType() != null && this.getType().equals(child)) return result;
-        if(this.getType() != null) result = result + 1;
         java.util.Iterator<?> getRefsIterator = this.getRefs().iterator();
         while(getRefsIterator.hasNext()){
             if(getRefsIterator.next().equals(child)) return result;

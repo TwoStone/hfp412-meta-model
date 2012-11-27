@@ -78,7 +78,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleUnit(PersistentUnit unit) throws PersistenceException {
-		this.result = unit.getName();
+		this.result = unit.getName() + " (" + unit.getType().getName() + ")";
 		
 	}
 	@Override
@@ -102,8 +102,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleCompUnit(PersistentCompUnit compUnit)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		this.result = compUnit.getName() + " (" + compUnit.getType().getName() + ")";
 	}
 
 	@Override
