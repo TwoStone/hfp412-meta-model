@@ -11,14 +11,14 @@ model quantity {
 		derived ConversionManager conversionManager;
 		derived FractionManager fractionManager;
 
-		void createUnitType(UnitTypeManager unitTypeManager, String name);
-		void createCompUnitType(UnitTypeManager unitTypeManager, String name);
+		void createUnitType@@Create_unit_type(UnitTypeManager unitTypeManager, String name);
+		void createCompUnitType@@Create_compound_unit_type(UnitTypeManager unitTypeManager, String name);
 		void addReferenceType(CompUnitType compUnitType, UnitType unitType, Integer exponent);
 		void finishModeling@@Publish(CompUnitType compUnitType);
 
-		void createUnit(AbsUnitType type, String name);
+		void createUnit@@Create_unit(AbsUnitType type, String name);
 
-		void createQuantity(AbsUnit unit, Fraction f);
+		void createQuantity@@Create_quantity(AbsUnit unit, Fraction f);
 	}
 
 /*-------------------------------------------------------------------------
