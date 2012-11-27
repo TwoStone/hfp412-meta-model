@@ -292,8 +292,15 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     @Override
 	public void createCompUnit(final String name, final PersistentCompUnitType type) 
 				throws model.DoubleDefinitionException, model.NotFinalizedException, PersistenceException{
-        //TODO: Double Definition bei gleichem Namen und gleicher Ausprägung...
     	
+    	// DoubleDefinition: Namensgleichheit.
+    	if (AbsUnitType.getAbsUnitTypeByName(name).iterator().hasNext())
+    		throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION);
+    	
+    	// DoubleDefinition: Gleiche Ausprägung (Typengleichheit).
+    	// TODO: Double Definition bei gleicher Auspr --> etwas komplexer^^
+    	
+    	// Falls CompUnitType noch im draft-Status: blocken.
     	type.isFinal().accept(new BooleanValueExceptionVisitor<NotFinalizedException>() {
 
 			@Override
