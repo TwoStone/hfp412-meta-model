@@ -108,6 +108,10 @@ public class MProductTypeProxi extends MComplexTypeProxi implements PersistentMP
 				throws PersistenceException{
         ((PersistentMProductType)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public PersistentMBoolean contains(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).contains(otherType);
+    }
     public MAssociationSearchList fetchAssociations() 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).fetchAssociations();

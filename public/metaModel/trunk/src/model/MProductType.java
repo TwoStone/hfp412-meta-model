@@ -193,6 +193,16 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
+    public PersistentMBoolean contains(final MType otherType) 
+				throws PersistenceException{
+        //TODO: implement method: contains
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"contains\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public PersistentMBoolean isStructuralEqual(final MType otherType) 
 				throws PersistenceException{
        

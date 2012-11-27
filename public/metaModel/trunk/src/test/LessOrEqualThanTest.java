@@ -2,126 +2,16 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import model.CycleException;
 
 import org.junit.Test;
 
-import model.CycleException;
-import model.MAspect;
-import model.MAtomicType;
-import model.MFalse;
-import model.MProductType;
-import model.MSumType;
-import model.MTrue;
 import persistence.PersistenceException;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
 
 public class LessOrEqualThanTest extends AbstractTest {
 
-	private PersistentMBoolean mTrue;
-	private PersistentMBoolean mFalse;
-
-	private PersistentMAtomicType mat1;
-	private PersistentMAtomicType mat2;
-	private PersistentMAtomicType mat3;
-	private PersistentMAtomicType mat4;
-	private PersistentMAtomicType mat5;
-	private PersistentMAtomicType mat6;
-
-	private PersistentMProductType mptEmpty;
-	private PersistentMProductType mptSingle1;
-	private PersistentMProductType mptSingle2;
-	private PersistentMProductType mptSingle3;
-	private PersistentMProductType mptSingle4;
-	private PersistentMProductType mptSingle5;
-	private PersistentMProductType mptMultiple2And4;
-	private PersistentMProductType mptMultiple4And2;
-	private PersistentMProductType mptMultiple5And6;
-	private PersistentMProductType mptMultiple4And5;
-
-	private PersistentMSumType mstSingle1;
-	private PersistentMSumType mstSingle2;
-	private PersistentMSumType mstSingle3;
-	private PersistentMSumType mstSingle4;
-	private PersistentMSumType mstSingle5;
-	private PersistentMSumType mstMultiple2And4;
-	private PersistentMSumType mstMultiple4And2;
-	private PersistentMSumType mstMultiple4And5;
-	private PersistentMSumType mstMultiple5And6;
-	private PersistentMSumType mstMultiple2And4And5;
-
 	public LessOrEqualThanTest() throws PersistenceException, CycleException {
-		// Boolean
-		mTrue = MTrue.getTheMTrue();
-		mFalse = MFalse.getTheMFalse();
-
-		// AtomicType
-		mat1 = MAtomicType.createMAtomicType("Typ1", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 1"));
-		mat2 = MAtomicType.createMAtomicType("Typ2", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 2"));
-		mat3 = MAtomicType.createMAtomicType("Typ3", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 3"));
-		mat4 = MAtomicType.createMAtomicType("Typ4", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 4"));
-		mat5 = MAtomicType.createMAtomicType("Typ5", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 5"));
-		mat6 = MAtomicType.createMAtomicType("Typ5", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 6"));
-
-		mat1.setSuperType(mat2);
-		mat2.setSuperType(mat3);
-
-		// ProductType
-		mptEmpty = MProductType.createMProductType();
-		mptSingle1 = MProductType.createMProductType();
-		mptSingle2 = MProductType.createMProductType();
-		mptSingle3 = MProductType.createMProductType();
-		mptSingle4 = MProductType.createMProductType();
-		mptSingle5 = MProductType.createMProductType();
-		mptMultiple2And4 = MProductType.createMProductType();
-		mptMultiple4And2 = MProductType.createMProductType();
-		mptMultiple5And6 = MProductType.createMProductType();
-		mptMultiple4And5 = MProductType.createMProductType();
-
-		mptSingle1.getContainedTypes().add(mat1);
-		mptSingle2.getContainedTypes().add(mat2);
-		mptSingle3.getContainedTypes().add(mat3);
-		mptSingle4.getContainedTypes().add(mat4);
-		mptSingle5.getContainedTypes().add(mat5);
-		mptMultiple2And4.getContainedTypes().add(mat2);
-		mptMultiple2And4.getContainedTypes().add(mat4);
-		mptMultiple4And2.getContainedTypes().add(mat4);
-		mptMultiple4And2.getContainedTypes().add(mat2);
-		mptMultiple5And6.getContainedTypes().add(mat5);
-		mptMultiple5And6.getContainedTypes().add(mat6);
-		mptMultiple4And5.getContainedTypes().add(mat4);
-		mptMultiple4And5.getContainedTypes().add(mat5);
-
-		// SumType
-		mstSingle1 = MSumType.createMSumType();
-		mstSingle2 = MSumType.createMSumType();
-		mstSingle3 = MSumType.createMSumType();
-		mstSingle4 = MSumType.createMSumType();
-		mstSingle5 = MSumType.createMSumType();
-		mstMultiple2And4 = MSumType.createMSumType();
-		mstMultiple4And2 = MSumType.createMSumType();
-		mstMultiple4And5 = MSumType.createMSumType();
-		mstMultiple5And6 = MSumType.createMSumType();
-		mstMultiple2And4And5 = MSumType.createMSumType();
-
-		mstSingle1.getContainedTypes().add(mat1);
-		mstSingle2.getContainedTypes().add(mat2);
-		mstSingle3.getContainedTypes().add(mat3);
-		mstSingle4.getContainedTypes().add(mat4);
-		mstSingle5.getContainedTypes().add(mat5);
-		mstMultiple2And4.getContainedTypes().add(mat2);
-		mstMultiple2And4.getContainedTypes().add(mat4);
-		mstMultiple4And2.getContainedTypes().add(mat4);
-		mstMultiple4And2.getContainedTypes().add(mat2);
-		mstMultiple4And5.getContainedTypes().add(mat4);
-		mstMultiple4And5.getContainedTypes().add(mat5);
-		mstMultiple5And6.getContainedTypes().add(mat5);
-		mstMultiple5And6.getContainedTypes().add(mat6);
-		mstMultiple2And4And5.getContainedTypes().add(mat2);
-		mstMultiple2And4And5.getContainedTypes().add(mat4);
-		mstMultiple2And4And5.getContainedTypes().add(mat5);
+		super();
 	}
 
 	@Test

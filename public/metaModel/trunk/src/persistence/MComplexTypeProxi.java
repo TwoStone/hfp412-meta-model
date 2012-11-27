@@ -27,6 +27,10 @@ public abstract class MComplexTypeProxi extends PersistentProxi implements Persi
 				throws PersistenceException{
         ((PersistentMComplexType)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public PersistentMBoolean contains(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).contains(otherType);
+    }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).containsMComplexTypeHierarchy(part);

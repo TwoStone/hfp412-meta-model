@@ -154,6 +154,10 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public PersistentMBoolean contains(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).contains(otherType);
+    }
     public MAssociationSearchList fetchAssociations() 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).fetchAssociations();

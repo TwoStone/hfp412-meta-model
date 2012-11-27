@@ -8,6 +8,8 @@ import model.*;
 
 public interface MType extends  MComplexTypeHierarchyHIERARCHY {
     
+    public PersistentMBoolean contains(final MType otherType) 
+				throws PersistenceException;
     public PersistentMBoolean isStructuralEqual(final MType otherType) 
 				throws PersistenceException;
     public MAssociationSearchList fetchAssociations() 

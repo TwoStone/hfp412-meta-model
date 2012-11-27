@@ -108,6 +108,10 @@ public class MSumTypeProxi extends MComplexTypeProxi implements PersistentMSumTy
 				throws PersistenceException{
         ((PersistentMSumType)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public PersistentMBoolean contains(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).contains(otherType);
+    }
     public MAssociationSearchList fetchAssociations() 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).fetchAssociations();

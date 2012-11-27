@@ -380,8 +380,8 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 		// TODO: implement method: initializeOnInstantiation
 
 	}
-
-	public PersistentMBoolean isStructuralEqual(final MType otherType) throws PersistenceException {
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
 
 		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
 
@@ -529,6 +529,16 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
+    public PersistentMBoolean contains(final MType otherType) 
+				throws PersistenceException{
+        //TODO: implement method: contains
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"contains\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public MAssociationSearchList fetchAssociations() 
 				throws PersistenceException{
     	SearchListRoot<PersistentMAssociation> result = AssociationManager.getTheAssociationManager().getAssociations().findAll(new Predcate<PersistentMAssociation>() {
