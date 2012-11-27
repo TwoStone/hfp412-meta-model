@@ -662,7 +662,6 @@ class ConversionManagerDefaultDetailPanel extends DefaultDetailPanel{
 class ReferenceTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ReferenceType$$exponent = "ReferenceType$$exponent";
-    protected static final String ReferenceType$$ref = "ReferenceType$$ref";
     
     protected ReferenceTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1001,7 +1000,6 @@ class CompUnitTypeDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String AbsUnitType$$defaultUnit = "AbsUnitType$$defaultUnit";
     protected static final String AbsUnitType$$name = "AbsUnitType$$name";
     protected static final String CompUnitType$$refs = "CompUnitType$$refs";
-    protected static final String CompUnitType$$isFinal = "CompUnitType$$isFinal";
     
     protected CompUnitTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

@@ -44,22 +44,18 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements CompUnitTypeV
         if(this.getDefaultUnit() != null) index = index - 1;
         if(index < this.getRefs().size()) return new RefsCompUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getRefs().get(index));
         index = index - this.getRefs().size();
-        if(index == 0 && this.getIsFinal() != null) return new IsFinalCompUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getIsFinal());
-        if(this.getIsFinal() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getDefaultUnit() == null ? 0 : 1)
-            + (this.getRefs().size())
-            + (this.getIsFinal() == null ? 0 : 1);
+            + (this.getRefs().size());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getDefaultUnit() == null ? true : false)
-            && (this.getRefs().size() == 0)
-            && (this.getIsFinal() == null ? true : false);
+            && (this.getRefs().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -70,8 +66,6 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements CompUnitTypeV
             if(getRefsIterator.next().equals(child)) return result;
             result = result + 1;
         }
-        if(this.getIsFinal() != null && this.getIsFinal().equals(child)) return result;
-        if(this.getIsFinal() != null) result = result + 1;
         return -1;
     }
     

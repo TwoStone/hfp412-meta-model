@@ -39,7 +39,7 @@ model quantity {
 
 		/* Operationen für Exemplarebene */
 		active void createUnit(String name, UnitType type) throws DoubleDefinitionException;
-		active void createCompUnit(String name, CompUnitType type) throws DoubleDefinitionException;
+		active void createCompUnit(String name, CompUnitType type) throws DoubleDefinitionException, NotFinalizedException;
 
 	}
 
@@ -95,7 +95,7 @@ model quantity {
 
 	class CompUnitType extends AbsUnitType {
 		ReferenceType ** refs;	
-		BooleanValue isFinal;
+		no-view BooleanValue isFinal;
 		void finishModeling() throws AlreadyFinalizedException;
 		BooleanValue isFinal();
 	}
@@ -104,7 +104,7 @@ model quantity {
 
 	class ReferenceType {
 		Integer exponent;
-		UnitType ref;
+		no-view UnitType ref;
 	}
 	class Reference {
 		ReferenceType type;
@@ -140,5 +140,5 @@ model quantity {
 -------------------------------------------------------------------------*/
 	exception DoubleDefinitionException{}
 	exception AlreadyFinalizedException{}
-
+	exception NotFinalizedException{}
 }

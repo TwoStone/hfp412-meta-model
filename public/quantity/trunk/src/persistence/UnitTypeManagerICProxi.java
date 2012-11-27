@@ -71,7 +71,7 @@ public class UnitTypeManagerICProxi extends PersistentInCacheProxiOptimistic imp
         ((PersistentUnitTypeManager)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent);
     }
     public void createCompUnit(final String name, final PersistentCompUnitType type) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.DoubleDefinitionException, model.NotFinalizedException, PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).createCompUnit(name, type);
     }
     public void finishModeling(final PersistentCompUnitType compUnitType, final Invoker invoker) 

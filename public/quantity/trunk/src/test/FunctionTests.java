@@ -58,8 +58,16 @@ public class FunctionTests extends TestCase {
 	// 2,5932 USD -> 2 EUR 
 	public void testFunctionExecuteInv3() throws Exception {
 		PersistentFunction f = Function.createFunction(Fraction.parse("10000/12966"), Fraction.parse("0"));
-		Fraction y = f.execute(Fraction.parse("6483/2500"));
+		Fraction y = f.execute(Fraction.parse("25932/10000"));
 		assertEquals(Fraction.parse("2").toString(), y.toString()); // 6483/2500
+	}
+	
+	public void testFunctionExecuteAndInv1() throws Exception {
+		PersistentFunction f = Function.createFunction(Fraction.parse("10000/12966"), Fraction.parse("0"));
+		Fraction x = Fraction.parse("6483/2500");
+		Fraction y = f.execute(x);
+		Fraction z = f.executeInverse(y);
+		assertEquals(x, z);
 	}
 
 	public void testFractionDivisionByZero() {

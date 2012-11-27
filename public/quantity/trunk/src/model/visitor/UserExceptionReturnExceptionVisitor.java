@@ -8,6 +8,7 @@ public interface UserExceptionReturnExceptionVisitor<R, E extends UserException>
     public R handleCycleException(model.CycleException cycleException) throws PersistenceException, E;
     public R handleAlreadyFinalizedException(model.AlreadyFinalizedException alreadyFinalizedException) throws PersistenceException, E;
     public R handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException, E;
+    public R handleNotFinalizedException(model.NotFinalizedException notFinalizedException) throws PersistenceException, E;
     public R handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException, E;
     
 }

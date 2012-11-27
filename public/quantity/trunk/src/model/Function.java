@@ -67,8 +67,7 @@ public class Function extends PersistentObject implements PersistentFunction{
         return result;
     }
     
-    @Override
-	public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
@@ -80,8 +79,7 @@ public class Function extends PersistentObject implements PersistentFunction{
         return result;
     }
     
-    @Override
-	public Function provideCopy() throws PersistenceException{
+    public Function provideCopy() throws PersistenceException{
         Function result = this;
         result = new Function(this.factor, 
                               this.constant, 
@@ -91,8 +89,7 @@ public class Function extends PersistentObject implements PersistentFunction{
         return result;
     }
     
-    @Override
-	public boolean hasEssentialFields() throws PersistenceException{
+    public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
     protected common.Fraction factor;
@@ -111,13 +108,11 @@ public class Function extends PersistentObject implements PersistentFunction{
         return 144;
     }
     
-    @Override
-	public long getClassId() {
+    public long getClassId() {
         return getTypeId();
     }
     
-    @Override
-	public void store() throws PersistenceException {
+    public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 144) ConnectionHandler.getTheConnectionHandler().theFunctionFacade
             .newFunction(factor,constant,this.getId());
@@ -129,21 +124,17 @@ public class Function extends PersistentObject implements PersistentFunction{
         
     }
     
-    @Override
-	public common.Fraction getFactor() throws PersistenceException {
+    public common.Fraction getFactor() throws PersistenceException {
         return this.factor;
     }
-    @Override
-	public void setFactor(common.Fraction newValue) throws PersistenceException {
+    public void setFactor(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theFunctionFacade.factorSet(this.getId(), newValue);
         this.factor = newValue;
     }
-    @Override
-	public common.Fraction getConstant() throws PersistenceException {
+    public common.Fraction getConstant() throws PersistenceException {
         return this.constant;
     }
-    @Override
-	public void setConstant(common.Fraction newValue) throws PersistenceException {
+    public void setConstant(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theFunctionFacade.constantSet(this.getId(), newValue);
         this.constant = newValue;
     }
@@ -162,51 +153,42 @@ public class Function extends PersistentObject implements PersistentFunction{
             ConnectionHandler.getTheConnectionHandler().theFunctionFacade.ThisSet(this.getId(), newValue);
         }
     }
-    @Override
-	public PersistentFunction getThis() throws PersistenceException {
+    public PersistentFunction getThis() throws PersistenceException {
         if(this.This == null){
             PersistentFunction result = new FunctionProxi(this.getId());
             result.getTheObject();
             return result;
-        }return this.This;
+        }return (PersistentFunction)this.This;
     }
     
-    @Override
-	public void accept(AnythingVisitor visitor) throws PersistenceException {
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleFunction(this);
     }
-    @Override
-	public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleFunction(this);
     }
-    @Override
-	public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleFunction(this);
     }
-    @Override
-	public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleFunction(this);
     }
-    @Override
-	public int getLeafInfo() throws PersistenceException{
+    public int getLeafInfo() throws PersistenceException{
         return 0;
     }
     
     
-    @Override
-	public void initializeOnInstantiation() 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
     }
-    @Override
-	public void copyingPrivateUserAttributes(final Anything copy) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    @Override
-	public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentFunction)This);
 		if(this.equals(This)){
@@ -214,15 +196,12 @@ public class Function extends PersistentObject implements PersistentFunction{
 			this.setConstant((common.Fraction)final$$Fields.get("constant"));
 		}
     }
-    @Override
-	public void initializeOnCreation() 
+    public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
     }
-    @Override
-    // f(x):=x*factor^-1-constant
-	public common.Fraction executeInverse(final common.Fraction amount) 
+    public common.Fraction executeInverse(final common.Fraction amount) 
 				throws PersistenceException{
     	Fraction result = null;
 		try {
@@ -232,9 +211,7 @@ public class Function extends PersistentObject implements PersistentFunction{
 		}
 		return result;
     }
-    @Override
-    // f(x):=x*factor+constant
-	public common.Fraction execute(final common.Fraction amount) 
+    public common.Fraction execute(final common.Fraction amount) 
 				throws PersistenceException{
     	Fraction result = null;
 		try {

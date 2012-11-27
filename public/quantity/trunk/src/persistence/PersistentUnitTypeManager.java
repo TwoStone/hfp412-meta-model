@@ -28,7 +28,7 @@ public interface PersistentUnitTypeManager extends Anything, AbstractPersistentP
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
 				throws model.DoubleDefinitionException, model.AlreadyFinalizedException, PersistenceException;
     public void createCompUnit(final String name, final PersistentCompUnitType type) 
-				throws model.DoubleDefinitionException, PersistenceException;
+				throws model.DoubleDefinitionException, model.NotFinalizedException, PersistenceException;
     public void finishModeling(final PersistentCompUnitType compUnitType, final Invoker invoker) 
 				throws PersistenceException;
     public void finishModeling(final PersistentCompUnitType compUnitType) 

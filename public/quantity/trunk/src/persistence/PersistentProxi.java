@@ -16,7 +16,7 @@ public abstract class PersistentProxi extends PersistentRoot {
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[54];
+		listProxiFactories = new ListProxiFactory[55];
         listProxiFactories[48] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new FinishModelingCommandListEntryProxi(objectId, entryId);
@@ -172,7 +172,7 @@ public abstract class PersistentProxi extends PersistentRoot {
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [54];
+		proxiFactories = new ProxiFactory [55];
         proxiFactories[48] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new FinishModelingCommandProxi(objectId);

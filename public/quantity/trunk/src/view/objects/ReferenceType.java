@@ -64,23 +64,17 @@ public class ReferenceType extends ViewObject implements ReferenceTypeView{
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
-        int index = originalIndex;
-        if(index == 0 && this.getRef() != null) return new RefReferenceTypeWrapper(this, originalIndex, (ViewRoot)this.getRef());
-        if(this.getRef() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getRef() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        return true 
-            && (this.getRef() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getRef() != null && this.getRef().equals(child)) return result;
-        if(this.getRef() != null) result = result + 1;
+        
         return -1;
     }
     public int getExponentIndex() throws ModelException {

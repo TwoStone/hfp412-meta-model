@@ -1,5 +1,6 @@
 package model;
 
+import model.visitor.BooleanValueReturnVisitor;
 import persistence.Anything;
 import persistence.PersistenceException;
 import persistence.PersistentBooleanFalse;
@@ -62,8 +63,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleReferenceType(PersistentReferenceType referenceType)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		this.result = referenceType.getRef() + "^"+referenceType.getExponent();
 	}
 	@Override
 	public void handleQuantityManager(PersistentQuantityManager quantityManager)
@@ -73,7 +73,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleUnitType(PersistentUnitType unitType)
 			throws PersistenceException {
-		this.result = unitType.getName() + constants.TextConstants.UNIT_TYPE_COMMON_TOSTRING;
+		this.result = unitType.getName();
 		
 	}
 	@Override
@@ -109,7 +109,21 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleCompUnitType(PersistentCompUnitType compUnitType)
 			throws PersistenceException {
-		this.result = compUnitType.getName() + constants.TextConstants.COMP_UNIT_TYPE_COMMON_TOSTRING;
+		String state = compUnitType.isFinal().accept(new BooleanValueReturnVisitor<String>() {
+
+			@Override
+			public String handleBooleanFalse(PersistentBooleanFalse booleanFalse)
+					throws PersistenceException {
+				return " (draft)";
+			}
+
+			@Override
+			public String handleBooleanTrue(PersistentBooleanTrue booleanTrue)
+					throws PersistenceException {
+				return "";
+			}
+		});
+		this.result = compUnitType.getName() + state;
 		
 	}
 	@Override

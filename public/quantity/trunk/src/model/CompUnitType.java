@@ -184,8 +184,7 @@ public class CompUnitType extends model.AbsUnitType implements PersistentCompUni
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + (this.getDefaultUnit() == null ? 0 : 1)
-            + this.getRefs().getLength()
-            + (this.getIsFinal() == null ? 0 : 1));
+            + this.getRefs().getLength());
     }
     
     

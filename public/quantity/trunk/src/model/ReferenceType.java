@@ -177,8 +177,7 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
          return visitor.handleReferenceType(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        return (int) (0 
-            + (this.getRef() == null ? 0 : 1));
+        return 0;
     }
     
     

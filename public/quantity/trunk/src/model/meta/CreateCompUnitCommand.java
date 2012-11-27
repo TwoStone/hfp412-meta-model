@@ -232,6 +232,9 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
 		}
+		catch(model.NotFinalizedException e){
+			this.commandException = e;
+		}
     }
     public void checkException() 
 				throws UserException, PersistenceException{
