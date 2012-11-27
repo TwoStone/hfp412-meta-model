@@ -193,6 +193,41 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
+       
+    	return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
+
+				@Override
+				public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+					
+					if(getThis().getContainedTypes().getLength() != mProductType.getContainedTypes().getLength()) {
+						return MFalse.getTheMFalse();
+					}
+					
+					// Alle Teile aus meinen ContainedTypes muessen in mProductType sein und mehr nicht.
+					Iterator<MType> myIterator = getThis().getContainedTypes().iterator();
+					while(myIterator.hasNext()) {
+						if(!otherType.containsMComplexTypeHierarchy(myIterator.next())) {
+							return MFalse.getTheMFalse();
+						}
+					}
+					
+					return MTrue.getTheMTrue();
+				}
+
+				@Override
+				public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+					return MFalse.getTheMFalse();
+				}
+
+				@Override
+				public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+					return mAtomicType.isLessOrEqual(getThis());
+				}
+			});
+    	
+    }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -207,36 +242,24 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 		if(this.equals(This)){
 		}
     }
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        T result$$containedTypes$$MProductType = strategy.initialize$$MProductType$$containedTypes(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
-		while (iterator$$.hasNext()){
-			MType current$$Field = (MType)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MProductType, strategy);
-			result$$containedTypes$$MProductType = strategy.consolidate$$MProductType$$containedTypes(getThis(), result$$containedTypes$$MProductType, current$$);
-		}
-		return strategy.finalize$$MProductType(getThis(), parameter,result$$containedTypes$$MProductType);
-    }
-    public PersistentMBoolean lessOrEqual(final MType otherType) 
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
 				throws PersistenceException{
 
 		if (otherType == null) {
 			return MFalse.getTheMFalse();
 		}
 
-		if (getThis().equals(otherType)) {
-			return MTrue.getTheMTrue();
-		}
 
 		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
 
 			@Override
 			public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
-
-				// t ≤∗ t1 ∧ t ≤∗ t2 => t ≤∗ t1 ∧ t2
 				
-				Iterator<MType> myIterator = getThis().getContainedTypes().iterator();
+				if (getThis().equals(otherType)) {
+					return MTrue.getTheMTrue();
+				}
+				
+				// t ?????? t1 ??? t ?????? t2 => t ?????? t1 ??? t2
 				Iterator<MType> otherIterator = null;
 				MType current = null;
 
@@ -248,7 +271,7 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 				
 				while(otherIterator.hasNext()) {
 					current = otherIterator.next();
-					if(getThis().lessOrEqual(current).equals(MFalse.getTheMFalse())) {
+					if(getThis().isLessOrEqual(current).equals(MFalse.getTheMFalse())) {
 						return MFalse.getTheMFalse();
 					}
 				}
@@ -268,7 +291,7 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 					otherIterator = mSumType.getContainedTypes().iterator();
 
 					while (otherIterator.hasNext()) {
-						if (current.lessOrEqual(otherIterator.next()).equals(MTrue.getTheMTrue())) {
+						if (current.isLessOrEqual(otherIterator.next()).equals(MTrue.getTheMTrue())) {
 							return MTrue.getTheMTrue();
 						}
 					}
@@ -284,7 +307,7 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 				while (myIterator.hasNext()) {
 					// Sobald ein enthaltenes Element kleinergleich zu etwas Anderem ist
 					// => return true
-					if (myIterator.next().lessOrEqual(otherType).equals(MTrue.getTheMTrue())) {
+					if (myIterator.next().isLessOrEqual(otherType).equals(MTrue.getTheMTrue())) {
 						return MTrue.getTheMTrue();
 					}
 				}
@@ -292,6 +315,17 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 			}
 		});
 	}
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$containedTypes$$MProductType = strategy.initialize$$MProductType$$containedTypes(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
+		while (iterator$$.hasNext()){
+			MType current$$Field = (MType)iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MProductType, strategy);
+			result$$containedTypes$$MProductType = strategy.consolidate$$MProductType$$containedTypes(getThis(), result$$containedTypes$$MProductType, current$$);
+		}
+		return strategy.finalize$$MProductType(getThis(), parameter,result$$containedTypes$$MProductType);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation

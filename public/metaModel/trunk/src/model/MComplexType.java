@@ -105,18 +105,6 @@ public abstract class MComplexType extends PersistentObject implements Persisten
         //TODO: implement method: initializeOnCreation
         
     }
-    public MAssociationSearchList fetchAssociations() 
-				throws PersistenceException{
-    	SearchListRoot<PersistentMAssociation> result = AssociationManager.getTheAssociationManager().getAssociations().findAll(new Predcate<PersistentMAssociation>() {
-			
-			@Override
-			public boolean test(PersistentMAssociation argument)
-					throws PersistenceException {
-				return getThis().lessOrEqual(argument.getSource()).toBoolean();
-			}
-		});
-    	return new MAssociationSearchList(result);
-    }
     public String fetchName() 
 				throws PersistenceException{
 	StringBuilder result = new StringBuilder();
@@ -152,6 +140,18 @@ public abstract class MComplexType extends PersistentObject implements Persisten
     		}
     	}
 		return result.toString();
+    }
+    public MAssociationSearchList fetchAssociations() 
+				throws PersistenceException{
+    	SearchListRoot<PersistentMAssociation> result = AssociationManager.getTheAssociationManager().getAssociations().findAll(new Predcate<PersistentMAssociation>() {
+			
+			@Override
+			public boolean test(PersistentMAssociation argument)
+					throws PersistenceException {
+				return getThis().isLessOrEqual(argument.getSource()).toBoolean();
+			}
+		});
+    	return new MAssociationSearchList(result);
     }
 
     /* Start of protected part that is not overridden by persistence generator */

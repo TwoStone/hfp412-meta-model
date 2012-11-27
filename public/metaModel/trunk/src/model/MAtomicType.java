@@ -380,6 +380,43 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 		// TODO: implement method: initializeOnInstantiation
 
 	}
+
+	public PersistentMBoolean isStructuralEqual(final MType otherType) throws PersistenceException {
+
+		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
+
+			@Override
+			public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+				return handleMComplexType(mProductType);
+			}
+
+			@Override
+			public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+				return handleMComplexType(mSumType);
+			}
+
+			private PersistentMBoolean handleMComplexType(PersistentMComplexType mComplexType) throws PersistenceException {
+				Iterator<MType> iterator = mComplexType.getContainedTypes().iterator();
+				while (iterator.hasNext()) {
+					if (iterator.next().isStructuralEqual(getThis()).equals(MFalse.getTheMFalse())) {
+						return MFalse.getTheMFalse();
+					}
+				}
+
+				return MTrue.getTheMTrue();
+			}
+
+			@Override
+			public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+
+				if (getThis().equals(otherType)) {
+					return MTrue.getTheMTrue();
+				}
+
+				return MFalse.getTheMFalse();
+			}
+		});
+	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -389,15 +426,11 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 				throws PersistenceException{
 		return getThis().getName();
 	}
-    public PersistentMBoolean lessOrEqual(final MType otherType) 
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
 				throws PersistenceException{
 
 		if (otherType == null) {
 			return MFalse.getTheMFalse();
-		}
-
-		if (getThis().equals(otherType)) {
-			return MTrue.getTheMTrue();
 		}
 
 		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
@@ -415,7 +448,7 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 				// Sobald unser AtomicType nicht kleiner als ein Element des Produkts
 				// ist => return false
 				while (iterator.hasNext()) {
-					if (getThis().lessOrEqual(iterator.next()).equals(MFalse.getTheMFalse())) {
+					if (getThis().isLessOrEqual(iterator.next()).equals(MFalse.getTheMFalse())) {
 						return MFalse.getTheMFalse();
 					}
 				}
@@ -435,25 +468,29 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 				// Sobald unser AtomicType kleiner als ein Element der Summe ist =>
 				// return true
 				while (iterator.hasNext()) {
-					if (getThis().lessOrEqual(iterator.next()).equals(MTrue.getTheMTrue())) {
+					if (getThis().isLessOrEqual(iterator.next()).equals(MTrue.getTheMTrue())) {
 						return MTrue.getTheMTrue();
 					}
 				}
 				return MFalse.getTheMFalse();
 			}
 
-      @Override
-      public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+			@Override
+			public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
 
-	if (getThis().getSuperType() == null) {
-	  return MFalse.getTheMFalse();
-	}
-	if (getThis().getSuperType().equals(otherType)) {
-	  return MTrue.getTheMTrue();
-	}
-	return getThis().getSuperType().lessOrEqual(otherType);
-      }
-    });
+				if (getThis().equals(otherType)) {
+					return MTrue.getTheMTrue();
+				}
+
+				if (getThis().getSuperType() == null) {
+					return MFalse.getTheMFalse();
+				}
+				if (getThis().getSuperType().equals(otherType)) {
+					return MTrue.getTheMTrue();
+				}
+				return getThis().getSuperType().isLessOrEqual(otherType);
+			}
+		});
 	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -499,7 +536,7 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 			@Override
 			public boolean test(PersistentMAssociation argument)
 					throws PersistenceException {
-				return getThis().lessOrEqual(argument.getSource()).toBoolean();
+				return getThis().isLessOrEqual(argument.getSource()).toBoolean();
 			}
 		});
     	return new MAssociationSearchList(result);

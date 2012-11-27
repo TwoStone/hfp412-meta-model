@@ -114,6 +114,10 @@ public class MAtomicTypeProxi extends PersistentProxi implements PersistentMAtom
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).initializeOnInstantiation();
     }
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).isStructuralEqual(otherType);
+    }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).containsMComplexTypeHierarchy(part);
@@ -122,9 +126,9 @@ public class MAtomicTypeProxi extends PersistentProxi implements PersistentMAtom
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).fetchName();
     }
-    public PersistentMBoolean lessOrEqual(final MType otherType) 
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
 				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).lessOrEqual(otherType);
+        return ((PersistentMAtomicType)this.getTheObject()).isLessOrEqual(otherType);
     }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{

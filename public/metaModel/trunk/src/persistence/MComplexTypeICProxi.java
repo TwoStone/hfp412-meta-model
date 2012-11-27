@@ -31,6 +31,10 @@ public abstract class MComplexTypeICProxi extends PersistentInCacheProxiOptimist
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).containsMComplexTypeHierarchy(part);
     }
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).isStructuralEqual(otherType);
+    }
     public MAssociationSearchList fetchAssociations() 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).fetchAssociations();
@@ -47,9 +51,9 @@ public abstract class MComplexTypeICProxi extends PersistentInCacheProxiOptimist
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
-    public PersistentMBoolean lessOrEqual(final MType otherType) 
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
 				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).lessOrEqual(otherType);
+        return ((PersistentMComplexType)this.getTheObject()).isLessOrEqual(otherType);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

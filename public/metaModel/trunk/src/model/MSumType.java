@@ -164,6 +164,43 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
+        
+    	return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
+
+				@Override
+				public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+					return MFalse.getTheMFalse();
+				}
+
+				@Override
+				public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+					
+					if(getThis().getContainedTypes().getLength() != mSumType.getContainedTypes().getLength()) {
+						return MFalse.getTheMFalse();
+					}
+					
+					// Alle Teile aus meinen ContainedTypes muessen in mProductType sein und mehr nicht.
+					// TODO: containsMComplexTypeHierarchy? Funktioniert das!?
+					Iterator<MType> myIterator = getThis().getContainedTypes().iterator();
+					while(myIterator.hasNext()) {
+						if(!otherType.containsMComplexTypeHierarchy(myIterator.next())) {
+							return MFalse.getTheMFalse();
+						}
+					}
+					
+					return MTrue.getTheMTrue();
+				}
+
+				@Override
+				public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+					return mAtomicType.isStructuralEqual(getThis()); 
+				}
+			});
+    	
+        
+    }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -178,6 +215,52 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
 		if(this.equals(This)){
 		}
     }
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
+				throws PersistenceException{
+    	
+		if (otherType == null) {
+			return MFalse.getTheMFalse();
+		}
+		
+		
+		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
+
+			@Override
+			public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+				return isLessOrEqualInternal();
+			}
+
+			@Override
+			public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+
+				if (getThis().equals(otherType)) {
+					return MTrue.getTheMTrue();
+				}
+				
+				return isLessOrEqualInternal();
+			}
+
+			@Override
+			public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+				return isLessOrEqualInternal();
+			}
+			
+			private PersistentMBoolean isLessOrEqualInternal() throws PersistenceException {
+				Iterator<MType> iterator = getThis().getContainedTypes().iterator();
+
+				while(iterator.hasNext()) {
+					// Wenn alle Elemente kleiner als der uebergebene Typ sind => return true
+					if(iterator.next().isLessOrEqual(otherType).equals(MFalse.getTheMFalse())) {
+						return MFalse.getTheMFalse();
+					}
+				}
+				return MTrue.getTheMTrue();
+			}
+			
+		});
+		
+		
+    }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$containedTypes$$MSumType = strategy.initialize$$MSumType$$containedTypes(getThis(), parameter);
@@ -188,27 +271,6 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
 			result$$containedTypes$$MSumType = strategy.consolidate$$MSumType$$containedTypes(getThis(), result$$containedTypes$$MSumType, current$$);
 		}
 		return strategy.finalize$$MSumType(getThis(), parameter,result$$containedTypes$$MSumType);
-    }
-    public PersistentMBoolean lessOrEqual(final MType otherType) 
-				throws PersistenceException{
-    	
-		if (otherType == null) {
-			return MFalse.getTheMFalse();
-		}
-
-		if (getThis().equals(otherType)) {
-			return MTrue.getTheMTrue();
-		}
-
-		Iterator<MType> iterator = getThis().getContainedTypes().iterator();
-
-		while(iterator.hasNext()) {
-			// Wenn alle Elemente kleiner als der uebergebene Typ sind => return true
-			if(iterator.next().lessOrEqual(otherType).equals(MFalse.getTheMFalse())) {
-				return MFalse.getTheMFalse();
-			}
-		}
-		return MTrue.getTheMTrue();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

@@ -70,7 +70,8 @@ interface MType@@Type {
  	MAssociation** fetchAssociations();
 	MBoolean allObjectsOfTypeAreSingleton();
 	MBoolean isAbstract();
-	MBoolean lessOrEqual(MType otherType); 
+	MBoolean isLessOrEqual(MType otherType); 
+	MBoolean isStructuralEqual(MType otherType); 
 }
 
 hierarchy MAtomicTypeHierarchy##MATypeHier;

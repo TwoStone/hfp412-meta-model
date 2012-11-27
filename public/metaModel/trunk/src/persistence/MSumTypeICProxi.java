@@ -80,6 +80,30 @@ public class MSumTypeICProxi extends MComplexTypeICProxi implements PersistentMS
 				throws PersistenceException{
         ((PersistentMSumType)this.getTheObject()).initializeOnInstantiation();
     }
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).containsMComplexTypeHierarchy(part);
+    }
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).isStructuralEqual(otherType);
+    }
+    public String fetchName() 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).fetchName();
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
+    }
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).isLessOrEqual(otherType);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        ((PersistentMSumType)this.getTheObject()).initializeOnCreation();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentMSumType)this.getTheObject()).copyingPrivateUserAttributes(copy);
@@ -88,29 +112,9 @@ public class MSumTypeICProxi extends MComplexTypeICProxi implements PersistentMS
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).fetchAssociations();
     }
-    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).containsMComplexTypeHierarchy(part);
-    }
-    public String fetchName() 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).fetchName();
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentMSumType)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public PersistentMBoolean lessOrEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).lessOrEqual(otherType);
-    }
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-        ((PersistentMSumType)this.getTheObject()).initializeOnCreation();
     }
     public String getTypeLinkOperator() 
 				throws PersistenceException{
