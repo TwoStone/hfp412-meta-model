@@ -32,6 +32,7 @@ import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMComplexType;
 import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
 import persistence.TDObserver;
 
 
@@ -90,6 +91,7 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         MProductType result = this;
         result = new MProductType(this.This, 
                                   this.getId());
+        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -218,7 +220,7 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
     }
     public PersistentMBoolean lessOrEqual(final MType otherType) 
 				throws PersistenceException{
-    	
+
 		if (otherType == null) {
 			return MFalse.getTheMFalse();
 		}
@@ -227,16 +229,69 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 			return MTrue.getTheMTrue();
 		}
 
-		Iterator<MType> iterator = getThis().getContainedTypes().iterator();
+		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
 
-		while(iterator.hasNext()) {
-			// Sobald ein enthaltenes Element kleinergleich zu etwas anderem ist => return true
-			if(iterator.next().lessOrEqual(otherType).equals(MTrue.getTheMTrue())) {
+			@Override
+			public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+
+				// t ≤∗ t1 ∧ t ≤∗ t2 => t ≤∗ t1 ∧ t2
+				
+				Iterator<MType> myIterator = getThis().getContainedTypes().iterator();
+				Iterator<MType> otherIterator = null;
+				MType current = null;
+
+				if (getThis().getContainedTypes().getLength() > 0 && mProductType.getContainedTypes().getLength() < 1) {
+					return MFalse.getTheMFalse();
+				}
+				
+				otherIterator = mProductType.getContainedTypes().iterator();
+				
+				while(otherIterator.hasNext()) {
+					current = otherIterator.next();
+					if(getThis().lessOrEqual(current).equals(MFalse.getTheMFalse())) {
+						return MFalse.getTheMFalse();
+					}
+				}
+				
 				return MTrue.getTheMTrue();
 			}
-		}
-		return MFalse.getTheMFalse();
-    }
+
+			@Override
+			public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+
+				Iterator<MType> myIterator = getThis().getContainedTypes().iterator();
+				Iterator<MType> otherIterator = null;
+				MType current = null;
+
+				while (myIterator.hasNext()) {
+					current = myIterator.next();
+					otherIterator = mSumType.getContainedTypes().iterator();
+
+					while (otherIterator.hasNext()) {
+						if (current.lessOrEqual(otherIterator.next()).equals(MTrue.getTheMTrue())) {
+							return MTrue.getTheMTrue();
+						}
+					}
+				}
+				return MFalse.getTheMFalse();
+			}
+
+			@Override
+			public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+
+				Iterator<MType> myIterator = getThis().getContainedTypes().iterator();
+
+				while (myIterator.hasNext()) {
+					// Sobald ein enthaltenes Element kleinergleich zu etwas Anderem ist
+					// => return true
+					if (myIterator.next().lessOrEqual(otherType).equals(MTrue.getTheMTrue())) {
+						return MTrue.getTheMTrue();
+					}
+				}
+				return MFalse.getTheMFalse();
+			}
+		});
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation

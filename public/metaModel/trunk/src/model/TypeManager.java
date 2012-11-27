@@ -65,6 +65,9 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         TypeManager result = this;
         result = new TypeManager(this.This, 
                                  this.getId());
+        result.atomicTypes = this.atomicTypes.copy(result);
+        result.productTypes = this.productTypes.copy(result);
+        result.sumTypes = this.sumTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

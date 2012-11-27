@@ -64,6 +64,8 @@ public class AssociationManager extends PersistentObject implements PersistentAs
         AssociationManager result = this;
         result = new AssociationManager(this.This, 
                                         this.getId());
+        result.associations = this.associations.copy(result);
+        result.hierarchies = this.hierarchies.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -223,7 +225,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     	   throw new DoubleDefinitionException("There already existsts an Association with name " + name + " in SourceType " + source.fetchName());
        }
        
-       //TODO obriges ist Quatsch: Nameclashes klären und produkttypen analysieren als quelle von assocs
+       //TODO obriges ist Quatsch: Nameclashes kl?ren und produkttypen analysieren als quelle von assocs
        PersistentMAssociation newAssoc = MAssociation.createMAssociation(name, source, target);
        getThis().getAssociations().add(newAssoc);
     }

@@ -400,36 +400,20 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 			return MTrue.getTheMTrue();
 		}
 
-		if (otherType instanceof PersistentMAtomicType) {
-			if (getThis().getSuperType() == null) {
-				return MFalse.getTheMFalse();
-			}
-			if (getThis().getSuperType().equals(otherType)) {
-				return MTrue.getTheMTrue();
-			}
-			return getThis().getSuperType().lessOrEqual(otherType);
+		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
 
-		} else {
+			@Override
+			public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
 
-			PersistentMComplexType complexType = (PersistentMComplexType) otherType;
-			Iterator<MType> iterator = complexType.getContainedTypes().iterator();
-			
-			if (iterator.hasNext() == false) {
-				return MFalse.getTheMFalse();
-			}
-			
-			if (otherType instanceof PersistentMSumType) {
-				// Sobald nur ein Element kleiner als unser
-				// AtomicType ist, ist die gesamte Summe kleiner.
-				while (iterator.hasNext()) {
-					if (getThis().lessOrEqual(iterator.next()).equals(MTrue.getTheMTrue())) {
-						return MTrue.getTheMTrue();
-					}
+				PersistentMComplexType complexType = (PersistentMComplexType) otherType;
+				Iterator<MType> iterator = complexType.getContainedTypes().iterator();
+
+				if (iterator.hasNext() == false) {
+					return MFalse.getTheMFalse();
 				}
 
-			} else if (otherType instanceof PersistentMProductType) {
-				// Sobald nur ein Element nicht mehr kleiner als unser
-				// AtomicType ist, ist das gesamte Produkt nicht mehr kleiner.
+				// Sobald unser AtomicType nicht kleiner als ein Element des Produkts
+				// ist => return false
 				while (iterator.hasNext()) {
 					if (getThis().lessOrEqual(iterator.next()).equals(MFalse.getTheMFalse())) {
 						return MFalse.getTheMFalse();
@@ -437,9 +421,39 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 				}
 				return MTrue.getTheMTrue();
 			}
-		}
 
-		return MFalse.getTheMFalse();
+			@Override
+			public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+
+				PersistentMComplexType complexType = (PersistentMComplexType) otherType;
+				Iterator<MType> iterator = complexType.getContainedTypes().iterator();
+
+				if (iterator.hasNext() == false) {
+					return MFalse.getTheMFalse();
+				}
+
+				// Sobald unser AtomicType kleiner als ein Element der Summe ist =>
+				// return true
+				while (iterator.hasNext()) {
+					if (getThis().lessOrEqual(iterator.next()).equals(MTrue.getTheMTrue())) {
+						return MTrue.getTheMTrue();
+					}
+				}
+				return MFalse.getTheMFalse();
+			}
+
+      @Override
+      public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+
+	if (getThis().getSuperType() == null) {
+	  return MFalse.getTheMFalse();
+	}
+	if (getThis().getSuperType().equals(otherType)) {
+	  return MTrue.getTheMTrue();
+	}
+	return getThis().getSuperType().lessOrEqual(otherType);
+      }
+    });
 	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
