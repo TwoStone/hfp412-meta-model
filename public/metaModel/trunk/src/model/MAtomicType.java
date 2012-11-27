@@ -395,16 +395,6 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 				return handleMComplexType(mSumType);
 			}
 
-			private PersistentMBoolean handleMComplexType(PersistentMComplexType mComplexType) throws PersistenceException {
-				Iterator<MType> iterator = mComplexType.getContainedTypes().iterator();
-				while (iterator.hasNext()) {
-					if (iterator.next().isStructuralEqual(getThis()).equals(MFalse.getTheMFalse())) {
-						return MFalse.getTheMFalse();
-					}
-				}
-
-				return MTrue.getTheMTrue();
-			}
 
 			@Override
 			public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
@@ -415,6 +405,19 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 
 				return MFalse.getTheMFalse();
 			}
+
+			private PersistentMBoolean handleMComplexType(PersistentMComplexType mComplexType) throws PersistenceException {
+				
+				Iterator<MType> iterator = mComplexType.getContainedTypes().iterator();
+				while (iterator.hasNext()) {
+					if (iterator.next().isStructuralEqual(getThis()).equals(MFalse.getTheMFalse())) {
+						return MFalse.getTheMFalse();
+					}
+				}
+				
+				return MTrue.getTheMTrue();
+			}
+			
 		});
 	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
@@ -529,17 +532,53 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
-    public PersistentMBoolean contains(final MType otherType) 
-				throws PersistenceException{
-        //TODO: implement method: contains
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"contains\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
-    public MAssociationSearchList fetchAssociations() 
+
+	public PersistentMBoolean contains(final MType otherType) throws PersistenceException {
+
+		if (otherType == null) {
+			return MFalse.getTheMFalse();
+		}
+
+		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
+
+			@Override
+			public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+
+				if (mProductType.getContainedTypes().getLength() > 0) {
+
+					Iterator<MType> iterator = mProductType.getContainedTypes().iterator();
+					while (iterator.hasNext()) {
+						if (!iterator.next().equals(getThis())) {
+							return MFalse.getTheMFalse();
+						}
+					}
+					return MTrue.getTheMTrue();
+				} else {
+					return MFalse.getTheMFalse();
+				}
+			}
+
+			@Override
+			public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+
+				Iterator<MType> iterator = mSumType.getContainedTypes().iterator();
+				while (iterator.hasNext()) {
+					if (iterator.next().equals(getThis())) {
+						return MTrue.getTheMTrue();
+					}
+				}
+				return MFalse.getTheMFalse();
+			}
+
+			@Override
+			public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+				return mAtomicType.equals(getThis()) ? MTrue.getTheMTrue() : MFalse.getTheMFalse();
+			}
+
+		});
+	}
+   
+	public MAssociationSearchList fetchAssociations() 
 				throws PersistenceException{
     	SearchListRoot<PersistentMAssociation> result = AssociationManager.getTheAssociationManager().getAssociations().findAll(new Predcate<PersistentMAssociation>() {
 			

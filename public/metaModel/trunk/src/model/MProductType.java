@@ -193,17 +193,63 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public PersistentMBoolean contains(final MType otherType) 
-				throws PersistenceException{
-        //TODO: implement method: contains
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"contains\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
-    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+
+	public PersistentMBoolean contains(final MType otherType) throws PersistenceException {
+
+		if (otherType == null) {
+			return MFalse.getTheMFalse();
+		}
+
+		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
+
+			@Override
+			public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+				// true: identitaet, wenn unser Produkt alle Elemente des anderen Produkts enthaelt
+				
+				if(getThis().equals(mProductType)) {
+					return MTrue.getTheMTrue();
+				}
+				
+				Iterator<MType> iterator = mProductType.getContainedTypes().iterator();
+
+				while (iterator.hasNext()) {
+					if (getThis().contains(iterator.next()).equals(MFalse.getTheMFalse())) {
+						return MFalse.getTheMFalse();
+					}
+				}
+				return MTrue.getTheMTrue();
+			}
+
+			@Override
+			public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+				// True, wenn unser Produkt ein Element der Summe enthaelt
+
+				Iterator<MType> iterator = mSumType.getContainedTypes().iterator();
+
+				while (iterator.hasNext()) {
+					if (getThis().contains(iterator.next()).equals(MTrue.getTheMTrue())) {
+						return MTrue.getTheMTrue();
+					}
+				}
+				return MFalse.getTheMFalse();
+			}
+
+			@Override
+			public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+
+				Iterator<MType> iterator = getThis().getContainedTypes().iterator();
+
+				while (iterator.hasNext()) {
+					if (iterator.next().contains(mAtomicType).equals(MTrue.getTheMTrue())) {
+						return MTrue.getTheMTrue();
+					}
+				}
+				return MFalse.getTheMFalse();
+			}
+		});
+	}
+
+	public PersistentMBoolean isStructuralEqual(final MType otherType) 
 				throws PersistenceException{
        
     	return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {

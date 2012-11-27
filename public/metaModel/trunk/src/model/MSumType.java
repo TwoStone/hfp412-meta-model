@@ -166,13 +166,73 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
     }
     public PersistentMBoolean contains(final MType otherType) 
 				throws PersistenceException{
-        //TODO: implement method: contains
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"contains\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+      
+    	if(otherType == null) {
+    		return MFalse.getTheMFalse();
+    	}
+    	
+    	return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
+
+				@Override
+				public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+					// Wenn unsere Summe das ganze Produkt als Summanden enthaelt => true
+					
+					Iterator<MType> iterator = getThis().getContainedTypes().iterator();
+					MType current = null;
+					
+					while(iterator.hasNext()) {
+						current = iterator.next();
+						
+						if(current.contains(mProductType).equals(MTrue.getTheMTrue())) {
+							return MTrue.getTheMTrue();
+						}
+					}
+					
+					return MFalse.getTheMFalse();
+				}
+
+				@Override
+				public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+					// True bei: Identitaet, wenn unsere Summe jeden Summanden der anderen Summe enthaelt
+					
+					if(getThis().equals(mSumType)) {
+						return MTrue.getTheMTrue();
+					}
+					
+					Iterator<MType> iterator = getThis().getContainedTypes().iterator();
+					MType current = null;
+					
+					while(iterator.hasNext()) {
+						current = iterator.next();
+						
+						if(current.contains(mSumType).equals(MFalse.getTheMFalse())) {
+							return MFalse.getTheMFalse();
+						}
+					}
+					
+					return MTrue.getTheMTrue();
+				}
+
+				@Override
+				public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+					// true, wenn einer unserer containedTypes den atomicType enthaelt
+					
+					Iterator<MType> iterator = getThis().getContainedTypes().iterator();
+					MType current = null;
+					
+					while(iterator.hasNext()) {
+						current = iterator.next();
+						
+						if(current.contains(mAtomicType).equals(MTrue.getTheMTrue())) {
+							return MTrue.getTheMTrue();
+						}
+					}
+					return MFalse.getTheMFalse();
+				}
+    		
+			});
+    	
+    	
     }
     public PersistentMBoolean isStructuralEqual(final MType otherType) 
 				throws PersistenceException{
@@ -192,10 +252,9 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
 					}
 					
 					// Alle Teile aus meinen ContainedTypes muessen in mProductType sein und mehr nicht.
-					// TODO: containsMComplexTypeHierarchy? Funktioniert das!?
 					Iterator<MType> myIterator = getThis().getContainedTypes().iterator();
 					while(myIterator.hasNext()) {
-						if(!otherType.containsMComplexTypeHierarchy(myIterator.next())) {
+						if(otherType.contains(myIterator.next()).equals(MFalse.getTheMFalse())) {
 							return MFalse.getTheMFalse();
 						}
 					}
