@@ -25,8 +25,8 @@ public class BooleanValueFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 145)) return 145;
-        if(Cache.getTheCache().contains(objectId, 142)) return 142;
+        if(Cache.getTheCache().contains(objectId, 127)) return 127;
+        if(Cache.getTheCache().contains(objectId, 117)) return 117;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

@@ -19,7 +19,7 @@ public class UnitTypeProxi extends AbsUnitTypeProxi implements PersistentUnitTyp
     }
     
     public long getClassId() {
-        return 112;
+        return 109;
     }
     
     public PersistentUnitType getThis() throws PersistenceException {

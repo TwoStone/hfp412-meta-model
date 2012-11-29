@@ -260,36 +260,36 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
-		this.number2NameMap.put(136, "AddDefaultUnitCommand");
-		this.number2NameMap.put(152, "AddReferenceTypeCommand");
-		this.number2NameMap.put(145, "BooleanFalse");
-		this.number2NameMap.put(142, "BooleanTrue");
-		this.number2NameMap.put(-132, "CommandCoordinator");
-		this.number2NameMap.put(-135, "CommandExecuter");
-		this.number2NameMap.put(133, "CommonDate");
-		this.number2NameMap.put(118, "CompUnit");
-		this.number2NameMap.put(120, "CompUnitType");
-		this.number2NameMap.put(105, "CompoundQuantity");
-		this.number2NameMap.put(116, "Conversion");
+		this.number2NameMap.put(125, "AddDefaultUnitCommand");
+		this.number2NameMap.put(121, "AddReferenceTypeCommand");
+		this.number2NameMap.put(127, "BooleanFalse");
+		this.number2NameMap.put(117, "BooleanTrue");
+		this.number2NameMap.put(-113, "CommandCoordinator");
+		this.number2NameMap.put(-120, "CommandExecuter");
+		this.number2NameMap.put(118, "CommonDate");
+		this.number2NameMap.put(131, "CompUnit");
+		this.number2NameMap.put(134, "CompUnitType");
+		this.number2NameMap.put(123, "CompoundQuantity");
+		this.number2NameMap.put(133, "Conversion");
 		this.number2NameMap.put(102, "ConversionManager");
-		this.number2NameMap.put(150, "CreateCompUnitCommand");
-		this.number2NameMap.put(151, "CreateCompUnitTypeCommand");
-		this.number2NameMap.put(130, "CreateConversionCommand");
-		this.number2NameMap.put(134, "CreateQuantityCommand");
-		this.number2NameMap.put(131, "CreateUnitCommand");
-		this.number2NameMap.put(129, "CreateUnitTypeCommand");
-		this.number2NameMap.put(-111, "ErrorDisplay");
-		this.number2NameMap.put(149, "FinishModelingCommand");
-		this.number2NameMap.put(146, "FractionManager");
-		this.number2NameMap.put(144, "Function");
-		this.number2NameMap.put(103, "Quantity");
-		this.number2NameMap.put(109, "QuantityManager");
-		this.number2NameMap.put(117, "Reference");
-		this.number2NameMap.put(106, "ReferenceType");
-		this.number2NameMap.put(-114, "Server");
-		this.number2NameMap.put(113, "Unit");
-		this.number2NameMap.put(112, "UnitType");
-		this.number2NameMap.put(143, "UnitTypeManager");	
+		this.number2NameMap.put(115, "CreateCompUnitCommand");
+		this.number2NameMap.put(116, "CreateCompUnitTypeCommand");
+		this.number2NameMap.put(110, "CreateConversionCommand");
+		this.number2NameMap.put(119, "CreateQuantityCommand");
+		this.number2NameMap.put(112, "CreateUnitCommand");
+		this.number2NameMap.put(107, "CreateUnitTypeCommand");
+		this.number2NameMap.put(-106, "ErrorDisplay");
+		this.number2NameMap.put(101, "FinishModelingCommand");
+		this.number2NameMap.put(130, "FractionManager");
+		this.number2NameMap.put(126, "Function");
+		this.number2NameMap.put(122, "Quantity");
+		this.number2NameMap.put(104, "QuantityManager");
+		this.number2NameMap.put(132, "Reference");
+		this.number2NameMap.put(103, "ReferenceType");
+		this.number2NameMap.put(-129, "Server");
+		this.number2NameMap.put(108, "Unit");
+		this.number2NameMap.put(109, "UnitType");
+		this.number2NameMap.put(124, "UnitTypeManager");	
 	}
 	
 }

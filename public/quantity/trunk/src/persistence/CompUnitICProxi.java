@@ -19,11 +19,17 @@ public class CompUnitICProxi extends AbsUnitICProxi implements PersistentCompUni
     }
     
     public long getClassId() {
-        return 118;
+        return 131;
     }
     
     public CompUnit_RefsProxi getRefs() throws PersistenceException {
         return ((PersistentCompUnit)this.getTheObject()).getRefs();
+    }
+    public PersistentBooleanValue getIsFinal() throws PersistenceException {
+        return ((PersistentCompUnit)this.getTheObject()).getIsFinal();
+    }
+    public void setIsFinal(PersistentBooleanValue newValue) throws PersistenceException {
+        ((PersistentCompUnit)this.getTheObject()).setIsFinal(newValue);
     }
     public PersistentCompUnit getThis() throws PersistenceException {
         return ((PersistentCompUnit)this.getTheObject()).getThis();
@@ -55,6 +61,10 @@ public class CompUnitICProxi extends AbsUnitICProxi implements PersistentCompUni
     }
     
     
+    public PersistentBooleanValue isFinal() 
+				throws PersistenceException{
+        return ((PersistentCompUnit)this.getTheObject()).isFinal();
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentCompUnit)this.getTheObject()).initializeOnInstantiation();
@@ -66,6 +76,14 @@ public class CompUnitICProxi extends AbsUnitICProxi implements PersistentCompUni
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentCompUnit)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void finishModeling() 
+				throws model.AlreadyFinalizedException, model.ExponentMatchingException, PersistenceException{
+        ((PersistentCompUnit)this.getTheObject()).finishModeling();
+    }
+    public void checkExponents() 
+				throws model.ExponentMatchingException, PersistenceException{
+        ((PersistentCompUnit)this.getTheObject()).checkExponents();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

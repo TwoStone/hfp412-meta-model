@@ -25,25 +25,25 @@ public class ReferenceTypeFacade{
 	}
 
     public ReferenceTypeProxi newReferenceType(long exponent,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (ReferenceTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 106);
+        if(createMinusStorePlus > 0) return (ReferenceTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 103);
         long id = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.getNextId();
         ReferenceType result = new ReferenceType(exponent,null,null,id);
         Cache.getTheCache().put(result);
-        return (ReferenceTypeProxi)PersistentProxi.createProxi(id, 106);
+        return (ReferenceTypeProxi)PersistentProxi.createProxi(id, 103);
     }
     
     public ReferenceTypeProxi newDelayedReferenceType(long exponent) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade.getNextId();
         ReferenceType result = new ReferenceType(exponent,null,null,id);
         Cache.getTheCache().put(result);
-        return (ReferenceTypeProxi)PersistentProxi.createProxi(id, 106);
+        return (ReferenceTypeProxi)PersistentProxi.createProxi(id, 103);
     }
     
     public ReferenceType getReferenceType(long ReferenceTypeId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 106)) return 106;
+        if(Cache.getTheCache().contains(objectId, 103)) return 103;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

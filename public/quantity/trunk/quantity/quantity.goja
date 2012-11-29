@@ -45,7 +45,7 @@ model quantity {
 
 	singleton QuantityManager {
 		AbsQuantity ** quantities;
-		active void createQuantity(Unit unit, Fraction amount);
+		active void createQuantity(AbsUnit unit, Fraction amount) throws NotFinalizedException;
 	}
 
 	singleton ConversionManager {
@@ -85,6 +85,12 @@ model quantity {
 
 	class CompUnit extends AbsUnit {
 		Reference ** refs;
+		no-view BooleanValue isFinal;
+		void finishModeling() throws AlreadyFinalizedException, ExponentMatchingException;
+		BooleanValue isFinal();
+		
+		/* Prüft, ob Exponenten der Exemplarebene mit Typebene übereinstimmen*/
+		void checkExponents() throws ExponentMatchingException;
 	}
 	class Unit extends AbsUnit {	}
 
@@ -141,4 +147,5 @@ model quantity {
 	exception DoubleDefinitionException{}
 	exception AlreadyFinalizedException{}
 	exception NotFinalizedException{}
+	exception ExponentMatchingException{}
 }

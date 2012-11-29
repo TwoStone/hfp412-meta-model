@@ -74,7 +74,7 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
     }
     
     static public long getTypeId() {
-        return -135;
+        return -120;
     }
     
     public long getClassId() {
@@ -83,7 +83,7 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == -135) ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
+        if (this.getClassId() == -120) ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
             .newCommandExecuter(this.getId());
         super.store();
         this.getCommands().store();

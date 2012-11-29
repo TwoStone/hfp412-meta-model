@@ -19,7 +19,7 @@ public class FractionManagerICProxi extends PersistentInCacheProxiOptimistic imp
     }
     
     public long getClassId() {
-        return 146;
+        return 130;
     }
     
     public PersistentFractionManager getThis() throws PersistenceException {

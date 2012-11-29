@@ -10,15 +10,17 @@ import view.visitor.*;
 public class CompUnit extends view.objects.AbsUnit implements CompUnitView{
     
     protected java.util.Vector<ReferenceView> refs;
+    protected BooleanValueView isFinal;
     
-    public CompUnit(AbsUnitTypeView type,String name,java.util.Vector<ReferenceView> refs,long id, long classId) {
+    public CompUnit(AbsUnitTypeView type,String name,java.util.Vector<ReferenceView> refs,BooleanValueView isFinal,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((AbsUnitTypeView)type,(String)name,id, classId);
-        this.refs = refs;        
+        this.refs = refs;
+        this.isFinal = isFinal;        
     }
     
     static public long getTypeId() {
-        return 118;
+        return 131;
     }
     
     public long getClassId() {
@@ -30,6 +32,12 @@ public class CompUnit extends view.objects.AbsUnit implements CompUnitView{
     }
     public void setRefs(java.util.Vector<ReferenceView> newValue) throws ModelException {
         this.refs = newValue;
+    }
+    public BooleanValueView getIsFinal() throws ModelException {
+        return this.isFinal;
+    }
+    public void setIsFinal(BooleanValueView newValue) throws ModelException {
+        this.isFinal = newValue;
     }
     
     public void accept(AbsUnitVisitor visitor) throws ModelException {
@@ -65,6 +73,10 @@ public class CompUnit extends view.objects.AbsUnit implements CompUnitView{
         java.util.Vector<?> refs = this.getRefs();
         if (refs != null) {
             ViewObject.resolveVectorProxies(refs, resultTable);
+        }
+        BooleanValueView isFinal = this.getIsFinal();
+        if (isFinal != null) {
+            ((ViewProxi)isFinal).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(isFinal.getClassId(), isFinal.getId())));
         }
         
     }

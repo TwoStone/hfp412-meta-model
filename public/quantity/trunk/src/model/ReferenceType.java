@@ -97,7 +97,7 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
     }
     
     static public long getTypeId() {
-        return 106;
+        return 103;
     }
     
     public long getClassId() {
@@ -106,7 +106,7 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 106) ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
+        if (this.getClassId() == 103) ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
             .newReferenceType(0,this.getId());
         super.store();
         if(this.getRef() != null){

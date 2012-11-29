@@ -5,6 +5,7 @@ import persistence.*;
 
 public interface UserExceptionVisitor {
     
+    public void handleExponentMatchingException(model.ExponentMatchingException exponentMatchingException) throws PersistenceException;
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException;
     public void handleAlreadyFinalizedException(model.AlreadyFinalizedException alreadyFinalizedException) throws PersistenceException;
     public void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException;

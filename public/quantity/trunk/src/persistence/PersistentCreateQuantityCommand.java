@@ -6,8 +6,8 @@ import model.visitor.*;
 
 public interface PersistentCreateQuantityCommand extends Anything, QuantityManagerCommand, PersistentCommonDate, AbstractPersistentProxi {
     
-    public PersistentUnit getUnit() throws PersistenceException ;
-    public void setUnit(PersistentUnit newValue) throws PersistenceException ;
+    public PersistentAbsUnit getUnit() throws PersistenceException ;
+    public void setUnit(PersistentAbsUnit newValue) throws PersistenceException ;
     public common.Fraction getAmount() throws PersistenceException ;
     public void setAmount(common.Fraction newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;

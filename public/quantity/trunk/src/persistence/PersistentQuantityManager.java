@@ -14,15 +14,15 @@ public interface PersistentQuantityManager extends Anything, AbstractPersistentP
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void initializeOnInstantiation() 
+    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction amount, final Invoker invoker) 
 				throws PersistenceException;
-    public void createQuantity(final PersistentUnit unit, final common.Fraction amount, final Invoker invoker) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction amount) 
+				throws model.NotFinalizedException, PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException;
-    public void createQuantity(final PersistentUnit unit, final common.Fraction amount) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

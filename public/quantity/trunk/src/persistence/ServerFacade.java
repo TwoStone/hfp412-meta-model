@@ -25,25 +25,25 @@ public class ServerFacade{
 	}
 
     public ServerProxi newServer(String password,String user,long hackCount,java.sql.Timestamp hackDelay,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (ServerProxi)PersistentProxi.createProxi(createMinusStorePlus, -114);
+        if(createMinusStorePlus > 0) return (ServerProxi)PersistentProxi.createProxi(createMinusStorePlus, -129);
         long id = ConnectionHandler.getTheConnectionHandler().theServerFacade.getNextId();
         Server result = new Server(null,password,user,hackCount,hackDelay,id);
         Cache.getTheCache().put(result);
-        return (ServerProxi)PersistentProxi.createProxi(id, -114);
+        return (ServerProxi)PersistentProxi.createProxi(id, -129);
     }
     
     public ServerProxi newDelayedServer(String password,String user,long hackCount,java.sql.Timestamp hackDelay) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theServerFacade.getNextId();
         Server result = new Server(null,password,user,hackCount,hackDelay,id);
         Cache.getTheCache().put(result);
-        return (ServerProxi)PersistentProxi.createProxi(id, -114);
+        return (ServerProxi)PersistentProxi.createProxi(id, -129);
     }
     
     public Server getServer(long ServerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, -114)) return -114;
+        if(Cache.getTheCache().contains(objectId, -129)) return -129;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -51,7 +51,7 @@ public class ServerFacade{
     public ServerSearchList getServerByUser(String user) throws PersistenceException {
         ServerSearchList result = new ServerSearchList();
         java.util.Iterator<?> candidates;
-        candidates = Cache.getTheCache().iterator(-114);
+        candidates = Cache.getTheCache().iterator(-129);
         while (candidates.hasNext()){
             PersistentServer current = (PersistentServer)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getUser().equals(user))

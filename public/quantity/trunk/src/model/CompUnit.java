@@ -1,8 +1,29 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.visitor.AbsUnitExceptionVisitor;
+import model.visitor.AbsUnitReturnExceptionVisitor;
+import model.visitor.AbsUnitReturnVisitor;
+import model.visitor.AbsUnitVisitor;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.BooleanValueExceptionVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.CompUnitProxi;
+import persistence.CompUnit_RefsProxi;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentAbsUnit;
+import persistence.PersistentAbsUnitType;
+import persistence.PersistentBooleanFalse;
+import persistence.PersistentBooleanTrue;
+import persistence.PersistentBooleanValue;
+import persistence.PersistentCompUnit;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -55,6 +76,15 @@ public class CompUnit extends model.AbsUnit implements PersistentCompUnit{
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("refs", this.getRefs().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
+            AbstractPersistentRoot isFinal = (AbstractPersistentRoot)this.getIsFinal();
+            if (isFinal != null) {
+                result.put("isFinal", isFinal.createProxiInformation(false));
+                if(depth > 1) {
+                    isFinal.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && isFinal.hasEssentialFields())isFinal.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -66,6 +96,7 @@ public class CompUnit extends model.AbsUnit implements PersistentCompUnit{
         result = new CompUnit(this.type, 
                               this.name, 
                               this.This, 
+                              this.isFinal, 
                               this.getId());
         result.refs = this.refs.copy(result);
         this.copyingPrivateUserAttributes(result);
@@ -76,15 +107,17 @@ public class CompUnit extends model.AbsUnit implements PersistentCompUnit{
         return false;
     }
     protected CompUnit_RefsProxi refs;
+    protected PersistentBooleanValue isFinal;
     
-    public CompUnit(PersistentAbsUnitType type,String name,PersistentAbsUnit This,long id) throws persistence.PersistenceException {
+    public CompUnit(PersistentAbsUnitType type,String name,PersistentAbsUnit This,PersistentBooleanValue isFinal,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((PersistentAbsUnitType)type,(String)name,(PersistentAbsUnit)This,id);
-        this.refs = new CompUnit_RefsProxi(this);        
+        this.refs = new CompUnit_RefsProxi(this);
+        this.isFinal = isFinal;        
     }
     
     static public long getTypeId() {
-        return 118;
+        return 131;
     }
     
     public long getClassId() {
@@ -93,15 +126,33 @@ public class CompUnit extends model.AbsUnit implements PersistentCompUnit{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 118) ConnectionHandler.getTheConnectionHandler().theCompUnitFacade
+        if (this.getClassId() == 131) ConnectionHandler.getTheConnectionHandler().theCompUnitFacade
             .newCompUnit(name,this.getId());
         super.store();
         this.getRefs().store();
+        if(this.getIsFinal() != null){
+            this.getIsFinal().store();
+            ConnectionHandler.getTheConnectionHandler().theCompUnitFacade.isFinalSet(this.getId(), getIsFinal());
+        }
         
     }
     
     public CompUnit_RefsProxi getRefs() throws PersistenceException {
         return this.refs;
+    }
+    public PersistentBooleanValue getIsFinal() throws PersistenceException {
+        return this.isFinal;
+    }
+    public void setIsFinal(PersistentBooleanValue newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.isFinal)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.isFinal = (PersistentBooleanValue)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCompUnitFacade.isFinalSet(this.getId(), newValue);
+        }
     }
     public PersistentCompUnit getThis() throws PersistenceException {
         if(this.This == null){
@@ -141,6 +192,10 @@ public class CompUnit extends model.AbsUnit implements PersistentCompUnit{
     }
     
     
+    public PersistentBooleanValue isFinal() 
+				throws PersistenceException{
+        return getThis().getIsFinal();
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
@@ -161,8 +216,34 @@ public class CompUnit extends model.AbsUnit implements PersistentCompUnit{
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
+        getThis().setIsFinal(BooleanFalse.getTheBooleanFalse());
         
+    }
+    public void checkExponents() 
+				throws model.ExponentMatchingException, PersistenceException{
+        //TODO: implement method: checkExponents
+        
+    }
+    public void finishModeling() 
+				throws model.AlreadyFinalizedException, model.ExponentMatchingException, PersistenceException{
+    	getThis().isFinal().accept(new BooleanValueExceptionVisitor<AlreadyFinalizedException>() {
+
+			@Override
+			public void handleBooleanFalse(PersistentBooleanFalse booleanFalse)
+					throws PersistenceException, AlreadyFinalizedException {
+			}
+
+			@Override
+			public void handleBooleanTrue(PersistentBooleanTrue booleanTrue)
+					throws PersistenceException, AlreadyFinalizedException {
+				throw new AlreadyFinalizedException(constants.ExceptionConstants.ALREADY_FINAL_CU);
+			}
+
+		});
+    	
+    	getThis().checkExponents();
+    	getThis().setIsFinal(BooleanTrue.getTheBooleanTrue()); 
+    	
     }
 
     /* Start of protected part that is not overridden by persistence generator */

@@ -5,6 +5,7 @@ import view.*;
 
 public interface UserExceptionReturnVisitor<R> {
     
+    public R handleExponentMatchingException(ExponentMatchingException exponentMatchingException) throws ModelException;
     public R handleCycleException(CycleException cycleException) throws ModelException;
     public R handleAlreadyFinalizedException(AlreadyFinalizedException alreadyFinalizedException) throws ModelException;
     public R handleDoubleDefinitionException(DoubleDefinitionException doubleDefinitionException) throws ModelException;

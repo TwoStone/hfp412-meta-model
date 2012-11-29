@@ -26,7 +26,7 @@ public class UnitType extends view.objects.AbsUnitType implements UnitTypeView{
     }
     
     static public long getTypeId() {
-        return 112;
+        return 109;
     }
     
     public long getClassId() {

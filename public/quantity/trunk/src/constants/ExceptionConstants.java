@@ -10,4 +10,6 @@ public final class ExceptionConstants {
 	public static final String DOUBLE_REFERENCETYPE_DEFINITION = "Es existiert bereits eine Referenz auf: ";
 
 	public static final String ALREADY_FINAL_CUT = "Dieser UnitTyp ist bereits final!";
+
+	public static final String ALREADY_FINAL_CU = "Diese Einheit ist bereits final!";
 }

@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleExponentMatchingException(model.ExponentMatchingException exponentMatchingException) throws PersistenceException{
+        this.standardHandling(exponentMatchingException);
+    }
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException{
         this.standardHandling(cycleException);
     }

@@ -10,18 +10,18 @@ public class QuantityFacade{
 	}
 
     public QuantityProxi newQuantity(common.Fraction amount,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (QuantityProxi)PersistentProxi.createProxi(createMinusStorePlus, 103);
+        if(createMinusStorePlus > 0) return (QuantityProxi)PersistentProxi.createProxi(createMinusStorePlus, 122);
         long id = ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.getNextId();
         Quantity result = new Quantity(null,amount,null,id);
         Cache.getTheCache().put(result);
-        return (QuantityProxi)PersistentProxi.createProxi(id, 103);
+        return (QuantityProxi)PersistentProxi.createProxi(id, 122);
     }
     
     public QuantityProxi newDelayedQuantity(common.Fraction amount) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.getNextId();
         Quantity result = new Quantity(null,amount,null,id);
         Cache.getTheCache().put(result);
-        return (QuantityProxi)PersistentProxi.createProxi(id, 103);
+        return (QuantityProxi)PersistentProxi.createProxi(id, 122);
     }
     
     public Quantity getQuantity(long QuantityId) throws PersistenceException{

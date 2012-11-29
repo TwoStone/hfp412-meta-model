@@ -92,7 +92,7 @@ public class CompoundQuantity extends model.AbsQuantity implements PersistentCom
     }
     
     static public long getTypeId() {
-        return 105;
+        return 123;
     }
     
     public long getClassId() {
@@ -101,7 +101,7 @@ public class CompoundQuantity extends model.AbsQuantity implements PersistentCom
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 105) ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
+        if (this.getClassId() == 123) ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
             .newCompoundQuantity(this.getId());
         super.store();
         this.getParts().store();

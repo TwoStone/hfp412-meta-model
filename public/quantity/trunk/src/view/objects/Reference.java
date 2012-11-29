@@ -22,7 +22,7 @@ public class Reference extends ViewObject implements ReferenceView{
     }
     
     static public long getTypeId() {
-        return 117;
+        return 132;
     }
     
     public long getClassId() {

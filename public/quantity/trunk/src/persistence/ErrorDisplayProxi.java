@@ -19,7 +19,7 @@ public class ErrorDisplayProxi extends PersistentProxi implements PersistentErro
     }
     
     public long getClassId() {
-        return -111;
+        return -106;
     }
     
     public String getMessage() throws PersistenceException {

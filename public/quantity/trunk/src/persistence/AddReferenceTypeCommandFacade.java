@@ -25,25 +25,25 @@ public class AddReferenceTypeCommandFacade{
 	}
 
     public AddReferenceTypeCommandProxi newAddReferenceTypeCommand(long exponent,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (AddReferenceTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 152);
+        if(createMinusStorePlus > 0) return (AddReferenceTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 121);
         long id = ConnectionHandler.getTheConnectionHandler().theAddReferenceTypeCommandFacade.getNextId();
         AddReferenceTypeCommand result = new AddReferenceTypeCommand(null,null,exponent,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (AddReferenceTypeCommandProxi)PersistentProxi.createProxi(id, 152);
+        return (AddReferenceTypeCommandProxi)PersistentProxi.createProxi(id, 121);
     }
     
     public AddReferenceTypeCommandProxi newDelayedAddReferenceTypeCommand(long exponent) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theAddReferenceTypeCommandFacade.getNextId();
         AddReferenceTypeCommand result = new AddReferenceTypeCommand(null,null,exponent,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (AddReferenceTypeCommandProxi)PersistentProxi.createProxi(id, 152);
+        return (AddReferenceTypeCommandProxi)PersistentProxi.createProxi(id, 121);
     }
     
     public AddReferenceTypeCommand getAddReferenceTypeCommand(long AddReferenceTypeCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 152)) return 152;
+        if(Cache.getTheCache().contains(objectId, 121)) return 121;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

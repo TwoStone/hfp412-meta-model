@@ -187,7 +187,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     static public long getTypeId() {
-        return -114;
+        return -129;
     }
     
     public long getClassId() {
@@ -196,7 +196,7 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == -114) ConnectionHandler.getTheConnectionHandler().theServerFacade
+        if (this.getClassId() == -129) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
         super.store();
         if(!this.equals(this.getThis())){
@@ -360,7 +360,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void createQuantity(final PersistentAbsUnit unit, final common.Fraction f) 
 				throws PersistenceException{
-        //TODO: implement method: createQuantity
+        getThis().getQuantityManager().createQuantity(unit, f, getThis());
         
     }
     public void createCompUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 

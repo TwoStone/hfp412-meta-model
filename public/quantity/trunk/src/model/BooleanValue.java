@@ -38,7 +38,7 @@ public abstract class BooleanValue extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 141;
+        return 114;
     }
     
     public long getClassId() {

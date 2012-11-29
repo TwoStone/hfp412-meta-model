@@ -5,6 +5,9 @@ import view.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleExponentMatchingException(ExponentMatchingException exponentMatchingException) throws ModelException{
+        this.standardHandling(exponentMatchingException);
+    }
     public void handleCycleException(CycleException cycleException) throws ModelException{
         this.standardHandling(cycleException);
     }

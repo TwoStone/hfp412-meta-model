@@ -23,7 +23,14 @@ public class CompUnitProxi extends AbsUnitProxi implements CompUnitView{
         String name = (String)resultTable.get("name");
         java.util.Vector<String> refs_string = (java.util.Vector<String>)resultTable.get("refs");
         java.util.Vector<ReferenceView> refs = ViewProxi.getProxiVector(refs_string, connectionKey);
-        CompUnitView result$$ = new CompUnit((AbsUnitTypeView)type,(String)name,refs, this.getId(), this.getClassId());
+        ViewProxi isFinal = null;
+        String isFinal$String = (String)resultTable.get("isFinal");
+        if (isFinal$String != null) {
+            common.ProxiInformation isFinal$Info = common.RPCConstantsAndServices.createProxiInformation(isFinal$String);
+            isFinal = ViewProxi.createProxi(isFinal$Info,connectionKey);
+            isFinal.setToString(isFinal$Info.getToString());
+        }
+        CompUnitView result$$ = new CompUnit((AbsUnitTypeView)type,(String)name,refs,(BooleanValueView)isFinal, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -61,6 +68,12 @@ public class CompUnitProxi extends AbsUnitProxi implements CompUnitView{
     }
     public void setRefs(java.util.Vector<ReferenceView> newValue) throws ModelException {
         ((CompUnit)this.getTheObject()).setRefs(newValue);
+    }
+    public BooleanValueView getIsFinal() throws ModelException {
+        return ((CompUnit)this.getTheObject()).getIsFinal();
+    }
+    public void setIsFinal(BooleanValueView newValue) throws ModelException {
+        ((CompUnit)this.getTheObject()).setIsFinal(newValue);
     }
     
     public void accept(AbsUnitVisitor visitor) throws ModelException {

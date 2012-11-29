@@ -13,7 +13,7 @@ public class BooleanTrueFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theBooleanValueFacade.getNextId();
         BooleanTrue result = new BooleanTrue(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (BooleanTrueProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 142);
+        return (BooleanTrueProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 117);
     }
     
     public BooleanTrue getBooleanTrue(long BooleanTrueId) throws PersistenceException{

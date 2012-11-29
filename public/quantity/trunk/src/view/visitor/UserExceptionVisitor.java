@@ -5,6 +5,7 @@ import view.*;
 
 public interface UserExceptionVisitor {
     
+    public void handleExponentMatchingException(ExponentMatchingException exponentMatchingException) throws ModelException;
     public void handleCycleException(CycleException cycleException) throws ModelException;
     public void handleAlreadyFinalizedException(AlreadyFinalizedException alreadyFinalizedException) throws ModelException;
     public void handleDoubleDefinitionException(DoubleDefinitionException doubleDefinitionException) throws ModelException;

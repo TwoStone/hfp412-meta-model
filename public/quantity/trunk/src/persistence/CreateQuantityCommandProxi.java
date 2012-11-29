@@ -19,13 +19,13 @@ public class CreateQuantityCommandProxi extends PersistentProxi implements Persi
     }
     
     public long getClassId() {
-        return 134;
+        return 119;
     }
     
-    public PersistentUnit getUnit() throws PersistenceException {
+    public PersistentAbsUnit getUnit() throws PersistenceException {
         return ((PersistentCreateQuantityCommand)this.getTheObject()).getUnit();
     }
-    public void setUnit(PersistentUnit newValue) throws PersistenceException {
+    public void setUnit(PersistentAbsUnit newValue) throws PersistenceException {
         ((PersistentCreateQuantityCommand)this.getTheObject()).setUnit(newValue);
     }
     public common.Fraction getAmount() throws PersistenceException {

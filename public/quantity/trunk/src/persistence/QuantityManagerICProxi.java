@@ -19,7 +19,7 @@ public class QuantityManagerICProxi extends PersistentInCacheProxiOptimistic imp
     }
     
     public long getClassId() {
-        return 109;
+        return 104;
     }
     
     public QuantityManager_QuantitiesProxi getQuantities() throws PersistenceException {
@@ -43,7 +43,7 @@ public class QuantityManagerICProxi extends PersistentInCacheProxiOptimistic imp
     }
     
     
-    public void createQuantity(final PersistentUnit unit, final common.Fraction amount, final Invoker invoker) 
+    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction amount, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentQuantityManager)this.getTheObject()).createQuantity(unit, amount, invoker);
     }
@@ -55,8 +55,8 @@ public class QuantityManagerICProxi extends PersistentInCacheProxiOptimistic imp
 				throws PersistenceException{
         ((PersistentQuantityManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createQuantity(final PersistentUnit unit, final common.Fraction amount) 
-				throws PersistenceException{
+    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction amount) 
+				throws model.NotFinalizedException, PersistenceException{
         ((PersistentQuantityManager)this.getTheObject()).createQuantity(unit, amount);
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
