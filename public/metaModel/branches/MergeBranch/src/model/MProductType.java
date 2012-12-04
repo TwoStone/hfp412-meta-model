@@ -193,8 +193,8 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
-
-	public PersistentMBoolean contains(final MType otherType) throws PersistenceException {
+    public PersistentMBoolean contains(final MType otherType) 
+				throws PersistenceException{
 
 		if (otherType == null) {
 			return MFalse.getTheMFalse();
@@ -248,8 +248,7 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 			}
 		});
 	}
-
-	public PersistentMBoolean isStructuralEqual(final MType otherType) 
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
 				throws PersistenceException{
        
     	return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {

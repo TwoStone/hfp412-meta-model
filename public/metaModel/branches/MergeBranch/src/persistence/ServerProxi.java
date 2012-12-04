@@ -115,21 +115,29 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).connected(user);
     }
+    public PersistentFractionManager getFractionManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getFractionManager();
+    }
     public void createAspect(final PersistentAspectManager aspectManager, final String aspectName) 
 				throws model.DoubleDefinitionException, PersistenceException{
         ((PersistentServer)this.getTheObject()).createAspect(aspectManager, aspectName);
+    }
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent);
     }
     public boolean hasChanged() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).hasChanged();
     }
-    public void createAtomicType(final PersistentMAspect parent, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createAtomicType(parent, typeName, singletonType, abstractType);
-    }
     public void createHierarchy(final String name) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createHierarchy(name);
+    }
+    public void createAtomicType(final PersistentMAspect parent, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAtomicType(parent, typeName, singletonType, abstractType);
     }
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -143,6 +151,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public void createUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createUnitType(unitTypeManager, name);
+    }
     public void createAssociation(final PersistentAssociationManager manager, final String name, final MType source, final MType target) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createAssociation(manager, name, source, target);
@@ -155,6 +167,14 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleResult(command);
     }
+    public PersistentUnitTypeManager getUnitTypeManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getUnitTypeManager();
+    }
+    public PersistentQuantityManager getQuantityManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getQuantityManager();
+    }
     public void addToHierarchy(final PersistentMAssociation association, final PersistentMAHierarchy theHierarchy) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addToHierarchy(association, theHierarchy);
@@ -166,6 +186,22 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public PersistentAspectManager getAspectManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getAspectManager(observer);
+    }
+    public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getQuantityManager(observer);
+    }
+    public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getUnitTypeManager(observer);
+    }
+    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction f) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createQuantity(unit, f);
+    }
+    public void createCompUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createCompUnitType(unitTypeManager, name);
     }
     public void addAssociations(final PersistentMAHierarchy theHierarchy, final PersistentMAssociation association) 
 				throws PersistenceException{
@@ -183,9 +219,21 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getAssociationManager(observer);
     }
+    public void finishModeling(final PersistentCompUnitType compUnitType) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).finishModeling(compUnitType);
+    }
+    public PersistentFractionManager getFractionManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getFractionManager(observer);
+    }
     public PersistentAspectManager getAspectManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getAspectManager();
+    }
+    public PersistentConversionManager getConversionManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getConversionManager();
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -194,6 +242,14 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void createUnit(final PersistentAbsUnitType type, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createUnit(type, name);
+    }
+    public PersistentConversionManager getConversionManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getConversionManager(observer);
     }
 
     

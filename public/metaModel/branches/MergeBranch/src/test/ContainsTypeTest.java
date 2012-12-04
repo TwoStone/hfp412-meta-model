@@ -1,10 +1,10 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import model.CycleException;
 
 import org.junit.Test;
 
-import model.CycleException;
 import persistence.PersistenceException;
 
 public class ContainsTypeTest extends AbstractTest {

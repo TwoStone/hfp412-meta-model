@@ -1,8 +1,52 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.quantity.ConversionManager;
+import model.quantity.FractionManager;
+import model.quantity.QuantityManager;
+import model.quantity.UnitTypeManager;
+import model.visitor.AbsUnitTypeVisitor;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.InvokerExceptionVisitor;
+import model.visitor.InvokerReturnExceptionVisitor;
+import model.visitor.InvokerReturnVisitor;
+import model.visitor.InvokerVisitor;
+import model.visitor.RemoteExceptionVisitor;
+import model.visitor.RemoteReturnExceptionVisitor;
+import model.visitor.RemoteReturnVisitor;
+import model.visitor.RemoteVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.Command;
+import persistence.ConnectionHandler;
+import persistence.MType;
+import persistence.PersistenceException;
+import persistence.PersistentAbsUnit;
+import persistence.PersistentAbsUnitType;
+import persistence.PersistentAspectManager;
+import persistence.PersistentAssociationManager;
+import persistence.PersistentCompUnitType;
+import persistence.PersistentConversionManager;
+import persistence.PersistentFractionManager;
+import persistence.PersistentMAHierarchy;
+import persistence.PersistentMAspect;
+import persistence.PersistentMAssociation;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentQuantityManager;
+import persistence.PersistentServer;
+import persistence.PersistentTypeManager;
+import persistence.PersistentUnitType;
+import persistence.PersistentUnitTypeManager;
+import persistence.ServerProxi;
+import persistence.ServerSearchList;
+import persistence.Server_ErrorsProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -74,6 +118,42 @@ public class Server extends PersistentObject implements PersistentServer{
                     typeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
                     if(forGUI && typeManager.hasEssentialFields())typeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot quantityManager = (AbstractPersistentRoot)this.getQuantityManager(tdObserver);
+            if (quantityManager != null) {
+                result.put("quantityManager", quantityManager.createProxiInformation(false));
+                if(depth > 1) {
+                    quantityManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && quantityManager.hasEssentialFields())quantityManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot unitTypeManager = (AbstractPersistentRoot)this.getUnitTypeManager(tdObserver);
+            if (unitTypeManager != null) {
+                result.put("unitTypeManager", unitTypeManager.createProxiInformation(false));
+                if(depth > 1) {
+                    unitTypeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && unitTypeManager.hasEssentialFields())unitTypeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot conversionManager = (AbstractPersistentRoot)this.getConversionManager(tdObserver);
+            if (conversionManager != null) {
+                result.put("conversionManager", conversionManager.createProxiInformation(false));
+                if(depth > 1) {
+                    conversionManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && conversionManager.hasEssentialFields())conversionManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot fractionManager = (AbstractPersistentRoot)this.getFractionManager(tdObserver);
+            if (fractionManager != null) {
+                result.put("fractionManager", fractionManager.createProxiInformation(false));
+                if(depth > 1) {
+                    fractionManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && fractionManager.hasEssentialFields())fractionManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             AbstractPersistentRoot aspectManager = (AbstractPersistentRoot)this.getAspectManager(tdObserver);
@@ -261,11 +341,93 @@ public class Server extends PersistentObject implements PersistentServer{
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + (this.getTypeManager() == null ? 0 : 1)
+            + (this.getQuantityManager() == null ? 0 : 1)
+            + (this.getUnitTypeManager() == null ? 0 : 1)
+            + (this.getConversionManager() == null ? 0 : 1)
+            + (this.getFractionManager() == null ? 0 : 1)
             + (this.getAspectManager() == null ? 0 : 1)
             + (this.getAssociationManager() == null ? 0 : 1));
     }
     
     
+    public PersistentTypeManager getTypeManager() 
+				throws PersistenceException{
+        return model.TypeManager.getTheTypeManager();
+    }
+    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType) 
+				throws PersistenceException{
+      TypeManager.getTheTypeManager().addSubType(superType, subType, getThis());
+    }
+    public void signalChanged(final boolean signal) 
+				throws PersistenceException{
+        this.changed = signal;
+    }
+    public void createAssociationFrom(final MType source, final String name, final MType target) 
+				throws PersistenceException{
+    	getThis().getAssociationManager().createAssociation(name, source, target, getThis());
+    }
+    public void createAssociationTo(final MType target, final String name, final MType source) 
+				throws PersistenceException{
+    	getThis().getAssociationManager().createAssociation(name, source, target, getThis());
+    }
+    public void connected(final String user) 
+				throws PersistenceException{
+        //TODO: implement method: connected
+        
+    }
+    public PersistentFractionManager getFractionManager() 
+				throws PersistenceException{
+        return FractionManager.getTheFractionManager();
+    }
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+				throws PersistenceException{
+    	getThis().getUnitTypeManager().addReferenceType(compUnitType, unitType, exponent, getThis());        
+    }
+    public void createAspect(final PersistentAspectManager aspectManager, final String aspectName) 
+				throws model.DoubleDefinitionException, PersistenceException{
+    	aspectManager.createAspect(aspectName, getThis());
+    }
+    public boolean hasChanged() 
+				throws PersistenceException{
+        boolean result = this.changed;
+		this.changed = false;
+		return result;
+    }
+    public void createAtomicType(final PersistentMAspect parent, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws PersistenceException{
+      TypeManager.getTheTypeManager().createAtomicType(parent, typeName, singletonType, abstractType, getThis());
+    }
+    public void createHierarchy(final String name) 
+				throws PersistenceException{
+    	getAssociationManager().createHierarchy(name, getThis());
+    }
+    public PersistentTypeManager getTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentTypeManager result = getThis().getTypeManager();
+		observer.updateTransientDerived(getThis(), "typeManager", result);
+		return result;
+    }
+    public PersistentAssociationManager getAssociationManager() 
+				throws PersistenceException{
+        return model.AssociationManager.getTheAssociationManager();
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
+    public void createUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 
+				throws PersistenceException{
+    	this.getThis().getUnitTypeManager().createUnitType(name, getThis());        
+    }
+    public void createAssociation(final PersistentAssociationManager manager, final String name, final MType source, final MType target) 
+				throws PersistenceException{
+      manager.createAssociation(name, source, target, getThis());
+    }
+    public void createSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws PersistenceException{
+      TypeManager.getTheTypeManager().createSubType(superType, typeName, singletonType, abstractType, getThis());
+    }
     public void handleResult(final Command command) 
 				throws PersistenceException{
         new Thread(new Runnable(){
@@ -287,28 +449,21 @@ public class Server extends PersistentObject implements PersistentServer{
 			}
 		}).start();
     }
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType) 
+    public PersistentUnitTypeManager getUnitTypeManager() 
 				throws PersistenceException{
-        TypeManager.getTheTypeManager().addSubType(superType, subType, getThis());
+        return UnitTypeManager.getTheUnitTypeManager();
     }
-    public PersistentTypeManager getTypeManager() 
+    public PersistentQuantityManager getQuantityManager() 
 				throws PersistenceException{
-        return model.TypeManager.getTheTypeManager();
-    }
-    public void signalChanged(final boolean signal) 
-				throws PersistenceException{
-        this.changed = signal;
+        return QuantityManager.getTheQuantityManager();
     }
     public void addToHierarchy(final PersistentMAssociation association, final PersistentMAHierarchy theHierarchy) 
 				throws PersistenceException{
-        getThis().getAssociationManager().addToHierarchy(association, theHierarchy, getThis());
+        //TODO: implement method: addToHierarchy
+        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-    }
-    public void createAssociationFrom(final MType source, final String name, final MType target) 
-				throws PersistenceException{
-    	getThis().getAssociationManager().createAssociation(name, source, target, getThis());
     }
     public PersistentAspectManager getAspectManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -316,32 +471,36 @@ public class Server extends PersistentObject implements PersistentServer{
 		observer.updateTransientDerived(getThis(), "aspectManager", result);
 		return result;
     }
-    public void createAssociationTo(final MType target, final String name, final MType source) 
+    public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
 				throws PersistenceException{
-    	getThis().getAssociationManager().createAssociation(name, source, target, getThis());
+        PersistentUnitTypeManager result = getThis().getUnitTypeManager();
+		observer.updateTransientDerived(getThis(), "unitTypeManager", result);
+		return result;
     }
-    public void connected(final String user) 
+    public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException{
+        PersistentQuantityManager result = getThis().getQuantityManager();
+		observer.updateTransientDerived(getThis(), "quantityManager", result);
+		return result;
+    }
+    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction f) 
+				throws PersistenceException{
+      getThis().getQuantityManager().createQuantity(unit, f, getThis());
+    }
+    public void createCompUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 
+				throws PersistenceException{
+    	getThis().getUnitTypeManager().createCompUnitType(name, getThis());        
     }
     public void addAssociations(final PersistentMAHierarchy theHierarchy, final PersistentMAssociation association) 
 				throws PersistenceException{
-        getThis().getAssociationManager().addToHierarchy(association, theHierarchy, getThis());
+        //TODO: implement method: addAssociations
+        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
     }
-    public void createAspect(final PersistentAspectManager aspectManager, final String aspectName) 
-				throws model.DoubleDefinitionException, PersistenceException{
-    	aspectManager.createAspect(aspectName, getThis());
-    }
     public void disconnected() 
 				throws PersistenceException{
-    }
-    public boolean hasChanged() 
-				throws PersistenceException{
-        boolean result = this.changed;
-		this.changed = false;
-		return result;
     }
     public PersistentAssociationManager getAssociationManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -349,30 +508,24 @@ public class Server extends PersistentObject implements PersistentServer{
 		observer.updateTransientDerived(getThis(), "associationManager", result);
 		return result;
     }
-    public void createAtomicType(final PersistentMAspect parent, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+    public PersistentFractionManager getFractionManager(final TDObserver observer) 
 				throws PersistenceException{
-        TypeManager.getTheTypeManager().createAtomicType(parent, typeName, singletonType, abstractType, getThis());
+        PersistentFractionManager result = getThis().getFractionManager();
+		observer.updateTransientDerived(getThis(), "fractionManager", result);
+		return result;
     }
-    public void createHierarchy(final String name) 
+    public void finishModeling(final PersistentCompUnitType compUnitType) 
 				throws PersistenceException{
-    	getAssociationManager().createHierarchy(name, getThis());
+        //TODO: implement method: finishModeling
+        
     }
     public PersistentAspectManager getAspectManager() 
 				throws PersistenceException{
         return model.AspectManager.getTheAspectManager();
     }
-    public PersistentTypeManager getTypeManager(final TDObserver observer) 
+    public PersistentConversionManager getConversionManager() 
 				throws PersistenceException{
-        PersistentTypeManager result = getThis().getTypeManager();
-		observer.updateTransientDerived(getThis(), "typeManager", result);
-		return result;
-    }
-    public PersistentAssociationManager getAssociationManager() 
-				throws PersistenceException{
-        return model.AssociationManager.getTheAssociationManager();
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
+        return ConversionManager.getTheConversionManager();
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -392,14 +545,29 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
     }
-    public void createSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+    public void createUnit(final PersistentAbsUnitType type, final String name) 
 				throws PersistenceException{
-        TypeManager.getTheTypeManager().createSubType(superType, typeName, singletonType, abstractType, getThis());
+    	
+    	type.accept(new AbsUnitTypeVisitor() {
+    		
+    		@Override
+    		public void handleUnitType(PersistentUnitType unitType)
+    				throws PersistenceException {
+    			getThis().getUnitTypeManager().createUnit(name, unitType, getThis());
+    		}
+    		
+    		@Override
+    		public void handleCompUnitType(PersistentCompUnitType compUnitType)
+    				throws PersistenceException {
+    			getThis().getUnitTypeManager().createCompUnit(name, compUnitType, getThis());		
+    		}
+    	});                
     }
-    public void createAssociation(final PersistentAssociationManager manager, final String name, final MType source, final MType target) 
+    public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException{
-        manager.createAssociation(name, source, target, getThis());
-        
+        PersistentConversionManager result = getThis().getConversionManager();
+		observer.updateTransientDerived(getThis(), "conversionManager", result);
+		return result;
     }
 
     /* Start of protected part that is not overridden by persistence generator */

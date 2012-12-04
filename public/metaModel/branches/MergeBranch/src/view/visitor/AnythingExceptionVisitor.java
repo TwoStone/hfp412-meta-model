@@ -3,17 +3,25 @@ package view.visitor;
 import view.UserException;
 import view.*;
 
-public interface AnythingExceptionVisitor<E extends UserException> extends MComplexTypeExceptionVisitor<E>,MBooleanExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends UserException> extends AbsUnitTypeExceptionVisitor<E>,MComplexTypeExceptionVisitor<E>,AbsQuantityExceptionVisitor<E>,AbsUnitExceptionVisitor<E>,MBooleanExceptionVisitor<E>{
     
-    public void handleTypeManager(TypeManagerView typeManager) throws ModelException, E;
-    public void handleAspectManager(AspectManagerView aspectManager) throws ModelException, E;
-    public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
-    public void handleServer(ServerView server) throws ModelException, E;
+    public void handleConversionManager(ConversionManagerView conversionManager) throws ModelException, E;
+    public void handleQuantityManager(QuantityManagerView quantityManager) throws ModelException, E;
     public void handleAssociationManager(AssociationManagerView associationManager) throws ModelException, E;
-    public void handleMAtomicType(MAtomicTypeView mAtomicType) throws ModelException, E;
     public void handleMAHierarchy(MAHierarchyView mAHierarchy) throws ModelException, E;
-    public void handleMAspect(MAspectView mAspect) throws ModelException, E;
+    public void handleTypeManager(TypeManagerView typeManager) throws ModelException, E;
+    public void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException, E;
+    public void handleServer(ServerView server) throws ModelException, E;
+    public void handleMAtomicType(MAtomicTypeView mAtomicType) throws ModelException, E;
+    public void handleFractionManager(FractionManagerView fractionManager) throws ModelException, E;
+    public void handleConversion(ConversionView conversion) throws ModelException, E;
+    public void handleReference(ReferenceView reference) throws ModelException, E;
+    public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException, E;
+    public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
     public void handleMAssociation(MAssociationView mAssociation) throws ModelException, E;
     public void handleMBoolean(MBooleanView mBoolean) throws ModelException, E;
+    public void handleFunction(FunctionView function) throws ModelException, E;
+    public void handleAspectManager(AspectManagerView aspectManager) throws ModelException, E;
+    public void handleMAspect(MAspectView mAspect) throws ModelException, E;
     
 }

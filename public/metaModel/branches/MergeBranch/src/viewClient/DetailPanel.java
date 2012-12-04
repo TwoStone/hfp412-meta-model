@@ -583,38 +583,62 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 	public DetailPanelFactory(ExceptionAndEventHandler handler) {
 		this.handler = handler;
 	}
-    public void handleMProductType(view.MProductTypeView object){
-        result = new MProductTypeDefaultDetailPanel(handler, object);
+    public void handleConversionManager(view.ConversionManagerView object){
+        result = new ConversionManagerDefaultDetailPanel(handler, object);
     }
-    public void handleTypeManager(view.TypeManagerView object){
-        result = new TypeManagerDefaultDetailPanel(handler, object);
-    }
-    public void handleAspectManager(view.AspectManagerView object){
-        result = new AspectManagerDefaultDetailPanel(handler, object);
-    }
-    public void handleErrorDisplay(view.ErrorDisplayView object){
-        result = new ErrorDisplayDefaultDetailPanel(handler, object);
-    }
-    public void handleMFalse(view.MFalseView object){
-        result = new MFalseDefaultDetailPanel(handler, object);
-    }
-    public void handleServer(view.ServerView object){
-        result = new ServerDefaultDetailPanel(handler, object);
+    public void handleQuantityManager(view.QuantityManagerView object){
+        result = new QuantityManagerDefaultDetailPanel(handler, object);
     }
     public void handleAssociationManager(view.AssociationManagerView object){
         result = new AssociationManagerDefaultDetailPanel(handler, object);
     }
-    public void handleMAtomicType(view.MAtomicTypeView object){
-        result = new MAtomicTypeDefaultDetailPanel(handler, object);
-    }
     public void handleMAHierarchy(view.MAHierarchyView object){
         result = new MAHierarchyDefaultDetailPanel(handler, object);
     }
-    public void handleMAspect(view.MAspectView object){
-        result = new MAspectDefaultDetailPanel(handler, object);
+    public void handleTypeManager(view.TypeManagerView object){
+        result = new TypeManagerDefaultDetailPanel(handler, object);
     }
-    public void handleMSumType(view.MSumTypeView object){
-        result = new MSumTypeDefaultDetailPanel(handler, object);
+    public void handleUnitTypeManager(view.UnitTypeManagerView object){
+        result = new UnitTypeManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleCompoundQuantity(view.CompoundQuantityView object){
+        result = new CompoundQuantityDefaultDetailPanel(handler, object);
+    }
+    public void handleServer(view.ServerView object){
+        result = new ServerDefaultDetailPanel(handler, object);
+    }
+    public void handleMAtomicType(view.MAtomicTypeView object){
+        result = new MAtomicTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleFractionManager(view.FractionManagerView object){
+        result = new FractionManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleConversion(view.ConversionView object){
+        result = new ConversionDefaultDetailPanel(handler, object);
+    }
+    public void handleReference(view.ReferenceView object){
+        result = new ReferenceDefaultDetailPanel(handler, object);
+    }
+    public void handleCompUnitType(view.CompUnitTypeView object){
+        result = new CompUnitTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleMProductType(view.MProductTypeView object){
+        result = new MProductTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleReferenceType(view.ReferenceTypeView object){
+        result = new ReferenceTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleErrorDisplay(view.ErrorDisplayView object){
+        result = new ErrorDisplayDefaultDetailPanel(handler, object);
+    }
+    public void handleUnit(view.UnitView object){
+        result = new UnitDefaultDetailPanel(handler, object);
+    }
+    public void handleUnitType(view.UnitTypeView object){
+        result = new UnitTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleMFalse(view.MFalseView object){
+        result = new MFalseDefaultDetailPanel(handler, object);
     }
     public void handleMAssociation(view.MAssociationView object){
         result = new MAssociationDefaultDetailPanel(handler, object);
@@ -625,32 +649,99 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMTrue(view.MTrueView object){
         result = new MTrueDefaultDetailPanel(handler, object);
     }
+    public void handleQuantity(view.QuantityView object){
+        result = new QuantityDefaultDetailPanel(handler, object);
+    }
+    public void handleFunction(view.FunctionView object){
+        result = new FunctionDefaultDetailPanel(handler, object);
+    }
+    public void handleAspectManager(view.AspectManagerView object){
+        result = new AspectManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleMAspect(view.MAspectView object){
+        result = new MAspectDefaultDetailPanel(handler, object);
+    }
+    public void handleMSumType(view.MSumTypeView object){
+        result = new MSumTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleCompUnit(view.CompUnitView object){
+        result = new CompUnitDefaultDetailPanel(handler, object);
+    }
 
 }
 
 
 
 @SuppressWarnings("serial")
-class MProductTypeDefaultDetailPanel extends DefaultDetailPanel{
+class ConversionManagerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
-    protected static final String MComplexType$$TypeLinkOperator = "MComplexType$$TypeLinkOperator";
+    protected static final String ConversionManager$$conversions = "ConversionManager$$conversions";
     
-    protected MProductTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected ConversionManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ConversionManagerView getAnything(){
+        return (view.ConversionManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class QuantityManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String QuantityManager$$quantities = "QuantityManager$$quantities";
+    
+    protected QuantityManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.QuantityManagerView getAnything(){
+        return (view.QuantityManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class AssociationManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AssociationManager$$associations = "AssociationManager$$associations";
+    protected static final String AssociationManager$$hierarchies = "AssociationManager$$hierarchies";
+    
+    protected AssociationManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.AssociationManagerView getAnything(){
+        return (view.AssociationManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MAHierarchyDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MAHierarchy$$name = "MAHierarchy$$name";
+    protected static final String MAHierarchy$$associations = "MAHierarchy$$associations";
+    
+    protected MAHierarchyDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new StringPanel(this, "TypeLinkOperator", this.getAnything().getTypeLinkOperator());
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
             this.getScrollablePane().add(panel);
-            this.panels.put(MComplexType$$TypeLinkOperator, panel);
+            this.panels.put(MAHierarchy$$name, panel);
         }catch(view.ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         
     }
-    protected view.MProductTypeView getAnything(){
-        return (view.MProductTypeView)this.anything;
+    protected view.MAHierarchyView getAnything(){
+        return (view.MAHierarchyView)this.anything;
     }
 }
 
@@ -673,55 +764,35 @@ class TypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class AspectManagerDefaultDetailPanel extends DefaultDetailPanel{
+class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String AspectManager$$aspects = "AspectManager$$aspects";
+    protected static final String UnitTypeManager$$unitTypes = "UnitTypeManager$$unitTypes";
+    protected static final String UnitTypeManager$$units = "UnitTypeManager$$units";
     
-    protected AspectManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected UnitTypeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
         
     }
-    protected view.AspectManagerView getAnything(){
-        return (view.AspectManagerView)this.anything;
+    protected view.UnitTypeManagerView getAnything(){
+        return (view.UnitTypeManagerView)this.anything;
     }
 }
 
 @SuppressWarnings("serial")
-class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
+class CompoundQuantityDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String ErrorDisplay$$message = "ErrorDisplay$$message";
+    protected static final String CompoundQuantity$$parts = "CompoundQuantity$$parts";
     
-    protected ErrorDisplayDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        try{
-            BaseTypePanel panel = new StringPanel(this, "message", this.getAnything().getMessage());
-            this.getScrollablePane().add(panel);
-            this.panels.put(ErrorDisplay$$message, panel);
-        }catch(view.ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        
-    }
-    protected view.ErrorDisplayView getAnything(){
-        return (view.ErrorDisplayView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class MFalseDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected MFalseDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected CompoundQuantityDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
         
     }
-    protected view.MFalseView getAnything(){
-        return (view.MFalseView)this.anything;
+    protected view.CompoundQuantityView getAnything(){
+        return (view.CompoundQuantityView)this.anything;
     }
 }
 
@@ -729,6 +800,10 @@ class MFalseDefaultDetailPanel extends DefaultDetailPanel{
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Server$$typeManager = "Server$$typeManager";
+    protected static final String Server$$quantityManager = "Server$$quantityManager";
+    protected static final String Server$$unitTypeManager = "Server$$unitTypeManager";
+    protected static final String Server$$conversionManager = "Server$$conversionManager";
+    protected static final String Server$$fractionManager = "Server$$fractionManager";
     protected static final String Server$$aspectManager = "Server$$aspectManager";
     protected static final String Server$$associationManager = "Server$$associationManager";
     protected static final String Server$$user = "Server$$user";
@@ -748,23 +823,6 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ServerView getAnything(){
         return (view.ServerView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class AssociationManagerDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String AssociationManager$$associations = "AssociationManager$$associations";
-    protected static final String AssociationManager$$hierarchies = "AssociationManager$$hierarchies";
-    
-    protected AssociationManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.AssociationManagerView getAnything(){
-        return (view.AssociationManagerView)this.anything;
     }
 }
 
@@ -795,60 +853,94 @@ class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class MAHierarchyDefaultDetailPanel extends DefaultDetailPanel{
+class FractionManagerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MAHierarchy$$name = "MAHierarchy$$name";
-    protected static final String MAHierarchy$$associations = "MAHierarchy$$associations";
+    protected FractionManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.FractionManagerView getAnything(){
+        return (view.FractionManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ConversionDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected MAHierarchyDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected static final String Conversion$$source = "Conversion$$source";
+    protected static final String Conversion$$type = "Conversion$$type";
+    protected static final String Conversion$$myFunction = "Conversion$$myFunction";
+    
+    protected ConversionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ConversionView getAnything(){
+        return (view.ConversionView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ReferenceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Reference$$type = "Reference$$type";
+    protected static final String Reference$$exponent = "Reference$$exponent";
+    protected static final String Reference$$ref = "Reference$$ref";
+    
+    protected ReferenceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new IntegerPanel(this, "exponent", this.getAnything().getExponent());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Reference$$exponent, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ReferenceView getAnything(){
+        return (view.ReferenceView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class CompUnitTypeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AbsUnitType$$defaultUnit = "AbsUnitType$$defaultUnit";
+    protected static final String AbsUnitType$$name = "AbsUnitType$$name";
+    protected static final String CompUnitType$$refs = "CompUnitType$$refs";
+    
+    protected CompUnitTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
         try{
             BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
             this.getScrollablePane().add(panel);
-            this.panels.put(MAHierarchy$$name, panel);
+            this.panels.put(AbsUnitType$$name, panel);
         }catch(view.ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
         
     }
-    protected view.MAHierarchyView getAnything(){
-        return (view.MAHierarchyView)this.anything;
+    protected view.CompUnitTypeView getAnything(){
+        return (view.CompUnitTypeView)this.anything;
     }
 }
 
 @SuppressWarnings("serial")
-class MAspectDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MAspect$$name = "MAspect$$name";
-    protected static final String MAspect$$types = "MAspect$$types";
-    
-    protected MAspectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        try{
-            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
-            this.getScrollablePane().add(panel);
-            this.panels.put(MAspect$$name, panel);
-        }catch(view.ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        
-    }
-    protected view.MAspectView getAnything(){
-        return (view.MAspectView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class MSumTypeDefaultDetailPanel extends DefaultDetailPanel{
+class MProductTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MComplexType$$TypeLinkOperator = "MComplexType$$TypeLinkOperator";
     
-    protected MSumTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected MProductTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
@@ -861,8 +953,116 @@ class MSumTypeDefaultDetailPanel extends DefaultDetailPanel{
         }
         
     }
-    protected view.MSumTypeView getAnything(){
-        return (view.MSumTypeView)this.anything;
+    protected view.MProductTypeView getAnything(){
+        return (view.MProductTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ReferenceTypeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ReferenceType$$exponent = "ReferenceType$$exponent";
+    
+    protected ReferenceTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new IntegerPanel(this, "exponent", this.getAnything().getExponent());
+            this.getScrollablePane().add(panel);
+            this.panels.put(ReferenceType$$exponent, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ReferenceTypeView getAnything(){
+        return (view.ReferenceTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ErrorDisplay$$message = "ErrorDisplay$$message";
+    
+    protected ErrorDisplayDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "message", this.getAnything().getMessage());
+            this.getScrollablePane().add(panel);
+            this.panels.put(ErrorDisplay$$message, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ErrorDisplayView getAnything(){
+        return (view.ErrorDisplayView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class UnitDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AbsUnit$$name = "AbsUnit$$name";
+    protected static final String Unit$$myConversion = "Unit$$myConversion";
+    
+    protected UnitDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(AbsUnit$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.UnitView getAnything(){
+        return (view.UnitView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class UnitTypeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AbsUnitType$$defaultUnit = "AbsUnitType$$defaultUnit";
+    protected static final String AbsUnitType$$name = "AbsUnitType$$name";
+    
+    protected UnitTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(AbsUnitType$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.UnitTypeView getAnything(){
+        return (view.UnitTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MFalseDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected MFalseDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MFalseView getAnything(){
+        return (view.MFalseView)this.anything;
     }
 }
 
@@ -917,5 +1117,148 @@ class MTrueDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MTrueView getAnything(){
         return (view.MTrueView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class QuantityDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Quantity$$amount = "Quantity$$amount";
+    protected static final String Quantity$$unit = "Quantity$$unit";
+    
+    protected QuantityDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "amount", this.getAnything().getAmount());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Quantity$$amount, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.QuantityView getAnything(){
+        return (view.QuantityView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class FunctionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Function$$factor = "Function$$factor";
+    protected static final String Function$$constant = "Function$$constant";
+    
+    protected FunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "factor", this.getAnything().getFactor());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Function$$factor, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "constant", this.getAnything().getConstant());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Function$$constant, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.FunctionView getAnything(){
+        return (view.FunctionView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class AspectManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AspectManager$$aspects = "AspectManager$$aspects";
+    
+    protected AspectManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.AspectManagerView getAnything(){
+        return (view.AspectManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MAspectDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MAspect$$name = "MAspect$$name";
+    protected static final String MAspect$$types = "MAspect$$types";
+    
+    protected MAspectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MAspect$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MAspectView getAnything(){
+        return (view.MAspectView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MSumTypeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MComplexType$$TypeLinkOperator = "MComplexType$$TypeLinkOperator";
+    
+    protected MSumTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "TypeLinkOperator", this.getAnything().getTypeLinkOperator());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MComplexType$$TypeLinkOperator, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MSumTypeView getAnything(){
+        return (view.MSumTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class CompUnitDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AbsUnit$$name = "AbsUnit$$name";
+    protected static final String CompUnit$$refs = "CompUnit$$refs";
+    
+    protected CompUnitDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(AbsUnit$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.CompUnitView getAnything(){
+        return (view.CompUnitView)this.anything;
     }
 }
