@@ -18,6 +18,7 @@ public class Resources {
 			return myServerLogo;
 	}
 	
+	// TODO: Large Icons for cutom views.
 
 
 }

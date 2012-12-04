@@ -6,12 +6,15 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import persistence.Anything;
+import persistence.AspectManagerProxi;
+import persistence.AssociationManagerProxi;
 import persistence.CompUnitProxi;
 import persistence.CompUnitTypeProxi;
 import persistence.ConversionManagerProxi;
 import persistence.FractionManagerProxi;
 import persistence.QuantityManagerProxi;
 import persistence.ReferenceTypeProxi;
+import persistence.TypeManagerProxi;
 import persistence.UnitProxi;
 import persistence.UnitTypeManagerProxi;
 import persistence.UnitTypeProxi;
@@ -35,13 +38,15 @@ public class IconResourceManager {
 		this.getIconPaths().put(this.getClassImageId(UnitTypeManagerProxi.class), IconConstants.ICON_SHELF);
 		this.getIconPaths().put(this.getClassImageId(ConversionManagerProxi.class), IconConstants.ICON_SCALES);
 		this.getIconPaths().put(this.getClassImageId(QuantityManagerProxi.class), IconConstants.ICON_SHOPPINGCART_FULL);
-		this.getIconPaths().put(this.getClassImageId(FractionManagerProxi.class), IconConstants.ICON_BULLET_BALL_GLASS_GREY);
-
+		this.getIconPaths().put(this.getClassImageId(FractionManagerProxi.class), IconConstants.ICON_PIE_CHART);
 		this.getIconPaths().put(this.getClassImageId(CompUnitProxi.class), IconConstants.ICON_CUBES_BLUE);
 		this.getIconPaths().put(this.getClassImageId(CompUnitTypeProxi.class), IconConstants.ICON_CUBE_MOLECULE);
 		this.getIconPaths().put(this.getClassImageId(UnitTypeProxi.class), IconConstants.ICON_BULLET_BALL_RED);
 		this.getIconPaths().put(this.getClassImageId(ReferenceTypeProxi.class), IconConstants.ICON_BULLET_BALL_RED);
 		this.getIconPaths().put(this.getClassImageId(UnitProxi.class), IconConstants.ICON_CUBE_BLUE);
+		this.getIconPaths().put(this.getClassImageId(AssociationManagerProxi.class), IconConstants.ICON_GRAPH_EDGE_DIRECTED);
+		this.getIconPaths().put(this.getClassImageId(AspectManagerProxi.class), IconConstants.ICON_COOKIES);
+		this.getIconPaths().put(this.getClassImageId(TypeManagerProxi.class), IconConstants.ICON_INDEX);
 		// ...
 	}
 	

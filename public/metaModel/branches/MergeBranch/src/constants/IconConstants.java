@@ -20,8 +20,17 @@ public class IconConstants {
 	public static final String ICON_SHOPPINGBASKET_FULL = "shoppingbasket_full.png";
 	public static final String ICON_SHOPPINGCART_FULL = "shoppingcart_full.png";
 	public static final String ICON_TRANSFORM = "transform.png";
+	public static final String ICON_PIE_CHART = "pie-chart.png";
+	public static final String ICON_CUBES = "cubes.png";
+	public static final String ICON_INDEX = "index.png";
+	public static final String ICON_GRAPH_EDGE_DIRECTED = "graph_edge_directed.png";
+	public static final String ICON_COOKIES = "cookies.png";
 	
 	public static final String ICON_LARGE_CUBES = "large/cubes.png";
+	public static final String ICON_LARGE_PIE_CHART = "large/pie-chart.png";
+	public static final String ICON_LARGE_INDEX = "large/index.png";
+	public static final String ICON_LARGE_GRAPH_EDGE_DIRECTED = "large/graph_edge_directed.png";
+	public static final String ICON_LARGE_COOKIES = "large/cookies.png";
 	
 	
 }
