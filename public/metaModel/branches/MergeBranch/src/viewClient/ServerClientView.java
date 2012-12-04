@@ -198,6 +198,11 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 				this.result = null;
 			}
 			//TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
+			@Override
+			public void handleServer(ServerView Server) throws ModelException{
+				viewClient.custom.SpecialPanel panel = new viewClient.custom.ServerSpecialPanel(ServerClientView.this, Server);
+				this.result = panel;
+			}
 		}
 		PanelDecider decider = new PanelDecider();
 		anything.accept(decider);

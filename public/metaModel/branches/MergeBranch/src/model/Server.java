@@ -4,6 +4,7 @@ package model;
 import model.quantity.ConversionManager;
 import model.quantity.FractionManager;
 import model.quantity.QuantityManager;
+import model.quantity.UnitType;
 import model.quantity.UnitTypeManager;
 import model.visitor.AbsUnitTypeVisitor;
 import model.visitor.AnythingExceptionVisitor;
@@ -496,8 +497,11 @@ public class Server extends PersistentObject implements PersistentServer{
         //TODO: implement method: addAssociations
         
     }
-    public void initializeOnCreation() 
-				throws PersistenceException{
+    public void initializeOnCreation() throws PersistenceException{
+    	getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Gewicht"));
+    	getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Strecke"));
+    	getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Währung"));
+        getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Zeit"));
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -516,8 +520,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void finishModeling(final PersistentCompUnitType compUnitType) 
 				throws PersistenceException{
-        //TODO: implement method: finishModeling
-        
+    	getThis().getUnitTypeManager().finishModeling(compUnitType, getThis());        
     }
     public PersistentAspectManager getAspectManager() 
 				throws PersistenceException{
