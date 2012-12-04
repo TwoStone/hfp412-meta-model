@@ -1,0 +1,126 @@
+model metaModel{
+
+
+/*** SERVER ***/
+
+server Server {
+	/* TypeManager */
+	derived TypeManager typeManager;
+
+	/* AtomicType */
+	void createSubType@@Untertyp_anlegen(MAtomicType superType, String typeName@@Name, MBoolean singletonType, MBoolean abstractType);
+	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
+
+	/* AspectManager */
+	derived AspectManager aspectManager;
+	void createAspect@@Aspekt_anlegen(AspectManager aspectManager, String aspectName@@Name) throws DoubleDefinitionException;
+
+	/* Aspect */
+	void createAtomicType@@Atomaren_Typ_anlegen(MAspect parent, String typeName@@Name, MBoolean singletonType, MBoolean abstractType);
+
+	/* Associations */
+	derived AssociationManager associationManager;
+	void createAssociation(AssociationManager manager, String name, MType source, MType target);
+	void createAssociationFrom(MType source, String name, MType target);
+	void createAssociationTo(MType target, String name, MType source);
+	void createHierarchy(String name);
+	void addToHierarchy(MAssociation association, MAHierarchy theHierarchy);
+	void addAssociations(MAHierarchy theHierarchy, MAssociation association);
+	
+
+}
+
+
+/*** MANAGER ***/
+
+singleton AspectManager {
+	MAspect** aspects;
+	active void createAspect(String name) throws DoubleDefinitionException;
+}
+
+singleton TypeManager {
+	MAtomicType** atomicTypes;
+	MProductType** productTypes;
+	MSumType** sumTypes;
+
+	active void createAtomicType(MAspect aspect, String name, MBoolean singletonType, MBoolean abstractType) throws DoubleDefinitionException, ConsistencyException;
+	active void createSubType(MAtomicType superType, String name, MBoolean singletonType, MBoolean abstractType) throws CycleException, WrongSubTypeAspectException, DoubleDefinitionException, ConsistencyException;
+	active void addSubType(MAtomicType superType, MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
+}
+
+singleton AssociationManager {
+	MAssociation ** associations;
+	MAHierarchy** hierarchies;
+	
+	active void createHierarchy(String name) throws DoubleDefinitionException;
+	active void createAssociation(String name, MType source, MType target) throws DoubleDefinitionException;
+	active void addToHierarchy(MAssociation association, MAHierarchy theHierarchy);
+
+}
+
+
+/*** TYPE ***/
+
+class MAspect {
+	prior indexed String name; 
+}
+
+interface MType@@Type {
+	String fetchName();
+ 	MAssociation** fetchAssociations();
+	MBoolean allObjectsOfTypeAreSingleton();
+	MBoolean isAbstract();
+	MBoolean isLessOrEqual(MType otherType); 
+	MBoolean isStructuralEqual(MType otherType); 
+	MBoolean contains(MType otherType); 
+}
+
+hierarchy MAtomicTypeHierarchy##MATypeHier;
+
+class MAtomicType@@AtomicType implements MType {
+	prior indexed String name;
+	prior MBoolean singletonType;
+	prior MBoolean abstractType;
+	no-view prior symmetric(types) MAspect aspect;
+   symmetric(subTypes) no-view MAtomicType superType hierarchy MAtomicTypeHierarchy;
+
+	void addSubType(MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
+}
+
+hierarchy MComplexTypeHierarchy##MCTypeHier;
+
+abstract class MComplexType@@ComplexType implements MType {
+	MType** containedTypes hierarchy MComplexTypeHierarchy;
+	derived String TypeLinkOperator;	
+}
+
+singleton MBoolean(MTrue, MFalse){
+	extern boolean toBoolean();	
+	MBoolean createFromBoolean(extern boolean bool);
+}
+
+class MProductType@@ProductType extends MComplexType {}
+
+class MSumType@@SumType extends MComplexType {
+	/* TODO: Leere Summen!? oh-oh! */
+}
+
+/** ASSOCIATIONS **/
+
+class MAssociation {
+	prior String name;
+	prior MType source;
+	prior MType target;
+	symmetric(associations) MAHierarchy** hierarchies; 
+}
+class MAHierarchy {
+	prior indexed String name;
+}
+
+/*** EXCEPTIONS ***/
+
+exception DoubleDefinitionException{}
+exception ConsistencyException{}
+exception WrongSubTypeAspectException{}
+
+}
