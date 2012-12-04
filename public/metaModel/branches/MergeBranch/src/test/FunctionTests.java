@@ -6,12 +6,11 @@ import static org.junit.Assert.fail;
 import model.CycleException;
 import model.quantity.Function;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import persistence.PersistenceException;
 import persistence.PersistentFunction;
+import test.util.AbstractTest;
 
 import common.Fraction;
 

@@ -8,13 +8,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import model.AlreadyFinalizedException;
+import model.CycleException;
 import model.DoubleDefinitionException;
 import model.quantity.AbsUnitType;
 import model.quantity.UnitTypeManager;
 import model.visitor.MBooleanReturnVisitor;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import persistence.PersistenceException;
@@ -24,36 +23,17 @@ import persistence.PersistentMFalse;
 import persistence.PersistentMTrue;
 import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
+import test.util.AbstractTest;
 import constants.ExceptionConstants;
 
 /**
  * Testet den UnitTypeManager
  *
  */
-public class UnitTypeManagerTest {
+public class UnitTypeManagerTest extends AbstractTest {
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		try {
-			ZZ_TestHelper.initializeConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		try {
-			ZZ_TestHelper.tearDown();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public UnitTypeManagerTest() throws CycleException, PersistenceException {
+		super();
 	}
 
 	/**

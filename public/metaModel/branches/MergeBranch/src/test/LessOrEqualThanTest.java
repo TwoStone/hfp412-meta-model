@@ -7,6 +7,7 @@ import model.CycleException;
 import org.junit.Test;
 
 import persistence.PersistenceException;
+import test.util.AbstractTest;
 
 public class LessOrEqualThanTest extends AbstractTest {
 

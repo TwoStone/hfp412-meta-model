@@ -1,33 +1,24 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
 
-import org.junit.After;
-import org.junit.Before;
+import model.CycleException;
+
 import org.junit.Test;
+
+import persistence.PersistenceException;
+import test.util.AbstractTest;
 
 import common.Fraction;
 
-public class FractionTests {
+public class FractionTests extends AbstractTest {
 
-	@Before
-	public void setUp() {
-		try {
-			ZZ_TestHelper.initializeConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@After
-	public void tearDown() {
-		try {
-			ZZ_TestHelper.tearDown();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public FractionTests() throws CycleException, PersistenceException {
+		super();
 	}
 
 	@Test
