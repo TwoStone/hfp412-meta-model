@@ -12,4 +12,6 @@ public final class ExceptionConstants {
 	public static final String ALREADY_FINAL_CUT = "Dieser UnitTyp ist bereits final!";
 
 	public static final String ALREADY_FINAL_CU = "Diese Einheit ist bereits final!";
+
+	public static final String NOT_FINAL = "Noch nicht final.";
 }

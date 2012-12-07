@@ -294,9 +294,8 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     	type.isFinal().accept(new MBooleanExceptionVisitor<NotFinalizedException>() {
 
 			@Override
-			public void handleMFalse(PersistentMFalse booleanFalse)
-					throws PersistenceException, NotFinalizedException {
-				throw new NotFinalizedException("Not final...");				
+			public void handleMFalse(PersistentMFalse booleanFalse)	throws PersistenceException, NotFinalizedException {
+				throw new NotFinalizedException(ExceptionConstants.NOT_FINAL);				
 			}
 
 			@Override

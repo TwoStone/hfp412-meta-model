@@ -10,13 +10,18 @@ import static org.junit.Assert.fail;
 import model.AlreadyFinalizedException;
 import model.CycleException;
 import model.DoubleDefinitionException;
+import model.MBoolean;
+import model.MTrue;
+import model.NotFinalizedException;
 import model.quantity.AbsUnitType;
+import model.quantity.CompUnit;
 import model.quantity.UnitTypeManager;
 import model.visitor.MBooleanReturnVisitor;
 
 import org.junit.Test;
 
 import persistence.PersistenceException;
+import persistence.PersistentCompUnit;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMFalse;
@@ -167,6 +172,59 @@ public class UnitTypeManagerTest extends AbstractTest {
 		
 	}
 
+	/**
+	 * Testet das Erstellen eines nicht finalen CompoundUnitTypes.
+	 * Eine CompoundUnit darf nicht erstellt werden können. 
+	 */
+	@Test
+	public void testCreateCompoundUnitIfNotFinal(){
+		try {
+			PersistentUnitTypeManager utm = UnitTypeManager.getTheUnitTypeManager();
+			String name = "Hello, I'm a complex Type!";
+			String nameU = "Hello, I'm a complex Unit!";
+			try {
+				utm.createCompUnitType(name);
+				PersistentCompUnitType cut = (PersistentCompUnitType)AbsUnitType.getAbsUnitTypeByName(name).iterator().next();
+				utm.createCompUnit(nameU, cut);
+				fail("Es darf keine CompundUnit erzeugt werden dürfe, wenn Type nicht final.");
+			} catch (DoubleDefinitionException e) {
+				
+			} catch (NotFinalizedException e) {
+				assertEquals(constants.ExceptionConstants.NOT_FINAL, e.getMessage());
+			}
+			
+		} catch (PersistenceException e) {
+			fail("Exception: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Testet das Erstellen eines finalen CompoundUnitTypes.
+	 * Eine CompoundUnit darf erstellt werden können. 
+	 */
+	@Test
+	public void testCreateCompoundUnitIfFinal(){
+		try {
+			PersistentUnitTypeManager utm = UnitTypeManager.getTheUnitTypeManager();
+			String name = "Hello, I'm a complex Type!";
+			String nameU = "Hello, I'm a complex Unit!";
+			try {
+				utm.createCompUnitType(name);
+				PersistentCompUnitType cut = (PersistentCompUnitType)AbsUnitType.getAbsUnitTypeByName(name).iterator().next();
+				cut.setIsFinal(MTrue.getTheMTrue());
+				utm.createCompUnit(nameU, cut);
+			} catch (DoubleDefinitionException e) {
+				
+			} catch (NotFinalizedException e) {
+				fail("CUT ist final, darf also nicht auftreten.");
+			}
+			
+		} catch (PersistenceException e) {
+			fail("Exception: " + e.getMessage());
+		}
+	}
+	
+	
 	/**
 	 * Macht aus BooleanValue ein Java-Boolean (Visitor Aufruf ausgelagert);-)
 	 * weil Instanceof ist uncool
