@@ -532,8 +532,8 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
-
-	public PersistentMBoolean contains(final MType otherType) throws PersistenceException {
+    public PersistentMBoolean contains(final MType otherType) 
+				throws PersistenceException{
 
 		if (otherType == null) {
 			return MFalse.getTheMFalse();
@@ -577,8 +577,7 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 
 		});
 	}
-   
-	public MAssociationSearchList fetchAssociations() 
+    public MAssociationSearchList fetchAssociations() 
 				throws PersistenceException{
     	SearchListRoot<PersistentMAssociation> result = AssociationManager.getTheAssociationManager().getAssociations().findAll(new Predcate<PersistentMAssociation>() {
 			
