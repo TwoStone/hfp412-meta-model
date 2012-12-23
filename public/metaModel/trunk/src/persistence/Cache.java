@@ -260,6 +260,8 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
+		this.number2NameMap.put(177, "AddDefaultUnitCommand");
+		this.number2NameMap.put(181, "AddReferenceTypeCommand");
 		this.number2NameMap.put(133, "AddSubTypeCommand");
 		this.number2NameMap.put(145, "AddToHierarchyCommand");
 		this.number2NameMap.put(126, "AspectManager");
@@ -267,12 +269,26 @@ public class Cache {
 		this.number2NameMap.put(-120, "CommandCoordinator");
 		this.number2NameMap.put(-119, "CommandExecuter");
 		this.number2NameMap.put(121, "CommonDate");
+		this.number2NameMap.put(162, "CompUnit");
+		this.number2NameMap.put(165, "CompUnitType");
+		this.number2NameMap.put(158, "CompoundQuantity");
+		this.number2NameMap.put(164, "Conversion");
+		this.number2NameMap.put(169, "ConversionManager");
 		this.number2NameMap.put(139, "CreateAspectCommand");
 		this.number2NameMap.put(146, "CreateAssociationCommand");
 		this.number2NameMap.put(140, "CreateAtomicTypeCommand");
+		this.number2NameMap.put(174, "CreateCompUnitCommand");
+		this.number2NameMap.put(175, "CreateCompUnitTypeCommand");
+		this.number2NameMap.put(172, "CreateConversionCommand");
 		this.number2NameMap.put(144, "CreateHierarchyCommand");
+		this.number2NameMap.put(180, "CreateQuantityCommand");
 		this.number2NameMap.put(135, "CreateSubTypeCommand");
+		this.number2NameMap.put(173, "CreateUnitCommand");
+		this.number2NameMap.put(171, "CreateUnitTypeCommand");
 		this.number2NameMap.put(-104, "ErrorDisplay");
+		this.number2NameMap.put(179, "FinishModelingCommand");
+		this.number2NameMap.put(178, "FractionManager");
+		this.number2NameMap.put(159, "Function");
 		this.number2NameMap.put(142, "MAHierarchy");
 		this.number2NameMap.put(127, "MAspect");
 		this.number2NameMap.put(143, "MAssociation");
@@ -282,8 +298,15 @@ public class Cache {
 		this.number2NameMap.put(101, "MProductType");
 		this.number2NameMap.put(103, "MSumType");
 		this.number2NameMap.put(138, "MTrue");
+		this.number2NameMap.put(157, "Quantity");
+		this.number2NameMap.put(170, "QuantityManager");
+		this.number2NameMap.put(163, "Reference");
+		this.number2NameMap.put(150, "ReferenceType");
 		this.number2NameMap.put(-105, "Server");
-		this.number2NameMap.put(118, "TypeManager");	
+		this.number2NameMap.put(118, "TypeManager");
+		this.number2NameMap.put(153, "Unit");
+		this.number2NameMap.put(152, "UnitType");
+		this.number2NameMap.put(176, "UnitTypeManager");	
 	}
 	
 }

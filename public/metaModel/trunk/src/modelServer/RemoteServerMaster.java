@@ -121,6 +121,7 @@ public abstract class RemoteServerMaster implements TDObserver {
 
 	@Override
 	public void updateTransientDerived(AbstractPersistentRoot objectIndex, String fieldIndex, Object object) throws PersistenceException {
+		if (object == null || objectIndex == null || fieldIndex == null) return;
 		java.util.Hashtable<String, Object> objectTable = this.tdObserver.get(objectIndex);
 		if (objectTable == null) {
 			objectTable = new java.util.Hashtable<String, Object>();

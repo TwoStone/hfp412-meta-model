@@ -7,6 +7,11 @@ server Server {
 	/* TypeManager */
 	derived TypeManager typeManager;
 
+	derived QuantityManager quantityManager;
+	derived UnitTypeManager unitTypeManager;
+	derived ConversionManager conversionManager;
+	derived FractionManager fractionManager;
+
 	/* AtomicType */
 	void createSubType@@Untertyp_anlegen(MAtomicType superType, String typeName@@Name, MBoolean singletonType, MBoolean abstractType);
 	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
@@ -27,7 +32,130 @@ server Server {
 	void addToHierarchy(MAssociation association, MAHierarchy theHierarchy);
 	void addAssociations(MAHierarchy theHierarchy, MAssociation association);
 	
+	void createUnitType@@Create_unit_type(UnitTypeManager unitTypeManager, String name);
+	void createCompUnitType@@Create_compound_unit_type(UnitTypeManager unitTypeManager, String name);
+	void addReferenceType(CompUnitType compUnitType, UnitType unitType, Integer exponent);
+	void finishModeling@@Publish(CompUnitType compUnitType);
 
+	void createUnit@@Create_unit(AbsUnitType type, String name);
+
+	void createQuantity@@Create_quantity(AbsUnit unit, Fraction f);
+
+}
+
+part quantity {
+
+	abstract class AbsQuantity {
+	
+		AbsQuantity add(AbsQuantity summand);
+		AbsQuantity sub(AbsQuantity minuend);
+		AbsQuantity mul(AbsQuantity factor);
+		AbsQuantity div(AbsQuantity divisor);
+	}
+
+	class Quantity extends AbsQuantity {
+		Fraction amount;
+		Unit unit;
+	}
+
+	class CompoundQuantity extends AbsQuantity {
+		Quantity ** parts; // +
+	}
+
+	abstract class AbsUnit {
+		no-view prior AbsUnitType type; // 1
+		indexed prior String name;
+	}
+
+	class CompUnit extends AbsUnit {
+		Reference ** refs;
+		no-view MBoolean isFinal;
+		void finishModeling() throws AlreadyFinalizedException, ExponentMatchingException;
+		MBoolean isFinal();
+		
+		/* Pr?ft, ob Exponenten der Exemplarebene mit Typebene ?bereinstimmen*/
+		void checkExponents() throws ExponentMatchingException;
+	}
+	class Unit extends AbsUnit {	}
+
+	abstract class AbsUnitType {
+		AbsUnit defaultUnit; // 0..1
+		indexed prior String name;
+	}
+
+	class CompUnitType extends AbsUnitType {
+		ReferenceType ** refs;	
+		no-view MBoolean isFinal;
+		void finishModeling() throws AlreadyFinalizedException;
+		MBoolean isFinal();
+	}
+
+	class UnitType extends AbsUnitType {}
+
+	class ReferenceType {
+		Integer exponent;
+		no-view UnitType ref;
+	}
+	class Reference {
+		ReferenceType type;
+		Integer exponent;
+		Unit ref;
+	}
+	
+	class Conversion {
+		// from und to sind Oracle-Schluesselwoerter.
+		prior one-to-one (myConversion) Unit source;
+		prior UnitType type;
+		Function myFunction;
+
+		Quantity convert(Fraction amount);
+		Quantity convertInverse(Fraction amount);
+	}
+
+	class Function {
+		prior Fraction factor;
+		prior Fraction constant;
+		//Wie muss eine Function aussehen? --> y=a*x+b	
+		Fraction execute(Fraction amount);
+		Fraction executeInverse(Fraction amount);
+	}
+
+
+/*
+* Manager
+*/
+singleton UnitTypeManager {
+	AbsUnitType ** unitTypes;
+	AbsUnit ** units;
+
+	/* Operationen f?r Typebene */
+	active void createUnitType(String name) throws DoubleDefinitionException;
+	active void createCompUnitType(String name) throws DoubleDefinitionException;
+	active void finishModeling(CompUnitType compUnitType) throws AlreadyFinalizedException;
+	active void addDefaultUnit(AbsUnitType type, AbsUnit unit);
+	active void addReferenceType(CompUnitType compUnitType, UnitType unitType, Integer exponent) 
+		throws DoubleDefinitionException, AlreadyFinalizedException;
+
+	/* Operationen f?r Exemplarebene */
+	active void createUnit(String name, UnitType type) throws DoubleDefinitionException;
+	active void createCompUnit(String name, CompUnitType type) throws DoubleDefinitionException, NotFinalizedException;
+
+	}
+
+	singleton QuantityManager {
+		AbsQuantity ** quantities;
+		active void createQuantity(AbsUnit unit, Fraction amount) throws NotFinalizedException;
+	}
+
+	singleton ConversionManager {
+		Conversion ** conversions;
+		active void createConversion(Unit unit, Fraction factor, Fraction constant);
+	}
+
+	/*Jeder Bruch nur einmal vorhanden*/
+	singleton FractionManager {
+	//	Fraction ** fractions;
+	}
 }
 
 
@@ -122,5 +250,10 @@ class MAHierarchy {
 exception DoubleDefinitionException{}
 exception ConsistencyException{}
 exception WrongSubTypeAspectException{}
+
+
+exception AlreadyFinalizedException{}
+exception NotFinalizedException{}
+exception ExponentMatchingException{}
 
 }

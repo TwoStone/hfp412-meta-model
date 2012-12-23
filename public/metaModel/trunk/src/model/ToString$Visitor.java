@@ -1,9 +1,17 @@
 package model;
 
+import model.visitor.MBooleanReturnVisitor;
 import persistence.Anything;
 import persistence.PersistenceException;
 import persistence.PersistentAspectManager;
 import persistence.PersistentAssociationManager;
+import persistence.PersistentCompUnit;
+import persistence.PersistentCompUnitType;
+import persistence.PersistentCompoundQuantity;
+import persistence.PersistentConversion;
+import persistence.PersistentConversionManager;
+import persistence.PersistentFractionManager;
+import persistence.PersistentFunction;
 import persistence.PersistentMAHierarchy;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAssociation;
@@ -13,8 +21,15 @@ import persistence.PersistentMFalse;
 import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
 import persistence.PersistentMTrue;
+import persistence.PersistentQuantity;
+import persistence.PersistentQuantityManager;
+import persistence.PersistentReference;
+import persistence.PersistentReferenceType;
 import persistence.PersistentServer;
 import persistence.PersistentTypeManager;
+import persistence.PersistentUnit;
+import persistence.PersistentUnitType;
+import persistence.PersistentUnitTypeManager;
 
 public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
@@ -77,11 +92,8 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			throws PersistenceException {
 		result = mSumType.fetchName();
 	}
-	@Override
-	public void handleServer(PersistentServer server)
-			throws PersistenceException {
-		result = server.getUser();
-	}
+
+	
 	@Override
 	public void handleTypeManager(PersistentTypeManager typeManager)
 			throws PersistenceException {
@@ -129,5 +141,115 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleMAssociation(PersistentMAssociation mAssociation)
 			throws PersistenceException {
 		result = mAssociation.getName() + " (" + mAssociation.getSource().fetchName() + ")";  
+	}
+	
+	@Override
+	public void handleQuantity(PersistentQuantity quantity)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleConversionManager(
+			PersistentConversionManager conversionManager)
+			throws PersistenceException {
+		this.result = constants.TextConstants.CONVERSION_MANAGER_LABEL;
+	}
+
+	@Override
+	public void handleCompoundQuantity(
+			PersistentCompoundQuantity compoundQuantity)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleReferenceType(PersistentReferenceType referenceType)
+			throws PersistenceException {
+		this.result = referenceType.getRef() + "^"+referenceType.getExponent();
+	}
+	@Override
+	public void handleQuantityManager(PersistentQuantityManager quantityManager)
+			throws PersistenceException {
+		this.result = constants.TextConstants.QUANTITY_MANAGER_LABEL;		
+	}
+	@Override
+	public void handleUnitType(PersistentUnitType unitType)
+			throws PersistenceException {
+		this.result = unitType.getName();
+		
+	}
+	@Override
+	public void handleUnit(PersistentUnit unit) throws PersistenceException {
+		this.result = unit.getName() + " (" + unit.getType().getName() + ")";
+		
+	}
+	@Override
+	public void handleServer(PersistentServer server)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleReference(PersistentReference reference)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleConversion(PersistentConversion conversion)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleCompUnit(PersistentCompUnit compUnit)
+			throws PersistenceException {
+		this.result = compUnit.getName() + " (" + compUnit.getType().getName() + ")";
+	}
+
+	@Override
+	public void handleCompUnitType(PersistentCompUnitType compUnitType)
+			throws PersistenceException {
+		String state = compUnitType.isFinal().accept(new MBooleanReturnVisitor<String>() {
+
+			@Override
+			public String handleMFalse(PersistentMFalse booleanFalse)
+					throws PersistenceException {
+				return " (draft)";
+			}
+
+			@Override
+			public String handleMTrue(PersistentMTrue booleanTrue)
+					throws PersistenceException {
+				return "";
+			}
+
+			@Override
+			public String handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException {
+				return "";
+			}
+		});
+		this.result = compUnitType.getName() + state;
+		
+	}
+	@Override
+	public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager)
+			throws PersistenceException {
+		this.result = constants.TextConstants.UNIT_TYPE_MANAGER_LABEL;
+		
+	}
+	@Override
+	public void handleFractionManager(PersistentFractionManager fractionManager)
+			throws PersistenceException {
+		this.result = constants.TextConstants.FRACTION_MANAGER_LABEL;
+		
+	}
+
+	@Override
+	public void handleFunction(PersistentFunction function)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
 	}
 }
