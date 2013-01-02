@@ -227,35 +227,12 @@ public class UnitTypeManagerTest extends AbstractTest {
 	
 	/**
 	 * Macht aus BooleanValue ein Java-Boolean (Visitor Aufruf ausgelagert);-)
-	 * weil Instanceof ist uncool
+	 * weil Instanceof ist uncool ... !!!!! kann weg!!!!!
 	 * @throws PersistenceException 
 	 * 
 	 */
 	private boolean isTrue(PersistentMBoolean bool) throws PersistenceException {
-		boolean result = false;
-		result = bool.accept(new MBooleanReturnVisitor< Boolean >() {
-
-			@Override
-			public Boolean handleMFalse(PersistentMFalse booleanFalse)
-					throws PersistenceException {
-				return false;
-			}
-
-			@Override
-			public Boolean handleMTrue(PersistentMTrue booleanTrue)
-					throws PersistenceException {
-				return true;
-			}
-
-			@Override
-			public Boolean handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			
-		});
-		return result;
+		return bool.toBoolean();
 	}
 
 }

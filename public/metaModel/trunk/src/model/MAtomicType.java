@@ -514,6 +514,16 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 		}
 
 	}
+    public PersistentMBoolean transitiveHasConcreteSubtype() 
+				throws PersistenceException{
+        //TODO: implement method: transitiveHasConcreteSubtype
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"transitiveHasConcreteSubtype\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException{
         MAtomicTypeSearchList result = null;
@@ -598,6 +608,13 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 			this.setAbstractType((PersistentMBoolean)final$$Fields.get("abstractType"));
 			this.setAspect((PersistentMAspect)final$$Fields.get("aspect"));
 		}
+    }
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
+    	if (getThis().getSingletonType().toBoolean()){
+    		return null; //TODO
+    	} 
+    	return MBoolean.create(false);
     }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{

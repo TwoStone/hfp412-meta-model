@@ -142,6 +142,10 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
 				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).addSubType(typeunder);
     }
+    public PersistentMBoolean transitiveHasConcreteSubtype() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).transitiveHasConcreteSubtype();
+    }
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).getSubTypes();
@@ -165,6 +169,10 @@ public class MAtomicTypeICProxi extends PersistentInCacheProxiOptimistic impleme
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).isSingleton();
     }
     public PersistentMBoolean allObjectsOfTypeAreSingleton() 
 				throws PersistenceException{

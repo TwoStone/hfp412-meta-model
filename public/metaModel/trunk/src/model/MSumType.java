@@ -62,7 +62,6 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
         MSumType result = this;
         result = new MSumType(this.This, 
                               this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -234,6 +233,14 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
     	
     	
     }
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
+		while(iterator0.hasNext())
+			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
+		return false;
+    }
     public PersistentMBoolean isStructuralEqual(final MType otherType) 
 				throws PersistenceException{
         
@@ -270,19 +277,22 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
     	
         
     }
-    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
-				throws PersistenceException{
-        if(getThis().equals(part)) return true;
-		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
-		while(iterator0.hasNext())
-			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
-		return false;
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMSumType)This);
 		if(this.equals(This)){
 		}
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$containedTypes$$MSumType = strategy.initialize$$MSumType$$containedTypes(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
+		while (iterator$$.hasNext()){
+			MType current$$Field = (MType)iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MSumType, strategy);
+			result$$containedTypes$$MSumType = strategy.consolidate$$MSumType$$containedTypes(getThis(), result$$containedTypes$$MSumType, current$$);
+		}
+		return strategy.finalize$$MSumType(getThis(), parameter,result$$containedTypes$$MSumType);
     }
     public PersistentMBoolean isLessOrEqual(final MType otherType) 
 				throws PersistenceException{
@@ -330,21 +340,26 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
 		
 		
     }
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        T result$$containedTypes$$MSumType = strategy.initialize$$MSumType$$containedTypes(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
-		while (iterator$$.hasNext()){
-			MType current$$Field = (MType)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MSumType, strategy);
-			result$$containedTypes$$MSumType = strategy.consolidate$$MSumType$$containedTypes(getThis(), result$$containedTypes$$MSumType, current$$);
-		}
-		return strategy.finalize$$MSumType(getThis(), parameter,result$$containedTypes$$MSumType);
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
+    }
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
+        //TODO: implement method: isSingleton
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isSingleton\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
+    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
+				throws PersistenceException{
+    	return getThis().getContainedTypes().getLength() == 1 ? 
+    			getThis().getContainedTypes().iterator().next().allObjectsOfTypeAreSingleton() : 
+    				MFalse.getTheMFalse(); 
     }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{	
@@ -354,12 +369,6 @@ public class MSumType extends model.MComplexType implements PersistentMSumType{
     				subTypeCount == 1 ?
     						getThis().getContainedTypes().iterator().next().isAbstract() : 
     						MTrue.getTheMTrue(); 
-    }
-    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
-				throws PersistenceException{
-    	return getThis().getContainedTypes().getLength() == 1 ? 
-    			getThis().getContainedTypes().iterator().next().allObjectsOfTypeAreSingleton() : 
-    				MFalse.getTheMFalse(); 
     }
     public String fetchName() 
 				throws PersistenceException{

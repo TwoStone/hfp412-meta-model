@@ -197,6 +197,7 @@ interface MType@@Type {
 	String fetchName();
  	MAssociation** fetchAssociations();
 	MBoolean allObjectsOfTypeAreSingleton();
+	MBoolean isSingleton();
 	MBoolean isAbstract();
 	MBoolean isLessOrEqual(MType otherType); 
 	MBoolean isStructuralEqual(MType otherType); 
@@ -210,9 +211,10 @@ class MAtomicType@@AtomicType implements MType {
 	prior MBoolean singletonType;
 	prior MBoolean abstractType;
 	no-view prior symmetric(types) MAspect aspect;
-   symmetric(subTypes) no-view MAtomicType superType hierarchy MAtomicTypeHierarchy;
-
+	symmetric(subTypes) no-view MAtomicType superType hierarchy MAtomicTypeHierarchy;
+	
 	void addSubType(MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
+	MBoolean transitiveHasConcreteSubtype();
 }
 
 hierarchy MComplexTypeHierarchy##MCTypeHier;
@@ -222,9 +224,10 @@ abstract class MComplexType@@ComplexType implements MType {
 	derived String TypeLinkOperator;	
 }
 
-singleton MBoolean(MTrue, MFalse){
+abstract class MBoolean(MTrue, MFalse){
 	extern boolean toBoolean();	
 	MBoolean createFromBoolean(extern boolean bool);
+	MBoolean invert();
 }
 
 class MProductType@@ProductType extends MComplexType {}

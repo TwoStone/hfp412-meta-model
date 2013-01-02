@@ -35,7 +35,6 @@ public interface AnythingVisitor extends AbsUnitTypeVisitor,MComplexTypeVisitor,
     public void handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException;
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException;
-    public void handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException;
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException;
     public void handleFunction(PersistentFunction function) throws PersistenceException;
     public void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;

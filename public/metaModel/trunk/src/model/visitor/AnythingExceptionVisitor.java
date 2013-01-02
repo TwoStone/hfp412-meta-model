@@ -35,7 +35,6 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException, E;
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException, E;
-    public void handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException, E;
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException, E;
     public void handleFunction(PersistentFunction function) throws PersistenceException, E;
     public void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException, E;

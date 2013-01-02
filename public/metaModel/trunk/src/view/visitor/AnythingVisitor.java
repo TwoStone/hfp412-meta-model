@@ -19,7 +19,6 @@ public interface AnythingVisitor extends AbsUnitTypeVisitor,MComplexTypeVisitor,
     public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public void handleMAssociation(MAssociationView mAssociation) throws ModelException;
-    public void handleMBoolean(MBooleanView mBoolean) throws ModelException;
     public void handleFunction(FunctionView function) throws ModelException;
     public void handleAspectManager(AspectManagerView aspectManager) throws ModelException;
     public void handleMAspect(MAspectView mAspect) throws ModelException;

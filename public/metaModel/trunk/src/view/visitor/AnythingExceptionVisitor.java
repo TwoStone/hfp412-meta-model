@@ -19,7 +19,6 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException, E;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
     public void handleMAssociation(MAssociationView mAssociation) throws ModelException, E;
-    public void handleMBoolean(MBooleanView mBoolean) throws ModelException, E;
     public void handleFunction(FunctionView function) throws ModelException, E;
     public void handleAspectManager(AspectManagerView aspectManager) throws ModelException, E;
     public void handleMAspect(MAspectView mAspect) throws ModelException, E;

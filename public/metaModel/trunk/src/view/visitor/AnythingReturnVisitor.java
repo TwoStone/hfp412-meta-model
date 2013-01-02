@@ -19,7 +19,6 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,M
     public R handleReferenceType(ReferenceTypeView referenceType) throws ModelException;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public R handleMAssociation(MAssociationView mAssociation) throws ModelException;
-    public R handleMBoolean(MBooleanView mBoolean) throws ModelException;
     public R handleFunction(FunctionView function) throws ModelException;
     public R handleAspectManager(AspectManagerView aspectManager) throws ModelException;
     public R handleMAspect(MAspectView mAspect) throws ModelException;

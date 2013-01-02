@@ -115,12 +115,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			throws PersistenceException {
 		result = "false";
 	}
-
-	@Override
-	public void handleMBoolean(PersistentMBoolean mBoolean)
-			throws PersistenceException {
-		result = "boolean";
-	}
 	
 	@Override
 	public void handleMTrue(PersistentMTrue mTrue) throws PersistenceException {
@@ -225,10 +219,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 				return "";
 			}
 
-			@Override
-			public String handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException {
-				return "";
-			}
 		});
 		this.result = compUnitType.getName() + state;
 		

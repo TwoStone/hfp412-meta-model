@@ -2,57 +2,116 @@ package persistence;
 
 import model.meta.*;
 
+import java.sql.*;
+import oracle.jdbc.*;
+
 public class CommonDateFacade{
 
-	static private Long sequencer = new Long(0);
+	private String schemaName;
+	private Connection con;
 
-	static protected long getTheNextId(){
-		long result = -1;
-		synchronized (sequencer) { 
-			result = sequencer.longValue() + 1;
-			sequencer = new Long(result);
-		}
-		return result;
-	}
-
-	protected long getNextId(){
-		return getTheNextId();
-	}
-
-	
-
-	public CommonDateFacade() {
+	public CommonDateFacade(String schemaName, Connection con) {
+		this.schemaName = schemaName;
+		this.con = con;
 	}
 
     public CommonDateProxi newCommonDate(java.sql.Date createDate,java.sql.Date commitDate,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CommonDateProxi)PersistentProxi.createProxi(createMinusStorePlus, 121);
-        long id = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade.getNextId();
-        CommonDate result = new CommonDate(createDate,commitDate,id);
-        Cache.getTheCache().put(result);
-        return (CommonDateProxi)PersistentProxi.createProxi(id, 121);
+        OracleCallableStatement callable;
+        try{
+            callable = (OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CmmnDtFacade.newCmmnDt(?,?,?); end;");
+            callable.registerOutParameter(1, OracleTypes.NUMBER);
+            callable.setDate(2, createDate);
+            callable.setDate(3, commitDate);
+            callable.setLong(4, createMinusStorePlus);
+            callable.execute();
+            long id = callable.getLong(1);
+            callable.close();
+            CommonDate result = new CommonDate(createDate,commitDate,id);
+            Cache.getTheCache().put(result);
+            return (CommonDateProxi)PersistentProxi.createProxi(id, 121);
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
     }
     
     public CommonDateProxi newDelayedCommonDate(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException {
-        long id = ConnectionHandler.getTheConnectionHandler().theCommonDateFacade.getNextId();
-        CommonDate result = new CommonDate(createDate,commitDate,id);
-        Cache.getTheCache().put(result);
-        return (CommonDateProxi)PersistentProxi.createProxi(id, 121);
+        OracleCallableStatement callable;
+        try{
+            callable = (OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CmmnDtFacade.newDelayedCmmnDt(); end;");
+            callable.registerOutParameter(1, OracleTypes.NUMBER);
+            callable.execute();
+            long id = callable.getLong(1);
+            callable.close();
+            CommonDate result = new CommonDate(createDate,commitDate,id);
+            Cache.getTheCache().put(result);
+            return (CommonDateProxi)PersistentProxi.createProxi(id, 121);
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
     }
     
     public CommonDate getCommonDate(long CommonDateId) throws PersistenceException{
-        return null; //All data is in the cache!
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmmnDtFacade.getCmmnDt(?); end;");
+            callable.registerOutParameter(1, OracleTypes.CURSOR);
+            callable.setLong(2, CommonDateId);
+            callable.execute();
+            ResultSet obj = ((OracleCallableStatement)callable).getCursor(1);
+            if (!obj.next()) {
+                obj.close();
+                callable.close();
+                return null;
+            }
+            CommonDate result = new CommonDate(obj.getDate(2),
+                                               obj.getDate(3),
+                                               CommonDateId);
+            obj.close();
+            callable.close();
+            CommonDateICProxi inCache = (CommonDateICProxi)Cache.getTheCache().put(result);
+            CommonDate objectInCache = (CommonDate)inCache.getTheObject();
+            return objectInCache;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 121)) return 121;
-        
-        throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
-        
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmmnDtFacade.getClass(?); end;");
+            callable.registerOutParameter(1, OracleTypes.NUMBER);
+            callable.setLong(2, objectId);
+            callable.execute();
+            long result = callable.getLong(1);
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
     }
     public void createDateSet(long CommonDateId, java.sql.Date createDateVal) throws PersistenceException {
-        
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CmmnDtFacade.crtdtSet(?, ?); end;");
+            callable.setLong(1, CommonDateId);
+            callable.setDate(2, createDateVal);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
     }
     public void commitDateSet(long CommonDateId, java.sql.Date commitDateVal) throws PersistenceException {
-        
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CmmnDtFacade.cmmtdtSet(?, ?); end;");
+            callable.setLong(1, CommonDateId);
+            callable.setDate(2, commitDateVal);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
     }
 
 }

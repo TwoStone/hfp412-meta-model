@@ -197,7 +197,6 @@ public class Server extends PersistentObject implements PersistentServer{
                             this.hackDelay, 
                             this.getId());
         result.errors = this.errors.copy(result);
-        result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -497,7 +496,8 @@ public class Server extends PersistentObject implements PersistentServer{
         //TODO: implement method: addAssociations
         
     }
-    public void initializeOnCreation() throws PersistenceException{
+    public void initializeOnCreation() 
+				throws PersistenceException{
     	getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Gewicht"));
     	getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Strecke"));
     	getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Währung"));

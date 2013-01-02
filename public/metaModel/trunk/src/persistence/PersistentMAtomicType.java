@@ -55,6 +55,8 @@ public interface PersistentMAtomicType extends MType, MAtomicTypeHierarchyHIERAR
 				throws model.WrongSubTypeAspectException, model.CycleException, PersistenceException;
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException;
+    public PersistentMBoolean transitiveHasConcreteSubtype() 
+				throws PersistenceException;
 
 }
 

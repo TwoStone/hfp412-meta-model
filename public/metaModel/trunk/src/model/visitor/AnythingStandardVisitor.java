@@ -74,9 +74,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
         this.standardHandling(createAssociationCommand);
     }
-    public void handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException{
-        this.standardHandling(mBoolean);
-    }
     public void handleMTrue(PersistentMTrue mTrue) throws PersistenceException{
         this.standardHandling(mTrue);
     }

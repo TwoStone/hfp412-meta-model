@@ -6,16 +6,12 @@ import model.visitor.*;
 
 public interface PersistentMBoolean extends Anything, AbstractPersistentProxi {
     
-    public PersistentMBoolean getThis() throws PersistenceException ;
+    public abstract PersistentMBoolean getThis() throws PersistenceException ;
     
     public void accept(MBooleanVisitor visitor) throws PersistenceException;
     public <R> R accept(MBooleanReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends UserException>  void accept(MBooleanExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(MBooleanReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
-    public void accept(AnythingVisitor visitor) throws PersistenceException;
-    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public void initializeOnInstantiation() 
 				throws PersistenceException;
@@ -28,6 +24,8 @@ public interface PersistentMBoolean extends Anything, AbstractPersistentProxi {
     public PersistentMBoolean createFromBoolean(final boolean bool) 
 				throws PersistenceException;
     public boolean toBoolean() 
+				throws PersistenceException;
+    public PersistentMBoolean invert() 
 				throws PersistenceException;
 
 }

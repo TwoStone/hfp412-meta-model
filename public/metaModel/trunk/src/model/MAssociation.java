@@ -96,7 +96,6 @@ public class MAssociation extends PersistentObject implements PersistentMAssocia
                                   this.target, 
                                   this.This, 
                                   this.getId());
-        result.hierarchies = this.hierarchies.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

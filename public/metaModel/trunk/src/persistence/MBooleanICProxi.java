@@ -1,10 +1,8 @@
 package persistence;
 
-import model.UserException;
 
-import model.visitor.*;
 
-public class MBooleanICProxi extends PersistentInCacheProxiOptimistic implements PersistentMBoolean{
+public abstract class MBooleanICProxi extends PersistentInCacheProxiOptimistic implements PersistentMBoolean{
     
     public MBooleanICProxi(long objectId) {
         super(objectId);
@@ -13,43 +11,9 @@ public class MBooleanICProxi extends PersistentInCacheProxiOptimistic implements
         super(object);
     }
     
-    protected PersistentObject getRemote() throws PersistenceException {
-        return ConnectionHandler.getTheConnectionHandler().theMBooleanFacade
-            .getMBoolean(this.getId());
-    }
     
-    public long getClassId() {
-        return 137;
-    }
+    public abstract PersistentMBoolean getThis() throws PersistenceException ;
     
-    public PersistentMBoolean getThis() throws PersistenceException {
-        return ((PersistentMBoolean)this.getTheObject()).getThis();
-    }
-    
-    public void accept(MBooleanVisitor visitor) throws PersistenceException {
-        visitor.handleMBoolean(this);
-    }
-    public <R> R accept(MBooleanReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMBoolean(this);
-    }
-    public <E extends UserException>  void accept(MBooleanExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMBoolean(this);
-    }
-    public <R, E extends UserException> R accept(MBooleanReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMBoolean(this);
-    }
-    public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleMBoolean(this);
-    }
-    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMBoolean(this);
-    }
-    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMBoolean(this);
-    }
-    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMBoolean(this);
-    }
     
     
     public void initializeOnInstantiation() 
@@ -75,6 +39,10 @@ public class MBooleanICProxi extends PersistentInCacheProxiOptimistic implements
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMBoolean)this.getTheObject()).initializeOnCreation();
+    }
+    public PersistentMBoolean invert() 
+				throws PersistenceException{
+        return ((PersistentMBoolean)this.getTheObject()).invert();
     }
 
     

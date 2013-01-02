@@ -76,7 +76,6 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
         CompoundQuantity result = this;
         result = new CompoundQuantity(this.This, 
                                       this.getId());
-        result.parts = this.parts.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

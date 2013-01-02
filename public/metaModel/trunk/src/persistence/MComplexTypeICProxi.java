@@ -23,6 +23,30 @@ public abstract class MComplexTypeICProxi extends PersistentInCacheProxiOptimist
 				throws PersistenceException{
         ((PersistentMComplexType)this.getTheObject()).initializeOnInstantiation();
     }
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).isStructuralEqual(otherType);
+    }
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).containsMComplexTypeHierarchy(part);
+    }
+    public String fetchName() 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).fetchName();
+    }
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).isLessOrEqual(otherType);
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        ((PersistentMComplexType)this.getTheObject()).initializeOnCreation();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentMComplexType)this.getTheObject()).copyingPrivateUserAttributes(copy);
@@ -30,14 +54,6 @@ public abstract class MComplexTypeICProxi extends PersistentInCacheProxiOptimist
     public PersistentMBoolean contains(final MType otherType) 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).contains(otherType);
-    }
-    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
-				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).containsMComplexTypeHierarchy(part);
-    }
-    public PersistentMBoolean isStructuralEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).isStructuralEqual(otherType);
     }
     public MAssociationSearchList fetchAssociations() 
 				throws PersistenceException{
@@ -47,33 +63,21 @@ public abstract class MComplexTypeICProxi extends PersistentInCacheProxiOptimist
 				throws PersistenceException{
         ((PersistentMComplexType)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public String fetchName() 
+    public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).fetchName();
-    }
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
-    }
-    public PersistentMBoolean isLessOrEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).isLessOrEqual(otherType);
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-        ((PersistentMComplexType)this.getTheObject()).initializeOnCreation();
+        return ((PersistentMComplexType)this.getTheObject()).isSingleton();
     }
     public String getTypeLinkOperator() 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).getTypeLinkOperator();
     }
-    public PersistentMBoolean isAbstract() 
-				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).isAbstract();
-    }
     public PersistentMBoolean allObjectsOfTypeAreSingleton() 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).allObjectsOfTypeAreSingleton();
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).isAbstract();
     }
 
     

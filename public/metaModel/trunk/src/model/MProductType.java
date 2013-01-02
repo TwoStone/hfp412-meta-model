@@ -91,7 +91,6 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         MProductType result = this;
         result = new MProductType(this.This, 
                                   this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -248,6 +247,14 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 			}
 		});
 	}
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
+		while(iterator0.hasNext())
+			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
+		return false;
+    }
     public PersistentMBoolean isStructuralEqual(final MType otherType) 
 				throws PersistenceException{
        
@@ -283,19 +290,22 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 			});
     	
     }
-    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
-				throws PersistenceException{
-        if(getThis().equals(part)) return true;
-		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
-		while(iterator0.hasNext())
-			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
-		return false;
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMProductType)This);
 		if(this.equals(This)){
 		}
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$containedTypes$$MProductType = strategy.initialize$$MProductType$$containedTypes(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
+		while (iterator$$.hasNext()){
+			MType current$$Field = (MType)iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MProductType, strategy);
+			result$$containedTypes$$MProductType = strategy.consolidate$$MProductType$$containedTypes(getThis(), result$$containedTypes$$MProductType, current$$);
+		}
+		return strategy.finalize$$MProductType(getThis(), parameter,result$$containedTypes$$MProductType);
     }
     public PersistentMBoolean isLessOrEqual(final MType otherType) 
 				throws PersistenceException{
@@ -370,37 +380,20 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 			}
 		});
 	}
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        T result$$containedTypes$$MProductType = strategy.initialize$$MProductType$$containedTypes(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
-		while (iterator$$.hasNext()){
-			MType current$$Field = (MType)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MProductType, strategy);
-			result$$containedTypes$$MProductType = strategy.consolidate$$MProductType$$containedTypes(getThis(), result$$containedTypes$$MProductType, current$$);
-		}
-		return strategy.finalize$$MProductType(getThis(), parameter,result$$containedTypes$$MProductType);
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
     }
-    public PersistentMBoolean isAbstract() 
+    public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
-    	return MBoolean.create(getThis().getContainedTypes().aggregate(new Aggregtion<MType, Boolean>() {
-
-			@Override
-			public Boolean neutral() throws PersistenceException {
-				return false;
-			}
-
-			@Override
-			public Boolean compose(Boolean result, MType argument)
-					throws PersistenceException {
-				return result || argument.isAbstract().toBoolean();
-			}
-		}));
+        //TODO: implement method: isSingleton
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isSingleton\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
     public PersistentMBoolean allObjectsOfTypeAreSingleton() 
 				throws PersistenceException{
@@ -415,6 +408,22 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 			public Boolean compose(Boolean result, MType argument)
 					throws PersistenceException {
 				return result && argument.allObjectsOfTypeAreSingleton().toBoolean();
+			}
+		}));
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+    	return MBoolean.create(getThis().getContainedTypes().aggregate(new Aggregtion<MType, Boolean>() {
+
+			@Override
+			public Boolean neutral() throws PersistenceException {
+				return false;
+			}
+
+			@Override
+			public Boolean compose(Boolean result, MType argument)
+					throws PersistenceException {
+				return result || argument.isAbstract().toBoolean();
 			}
 		}));
     }

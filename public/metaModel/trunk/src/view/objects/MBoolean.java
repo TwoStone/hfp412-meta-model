@@ -7,7 +7,7 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class MBoolean extends ViewObject implements MBooleanView{
+public abstract class MBoolean extends ViewObject implements MBooleanView{
     
     
     public MBoolean(long id, long classId) {
@@ -15,39 +15,7 @@ public class MBoolean extends ViewObject implements MBooleanView{
         super(id, classId);        
     }
     
-    static public long getTypeId() {
-        return 137;
-    }
     
-    public long getClassId() {
-        return getTypeId();
-    }
-    
-    
-    public void accept(MBooleanVisitor visitor) throws ModelException {
-        visitor.handleMBoolean(this);
-    }
-    public <R> R accept(MBooleanReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleMBoolean(this);
-    }
-    public <E extends UserException>  void accept(MBooleanExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleMBoolean(this);
-    }
-    public <R, E extends UserException> R accept(MBooleanReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleMBoolean(this);
-    }
-    public void accept(AnythingVisitor visitor) throws ModelException {
-        visitor.handleMBoolean(this);
-    }
-    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleMBoolean(this);
-    }
-    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleMBoolean(this);
-    }
-    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleMBoolean(this);
-    }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
         
@@ -88,9 +56,6 @@ public class MBoolean extends ViewObject implements MBooleanView{
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
         
-    }
-    public boolean hasTransientFields(){
-        return false;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

@@ -19,7 +19,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleReferenceType(ReferenceTypeView referenceType) throws ModelException, E;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
     public R handleMAssociation(MAssociationView mAssociation) throws ModelException, E;
-    public R handleMBoolean(MBooleanView mBoolean) throws ModelException, E;
     public R handleFunction(FunctionView function) throws ModelException, E;
     public R handleAspectManager(AspectManagerView aspectManager) throws ModelException, E;
     public R handleMAspect(MAspectView mAspect) throws ModelException, E;

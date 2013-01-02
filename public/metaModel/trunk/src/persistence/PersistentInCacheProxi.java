@@ -188,11 +188,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new CreateAssociationCommandICProxi(objectId);
             }
         };
-        iCProxiFactories[36] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new MBooleanICProxi(objectId);
-            }
-        };
         iCProxiFactories[37] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new MTrueICProxi(objectId);
@@ -365,11 +360,5 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		this.getTheObject().delete$Me();
 	}
 	
-    protected void setDltd() throws PersistenceException {
-        this.getTheObject().setDltd();
-    }
-    public boolean isDltd() throws PersistenceException {
-        return this.getTheObject().isDltd();
-    }
-
+    
 }

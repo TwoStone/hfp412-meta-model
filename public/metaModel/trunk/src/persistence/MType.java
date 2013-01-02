@@ -18,6 +18,8 @@ public interface MType extends  MComplexTypeHierarchyHIERARCHY {
 				throws PersistenceException;
     public PersistentMBoolean isLessOrEqual(final MType otherType) 
 				throws PersistenceException;
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException;
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException;
     public PersistentMBoolean allObjectsOfTypeAreSingleton() 

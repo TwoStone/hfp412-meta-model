@@ -148,11 +148,6 @@ public abstract class ViewProxi extends ViewRoot {
                 return new MAssociationProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[36] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new MBooleanProxi(objectId, classId, connectionKey);
-            }
-        };
         proxiFactories[37] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new MTrueProxi(objectId, classId, connectionKey);

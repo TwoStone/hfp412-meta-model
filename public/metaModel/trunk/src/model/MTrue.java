@@ -10,7 +10,7 @@ import model.visitor.*;
 public class MTrue extends model.MBoolean implements PersistentMTrue{
     
     private static PersistentMTrue theMTrue = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMTrue getTheMTrue() throws PersistenceException{
         if (theMTrue == null || reset$For$Test){
@@ -145,10 +145,13 @@ public class MTrue extends model.MBoolean implements PersistentMTrue{
         //TODO: implement method: initializeOnCreation
         
     }
-    public boolean toBoolean() 
-				throws PersistenceException{
+    public boolean toBoolean() throws PersistenceException{
     	return true;
     }
+	@Override
+	public PersistentMBoolean invert() throws PersistenceException {
+		return MFalse.getTheMFalse();
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
    /* @Override

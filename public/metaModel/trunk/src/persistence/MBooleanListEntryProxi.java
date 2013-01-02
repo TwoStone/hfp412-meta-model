@@ -1,6 +1,6 @@
 package persistence;
 
-public class MBooleanListEntryProxi extends MBooleanProxi implements PersistentMBooleanListEntryProxi {
+public abstract class MBooleanListEntryProxi extends MBooleanProxi implements PersistentMBooleanListEntryProxi {
 
   long entryId;
 

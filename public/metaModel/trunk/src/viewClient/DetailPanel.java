@@ -643,9 +643,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMAssociation(view.MAssociationView object){
         result = new MAssociationDefaultDetailPanel(handler, object);
     }
-    public void handleMBoolean(view.MBooleanView object){
-        result = new MBooleanDefaultDetailPanel(handler, object);
-    }
     public void handleMTrue(view.MTrueView object){
         result = new MTrueDefaultDetailPanel(handler, object);
     }
@@ -1089,20 +1086,6 @@ class MAssociationDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MAssociationView getAnything(){
         return (view.MAssociationView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class MBooleanDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected MBooleanDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.MBooleanView getAnything(){
-        return (view.MBooleanView)this.anything;
     }
 }
 

@@ -104,8 +104,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
         UnitTypeManager result = this;
         result = new UnitTypeManager(this.This, 
                                      this.getId());
-        result.unitTypes = this.unitTypes.copy(result);
-        result.units = this.units.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -247,11 +245,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 
     						}
 
-								@Override
-								public void handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException, AlreadyFinalizedException {
-									// TODO Auto-generated method stub
-									
-								}
     					});
     			// <--- isFinal-Attribut pr?fen
 
@@ -291,6 +284,11 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     	// TODO: Double Definition bei gleicher Auspr --> etwas komplexer^^
     	
     	// Falls CompUnitType noch im draft-Status: blocken.
+    	
+    	if (!type.isFinal().toBoolean()){
+    		throw new NotFinalizedException(ExceptionConstants.NOT_FINAL);	
+    	}
+    	/*
     	type.isFinal().accept(new MBooleanExceptionVisitor<NotFinalizedException>() {
 
 			@Override
@@ -304,15 +302,9 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 				// TODO Auto-generated method stub
 				
 			}
-
-			@Override
-			public void handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException, NotFinalizedException {
-				// TODO Auto-generated method stub
-				
-			}
     		
     		
-    	});
+    	});*/
     	
     	Iterator<PersistentReferenceType> it = type.getRefs().iterator();
     	PersistentCompUnit newCompUnit = CompUnit.createCompUnit(type, name);
@@ -346,6 +338,12 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     public void finishModeling(final PersistentCompUnitType compUnitType) 
 				throws model.AlreadyFinalizedException, PersistenceException{
     	
+    	if (compUnitType.isFinal().toBoolean()){
+			throw new AlreadyFinalizedException(
+					constants.ExceptionConstants.ALREADY_FINAL_CUT); 
+    	}
+    	//TODO loeschen
+    	/*
     	compUnitType.isFinal().accept(new MBooleanExceptionVisitor<AlreadyFinalizedException>() {
     			  
     		@Override 
@@ -364,7 +362,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 					// TODO Auto-generated method stub
 					
 				}	  
-    	});
+    	});*/
     			  
     	compUnitType.finishModeling(); 
     }

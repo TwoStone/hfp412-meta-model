@@ -76,6 +76,10 @@ public class MTrueICProxi extends MBooleanICProxi implements PersistentMTrue{
 				throws PersistenceException{
         return ((PersistentMTrue)this.getTheObject()).toBoolean();
     }
+    public PersistentMBoolean invert() 
+				throws PersistenceException{
+        return ((PersistentMTrue)this.getTheObject()).invert();
+    }
 
     
 }

@@ -80,7 +80,6 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
         QuantityManager result = this;
         result = new QuantityManager(this.This, 
                                      this.getId());
-        result.quantities = this.quantities.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

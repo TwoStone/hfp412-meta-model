@@ -76,6 +76,10 @@ public class MFalseProxi extends MBooleanProxi implements PersistentMFalse{
 				throws PersistenceException{
         return ((PersistentMFalse)this.getTheObject()).toBoolean();
     }
+    public PersistentMBoolean invert() 
+				throws PersistenceException{
+        return ((PersistentMFalse)this.getTheObject()).invert();
+    }
 
     
 }

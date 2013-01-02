@@ -102,7 +102,6 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
                               this.This, 
                               this.isFinal, 
                               this.getId());
-        result.refs = this.refs.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -230,7 +229,13 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
     }
     public void finishModeling() 
 				throws model.AlreadyFinalizedException, model.ExponentMatchingException, PersistenceException{
-    	getThis().isFinal().accept(new MBooleanExceptionVisitor<AlreadyFinalizedException>() {
+    	
+    	if (getThis().isFinal().toBoolean()){
+    		throw new AlreadyFinalizedException(constants.ExceptionConstants.ALREADY_FINAL_CU);
+    	}
+    	
+    	//Liebe Qunantity Gruppe: Kann raus (Mbool angepasst) ; Marius 
+    	/*getThis().isFinal().accept(new MBooleanExceptionVisitor<AlreadyFinalizedException>() {
 
 			@Override
 			public void handleMFalse(PersistentMFalse booleanFalse)
@@ -243,12 +248,7 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
 				throw new AlreadyFinalizedException(constants.ExceptionConstants.ALREADY_FINAL_CU);
 			}
 
-			@Override
-			public void handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException, AlreadyFinalizedException {
-				// TODO Auto-generated method stub
-			}
-
-		});
+		});*/
     	
     	getThis().checkExponents();
     	getThis().setIsFinal(MTrue.getTheMTrue()); 

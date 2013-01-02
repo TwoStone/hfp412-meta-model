@@ -192,11 +192,6 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new CreateAssociationCommandListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[36] = new ListProxiFactory(){
-            PersistentListEntryProxi create(long objectId, long entryId){
-                return new MBooleanListEntryProxi(objectId, entryId);
-            }
-        };
         listProxiFactories[37] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new MTrueListEntryProxi(objectId, entryId);
@@ -433,11 +428,6 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new CreateAssociationCommandProxi(objectId);
             }
         };
-        proxiFactories[36] = new ProxiFactory(){
-            PersistentProxi create(long objectId){
-                return new MBooleanProxi(objectId);
-            }
-        };
         proxiFactories[37] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new MTrueProxi(objectId);
@@ -613,15 +603,9 @@ public abstract class PersistentProxi extends PersistentRoot {
 		this.getTheObject().delete$Me();
 	}
 	
-    protected void setDltd() throws PersistenceException{
-        this.getTheObject().setDltd();
-    }
-    public boolean isDltd() throws PersistenceException {
-        return this.getTheObject().isDltd();
-    }
+    	
 	
-	
-//	public void finalize(){
-//		if (this.object != null)this.object.decrementUserCount();
-//	}
+	public void finalize(){
+		if (this.object != null)this.object.decrementUserCount();
+	}
 }

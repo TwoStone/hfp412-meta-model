@@ -35,7 +35,6 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,M
     public R handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException;
     public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
     public R handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException;
-    public R handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException;
     public R handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException;
     public R handleFunction(PersistentFunction function) throws PersistenceException;
     public R handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;

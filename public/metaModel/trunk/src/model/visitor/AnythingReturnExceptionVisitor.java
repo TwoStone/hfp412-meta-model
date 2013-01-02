@@ -35,7 +35,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException, E;
     public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
     public R handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException, E;
-    public R handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException, E;
     public R handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException, E;
     public R handleFunction(PersistentFunction function) throws PersistenceException, E;
     public R handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException, E;
