@@ -31,6 +31,9 @@ public class TypeManagerProxi extends PersistentProxi implements PersistentTypeM
     public TypeManager_SumTypesProxi getSumTypes() throws PersistenceException {
         return ((PersistentTypeManager)this.getTheObject()).getSumTypes();
     }
+    public TypeManager_AllTypesProxi getAllTypes() throws PersistenceException {
+        return ((PersistentTypeManager)this.getTheObject()).getAllTypes();
+    }
     public PersistentTypeManager getThis() throws PersistenceException {
         return ((PersistentTypeManager)this.getTheObject()).getThis();
     }

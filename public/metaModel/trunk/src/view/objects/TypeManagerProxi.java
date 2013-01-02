@@ -19,7 +19,9 @@ public class TypeManagerProxi extends ViewProxi implements TypeManagerView{
         java.util.Vector<MProductTypeView> productTypes = ViewProxi.getProxiVector(productTypes_string, connectionKey);
         java.util.Vector<String> sumTypes_string = (java.util.Vector<String>)resultTable.get("sumTypes");
         java.util.Vector<MSumTypeView> sumTypes = ViewProxi.getProxiVector(sumTypes_string, connectionKey);
-        TypeManagerView result$$ = new TypeManager(atomicTypes,productTypes,sumTypes, this.getId(), this.getClassId());
+        java.util.Vector<String> allTypes_string = (java.util.Vector<String>)resultTable.get("allTypes");
+        java.util.Vector<MType> allTypes = ViewProxi.getProxiVector(allTypes_string, connectionKey);
+        TypeManagerView result$$ = new TypeManager(atomicTypes,productTypes,sumTypes,allTypes, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -35,20 +37,24 @@ public class TypeManagerProxi extends ViewProxi implements TypeManagerView{
         index = index - this.getProductTypes().size();
         if(index < this.getSumTypes().size()) return new SumTypesTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getSumTypes().get(index));
         index = index - this.getSumTypes().size();
+        if(index < this.getAllTypes().size()) return new AllTypesTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getAllTypes().get(index));
+        index = index - this.getAllTypes().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getAtomicTypes().size())
             + (this.getProductTypes().size())
-            + (this.getSumTypes().size());
+            + (this.getSumTypes().size())
+            + (this.getAllTypes().size());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getAtomicTypes().size() == 0)
             && (this.getProductTypes().size() == 0)
-            && (this.getSumTypes().size() == 0);
+            && (this.getSumTypes().size() == 0)
+            && (this.getAllTypes().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -65,6 +71,11 @@ public class TypeManagerProxi extends ViewProxi implements TypeManagerView{
         java.util.Iterator<?> getSumTypesIterator = this.getSumTypes().iterator();
         while(getSumTypesIterator.hasNext()){
             if(getSumTypesIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
+        java.util.Iterator<?> getAllTypesIterator = this.getAllTypes().iterator();
+        while(getAllTypesIterator.hasNext()){
+            if(getAllTypesIterator.next().equals(child)) return result;
             result = result + 1;
         }
         return -1;
@@ -87,6 +98,12 @@ public class TypeManagerProxi extends ViewProxi implements TypeManagerView{
     }
     public void setSumTypes(java.util.Vector<MSumTypeView> newValue) throws ModelException {
         ((TypeManager)this.getTheObject()).setSumTypes(newValue);
+    }
+    public java.util.Vector<MType> getAllTypes() throws ModelException {
+        return ((TypeManager)this.getTheObject()).getAllTypes();
+    }
+    public void setAllTypes(java.util.Vector<MType> newValue) throws ModelException {
+        ((TypeManager)this.getTheObject()).setAllTypes(newValue);
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

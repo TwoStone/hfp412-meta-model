@@ -45,6 +45,7 @@ import persistence.PersistentProxi;
 import persistence.Predcate;
 import persistence.SearchListRoot;
 import persistence.TDObserver;
+import view.objects.SumTypesTypeManagerWrapper;
 
 /* Additional import section end */
 
@@ -380,6 +381,21 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 		// TODO: implement method: initializeOnInstantiation
 
 	}
+    public PersistentMProductType transientAddFactor(final MType factor) 
+				throws model.ConsistencyException, PersistenceException{
+        //TODO: implement method: transientAddFactor
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"transientAddFactor\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		return false;
+    }
     public PersistentMBoolean isStructuralEqual(final MType otherType) 
 				throws PersistenceException{
 
@@ -420,15 +436,18 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 			
 		});
 	}
-    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
-				throws PersistenceException{
-        if(getThis().equals(part)) return true;
-		return false;
-    }
     public String fetchName() 
 				throws PersistenceException{
 		return getThis().getName();
 	}
+    public PersistentMSumType transientAddAddend(final MType addend) 
+				throws model.ConsistencyException, PersistenceException{
+    	
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return strategy.finalize$$MAtomicType(getThis(), parameter);
+    }
     public PersistentMBoolean isLessOrEqual(final MType otherType) 
 				throws PersistenceException{
 
@@ -495,10 +514,6 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 			}
 		});
 	}
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return strategy.finalize$$MAtomicType(getThis(), parameter);
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
@@ -514,22 +529,30 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 		}
 
 	}
-    public PersistentMBoolean transitiveHasConcreteSubtype() 
-				throws PersistenceException{
-        //TODO: implement method: transitiveHasConcreteSubtype
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"transitiveHasConcreteSubtype\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException{
         MAtomicTypeSearchList result = null;
 		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
 							.inverseGetSuperType(this.getId(), this.getClassId());
 		return result;
+    }
+    public PersistentMBoolean transitiveHasConcreteSubtype() 
+				throws PersistenceException{
+    	boolean result = getThis().getSubTypes().aggregate(new Aggregtion<PersistentMAtomicType, Boolean>() {
+
+			@Override
+			public Boolean neutral() throws PersistenceException {
+				return false;
+			}
+
+			@Override
+			public Boolean compose(Boolean result,
+					PersistentMAtomicType argument) throws PersistenceException {
+				
+				return result || !argument.isAbstract().toBoolean() || argument.transitiveHasConcreteSubtype().toBoolean();
+			}
+		});
+    	return MBoolean.create(result);
     }
     public <T> T strategyMAtomicTypeHierarchy(final T parameter, final MAtomicTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -609,16 +632,16 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 			this.setAspect((PersistentMAspect)final$$Fields.get("aspect"));
 		}
     }
+    public PersistentMSumType fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+    	return null; //TODO
+    }
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
     	if (getThis().getSingletonType().toBoolean()){
-    		return null; //TODO
+    		return getThis().transitiveHasConcreteSubtype().invert();
     	} 
     	return MBoolean.create(false);
-    }
-    public PersistentMBoolean isAbstract() 
-				throws PersistenceException{
-    	return getThis().getAbstractType();
     }
     public PersistentMBoolean allObjectsOfTypeAreSingleton() 
 				throws PersistenceException{
@@ -637,6 +660,10 @@ public class MAtomicType extends PersistentObject implements PersistentMAtomicTy
 					return result && argument.allObjectsOfTypeAreSingleton().toBoolean();
 				}
     		   }));
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+    	return getThis().getAbstractType();
     }
 
     /* Start of protected part that is not overridden by persistence generator */

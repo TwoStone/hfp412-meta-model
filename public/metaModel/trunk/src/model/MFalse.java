@@ -149,8 +149,8 @@ public class MFalse extends model.MBoolean implements PersistentMFalse{
 				throws PersistenceException{
     	return false;
     }
-	@Override
-	public PersistentMBoolean invert() throws PersistenceException {
+    public PersistentMBoolean invert() 
+				throws PersistenceException{
 		return MTrue.getTheMTrue();
 	}
 

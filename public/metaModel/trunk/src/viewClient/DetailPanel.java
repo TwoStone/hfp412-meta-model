@@ -598,11 +598,17 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleTypeManager(view.TypeManagerView object){
         result = new TypeManagerDefaultDetailPanel(handler, object);
     }
+    public void handleMEmptySum(view.MEmptySumView object){
+        result = new MEmptySumDefaultDetailPanel(handler, object);
+    }
     public void handleUnitTypeManager(view.UnitTypeManagerView object){
         result = new UnitTypeManagerDefaultDetailPanel(handler, object);
     }
     public void handleCompoundQuantity(view.CompoundQuantityView object){
         result = new CompoundQuantityDefaultDetailPanel(handler, object);
+    }
+    public void handleMEmptyProduct(view.MEmptyProductView object){
+        result = new MEmptyProductDefaultDetailPanel(handler, object);
     }
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
@@ -748,6 +754,7 @@ class TypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String TypeManager$$atomicTypes = "TypeManager$$atomicTypes";
     protected static final String TypeManager$$productTypes = "TypeManager$$productTypes";
     protected static final String TypeManager$$sumTypes = "TypeManager$$sumTypes";
+    protected static final String TypeManager$$allTypes = "TypeManager$$allTypes";
     
     protected TypeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -757,6 +764,30 @@ class TypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.TypeManagerView getAnything(){
         return (view.TypeManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MEmptySumDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MComplexType$$TypeLinkOperator = "MComplexType$$TypeLinkOperator";
+    
+    protected MEmptySumDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "TypeLinkOperator", this.getAnything().getTypeLinkOperator());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MComplexType$$TypeLinkOperator, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MEmptySumView getAnything(){
+        return (view.MEmptySumView)this.anything;
     }
 }
 
@@ -790,6 +821,30 @@ class CompoundQuantityDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.CompoundQuantityView getAnything(){
         return (view.CompoundQuantityView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MEmptyProductDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MComplexType$$TypeLinkOperator = "MComplexType$$TypeLinkOperator";
+    
+    protected MEmptyProductDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "TypeLinkOperator", this.getAnything().getTypeLinkOperator());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MComplexType$$TypeLinkOperator, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MEmptyProductView getAnything(){
+        return (view.MEmptyProductView)this.anything;
     }
 }
 

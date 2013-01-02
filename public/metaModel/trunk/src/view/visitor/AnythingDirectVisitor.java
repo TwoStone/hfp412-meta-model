@@ -28,6 +28,12 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMProductType(MProductTypeView mProductType) throws ModelException{
         this.handleMComplexType(mProductType);
     }
+    public void handleMEmptySum(MEmptySumView mEmptySum) throws ModelException{
+        this.handleMComplexType(mEmptySum);
+    }
+    public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
+        this.handleMComplexType(mEmptyProduct);
+    }
     public void handleMSumType(MSumTypeView mSumType) throws ModelException{
         this.handleMComplexType(mSumType);
     }

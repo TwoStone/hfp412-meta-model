@@ -12,13 +12,15 @@ public class TypeManager extends ViewObject implements TypeManagerView{
     protected java.util.Vector<MAtomicTypeView> atomicTypes;
     protected java.util.Vector<MProductTypeView> productTypes;
     protected java.util.Vector<MSumTypeView> sumTypes;
+    protected java.util.Vector<MType> allTypes;
     
-    public TypeManager(java.util.Vector<MAtomicTypeView> atomicTypes,java.util.Vector<MProductTypeView> productTypes,java.util.Vector<MSumTypeView> sumTypes,long id, long classId) {
+    public TypeManager(java.util.Vector<MAtomicTypeView> atomicTypes,java.util.Vector<MProductTypeView> productTypes,java.util.Vector<MSumTypeView> sumTypes,java.util.Vector<MType> allTypes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.atomicTypes = atomicTypes;
         this.productTypes = productTypes;
-        this.sumTypes = sumTypes;        
+        this.sumTypes = sumTypes;
+        this.allTypes = allTypes;        
     }
     
     static public long getTypeId() {
@@ -47,6 +49,12 @@ public class TypeManager extends ViewObject implements TypeManagerView{
     public void setSumTypes(java.util.Vector<MSumTypeView> newValue) throws ModelException {
         this.sumTypes = newValue;
     }
+    public java.util.Vector<MType> getAllTypes() throws ModelException {
+        return this.allTypes;
+    }
+    public void setAllTypes(java.util.Vector<MType> newValue) throws ModelException {
+        this.allTypes = newValue;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleTypeManager(this);
@@ -74,6 +82,10 @@ public class TypeManager extends ViewObject implements TypeManagerView{
         if (sumTypes != null) {
             ViewObject.resolveVectorProxies(sumTypes, resultTable);
         }
+        java.util.Vector<?> allTypes = this.getAllTypes();
+        if (allTypes != null) {
+            ViewObject.resolveVectorProxies(allTypes, resultTable);
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -87,19 +99,23 @@ public class TypeManager extends ViewObject implements TypeManagerView{
         index = index - this.getProductTypes().size();
         if(index < this.getSumTypes().size()) return new SumTypesTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getSumTypes().get(index));
         index = index - this.getSumTypes().size();
+        if(index < this.getAllTypes().size()) return new AllTypesTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getAllTypes().get(index));
+        index = index - this.getAllTypes().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getAtomicTypes().size())
             + (this.getProductTypes().size())
-            + (this.getSumTypes().size());
+            + (this.getSumTypes().size())
+            + (this.getAllTypes().size());
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getAtomicTypes().size() == 0)
             && (this.getProductTypes().size() == 0)
-            && (this.getSumTypes().size() == 0);
+            && (this.getSumTypes().size() == 0)
+            && (this.getAllTypes().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -116,6 +132,11 @@ public class TypeManager extends ViewObject implements TypeManagerView{
         java.util.Iterator<?> getSumTypesIterator = this.getSumTypes().iterator();
         while(getSumTypesIterator.hasNext()){
             if(getSumTypesIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
+        java.util.Iterator<?> getAllTypesIterator = this.getAllTypes().iterator();
+        while(getAllTypesIterator.hasNext()){
+            if(getAllTypesIterator.next().equals(child)) return result;
             result = result + 1;
         }
         return -1;

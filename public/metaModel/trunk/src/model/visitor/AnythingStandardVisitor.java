@@ -32,11 +32,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleUnit(PersistentUnit unit) throws PersistenceException{
         this.standardHandling(unit);
     }
-    public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException{
-        this.standardHandling(createUnitTypeCommand);
-    }
     public void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException{
         this.standardHandling(associationManager);
+    }
+    public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException{
+        this.standardHandling(createUnitTypeCommand);
     }
     public void handleUnitType(PersistentUnitType unitType) throws PersistenceException{
         this.standardHandling(unitType);
@@ -80,17 +80,23 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException{
         this.standardHandling(typeManager);
     }
-    public void handleQuantity(PersistentQuantity quantity) throws PersistenceException{
-        this.standardHandling(quantity);
+    public void handleMEmptySum(PersistentMEmptySum mEmptySum) throws PersistenceException{
+        this.standardHandling(mEmptySum);
     }
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException{
         this.standardHandling(commandExecuter);
+    }
+    public void handleQuantity(PersistentQuantity quantity) throws PersistenceException{
+        this.standardHandling(quantity);
     }
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);
     }
     public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException{
         this.standardHandling(unitTypeManager);
+    }
+    public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
+        this.standardHandling(mEmptyProduct);
     }
     public void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException{
         this.standardHandling(compoundQuantity);

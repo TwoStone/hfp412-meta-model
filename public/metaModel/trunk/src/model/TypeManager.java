@@ -55,6 +55,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
             result.put("atomicTypes", this.getAtomicTypes().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             result.put("productTypes", this.getProductTypes().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             result.put("sumTypes", this.getSumTypes().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
+            result.put("allTypes", this.getAllTypes().getValues().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -65,6 +66,10 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         TypeManager result = this;
         result = new TypeManager(this.This, 
                                  this.getId());
+        result.atomicTypes = this.atomicTypes.copy(result);
+        result.productTypes = this.productTypes.copy(result);
+        result.sumTypes = this.sumTypes.copy(result);
+        result.allTypes = this.allTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -75,6 +80,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     protected TypeManager_AtomicTypesProxi atomicTypes;
     protected TypeManager_ProductTypesProxi productTypes;
     protected TypeManager_SumTypesProxi sumTypes;
+    protected TypeManager_AllTypesProxi allTypes;
     protected PersistentTypeManager This;
     
     public TypeManager(PersistentTypeManager This,long id) throws persistence.PersistenceException {
@@ -83,6 +89,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         this.atomicTypes = new TypeManager_AtomicTypesProxi(this);
         this.productTypes = new TypeManager_ProductTypesProxi(this);
         this.sumTypes = new TypeManager_SumTypesProxi(this);
+        this.allTypes = new TypeManager_AllTypesProxi(this);
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -106,6 +113,9 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     public TypeManager_SumTypesProxi getSumTypes() throws PersistenceException {
         return this.sumTypes;
+    }
+    public TypeManager_AllTypesProxi getAllTypes() throws PersistenceException {
+        return this.allTypes;
     }
     protected void setThis(PersistentTypeManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -146,7 +156,8 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         return (int) (0 
             + this.getAtomicTypes().getLength()
             + this.getProductTypes().getLength()
-            + this.getSumTypes().getLength());
+            + this.getSumTypes().getLength()
+            + this.getAllTypes().getValues().getLength());
     }
     
     

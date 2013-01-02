@@ -1,6 +1,6 @@
 package persistence;
 
-
+import model.UserException;
 
 public abstract class MComplexTypeProxi extends PersistentProxi implements PersistentMComplexType{
     
@@ -23,25 +23,33 @@ public abstract class MComplexTypeProxi extends PersistentProxi implements Persi
 				throws PersistenceException{
         ((PersistentMComplexType)this.getTheObject()).initializeOnInstantiation();
     }
-    public PersistentMBoolean isStructuralEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).isStructuralEqual(otherType);
+    public PersistentMProductType transientAddFactor(final MType factor) 
+				throws model.ConsistencyException, PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).transientAddFactor(factor);
     }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).containsMComplexTypeHierarchy(part);
     }
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).isStructuralEqual(otherType);
+    }
     public String fetchName() 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).fetchName();
     }
-    public PersistentMBoolean isLessOrEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).isLessOrEqual(otherType);
+    public PersistentMSumType transientAddAddend(final MType addend) 
+				throws model.ConsistencyException, PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).transientAddAddend(addend);
     }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
+    }
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).isLessOrEqual(otherType);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -67,17 +75,21 @@ public abstract class MComplexTypeProxi extends PersistentProxi implements Persi
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).isSingleton();
     }
+    public PersistentMSumType fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).fetchDisjunctiveNormalform();
+    }
     public String getTypeLinkOperator() 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).getTypeLinkOperator();
     }
-    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
-				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).allObjectsOfTypeAreSingleton();
-    }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).isAbstract();
+    }
+    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).allObjectsOfTypeAreSingleton();
     }
 
     

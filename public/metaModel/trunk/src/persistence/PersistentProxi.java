@@ -16,7 +16,7 @@ public abstract class PersistentProxi extends PersistentRoot {
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[84];
+		listProxiFactories = new ListProxiFactory[86];
         listProxiFactories[68] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new ConversionManagerListEntryProxi(objectId, entryId);
@@ -27,14 +27,14 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new QuantityManagerListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[40] = new ListProxiFactory(){
-            PersistentListEntryProxi create(long objectId, long entryId){
-                return new AssociationManagerListEntryProxi(objectId, entryId);
-            }
-        };
         listProxiFactories[70] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new CreateUnitTypeCommandListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[40] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new AssociationManagerListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[71] = new ListProxiFactory(){
@@ -77,6 +77,11 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new TypeManagerListEntryProxi(objectId, entryId);
             }
         };
+        listProxiFactories[84] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new MEmptySumListEntryProxi(objectId, entryId);
+            }
+        };
         listProxiFactories[75] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new UnitTypeManagerListEntryProxi(objectId, entryId);
@@ -85,6 +90,11 @@ public abstract class PersistentProxi extends PersistentRoot {
         listProxiFactories[57] = new ListProxiFactory(){
             PersistentListEntryProxi create(long objectId, long entryId){
                 return new CompoundQuantityListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[85] = new ListProxiFactory(){
+            PersistentListEntryProxi create(long objectId, long entryId){
+                return new MEmptyProductListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[76] = new ListProxiFactory(){
@@ -252,7 +262,7 @@ public abstract class PersistentProxi extends PersistentRoot {
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [84];
+		proxiFactories = new ProxiFactory [86];
         proxiFactories[68] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new ConversionManagerProxi(objectId);
@@ -263,14 +273,14 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new QuantityManagerProxi(objectId);
             }
         };
-        proxiFactories[40] = new ProxiFactory(){
-            PersistentProxi create(long objectId){
-                return new AssociationManagerProxi(objectId);
-            }
-        };
         proxiFactories[70] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new CreateUnitTypeCommandProxi(objectId);
+            }
+        };
+        proxiFactories[40] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new AssociationManagerProxi(objectId);
             }
         };
         proxiFactories[71] = new ProxiFactory(){
@@ -313,6 +323,11 @@ public abstract class PersistentProxi extends PersistentRoot {
                 return new TypeManagerProxi(objectId);
             }
         };
+        proxiFactories[84] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new MEmptySumProxi(objectId);
+            }
+        };
         proxiFactories[75] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new UnitTypeManagerProxi(objectId);
@@ -321,6 +336,11 @@ public abstract class PersistentProxi extends PersistentRoot {
         proxiFactories[57] = new ProxiFactory(){
             PersistentProxi create(long objectId){
                 return new CompoundQuantityProxi(objectId);
+            }
+        };
+        proxiFactories[85] = new ProxiFactory(){
+            PersistentProxi create(long objectId){
+                return new MEmptyProductProxi(objectId);
             }
         };
         proxiFactories[76] = new ProxiFactory(){
@@ -603,9 +623,15 @@ public abstract class PersistentProxi extends PersistentRoot {
 		this.getTheObject().delete$Me();
 	}
 	
-    	
+    protected void setDltd() throws PersistenceException{
+        this.getTheObject().setDltd();
+    }
+    public boolean isDltd() throws PersistenceException {
+        return this.getTheObject().isDltd();
+    }
 	
-	public void finalize(){
-		if (this.object != null)this.object.decrementUserCount();
-	}
+	
+//	public void finalize(){
+//		if (this.object != null)this.object.decrementUserCount();
+//	}
 }

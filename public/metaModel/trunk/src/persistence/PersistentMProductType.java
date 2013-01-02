@@ -8,6 +8,10 @@ public interface PersistentMProductType extends PersistentMComplexType {
     
     public PersistentMProductType getThis() throws PersistenceException ;
     
+    public void accept(MProductTypeVisitor visitor) throws PersistenceException;
+    public <R> R accept(MProductTypeReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends UserException>  void accept(MProductTypeExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends UserException> R accept(MProductTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(MComplexTypeVisitor visitor) throws PersistenceException;
     public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E;

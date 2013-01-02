@@ -8,6 +8,10 @@ public interface PersistentMSumType extends PersistentMComplexType {
     
     public PersistentMSumType getThis() throws PersistenceException ;
     
+    public void accept(MSumTypeVisitor visitor) throws PersistenceException;
+    public <R> R accept(MSumTypeReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends UserException>  void accept(MSumTypeExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends UserException> R accept(MSumTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(MComplexTypeVisitor visitor) throws PersistenceException;
     public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E;

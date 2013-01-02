@@ -78,6 +78,7 @@ public class ConversionManager extends PersistentObject implements PersistentCon
         ConversionManager result = this;
         result = new ConversionManager(this.This, 
                                        this.getId());
+        result.conversions = this.conversions.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

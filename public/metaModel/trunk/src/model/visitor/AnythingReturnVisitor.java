@@ -9,8 +9,8 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,M
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     public R handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     public R handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
-    public R handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException;
     public R handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;
+    public R handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException;
     public R handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException;
     public R handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException;
     public R handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException;

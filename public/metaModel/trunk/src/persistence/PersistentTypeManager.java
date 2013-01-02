@@ -9,6 +9,7 @@ public interface PersistentTypeManager extends Anything, AbstractPersistentProxi
     public TypeManager_AtomicTypesProxi getAtomicTypes() throws PersistenceException ;
     public TypeManager_ProductTypesProxi getProductTypes() throws PersistenceException ;
     public TypeManager_SumTypesProxi getSumTypes() throws PersistenceException ;
+    public TypeManager_AllTypesProxi getAllTypes() throws PersistenceException ;
     public PersistentTypeManager getThis() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;

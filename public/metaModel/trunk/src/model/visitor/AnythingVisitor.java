@@ -9,8 +9,8 @@ public interface AnythingVisitor extends AbsUnitTypeVisitor,MComplexTypeVisitor,
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     public void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
-    public void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException;
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;
+    public void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException;
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException;
     public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException;
     public void handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException;

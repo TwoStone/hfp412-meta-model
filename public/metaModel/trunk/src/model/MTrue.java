@@ -145,11 +145,12 @@ public class MTrue extends model.MBoolean implements PersistentMTrue{
         //TODO: implement method: initializeOnCreation
         
     }
-    public boolean toBoolean() throws PersistenceException{
+    public boolean toBoolean() 
+				throws PersistenceException{
     	return true;
     }
-	@Override
-	public PersistentMBoolean invert() throws PersistenceException {
+    public PersistentMBoolean invert() 
+				throws PersistenceException{
 		return MFalse.getTheMFalse();
 	}
 

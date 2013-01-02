@@ -2,178 +2,78 @@ package persistence;
 
 import model.quantity.*;
 
-import java.sql.*;
-import oracle.jdbc.*;
-
 public class ConversionFacade{
 
-	private String schemaName;
-	private Connection con;
+	static private Long sequencer = new Long(0);
 
-	public ConversionFacade(String schemaName, Connection con) {
-		this.schemaName = schemaName;
-		this.con = con;
+	static protected long getTheNextId(){
+		long result = -1;
+		synchronized (sequencer) { 
+			result = sequencer.longValue() + 1;
+			sequencer = new Long(result);
+		}
+		return result;
+	}
+
+	protected long getNextId(){
+		return getTheNextId();
+	}
+
+	
+
+	public ConversionFacade() {
 	}
 
     public ConversionProxi newConversion(long createMinusStorePlus) throws PersistenceException {
-        OracleCallableStatement callable;
-        try{
-            callable = (OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CnvrsnFacade.newCnvrsn(?); end;");
-            callable.registerOutParameter(1, OracleTypes.NUMBER);
-            callable.setLong(2, createMinusStorePlus);
-            callable.execute();
-            long id = callable.getLong(1);
-            callable.close();
-            Conversion result = new Conversion(null,null,null,null,id);
-            Cache.getTheCache().put(result);
-            return (ConversionProxi)PersistentProxi.createProxi(id, 164);
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        if(createMinusStorePlus > 0) return (ConversionProxi)PersistentProxi.createProxi(createMinusStorePlus, 164);
+        long id = ConnectionHandler.getTheConnectionHandler().theConversionFacade.getNextId();
+        Conversion result = new Conversion(null,null,null,null,id);
+        Cache.getTheCache().put(result);
+        return (ConversionProxi)PersistentProxi.createProxi(id, 164);
     }
     
     public ConversionProxi newDelayedConversion() throws PersistenceException {
-        OracleCallableStatement callable;
-        try{
-            callable = (OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CnvrsnFacade.newDelayedCnvrsn(); end;");
-            callable.registerOutParameter(1, OracleTypes.NUMBER);
-            callable.execute();
-            long id = callable.getLong(1);
-            callable.close();
-            Conversion result = new Conversion(null,null,null,null,id);
-            Cache.getTheCache().put(result);
-            return (ConversionProxi)PersistentProxi.createProxi(id, 164);
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        long id = ConnectionHandler.getTheConnectionHandler().theConversionFacade.getNextId();
+        Conversion result = new Conversion(null,null,null,null,id);
+        Cache.getTheCache().put(result);
+        return (ConversionProxi)PersistentProxi.createProxi(id, 164);
     }
     
     public Conversion getConversion(long ConversionId) throws PersistenceException{
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CnvrsnFacade.getCnvrsn(?); end;");
-            callable.registerOutParameter(1, OracleTypes.CURSOR);
-            callable.setLong(2, ConversionId);
-            callable.execute();
-            ResultSet obj = ((OracleCallableStatement)callable).getCursor(1);
-            if (!obj.next()) {
-                obj.close();
-                callable.close();
-                return null;
-            }
-            PersistentUnit source = null;
-            if (obj.getLong(2) != 0)
-                source = (PersistentUnit)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentUnitType type = null;
-            if (obj.getLong(4) != 0)
-                type = (PersistentUnitType)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            PersistentFunction myFunction = null;
-            if (obj.getLong(6) != 0)
-                myFunction = (PersistentFunction)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
-            PersistentConversion This = null;
-            if (obj.getLong(8) != 0)
-                This = (PersistentConversion)PersistentProxi.createProxi(obj.getLong(8), obj.getLong(9));
-            Conversion result = new Conversion(source,
-                                               type,
-                                               myFunction,
-                                               This,
-                                               ConversionId);
-            obj.close();
-            callable.close();
-            ConversionICProxi inCache = (ConversionICProxi)Cache.getTheCache().put(result);
-            Conversion objectInCache = (Conversion)inCache.getTheObject();
-            if (objectInCache == result)result.initializeOnInstantiation();
-            return objectInCache;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CnvrsnFacade.getClass(?); end;");
-            callable.registerOutParameter(1, OracleTypes.NUMBER);
-            callable.setLong(2, objectId);
-            callable.execute();
-            long result = callable.getLong(1);
-            callable.close();
-            return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        if(Cache.getTheCache().contains(objectId, 164)) return 164;
+        
+        throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
+        
     }
     public void sourceSet(long ConversionId, PersistentUnit sourceVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".CnvrsnFacade.srcSet(?, ?, ?); end;");
-            callable.setLong(1, ConversionId);
-            callable.setLong(2, sourceVal.getId());
-            callable.setLong(3, sourceVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        
     }
     public void typeSet(long ConversionId, PersistentUnitType typeVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".CnvrsnFacade.tpSet(?, ?, ?); end;");
-            callable.setLong(1, ConversionId);
-            callable.setLong(2, typeVal.getId());
-            callable.setLong(3, typeVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        
     }
     public void myFunctionSet(long ConversionId, PersistentFunction myFunctionVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".CnvrsnFacade.mFnctnSet(?, ?, ?); end;");
-            callable.setLong(1, ConversionId);
-            callable.setLong(2, myFunctionVal.getId());
-            callable.setLong(3, myFunctionVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        
     }
     public void ThisSet(long ConversionId, PersistentConversion ThisVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".CnvrsnFacade.ThisSet(?, ?, ?); end;");
-            callable.setLong(1, ConversionId);
-            callable.setLong(2, ThisVal.getId());
-            callable.setLong(3, ThisVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        
     }
     public ConversionSearchList inverseGetSource(long objectId, long classId)throws PersistenceException{
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CnvrsnFacade.iGetSrc(?, ?); end;");
-            callable.registerOutParameter(1, OracleTypes.CURSOR);
-            callable.setLong(2, objectId);
-            callable.setLong(3, classId);
-            callable.execute();
-            ResultSet list = ((OracleCallableStatement)callable).getCursor(1);
-            ConversionSearchList result = new ConversionSearchList();
-            while (list.next()) {
-                if (list.getLong(3) != 0) result.add((PersistentConversion)PersistentProxi.createProxi(list.getLong(3), list.getLong(4)));
-                else result.add((PersistentConversion)PersistentProxi.createProxi(list.getLong(1), list.getLong(2)));
+        ConversionSearchList result = new ConversionSearchList();
+        java.util.Iterator<PersistentInCacheProxi> candidates;
+        candidates = Cache.getTheCache().iterator(164);
+        while (candidates.hasNext()){
+            PersistentConversion current = (PersistentConversion)((PersistentRoot)candidates.next()).getTheObject();
+            if (current != null && !current.isDltd() && current.getSource() != null){
+                if (current.getSource().getClassId() == classId && current.getSource().getId() == objectId) {
+                    PersistentConversion proxi = (PersistentConversion)PersistentProxi.createProxi(current.getId(), current.getClassId());
+                    result.add((PersistentConversion)proxi.getThis());
+                }
             }
-            list.close();
-            callable.close();
-            return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
+        return result;
     }
 
 }

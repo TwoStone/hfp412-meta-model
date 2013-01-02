@@ -9,8 +9,8 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException, E;
     public void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException, E;
     public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException, E;
-    public void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException, E;
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException, E;
+    public void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException, E;
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException, E;
     public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException, E;
     public void handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException, E;

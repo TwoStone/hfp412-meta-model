@@ -44,11 +44,17 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleTypeManager(TypeManagerView typeManager) throws ModelException{
         this.standardHandling(typeManager);
     }
+    public void handleMEmptySum(MEmptySumView mEmptySum) throws ModelException{
+        this.standardHandling(mEmptySum);
+    }
     public void handleQuantity(QuantityView quantity) throws ModelException{
         this.standardHandling(quantity);
     }
     public void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException{
         this.standardHandling(unitTypeManager);
+    }
+    public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
+        this.standardHandling(mEmptyProduct);
     }
     public void handleCompoundQuantity(CompoundQuantityView compoundQuantity) throws ModelException{
         this.standardHandling(compoundQuantity);

@@ -91,6 +91,7 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         MProductType result = this;
         result = new MProductType(this.This, 
                                   this.getId());
+        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -128,6 +129,18 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         }return (PersistentMProductType)this.This;
     }
     
+    public void accept(MProductTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMProductType(this);
+    }
+    public <R> R accept(MProductTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMProductType(this);
+    }
+    public <E extends UserException>  void accept(MProductTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMProductType(this);
+    }
+    public <R, E extends UserException> R accept(MProductTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMProductType(this);
+    }
     public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
         visitor.handleMProductType(this);
     }
@@ -187,66 +200,16 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
+    public PersistentMProductType transientAddFactor(final MType factor) 
+				throws model.ConsistencyException, PersistenceException{
+        //TODO: implement method: transientAddFactor
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"transientAddFactor\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
-    public PersistentMBoolean contains(final MType otherType) 
-				throws PersistenceException{
-
-		if (otherType == null) {
-			return MFalse.getTheMFalse();
-		}
-
-		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
-
-			@Override
-			public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
-				// true: identitaet, wenn unser Produkt alle Elemente des anderen Produkts enthaelt
-				
-				if(getThis().equals(mProductType)) {
-					return MTrue.getTheMTrue();
-				}
-				
-				Iterator<MType> iterator = mProductType.getContainedTypes().iterator();
-
-				while (iterator.hasNext()) {
-					if (getThis().contains(iterator.next()).equals(MFalse.getTheMFalse())) {
-						return MFalse.getTheMFalse();
-					}
-				}
-				return MTrue.getTheMTrue();
-			}
-
-			@Override
-			public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
-				// True, wenn unser Produkt ein Element der Summe enthaelt
-
-				Iterator<MType> iterator = mSumType.getContainedTypes().iterator();
-
-				while (iterator.hasNext()) {
-					if (getThis().contains(iterator.next()).equals(MTrue.getTheMTrue())) {
-						return MTrue.getTheMTrue();
-					}
-				}
-				return MFalse.getTheMFalse();
-			}
-
-			@Override
-			public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
-
-				Iterator<MType> iterator = getThis().getContainedTypes().iterator();
-
-				while (iterator.hasNext()) {
-					if (iterator.next().contains(mAtomicType).equals(MTrue.getTheMTrue())) {
-						return MTrue.getTheMTrue();
-					}
-				}
-				return MFalse.getTheMFalse();
-			}
-		});
-	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -290,11 +253,15 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
 			});
     	
     }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentMProductType)This);
-		if(this.equals(This)){
-		}
+    public PersistentMSumType transientAddAddend(final MType addend) 
+				throws model.ConsistencyException, PersistenceException{
+        //TODO: implement method: transientAddAddend
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"transientAddAddend\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -385,15 +352,98 @@ public class MProductType extends model.MComplexType implements PersistentMProdu
         //TODO: implement method: initializeOnCreation
         
     }
-    public PersistentMBoolean isSingleton() 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: isSingleton
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
+    public PersistentMBoolean contains(final MType otherType) 
+				throws PersistenceException{
+
+		if (otherType == null) {
+			return MFalse.getTheMFalse();
+		}
+
+		return otherType.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
+
+			@Override
+			public PersistentMBoolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+				// true: identitaet, wenn unser Produkt alle Elemente des anderen Produkts enthaelt
+				
+				if(getThis().equals(mProductType)) {
+					return MTrue.getTheMTrue();
+				}
+				
+				Iterator<MType> iterator = mProductType.getContainedTypes().iterator();
+
+				while (iterator.hasNext()) {
+					if (getThis().contains(iterator.next()).equals(MFalse.getTheMFalse())) {
+						return MFalse.getTheMFalse();
+					}
+				}
+				return MTrue.getTheMTrue();
+			}
+
+			@Override
+			public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+				// True, wenn unser Produkt ein Element der Summe enthaelt
+
+				Iterator<MType> iterator = mSumType.getContainedTypes().iterator();
+
+				while (iterator.hasNext()) {
+					if (getThis().contains(iterator.next()).equals(MTrue.getTheMTrue())) {
+						return MTrue.getTheMTrue();
+					}
+				}
+				return MFalse.getTheMFalse();
+			}
+
+			@Override
+			public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+
+				Iterator<MType> iterator = getThis().getContainedTypes().iterator();
+
+				while (iterator.hasNext()) {
+					if (iterator.next().contains(mAtomicType).equals(MTrue.getTheMTrue())) {
+						return MTrue.getTheMTrue();
+					}
+				}
+				return MFalse.getTheMFalse();
+			}
+		});
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMProductType)This);
+		if(this.equals(This)){
+		}
+    }
+    public PersistentMSumType fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+        //TODO: implement method: fetchDisjunctiveNormalform
         try{
-            throw new java.lang.UnsupportedOperationException("Method \"isSingleton\" not implemented yet.");
+            throw new java.lang.UnsupportedOperationException("Method \"fetchDisjunctiveNormalform\" not implemented yet.");
         } catch (java.lang.UnsupportedOperationException uoe){
             uoe.printStackTrace();
             throw uoe;
         }
+    }
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
+    	boolean theResult = getThis().getContainedTypes().aggregate(new Aggregtion<MType, Boolean>() {
+
+			@Override
+			public Boolean neutral() throws PersistenceException {
+				return true;
+			}
+
+			@Override
+			public Boolean compose(Boolean result, MType argument)
+					throws PersistenceException {
+				return result && argument.isSingleton().toBoolean();
+			}
+		});
+    	return MBoolean.create(theResult);
     }
     public PersistentMBoolean allObjectsOfTypeAreSingleton() 
 				throws PersistenceException{

@@ -26,6 +26,18 @@ public class MSumTypeICProxi extends MComplexTypeICProxi implements PersistentMS
         return ((PersistentMSumType)this.getTheObject()).getThis();
     }
     
+    public void accept(MSumTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMSumType(this);
+    }
+    public <R> R accept(MSumTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMSumType(this);
+    }
+    public <E extends UserException>  void accept(MSumTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMSumType(this);
+    }
+    public <R, E extends UserException> R accept(MSumTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMSumType(this);
+    }
     public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
         visitor.handleMSumType(this);
     }
@@ -80,25 +92,33 @@ public class MSumTypeICProxi extends MComplexTypeICProxi implements PersistentMS
 				throws PersistenceException{
         ((PersistentMSumType)this.getTheObject()).initializeOnInstantiation();
     }
-    public PersistentMBoolean isStructuralEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).isStructuralEqual(otherType);
+    public PersistentMProductType transientAddFactor(final MType factor) 
+				throws model.ConsistencyException, PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).transientAddFactor(factor);
     }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).containsMComplexTypeHierarchy(part);
     }
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).isStructuralEqual(otherType);
+    }
     public String fetchName() 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).fetchName();
     }
-    public PersistentMBoolean isLessOrEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).isLessOrEqual(otherType);
+    public PersistentMSumType transientAddAddend(final MType addend) 
+				throws model.ConsistencyException, PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).transientAddAddend(addend);
     }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
+    }
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).isLessOrEqual(otherType);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -120,6 +140,10 @@ public class MSumTypeICProxi extends MComplexTypeICProxi implements PersistentMS
 				throws PersistenceException{
         ((PersistentMSumType)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public PersistentMSumType fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).fetchDisjunctiveNormalform();
+    }
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).isSingleton();
@@ -128,13 +152,13 @@ public class MSumTypeICProxi extends MComplexTypeICProxi implements PersistentMS
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).getTypeLinkOperator();
     }
-    public PersistentMBoolean isAbstract() 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).isAbstract();
-    }
     public PersistentMBoolean allObjectsOfTypeAreSingleton() 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).allObjectsOfTypeAreSingleton();
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).isAbstract();
     }
 
     

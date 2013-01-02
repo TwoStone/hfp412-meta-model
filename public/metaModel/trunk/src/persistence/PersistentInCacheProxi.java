@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[84];
+			iCProxiFactories = new ICProxiFactory[86];
         iCProxiFactories[68] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ConversionManagerICProxi(objectId);
@@ -23,14 +23,14 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new QuantityManagerICProxi(objectId);
             }
         };
-        iCProxiFactories[40] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new AssociationManagerICProxi(objectId);
-            }
-        };
         iCProxiFactories[70] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateUnitTypeCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[40] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new AssociationManagerICProxi(objectId);
             }
         };
         iCProxiFactories[71] = new ICProxiFactory(){
@@ -73,6 +73,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new TypeManagerICProxi(objectId);
             }
         };
+        iCProxiFactories[84] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new MEmptySumICProxi(objectId);
+            }
+        };
         iCProxiFactories[75] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new UnitTypeManagerICProxi(objectId);
@@ -81,6 +86,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[57] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CompoundQuantityICProxi(objectId);
+            }
+        };
+        iCProxiFactories[85] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new MEmptyProductICProxi(objectId);
             }
         };
         iCProxiFactories[76] = new ICProxiFactory(){
@@ -360,5 +370,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		this.getTheObject().delete$Me();
 	}
 	
-    
+    protected void setDltd() throws PersistenceException {
+        this.getTheObject().setDltd();
+    }
+    public boolean isDltd() throws PersistenceException {
+        return this.getTheObject().isDltd();
+    }
+
 }

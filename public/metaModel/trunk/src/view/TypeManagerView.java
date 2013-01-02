@@ -12,6 +12,8 @@ public interface TypeManagerView extends Anything, AbstractViewProxi {
     public void setProductTypes(java.util.Vector<MProductTypeView> newValue) throws ModelException ;
     public java.util.Vector<MSumTypeView> getSumTypes() throws ModelException ;
     public void setSumTypes(java.util.Vector<MSumTypeView> newValue) throws ModelException ;
+    public java.util.Vector<MType> getAllTypes() throws ModelException ;
+    public void setAllTypes(java.util.Vector<MType> newValue) throws ModelException ;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

@@ -170,6 +170,7 @@ singleton TypeManager {
 	MAtomicType** atomicTypes;
 	MProductType** productTypes;
 	MSumType** sumTypes;
+	MType**MSumType** allTypes;
 
 	active void createAtomicType(MAspect aspect, String name, MBoolean singletonType, MBoolean abstractType) throws DoubleDefinitionException, ConsistencyException;
 	active void createSubType(MAtomicType superType, String name, MBoolean singletonType, MBoolean abstractType) throws CycleException, WrongSubTypeAspectException, DoubleDefinitionException, ConsistencyException;
@@ -195,13 +196,17 @@ class MAspect {
 
 interface MType@@Type {
 	String fetchName();
- 	MAssociation** fetchAssociations();
+ 	MSumType fetchDisjunctiveNormalform();
+	MAssociation** fetchAssociations();
 	MBoolean allObjectsOfTypeAreSingleton();
 	MBoolean isSingleton();
 	MBoolean isAbstract();
 	MBoolean isLessOrEqual(MType otherType); 
 	MBoolean isStructuralEqual(MType otherType); 
-	MBoolean contains(MType otherType); 
+	MBoolean contains(MType otherType);
+	MSumType transientAddAddend(MType addend) throws ConsistencyException;
+	MProductType transientAddFactor(MType factor) throws ConsistencyException;
+	 
 }
 
 hierarchy MAtomicTypeHierarchy##MATypeHier;
@@ -221,7 +226,8 @@ hierarchy MComplexTypeHierarchy##MCTypeHier;
 
 abstract class MComplexType@@ComplexType implements MType {
 	MType** containedTypes hierarchy MComplexTypeHierarchy;
-	derived String TypeLinkOperator;	
+	derived String TypeLinkOperator;
+		
 }
 
 abstract class MBoolean(MTrue, MFalse){
@@ -232,9 +238,19 @@ abstract class MBoolean(MTrue, MFalse){
 
 class MProductType@@ProductType extends MComplexType {}
 
+singleton MEmptyProduct@@EmptyProduct extends MProductType{
+}
+
+
 class MSumType@@SumType extends MComplexType {
+
+
+	
 	/* TODO: Leere Summen!? oh-oh! */
 }
+singleton MEmptySum@@EmptySum extends MSumType{
+}
+
 
 /** ASSOCIATIONS **/
 

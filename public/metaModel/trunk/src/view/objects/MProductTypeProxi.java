@@ -50,6 +50,18 @@ public class MProductTypeProxi extends MComplexTypeProxi implements MProductType
     }
     
     
+    public void accept(MProductTypeVisitor visitor) throws ModelException {
+        visitor.handleMProductType(this);
+    }
+    public <R> R accept(MProductTypeReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleMProductType(this);
+    }
+    public <E extends UserException>  void accept(MProductTypeExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleMProductType(this);
+    }
+    public <R, E extends UserException> R accept(MProductTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleMProductType(this);
+    }
     public void accept(MComplexTypeVisitor visitor) throws ModelException {
         visitor.handleMProductType(this);
     }

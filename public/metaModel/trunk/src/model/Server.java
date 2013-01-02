@@ -197,6 +197,7 @@ public class Server extends PersistentObject implements PersistentServer{
                             this.hackDelay, 
                             this.getId());
         result.errors = this.errors.copy(result);
+        result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

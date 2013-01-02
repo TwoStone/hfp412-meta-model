@@ -24,6 +24,18 @@ public class MSumType extends view.objects.MComplexType implements MSumTypeView{
     }
     
     
+    public void accept(MSumTypeVisitor visitor) throws ModelException {
+        visitor.handleMSumType(this);
+    }
+    public <R> R accept(MSumTypeReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleMSumType(this);
+    }
+    public <E extends UserException>  void accept(MSumTypeExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleMSumType(this);
+    }
+    public <R, E extends UserException> R accept(MSumTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleMSumType(this);
+    }
     public void accept(MComplexTypeVisitor visitor) throws ModelException {
         visitor.handleMSumType(this);
     }

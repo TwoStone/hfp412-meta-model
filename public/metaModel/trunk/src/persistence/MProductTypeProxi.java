@@ -26,6 +26,18 @@ public class MProductTypeProxi extends MComplexTypeProxi implements PersistentMP
         return ((PersistentMProductType)this.getTheObject()).getThis();
     }
     
+    public void accept(MProductTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMProductType(this);
+    }
+    public <R> R accept(MProductTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMProductType(this);
+    }
+    public <E extends UserException>  void accept(MProductTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMProductType(this);
+    }
+    public <R, E extends UserException> R accept(MProductTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMProductType(this);
+    }
     public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
         visitor.handleMProductType(this);
     }
@@ -80,25 +92,33 @@ public class MProductTypeProxi extends MComplexTypeProxi implements PersistentMP
 				throws PersistenceException{
         ((PersistentMProductType)this.getTheObject()).initializeOnInstantiation();
     }
-    public PersistentMBoolean isStructuralEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMProductType)this.getTheObject()).isStructuralEqual(otherType);
+    public PersistentMProductType transientAddFactor(final MType factor) 
+				throws model.ConsistencyException, PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).transientAddFactor(factor);
     }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).containsMComplexTypeHierarchy(part);
     }
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).isStructuralEqual(otherType);
+    }
     public String fetchName() 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).fetchName();
     }
-    public PersistentMBoolean isLessOrEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMProductType)this.getTheObject()).isLessOrEqual(otherType);
+    public PersistentMSumType transientAddAddend(final MType addend) 
+				throws model.ConsistencyException, PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).transientAddAddend(addend);
     }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
+    }
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).isLessOrEqual(otherType);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -120,6 +140,10 @@ public class MProductTypeProxi extends MComplexTypeProxi implements PersistentMP
 				throws PersistenceException{
         ((PersistentMProductType)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public PersistentMSumType fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).fetchDisjunctiveNormalform();
+    }
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).isSingleton();
@@ -128,13 +152,13 @@ public class MProductTypeProxi extends MComplexTypeProxi implements PersistentMP
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).getTypeLinkOperator();
     }
-    public PersistentMBoolean isAbstract() 
-				throws PersistenceException{
-        return ((PersistentMProductType)this.getTheObject()).isAbstract();
-    }
     public PersistentMBoolean allObjectsOfTypeAreSingleton() 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).allObjectsOfTypeAreSingleton();
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).isAbstract();
     }
 
     

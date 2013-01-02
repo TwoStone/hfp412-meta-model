@@ -114,25 +114,33 @@ public class MAtomicTypeProxi extends PersistentProxi implements PersistentMAtom
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).initializeOnInstantiation();
     }
-    public PersistentMBoolean isStructuralEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).isStructuralEqual(otherType);
+    public PersistentMProductType transientAddFactor(final MType factor) 
+				throws model.ConsistencyException, PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).transientAddFactor(factor);
     }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).containsMComplexTypeHierarchy(part);
     }
+    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).isStructuralEqual(otherType);
+    }
     public String fetchName() 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).fetchName();
     }
-    public PersistentMBoolean isLessOrEqual(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).isLessOrEqual(otherType);
+    public PersistentMSumType transientAddAddend(final MType addend) 
+				throws model.ConsistencyException, PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).transientAddAddend(addend);
     }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
+    }
+    public PersistentMBoolean isLessOrEqual(final MType otherType) 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).isLessOrEqual(otherType);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -174,13 +182,17 @@ public class MAtomicTypeProxi extends PersistentProxi implements PersistentMAtom
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).isSingleton();
     }
-    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
+    public PersistentMSumType fetchDisjunctiveNormalform() 
 				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).allObjectsOfTypeAreSingleton();
+        return ((PersistentMAtomicType)this.getTheObject()).fetchDisjunctiveNormalform();
     }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).isAbstract();
+    }
+    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).allObjectsOfTypeAreSingleton();
     }
 
     

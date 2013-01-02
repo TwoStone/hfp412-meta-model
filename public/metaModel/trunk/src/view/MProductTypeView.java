@@ -5,6 +5,10 @@ import view.visitor.*;
 public interface MProductTypeView extends MComplexTypeView {
     
     
+    public void accept(MProductTypeVisitor visitor) throws ModelException;
+    public <R> R accept(MProductTypeReturnVisitor<R>  visitor) throws ModelException;
+    public <E extends UserException>  void accept(MProductTypeExceptionVisitor<E> visitor) throws ModelException, E;
+    public <R, E extends UserException> R accept(MProductTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
     public void accept(MComplexTypeVisitor visitor) throws ModelException;
     public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws ModelException;
     public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws ModelException, E;

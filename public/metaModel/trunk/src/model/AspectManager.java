@@ -63,6 +63,7 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
         AspectManager result = this;
         result = new AspectManager(this.This, 
                                    this.getId());
+        result.aspects = this.aspects.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

@@ -8,6 +8,8 @@ import model.*;
 
 public interface MType extends  MComplexTypeHierarchyHIERARCHY {
     
+    public PersistentMProductType transientAddFactor(final MType factor) 
+				throws model.ConsistencyException, PersistenceException;
     public PersistentMBoolean contains(final MType otherType) 
 				throws PersistenceException;
     public PersistentMBoolean isStructuralEqual(final MType otherType) 
@@ -16,9 +18,13 @@ public interface MType extends  MComplexTypeHierarchyHIERARCHY {
 				throws PersistenceException;
     public String fetchName() 
 				throws PersistenceException;
+    public PersistentMSumType transientAddAddend(final MType addend) 
+				throws model.ConsistencyException, PersistenceException;
     public PersistentMBoolean isLessOrEqual(final MType otherType) 
 				throws PersistenceException;
     public PersistentMBoolean isSingleton() 
+				throws PersistenceException;
+    public PersistentMSumType fetchDisjunctiveNormalform() 
 				throws PersistenceException;
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException;

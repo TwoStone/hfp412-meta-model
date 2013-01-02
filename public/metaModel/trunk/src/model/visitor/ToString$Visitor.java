@@ -17,8 +17,10 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException;
     public abstract void handleMTrue(PersistentMTrue mTrue) throws PersistenceException;
     public abstract void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException;
+    public abstract void handleMEmptySum(PersistentMEmptySum mEmptySum) throws PersistenceException;
     public abstract void handleQuantity(PersistentQuantity quantity) throws PersistenceException;
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
+    public abstract void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException;
     public abstract void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException;
     public abstract void handleFunction(PersistentFunction function) throws PersistenceException;
     public abstract void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;

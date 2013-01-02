@@ -9,8 +9,8 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException, E;
     public R handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException, E;
     public R handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException, E;
-    public R handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException, E;
     public R handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException, E;
+    public R handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException, E;
     public R handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException, E;
     public R handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException, E;
     public R handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException, E;
