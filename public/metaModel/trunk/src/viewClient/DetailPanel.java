@@ -595,6 +595,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMAHierarchy(view.MAHierarchyView object){
         result = new MAHierarchyDefaultDetailPanel(handler, object);
     }
+    public void handleMAccountType(view.MAccountTypeView object){
+        result = new MAccountTypeDefaultDetailPanel(handler, object);
+    }
     public void handleTypeManager(view.TypeManagerView object){
         result = new TypeManagerDefaultDetailPanel(handler, object);
     }
@@ -631,8 +634,17 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMProductType(view.MProductTypeView object){
         result = new MProductTypeDefaultDetailPanel(handler, object);
     }
+    public void handleMeasurement(view.MeasurementView object){
+        result = new MeasurementDefaultDetailPanel(handler, object);
+    }
     public void handleReferenceType(view.ReferenceTypeView object){
         result = new ReferenceTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleMOperation(view.MOperationView object){
+        result = new MOperationDefaultDetailPanel(handler, object);
+    }
+    public void handleAccount(view.AccountView object){
+        result = new AccountDefaultDetailPanel(handler, object);
     }
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
@@ -646,8 +658,17 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMFalse(view.MFalseView object){
         result = new MFalseDefaultDetailPanel(handler, object);
     }
+    public void handleMMeasurementType(view.MMeasurementTypeView object){
+        result = new MMeasurementTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleMFormalParameter(view.MFormalParameterView object){
+        result = new MFormalParameterDefaultDetailPanel(handler, object);
+    }
     public void handleMAssociation(view.MAssociationView object){
         result = new MAssociationDefaultDetailPanel(handler, object);
+    }
+    public void handleInstanceObject(view.InstanceObjectView object){
+        result = new InstanceObjectDefaultDetailPanel(handler, object);
     }
     public void handleMTrue(view.MTrueView object){
         result = new MTrueDefaultDetailPanel(handler, object);
@@ -655,11 +676,20 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleQuantity(view.QuantityView object){
         result = new QuantityDefaultDetailPanel(handler, object);
     }
+    public void handleMessage(view.MessageView object){
+        result = new MessageDefaultDetailPanel(handler, object);
+    }
     public void handleFunction(view.FunctionView object){
         result = new FunctionDefaultDetailPanel(handler, object);
     }
     public void handleAspectManager(view.AspectManagerView object){
         result = new AspectManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleActualParameter(view.ActualParameterView object){
+        result = new ActualParameterDefaultDetailPanel(handler, object);
+    }
+    public void handleLink(view.LinkView object){
+        result = new LinkDefaultDetailPanel(handler, object);
     }
     public void handleMAspect(view.MAspectView object){
         result = new MAspectDefaultDetailPanel(handler, object);
@@ -745,6 +775,24 @@ class MAHierarchyDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MAHierarchyView getAnything(){
         return (view.MAHierarchyView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MAccountTypeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MQuantiObjectType$$type = "MQuantiObjectType$$type";
+    protected static final String MQuantiObjectType$$unitType = "MQuantiObjectType$$unitType";
+    protected static final String MAccountType$$subAccountTypes = "MAccountType$$subAccountTypes";
+    
+    protected MAccountTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MAccountTypeView getAnything(){
+        return (view.MAccountTypeView)this.anything;
     }
 }
 
@@ -1011,6 +1059,23 @@ class MProductTypeDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MeasurementDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Measurement$$type = "Measurement$$type";
+    protected static final String Measurement$$quantity = "Measurement$$quantity";
+    
+    protected MeasurementDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MeasurementView getAnything(){
+        return (view.MeasurementView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class ReferenceTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ReferenceType$$exponent = "ReferenceType$$exponent";
@@ -1030,6 +1095,49 @@ class ReferenceTypeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ReferenceTypeView getAnything(){
         return (view.ReferenceTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MOperationDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MAbsOperation$$name = "MAbsOperation$$name";
+    protected static final String MAbsOperation$$source = "MAbsOperation$$source";
+    protected static final String MAbsOperation$$target = "MAbsOperation$$target";
+    protected static final String MAbsOperation$$parameters = "MAbsOperation$$parameters";
+    
+    protected MOperationDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MAbsOperation$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MOperationView getAnything(){
+        return (view.MOperationView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class AccountDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Account$$type = "Account$$type";
+    protected static final String Account$$subAccounts = "Account$$subAccounts";
+    
+    protected AccountDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.AccountView getAnything(){
+        return (view.AccountView)this.anything;
     }
 }
 
@@ -1119,6 +1227,47 @@ class MFalseDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MMeasurementTypeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MQuantiObjectType$$type = "MQuantiObjectType$$type";
+    protected static final String MQuantiObjectType$$unitType = "MQuantiObjectType$$unitType";
+    
+    protected MMeasurementTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MMeasurementTypeView getAnything(){
+        return (view.MMeasurementTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MFormalParameterDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MFormalParameter$$ofType = "MFormalParameter$$ofType";
+    protected static final String MFormalParameter$$name = "MFormalParameter$$name";
+    
+    protected MFormalParameterDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MFormalParameter$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MFormalParameterView getAnything(){
+        return (view.MFormalParameterView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class MAssociationDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MAssociation$$name = "MAssociation$$name";
@@ -1141,6 +1290,22 @@ class MAssociationDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MAssociationView getAnything(){
         return (view.MAssociationView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class InstanceObjectDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String InstanceObject$$type = "InstanceObject$$type";
+    
+    protected InstanceObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.InstanceObjectView getAnything(){
+        return (view.InstanceObjectView)this.anything;
     }
 }
 
@@ -1179,6 +1344,24 @@ class QuantityDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.QuantityView getAnything(){
         return (view.QuantityView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MessageDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MessageOrLink$$source = "MessageOrLink$$source";
+    protected static final String MessageOrLink$$target = "MessageOrLink$$target";
+    protected static final String Message$$type = "Message$$type";
+    
+    protected MessageDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MessageView getAnything(){
+        return (view.MessageView)this.anything;
     }
 }
 
@@ -1226,6 +1409,41 @@ class AspectManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.AspectManagerView getAnything(){
         return (view.AspectManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ActualParameterDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ActualParameter$$type = "ActualParameter$$type";
+    protected static final String ActualParameter$$value = "ActualParameter$$value";
+    
+    protected ActualParameterDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ActualParameterView getAnything(){
+        return (view.ActualParameterView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class LinkDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MessageOrLink$$source = "MessageOrLink$$source";
+    protected static final String MessageOrLink$$target = "MessageOrLink$$target";
+    protected static final String Link$$type = "Link$$type";
+    
+    protected LinkDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.LinkView getAnything(){
+        return (view.LinkView)this.anything;
     }
 }
 

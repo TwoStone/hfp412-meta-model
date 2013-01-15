@@ -47,11 +47,11 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createCompUnitTypeCommand);
     }
-    public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
-        this.standardHandling(createAssociationCommand);
-    }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);
+    }
+    public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
+        this.standardHandling(createAssociationCommand);
     }
     public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException{
         this.standardHandling(createSubTypeCommand);

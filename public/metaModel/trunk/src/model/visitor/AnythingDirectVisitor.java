@@ -5,6 +5,8 @@ import persistence.*;
 
 public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
+    public abstract void handleMeasurement(PersistentMeasurement measurement) throws PersistenceException;
+    
     public abstract void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
@@ -18,6 +20,10 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleAbsUnitType(compUnitType);
     }
     public abstract void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
+    
+    public abstract void handleAccount(PersistentAccount account) throws PersistenceException;
+    
+    public abstract void handleQuantifObject(PersistentQuantifObject quantifObject) throws PersistenceException;
     
     public abstract void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     
@@ -44,6 +50,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException{
         this.handleAbsQuantity(compoundQuantity);
+    }
+    public abstract void handleMQuantiObjectType(PersistentMQuantiObjectType mQuantiObjectType) throws PersistenceException;
+    
+    public void handleMMeasurementType(PersistentMMeasurementType mMeasurementType) throws PersistenceException{
+        this.handleMQuantiObjectType(mMeasurementType);
+    }
+    public void handleMAccountType(PersistentMAccountType mAccountType) throws PersistenceException{
+        this.handleMQuantiObjectType(mAccountType);
     }
     public abstract void handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException;
     
@@ -90,17 +104,34 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
         this.handleCommonDate(createCompUnitTypeCommand);
     }
-    public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
-        this.handleCommonDate(createAssociationCommand);
-    }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.handleCommonDate(createQuantityCommand);
+    }
+    public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
+        this.handleCommonDate(createAssociationCommand);
     }
     public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException{
         this.handleCommonDate(createSubTypeCommand);
     }
+    public abstract void handleMFormalParameter(PersistentMFormalParameter mFormalParameter) throws PersistenceException;
+    
     public abstract void handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException;
     
+    public abstract void handleMessageOrLink(PersistentMessageOrLink messageOrLink) throws PersistenceException;
+    
+    public void handleLink(PersistentLink link) throws PersistenceException{
+        this.handleMessageOrLink(link);
+    }
+    public void handleMessage(PersistentMessage message) throws PersistenceException{
+        this.handleMessageOrLink(message);
+    }
+    public abstract void handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException;
+    
+    public abstract void handleMAbsOperation(PersistentMAbsOperation mAbsOperation) throws PersistenceException;
+    
+    public void handleMOperation(PersistentMOperation mOperation) throws PersistenceException{
+        this.handleMAbsOperation(mOperation);
+    }
     public abstract void handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException;
     
     public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException{
@@ -117,6 +148,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleFunction(PersistentFunction function) throws PersistenceException;
     
+    public abstract void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
+    
     public abstract void handleAbsUnit(PersistentAbsUnit absUnit) throws PersistenceException;
     
     public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException{
@@ -125,7 +158,7 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleUnit(PersistentUnit unit) throws PersistenceException{
         this.handleAbsUnit(unit);
     }
-    public abstract void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
+    public abstract void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException;
     
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
     

@@ -250,6 +250,16 @@ public class MAssociation extends PersistentObject implements PersistentMAssocia
 			this.setTarget((MType)final$$Fields.get("target"));
 		}
     }
+    public PersistentMBoolean isObservation() 
+				throws PersistenceException{
+        //TODO: implement method: isObservation
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isObservation\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation

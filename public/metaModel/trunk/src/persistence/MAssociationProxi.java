@@ -73,6 +73,10 @@ public class MAssociationProxi extends PersistentProxi implements PersistentMAss
 				throws PersistenceException{
         ((PersistentMAssociation)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public PersistentMBoolean isObservation() 
+				throws PersistenceException{
+        return ((PersistentMAssociation)this.getTheObject()).isObservation();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMAssociation)this.getTheObject()).initializeOnCreation();

@@ -260,6 +260,8 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
+		this.number2NameMap.put(191, "Account");
+		this.number2NameMap.put(199, "ActualParameter");
 		this.number2NameMap.put(177, "AddDefaultUnitCommand");
 		this.number2NameMap.put(181, "AddReferenceTypeCommand");
 		this.number2NameMap.put(133, "AddSubTypeCommand");
@@ -289,16 +291,24 @@ public class Cache {
 		this.number2NameMap.put(179, "FinishModelingCommand");
 		this.number2NameMap.put(178, "FractionManager");
 		this.number2NameMap.put(159, "Function");
+		this.number2NameMap.put(205, "InstanceObject");
+		this.number2NameMap.put(200, "Link");
 		this.number2NameMap.put(142, "MAHierarchy");
+		this.number2NameMap.put(187, "MAccountType");
 		this.number2NameMap.put(127, "MAspect");
 		this.number2NameMap.put(143, "MAssociation");
 		this.number2NameMap.put(102, "MAtomicType");
 		this.number2NameMap.put(186, "MEmptyProduct");
 		this.number2NameMap.put(185, "MEmptySum");
 		this.number2NameMap.put(136, "MFalse");
+		this.number2NameMap.put(195, "MFormalParameter");
+		this.number2NameMap.put(193, "MMeasurementType");
+		this.number2NameMap.put(190, "MOperation");
 		this.number2NameMap.put(101, "MProductType");
 		this.number2NameMap.put(103, "MSumType");
 		this.number2NameMap.put(138, "MTrue");
+		this.number2NameMap.put(189, "Measurement");
+		this.number2NameMap.put(198, "Message");
 		this.number2NameMap.put(157, "Quantity");
 		this.number2NameMap.put(170, "QuantityManager");
 		this.number2NameMap.put(163, "Reference");

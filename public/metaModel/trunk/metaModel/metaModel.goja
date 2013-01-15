@@ -243,25 +243,102 @@ singleton MEmptyProduct@@EmptyProduct extends MProductType{
 
 
 class MSumType@@SumType extends MComplexType {
-
-
 	
 	/* TODO: Leere Summen!? oh-oh! */
 }
+
 singleton MEmptySum@@EmptySum extends MSumType{
 }
 
+class InstanceObject {
+	prior MAtomicType type;
+}
 
 /** ASSOCIATIONS **/
+class MFormalParameter@@FormalParameter {
+    prior MType ofType;
+    indexed prior String name;
+}
+
+class ActualParameter {
+    prior MFormalParameter type;
+    prior InstanceObject value;
+}
+
+abstract class MAbsOperation@@AbstractOperation {
+    indexed prior String name;
+    prior MType source;
+    prior MType target;
+    MFormalParameter ** parameters;
+}
 
 class MAssociation {
 	prior String name;
 	prior MType source;
 	prior MType target;
 	symmetric(associations) MAHierarchy** hierarchies; 
+
+	MBoolean isObservation();
 }
+
+class MOperation extends MAbsOperation {
+}
+
+abstract class MessageOrLink {
+    prior InstanceObject source;
+    prior InstanceObject target;
+}
+
+// TODO: Was ist mit statische Methoden und Methoden die void zurueck geben sollen? Source/Target 0..1? Eventuell noch mal spezialisieren
+class Message extends MessageOrLink {
+    prior MOperation type;
+}
+
+class Link extends MessageOrLink {
+    prior MAssociation type;
+}
+
+
 class MAHierarchy {
 	prior indexed String name;
+}
+
+
+part measurement {
+
+abstract class MQuantiObjectType@@QuantifiedObjectType {
+	prior MType type;
+	prior AbsUnitType unitType;
+}
+
+class MMeasurementType@@MeasurementType extends MQuantiObjectType {
+}
+
+hierarchy MAccountTypeHierarchy##MAccTypeHie;
+class MAccountType@@AccountType extends MQuantiObjectType {
+	MAccountType** subAccountTypes hierarchy MAccountTypeHierarchy;
+}
+
+
+
+ 
+abstract class QuantifObject {
+	prior InstanceObject defaultType;
+	// TODO: aggregate(s:AggregationStrategy) : Quantitiy
+}
+
+class Measurement {
+	prior MMeasurementType type;
+	// TODO: Eventuell erst spaeter, wenn der Type feststeht, die Quantitaet setzen?
+	prior AbsQuantity quantity; 
+}
+
+hierarchy AccountHierarchy##AccountHie;
+class Account {
+	prior MAccountType type;
+	Account** subAccounts hierarchy AccountHierarchy;
+}
+
 }
 
 /*** EXCEPTIONS ***/

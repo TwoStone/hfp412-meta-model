@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,MComplexTypeReturnVisitor<R> ,AbsQuantityReturnVisitor<R> ,CommonDateReturnVisitor<R> ,AbsUnitReturnVisitor<R> ,MBooleanReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,MComplexTypeReturnVisitor<R> ,AbsQuantityReturnVisitor<R> ,CommonDateReturnVisitor<R> ,AbsUnitReturnVisitor<R> ,MQuantiObjectTypeReturnVisitor<R> ,MessageOrLinkReturnVisitor<R> ,MAbsOperationReturnVisitor<R> ,MBooleanReturnVisitor<R> {
     
     public R handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
@@ -13,11 +13,11 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,M
     public R handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException;
     public R handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException;
     public R handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException;
-    public R handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException;
     public R handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException;
+    public R handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException;
     public R handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException;
-    public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     public R handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException;
+    public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     public R handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException;
     public R handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     public R handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException;
@@ -28,16 +28,21 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,M
     public R handleConversion(PersistentConversion conversion) throws PersistenceException;
     public R handleReference(PersistentReference reference) throws PersistenceException;
     public R handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException;
+    public R handleMeasurement(PersistentMeasurement measurement) throws PersistenceException;
     public R handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException;
     public R handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
+    public R handleAccount(PersistentAccount account) throws PersistenceException;
     public R handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException;
     public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
+    public R handleMFormalParameter(PersistentMFormalParameter mFormalParameter) throws PersistenceException;
     public R handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException;
-    public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
     public R handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException;
+    public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
+    public R handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException;
     public R handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException;
     public R handleFunction(PersistentFunction function) throws PersistenceException;
     public R handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
+    public R handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException;
     public R handleAddToHierarchyCommand(PersistentAddToHierarchyCommand addToHierarchyCommand) throws PersistenceException;
     public R handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException;
     public R handleMAspect(PersistentMAspect mAspect) throws PersistenceException;

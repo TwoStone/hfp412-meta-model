@@ -26,6 +26,8 @@ public interface PersistentMAssociation extends Anything, AbstractPersistentProx
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public PersistentMBoolean isObservation() 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
 
