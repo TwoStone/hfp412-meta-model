@@ -4,24 +4,23 @@ model metaModel{
 /*** SERVER ***/
 
 server Server {
-	/* TypeManager */
+	/**** Manager ****/
+	derived AspectManager aspectManager;
 	derived TypeManager typeManager;
-
 	derived QuantityManager quantityManager;
 	derived UnitTypeManager unitTypeManager;
 	derived ConversionManager conversionManager;
 	derived FractionManager fractionManager;
 
-	/* AtomicType */
-	void createSubType@@Untertyp_anlegen(MAtomicType superType, String typeName@@Name, MBoolean singletonType, MBoolean abstractType);
-	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
+	/**** Typsystem ****/
+	void createAspect(AspectManager aspectManager, String name);
+	void createAtomicRootType(MAspect aspect, String typeName, MBoolean singletonType, MBoolean abstractType);
+	void createAtomicSubType(MAtomicType superType, String typeName, MBoolean singletonType, MBoolean abstractType);
+	//	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
 
-	/* AspectManager */
-	derived AspectManager aspectManager;
-	void createAspect@@Aspekt_anlegen(AspectManager aspectManager, String aspectName@@Name) throws DoubleDefinitionException;
 
-	/* Aspect */
-	void createAtomicType@@Atomaren_Typ_anlegen(MAspect parent, String typeName@@Name, MBoolean singletonType, MBoolean abstractType);
+	
+
 
 	/* Associations */
 	derived AssociationManager associationManager;
@@ -42,6 +41,103 @@ server Server {
 	void createQuantity@@Create_quantity(AbsUnit unit, Fraction f);
 
 }
+
+
+
+part typeSystem {
+	
+	/* Abstrakte Typen */
+	abstract class MType@@Type {
+		abstract String fetchName();
+		abstract MBoolean isLessOrEqual();
+		abstract MBoolean isSingleton();
+		abstract MBoolean isAbstract();
+		abstract MBoolean isStructuralEquivalant(MType other);  	/*		
+			MSumType fetchDisjunctiveNormalform();
+			MAssociation** fetchAssociations();
+			MBoolean allObjectsOfTypeAreSingleton();
+
+			MBoolean isLessOrEqual(MType otherType); 
+			MBoolean isStructuralEqual(MType otherType); 
+			MBoolean contains(MType otherType);
+			*/
+	}
+
+	/* Aspekte */
+	class MAspect@@Aspect {
+		prior indexed String name; 
+	}
+	
+	/* Atomare Typen */
+	class MAtomicType@@AtomicType extends MType {
+		prior indexed String name;
+		prior MBoolean singletonType;
+		prior MBoolean abstractType;
+		no-view prior symmetric(types) MAspect aspect;
+		no-view symmetric(subTypes) MAtomicType superType hierarchy MAtomicTypeHierarchy;
+			/*
+			void addSubType(MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
+			MBoolean transitiveHasConcreteSubtype();
+			*/
+	}
+	
+	/* Komplexe Typen*/
+	abstract class MComplexType@@ComplexType extends MType {
+		MType** containedTypes hierarchy MComplexTypeHierarchy;
+		abstract String fetchTypeLinkOperator();
+	}
+	
+	/* ++ Summentypen ++ */
+	abstract class MAbstractSumType##MAbstrSum@@AbstractSumType extends MComplexType {
+	}
+	
+	singleton MEmptySumType@@EmptySumType extends MAbstractSumType {
+	}
+	
+	class MSumType@@SumType extends MAbstractSumType {
+	}
+
+	/* ** Produkttypen ** */
+	class MAbstractProductType##MAbstrProd@@AbstractProductType extends MComplexType {
+	}
+
+	singleton MEmptyProduct@@EmptyProductType extends MAbstractProductType{
+	}
+	
+	class MProductType@@ProductType extends MAbstractProductType {
+	}
+
+
+	/*** MANAGER ***/
+	/* Manager  for Aspects */
+	singleton AspectManager {
+		MAspect** aspects;
+		active MAspect createAspect(String name) throws ConsistencyException;
+	}
+	/* Manager for Types */
+	singleton TypeManager {
+		MType** types;
+		
+		active MAtomicType createAtomicRootType(MAspect aspect, String name, MBoolean singletonType, MBoolean abstractType) 
+			throws ConsistencyException;
+		active MAtomicType createAtomicSubType(MAtomicType superType, String name, MBoolean singletonType, MBoolean abstractType) 
+			throws ConsistencyException;
+		active MAbstractSumType createSumType(MType** addends) throws ConsistencyException;
+		active MAbstractProductType createProductType(MType** factors) throws ConsistencyException;
+
+		active void addSubType(MAtomicType superType, MAtomicType subType) throws CycleException, ConsistencyException;
+	}
+	
+	/*** HIERARCHIES ***/
+	/* Partielle Ordnung "<=" auf atomaren Typen */
+	hierarchy MAtomicTypeHierarchy##MATypeHier;
+	/* Partielle Ordnung "enthalten sein" auf allen Typen */
+	hierarchy MComplexTypeHierarchy##MCTypeHier;
+}
+
+
+
+
 
 part quantity {
 
@@ -161,21 +257,8 @@ singleton UnitTypeManager {
 
 /*** MANAGER ***/
 
-singleton AspectManager {
-	MAspect** aspects;
-	active void createAspect(String name) throws DoubleDefinitionException;
-}
 
-singleton TypeManager {
-	MAtomicType** atomicTypes;
-	MProductType** productTypes;
-	MSumType** sumTypes;
-	MType**MSumType** allTypes;
 
-	active void createAtomicType(MAspect aspect, String name, MBoolean singletonType, MBoolean abstractType) throws DoubleDefinitionException, ConsistencyException;
-	active void createSubType(MAtomicType superType, String name, MBoolean singletonType, MBoolean abstractType) throws CycleException, WrongSubTypeAspectException, DoubleDefinitionException, ConsistencyException;
-	active void addSubType(MAtomicType superType, MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
-}
 
 singleton AssociationManager {
 	MAssociation ** associations;
@@ -187,68 +270,6 @@ singleton AssociationManager {
 
 }
 
-
-/*** TYPE ***/
-
-class MAspect {
-	prior indexed String name; 
-}
-
-interface MType@@Type {
-	String fetchName();
- 	MSumType fetchDisjunctiveNormalform();
-	MAssociation** fetchAssociations();
-	MBoolean allObjectsOfTypeAreSingleton();
-	MBoolean isSingleton();
-	MBoolean isAbstract();
-	MBoolean isLessOrEqual(MType otherType); 
-	MBoolean isStructuralEqual(MType otherType); 
-	MBoolean contains(MType otherType);
-	MSumType transientAddAddend(MType addend) throws ConsistencyException;
-	MProductType transientAddFactor(MType factor) throws ConsistencyException;
-	 
-}
-
-hierarchy MAtomicTypeHierarchy##MATypeHier;
-
-class MAtomicType@@AtomicType implements MType {
-	prior indexed String name;
-	prior MBoolean singletonType;
-	prior MBoolean abstractType;
-	no-view prior symmetric(types) MAspect aspect;
-	symmetric(subTypes) no-view MAtomicType superType hierarchy MAtomicTypeHierarchy;
-	
-	void addSubType(MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
-	MBoolean transitiveHasConcreteSubtype();
-}
-
-hierarchy MComplexTypeHierarchy##MCTypeHier;
-
-abstract class MComplexType@@ComplexType implements MType {
-	MType** containedTypes hierarchy MComplexTypeHierarchy;
-	derived String TypeLinkOperator;
-		
-}
-
-abstract class MBoolean(MTrue, MFalse){
-	extern boolean toBoolean();	
-	MBoolean createFromBoolean(extern boolean bool);
-	MBoolean invert();
-}
-
-class MProductType@@ProductType extends MComplexType {}
-
-singleton MEmptyProduct@@EmptyProduct extends MProductType{
-}
-
-
-class MSumType@@SumType extends MComplexType {
-	
-	/* TODO: Leere Summen!? oh-oh! */
-}
-
-singleton MEmptySum@@EmptySum extends MSumType{
-}
 
 class InstanceObject {
 	prior MAtomicType type;
@@ -304,6 +325,15 @@ class MAHierarchy {
 }
 
 
+part basic {
+	/* Boolean */
+	abstract class MBoolean(MTrue, MFalse){
+		extern boolean toBoolean();	
+		MBoolean invert();
+	}
+}
+
+
 part measurement {
 
 abstract class MQuantiObjectType@@QuantifiedObjectType {
@@ -340,6 +370,7 @@ class Account {
 }
 
 }
+
 
 /*** EXCEPTIONS ***/
 
