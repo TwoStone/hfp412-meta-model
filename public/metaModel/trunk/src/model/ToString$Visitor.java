@@ -3,6 +3,8 @@ package model;
 import model.visitor.MBooleanReturnVisitor;
 import persistence.Anything;
 import persistence.PersistenceException;
+import persistence.PersistentAccount;
+import persistence.PersistentActualParameter;
 import persistence.PersistentAspectManager;
 import persistence.PersistentAssociationManager;
 import persistence.PersistentCompUnit;
@@ -12,8 +14,11 @@ import persistence.PersistentConversion;
 import persistence.PersistentConversionManager;
 import persistence.PersistentFractionManager;
 import persistence.PersistentFunction;
+import persistence.PersistentInstanceObject;
+import persistence.PersistentLink;
 import persistence.PersistentMAHierarchy;
 import persistence.PersistentMAbstractProductType;
+import persistence.PersistentMAccountType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAssociation;
 import persistence.PersistentMAtomicType;
@@ -21,9 +26,14 @@ import persistence.PersistentMBoolean;
 import persistence.PersistentMEmptyProduct;
 import persistence.PersistentMEmptySumType;
 import persistence.PersistentMFalse;
+import persistence.PersistentMFormalParameter;
+import persistence.PersistentMMeasurementType;
+import persistence.PersistentMOperation;
 import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
 import persistence.PersistentMTrue;
+import persistence.PersistentMeasurement;
+import persistence.PersistentMessage;
 import persistence.PersistentQuantity;
 import persistence.PersistentQuantityManager;
 import persistence.PersistentReference;
@@ -260,5 +270,66 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			PersistentMAbstractProductType mAbstractProductType)
 			throws PersistenceException {
 		result = "[AbstractProductType]";		
+	}
+	@Override
+	public void handleMAccountType(PersistentMAccountType mAccountType)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleMeasurement(PersistentMeasurement measurement)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleMOperation(PersistentMOperation mOperation)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleAccount(PersistentAccount account)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleMMeasurementType(
+			PersistentMMeasurementType mMeasurementType)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleMFormalParameter(
+			PersistentMFormalParameter mFormalParameter)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleInstanceObject(PersistentInstanceObject instanceObject)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleMessage(PersistentMessage message)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleActualParameter(PersistentActualParameter actualParameter)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleLink(PersistentLink link) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -2,12 +2,12 @@ package test.util;
 
 import model.CycleException;
 import model.DBConnectionConstants;
-import model.MAspect;
-import model.MAtomicType;
-import model.MFalse;
-import model.MProductType;
-import model.MSumType;
-import model.MTrue;
+import model.basic.MFalse;
+import model.basic.MTrue;
+import model.typeSystem.MAspect;
+import model.typeSystem.MAtomicType;
+import model.typeSystem.MProductType;
+import model.typeSystem.MSumType;
 import modelServer.ConnectionServer;
 
 import org.junit.After;

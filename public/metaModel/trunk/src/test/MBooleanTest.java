@@ -7,22 +7,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import model.CycleException;
-import model.MBoolean;
-import model.MFalse;
-import model.MTrue;
+import model.basic.MBoolean;
+import model.basic.MFalse;
+import model.basic.MTrue;
 
 import org.junit.Test;
 
 import persistence.PersistenceException;
 import persistence.PersistentMFalse;
 import persistence.PersistentMTrue;
-import test.util.AbstractTest;
 
 /**
  * Testet die Boolean-implementation
  *
  */
-public class MBooleanTest extends AbstractTest {
+public class MBooleanTest {
 
 	public MBooleanTest() throws CycleException, PersistenceException {
 		super();
@@ -38,8 +37,8 @@ public class MBooleanTest extends AbstractTest {
 		//Boolean conversion
 		assertTrue(theMTrue.toBoolean());
 		assertFalse(theMFalse.toBoolean());
-		assertEquals(theMTrue, MBoolean.create(true));
-		assertEquals(theMFalse, MBoolean.create(false));
+		assertEquals(theMTrue, MBoolean.createFromBoolean(true));
+		assertEquals(theMFalse, MBoolean.createFromBoolean(false));
 		//Invert
 		assertEquals(theMFalse, theMTrue.invert());
 		assertEquals(theMTrue, theMFalse.invert());
