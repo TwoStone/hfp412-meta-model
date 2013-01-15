@@ -19,7 +19,7 @@ public class MAccountTypeICProxi extends MQuantiObjectTypeICProxi implements Per
     }
     
     public long getClassId() {
-        return 187;
+        return 194;
     }
     
     public MAccountType_SubAccountTypesProxi getSubAccountTypes() throws PersistenceException {

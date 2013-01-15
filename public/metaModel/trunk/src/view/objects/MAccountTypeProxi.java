@@ -29,7 +29,7 @@ public class MAccountTypeProxi extends MQuantiObjectTypeProxi implements MAccoun
         }
         java.util.Vector<String> subAccountTypes_string = (java.util.Vector<String>)resultTable.get("subAccountTypes");
         java.util.Vector<MAccountTypeView> subAccountTypes = ViewProxi.getProxiVector(subAccountTypes_string, connectionKey);
-        MAccountTypeView result$$ = new MAccountType((MType)type,(AbsUnitTypeView)unitType,subAccountTypes, this.getId(), this.getClassId());
+        MAccountTypeView result$$ = new MAccountType((MTypeView)type,(AbsUnitTypeView)unitType,subAccountTypes, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

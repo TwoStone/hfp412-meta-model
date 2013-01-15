@@ -1,6 +1,6 @@
 package persistence;
 
-import model.*;
+import model.typeSystem.*;
 
 public class MSumTypeFacade{
 
@@ -11,14 +11,14 @@ public class MSumTypeFacade{
 
     public MSumTypeProxi newMSumType(long createMinusStorePlus) throws PersistenceException {
         if(createMinusStorePlus > 0) return (MSumTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 103);
-        long id = ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade.getNextId();
+        long id = ConnectionHandler.getTheConnectionHandler().theMTypeFacade.getNextId();
         MSumType result = new MSumType(null,id);
         Cache.getTheCache().put(result);
         return (MSumTypeProxi)PersistentProxi.createProxi(id, 103);
     }
     
     public MSumTypeProxi newDelayedMSumType() throws PersistenceException {
-        long id = ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade.getNextId();
+        long id = ConnectionHandler.getTheConnectionHandler().theMTypeFacade.getNextId();
         MSumType result = new MSumType(null,id);
         Cache.getTheCache().put(result);
         return (MSumTypeProxi)PersistentProxi.createProxi(id, 103);

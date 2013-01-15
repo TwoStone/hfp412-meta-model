@@ -11,14 +11,14 @@ public class MAccountType extends view.objects.MQuantiObjectType implements MAcc
     
     protected java.util.Vector<MAccountTypeView> subAccountTypes;
     
-    public MAccountType(MType type,AbsUnitTypeView unitType,java.util.Vector<MAccountTypeView> subAccountTypes,long id, long classId) {
+    public MAccountType(MTypeView type,AbsUnitTypeView unitType,java.util.Vector<MAccountTypeView> subAccountTypes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((MType)type,(AbsUnitTypeView)unitType,id, classId);
+        super((MTypeView)type,(AbsUnitTypeView)unitType,id, classId);
         this.subAccountTypes = subAccountTypes;        
     }
     
     static public long getTypeId() {
-        return 187;
+        return 194;
     }
     
     public long getClassId() {
@@ -58,7 +58,7 @@ public class MAccountType extends view.objects.MQuantiObjectType implements MAcc
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        MType type = this.getType();
+        MTypeView type = this.getType();
         if (type != null) {
             ((ViewProxi)type).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(type.getClassId(), type.getId())));
         }

@@ -6,8 +6,8 @@ import model.visitor.*;
 
 public interface PersistentMFormalParameter extends Anything, AbstractPersistentProxi {
     
-    public MType getOfType() throws PersistenceException ;
-    public void setOfType(MType newValue) throws PersistenceException ;
+    public PersistentMType getOfType() throws PersistenceException ;
+    public void setOfType(PersistentMType newValue) throws PersistenceException ;
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
     public PersistentMFormalParameter getThis() throws PersistenceException ;

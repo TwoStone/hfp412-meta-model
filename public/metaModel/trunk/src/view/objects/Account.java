@@ -20,7 +20,7 @@ public class Account extends ViewObject implements AccountView{
     }
     
     static public long getTypeId() {
-        return 191;
+        return 196;
     }
     
     public long getClassId() {

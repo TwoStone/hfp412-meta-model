@@ -12,10 +12,10 @@ public abstract class MQuantiObjectTypeProxi extends PersistentProxi implements 
     }
     
     
-    public MType getType() throws PersistenceException {
+    public PersistentMType getType() throws PersistenceException {
         return ((PersistentMQuantiObjectType)this.getTheObject()).getType();
     }
-    public void setType(MType newValue) throws PersistenceException {
+    public void setType(PersistentMType newValue) throws PersistenceException {
         ((PersistentMQuantiObjectType)this.getTheObject()).setType(newValue);
     }
     public PersistentAbsUnitType getUnitType() throws PersistenceException {

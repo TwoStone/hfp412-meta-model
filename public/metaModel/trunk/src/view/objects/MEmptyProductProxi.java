@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class MEmptyProductProxi extends MProductTypeProxi implements MEmptyProductView{
+public class MEmptyProductProxi extends MAbstractProductTypeProxi implements MEmptyProductView{
     
     public MEmptyProductProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
@@ -14,9 +14,8 @@ public class MEmptyProductProxi extends MProductTypeProxi implements MEmptyProdu
     @SuppressWarnings("unchecked")
     public MEmptyProductView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> containedTypes_string = (java.util.Vector<String>)resultTable.get("containedTypes");
-        java.util.Vector<MType> containedTypes = ViewProxi.getProxiVector(containedTypes_string, connectionKey);
-        String TypeLinkOperator = (String)resultTable.get("TypeLinkOperator");
-        MEmptyProductView result$$ = new MEmptyProduct(containedTypes,(String)TypeLinkOperator, this.getId(), this.getClassId());
+        java.util.Vector<MTypeView> containedTypes = ViewProxi.getProxiVector(containedTypes_string, connectionKey);
+        MEmptyProductView result$$ = new MEmptyProduct(containedTypes, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -50,16 +49,16 @@ public class MEmptyProductProxi extends MProductTypeProxi implements MEmptyProdu
     }
     
     
-    public void accept(MProductTypeVisitor visitor) throws ModelException {
+    public void accept(MAbstractProductTypeVisitor visitor) throws ModelException {
         visitor.handleMEmptyProduct(this);
     }
-    public <R> R accept(MProductTypeReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(MAbstractProductTypeReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMEmptyProduct(this);
     }
-    public <E extends UserException>  void accept(MProductTypeExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(MAbstractProductTypeExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMEmptyProduct(this);
     }
-    public <R, E extends UserException> R accept(MProductTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(MAbstractProductTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMEmptyProduct(this);
     }
     public void accept(MComplexTypeVisitor visitor) throws ModelException {
@@ -100,7 +99,7 @@ public class MEmptyProductProxi extends MProductTypeProxi implements MEmptyProdu
     }
     
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     
     public void setIcon(IconRenderer renderer){

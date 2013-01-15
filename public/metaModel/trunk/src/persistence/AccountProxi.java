@@ -19,7 +19,7 @@ public class AccountProxi extends PersistentProxi implements PersistentAccount{
     }
     
     public long getClassId() {
-        return 191;
+        return 196;
     }
     
     public PersistentMAccountType getType() throws PersistenceException {

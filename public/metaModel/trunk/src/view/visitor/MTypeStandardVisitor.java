@@ -11,14 +11,17 @@ public abstract class MTypeStandardVisitor implements MTypeVisitor {
     public void handleMProductType(MProductTypeView mProductType) throws ModelException{
         this.standardHandling(mProductType);
     }
-    public void handleMEmptySum(MEmptySumView mEmptySum) throws ModelException{
-        this.standardHandling(mEmptySum);
+    public void handleMEmptySumType(MEmptySumTypeView mEmptySumType) throws ModelException{
+        this.standardHandling(mEmptySumType);
     }
     public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
         this.standardHandling(mEmptyProduct);
     }
+    public void handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException{
+        this.standardHandling(mAbstractProductType);
+    }
     public void handleMSumType(MSumTypeView mSumType) throws ModelException{
         this.standardHandling(mSumType);
     }
-    protected abstract void standardHandling(MType mType) throws ModelException;
+    protected abstract void standardHandling(MTypeView mType) throws ModelException;
 }

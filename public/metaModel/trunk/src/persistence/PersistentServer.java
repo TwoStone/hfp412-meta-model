@@ -32,25 +32,21 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     
     public PersistentTypeManager getTypeManager() 
 				throws PersistenceException;
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType) 
-				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
-    public void createAssociationFrom(final MType source, final String name, final MType target) 
+    public void createAssociationFrom(final PersistentMType source, final String name, final PersistentMType target) 
 				throws PersistenceException;
-    public void createAssociationTo(final MType target, final String name, final MType source) 
+    public void createAssociationTo(final PersistentMType target, final String name, final PersistentMType source) 
 				throws PersistenceException;
     public PersistentFractionManager getFractionManager() 
 				throws PersistenceException;
-    public void createAspect(final PersistentAspectManager aspectManager, final String aspectName) 
-				throws model.DoubleDefinitionException, PersistenceException;
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+				throws PersistenceException;
+    public void createAspect(final PersistentAspectManager aspectManager, final String name) 
 				throws PersistenceException;
     public boolean hasChanged() 
 				throws PersistenceException;
     public void createHierarchy(final String name) 
-				throws PersistenceException;
-    public void createAtomicType(final PersistentMAspect parent, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws PersistenceException;
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException;
@@ -60,9 +56,9 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void createUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 
 				throws PersistenceException;
-    public void createAssociation(final PersistentAssociationManager manager, final String name, final MType source, final MType target) 
+    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws PersistenceException;
-    public void createSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+    public void createAssociation(final PersistentAssociationManager manager, final String name, final PersistentMType source, final PersistentMType target) 
 				throws PersistenceException;
     public void handleResult(final Command command) 
 				throws PersistenceException;
@@ -103,6 +99,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void createUnit(final PersistentAbsUnitType type, final String name) 
+				throws PersistenceException;
+    public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws PersistenceException;
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException;

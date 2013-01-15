@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class MAtomicTypeProxi extends ViewProxi implements MAtomicTypeView{
+public class MAtomicTypeProxi extends MTypeProxi implements MAtomicTypeView{
     
     public MAtomicTypeProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);

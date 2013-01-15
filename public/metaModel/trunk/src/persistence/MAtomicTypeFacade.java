@@ -1,52 +1,31 @@
 package persistence;
 
-import model.*;
+import model.typeSystem.*;
 
 public class MAtomicTypeFacade{
 
-	static private Long sequencer = new Long(0);
 
-	static protected long getTheNextId(){
-		long result = -1;
-		synchronized (sequencer) { 
-			result = sequencer.longValue() + 1;
-			sequencer = new Long(result);
-		}
-		return result;
-	}
-
-	protected long getNextId(){
-		return getTheNextId();
-	}
-
-	
 
 	public MAtomicTypeFacade() {
 	}
 
     public MAtomicTypeProxi newMAtomicType(String name,long createMinusStorePlus) throws PersistenceException {
         if(createMinusStorePlus > 0) return (MAtomicTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 102);
-        long id = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.getNextId();
-        MAtomicType result = new MAtomicType(name,null,null,null,null,null,id);
+        long id = ConnectionHandler.getTheConnectionHandler().theMTypeFacade.getNextId();
+        MAtomicType result = new MAtomicType(null,name,null,null,null,null,id);
         Cache.getTheCache().put(result);
         return (MAtomicTypeProxi)PersistentProxi.createProxi(id, 102);
     }
     
     public MAtomicTypeProxi newDelayedMAtomicType(String name) throws PersistenceException {
-        long id = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.getNextId();
-        MAtomicType result = new MAtomicType(name,null,null,null,null,null,id);
+        long id = ConnectionHandler.getTheConnectionHandler().theMTypeFacade.getNextId();
+        MAtomicType result = new MAtomicType(null,name,null,null,null,null,id);
         Cache.getTheCache().put(result);
         return (MAtomicTypeProxi)PersistentProxi.createProxi(id, 102);
     }
     
     public MAtomicType getMAtomicType(long MAtomicTypeId) throws PersistenceException{
         return null; //All data is in the cache!
-    }
-    public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 102)) return 102;
-        
-        throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
-        
     }
     public MAtomicTypeSearchList getMAtomicTypeByName(String name) throws PersistenceException {
         MAtomicTypeSearchList result = new MAtomicTypeSearchList();
@@ -72,9 +51,6 @@ public class MAtomicTypeFacade{
         
     }
     public void superTypeSet(long MAtomicTypeId, PersistentMAtomicType superTypeVal) throws PersistenceException {
-        
-    }
-    public void ThisSet(long MAtomicTypeId, PersistentMAtomicType ThisVal) throws PersistenceException {
         
     }
     public MAtomicTypeSearchList inverseGetAspect(long objectId, long classId)throws PersistenceException{

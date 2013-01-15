@@ -28,11 +28,11 @@ public class AddSubTypeCommandProxi extends PersistentProxi implements Persisten
     public void setSuperType(PersistentMAtomicType newValue) throws PersistenceException {
         ((PersistentAddSubTypeCommand)this.getTheObject()).setSuperType(newValue);
     }
-    public PersistentMAtomicType getTypeunder() throws PersistenceException {
-        return ((PersistentAddSubTypeCommand)this.getTheObject()).getTypeunder();
+    public PersistentMAtomicType getSubType() throws PersistenceException {
+        return ((PersistentAddSubTypeCommand)this.getTheObject()).getSubType();
     }
-    public void setTypeunder(PersistentMAtomicType newValue) throws PersistenceException {
-        ((PersistentAddSubTypeCommand)this.getTheObject()).setTypeunder(newValue);
+    public void setSubType(PersistentMAtomicType newValue) throws PersistenceException {
+        ((PersistentAddSubTypeCommand)this.getTheObject()).setSubType(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentAddSubTypeCommand)this.getTheObject()).getInvoker();

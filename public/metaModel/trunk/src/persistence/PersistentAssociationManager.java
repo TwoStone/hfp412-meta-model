@@ -29,9 +29,9 @@ public interface PersistentAssociationManager extends Anything, AbstractPersiste
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
-    public void createAssociation(final String name, final MType source, final MType target, final Invoker invoker) 
+    public void createAssociation(final String name, final PersistentMType source, final PersistentMType target, final Invoker invoker) 
 				throws PersistenceException;
-    public void createAssociation(final String name, final MType source, final MType target) 
+    public void createAssociation(final String name, final PersistentMType source, final PersistentMType target) 
 				throws model.DoubleDefinitionException, PersistenceException;
     public void createHierarchy(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException;

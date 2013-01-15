@@ -51,10 +51,10 @@ public class MAssociationFacade{
     public void nameSet(long MAssociationId, String nameVal) throws PersistenceException {
         
     }
-    public void sourceSet(long MAssociationId, MType sourceVal) throws PersistenceException {
+    public void sourceSet(long MAssociationId, PersistentMType sourceVal) throws PersistenceException {
         
     }
-    public void targetSet(long MAssociationId, MType targetVal) throws PersistenceException {
+    public void targetSet(long MAssociationId, PersistentMType targetVal) throws PersistenceException {
         
     }
     public long hierarchiesAdd(long MAssociationId, PersistentMAHierarchy hierarchiesVal) throws PersistenceException {

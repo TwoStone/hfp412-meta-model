@@ -10,13 +10,13 @@ import view.visitor.*;
 public class MMeasurementType extends view.objects.MQuantiObjectType implements MMeasurementTypeView{
     
     
-    public MMeasurementType(MType type,AbsUnitTypeView unitType,long id, long classId) {
+    public MMeasurementType(MTypeView type,AbsUnitTypeView unitType,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((MType)type,(AbsUnitTypeView)unitType,id, classId);        
+        super((MTypeView)type,(AbsUnitTypeView)unitType,id, classId);        
     }
     
     static public long getTypeId() {
-        return 193;
+        return 199;
     }
     
     public long getClassId() {
@@ -50,7 +50,7 @@ public class MMeasurementType extends view.objects.MQuantiObjectType implements 
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        MType type = this.getType();
+        MTypeView type = this.getType();
         if (type != null) {
             ((ViewProxi)type).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(type.getClassId(), type.getId())));
         }

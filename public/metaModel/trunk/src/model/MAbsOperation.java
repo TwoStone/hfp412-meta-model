@@ -55,12 +55,12 @@ public abstract class MAbsOperation extends PersistentObject implements Persiste
         return false;
     }
     protected String name;
-    protected MType source;
-    protected MType target;
+    protected PersistentMType source;
+    protected PersistentMType target;
     protected MAbsOperation_ParametersProxi parameters;
     protected PersistentMAbsOperation This;
     
-    public MAbsOperation(String name,MType source,MType target,PersistentMAbsOperation This,long id) throws persistence.PersistenceException {
+    public MAbsOperation(String name,PersistentMType source,PersistentMType target,PersistentMAbsOperation This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
@@ -71,7 +71,7 @@ public abstract class MAbsOperation extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 196;
+        return 204;
     }
     
     public long getClassId() {
@@ -105,29 +105,29 @@ public abstract class MAbsOperation extends PersistentObject implements Persiste
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theMAbsOperationFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
     }
-    public MType getSource() throws PersistenceException {
+    public PersistentMType getSource() throws PersistenceException {
         return this.source;
     }
-    public void setSource(MType newValue) throws PersistenceException {
+    public void setSource(PersistentMType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.source)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.source = (MType)PersistentProxi.createProxi(objectId, classId);
+        this.source = (PersistentMType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMAbsOperationFacade.sourceSet(this.getId(), newValue);
         }
     }
-    public MType getTarget() throws PersistenceException {
+    public PersistentMType getTarget() throws PersistenceException {
         return this.target;
     }
-    public void setTarget(MType newValue) throws PersistenceException {
+    public void setTarget(PersistentMType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.target)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.target = (MType)PersistentProxi.createProxi(objectId, classId);
+        this.target = (PersistentMType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMAbsOperationFacade.targetSet(this.getId(), newValue);
@@ -170,8 +170,8 @@ public abstract class MAbsOperation extends PersistentObject implements Persiste
         this.setThis((PersistentMAbsOperation)This);
 		if(this.equals(This)){
 			this.setName((String)final$$Fields.get("name"));
-			this.setSource((MType)final$$Fields.get("source"));
-			this.setTarget((MType)final$$Fields.get("target"));
+			this.setSource((PersistentMType)final$$Fields.get("source"));
+			this.setTarget((PersistentMType)final$$Fields.get("target"));
 		}
     }
     public void initializeOnCreation() 

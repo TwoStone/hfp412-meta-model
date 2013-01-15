@@ -17,6 +17,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException{
         this.standardHandling(createHierarchyCommand);
     }
+    public void handleCreateProductTypeCommand(PersistentCreateProductTypeCommand createProductTypeCommand) throws PersistenceException{
+        this.standardHandling(createProductTypeCommand);
+    }
     public void handleAddToHierarchyCommand(PersistentAddToHierarchyCommand addToHierarchyCommand) throws PersistenceException{
         this.standardHandling(addToHierarchyCommand);
     }
@@ -29,14 +32,17 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
         this.standardHandling(createConversionCommand);
     }
+    public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException{
+        this.standardHandling(createAtomicSubTypeCommand);
+    }
+    public void handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException{
+        this.standardHandling(createSumTypeCommand);
+    }
     public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
         this.standardHandling(createAspectCommand);
     }
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.standardHandling(createUnitCommand);
-    }
-    public void handleCreateAtomicTypeCommand(PersistentCreateAtomicTypeCommand createAtomicTypeCommand) throws PersistenceException{
-        this.standardHandling(createAtomicTypeCommand);
     }
     public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
         this.standardHandling(createCompUnitCommand);
@@ -53,8 +59,8 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
         this.standardHandling(createAssociationCommand);
     }
-    public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException{
-        this.standardHandling(createSubTypeCommand);
+    public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
+        this.standardHandling(createAtomicRootTypeCommand);
     }
     protected abstract void standardHandling(PersistentCommonDate commonDate) throws PersistenceException;
 }

@@ -6,8 +6,8 @@ import view.visitor.*;
 
 public interface MQuantiObjectTypeView extends Anything, AbstractViewProxi {
     
-    public MType getType() throws ModelException ;
-    public void setType(MType newValue) throws ModelException ;
+    public MTypeView getType() throws ModelException ;
+    public void setType(MTypeView newValue) throws ModelException ;
     public AbsUnitTypeView getUnitType() throws ModelException ;
     public void setUnitType(AbsUnitTypeView newValue) throws ModelException ;
     

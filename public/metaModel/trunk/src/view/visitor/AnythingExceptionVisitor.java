@@ -3,7 +3,7 @@ package view.visitor;
 import view.UserException;
 import view.*;
 
-public interface AnythingExceptionVisitor<E extends UserException> extends AbsUnitTypeExceptionVisitor<E>,MComplexTypeExceptionVisitor<E>,AbsQuantityExceptionVisitor<E>,AbsUnitExceptionVisitor<E>,MQuantiObjectTypeExceptionVisitor<E>,MessageOrLinkExceptionVisitor<E>,MAbsOperationExceptionVisitor<E>,MBooleanExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends UserException> extends AbsUnitTypeExceptionVisitor<E>,AbsQuantityExceptionVisitor<E>,MTypeExceptionVisitor<E>,AbsUnitExceptionVisitor<E>,MQuantiObjectTypeExceptionVisitor<E>,MessageOrLinkExceptionVisitor<E>,MAbsOperationExceptionVisitor<E>,MBooleanExceptionVisitor<E>{
     
     public void handleConversionManager(ConversionManagerView conversionManager) throws ModelException, E;
     public void handleQuantityManager(QuantityManagerView quantityManager) throws ModelException, E;
@@ -12,10 +12,9 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleTypeManager(TypeManagerView typeManager) throws ModelException, E;
     public void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException, E;
     public void handleServer(ServerView server) throws ModelException, E;
-    public void handleMAtomicType(MAtomicTypeView mAtomicType) throws ModelException, E;
     public void handleFractionManager(FractionManagerView fractionManager) throws ModelException, E;
-    public void handleConversion(ConversionView conversion) throws ModelException, E;
     public void handleReference(ReferenceView reference) throws ModelException, E;
+    public void handleConversion(ConversionView conversion) throws ModelException, E;
     public void handleMeasurement(MeasurementView measurement) throws ModelException, E;
     public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException, E;
     public void handleAccount(AccountView account) throws ModelException, E;

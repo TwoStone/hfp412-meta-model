@@ -11,11 +11,11 @@ import model.visitor.*;
 public class MAccountType extends model.measurement.MQuantiObjectType implements PersistentMAccountType{
     
     
-    public static PersistentMAccountType createMAccountType(MType type,PersistentAbsUnitType unitType) throws PersistenceException{
+    public static PersistentMAccountType createMAccountType(PersistentMType type,PersistentAbsUnitType unitType) throws PersistenceException{
         return createMAccountType(type,unitType,false);
     }
     
-    public static PersistentMAccountType createMAccountType(MType type,PersistentAbsUnitType unitType,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMAccountType createMAccountType(PersistentMType type,PersistentAbsUnitType unitType,boolean delayed$Persistence) throws PersistenceException {
         PersistentMAccountType result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
@@ -33,7 +33,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
         return result;
     }
     
-    public static PersistentMAccountType createMAccountType(MType type,PersistentAbsUnitType unitType,boolean delayed$Persistence,PersistentMAccountType This) throws PersistenceException {
+    public static PersistentMAccountType createMAccountType(PersistentMType type,PersistentAbsUnitType unitType,boolean delayed$Persistence,PersistentMAccountType This) throws PersistenceException {
         PersistentMAccountType result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
@@ -78,14 +78,14 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     }
     protected MAccountType_SubAccountTypesProxi subAccountTypes;
     
-    public MAccountType(MType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,long id) throws persistence.PersistenceException {
+    public MAccountType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((MType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,id);
+        super((PersistentMType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,id);
         this.subAccountTypes = new MAccountType_SubAccountTypesProxi(this);        
     }
     
     static public long getTypeId() {
-        return 187;
+        return 194;
     }
     
     public long getClassId() {
@@ -94,7 +94,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 187) ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
+        if (this.getClassId() == 194) ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
             .newMAccountType(this.getId());
         super.store();
         this.getSubAccountTypes().store();
@@ -178,7 +178,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 				throws PersistenceException{
         this.setThis((PersistentMAccountType)This);
 		if(this.equals(This)){
-			this.setType((MType)final$$Fields.get("type"));
+			this.setType((PersistentMType)final$$Fields.get("type"));
 			this.setUnitType((PersistentAbsUnitType)final$$Fields.get("unitType"));
 		}
     }

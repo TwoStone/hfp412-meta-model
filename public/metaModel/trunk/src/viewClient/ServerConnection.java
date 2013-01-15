@@ -18,26 +18,7 @@ public class ServerConnection extends ConnectionMaster {
 		return (ServerView)super.getServer();
 	}
 
-    public synchronized void addSubType(MAtomicTypeView superType, MAtomicTypeView subType) throws ModelException{
-        try {
-            Vector<Object> parameters = new Vector<Object>();
-            parameters.add(((view.objects.ViewProxi)superType).createProxiInformation());
-            parameters.add(((view.objects.ViewProxi)subType).createProxiInformation());
-            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "addSubType", parameters);
-            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
-                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
-                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
-            }
-        }catch(IOException ioe){
-            throw new ModelException(ioe.getMessage(),0);
-        }catch(XmlRpcException xre){
-            throw new ModelException(xre.getMessage(),0);
-        }
-        
-    }
-    
-    public synchronized void createAssociationFrom(MType source, String name, MType target) throws ModelException{
+    public synchronized void createAssociationFrom(MTypeView source, String name, MTypeView target) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)source).createProxiInformation());
@@ -57,7 +38,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createAssociationTo(MType target, String name, MType source) throws ModelException{
+    public synchronized void createAssociationTo(MTypeView target, String name, MTypeView source) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)target).createProxiInformation());
@@ -77,17 +58,15 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createAspect(AspectManagerView aspectManager, String aspectName) throws ModelException, DoubleDefinitionException{
+    public synchronized void createAspect(AspectManagerView aspectManager, String name) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)aspectManager).createProxiInformation());
-            parameters.add(aspectName);
+            parameters.add(name);
             Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createAspect", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -124)
-                    throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
             }
         }catch(IOException ioe){
@@ -136,27 +115,6 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createAtomicType(MAspectView parent, String typeName, MBooleanView singletonType, MBooleanView abstractType) throws ModelException{
-        try {
-            Vector<Object> parameters = new Vector<Object>();
-            parameters.add(((view.objects.ViewProxi)parent).createProxiInformation());
-            parameters.add(typeName);
-            parameters.add(((view.objects.ViewProxi)singletonType).createProxiInformation());
-            parameters.add(((view.objects.ViewProxi)abstractType).createProxiInformation());
-            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createAtomicType", parameters);
-            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
-                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
-                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
-            }
-        }catch(IOException ioe){
-            throw new ModelException(ioe.getMessage(),0);
-        }catch(XmlRpcException xre){
-            throw new ModelException(xre.getMessage(),0);
-        }
-        
-    }
-    
     public synchronized void createUnitType(UnitTypeManagerView unitTypeManager, String name) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
@@ -176,14 +134,14 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createAssociation(AssociationManagerView manager, String name, MType source, MType target) throws ModelException{
+    public synchronized void createAtomicRootType(MAspectView aspect, String typeName, MBooleanView singletonType, MBooleanView abstractType) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            parameters.add(((view.objects.ViewProxi)manager).createProxiInformation());
-            parameters.add(name);
-            parameters.add(((view.objects.ViewProxi)source).createProxiInformation());
-            parameters.add(((view.objects.ViewProxi)target).createProxiInformation());
-            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createAssociation", parameters);
+            parameters.add(((view.objects.ViewProxi)aspect).createProxiInformation());
+            parameters.add(typeName);
+            parameters.add(((view.objects.ViewProxi)singletonType).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)abstractType).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createAtomicRootType", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -197,14 +155,14 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createSubType(MAtomicTypeView superType, String typeName, MBooleanView singletonType, MBooleanView abstractType) throws ModelException{
+    public synchronized void createAssociation(AssociationManagerView manager, String name, MTypeView source, MTypeView target) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            parameters.add(((view.objects.ViewProxi)superType).createProxiInformation());
-            parameters.add(typeName);
-            parameters.add(((view.objects.ViewProxi)singletonType).createProxiInformation());
-            parameters.add(((view.objects.ViewProxi)abstractType).createProxiInformation());
-            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createSubType", parameters);
+            parameters.add(((view.objects.ViewProxi)manager).createProxiInformation());
+            parameters.add(name);
+            parameters.add(((view.objects.ViewProxi)source).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)target).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createAssociation", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -318,6 +276,27 @@ public class ServerConnection extends ConnectionMaster {
             parameters.add(((view.objects.ViewProxi)type).createProxiInformation());
             parameters.add(name);
             Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createUnit", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized void createAtomicSubType(MAtomicTypeView superType, String typeName, MBooleanView singletonType, MBooleanView abstractType) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)superType).createProxiInformation());
+            parameters.add(typeName);
+            parameters.add(((view.objects.ViewProxi)singletonType).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)abstractType).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createAtomicSubType", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());

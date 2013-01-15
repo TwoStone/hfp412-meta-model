@@ -1,5 +1,5 @@
 package persistence;
 
-public interface PersistentMAtomicTypeListEntryProxi extends PersistentListEntryProxi {
+public interface PersistentMAtomicTypeListEntryProxi extends PersistentMTypeListEntryProxi {
 
 }

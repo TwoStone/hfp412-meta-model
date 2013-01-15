@@ -5,15 +5,21 @@ import persistence.*;
 
 public abstract class MComplexTypeDirectVisitor implements MComplexTypeVisitor {
     
-    public abstract void handleMProductType(PersistentMProductType mProductType) throws PersistenceException;
+    public abstract void handleMAbstractSumType(PersistentMAbstractSumType mAbstractSumType) throws PersistenceException;
     
-    public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
-        this.handleMProductType(mEmptyProduct);
+    public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException{
+        this.handleMAbstractSumType(mEmptySumType);
     }
-    public abstract void handleMSumType(PersistentMSumType mSumType) throws PersistenceException;
+    public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
+        this.handleMAbstractSumType(mSumType);
+    }
+    public abstract void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException;
     
-    public void handleMEmptySum(PersistentMEmptySum mEmptySum) throws PersistenceException{
-        this.handleMSumType(mEmptySum);
+    public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException{
+        this.handleMAbstractProductType(mProductType);
+    }
+    public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
+        this.handleMAbstractProductType(mEmptyProduct);
     }
     
 }

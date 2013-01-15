@@ -3,9 +3,8 @@ package model.visitor;
 
 import persistence.*;
 
-public interface MComplexTypeReturnVisitor<R> extends MProductTypeReturnVisitor<R> ,MSumTypeReturnVisitor<R> {
+public interface MComplexTypeReturnVisitor<R> extends MAbstractSumTypeReturnVisitor<R> ,MAbstractProductTypeReturnVisitor<R> {
     
-    public R handleMProductType(PersistentMProductType mProductType) throws PersistenceException;
-    public R handleMSumType(PersistentMSumType mSumType) throws PersistenceException;
+    public R handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException;
     
 }

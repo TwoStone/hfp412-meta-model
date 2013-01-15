@@ -2,8 +2,6 @@
 package model.quantity;
 
 import model.AlreadyFinalizedException;
-import model.MFalse;
-import model.MTrue;
 import model.UserException;
 import model.visitor.AbsUnitExceptionVisitor;
 import model.visitor.AbsUnitReturnExceptionVisitor;
@@ -28,7 +26,7 @@ import persistence.PersistentMFalse;
 import persistence.PersistentMTrue;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
-
+import model.basic.*;
 
 /* Additional import section end */
 

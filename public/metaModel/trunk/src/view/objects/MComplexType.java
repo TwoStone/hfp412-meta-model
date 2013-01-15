@@ -6,26 +6,21 @@ import view.*;
 
 /* Additional import section end */
 
-public abstract class MComplexType extends ViewObject implements MComplexTypeView{
+public abstract class MComplexType extends view.objects.MType implements MComplexTypeView{
     
-    protected java.util.Vector<MType> containedTypes;
-    protected String TypeLinkOperator;
+    protected java.util.Vector<MTypeView> containedTypes;
     
-    public MComplexType(java.util.Vector<MType> containedTypes,String TypeLinkOperator,long id, long classId) {
+    public MComplexType(java.util.Vector<MTypeView> containedTypes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.containedTypes = containedTypes;
-        this.TypeLinkOperator = TypeLinkOperator;        
+        this.containedTypes = containedTypes;        
     }
     
-    public java.util.Vector<MType> getContainedTypes() throws ModelException {
+    public java.util.Vector<MTypeView> getContainedTypes() throws ModelException {
         return this.containedTypes;
     }
-    public void setContainedTypes(java.util.Vector<MType> newValue) throws ModelException {
+    public void setContainedTypes(java.util.Vector<MTypeView> newValue) throws ModelException {
         this.containedTypes = newValue;
-    }
-    public String getTypeLinkOperator() throws ModelException {
-        return this.TypeLinkOperator;
     }
     
     
@@ -62,21 +57,13 @@ public abstract class MComplexType extends ViewObject implements MComplexTypeVie
         }
         return -1;
     }
-    public int getTypeLinkOperatorIndex() throws ModelException {
-        return 0 + this.getContainedTypes().size();
-    }
     public int getRowCount(){
-        return 0 
-            + 1;
+        return 0 ;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "TypeLinkOperator";
-                rowIndex = rowIndex - 1;
             } else {
-                if(rowIndex == 0) return this.getTypeLinkOperator();
-                rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
         } catch (ModelException e){
@@ -88,7 +75,7 @@ public abstract class MComplexType extends ViewObject implements MComplexTypeVie
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        rowIndex = rowIndex - 1;
+        
     }
     /* Start of protected part that is not overridden by persistence generator */
     

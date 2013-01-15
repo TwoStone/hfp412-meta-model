@@ -8,10 +8,10 @@ public interface PersistentMAbsOperation extends Anything, AbstractPersistentPro
     
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
-    public MType getSource() throws PersistenceException ;
-    public void setSource(MType newValue) throws PersistenceException ;
-    public MType getTarget() throws PersistenceException ;
-    public void setTarget(MType newValue) throws PersistenceException ;
+    public PersistentMType getSource() throws PersistenceException ;
+    public void setSource(PersistentMType newValue) throws PersistenceException ;
+    public PersistentMType getTarget() throws PersistenceException ;
+    public void setTarget(PersistentMType newValue) throws PersistenceException ;
     public MAbsOperation_ParametersProxi getParameters() throws PersistenceException ;
     public abstract PersistentMAbsOperation getThis() throws PersistenceException ;
     

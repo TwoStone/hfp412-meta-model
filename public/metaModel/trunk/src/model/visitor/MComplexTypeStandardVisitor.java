@@ -8,8 +8,11 @@ public abstract class MComplexTypeStandardVisitor implements MComplexTypeVisitor
     public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException{
         this.standardHandling(mProductType);
     }
-    public void handleMEmptySum(PersistentMEmptySum mEmptySum) throws PersistenceException{
-        this.standardHandling(mEmptySum);
+    public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException{
+        this.standardHandling(mEmptySumType);
+    }
+    public void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException{
+        this.standardHandling(mAbstractProductType);
     }
     public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
         this.standardHandling(mEmptyProduct);

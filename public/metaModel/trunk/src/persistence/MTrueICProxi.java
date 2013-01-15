@@ -68,10 +68,6 @@ public class MTrueICProxi extends MBooleanICProxi implements PersistentMTrue{
 				throws PersistenceException{
         ((PersistentMTrue)this.getTheObject()).initializeOnCreation();
     }
-    public PersistentMBoolean createFromBoolean(final boolean bool) 
-				throws PersistenceException{
-        return ((PersistentMTrue)this.getTheObject()).createFromBoolean(bool);
-    }
     public boolean toBoolean() 
 				throws PersistenceException{
         return ((PersistentMTrue)this.getTheObject()).toBoolean();

@@ -8,20 +8,20 @@ import view.*;
 
 public abstract class MQuantiObjectType extends ViewObject implements MQuantiObjectTypeView{
     
-    protected MType type;
+    protected MTypeView type;
     protected AbsUnitTypeView unitType;
     
-    public MQuantiObjectType(MType type,AbsUnitTypeView unitType,long id, long classId) {
+    public MQuantiObjectType(MTypeView type,AbsUnitTypeView unitType,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.type = type;
         this.unitType = unitType;        
     }
     
-    public MType getType() throws ModelException {
+    public MTypeView getType() throws ModelException {
         return this.type;
     }
-    public void setType(MType newValue) throws ModelException {
+    public void setType(MTypeView newValue) throws ModelException {
         this.type = newValue;
     }
     public AbsUnitTypeView getUnitType() throws ModelException {
@@ -33,7 +33,7 @@ public abstract class MQuantiObjectType extends ViewObject implements MQuantiObj
     
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        MType type = this.getType();
+        MTypeView type = this.getType();
         if (type != null) {
             ((ViewProxi)type).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(type.getClassId(), type.getId())));
         }

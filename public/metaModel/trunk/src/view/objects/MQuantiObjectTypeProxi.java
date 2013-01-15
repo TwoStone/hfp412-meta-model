@@ -10,10 +10,10 @@ public abstract class MQuantiObjectTypeProxi extends ViewProxi implements MQuant
     }
     
     
-    public MType getType() throws ModelException {
+    public MTypeView getType() throws ModelException {
         return ((MQuantiObjectType)this.getTheObject()).getType();
     }
-    public void setType(MType newValue) throws ModelException {
+    public void setType(MTypeView newValue) throws ModelException {
         ((MQuantiObjectType)this.getTheObject()).setType(newValue);
     }
     public AbsUnitTypeView getUnitType() throws ModelException {

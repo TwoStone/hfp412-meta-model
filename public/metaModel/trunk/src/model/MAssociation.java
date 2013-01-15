@@ -15,11 +15,11 @@ public class MAssociation extends PersistentObject implements PersistentMAssocia
         return (PersistentMAssociation)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentMAssociation createMAssociation(String name,MType source,MType target) throws PersistenceException{
+    public static PersistentMAssociation createMAssociation(String name,PersistentMType source,PersistentMType target) throws PersistenceException{
         return createMAssociation(name,source,target,false);
     }
     
-    public static PersistentMAssociation createMAssociation(String name,MType source,MType target,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMAssociation createMAssociation(String name,PersistentMType source,PersistentMType target,boolean delayed$Persistence) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMAssociation result = null;
         if(delayed$Persistence){
@@ -39,7 +39,7 @@ public class MAssociation extends PersistentObject implements PersistentMAssocia
         return result;
     }
     
-    public static PersistentMAssociation createMAssociation(String name,MType source,MType target,boolean delayed$Persistence,PersistentMAssociation This) throws PersistenceException {
+    public static PersistentMAssociation createMAssociation(String name,PersistentMType source,PersistentMType target,boolean delayed$Persistence,PersistentMAssociation This) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMAssociation result = null;
         if(delayed$Persistence){
@@ -105,12 +105,12 @@ public class MAssociation extends PersistentObject implements PersistentMAssocia
         return false;
     }
     protected String name;
-    protected MType source;
-    protected MType target;
+    protected PersistentMType source;
+    protected PersistentMType target;
     protected MAssociation_HierarchiesProxi hierarchies;
     protected PersistentMAssociation This;
     
-    public MAssociation(String name,MType source,MType target,PersistentMAssociation This,long id) throws persistence.PersistenceException {
+    public MAssociation(String name,PersistentMType source,PersistentMType target,PersistentMAssociation This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
@@ -157,29 +157,29 @@ public class MAssociation extends PersistentObject implements PersistentMAssocia
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theMAssociationFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
     }
-    public MType getSource() throws PersistenceException {
+    public PersistentMType getSource() throws PersistenceException {
         return this.source;
     }
-    public void setSource(MType newValue) throws PersistenceException {
+    public void setSource(PersistentMType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.source)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.source = (MType)PersistentProxi.createProxi(objectId, classId);
+        this.source = (PersistentMType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMAssociationFacade.sourceSet(this.getId(), newValue);
         }
     }
-    public MType getTarget() throws PersistenceException {
+    public PersistentMType getTarget() throws PersistenceException {
         return this.target;
     }
-    public void setTarget(MType newValue) throws PersistenceException {
+    public void setTarget(PersistentMType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.target)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.target = (MType)PersistentProxi.createProxi(objectId, classId);
+        this.target = (PersistentMType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMAssociationFacade.targetSet(this.getId(), newValue);
@@ -246,8 +246,8 @@ public class MAssociation extends PersistentObject implements PersistentMAssocia
         this.setThis((PersistentMAssociation)This);
 		if(this.equals(This)){
 			this.setName((String)final$$Fields.get("name"));
-			this.setSource((MType)final$$Fields.get("source"));
-			this.setTarget((MType)final$$Fields.get("target"));
+			this.setSource((PersistentMType)final$$Fields.get("source"));
+			this.setTarget((PersistentMType)final$$Fields.get("target"));
 		}
     }
     public PersistentMBoolean isObservation() 

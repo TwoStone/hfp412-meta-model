@@ -2,13 +2,13 @@ package view;
 
 import view.visitor.*;
 
-public interface MSumTypeView extends MComplexTypeView {
+public interface MSumTypeView extends MAbstractSumTypeView {
     
     
-    public void accept(MSumTypeVisitor visitor) throws ModelException;
-    public <R> R accept(MSumTypeReturnVisitor<R>  visitor) throws ModelException;
-    public <E extends UserException>  void accept(MSumTypeExceptionVisitor<E> visitor) throws ModelException, E;
-    public <R, E extends UserException> R accept(MSumTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
+    public void accept(MAbstractSumTypeVisitor visitor) throws ModelException;
+    public <R> R accept(MAbstractSumTypeReturnVisitor<R>  visitor) throws ModelException;
+    public <E extends UserException>  void accept(MAbstractSumTypeExceptionVisitor<E> visitor) throws ModelException, E;
+    public <R, E extends UserException> R accept(MAbstractSumTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
     public void accept(MComplexTypeVisitor visitor) throws ModelException;
     public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws ModelException;
     public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws ModelException, E;

@@ -32,10 +32,6 @@ public abstract class MBooleanICProxi extends PersistentInCacheProxiOptimistic i
 				throws PersistenceException{
         return ((PersistentMBoolean)this.getTheObject()).toBoolean();
     }
-    public PersistentMBoolean createFromBoolean(final boolean bool) 
-				throws PersistenceException{
-        return ((PersistentMBoolean)this.getTheObject()).createFromBoolean(bool);
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMBoolean)this.getTheObject()).initializeOnCreation();

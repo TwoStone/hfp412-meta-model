@@ -1,10 +1,10 @@
 package persistence;
 
-import model.*;
+import model.typeSystem.*;
 
 import java.util.Iterator;
 
-public class MComplexType_ContainedTypesProxi extends PersistentListProxi<MType> {
+public class MComplexType_ContainedTypesProxi extends PersistentListProxi<PersistentMType> {
 
   private MTypeList list;
   private MComplexType owner;
@@ -24,13 +24,13 @@ public class MComplexType_ContainedTypesProxi extends PersistentListProxi<MType>
     }
     return this.list;
   }
-  public Iterator<MType> iterator() throws PersistenceException{
+  public Iterator<PersistentMType> iterator() throws PersistenceException{
     return this.getList().iterator(this);
   }
   public long getLength() throws PersistenceException{
 	  return this.getList().getLength();
   }
-  public void add(MType entry) throws PersistenceException , model.CycleException{
+  public void add(PersistentMType entry) throws PersistenceException , model.CycleException{
     if (entry != null) {
       if (entry.containsMComplexTypeHierarchy(this.owner)) throw new model.CycleException("Cycle in MComplexTypeHierarchy detected!");
       MTypeList list = this.getList();
@@ -40,7 +40,7 @@ public class MComplexType_ContainedTypesProxi extends PersistentListProxi<MType>
         entryId = ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade
                        .containedTypesAdd(owner.getId(), entry);
       }
-      list.add((MType)PersistentProxi.createListEntryProxi(entry.getId(),
+      list.add((PersistentMType)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
       
@@ -58,9 +58,9 @@ public class MComplexType_ContainedTypesProxi extends PersistentListProxi<MType>
   	return result;
   } 
   public void store() throws PersistenceException {
-  	java.util.Iterator<MType> entries = (this.list == null ? new java.util.Vector<MType>().iterator() : this.list.iterator(this));
+  	java.util.Iterator<PersistentMType> entries = (this.list == null ? new java.util.Vector<PersistentMType>().iterator() : this.list.iterator(this));
   	while (entries.hasNext()){
-  		MType current = entries.next();
+  		PersistentMType current = entries.next();
   		current.store();
       	long entryId = ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade
                        .containedTypesAdd(owner.getId(), current);

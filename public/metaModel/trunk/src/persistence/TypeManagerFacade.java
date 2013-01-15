@@ -1,6 +1,6 @@
 package persistence;
 
-import model.*;
+import model.typeSystem.*;
 
 public class TypeManagerFacade{
 
@@ -40,44 +40,14 @@ public class TypeManagerFacade{
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
-    public long atomicTypesAdd(long TypeManagerId, PersistentMAtomicType atomicTypesVal) throws PersistenceException {
+    public long typesAdd(long TypeManagerId, PersistentMType typesVal) throws PersistenceException {
         return 0;
     }
-    public void atomicTypesRem(long atomicTypesId) throws PersistenceException {
+    public void typesRem(long typesId) throws PersistenceException {
         
     }
-    public MAtomicTypeList atomicTypesGet(long TypeManagerId) throws PersistenceException {
-        return new MAtomicTypeList(); // remote access for initialization only!
-    }
-    public long productTypesAdd(long TypeManagerId, PersistentMProductType productTypesVal) throws PersistenceException {
-        return 0;
-    }
-    public void productTypesRem(long productTypesId) throws PersistenceException {
-        
-    }
-    public MProductTypeList productTypesGet(long TypeManagerId) throws PersistenceException {
-        return new MProductTypeList(); // remote access for initialization only!
-    }
-    public long sumTypesAdd(long TypeManagerId, PersistentMSumType sumTypesVal) throws PersistenceException {
-        return 0;
-    }
-    public void sumTypesRem(long sumTypesId) throws PersistenceException {
-        
-    }
-    public MSumTypeList sumTypesGet(long TypeManagerId) throws PersistenceException {
-        return new MSumTypeList(); // remote access for initialization only!
-    }
-    public long allTypesAdd(long TypeManagerId, PersistentMSumType indxxVal, MType allTypesVal) throws PersistenceException {
-        return 0;
-    }
-    public void allTypesRem(long TypeManagerId, PersistentMSumType indxxVal) throws PersistenceException {
-        
-    }
-    public MType allTypesGet(long TypeManagerId, PersistentMSumType indxxVal) throws PersistenceException {
-        throw new Error("Map proxy shall not call map getter in fake facade!");
-    }
-    public MTypeSearchList allTypesGetValues(long TypeManagerId) throws PersistenceException {
-        return new MTypeSearchList(); // remote access for initialization only!
+    public MTypeList typesGet(long TypeManagerId) throws PersistenceException {
+        return new MTypeList(); // remote access for initialization only!
     }
     public void ThisSet(long TypeManagerId, PersistentTypeManager ThisVal) throws PersistenceException {
         

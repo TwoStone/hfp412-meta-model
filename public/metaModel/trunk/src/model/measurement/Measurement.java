@@ -110,7 +110,7 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
     }
     
     static public long getTypeId() {
-        return 189;
+        return 195;
     }
     
     public long getClassId() {
@@ -119,7 +119,7 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 189) ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
+        if (this.getClassId() == 195) ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
             .newMeasurement(this.getId());
         super.store();
         if(this.getType() != null){

@@ -39,15 +39,15 @@ public class CreateAssociationCommand extends PersistentObject implements Persis
         return true;
     }
     protected String name;
-    protected MType source;
-    protected MType target;
+    protected PersistentMType source;
+    protected PersistentMType target;
     protected Invoker invoker;
     protected PersistentAssociationManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateAssociationCommand(String name,MType source,MType target,Invoker invoker,PersistentAssociationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateAssociationCommand(String name,PersistentMType source,PersistentMType target,Invoker invoker,PersistentAssociationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
@@ -102,29 +102,29 @@ public class CreateAssociationCommand extends PersistentObject implements Persis
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
     }
-    public MType getSource() throws PersistenceException {
+    public PersistentMType getSource() throws PersistenceException {
         return this.source;
     }
-    public void setSource(MType newValue) throws PersistenceException {
+    public void setSource(PersistentMType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.source)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.source = (MType)PersistentProxi.createProxi(objectId, classId);
+        this.source = (PersistentMType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade.sourceSet(this.getId(), newValue);
         }
     }
-    public MType getTarget() throws PersistenceException {
+    public PersistentMType getTarget() throws PersistenceException {
         return this.target;
     }
-    public void setTarget(MType newValue) throws PersistenceException {
+    public void setTarget(PersistentMType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.target)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.target = (MType)PersistentProxi.createProxi(objectId, classId);
+        this.target = (PersistentMType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade.targetSet(this.getId(), newValue);

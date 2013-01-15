@@ -5,4 +5,4 @@ public interface AbsQuantityMssgs {
 }
 
 interface AbsQuantityDOWNMssgs extends Mssgs, AbsQuantityMssgs{}
-interface AbsQuantityUPMssgs extends QuantityUPMssgs, CompoundQuantityUPMssgs, AbsQuantityMssgs{}
+interface AbsQuantityUPMssgs extends CompoundQuantityUPMssgs, QuantityUPMssgs, AbsQuantityMssgs{}

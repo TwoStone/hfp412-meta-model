@@ -28,16 +28,16 @@ public class CreateAssociationCommandICProxi extends PersistentInCacheProxi impl
     public void setName(String newValue) throws PersistenceException {
         ((PersistentCreateAssociationCommand)this.getTheObject()).setName(newValue);
     }
-    public MType getSource() throws PersistenceException {
+    public PersistentMType getSource() throws PersistenceException {
         return ((PersistentCreateAssociationCommand)this.getTheObject()).getSource();
     }
-    public void setSource(MType newValue) throws PersistenceException {
+    public void setSource(PersistentMType newValue) throws PersistenceException {
         ((PersistentCreateAssociationCommand)this.getTheObject()).setSource(newValue);
     }
-    public MType getTarget() throws PersistenceException {
+    public PersistentMType getTarget() throws PersistenceException {
         return ((PersistentCreateAssociationCommand)this.getTheObject()).getTarget();
     }
-    public void setTarget(MType newValue) throws PersistenceException {
+    public void setTarget(PersistentMType newValue) throws PersistenceException {
         ((PersistentCreateAssociationCommand)this.getTheObject()).setTarget(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {

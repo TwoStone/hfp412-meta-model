@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class MSumTypeProxi extends MComplexTypeProxi implements MSumTypeView{
+public class MSumTypeProxi extends MAbstractSumTypeProxi implements MSumTypeView{
     
     public MSumTypeProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
@@ -14,9 +14,8 @@ public class MSumTypeProxi extends MComplexTypeProxi implements MSumTypeView{
     @SuppressWarnings("unchecked")
     public MSumTypeView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> containedTypes_string = (java.util.Vector<String>)resultTable.get("containedTypes");
-        java.util.Vector<MType> containedTypes = ViewProxi.getProxiVector(containedTypes_string, connectionKey);
-        String TypeLinkOperator = (String)resultTable.get("TypeLinkOperator");
-        MSumTypeView result$$ = new MSumType(containedTypes,(String)TypeLinkOperator, this.getId(), this.getClassId());
+        java.util.Vector<MTypeView> containedTypes = ViewProxi.getProxiVector(containedTypes_string, connectionKey);
+        MSumTypeView result$$ = new MSumType(containedTypes, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -50,16 +49,16 @@ public class MSumTypeProxi extends MComplexTypeProxi implements MSumTypeView{
     }
     
     
-    public void accept(MSumTypeVisitor visitor) throws ModelException {
+    public void accept(MAbstractSumTypeVisitor visitor) throws ModelException {
         visitor.handleMSumType(this);
     }
-    public <R> R accept(MSumTypeReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(MAbstractSumTypeReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMSumType(this);
     }
-    public <E extends UserException>  void accept(MSumTypeExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(MAbstractSumTypeExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMSumType(this);
     }
-    public <R, E extends UserException> R accept(MSumTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(MAbstractSumTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMSumType(this);
     }
     public void accept(MComplexTypeVisitor visitor) throws ModelException {
@@ -100,7 +99,7 @@ public class MSumTypeProxi extends MComplexTypeProxi implements MSumTypeView{
     }
     
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     
     public void setIcon(IconRenderer renderer){

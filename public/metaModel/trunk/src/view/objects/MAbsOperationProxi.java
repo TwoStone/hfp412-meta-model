@@ -16,16 +16,16 @@ public abstract class MAbsOperationProxi extends ViewProxi implements MAbsOperat
     public void setName(String newValue) throws ModelException {
         ((MAbsOperation)this.getTheObject()).setName(newValue);
     }
-    public MType getSource() throws ModelException {
+    public MTypeView getSource() throws ModelException {
         return ((MAbsOperation)this.getTheObject()).getSource();
     }
-    public void setSource(MType newValue) throws ModelException {
+    public void setSource(MTypeView newValue) throws ModelException {
         ((MAbsOperation)this.getTheObject()).setSource(newValue);
     }
-    public MType getTarget() throws ModelException {
+    public MTypeView getTarget() throws ModelException {
         return ((MAbsOperation)this.getTheObject()).getTarget();
     }
-    public void setTarget(MType newValue) throws ModelException {
+    public void setTarget(MTypeView newValue) throws ModelException {
         ((MAbsOperation)this.getTheObject()).setTarget(newValue);
     }
     public java.util.Vector<MFormalParameterView> getParameters() throws ModelException {

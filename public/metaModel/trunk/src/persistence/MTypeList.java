@@ -7,19 +7,19 @@ public class MTypeList  extends MTypeSearchList{
 	protected MTypeList() {
 		super();
 	}
-	public Iterator<MType> iterator(PersistentListProxi<MType> listProxi) {
-		return new PersistentListIterator<MType>(listProxi, this.data);
+	public Iterator<PersistentMType> iterator(PersistentListProxi<PersistentMType> listProxi) {
+		return new PersistentListIterator<PersistentMType>(listProxi, this.data);
 	}
 	public long getLength(){
 		return this.data.size();
 	}
-	public void add (MType entry) {
+	public void add (PersistentMType entry) {
 		this.data.add(entry);
 	}
 	@SuppressWarnings("unchecked")
 	protected MTypeList copy() {
 		MTypeList result = new MTypeList();
-		result.data = (Vector<MType>)this.data.clone();
+		result.data = (Vector<PersistentMType>)this.data.clone();
 		return result;
 	}
 

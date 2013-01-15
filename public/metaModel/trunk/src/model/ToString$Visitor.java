@@ -13,10 +13,13 @@ import persistence.PersistentConversionManager;
 import persistence.PersistentFractionManager;
 import persistence.PersistentFunction;
 import persistence.PersistentMAHierarchy;
+import persistence.PersistentMAbstractProductType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAssociation;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
+import persistence.PersistentMEmptyProduct;
+import persistence.PersistentMEmptySumType;
 import persistence.PersistentMFalse;
 import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
@@ -241,5 +244,21 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			throws PersistenceException {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct)
+			throws PersistenceException {
+		result = "[Empty Product]";
+	}
+	@Override
+	public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType)
+			throws PersistenceException {
+		result = "[Empty Sum]";
+	}
+	@Override
+	public void handleMAbstractProductType(
+			PersistentMAbstractProductType mAbstractProductType)
+			throws PersistenceException {
+		result = "[AbstractProductType]";		
 	}
 }

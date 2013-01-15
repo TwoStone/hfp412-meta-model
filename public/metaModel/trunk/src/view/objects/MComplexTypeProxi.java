@@ -3,21 +3,18 @@ package view.objects;
 import view.*;
 import viewClient.*;
 
-public abstract class MComplexTypeProxi extends ViewProxi implements MComplexTypeView{
+public abstract class MComplexTypeProxi extends MTypeProxi implements MComplexTypeView{
     
     public MComplexTypeProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
     }
     
     
-    public java.util.Vector<MType> getContainedTypes() throws ModelException {
+    public java.util.Vector<MTypeView> getContainedTypes() throws ModelException {
         return ((MComplexType)this.getTheObject()).getContainedTypes();
     }
-    public void setContainedTypes(java.util.Vector<MType> newValue) throws ModelException {
+    public void setContainedTypes(java.util.Vector<MTypeView> newValue) throws ModelException {
         ((MComplexType)this.getTheObject()).setContainedTypes(newValue);
-    }
-    public String getTypeLinkOperator() throws ModelException {
-        return ((MComplexType)this.getTheObject()).getTypeLinkOperator();
     }
     
     

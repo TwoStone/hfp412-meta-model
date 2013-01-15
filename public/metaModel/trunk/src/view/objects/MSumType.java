@@ -7,12 +7,12 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class MSumType extends view.objects.MComplexType implements MSumTypeView{
+public class MSumType extends view.objects.MAbstractSumType implements MSumTypeView{
     
     
-    public MSumType(java.util.Vector<MType> containedTypes,String TypeLinkOperator,long id, long classId) {
+    public MSumType(java.util.Vector<MTypeView> containedTypes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(containedTypes,(String)TypeLinkOperator,id, classId);        
+        super(containedTypes,id, classId);        
     }
     
     static public long getTypeId() {
@@ -24,16 +24,16 @@ public class MSumType extends view.objects.MComplexType implements MSumTypeView{
     }
     
     
-    public void accept(MSumTypeVisitor visitor) throws ModelException {
+    public void accept(MAbstractSumTypeVisitor visitor) throws ModelException {
         visitor.handleMSumType(this);
     }
-    public <R> R accept(MSumTypeReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(MAbstractSumTypeReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMSumType(this);
     }
-    public <E extends UserException>  void accept(MSumTypeExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(MAbstractSumTypeExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMSumType(this);
     }
-    public <R, E extends UserException> R accept(MSumTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(MAbstractSumTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMSumType(this);
     }
     public void accept(MComplexTypeVisitor visitor) throws ModelException {
@@ -106,21 +106,13 @@ public class MSumType extends view.objects.MComplexType implements MSumTypeView{
         }
         return -1;
     }
-    public int getTypeLinkOperatorIndex() throws ModelException {
-        return 0 + this.getContainedTypes().size();
-    }
     public int getRowCount(){
-        return 0 
-            + 1;
+        return 0 ;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "TypeLinkOperator";
-                rowIndex = rowIndex - 1;
             } else {
-                if(rowIndex == 0) return this.getTypeLinkOperator();
-                rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
         } catch (ModelException e){
@@ -132,10 +124,10 @@ public class MSumType extends view.objects.MComplexType implements MSumTypeView{
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        rowIndex = rowIndex - 1;
+        
     }
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

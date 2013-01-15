@@ -8,8 +8,8 @@ public interface PersistentAddSubTypeCommand extends TypeManagerCommand, Anythin
     
     public PersistentMAtomicType getSuperType() throws PersistenceException ;
     public void setSuperType(PersistentMAtomicType newValue) throws PersistenceException ;
-    public PersistentMAtomicType getTypeunder() throws PersistenceException ;
-    public void setTypeunder(PersistentMAtomicType newValue) throws PersistenceException ;
+    public PersistentMAtomicType getSubType() throws PersistenceException ;
+    public void setSubType(PersistentMAtomicType newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
     public PersistentTypeManager getCommandReceiver() throws PersistenceException ;

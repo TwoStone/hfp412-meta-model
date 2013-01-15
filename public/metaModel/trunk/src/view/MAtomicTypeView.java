@@ -1,10 +1,8 @@
 package view;
 
-import view.objects.*;
-
 import view.visitor.*;
 
-public interface MAtomicTypeView extends MType, Anything, AbstractViewProxi {
+public interface MAtomicTypeView extends MTypeView {
     
     public String getName() throws ModelException ;
     public void setName(String newValue) throws ModelException ;

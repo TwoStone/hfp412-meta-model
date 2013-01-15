@@ -19,7 +19,7 @@ public class MMeasurementTypeProxi extends MQuantiObjectTypeProxi implements Per
     }
     
     public long getClassId() {
-        return 193;
+        return 199;
     }
     
     public PersistentMMeasurementType getThis() throws PersistenceException {

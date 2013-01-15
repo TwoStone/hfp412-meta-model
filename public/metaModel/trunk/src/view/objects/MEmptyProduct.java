@@ -7,12 +7,12 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class MEmptyProduct extends view.objects.MProductType implements MEmptyProductView{
+public class MEmptyProduct extends view.objects.MAbstractProductType implements MEmptyProductView{
     
     
-    public MEmptyProduct(java.util.Vector<MType> containedTypes,String TypeLinkOperator,long id, long classId) {
+    public MEmptyProduct(java.util.Vector<MTypeView> containedTypes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(containedTypes,(String)TypeLinkOperator,id, classId);        
+        super(containedTypes,id, classId);        
     }
     
     static public long getTypeId() {
@@ -24,16 +24,16 @@ public class MEmptyProduct extends view.objects.MProductType implements MEmptyPr
     }
     
     
-    public void accept(MProductTypeVisitor visitor) throws ModelException {
+    public void accept(MAbstractProductTypeVisitor visitor) throws ModelException {
         visitor.handleMEmptyProduct(this);
     }
-    public <R> R accept(MProductTypeReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(MAbstractProductTypeReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleMEmptyProduct(this);
     }
-    public <E extends UserException>  void accept(MProductTypeExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends UserException>  void accept(MAbstractProductTypeExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleMEmptyProduct(this);
     }
-    public <R, E extends UserException> R accept(MProductTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends UserException> R accept(MAbstractProductTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleMEmptyProduct(this);
     }
     public void accept(MComplexTypeVisitor visitor) throws ModelException {
@@ -106,21 +106,13 @@ public class MEmptyProduct extends view.objects.MProductType implements MEmptyPr
         }
         return -1;
     }
-    public int getTypeLinkOperatorIndex() throws ModelException {
-        return 0 + this.getContainedTypes().size();
-    }
     public int getRowCount(){
-        return 0 
-            + 1;
+        return 0 ;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "TypeLinkOperator";
-                rowIndex = rowIndex - 1;
             } else {
-                if(rowIndex == 0) return this.getTypeLinkOperator();
-                rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
         } catch (ModelException e){
@@ -132,10 +124,10 @@ public class MEmptyProduct extends view.objects.MProductType implements MEmptyPr
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        rowIndex = rowIndex - 1;
+        
     }
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

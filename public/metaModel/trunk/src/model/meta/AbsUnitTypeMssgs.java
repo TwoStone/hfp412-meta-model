@@ -5,4 +5,4 @@ public interface AbsUnitTypeMssgs {
 }
 
 interface AbsUnitTypeDOWNMssgs extends Mssgs, AbsUnitTypeMssgs{}
-interface AbsUnitTypeUPMssgs extends UnitTypeUPMssgs, CompUnitTypeUPMssgs, AbsUnitTypeMssgs{}
+interface AbsUnitTypeUPMssgs extends CompUnitTypeUPMssgs, UnitTypeUPMssgs, AbsUnitTypeMssgs{}

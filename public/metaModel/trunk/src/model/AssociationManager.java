@@ -201,7 +201,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
         //TODO: implement method: initializeOnCreation
         
     }
-    public void createAssociation(final String name, final MType source, final MType target, final Invoker invoker) 
+    public void createAssociation(final String name, final PersistentMType source, final PersistentMType target, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentCreateAssociationCommand command = model.meta.CreateAssociationCommand.createCreateAssociationCommand(name, now, now);
@@ -211,23 +211,10 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void createAssociation(final String name, final MType source, final MType target) 
+    public void createAssociation(final String name, final PersistentMType source, final PersistentMType target) 
 				throws model.DoubleDefinitionException, PersistenceException{
-    	PersistentMAssociation sameNamedInSource = source.fetchAssociations().findFirst(new Predcate<PersistentMAssociation>() {
-		
-		@Override
-		public boolean test(PersistentMAssociation argument)
-				throws PersistenceException {
-			return name.equals(argument.getName());
-		}
-	});
-       if(sameNamedInSource != null) {
-    	   throw new DoubleDefinitionException("There already existsts an Association with name " + name + " in SourceType " + source.fetchName());
-       }
-       
-       //TODO obriges ist Quatsch: Nameclashes kl?ren und produkttypen analysieren als quelle von assocs
-       PersistentMAssociation newAssoc = MAssociation.createMAssociation(name, source, target);
-       getThis().getAssociations().add(newAssoc);
+        //TODO: implement method: createAssociation
+        
     }
     public void createHierarchy(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{

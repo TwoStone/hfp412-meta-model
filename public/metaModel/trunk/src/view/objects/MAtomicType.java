@@ -7,7 +7,7 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class MAtomicType extends ViewObject implements MAtomicTypeView{
+public class MAtomicType extends view.objects.MType implements MAtomicTypeView{
     
     protected String name;
     protected MBooleanView singletonType;

@@ -18,7 +18,7 @@ public class Message extends view.objects.MessageOrLink implements MessageView{
     }
     
     static public long getTypeId() {
-        return 198;
+        return 205;
     }
     
     public long getClassId() {

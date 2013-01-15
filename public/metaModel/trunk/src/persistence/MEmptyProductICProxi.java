@@ -4,7 +4,7 @@ import model.UserException;
 
 import model.visitor.*;
 
-public class MEmptyProductICProxi extends MProductTypeICProxi implements PersistentMEmptyProduct{
+public class MEmptyProductICProxi extends MAbstractProductTypeICProxi implements PersistentMEmptyProduct{
     
     public MEmptyProductICProxi(long objectId) {
         super(objectId);
@@ -26,16 +26,16 @@ public class MEmptyProductICProxi extends MProductTypeICProxi implements Persist
         return ((PersistentMEmptyProduct)this.getTheObject()).getThis();
     }
     
-    public void accept(MProductTypeVisitor visitor) throws PersistenceException {
+    public void accept(MAbstractProductTypeVisitor visitor) throws PersistenceException {
         visitor.handleMEmptyProduct(this);
     }
-    public <R> R accept(MProductTypeReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(MAbstractProductTypeReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleMEmptyProduct(this);
     }
-    public <E extends UserException>  void accept(MProductTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(MAbstractProductTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleMEmptyProduct(this);
     }
-    public <R, E extends UserException> R accept(MProductTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(MAbstractProductTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMEmptyProduct(this);
     }
     public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
@@ -50,18 +50,6 @@ public class MEmptyProductICProxi extends MProductTypeICProxi implements Persist
     public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMEmptyProduct(this);
     }
-    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-        visitor.handleMEmptyProduct(this);
-    }
-    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMEmptyProduct(this);
-    }
-    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMEmptyProduct(this);
-    }
-    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMEmptyProduct(this);
-    }
     public void accept(MTypeVisitor visitor) throws PersistenceException {
         visitor.handleMEmptyProduct(this);
     }
@@ -72,6 +60,18 @@ public class MEmptyProductICProxi extends MProductTypeICProxi implements Persist
          visitor.handleMEmptyProduct(this);
     }
     public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyProduct(this);
+    }
+    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyProduct(this);
+    }
+    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyProduct(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyProduct(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMEmptyProduct(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -92,73 +92,49 @@ public class MEmptyProductICProxi extends MProductTypeICProxi implements Persist
 				throws PersistenceException{
         ((PersistentMEmptyProduct)this.getTheObject()).initializeOnInstantiation();
     }
-    public PersistentMProductType transientAddFactor(final MType factor) 
-				throws model.ConsistencyException, PersistenceException{
-        return ((PersistentMEmptyProduct)this.getTheObject()).transientAddFactor(factor);
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        ((PersistentMEmptyProduct)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMEmptyProduct)this.getTheObject()).containsMComplexTypeHierarchy(part);
     }
-    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
-        return ((PersistentMEmptyProduct)this.getTheObject()).isStructuralEqual(otherType);
+        ((PersistentMEmptyProduct)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
+        return ((PersistentMEmptyProduct)this.getTheObject()).isStructuralEquivalant(other);
     }
     public String fetchName() 
 				throws PersistenceException{
         return ((PersistentMEmptyProduct)this.getTheObject()).fetchName();
     }
-    public PersistentMSumType transientAddAddend(final MType addend) 
-				throws model.ConsistencyException, PersistenceException{
-        return ((PersistentMEmptyProduct)this.getTheObject()).transientAddAddend(addend);
-    }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentMEmptyProduct)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
-    public PersistentMBoolean isLessOrEqual(final MType otherType) 
+    public String fetchTypeLinkOperator() 
 				throws PersistenceException{
-        return ((PersistentMEmptyProduct)this.getTheObject()).isLessOrEqual(otherType);
+        return ((PersistentMEmptyProduct)this.getTheObject()).fetchTypeLinkOperator();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMEmptyProduct)this.getTheObject()).initializeOnCreation();
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        ((PersistentMEmptyProduct)this.getTheObject()).copyingPrivateUserAttributes(copy);
-    }
-    public PersistentMBoolean contains(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMEmptyProduct)this.getTheObject()).contains(otherType);
-    }
-    public MAssociationSearchList fetchAssociations() 
-				throws PersistenceException{
-        return ((PersistentMEmptyProduct)this.getTheObject()).fetchAssociations();
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        ((PersistentMEmptyProduct)this.getTheObject()).initialize(This, final$$Fields);
-    }
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
         return ((PersistentMEmptyProduct)this.getTheObject()).isSingleton();
     }
-    public PersistentMSumType fetchDisjunctiveNormalform() 
+    public PersistentMBoolean isLessOrEqual() 
 				throws PersistenceException{
-        return ((PersistentMEmptyProduct)this.getTheObject()).fetchDisjunctiveNormalform();
-    }
-    public String getTypeLinkOperator() 
-				throws PersistenceException{
-        return ((PersistentMEmptyProduct)this.getTheObject()).getTypeLinkOperator();
+        return ((PersistentMEmptyProduct)this.getTheObject()).isLessOrEqual();
     }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
         return ((PersistentMEmptyProduct)this.getTheObject()).isAbstract();
-    }
-    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
-				throws PersistenceException{
-        return ((PersistentMEmptyProduct)this.getTheObject()).allObjectsOfTypeAreSingleton();
     }
 
     

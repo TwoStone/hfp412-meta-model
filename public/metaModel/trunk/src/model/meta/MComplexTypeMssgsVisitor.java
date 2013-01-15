@@ -3,7 +3,7 @@ package model.meta;
 public interface MComplexTypeMssgsVisitor extends MComplexTypeDOWNMssgsVisitor, MComplexTypeUPMssgsVisitor {}
 
 
-interface MComplexTypeDOWNMssgsVisitor extends MProductTypeDOWNMssgsVisitor, MSumTypeDOWNMssgsVisitor {
+interface MComplexTypeDOWNMssgsVisitor extends MAbstractSumTypeDOWNMssgsVisitor, MAbstractProductTypeDOWNMssgsVisitor {
 
     
 }

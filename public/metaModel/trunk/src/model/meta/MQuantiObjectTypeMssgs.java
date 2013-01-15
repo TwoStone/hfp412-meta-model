@@ -5,4 +5,4 @@ public interface MQuantiObjectTypeMssgs {
 }
 
 interface MQuantiObjectTypeDOWNMssgs extends Mssgs, MQuantiObjectTypeMssgs{}
-interface MQuantiObjectTypeUPMssgs extends MMeasurementTypeUPMssgs, MAccountTypeUPMssgs, MQuantiObjectTypeMssgs{}
+interface MQuantiObjectTypeUPMssgs extends MAccountTypeUPMssgs, MMeasurementTypeUPMssgs, MQuantiObjectTypeMssgs{}

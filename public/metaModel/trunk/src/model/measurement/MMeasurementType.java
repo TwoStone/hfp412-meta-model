@@ -11,11 +11,11 @@ import model.visitor.*;
 public class MMeasurementType extends model.measurement.MQuantiObjectType implements PersistentMMeasurementType{
     
     
-    public static PersistentMMeasurementType createMMeasurementType(MType type,PersistentAbsUnitType unitType) throws PersistenceException{
+    public static PersistentMMeasurementType createMMeasurementType(PersistentMType type,PersistentAbsUnitType unitType) throws PersistenceException{
         return createMMeasurementType(type,unitType,false);
     }
     
-    public static PersistentMMeasurementType createMMeasurementType(MType type,PersistentAbsUnitType unitType,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMMeasurementType createMMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,boolean delayed$Persistence) throws PersistenceException {
         PersistentMMeasurementType result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
@@ -33,7 +33,7 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
         return result;
     }
     
-    public static PersistentMMeasurementType createMMeasurementType(MType type,PersistentAbsUnitType unitType,boolean delayed$Persistence,PersistentMMeasurementType This) throws PersistenceException {
+    public static PersistentMMeasurementType createMMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,boolean delayed$Persistence,PersistentMMeasurementType This) throws PersistenceException {
         PersistentMMeasurementType result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
@@ -75,13 +75,13 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
         return false;
     }
     
-    public MMeasurementType(MType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,long id) throws persistence.PersistenceException {
+    public MMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((MType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,id);        
+        super((PersistentMType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,id);        
     }
     
     static public long getTypeId() {
-        return 193;
+        return 199;
     }
     
     public long getClassId() {
@@ -90,7 +90,7 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 193) ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
+        if (this.getClassId() == 199) ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
             .newMMeasurementType(this.getId());
         super.store();
         
@@ -149,7 +149,7 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
 				throws PersistenceException{
         this.setThis((PersistentMMeasurementType)This);
 		if(this.equals(This)){
-			this.setType((MType)final$$Fields.get("type"));
+			this.setType((PersistentMType)final$$Fields.get("type"));
 			this.setUnitType((PersistentAbsUnitType)final$$Fields.get("unitType"));
 		}
     }

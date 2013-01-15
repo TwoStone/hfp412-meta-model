@@ -41,16 +41,18 @@ public class CreateAspectCommand extends PersistentObject implements PersistentC
     protected String name;
     protected Invoker invoker;
     protected PersistentAspectManager commandReceiver;
+    protected PersistentMAspect commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateAspectCommand(String name,Invoker invoker,PersistentAspectManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateAspectCommand(String name,Invoker invoker,PersistentAspectManager commandReceiver,PersistentMAspect commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -74,6 +76,10 @@ public class CreateAspectCommand extends PersistentObject implements PersistentC
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -116,6 +122,20 @@ public class CreateAspectCommand extends PersistentObject implements PersistentC
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public PersistentMAspect getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(PersistentMAspect newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentMAspect)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -199,16 +219,17 @@ public class CreateAspectCommand extends PersistentObject implements PersistentC
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + (this.getCommandReceiver() == null ? 0 : 1));
+            + (this.getCommandReceiver() == null ? 0 : 1)
+            + (this.getCommandResult() == null ? 0 : 1));
     }
     
     
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createAspect(this.getName());
+			this.setCommandResult(this.getCommandReceiver().createAspect(this.getName()));
 		}
-		catch(model.DoubleDefinitionException e){
+		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}
     }

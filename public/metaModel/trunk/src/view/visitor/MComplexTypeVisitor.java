@@ -3,9 +3,8 @@ package view.visitor;
 
 import view.*;
 
-public interface MComplexTypeVisitor extends MProductTypeVisitor,MSumTypeVisitor{
+public interface MComplexTypeVisitor extends MAbstractSumTypeVisitor,MAbstractProductTypeVisitor{
     
-    public void handleMProductType(MProductTypeView mProductType) throws ModelException;
-    public void handleMSumType(MSumTypeView mSumType) throws ModelException;
+    public void handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException;
     
 }

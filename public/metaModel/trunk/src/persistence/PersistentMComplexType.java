@@ -4,7 +4,7 @@ import model.UserException;
 
 import model.visitor.*;
 
-public interface PersistentMComplexType extends MType, Anything, AbstractPersistentProxi {
+public interface PersistentMComplexType extends PersistentMType {
     
     public MComplexType_ContainedTypesProxi getContainedTypes() throws PersistenceException ;
     public abstract PersistentMComplexType getThis() throws PersistenceException ;
@@ -22,7 +22,7 @@ public interface PersistentMComplexType extends MType, Anything, AbstractPersist
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
-    public String getTypeLinkOperator() 
+    public String fetchTypeLinkOperator() 
 				throws PersistenceException;
 
 }

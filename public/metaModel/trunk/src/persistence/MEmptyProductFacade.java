@@ -1,6 +1,6 @@
 package persistence;
 
-import model.*;
+import model.typeSystem.*;
 
 public class MEmptyProductFacade{
 
@@ -10,7 +10,7 @@ public class MEmptyProductFacade{
 	}
 
     public MEmptyProductProxi getTheMEmptyProduct() throws PersistenceException {
-        long id = ConnectionHandler.getTheConnectionHandler().theMComplexTypeFacade.getNextId();
+        long id = ConnectionHandler.getTheConnectionHandler().theMTypeFacade.getNextId();
         MEmptyProduct result = new MEmptyProduct(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
         return (MEmptyProductProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 186);

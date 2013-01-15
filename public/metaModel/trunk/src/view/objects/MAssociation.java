@@ -10,11 +10,11 @@ import view.visitor.*;
 public class MAssociation extends ViewObject implements MAssociationView{
     
     protected String name;
-    protected MType source;
-    protected MType target;
+    protected MTypeView source;
+    protected MTypeView target;
     protected java.util.Vector<MAHierarchyView> hierarchies;
     
-    public MAssociation(String name,MType source,MType target,java.util.Vector<MAHierarchyView> hierarchies,long id, long classId) {
+    public MAssociation(String name,MTypeView source,MTypeView target,java.util.Vector<MAHierarchyView> hierarchies,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
@@ -37,16 +37,16 @@ public class MAssociation extends ViewObject implements MAssociationView{
     public void setName(String newValue) throws ModelException {
         this.name = newValue;
     }
-    public MType getSource() throws ModelException {
+    public MTypeView getSource() throws ModelException {
         return this.source;
     }
-    public void setSource(MType newValue) throws ModelException {
+    public void setSource(MTypeView newValue) throws ModelException {
         this.source = newValue;
     }
-    public MType getTarget() throws ModelException {
+    public MTypeView getTarget() throws ModelException {
         return this.target;
     }
-    public void setTarget(MType newValue) throws ModelException {
+    public void setTarget(MTypeView newValue) throws ModelException {
         this.target = newValue;
     }
     public java.util.Vector<MAHierarchyView> getHierarchies() throws ModelException {
@@ -70,11 +70,11 @@ public class MAssociation extends ViewObject implements MAssociationView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        MType source = this.getSource();
+        MTypeView source = this.getSource();
         if (source != null) {
             ((ViewProxi)source).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(source.getClassId(), source.getId())));
         }
-        MType target = this.getTarget();
+        MTypeView target = this.getTarget();
         if (target != null) {
             ((ViewProxi)target).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(target.getClassId(), target.getId())));
         }

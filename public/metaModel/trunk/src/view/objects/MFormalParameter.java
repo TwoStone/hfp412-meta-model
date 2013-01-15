@@ -9,10 +9,10 @@ import view.visitor.*;
 
 public class MFormalParameter extends ViewObject implements MFormalParameterView{
     
-    protected MType ofType;
+    protected MTypeView ofType;
     protected String name;
     
-    public MFormalParameter(MType ofType,String name,long id, long classId) {
+    public MFormalParameter(MTypeView ofType,String name,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.ofType = ofType;
@@ -20,17 +20,17 @@ public class MFormalParameter extends ViewObject implements MFormalParameterView
     }
     
     static public long getTypeId() {
-        return 195;
+        return 201;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
-    public MType getOfType() throws ModelException {
+    public MTypeView getOfType() throws ModelException {
         return this.ofType;
     }
-    public void setOfType(MType newValue) throws ModelException {
+    public void setOfType(MTypeView newValue) throws ModelException {
         this.ofType = newValue;
     }
     public String getName() throws ModelException {
@@ -54,7 +54,7 @@ public class MFormalParameter extends ViewObject implements MFormalParameterView
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        MType ofType = this.getOfType();
+        MTypeView ofType = this.getOfType();
         if (ofType != null) {
             ((ViewProxi)ofType).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(ofType.getClassId(), ofType.getId())));
         }

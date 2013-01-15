@@ -18,7 +18,7 @@ public class InstanceObject extends ViewObject implements InstanceObjectView{
     }
     
     static public long getTypeId() {
-        return 205;
+        return 203;
     }
     
     public long getClassId() {

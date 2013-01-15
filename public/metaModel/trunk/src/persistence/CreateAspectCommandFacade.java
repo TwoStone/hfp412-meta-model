@@ -27,14 +27,14 @@ public class CreateAspectCommandFacade{
     public CreateAspectCommandProxi newCreateAspectCommand(String name,long createMinusStorePlus) throws PersistenceException {
         if(createMinusStorePlus > 0) return (CreateAspectCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 139);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.getNextId();
-        CreateAspectCommand result = new CreateAspectCommand(name,null,null,null,id);
+        CreateAspectCommand result = new CreateAspectCommand(name,null,null,null,null,id);
         Cache.getTheCache().put(result);
         return (CreateAspectCommandProxi)PersistentProxi.createProxi(id, 139);
     }
     
     public CreateAspectCommandProxi newDelayedCreateAspectCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.getNextId();
-        CreateAspectCommand result = new CreateAspectCommand(name,null,null,null,id);
+        CreateAspectCommand result = new CreateAspectCommand(name,null,null,null,null,id);
         Cache.getTheCache().put(result);
         return (CreateAspectCommandProxi)PersistentProxi.createProxi(id, 139);
     }
@@ -55,6 +55,9 @@ public class CreateAspectCommandFacade{
         
     }
     public void commandReceiverSet(long CreateAspectCommandId, PersistentAspectManager commandReceiverVal) throws PersistenceException {
+        
+    }
+    public void commandResultSet(long CreateAspectCommandId, PersistentMAspect commandResultVal) throws PersistenceException {
         
     }
     public void myCommonDateSet(long CreateAspectCommandId, PersistentCommonDate myCommonDateVal) throws PersistenceException {

@@ -19,7 +19,7 @@ public class MOperationICProxi extends MAbsOperationICProxi implements Persisten
     }
     
     public long getClassId() {
-        return 190;
+        return 197;
     }
     
     public PersistentMOperation getThis() throws PersistenceException {

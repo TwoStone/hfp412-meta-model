@@ -30,7 +30,7 @@ public class MAssociationProxi extends ViewProxi implements MAssociationView{
         }
         java.util.Vector<String> hierarchies_string = (java.util.Vector<String>)resultTable.get("hierarchies");
         java.util.Vector<MAHierarchyView> hierarchies = ViewProxi.getProxiVector(hierarchies_string, connectionKey);
-        MAssociationView result$$ = new MAssociation((String)name,(MType)source,(MType)target,hierarchies, this.getId(), this.getClassId());
+        MAssociationView result$$ = new MAssociation((String)name,(MTypeView)source,(MTypeView)target,hierarchies, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -81,16 +81,16 @@ public class MAssociationProxi extends ViewProxi implements MAssociationView{
     public void setName(String newValue) throws ModelException {
         ((MAssociation)this.getTheObject()).setName(newValue);
     }
-    public MType getSource() throws ModelException {
+    public MTypeView getSource() throws ModelException {
         return ((MAssociation)this.getTheObject()).getSource();
     }
-    public void setSource(MType newValue) throws ModelException {
+    public void setSource(MTypeView newValue) throws ModelException {
         ((MAssociation)this.getTheObject()).setSource(newValue);
     }
-    public MType getTarget() throws ModelException {
+    public MTypeView getTarget() throws ModelException {
         return ((MAssociation)this.getTheObject()).getTarget();
     }
-    public void setTarget(MType newValue) throws ModelException {
+    public void setTarget(MTypeView newValue) throws ModelException {
         ((MAssociation)this.getTheObject()).setTarget(newValue);
     }
     public java.util.Vector<MAHierarchyView> getHierarchies() throws ModelException {

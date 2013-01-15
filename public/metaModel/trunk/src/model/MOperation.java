@@ -10,11 +10,11 @@ import model.visitor.*;
 public class MOperation extends model.MAbsOperation implements PersistentMOperation{
     
     
-    public static PersistentMOperation createMOperation(String name,MType source,MType target) throws PersistenceException{
+    public static PersistentMOperation createMOperation(String name,PersistentMType source,PersistentMType target) throws PersistenceException{
         return createMOperation(name,source,target,false);
     }
     
-    public static PersistentMOperation createMOperation(String name,MType source,MType target,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMOperation createMOperation(String name,PersistentMType source,PersistentMType target,boolean delayed$Persistence) throws PersistenceException {
         PersistentMOperation result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMOperationFacade
@@ -33,7 +33,7 @@ public class MOperation extends model.MAbsOperation implements PersistentMOperat
         return result;
     }
     
-    public static PersistentMOperation createMOperation(String name,MType source,MType target,boolean delayed$Persistence,PersistentMOperation This) throws PersistenceException {
+    public static PersistentMOperation createMOperation(String name,PersistentMType source,PersistentMType target,boolean delayed$Persistence,PersistentMOperation This) throws PersistenceException {
         PersistentMOperation result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMOperationFacade
@@ -78,13 +78,13 @@ public class MOperation extends model.MAbsOperation implements PersistentMOperat
         return false;
     }
     
-    public MOperation(String name,MType source,MType target,PersistentMAbsOperation This,long id) throws persistence.PersistenceException {
+    public MOperation(String name,PersistentMType source,PersistentMType target,PersistentMAbsOperation This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(MType)source,(MType)target,(PersistentMAbsOperation)This,id);        
+        super((String)name,(PersistentMType)source,(PersistentMType)target,(PersistentMAbsOperation)This,id);        
     }
     
     static public long getTypeId() {
-        return 190;
+        return 197;
     }
     
     public long getClassId() {
@@ -93,7 +93,7 @@ public class MOperation extends model.MAbsOperation implements PersistentMOperat
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 190) ConnectionHandler.getTheConnectionHandler().theMOperationFacade
+        if (this.getClassId() == 197) ConnectionHandler.getTheConnectionHandler().theMOperationFacade
             .newMOperation(name,this.getId());
         super.store();
         
@@ -154,8 +154,8 @@ public class MOperation extends model.MAbsOperation implements PersistentMOperat
         this.setThis((PersistentMOperation)This);
 		if(this.equals(This)){
 			this.setName((String)final$$Fields.get("name"));
-			this.setSource((MType)final$$Fields.get("source"));
-			this.setTarget((MType)final$$Fields.get("target"));
+			this.setSource((PersistentMType)final$$Fields.get("source"));
+			this.setTarget((PersistentMType)final$$Fields.get("target"));
 		}
     }
     public void initializeOnCreation() 

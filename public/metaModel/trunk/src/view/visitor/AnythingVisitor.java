@@ -3,7 +3,7 @@ package view.visitor;
 
 import view.*;
 
-public interface AnythingVisitor extends AbsUnitTypeVisitor,MComplexTypeVisitor,AbsQuantityVisitor,AbsUnitVisitor,MQuantiObjectTypeVisitor,MessageOrLinkVisitor,MAbsOperationVisitor,MBooleanVisitor{
+public interface AnythingVisitor extends AbsUnitTypeVisitor,AbsQuantityVisitor,MTypeVisitor,AbsUnitVisitor,MQuantiObjectTypeVisitor,MessageOrLinkVisitor,MAbsOperationVisitor,MBooleanVisitor{
     
     public void handleConversionManager(ConversionManagerView conversionManager) throws ModelException;
     public void handleQuantityManager(QuantityManagerView quantityManager) throws ModelException;
@@ -12,10 +12,9 @@ public interface AnythingVisitor extends AbsUnitTypeVisitor,MComplexTypeVisitor,
     public void handleTypeManager(TypeManagerView typeManager) throws ModelException;
     public void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException;
     public void handleServer(ServerView server) throws ModelException;
-    public void handleMAtomicType(MAtomicTypeView mAtomicType) throws ModelException;
     public void handleFractionManager(FractionManagerView fractionManager) throws ModelException;
-    public void handleConversion(ConversionView conversion) throws ModelException;
     public void handleReference(ReferenceView reference) throws ModelException;
+    public void handleConversion(ConversionView conversion) throws ModelException;
     public void handleMeasurement(MeasurementView measurement) throws ModelException;
     public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException;
     public void handleAccount(AccountView account) throws ModelException;

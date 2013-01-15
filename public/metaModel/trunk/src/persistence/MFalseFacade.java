@@ -1,6 +1,6 @@
 package persistence;
 
-import model.*;
+import model.basic.*;
 
 public class MFalseFacade{
 

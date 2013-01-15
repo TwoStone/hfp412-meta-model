@@ -20,7 +20,7 @@ public class MFormalParameterProxi extends ViewProxi implements MFormalParameter
             ofType.setToString(ofType$Info.getToString());
         }
         String name = (String)resultTable.get("name");
-        MFormalParameterView result$$ = new MFormalParameter((MType)ofType,(String)name, this.getId(), this.getClassId());
+        MFormalParameterView result$$ = new MFormalParameter((MTypeView)ofType,(String)name, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -50,10 +50,10 @@ public class MFormalParameterProxi extends ViewProxi implements MFormalParameter
         return -1;
     }
     
-    public MType getOfType() throws ModelException {
+    public MTypeView getOfType() throws ModelException {
         return ((MFormalParameter)this.getTheObject()).getOfType();
     }
-    public void setOfType(MType newValue) throws ModelException {
+    public void setOfType(MTypeView newValue) throws ModelException {
         ((MFormalParameter)this.getTheObject()).setOfType(newValue);
     }
     public String getName() throws ModelException {

@@ -11,6 +11,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleReferenceType(ReferenceTypeView referenceType) throws ModelException;
     
+    public abstract void handleQuantityManager(QuantityManagerView quantityManager) throws ModelException;
+    
     public abstract void handleAbsUnitType(AbsUnitTypeView absUnitType) throws ModelException;
     
     public void handleUnitType(UnitTypeView unitType) throws ModelException{
@@ -19,8 +21,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCompUnitType(CompUnitTypeView compUnitType) throws ModelException{
         this.handleAbsUnitType(compUnitType);
     }
-    public abstract void handleQuantityManager(QuantityManagerView quantityManager) throws ModelException;
-    
     public abstract void handleAccount(AccountView account) throws ModelException;
     
     public abstract void handleQuantifObject(QuantifObjectView quantifObject) throws ModelException;
@@ -29,20 +29,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleAssociationManager(AssociationManagerView associationManager) throws ModelException;
     
-    public abstract void handleMComplexType(MComplexTypeView mComplexType) throws ModelException;
-    
-    public void handleMProductType(MProductTypeView mProductType) throws ModelException{
-        this.handleMComplexType(mProductType);
-    }
-    public void handleMEmptySum(MEmptySumView mEmptySum) throws ModelException{
-        this.handleMComplexType(mEmptySum);
-    }
-    public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
-        this.handleMComplexType(mEmptyProduct);
-    }
-    public void handleMSumType(MSumTypeView mSumType) throws ModelException{
-        this.handleMComplexType(mSumType);
-    }
     public abstract void handleAbsQuantity(AbsQuantityView absQuantity) throws ModelException;
     
     public void handleQuantity(QuantityView quantity) throws ModelException{
@@ -92,6 +78,26 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException;
     
+    public abstract void handleMType(MTypeView mType) throws ModelException;
+    
+    public void handleMAtomicType(MAtomicTypeView mAtomicType) throws ModelException{
+        this.handleMType(mAtomicType);
+    }
+    public void handleMProductType(MProductTypeView mProductType) throws ModelException{
+        this.handleMType(mProductType);
+    }
+    public void handleMEmptySumType(MEmptySumTypeView mEmptySumType) throws ModelException{
+        this.handleMType(mEmptySumType);
+    }
+    public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
+        this.handleMType(mEmptyProduct);
+    }
+    public void handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException{
+        this.handleMType(mAbstractProductType);
+    }
+    public void handleMSumType(MSumTypeView mSumType) throws ModelException{
+        this.handleMType(mSumType);
+    }
     public abstract void handleFunction(FunctionView function) throws ModelException;
     
     public abstract void handleAspectManager(AspectManagerView aspectManager) throws ModelException;
@@ -107,8 +113,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handleActualParameter(ActualParameterView actualParameter) throws ModelException;
     
     public abstract void handleServer(ServerView server) throws ModelException;
-    
-    public abstract void handleMAtomicType(MAtomicTypeView mAtomicType) throws ModelException;
     
     public abstract void handleMAspect(MAspectView mAspect) throws ModelException;
     

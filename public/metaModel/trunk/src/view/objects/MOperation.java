@@ -10,13 +10,13 @@ import view.visitor.*;
 public class MOperation extends view.objects.MAbsOperation implements MOperationView{
     
     
-    public MOperation(String name,MType source,MType target,java.util.Vector<MFormalParameterView> parameters,long id, long classId) {
+    public MOperation(String name,MTypeView source,MTypeView target,java.util.Vector<MFormalParameterView> parameters,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(MType)source,(MType)target,parameters,id, classId);        
+        super((String)name,(MTypeView)source,(MTypeView)target,parameters,id, classId);        
     }
     
     static public long getTypeId() {
-        return 190;
+        return 197;
     }
     
     public long getClassId() {
@@ -50,11 +50,11 @@ public class MOperation extends view.objects.MAbsOperation implements MOperation
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        MType source = this.getSource();
+        MTypeView source = this.getSource();
         if (source != null) {
             ((ViewProxi)source).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(source.getClassId(), source.getId())));
         }
-        MType target = this.getTarget();
+        MTypeView target = this.getTarget();
         if (target != null) {
             ((ViewProxi)target).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(target.getClassId(), target.getId())));
         }

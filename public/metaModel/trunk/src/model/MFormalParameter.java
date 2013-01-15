@@ -15,11 +15,11 @@ public class MFormalParameter extends PersistentObject implements PersistentMFor
         return (PersistentMFormalParameter)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentMFormalParameter createMFormalParameter(MType ofType,String name) throws PersistenceException{
+    public static PersistentMFormalParameter createMFormalParameter(PersistentMType ofType,String name) throws PersistenceException{
         return createMFormalParameter(ofType,name,false);
     }
     
-    public static PersistentMFormalParameter createMFormalParameter(MType ofType,String name,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMFormalParameter createMFormalParameter(PersistentMType ofType,String name,boolean delayed$Persistence) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMFormalParameter result = null;
         if(delayed$Persistence){
@@ -38,7 +38,7 @@ public class MFormalParameter extends PersistentObject implements PersistentMFor
         return result;
     }
     
-    public static PersistentMFormalParameter createMFormalParameter(MType ofType,String name,boolean delayed$Persistence,PersistentMFormalParameter This) throws PersistenceException {
+    public static PersistentMFormalParameter createMFormalParameter(PersistentMType ofType,String name,boolean delayed$Persistence,PersistentMFormalParameter This) throws PersistenceException {
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMFormalParameter result = null;
         if(delayed$Persistence){
@@ -95,11 +95,11 @@ public class MFormalParameter extends PersistentObject implements PersistentMFor
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected MType ofType;
+    protected PersistentMType ofType;
     protected String name;
     protected PersistentMFormalParameter This;
     
-    public MFormalParameter(MType ofType,String name,PersistentMFormalParameter This,long id) throws persistence.PersistenceException {
+    public MFormalParameter(PersistentMType ofType,String name,PersistentMFormalParameter This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.ofType = ofType;
@@ -108,7 +108,7 @@ public class MFormalParameter extends PersistentObject implements PersistentMFor
     }
     
     static public long getTypeId() {
-        return 195;
+        return 201;
     }
     
     public long getClassId() {
@@ -117,7 +117,7 @@ public class MFormalParameter extends PersistentObject implements PersistentMFor
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 195) ConnectionHandler.getTheConnectionHandler().theMFormalParameterFacade
+        if (this.getClassId() == 201) ConnectionHandler.getTheConnectionHandler().theMFormalParameterFacade
             .newMFormalParameter(name,this.getId());
         super.store();
         if(this.getOfType() != null){
@@ -131,15 +131,15 @@ public class MFormalParameter extends PersistentObject implements PersistentMFor
         
     }
     
-    public MType getOfType() throws PersistenceException {
+    public PersistentMType getOfType() throws PersistenceException {
         return this.ofType;
     }
-    public void setOfType(MType newValue) throws PersistenceException {
+    public void setOfType(PersistentMType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.ofType)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.ofType = (MType)PersistentProxi.createProxi(objectId, classId);
+        this.ofType = (PersistentMType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMFormalParameterFacade.ofTypeSet(this.getId(), newValue);
@@ -208,7 +208,7 @@ public class MFormalParameter extends PersistentObject implements PersistentMFor
 				throws PersistenceException{
         this.setThis((PersistentMFormalParameter)This);
 		if(this.equals(This)){
-			this.setOfType((MType)final$$Fields.get("ofType"));
+			this.setOfType((PersistentMType)final$$Fields.get("ofType"));
 			this.setName((String)final$$Fields.get("name"));
 		}
     }

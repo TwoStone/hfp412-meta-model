@@ -1,8 +1,7 @@
 
 package model.quantity;
 
-import model.MFalse;
-import model.MTrue;
+import model.basic.*;
 import model.UserException;
 import model.visitor.AbsUnitTypeExceptionVisitor;
 import model.visitor.AbsUnitTypeReturnExceptionVisitor;

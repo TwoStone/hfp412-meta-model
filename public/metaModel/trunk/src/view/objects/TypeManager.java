@@ -9,18 +9,12 @@ import view.visitor.*;
 
 public class TypeManager extends ViewObject implements TypeManagerView{
     
-    protected java.util.Vector<MAtomicTypeView> atomicTypes;
-    protected java.util.Vector<MProductTypeView> productTypes;
-    protected java.util.Vector<MSumTypeView> sumTypes;
-    protected java.util.Vector<MType> allTypes;
+    protected java.util.Vector<MTypeView> types;
     
-    public TypeManager(java.util.Vector<MAtomicTypeView> atomicTypes,java.util.Vector<MProductTypeView> productTypes,java.util.Vector<MSumTypeView> sumTypes,java.util.Vector<MType> allTypes,long id, long classId) {
+    public TypeManager(java.util.Vector<MTypeView> types,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.atomicTypes = atomicTypes;
-        this.productTypes = productTypes;
-        this.sumTypes = sumTypes;
-        this.allTypes = allTypes;        
+        this.types = types;        
     }
     
     static public long getTypeId() {
@@ -31,29 +25,11 @@ public class TypeManager extends ViewObject implements TypeManagerView{
         return getTypeId();
     }
     
-    public java.util.Vector<MAtomicTypeView> getAtomicTypes() throws ModelException {
-        return this.atomicTypes;
+    public java.util.Vector<MTypeView> getTypes() throws ModelException {
+        return this.types;
     }
-    public void setAtomicTypes(java.util.Vector<MAtomicTypeView> newValue) throws ModelException {
-        this.atomicTypes = newValue;
-    }
-    public java.util.Vector<MProductTypeView> getProductTypes() throws ModelException {
-        return this.productTypes;
-    }
-    public void setProductTypes(java.util.Vector<MProductTypeView> newValue) throws ModelException {
-        this.productTypes = newValue;
-    }
-    public java.util.Vector<MSumTypeView> getSumTypes() throws ModelException {
-        return this.sumTypes;
-    }
-    public void setSumTypes(java.util.Vector<MSumTypeView> newValue) throws ModelException {
-        this.sumTypes = newValue;
-    }
-    public java.util.Vector<MType> getAllTypes() throws ModelException {
-        return this.allTypes;
-    }
-    public void setAllTypes(java.util.Vector<MType> newValue) throws ModelException {
-        this.allTypes = newValue;
+    public void setTypes(java.util.Vector<MTypeView> newValue) throws ModelException {
+        this.types = newValue;
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
@@ -70,21 +46,9 @@ public class TypeManager extends ViewObject implements TypeManagerView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        java.util.Vector<?> atomicTypes = this.getAtomicTypes();
-        if (atomicTypes != null) {
-            ViewObject.resolveVectorProxies(atomicTypes, resultTable);
-        }
-        java.util.Vector<?> productTypes = this.getProductTypes();
-        if (productTypes != null) {
-            ViewObject.resolveVectorProxies(productTypes, resultTable);
-        }
-        java.util.Vector<?> sumTypes = this.getSumTypes();
-        if (sumTypes != null) {
-            ViewObject.resolveVectorProxies(sumTypes, resultTable);
-        }
-        java.util.Vector<?> allTypes = this.getAllTypes();
-        if (allTypes != null) {
-            ViewObject.resolveVectorProxies(allTypes, resultTable);
+        java.util.Vector<?> types = this.getTypes();
+        if (types != null) {
+            ViewObject.resolveVectorProxies(types, resultTable);
         }
         
     }
@@ -93,50 +57,23 @@ public class TypeManager extends ViewObject implements TypeManagerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index < this.getAtomicTypes().size()) return new AtomicTypesTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getAtomicTypes().get(index));
-        index = index - this.getAtomicTypes().size();
-        if(index < this.getProductTypes().size()) return new ProductTypesTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getProductTypes().get(index));
-        index = index - this.getProductTypes().size();
-        if(index < this.getSumTypes().size()) return new SumTypesTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getSumTypes().get(index));
-        index = index - this.getSumTypes().size();
-        if(index < this.getAllTypes().size()) return new AllTypesTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getAllTypes().get(index));
-        index = index - this.getAllTypes().size();
+        if(index < this.getTypes().size()) return new TypesTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getTypes().get(index));
+        index = index - this.getTypes().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getAtomicTypes().size())
-            + (this.getProductTypes().size())
-            + (this.getSumTypes().size())
-            + (this.getAllTypes().size());
+            + (this.getTypes().size());
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getAtomicTypes().size() == 0)
-            && (this.getProductTypes().size() == 0)
-            && (this.getSumTypes().size() == 0)
-            && (this.getAllTypes().size() == 0);
+            && (this.getTypes().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        java.util.Iterator<?> getAtomicTypesIterator = this.getAtomicTypes().iterator();
-        while(getAtomicTypesIterator.hasNext()){
-            if(getAtomicTypesIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
-        java.util.Iterator<?> getProductTypesIterator = this.getProductTypes().iterator();
-        while(getProductTypesIterator.hasNext()){
-            if(getProductTypesIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
-        java.util.Iterator<?> getSumTypesIterator = this.getSumTypes().iterator();
-        while(getSumTypesIterator.hasNext()){
-            if(getSumTypesIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
-        java.util.Iterator<?> getAllTypesIterator = this.getAllTypes().iterator();
-        while(getAllTypesIterator.hasNext()){
-            if(getAllTypesIterator.next().equals(child)) return result;
+        java.util.Iterator<?> getTypesIterator = this.getTypes().iterator();
+        while(getTypesIterator.hasNext()){
+            if(getTypesIterator.next().equals(child)) return result;
             result = result + 1;
         }
         return -1;

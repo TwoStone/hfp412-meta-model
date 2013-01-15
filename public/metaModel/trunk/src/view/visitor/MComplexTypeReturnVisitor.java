@@ -3,9 +3,8 @@ package view.visitor;
 
 import view.*;
 
-public interface MComplexTypeReturnVisitor<R> extends MProductTypeReturnVisitor<R> ,MSumTypeReturnVisitor<R> {
+public interface MComplexTypeReturnVisitor<R> extends MAbstractSumTypeReturnVisitor<R> ,MAbstractProductTypeReturnVisitor<R> {
     
-    public R handleMProductType(MProductTypeView mProductType) throws ModelException;
-    public R handleMSumType(MSumTypeView mSumType) throws ModelException;
+    public R handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException;
     
 }

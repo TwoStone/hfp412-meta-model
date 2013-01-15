@@ -6,8 +6,8 @@ import model.visitor.*;
 
 public interface PersistentMQuantiObjectType extends Anything, AbstractPersistentProxi {
     
-    public MType getType() throws PersistenceException ;
-    public void setType(MType newValue) throws PersistenceException ;
+    public PersistentMType getType() throws PersistenceException ;
+    public void setType(PersistentMType newValue) throws PersistenceException ;
     public PersistentAbsUnitType getUnitType() throws PersistenceException ;
     public void setUnitType(PersistentAbsUnitType newValue) throws PersistenceException ;
     public abstract PersistentMQuantiObjectType getThis() throws PersistenceException ;

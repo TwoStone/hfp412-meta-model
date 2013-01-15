@@ -12,6 +12,8 @@ public interface PersistentCreateAspectCommand extends AspectManagerCommand, Any
     public void setInvoker(Invoker newValue) throws PersistenceException ;
     public PersistentAspectManager getCommandReceiver() throws PersistenceException ;
     public void setCommandReceiver(PersistentAspectManager newValue) throws PersistenceException ;
+    public PersistentMAspect getCommandResult() throws PersistenceException ;
+    public void setCommandResult(PersistentMAspect newValue) throws PersistenceException ;
     public PersistentCommonDate getMyCommonDate() throws PersistenceException ;
     public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException ;
     

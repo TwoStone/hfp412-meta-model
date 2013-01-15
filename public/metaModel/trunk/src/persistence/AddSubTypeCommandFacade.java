@@ -51,7 +51,7 @@ public class AddSubTypeCommandFacade{
     public void superTypeSet(long AddSubTypeCommandId, PersistentMAtomicType superTypeVal) throws PersistenceException {
         
     }
-    public void typeunderSet(long AddSubTypeCommandId, PersistentMAtomicType typeunderVal) throws PersistenceException {
+    public void subTypeSet(long AddSubTypeCommandId, PersistentMAtomicType subTypeVal) throws PersistenceException {
         
     }
     public void invokerSet(long AddSubTypeCommandId, Invoker invokerVal) throws PersistenceException {

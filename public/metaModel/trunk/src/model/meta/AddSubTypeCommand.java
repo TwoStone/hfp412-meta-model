@@ -38,18 +38,18 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
         return true;
     }
     protected PersistentMAtomicType superType;
-    protected PersistentMAtomicType typeunder;
+    protected PersistentMAtomicType subType;
     protected Invoker invoker;
     protected PersistentTypeManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public AddSubTypeCommand(PersistentMAtomicType superType,PersistentMAtomicType typeunder,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public AddSubTypeCommand(PersistentMAtomicType superType,PersistentMAtomicType subType,Invoker invoker,PersistentTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.superType = superType;
-        this.typeunder = typeunder;
+        this.subType = subType;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
@@ -72,9 +72,9 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
             this.getSuperType().store();
             ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.superTypeSet(this.getId(), getSuperType());
         }
-        if(this.getTypeunder() != null){
-            this.getTypeunder().store();
-            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.typeunderSet(this.getId(), getTypeunder());
+        if(this.getSubType() != null){
+            this.getSubType().store();
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.subTypeSet(this.getId(), getSubType());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -105,18 +105,18 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
             ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.superTypeSet(this.getId(), newValue);
         }
     }
-    public PersistentMAtomicType getTypeunder() throws PersistenceException {
-        return this.typeunder;
+    public PersistentMAtomicType getSubType() throws PersistenceException {
+        return this.subType;
     }
-    public void setTypeunder(PersistentMAtomicType newValue) throws PersistenceException {
+    public void setSubType(PersistentMAtomicType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.typeunder)) return;
+        if(newValue.equals(this.subType)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.typeunder = (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
+        this.subType = (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.typeunderSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade.subTypeSet(this.getId(), newValue);
         }
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -229,7 +229,7 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + (this.getSuperType() == null ? 0 : 1)
-            + (this.getTypeunder() == null ? 0 : 1)
+            + (this.getSubType() == null ? 0 : 1)
             + (this.getCommandReceiver() == null ? 0 : 1));
     }
     
@@ -237,9 +237,9 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().addSubType(this.getSuperType(), this.getTypeunder());
+			this.getCommandReceiver().addSubType(this.getSuperType(), this.getSubType());
 		}
-		catch(model.WrongSubTypeAspectException e){
+		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}
 		catch(model.CycleException e){

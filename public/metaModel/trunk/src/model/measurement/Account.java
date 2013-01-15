@@ -100,7 +100,7 @@ public class Account extends PersistentObject implements PersistentAccount{
     }
     
     static public long getTypeId() {
-        return 191;
+        return 196;
     }
     
     public long getClassId() {
@@ -109,7 +109,7 @@ public class Account extends PersistentObject implements PersistentAccount{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 191) ConnectionHandler.getTheConnectionHandler().theAccountFacade
+        if (this.getClassId() == 196) ConnectionHandler.getTheConnectionHandler().theAccountFacade
             .newAccount(this.getId());
         super.store();
         if(this.getType() != null){

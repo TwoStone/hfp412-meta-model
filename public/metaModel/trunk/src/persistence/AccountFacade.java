@@ -25,25 +25,25 @@ public class AccountFacade{
 	}
 
     public AccountProxi newAccount(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (AccountProxi)PersistentProxi.createProxi(createMinusStorePlus, 191);
+        if(createMinusStorePlus > 0) return (AccountProxi)PersistentProxi.createProxi(createMinusStorePlus, 196);
         long id = ConnectionHandler.getTheConnectionHandler().theAccountFacade.getNextId();
         Account result = new Account(null,null,id);
         Cache.getTheCache().put(result);
-        return (AccountProxi)PersistentProxi.createProxi(id, 191);
+        return (AccountProxi)PersistentProxi.createProxi(id, 196);
     }
     
     public AccountProxi newDelayedAccount() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theAccountFacade.getNextId();
         Account result = new Account(null,null,id);
         Cache.getTheCache().put(result);
-        return (AccountProxi)PersistentProxi.createProxi(id, 191);
+        return (AccountProxi)PersistentProxi.createProxi(id, 196);
     }
     
     public Account getAccount(long AccountId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 191)) return 191;
+        if(Cache.getTheCache().contains(objectId, 196)) return 196;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

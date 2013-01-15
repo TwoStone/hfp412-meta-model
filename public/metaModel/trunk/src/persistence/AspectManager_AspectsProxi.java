@@ -1,6 +1,6 @@
 package persistence;
 
-import model.*;
+import model.typeSystem.*;
 
 import java.util.Iterator;
 

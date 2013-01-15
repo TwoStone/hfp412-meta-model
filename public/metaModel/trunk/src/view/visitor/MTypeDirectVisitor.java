@@ -12,8 +12,11 @@ public abstract class MTypeDirectVisitor implements MTypeVisitor {
     public void handleMProductType(MProductTypeView mProductType) throws ModelException{
         this.handleMComplexType(mProductType);
     }
-    public void handleMEmptySum(MEmptySumView mEmptySum) throws ModelException{
-        this.handleMComplexType(mEmptySum);
+    public void handleMEmptySumType(MEmptySumTypeView mEmptySumType) throws ModelException{
+        this.handleMComplexType(mEmptySumType);
+    }
+    public void handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException{
+        this.handleMComplexType(mAbstractProductType);
     }
     public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
         this.handleMComplexType(mEmptyProduct);

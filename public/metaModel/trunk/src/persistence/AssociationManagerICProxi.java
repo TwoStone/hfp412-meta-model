@@ -70,7 +70,7 @@ public class AssociationManagerICProxi extends PersistentInCacheProxiOptimistic 
 				throws PersistenceException{
         ((PersistentAssociationManager)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void createAssociation(final String name, final MType source, final MType target, final Invoker invoker) 
+    public void createAssociation(final String name, final PersistentMType source, final PersistentMType target, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentAssociationManager)this.getTheObject()).createAssociation(name, source, target, invoker);
     }
@@ -78,7 +78,7 @@ public class AssociationManagerICProxi extends PersistentInCacheProxiOptimistic 
 				throws PersistenceException{
         ((PersistentAssociationManager)this.getTheObject()).initializeOnCreation();
     }
-    public void createAssociation(final String name, final MType source, final MType target) 
+    public void createAssociation(final String name, final PersistentMType source, final PersistentMType target) 
 				throws model.DoubleDefinitionException, PersistenceException{
         ((PersistentAssociationManager)this.getTheObject()).createAssociation(name, source, target);
     }

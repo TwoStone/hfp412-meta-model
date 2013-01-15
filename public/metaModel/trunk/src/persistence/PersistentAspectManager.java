@@ -16,8 +16,8 @@ public interface PersistentAspectManager extends Anything, AbstractPersistentPro
     
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void createAspect(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException;
+    public PersistentMAspect createAspect(final String name) 
+				throws model.ConsistencyException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 

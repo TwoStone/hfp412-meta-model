@@ -5,14 +5,20 @@ import persistence.*;
 
 public abstract class TypeManagerCommandStandardVisitor implements TypeManagerCommandVisitor {
     
-    public void handleCreateAtomicTypeCommand(PersistentCreateAtomicTypeCommand createAtomicTypeCommand) throws PersistenceException{
-        this.standardHandling(createAtomicTypeCommand);
+    public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException{
+        this.standardHandling(createAtomicSubTypeCommand);
+    }
+    public void handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException{
+        this.standardHandling(createSumTypeCommand);
+    }
+    public void handleCreateProductTypeCommand(PersistentCreateProductTypeCommand createProductTypeCommand) throws PersistenceException{
+        this.standardHandling(createProductTypeCommand);
     }
     public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException{
         this.standardHandling(addSubTypeCommand);
     }
-    public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException{
-        this.standardHandling(createSubTypeCommand);
+    public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
+        this.standardHandling(createAtomicRootTypeCommand);
     }
     protected abstract void standardHandling(TypeManagerCommand typeManagerCommand) throws PersistenceException;
 }

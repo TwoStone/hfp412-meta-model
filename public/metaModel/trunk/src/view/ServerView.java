@@ -8,12 +8,12 @@ import view.visitor.*;
 
 public interface ServerView extends Remote, Anything, AbstractViewProxi {
     
+    public AspectManagerView getAspectManager() throws ModelException ;
     public TypeManagerView getTypeManager() throws ModelException ;
     public QuantityManagerView getQuantityManager() throws ModelException ;
     public UnitTypeManagerView getUnitTypeManager() throws ModelException ;
     public ConversionManagerView getConversionManager() throws ModelException ;
     public FractionManagerView getFractionManager() throws ModelException ;
-    public AspectManagerView getAspectManager() throws ModelException ;
     public AssociationManagerView getAssociationManager() throws ModelException ;
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException ;
     public void setErrors(java.util.Vector<ErrorDisplayView> newValue) throws ModelException ;

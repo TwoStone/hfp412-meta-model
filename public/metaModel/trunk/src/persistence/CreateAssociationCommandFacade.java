@@ -51,10 +51,10 @@ public class CreateAssociationCommandFacade{
     public void nameSet(long CreateAssociationCommandId, String nameVal) throws PersistenceException {
         
     }
-    public void sourceSet(long CreateAssociationCommandId, MType sourceVal) throws PersistenceException {
+    public void sourceSet(long CreateAssociationCommandId, PersistentMType sourceVal) throws PersistenceException {
         
     }
-    public void targetSet(long CreateAssociationCommandId, MType targetVal) throws PersistenceException {
+    public void targetSet(long CreateAssociationCommandId, PersistentMType targetVal) throws PersistenceException {
         
     }
     public void invokerSet(long CreateAssociationCommandId, Invoker invokerVal) throws PersistenceException {

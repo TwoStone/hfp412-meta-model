@@ -11,6 +11,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     
+    public abstract void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
+    
     public abstract void handleAbsUnitType(PersistentAbsUnitType absUnitType) throws PersistenceException;
     
     public void handleUnitType(PersistentUnitType unitType) throws PersistenceException{
@@ -19,8 +21,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException{
         this.handleAbsUnitType(compUnitType);
     }
-    public abstract void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
-    
     public abstract void handleAccount(PersistentAccount account) throws PersistenceException;
     
     public abstract void handleQuantifObject(PersistentQuantifObject quantifObject) throws PersistenceException;
@@ -29,20 +29,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException;
     
-    public abstract void handleMComplexType(PersistentMComplexType mComplexType) throws PersistenceException;
-    
-    public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException{
-        this.handleMComplexType(mProductType);
-    }
-    public void handleMEmptySum(PersistentMEmptySum mEmptySum) throws PersistenceException{
-        this.handleMComplexType(mEmptySum);
-    }
-    public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
-        this.handleMComplexType(mEmptyProduct);
-    }
-    public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
-        this.handleMComplexType(mSumType);
-    }
     public abstract void handleAbsQuantity(PersistentAbsQuantity absQuantity) throws PersistenceException;
     
     public void handleQuantity(PersistentQuantity quantity) throws PersistenceException{
@@ -77,6 +63,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException{
         this.handleCommonDate(createHierarchyCommand);
     }
+    public void handleCreateProductTypeCommand(PersistentCreateProductTypeCommand createProductTypeCommand) throws PersistenceException{
+        this.handleCommonDate(createProductTypeCommand);
+    }
     public void handleAddToHierarchyCommand(PersistentAddToHierarchyCommand addToHierarchyCommand) throws PersistenceException{
         this.handleCommonDate(addToHierarchyCommand);
     }
@@ -89,14 +78,17 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
         this.handleCommonDate(createConversionCommand);
     }
+    public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException{
+        this.handleCommonDate(createAtomicSubTypeCommand);
+    }
+    public void handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException{
+        this.handleCommonDate(createSumTypeCommand);
+    }
     public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
         this.handleCommonDate(createAspectCommand);
     }
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.handleCommonDate(createUnitCommand);
-    }
-    public void handleCreateAtomicTypeCommand(PersistentCreateAtomicTypeCommand createAtomicTypeCommand) throws PersistenceException{
-        this.handleCommonDate(createAtomicTypeCommand);
     }
     public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
         this.handleCommonDate(createCompUnitCommand);
@@ -110,8 +102,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
         this.handleCommonDate(createAssociationCommand);
     }
-    public void handleCreateSubTypeCommand(PersistentCreateSubTypeCommand createSubTypeCommand) throws PersistenceException{
-        this.handleCommonDate(createSubTypeCommand);
+    public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
+        this.handleCommonDate(createAtomicRootTypeCommand);
     }
     public abstract void handleMFormalParameter(PersistentMFormalParameter mFormalParameter) throws PersistenceException;
     
@@ -146,6 +138,26 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     
+    public abstract void handleMType(PersistentMType mType) throws PersistenceException;
+    
+    public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
+        this.handleMType(mAtomicType);
+    }
+    public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException{
+        this.handleMType(mProductType);
+    }
+    public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException{
+        this.handleMType(mEmptySumType);
+    }
+    public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
+        this.handleMType(mEmptyProduct);
+    }
+    public void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException{
+        this.handleMType(mAbstractProductType);
+    }
+    public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
+        this.handleMType(mSumType);
+    }
     public abstract void handleFunction(PersistentFunction function) throws PersistenceException;
     
     public abstract void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
@@ -161,8 +173,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException;
     
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
-    
-    public abstract void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException;
     
     public abstract void handleMAspect(PersistentMAspect mAspect) throws PersistenceException;
     

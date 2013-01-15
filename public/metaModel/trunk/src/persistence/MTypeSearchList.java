@@ -1,24 +1,24 @@
 package persistence;
 
-public class MTypeSearchList extends SearchListRoot<MType> implements Iterable<MType> {
+public class MTypeSearchList extends SearchListRoot<PersistentMType> implements Iterable<PersistentMType> {
 
-	public MTypeSearchList(SearchListRoot<MType> list){
+	public MTypeSearchList(SearchListRoot<PersistentMType> list){
 		super(list);
 	}
 	public MTypeSearchList(){
 		super();
 	}
 	
-	public void add (MType entry) {
+	public void add (PersistentMType entry) {
 		this.data.add(entry);
 	}
 	public void add(MTypeSearchList list) throws PersistenceException{
-		java.util.Iterator<MType> entries = list.iterator();
+		java.util.Iterator<PersistentMType> entries = list.iterator();
 		while (entries.hasNext()){
 			this.add(entries.next());
 		}
 	}
-	public java.util.Iterator<MType> iterator() {
+	public java.util.Iterator<PersistentMType> iterator() {
 		return this.data.iterator();
 	}
   

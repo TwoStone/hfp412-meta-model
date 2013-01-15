@@ -20,7 +20,7 @@ public class Measurement extends ViewObject implements MeasurementView{
     }
     
     static public long getTypeId() {
-        return 189;
+        return 195;
     }
     
     public long getClassId() {

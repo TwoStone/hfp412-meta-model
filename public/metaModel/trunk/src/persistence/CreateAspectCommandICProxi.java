@@ -40,6 +40,12 @@ public class CreateAspectCommandICProxi extends PersistentInCacheProxi implement
     public void setCommandReceiver(PersistentAspectManager newValue) throws PersistenceException {
         ((PersistentCreateAspectCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
+    public PersistentMAspect getCommandResult() throws PersistenceException {
+        return ((PersistentCreateAspectCommand)this.getTheObject()).getCommandResult();
+    }
+    public void setCommandResult(PersistentMAspect newValue) throws PersistenceException {
+        ((PersistentCreateAspectCommand)this.getTheObject()).setCommandResult(newValue);
+    }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return ((PersistentCreateAspectCommand)this.getTheObject()).getMyCommonDate();
     }

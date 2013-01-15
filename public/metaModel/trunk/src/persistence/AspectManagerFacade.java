@@ -1,6 +1,6 @@
 package persistence;
 
-import model.*;
+import model.typeSystem.*;
 
 public class AspectManagerFacade{
 

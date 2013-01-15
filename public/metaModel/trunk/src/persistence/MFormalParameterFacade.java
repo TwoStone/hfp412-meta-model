@@ -25,25 +25,25 @@ public class MFormalParameterFacade{
 	}
 
     public MFormalParameterProxi newMFormalParameter(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (MFormalParameterProxi)PersistentProxi.createProxi(createMinusStorePlus, 195);
+        if(createMinusStorePlus > 0) return (MFormalParameterProxi)PersistentProxi.createProxi(createMinusStorePlus, 201);
         long id = ConnectionHandler.getTheConnectionHandler().theMFormalParameterFacade.getNextId();
         MFormalParameter result = new MFormalParameter(null,name,null,id);
         Cache.getTheCache().put(result);
-        return (MFormalParameterProxi)PersistentProxi.createProxi(id, 195);
+        return (MFormalParameterProxi)PersistentProxi.createProxi(id, 201);
     }
     
     public MFormalParameterProxi newDelayedMFormalParameter(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theMFormalParameterFacade.getNextId();
         MFormalParameter result = new MFormalParameter(null,name,null,id);
         Cache.getTheCache().put(result);
-        return (MFormalParameterProxi)PersistentProxi.createProxi(id, 195);
+        return (MFormalParameterProxi)PersistentProxi.createProxi(id, 201);
     }
     
     public MFormalParameter getMFormalParameter(long MFormalParameterId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 195)) return 195;
+        if(Cache.getTheCache().contains(objectId, 201)) return 201;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -51,7 +51,7 @@ public class MFormalParameterFacade{
     public MFormalParameterSearchList getMFormalParameterByName(String name) throws PersistenceException {
         MFormalParameterSearchList result = new MFormalParameterSearchList();
         java.util.Iterator<?> candidates;
-        candidates = Cache.getTheCache().iterator(195);
+        candidates = Cache.getTheCache().iterator(201);
         while (candidates.hasNext()){
             PersistentMFormalParameter current = (PersistentMFormalParameter)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getName().equals(name))
@@ -59,7 +59,7 @@ public class MFormalParameterFacade{
         }
         return result;
     }
-    public void ofTypeSet(long MFormalParameterId, MType ofTypeVal) throws PersistenceException {
+    public void ofTypeSet(long MFormalParameterId, PersistentMType ofTypeVal) throws PersistenceException {
         
     }
     public void nameSet(long MFormalParameterId, String nameVal) throws PersistenceException {

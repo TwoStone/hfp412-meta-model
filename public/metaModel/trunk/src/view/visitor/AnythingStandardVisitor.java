@@ -20,9 +20,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMAccountType(MAccountTypeView mAccountType) throws ModelException{
         this.standardHandling(mAccountType);
     }
-    public void handleMEmptySum(MEmptySumView mEmptySum) throws ModelException{
-        this.standardHandling(mEmptySum);
-    }
     public void handleTypeManager(TypeManagerView typeManager) throws ModelException{
         this.standardHandling(typeManager);
     }
@@ -44,11 +41,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleFractionManager(FractionManagerView fractionManager) throws ModelException{
         this.standardHandling(fractionManager);
     }
-    public void handleConversion(ConversionView conversion) throws ModelException{
-        this.standardHandling(conversion);
-    }
     public void handleReference(ReferenceView reference) throws ModelException{
         this.standardHandling(reference);
+    }
+    public void handleConversion(ConversionView conversion) throws ModelException{
+        this.standardHandling(conversion);
     }
     public void handleCompUnitType(CompUnitTypeView compUnitType) throws ModelException{
         this.standardHandling(compUnitType);
@@ -83,6 +80,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMMeasurementType(MMeasurementTypeView mMeasurementType) throws ModelException{
         this.standardHandling(mMeasurementType);
     }
+    public void handleMEmptySumType(MEmptySumTypeView mEmptySumType) throws ModelException{
+        this.standardHandling(mEmptySumType);
+    }
     public void handleMFormalParameter(MFormalParameterView mFormalParameter) throws ModelException{
         this.standardHandling(mFormalParameter);
     }
@@ -100,6 +100,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMessage(MessageView message) throws ModelException{
         this.standardHandling(message);
+    }
+    public void handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException{
+        this.standardHandling(mAbstractProductType);
     }
     public void handleFunction(FunctionView function) throws ModelException{
         this.standardHandling(function);

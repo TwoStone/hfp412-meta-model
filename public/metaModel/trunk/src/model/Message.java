@@ -94,7 +94,7 @@ public class Message extends model.MessageOrLink implements PersistentMessage{
     }
     
     static public long getTypeId() {
-        return 198;
+        return 205;
     }
     
     public long getClassId() {
@@ -103,7 +103,7 @@ public class Message extends model.MessageOrLink implements PersistentMessage{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 198) ConnectionHandler.getTheConnectionHandler().theMessageFacade
+        if (this.getClassId() == 205) ConnectionHandler.getTheConnectionHandler().theMessageFacade
             .newMessage(this.getId());
         super.store();
         if(this.getType() != null){

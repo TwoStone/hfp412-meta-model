@@ -1,5 +1,5 @@
 package persistence;
 
-public interface PersistentMProductTypeListEntryProxi extends PersistentMComplexTypeListEntryProxi {
+public interface PersistentMProductTypeListEntryProxi extends PersistentMAbstractProductTypeListEntryProxi {
 
 }

@@ -2,13 +2,13 @@ package view;
 
 import view.visitor.*;
 
-public interface MEmptyProductView extends MProductTypeView {
+public interface MEmptyProductView extends MAbstractProductTypeView {
     
     
-    public void accept(MProductTypeVisitor visitor) throws ModelException;
-    public <R> R accept(MProductTypeReturnVisitor<R>  visitor) throws ModelException;
-    public <E extends UserException>  void accept(MProductTypeExceptionVisitor<E> visitor) throws ModelException, E;
-    public <R, E extends UserException> R accept(MProductTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
+    public void accept(MAbstractProductTypeVisitor visitor) throws ModelException;
+    public <R> R accept(MAbstractProductTypeReturnVisitor<R>  visitor) throws ModelException;
+    public <E extends UserException>  void accept(MAbstractProductTypeExceptionVisitor<E> visitor) throws ModelException, E;
+    public <R, E extends UserException> R accept(MAbstractProductTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
     public void accept(MComplexTypeVisitor visitor) throws ModelException;
     public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws ModelException;
     public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws ModelException, E;

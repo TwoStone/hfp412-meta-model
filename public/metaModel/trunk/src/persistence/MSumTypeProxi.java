@@ -4,7 +4,7 @@ import model.UserException;
 
 import model.visitor.*;
 
-public class MSumTypeProxi extends MComplexTypeProxi implements PersistentMSumType{
+public class MSumTypeProxi extends MAbstractSumTypeProxi implements PersistentMSumType{
     
     public MSumTypeProxi(long objectId) {
         super(objectId);
@@ -26,16 +26,16 @@ public class MSumTypeProxi extends MComplexTypeProxi implements PersistentMSumTy
         return ((PersistentMSumType)this.getTheObject()).getThis();
     }
     
-    public void accept(MSumTypeVisitor visitor) throws PersistenceException {
+    public void accept(MAbstractSumTypeVisitor visitor) throws PersistenceException {
         visitor.handleMSumType(this);
     }
-    public <R> R accept(MSumTypeReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(MAbstractSumTypeReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleMSumType(this);
     }
-    public <E extends UserException>  void accept(MSumTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(MAbstractSumTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleMSumType(this);
     }
-    public <R, E extends UserException> R accept(MSumTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(MAbstractSumTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMSumType(this);
     }
     public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
@@ -50,18 +50,6 @@ public class MSumTypeProxi extends MComplexTypeProxi implements PersistentMSumTy
     public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMSumType(this);
     }
-    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-        visitor.handleMSumType(this);
-    }
-    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMSumType(this);
-    }
-    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMSumType(this);
-    }
-    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMSumType(this);
-    }
     public void accept(MTypeVisitor visitor) throws PersistenceException {
         visitor.handleMSumType(this);
     }
@@ -72,6 +60,18 @@ public class MSumTypeProxi extends MComplexTypeProxi implements PersistentMSumTy
          visitor.handleMSumType(this);
     }
     public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMSumType(this);
+    }
+    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleMSumType(this);
+    }
+    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMSumType(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMSumType(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMSumType(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -92,69 +92,45 @@ public class MSumTypeProxi extends MComplexTypeProxi implements PersistentMSumTy
 				throws PersistenceException{
         ((PersistentMSumType)this.getTheObject()).initializeOnInstantiation();
     }
-    public PersistentMProductType transientAddFactor(final MType factor) 
-				throws model.ConsistencyException, PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).transientAddFactor(factor);
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        ((PersistentMSumType)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).containsMComplexTypeHierarchy(part);
     }
-    public PersistentMBoolean isStructuralEqual(final MType otherType) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).isStructuralEqual(otherType);
+        ((PersistentMSumType)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).isStructuralEquivalant(other);
     }
     public String fetchName() 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).fetchName();
     }
-    public PersistentMSumType transientAddAddend(final MType addend) 
-				throws model.ConsistencyException, PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).transientAddAddend(addend);
-    }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
-    public PersistentMBoolean isLessOrEqual(final MType otherType) 
+    public String fetchTypeLinkOperator() 
 				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).isLessOrEqual(otherType);
+        return ((PersistentMSumType)this.getTheObject()).fetchTypeLinkOperator();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMSumType)this.getTheObject()).initializeOnCreation();
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        ((PersistentMSumType)this.getTheObject()).copyingPrivateUserAttributes(copy);
-    }
-    public PersistentMBoolean contains(final MType otherType) 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).contains(otherType);
-    }
-    public MAssociationSearchList fetchAssociations() 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).fetchAssociations();
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        ((PersistentMSumType)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public PersistentMSumType fetchDisjunctiveNormalform() 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).fetchDisjunctiveNormalform();
-    }
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).isSingleton();
     }
-    public String getTypeLinkOperator() 
+    public PersistentMBoolean isLessOrEqual() 
 				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).getTypeLinkOperator();
-    }
-    public PersistentMBoolean allObjectsOfTypeAreSingleton() 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).allObjectsOfTypeAreSingleton();
+        return ((PersistentMSumType)this.getTheObject()).isLessOrEqual();
     }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{

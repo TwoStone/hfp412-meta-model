@@ -5,7 +5,7 @@ import view.*;
 
 public interface MQuantiObjectTypeExceptionVisitor<E extends UserException> {
     
-    public void handleMMeasurementType(MMeasurementTypeView mMeasurementType) throws ModelException, E;
     public void handleMAccountType(MAccountTypeView mAccountType) throws ModelException, E;
+    public void handleMMeasurementType(MMeasurementTypeView mMeasurementType) throws ModelException, E;
     
 }

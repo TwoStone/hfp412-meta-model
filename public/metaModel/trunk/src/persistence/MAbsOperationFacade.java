@@ -25,7 +25,7 @@ public class MAbsOperationFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 190)) return 190;
+        if(Cache.getTheCache().contains(objectId, 197)) return 197;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -33,7 +33,7 @@ public class MAbsOperationFacade{
     public MAbsOperationSearchList getMAbsOperationByName(String name) throws PersistenceException {
         MAbsOperationSearchList result = new MAbsOperationSearchList();
         java.util.Iterator<?> candidates;
-        candidates = Cache.getTheCache().iterator(190);
+        candidates = Cache.getTheCache().iterator(197);
         while (candidates.hasNext()){
             PersistentMAbsOperation current = (PersistentMAbsOperation)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getName().equals(name))
@@ -44,10 +44,10 @@ public class MAbsOperationFacade{
     public void nameSet(long MAbsOperationId, String nameVal) throws PersistenceException {
         
     }
-    public void sourceSet(long MAbsOperationId, MType sourceVal) throws PersistenceException {
+    public void sourceSet(long MAbsOperationId, PersistentMType sourceVal) throws PersistenceException {
         
     }
-    public void targetSet(long MAbsOperationId, MType targetVal) throws PersistenceException {
+    public void targetSet(long MAbsOperationId, PersistentMType targetVal) throws PersistenceException {
         
     }
     public long parametersAdd(long MAbsOperationId, PersistentMFormalParameter parametersVal) throws PersistenceException {

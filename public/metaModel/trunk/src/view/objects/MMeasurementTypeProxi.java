@@ -26,7 +26,7 @@ public class MMeasurementTypeProxi extends MQuantiObjectTypeProxi implements MMe
             unitType = ViewProxi.createProxi(unitType$Info,connectionKey);
             unitType.setToString(unitType$Info.getToString());
         }
-        MMeasurementTypeView result$$ = new MMeasurementType((MType)type,(AbsUnitTypeView)unitType, this.getId(), this.getClassId());
+        MMeasurementTypeView result$$ = new MMeasurementType((MTypeView)type,(AbsUnitTypeView)unitType, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

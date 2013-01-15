@@ -6,8 +6,8 @@ import view.visitor.*;
 
 public interface MFormalParameterView extends Anything, AbstractViewProxi {
     
-    public MType getOfType() throws ModelException ;
-    public void setOfType(MType newValue) throws ModelException ;
+    public MTypeView getOfType() throws ModelException ;
+    public void setOfType(MTypeView newValue) throws ModelException ;
     public String getName() throws ModelException ;
     public void setName(String newValue) throws ModelException ;
     

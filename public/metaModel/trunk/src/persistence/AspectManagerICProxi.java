@@ -43,9 +43,9 @@ public class AspectManagerICProxi extends PersistentInCacheProxiOptimistic imple
     }
     
     
-    public void createAspect(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentAspectManager)this.getTheObject()).createAspect(name);
+    public PersistentMAspect createAspect(final String name) 
+				throws model.ConsistencyException, PersistenceException{
+        return ((PersistentAspectManager)this.getTheObject()).createAspect(name);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

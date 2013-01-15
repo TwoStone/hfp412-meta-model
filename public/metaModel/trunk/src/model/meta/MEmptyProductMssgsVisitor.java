@@ -9,7 +9,7 @@ interface MEmptyProductDOWNMssgsVisitor  {
 }
 
 
-interface MEmptyProductUPMssgsVisitor extends MProductTypeUPMssgsVisitor {
+interface MEmptyProductUPMssgsVisitor extends MAbstractProductTypeUPMssgsVisitor {
 
     
 }

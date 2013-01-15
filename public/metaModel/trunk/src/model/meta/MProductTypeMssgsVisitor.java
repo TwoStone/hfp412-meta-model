@@ -3,13 +3,13 @@ package model.meta;
 public interface MProductTypeMssgsVisitor extends MProductTypeDOWNMssgsVisitor, MProductTypeUPMssgsVisitor {}
 
 
-interface MProductTypeDOWNMssgsVisitor extends MEmptyProductDOWNMssgsVisitor {
+interface MProductTypeDOWNMssgsVisitor  {
 
     
 }
 
 
-interface MProductTypeUPMssgsVisitor extends MComplexTypeUPMssgsVisitor {
+interface MProductTypeUPMssgsVisitor extends MAbstractProductTypeUPMssgsVisitor {
 
     
 }

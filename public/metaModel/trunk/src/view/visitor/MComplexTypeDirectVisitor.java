@@ -5,15 +5,21 @@ import view.*;
 
 public abstract class MComplexTypeDirectVisitor implements MComplexTypeVisitor {
     
-    public abstract void handleMProductType(MProductTypeView mProductType) throws ModelException;
+    public abstract void handleMAbstractSumType(MAbstractSumTypeView mAbstractSumType) throws ModelException;
     
-    public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
-        this.handleMProductType(mEmptyProduct);
+    public void handleMEmptySumType(MEmptySumTypeView mEmptySumType) throws ModelException{
+        this.handleMAbstractSumType(mEmptySumType);
     }
-    public abstract void handleMSumType(MSumTypeView mSumType) throws ModelException;
+    public void handleMSumType(MSumTypeView mSumType) throws ModelException{
+        this.handleMAbstractSumType(mSumType);
+    }
+    public abstract void handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException;
     
-    public void handleMEmptySum(MEmptySumView mEmptySum) throws ModelException{
-        this.handleMSumType(mEmptySum);
+    public void handleMProductType(MProductTypeView mProductType) throws ModelException{
+        this.handleMAbstractProductType(mProductType);
+    }
+    public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
+        this.handleMAbstractProductType(mEmptyProduct);
     }
     
 }

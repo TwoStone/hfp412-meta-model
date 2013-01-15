@@ -25,13 +25,13 @@ public class MQuantiObjectTypeFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 193)) return 193;
-        if(Cache.getTheCache().contains(objectId, 187)) return 187;
+        if(Cache.getTheCache().contains(objectId, 194)) return 194;
+        if(Cache.getTheCache().contains(objectId, 199)) return 199;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
-    public void typeSet(long MQuantiObjectTypeId, MType typeVal) throws PersistenceException {
+    public void typeSet(long MQuantiObjectTypeId, PersistentMType typeVal) throws PersistenceException {
         
     }
     public void unitTypeSet(long MQuantiObjectTypeId, PersistentAbsUnitType unitTypeVal) throws PersistenceException {

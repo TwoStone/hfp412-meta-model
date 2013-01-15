@@ -19,13 +19,13 @@ public class MFormalParameterICProxi extends PersistentInCacheProxiOptimistic im
     }
     
     public long getClassId() {
-        return 195;
+        return 201;
     }
     
-    public MType getOfType() throws PersistenceException {
+    public PersistentMType getOfType() throws PersistenceException {
         return ((PersistentMFormalParameter)this.getTheObject()).getOfType();
     }
-    public void setOfType(MType newValue) throws PersistenceException {
+    public void setOfType(PersistentMType newValue) throws PersistenceException {
         ((PersistentMFormalParameter)this.getTheObject()).setOfType(newValue);
     }
     public String getName() throws PersistenceException {

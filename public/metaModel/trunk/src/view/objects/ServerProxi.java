@@ -13,6 +13,13 @@ public class ServerProxi extends ViewProxi implements ServerView{
     
     @SuppressWarnings("unchecked")
     public ServerView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
+        ViewProxi aspectManager = null;
+        String aspectManager$String = (String)resultTable.get("aspectManager");
+        if (aspectManager$String != null) {
+            common.ProxiInformation aspectManager$Info = common.RPCConstantsAndServices.createProxiInformation(aspectManager$String);
+            aspectManager = ViewProxi.createProxi(aspectManager$Info,connectionKey);
+            aspectManager.setToString(aspectManager$Info.getToString());
+        }
         ViewProxi typeManager = null;
         String typeManager$String = (String)resultTable.get("typeManager");
         if (typeManager$String != null) {
@@ -48,13 +55,6 @@ public class ServerProxi extends ViewProxi implements ServerView{
             fractionManager = ViewProxi.createProxi(fractionManager$Info,connectionKey);
             fractionManager.setToString(fractionManager$Info.getToString());
         }
-        ViewProxi aspectManager = null;
-        String aspectManager$String = (String)resultTable.get("aspectManager");
-        if (aspectManager$String != null) {
-            common.ProxiInformation aspectManager$Info = common.RPCConstantsAndServices.createProxiInformation(aspectManager$String);
-            aspectManager = ViewProxi.createProxi(aspectManager$Info,connectionKey);
-            aspectManager.setToString(aspectManager$Info.getToString());
-        }
         ViewProxi associationManager = null;
         String associationManager$String = (String)resultTable.get("associationManager");
         if (associationManager$String != null) {
@@ -65,7 +65,7 @@ public class ServerProxi extends ViewProxi implements ServerView{
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server((TypeManagerView)typeManager,(QuantityManagerView)quantityManager,(UnitTypeManagerView)unitTypeManager,(ConversionManagerView)conversionManager,(FractionManagerView)fractionManager,(AspectManagerView)aspectManager,(AssociationManagerView)associationManager,errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server((AspectManagerView)aspectManager,(TypeManagerView)typeManager,(QuantityManagerView)quantityManager,(UnitTypeManagerView)unitTypeManager,(ConversionManagerView)conversionManager,(FractionManagerView)fractionManager,(AssociationManagerView)associationManager,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -75,6 +75,8 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
+        if(index == 0 && this.getAspectManager() != null) return new AspectManagerServerWrapper(this, originalIndex, (ViewRoot)this.getAspectManager());
+        if(this.getAspectManager() != null) index = index - 1;
         if(index == 0 && this.getTypeManager() != null) return new TypeManagerServerWrapper(this, originalIndex, (ViewRoot)this.getTypeManager());
         if(this.getTypeManager() != null) index = index - 1;
         if(index == 0 && this.getQuantityManager() != null) return new QuantityManagerServerWrapper(this, originalIndex, (ViewRoot)this.getQuantityManager());
@@ -85,35 +87,35 @@ public class ServerProxi extends ViewProxi implements ServerView{
         if(this.getConversionManager() != null) index = index - 1;
         if(index == 0 && this.getFractionManager() != null) return new FractionManagerServerWrapper(this, originalIndex, (ViewRoot)this.getFractionManager());
         if(this.getFractionManager() != null) index = index - 1;
-        if(index == 0 && this.getAspectManager() != null) return new AspectManagerServerWrapper(this, originalIndex, (ViewRoot)this.getAspectManager());
-        if(this.getAspectManager() != null) index = index - 1;
         if(index == 0 && this.getAssociationManager() != null) return new AssociationManagerServerWrapper(this, originalIndex, (ViewRoot)this.getAssociationManager());
         if(this.getAssociationManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
+            + (this.getAspectManager() == null ? 0 : 1)
             + (this.getTypeManager() == null ? 0 : 1)
             + (this.getQuantityManager() == null ? 0 : 1)
             + (this.getUnitTypeManager() == null ? 0 : 1)
             + (this.getConversionManager() == null ? 0 : 1)
             + (this.getFractionManager() == null ? 0 : 1)
-            + (this.getAspectManager() == null ? 0 : 1)
             + (this.getAssociationManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
+            && (this.getAspectManager() == null ? true : false)
             && (this.getTypeManager() == null ? true : false)
             && (this.getQuantityManager() == null ? true : false)
             && (this.getUnitTypeManager() == null ? true : false)
             && (this.getConversionManager() == null ? true : false)
             && (this.getFractionManager() == null ? true : false)
-            && (this.getAspectManager() == null ? true : false)
             && (this.getAssociationManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
+        if(this.getAspectManager() != null && this.getAspectManager().equals(child)) return result;
+        if(this.getAspectManager() != null) result = result + 1;
         if(this.getTypeManager() != null && this.getTypeManager().equals(child)) return result;
         if(this.getTypeManager() != null) result = result + 1;
         if(this.getQuantityManager() != null && this.getQuantityManager().equals(child)) return result;
@@ -124,13 +126,14 @@ public class ServerProxi extends ViewProxi implements ServerView{
         if(this.getConversionManager() != null) result = result + 1;
         if(this.getFractionManager() != null && this.getFractionManager().equals(child)) return result;
         if(this.getFractionManager() != null) result = result + 1;
-        if(this.getAspectManager() != null && this.getAspectManager().equals(child)) return result;
-        if(this.getAspectManager() != null) result = result + 1;
         if(this.getAssociationManager() != null && this.getAssociationManager().equals(child)) return result;
         if(this.getAssociationManager() != null) result = result + 1;
         return -1;
     }
     
+    public AspectManagerView getAspectManager() throws ModelException {
+        return ((Server)this.getTheObject()).getAspectManager();
+    }
     public TypeManagerView getTypeManager() throws ModelException {
         return ((Server)this.getTheObject()).getTypeManager();
     }
@@ -145,9 +148,6 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     public FractionManagerView getFractionManager() throws ModelException {
         return ((Server)this.getTheObject()).getFractionManager();
-    }
-    public AspectManagerView getAspectManager() throws ModelException {
-        return ((Server)this.getTheObject()).getAspectManager();
     }
     public AssociationManagerView getAssociationManager() throws ModelException {
         return ((Server)this.getTheObject()).getAssociationManager();

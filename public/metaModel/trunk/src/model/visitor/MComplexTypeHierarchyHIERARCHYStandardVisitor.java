@@ -11,8 +11,11 @@ public abstract class MComplexTypeHierarchyHIERARCHYStandardVisitor implements M
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
         this.standardHandling(mAtomicType);
     }
-    public void handleMEmptySum(PersistentMEmptySum mEmptySum) throws PersistenceException{
-        this.standardHandling(mEmptySum);
+    public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException{
+        this.standardHandling(mEmptySumType);
+    }
+    public void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException{
+        this.standardHandling(mAbstractProductType);
     }
     public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
         this.standardHandling(mEmptyProduct);

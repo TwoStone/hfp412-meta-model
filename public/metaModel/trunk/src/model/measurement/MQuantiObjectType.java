@@ -47,11 +47,11 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected MType type;
+    protected PersistentMType type;
     protected PersistentAbsUnitType unitType;
     protected PersistentMQuantiObjectType This;
     
-    public MQuantiObjectType(MType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,long id) throws persistence.PersistenceException {
+    public MQuantiObjectType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.type = type;
@@ -60,7 +60,7 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
     }
     
     static public long getTypeId() {
-        return 194;
+        return 200;
     }
     
     public long getClassId() {
@@ -85,15 +85,15 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
         
     }
     
-    public MType getType() throws PersistenceException {
+    public PersistentMType getType() throws PersistenceException {
         return this.type;
     }
-    public void setType(MType newValue) throws PersistenceException {
+    public void setType(PersistentMType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.type)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.type = (MType)PersistentProxi.createProxi(objectId, classId);
+        this.type = (PersistentMType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMQuantiObjectTypeFacade.typeSet(this.getId(), newValue);
@@ -146,7 +146,7 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
 				throws PersistenceException{
         this.setThis((PersistentMQuantiObjectType)This);
 		if(this.equals(This)){
-			this.setType((MType)final$$Fields.get("type"));
+			this.setType((PersistentMType)final$$Fields.get("type"));
 			this.setUnitType((PersistentAbsUnitType)final$$Fields.get("unitType"));
 		}
     }

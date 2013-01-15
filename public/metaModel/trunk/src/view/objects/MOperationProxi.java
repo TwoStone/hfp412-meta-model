@@ -30,7 +30,7 @@ public class MOperationProxi extends MAbsOperationProxi implements MOperationVie
         }
         java.util.Vector<String> parameters_string = (java.util.Vector<String>)resultTable.get("parameters");
         java.util.Vector<MFormalParameterView> parameters = ViewProxi.getProxiVector(parameters_string, connectionKey);
-        MOperationView result$$ = new MOperation((String)name,(MType)source,(MType)target,parameters, this.getId(), this.getClassId());
+        MOperationView result$$ = new MOperation((String)name,(MTypeView)source,(MTypeView)target,parameters, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

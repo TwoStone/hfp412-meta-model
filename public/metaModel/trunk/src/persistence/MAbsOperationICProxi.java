@@ -18,16 +18,16 @@ public abstract class MAbsOperationICProxi extends PersistentInCacheProxiOptimis
     public void setName(String newValue) throws PersistenceException {
         ((PersistentMAbsOperation)this.getTheObject()).setName(newValue);
     }
-    public MType getSource() throws PersistenceException {
+    public PersistentMType getSource() throws PersistenceException {
         return ((PersistentMAbsOperation)this.getTheObject()).getSource();
     }
-    public void setSource(MType newValue) throws PersistenceException {
+    public void setSource(PersistentMType newValue) throws PersistenceException {
         ((PersistentMAbsOperation)this.getTheObject()).setSource(newValue);
     }
-    public MType getTarget() throws PersistenceException {
+    public PersistentMType getTarget() throws PersistenceException {
         return ((PersistentMAbsOperation)this.getTheObject()).getTarget();
     }
-    public void setTarget(MType newValue) throws PersistenceException {
+    public void setTarget(PersistentMType newValue) throws PersistenceException {
         ((PersistentMAbsOperation)this.getTheObject()).setTarget(newValue);
     }
     public MAbsOperation_ParametersProxi getParameters() throws PersistenceException {
