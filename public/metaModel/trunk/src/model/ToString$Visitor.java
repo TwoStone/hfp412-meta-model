@@ -49,13 +49,16 @@ import persistence.PersistentUnitTypeManager;
 public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	private static final boolean DEBUG_MODE_ON = true;
-	
+
+	private static final String DEBUG_PREFIX_NULL = "[null] ";
+
 	private static final String APPENDIX_OF_PROXIES = "Proxi";
-	
+
 	private String result;
-	
+
 	public ToString$Visitor() {
 	}
+
 	public synchronized String toString(Anything anything) throws PersistenceException {
 		result = null;
 		anything.accept(this);
@@ -67,288 +70,286 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		}
 		return result;
 	}
-	
-	private String formatClassNameForDebug(Object anything) {
-		if (anything == null)
-			return "[null] ";
-		
+
+	/**
+	 * Formatiert den Klassennamen des übergebenen Objekts für die Debug-Ausgabe.
+	 * 
+	 * @param anything
+	 *            Das zu formatierende Objekt
+	 * @return Für Debug-Ausgabe formatierter Klassenname
+	 */
+	private String formatClassNameForDebug(final Object anything) {
+		if (anything == null) {
+			return DEBUG_PREFIX_NULL;
+		}
+
 		String className = anything.getClass().getSimpleName();
-		
-		if (className == null)
-			return "[null] ";
-		
-		if (className.contains("Manager"))
+
+		if (className == null) {
+			return DEBUG_PREFIX_NULL;
+		}
+
+		if (className.contains("Manager")) {
 			return "";
-		
+		}
+
 		if (className.endsWith(APPENDIX_OF_PROXIES)) {
 			className = className.substring(0, className.length() - APPENDIX_OF_PROXIES.length());
 		}
 
 		return "[" + className + "] ";
 	}
-	
+
 	@Override
 	protected void standardHandling(Anything anything) {
 		result = anything.getClassId() + ";" + anything.getId();
 	}
+
 	@Override
-	public void handleMAtomicType(PersistentMAtomicType mAtomicType)
-			throws PersistenceException {
+	public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
 		result = mAtomicType.fetchName();
 	}
+
 	@Override
-	public void handleMProductType(PersistentMProductType mProductType)
-			throws PersistenceException {
-		result = mProductType.fetchName(); 
-		
+	public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+		result = mProductType.fetchName();
+
 	}
+
 	@Override
-	public void handleMSumType(PersistentMSumType mSumType)
-			throws PersistenceException {
+	public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
 		result = mSumType.fetchName();
 	}
 
-	
 	@Override
-	public void handleTypeManager(PersistentTypeManager typeManager)
-			throws PersistenceException {
+	public void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException {
 		result = "Liste der Typen";
 	}
+
 	@Override
-	public void handleAspectManager(PersistentAspectManager aspectManager)
-			throws PersistenceException {
+	public void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException {
 		result = "Liste der Aspekte";
-		
+
 	}
+
 	@Override
-	public void handleMAspect(PersistentMAspect mAspect)
-			throws PersistenceException {
+	public void handleMAspect(PersistentMAspect mAspect) throws PersistenceException {
 		result = mAspect.getName();
 	}
+
 	@Override
-	public void handleMFalse(PersistentMFalse mFalse)
-			throws PersistenceException {
+	public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException {
 		result = "false";
 	}
-	
+
 	@Override
 	public void handleMTrue(PersistentMTrue mTrue) throws PersistenceException {
 		result = "true";
 	}
+
 	@Override
-	public void handleAssociationManager(
-			PersistentAssociationManager associationManager)
-			throws PersistenceException {
+	public void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException {
 		result = "Liste der Assoziationen";
 	}
+
 	@Override
-	public void handleMAHierarchy(PersistentMAHierarchy mAHierarchy)
-			throws PersistenceException {
+	public void handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException {
 		result = mAHierarchy.getName();
 	}
+
 	@Override
-	public void handleMAssociation(PersistentMAssociation mAssociation)
-			throws PersistenceException {
-		result = mAssociation.getName() + " (" + mAssociation.getSource().fetchName() + ")";  
+	public void handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException {
+		result = mAssociation.getName() + " (" + mAssociation.getSource().fetchName() + ")";
 	}
-	
+
 	@Override
-	public void handleQuantity(PersistentQuantity quantity)
-			throws PersistenceException {
+	public void handleQuantity(PersistentQuantity quantity) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleConversionManager(
-			PersistentConversionManager conversionManager)
-			throws PersistenceException {
+	public void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_CONVERSION_MANAGER;
 	}
 
 	@Override
-	public void handleCompoundQuantity(
-			PersistentCompoundQuantity compoundQuantity)
-			throws PersistenceException {
+	public void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleReferenceType(PersistentReferenceType referenceType)
-			throws PersistenceException {
-		this.result = referenceType.getRef() + "^"+referenceType.getExponent();
+	public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException {
+		this.result = referenceType.getRef() + "^" + referenceType.getExponent();
 	}
+
 	@Override
-	public void handleQuantityManager(PersistentQuantityManager quantityManager)
-			throws PersistenceException {
-		this.result = constants.TextConstants.LABEL_QUANTITY_MANAGER;		
+	public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException {
+		this.result = constants.TextConstants.LABEL_QUANTITY_MANAGER;
 	}
+
 	@Override
-	public void handleUnitType(PersistentUnitType unitType)
-			throws PersistenceException {
+	public void handleUnitType(PersistentUnitType unitType) throws PersistenceException {
 		this.result = unitType.getName();
-		
+
 	}
+
 	@Override
 	public void handleUnit(PersistentUnit unit) throws PersistenceException {
 		this.result = unit.getName() + " (" + unit.getType().getName() + ")";
-		
+
 	}
+
 	@Override
-	public void handleServer(PersistentServer server)
-			throws PersistenceException {
+	public void handleServer(PersistentServer server) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleReference(PersistentReference reference)
-			throws PersistenceException {
+	public void handleReference(PersistentReference reference) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleConversion(PersistentConversion conversion)
-			throws PersistenceException {
+	public void handleConversion(PersistentConversion conversion) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleCompUnit(PersistentCompUnit compUnit)
-			throws PersistenceException {
+	public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException {
 		this.result = compUnit.getName() + " (" + compUnit.getType().getName() + ")";
 	}
 
 	@Override
-	public void handleCompUnitType(PersistentCompUnitType compUnitType)
-			throws PersistenceException {
+	public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException {
 		String state = compUnitType.isFinal().accept(new MBooleanReturnVisitor<String>() {
 
 			@Override
-			public String handleMFalse(PersistentMFalse booleanFalse)
-					throws PersistenceException {
+			public String handleMFalse(PersistentMFalse booleanFalse) throws PersistenceException {
 				return " (draft)";
 			}
 
 			@Override
-			public String handleMTrue(PersistentMTrue booleanTrue)
-					throws PersistenceException {
+			public String handleMTrue(PersistentMTrue booleanTrue) throws PersistenceException {
 				return "";
 			}
 
 		});
 		this.result = compUnitType.getName() + state;
-		
-	}
-	@Override
-	public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager)
-			throws PersistenceException {
-		this.result = constants.TextConstants.LABEL_UNIT_TYPE_MANAGER;
-		
-	}
-	@Override
-	public void handleFractionManager(PersistentFractionManager fractionManager)
-			throws PersistenceException {
-		this.result = constants.TextConstants.LABEL_FRACTION_MANAGER;
-		
+
 	}
 
 	@Override
-	public void handleFunction(PersistentFunction function)
-			throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+	public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException {
+		this.result = constants.TextConstants.LABEL_UNIT_TYPE_MANAGER;
+
 	}
+
 	@Override
-	public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct)
-			throws PersistenceException {
+	public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException {
+		this.result = constants.TextConstants.LABEL_FRACTION_MANAGER;
+
+	}
+
+	@Override
+	public void handleFunction(PersistentFunction function) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException {
 		result = "[Empty Product]";
 	}
+
 	@Override
-	public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType)
-			throws PersistenceException {
+	public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
 		result = "[Empty Sum]";
 	}
+
 	@Override
-	public void handleMAbstractProductType(
-			PersistentMAbstractProductType mAbstractProductType)
+	public void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType)
 			throws PersistenceException {
-		result = "[AbstractProductType]";		
+		result = "[AbstractProductType]";
 	}
+
 	@Override
-	public void handleMAccountType(PersistentMAccountType mAccountType)
-			throws PersistenceException {
+	public void handleMAccountType(PersistentMAccountType mAccountType) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleMeasurement(PersistentMeasurement measurement)
-			throws PersistenceException {
+	public void handleMeasurement(PersistentMeasurement measurement) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleMOperation(PersistentMOperation mOperation)
-			throws PersistenceException {
+	public void handleMOperation(PersistentMOperation mOperation) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleAccount(PersistentAccount account)
-			throws PersistenceException {
+	public void handleAccount(PersistentAccount account) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleMMeasurementType(
-			PersistentMMeasurementType mMeasurementType)
-			throws PersistenceException {
+	public void handleMMeasurementType(PersistentMMeasurementType mMeasurementType) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleMFormalParameter(
-			PersistentMFormalParameter mFormalParameter)
-			throws PersistenceException {
+	public void handleMFormalParameter(PersistentMFormalParameter mFormalParameter) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleInstanceObject(PersistentInstanceObject instanceObject)
-			throws PersistenceException {
+	public void handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleMessage(PersistentMessage message)
-			throws PersistenceException {
+	public void handleMessage(PersistentMessage message) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleActualParameter(PersistentActualParameter actualParameter)
-			throws PersistenceException {
+	public void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public void handleLink(PersistentLink link) throws PersistenceException {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
-	public void handleMeasurementTypeManager(
-			PersistentMeasurementTypeManager measurementTypeManager)
+	public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager)
 			throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_MEASUREMENT_TYPE_MANAGER;
 	}
+
 	@Override
-	public void handleAccountTypeManager(
-			PersistentAccountTypeManager accountTypeManager)
-			throws PersistenceException {
+	public void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_ACCOUNT_TYPE_MANAGER;
 	}
+
 	@Override
-	public void handleAccountManager(PersistentAccountManager accountManager)
-			throws PersistenceException {
+	public void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_ACCOUNT_MANAGER;
 	}
 }
