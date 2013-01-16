@@ -8,19 +8,14 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class Account extends PersistentObject implements PersistentAccount{
+public class Account extends model.measurement.QuantifObject implements PersistentAccount{
     
-    /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentAccount getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theAccountFacade.getClass(objectId);
-        return (PersistentAccount)PersistentProxi.createProxi(objectId, classId);
+    
+    public static PersistentAccount createAccount(PersistentInstanceObject object,PersistentMAccountType type) throws PersistenceException{
+        return createAccount(object,type,false);
     }
     
-    public static PersistentAccount createAccount(PersistentMAccountType type) throws PersistenceException{
-        return createAccount(type,false);
-    }
-    
-    public static PersistentAccount createAccount(PersistentMAccountType type,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentAccount createAccount(PersistentInstanceObject object,PersistentMAccountType type,boolean delayed$Persistence) throws PersistenceException {
         PersistentAccount result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
@@ -31,13 +26,14 @@ public class Account extends PersistentObject implements PersistentAccount{
                 .newAccount(-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("object", object);
         final$$Fields.put("type", type);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentAccount createAccount(PersistentMAccountType type,boolean delayed$Persistence,PersistentAccount This) throws PersistenceException {
+    public static PersistentAccount createAccount(PersistentInstanceObject object,PersistentMAccountType type,boolean delayed$Persistence,PersistentAccount This) throws PersistenceException {
         PersistentAccount result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
@@ -48,6 +44,7 @@ public class Account extends PersistentObject implements PersistentAccount{
                 .newAccount(-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("object", object);
         final$$Fields.put("type", type);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -68,6 +65,7 @@ public class Account extends PersistentObject implements PersistentAccount{
                 }
             }
             result.put("subAccounts", this.getSubAccounts().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
+            result.put("entries", this.getEntries().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -76,10 +74,12 @@ public class Account extends PersistentObject implements PersistentAccount{
     
     public Account provideCopy() throws PersistenceException{
         Account result = this;
-        result = new Account(this.type, 
+        result = new Account(this.object, 
                              this.This, 
+                             this.type, 
                              this.getId());
         result.subAccounts = this.subAccounts.copy(result);
+        result.entries = this.entries.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -89,14 +89,14 @@ public class Account extends PersistentObject implements PersistentAccount{
     }
     protected PersistentMAccountType type;
     protected Account_SubAccountsProxi subAccounts;
-    protected PersistentAccount This;
+    protected Account_EntriesProxi entries;
     
-    public Account(PersistentMAccountType type,PersistentAccount This,long id) throws persistence.PersistenceException {
+    public Account(PersistentInstanceObject object,PersistentQuantifObject This,PersistentMAccountType type,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super(id);
+        super((PersistentInstanceObject)object,(PersistentQuantifObject)This,id);
         this.type = type;
         this.subAccounts = new Account_SubAccountsProxi(this);
-        if (This != null && !(this.equals(This))) this.This = This;        
+        this.entries = new Account_EntriesProxi(this);        
     }
     
     static public long getTypeId() {
@@ -117,10 +117,7 @@ public class Account extends PersistentObject implements PersistentAccount{
             ConnectionHandler.getTheConnectionHandler().theAccountFacade.typeSet(this.getId(), getType());
         }
         this.getSubAccounts().store();
-        if(!this.equals(this.getThis())){
-            this.getThis().store();
-            ConnectionHandler.getTheConnectionHandler().theAccountFacade.ThisSet(this.getId(), getThis());
-        }
+        this.getEntries().store();
         
     }
     
@@ -141,20 +138,8 @@ public class Account extends PersistentObject implements PersistentAccount{
     public Account_SubAccountsProxi getSubAccounts() throws PersistenceException {
         return this.subAccounts;
     }
-    protected void setThis(PersistentAccount newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if (newValue.equals(this)){
-            this.This = null;
-            return;
-        }
-        if(newValue.equals(this.This)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.This = (PersistentAccount)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAccountFacade.ThisSet(this.getId(), newValue);
-        }
+    public Account_EntriesProxi getEntries() throws PersistenceException {
+        return this.entries;
     }
     public PersistentAccount getThis() throws PersistenceException {
         if(this.This == null){
@@ -164,16 +149,16 @@ public class Account extends PersistentObject implements PersistentAccount{
         }return (PersistentAccount)this.This;
     }
     
-    public void accept(AccountHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+    public void accept(QuantifObjectVisitor visitor) throws PersistenceException {
         visitor.handleAccount(this);
     }
-    public <R> R accept(AccountHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(QuantifObjectReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleAccount(this);
     }
-    public <E extends UserException>  void accept(AccountHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(QuantifObjectExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleAccount(this);
     }
-    public <R, E extends UserException> R accept(AccountHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(QuantifObjectReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAccount(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -188,10 +173,24 @@ public class Account extends PersistentObject implements PersistentAccount{
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAccount(this);
     }
+    public void accept(AccountHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleAccount(this);
+    }
+    public <R> R accept(AccountHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAccount(this);
+    }
+    public <E extends UserException>  void accept(AccountHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAccount(this);
+    }
+    public <R, E extends UserException> R accept(AccountHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAccount(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
+            + (this.getObject() == null ? 0 : 1)
             + (this.getType() == null ? 0 : 1)
-            + this.getSubAccounts().getLength());
+            + this.getSubAccounts().getLength()
+            + this.getEntries().getLength());
     }
     
     
@@ -208,6 +207,11 @@ public class Account extends PersistentObject implements PersistentAccount{
         //TODO: implement method: initializeOnInstantiation
         
     }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public <T> T strategyAccountHierarchy(final T parameter, final AccountHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$subAccounts$$Account = strategy.initialize$$Account$$subAccounts(getThis(), parameter);
@@ -219,15 +223,11 @@ public class Account extends PersistentObject implements PersistentAccount{
 		}
 		return strategy.finalize$$Account(getThis(), parameter,result$$subAccounts$$Account);
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAccount)This);
 		if(this.equals(This)){
+			this.setObject((PersistentInstanceObject)final$$Fields.get("object"));
 			this.setType((PersistentMAccountType)final$$Fields.get("type"));
 		}
     }

@@ -5,4 +5,4 @@ public interface QuantifObjectMssgs {
 }
 
 interface QuantifObjectDOWNMssgs extends Mssgs, QuantifObjectMssgs{}
-interface QuantifObjectUPMssgs extends Mssgs, QuantifObjectMssgs{}
+interface QuantifObjectUPMssgs extends MeasurementUPMssgs, AccountUPMssgs, QuantifObjectMssgs{}

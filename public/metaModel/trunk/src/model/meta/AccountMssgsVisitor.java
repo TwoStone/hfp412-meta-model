@@ -9,7 +9,7 @@ interface AccountDOWNMssgsVisitor  {
 }
 
 
-interface AccountUPMssgsVisitor  {
+interface AccountUPMssgsVisitor extends QuantifObjectUPMssgsVisitor {
 
     
 }

@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,AbsQuantityReturnVisitor<R> ,CommonDateReturnVisitor<R> ,MTypeReturnVisitor<R> ,AbsUnitReturnVisitor<R> ,MQuantiObjectTypeReturnVisitor<R> ,MessageOrLinkReturnVisitor<R> ,MAbsOperationReturnVisitor<R> ,MBooleanReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,AbsQuantityReturnVisitor<R> ,CommonDateReturnVisitor<R> ,MTypeReturnVisitor<R> ,AbsUnitReturnVisitor<R> ,QuantifObjectReturnVisitor<R> ,MQuantiObjectTypeReturnVisitor<R> ,MessageOrLinkReturnVisitor<R> ,MAbsOperationReturnVisitor<R> ,MBooleanReturnVisitor<R> {
     
     public R handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
@@ -12,6 +12,7 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,A
     public R handleCreateProductTypeCommand(PersistentCreateProductTypeCommand createProductTypeCommand) throws PersistenceException;
     public R handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;
     public R handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException;
+    public R handleCreateAccountCommand(PersistentCreateAccountCommand createAccountCommand) throws PersistenceException;
     public R handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException;
     public R handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException;
     public R handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException;
@@ -27,12 +28,13 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,A
     public R handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     public R handleReference(PersistentReference reference) throws PersistenceException;
     public R handleConversion(PersistentConversion conversion) throws PersistenceException;
-    public R handleMeasurement(PersistentMeasurement measurement) throws PersistenceException;
     public R handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException;
     public R handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
-    public R handleAccount(PersistentAccount account) throws PersistenceException;
     public R handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException;
     public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
+    public R handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException;
+    public R handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException;
+    public R handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
     public R handleMFormalParameter(PersistentMFormalParameter mFormalParameter) throws PersistenceException;
     public R handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException;
     public R handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException;
@@ -47,5 +49,7 @@ public interface AnythingReturnVisitor<R> extends AbsUnitTypeReturnVisitor<R> ,A
     public R handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException;
     public R handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException;
     public R handleMAspect(PersistentMAspect mAspect) throws PersistenceException;
+    public R handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException;
+    public R handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException;
     
 }

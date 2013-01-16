@@ -4,5 +4,5 @@ public interface AccountMssgs {
     void accept(AccountMssgsVisitor visitor) throws persistence.PersistenceException;
 }
 
-interface AccountDOWNMssgs extends Mssgs, AccountMssgs{}
+interface AccountDOWNMssgs extends QuantifObjectDOWNMssgs, AccountMssgs{}
 interface AccountUPMssgs extends Mssgs, AccountMssgs{}

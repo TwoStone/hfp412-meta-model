@@ -18,13 +18,13 @@ public abstract class QuantifObject extends PersistentObject implements Persiste
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot defaultType = (AbstractPersistentRoot)this.getDefaultType();
-            if (defaultType != null) {
-                result.put("defaultType", defaultType.createProxiInformation(false));
+            AbstractPersistentRoot object = (AbstractPersistentRoot)this.getObject();
+            if (object != null) {
+                result.put("object", object.createProxiInformation(false));
                 if(depth > 1) {
-                    defaultType.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    object.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && defaultType.hasEssentialFields())defaultType.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && object.hasEssentialFields())object.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -38,13 +38,13 @@ public abstract class QuantifObject extends PersistentObject implements Persiste
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentInstanceObject defaultType;
+    protected PersistentInstanceObject object;
     protected PersistentQuantifObject This;
     
-    public QuantifObject(PersistentInstanceObject defaultType,PersistentQuantifObject This,long id) throws persistence.PersistenceException {
+    public QuantifObject(PersistentInstanceObject object,PersistentQuantifObject This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.defaultType = defaultType;
+        this.object = object;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -59,9 +59,9 @@ public abstract class QuantifObject extends PersistentObject implements Persiste
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(this.getDefaultType() != null){
-            this.getDefaultType().store();
-            ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade.defaultTypeSet(this.getId(), getDefaultType());
+        if(this.getObject() != null){
+            this.getObject().store();
+            ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade.objectSet(this.getId(), getObject());
         }
         if(!this.equals(this.getThis())){
             this.getThis().store();
@@ -70,18 +70,18 @@ public abstract class QuantifObject extends PersistentObject implements Persiste
         
     }
     
-    public PersistentInstanceObject getDefaultType() throws PersistenceException {
-        return this.defaultType;
+    public PersistentInstanceObject getObject() throws PersistenceException {
+        return this.object;
     }
-    public void setDefaultType(PersistentInstanceObject newValue) throws PersistenceException {
+    public void setObject(PersistentInstanceObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.defaultType)) return;
+        if(newValue.equals(this.object)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.defaultType = (PersistentInstanceObject)PersistentProxi.createProxi(objectId, classId);
+        this.object = (PersistentInstanceObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade.defaultTypeSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade.objectSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentQuantifObject newValue) throws PersistenceException {
@@ -117,7 +117,7 @@ public abstract class QuantifObject extends PersistentObject implements Persiste
 				throws PersistenceException{
         this.setThis((PersistentQuantifObject)This);
 		if(this.equals(This)){
-			this.setDefaultType((PersistentInstanceObject)final$$Fields.get("defaultType"));
+			this.setObject((PersistentInstanceObject)final$$Fields.get("object"));
 		}
     }
     public void initializeOnCreation() 

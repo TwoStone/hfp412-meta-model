@@ -6,6 +6,7 @@ import model.AlreadyFinalizedException;
 import model.DoubleDefinitionException;
 import model.NotFinalizedException;
 import model.UserException;
+import model.visitor.AbsUnitTypeVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -28,7 +29,6 @@ import persistence.PersistentCreateCompUnitTypeCommand;
 import persistence.PersistentCreateUnitCommand;
 import persistence.PersistentCreateUnitTypeCommand;
 import persistence.PersistentFinishModelingCommand;
-import persistence.PersistentMBoolean;
 import persistence.PersistentMFalse;
 import persistence.PersistentMTrue;
 import persistence.PersistentObject;
@@ -39,10 +39,12 @@ import persistence.PersistentUnit;
 import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
 import persistence.Predcate;
+import persistence.Procdure;
 import persistence.TDObserver;
 import persistence.UnitTypeManagerProxi;
 import persistence.UnitTypeManager_UnitTypesProxi;
 import persistence.UnitTypeManager_UnitsProxi;
+import persistence.UnitTypeSearchList;
 import constants.ExceptionConstants;
 
 /* Additional import section end */
@@ -50,7 +52,7 @@ import constants.ExceptionConstants;
 public class UnitTypeManager extends PersistentObject implements PersistentUnitTypeManager{
     
     private static PersistentUnitTypeManager theUnitTypeManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentUnitTypeManager getTheUnitTypeManager() throws PersistenceException{
         if (theUnitTypeManager == null || reset$For$Test){
@@ -93,6 +95,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("unitTypes", this.getUnitTypes().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
+            result.put("atomicUnitTypes", this.getAtomicUnitTypes(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             result.put("units", this.getUnits().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
@@ -181,6 +184,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + this.getUnitTypes().getLength()
+            + this.getAtomicUnitTypes().getLength()
             + this.getUnits().getLength());
     }
     
@@ -197,7 +201,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
 
 	}
     public void createUnit(final String name, final PersistentUnitType type) 
@@ -210,6 +213,30 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		getThis().getUnits().add(Unit.createUnit(type, name));
         
     }
+    public UnitTypeSearchList getAtomicUnitTypes() 
+				throws PersistenceException{
+    	final UnitTypeSearchList result = new UnitTypeSearchList();
+
+    	this.getThis().getUnitTypes().applyToAll(new Procdure<PersistentAbsUnitType>() {
+			@Override
+			public void doItTo(PersistentAbsUnitType argument) throws PersistenceException {
+				argument.accept(new AbsUnitTypeVisitor() {
+					@Override
+					public void handleUnitType(PersistentUnitType unitType)
+							throws PersistenceException {
+						result.add(unitType);
+					}
+					
+					@Override
+					public void handleCompUnitType(PersistentCompUnitType compUnitType)
+							throws PersistenceException {
+					}
+				});
+			}
+		});
+    	
+    	return result;
+    }
     public void createCompUnit(final String name, final PersistentCompUnitType type, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -219,9 +246,14 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public UnitTypeSearchList getAtomicUnitTypes(final TDObserver observer) 
+				throws PersistenceException{
+        UnitTypeSearchList result = getThis().getAtomicUnitTypes();
+		observer.updateTransientDerived(getThis(), "atomicUnitTypes", result);
+		return result;
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
 
 	}
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
@@ -370,7 +402,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
     public void createUnitType(final String name, final Invoker invoker) 

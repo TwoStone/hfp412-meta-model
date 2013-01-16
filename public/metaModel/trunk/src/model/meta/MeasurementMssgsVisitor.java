@@ -9,7 +9,7 @@ interface MeasurementDOWNMssgsVisitor  {
 }
 
 
-interface MeasurementUPMssgsVisitor  {
+interface MeasurementUPMssgsVisitor extends QuantifObjectUPMssgsVisitor {
 
     
 }

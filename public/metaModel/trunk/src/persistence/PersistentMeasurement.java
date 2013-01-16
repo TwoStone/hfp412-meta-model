@@ -4,7 +4,7 @@ import model.UserException;
 
 import model.visitor.*;
 
-public interface PersistentMeasurement extends Anything, AbstractPersistentProxi {
+public interface PersistentMeasurement extends PersistentQuantifObject {
     
     public PersistentMMeasurementType getType() throws PersistenceException ;
     public void setType(PersistentMMeasurementType newValue) throws PersistenceException ;
@@ -12,6 +12,10 @@ public interface PersistentMeasurement extends Anything, AbstractPersistentProxi
     public void setQuantity(PersistentAbsQuantity newValue) throws PersistenceException ;
     public PersistentMeasurement getThis() throws PersistenceException ;
     
+    public void accept(QuantifObjectVisitor visitor) throws PersistenceException;
+    public <R> R accept(QuantifObjectReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends UserException>  void accept(QuantifObjectExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends UserException> R accept(QuantifObjectReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;

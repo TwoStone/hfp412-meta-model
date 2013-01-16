@@ -628,11 +628,11 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleCompUnitType(view.CompUnitTypeView object){
         result = new CompUnitTypeDefaultDetailPanel(handler, object);
     }
-    public void handleMProductType(view.MProductTypeView object){
-        result = new MProductTypeDefaultDetailPanel(handler, object);
-    }
     public void handleMeasurement(view.MeasurementView object){
         result = new MeasurementDefaultDetailPanel(handler, object);
+    }
+    public void handleMProductType(view.MProductTypeView object){
+        result = new MProductTypeDefaultDetailPanel(handler, object);
     }
     public void handleReferenceType(view.ReferenceTypeView object){
         result = new ReferenceTypeDefaultDetailPanel(handler, object);
@@ -655,11 +655,17 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleUnit(view.UnitView object){
         result = new UnitDefaultDetailPanel(handler, object);
     }
+    public void handleMeasurementTypeManager(view.MeasurementTypeManagerView object){
+        result = new MeasurementTypeManagerDefaultDetailPanel(handler, object);
+    }
     public void handleMMeasurementType(view.MMeasurementTypeView object){
         result = new MMeasurementTypeDefaultDetailPanel(handler, object);
     }
     public void handleMEmptySumType(view.MEmptySumTypeView object){
         result = new MEmptySumTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleAccountTypeManager(view.AccountTypeManagerView object){
+        result = new AccountTypeManagerDefaultDetailPanel(handler, object);
     }
     public void handleMFormalParameter(view.MFormalParameterView object){
         result = new MFormalParameterDefaultDetailPanel(handler, object);
@@ -696,6 +702,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleMAspect(view.MAspectView object){
         result = new MAspectDefaultDetailPanel(handler, object);
+    }
+    public void handleAccountManager(view.AccountManagerView object){
+        result = new AccountManagerDefaultDetailPanel(handler, object);
     }
     public void handleMSumType(view.MSumTypeView object){
         result = new MSumTypeDefaultDetailPanel(handler, object);
@@ -851,6 +860,7 @@ class MEmptyProductDefaultDetailPanel extends DefaultDetailPanel{
 class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String UnitTypeManager$$unitTypes = "UnitTypeManager$$unitTypes";
+    protected static final String UnitTypeManager$$atomicUnitTypes = "UnitTypeManager$$atomicUnitTypes";
     protected static final String UnitTypeManager$$units = "UnitTypeManager$$units";
     
     protected UnitTypeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -873,6 +883,9 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Server$$unitTypeManager = "Server$$unitTypeManager";
     protected static final String Server$$conversionManager = "Server$$conversionManager";
     protected static final String Server$$fractionManager = "Server$$fractionManager";
+    protected static final String Server$$measurementTypeManager = "Server$$measurementTypeManager";
+    protected static final String Server$$accountTypeManager = "Server$$accountTypeManager";
+    protected static final String Server$$accountManager = "Server$$accountManager";
     protected static final String Server$$associationManager = "Server$$associationManager";
     protected static final String Server$$user = "Server$$user";
     
@@ -1003,6 +1016,24 @@ class CompUnitTypeDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MeasurementDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String QuantifObject$$object = "QuantifObject$$object";
+    protected static final String Measurement$$type = "Measurement$$type";
+    protected static final String Measurement$$quantity = "Measurement$$quantity";
+    
+    protected MeasurementDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MeasurementView getAnything(){
+        return (view.MeasurementView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class MProductTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
@@ -1015,23 +1046,6 @@ class MProductTypeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MProductTypeView getAnything(){
         return (view.MProductTypeView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class MeasurementDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String Measurement$$type = "Measurement$$type";
-    protected static final String Measurement$$quantity = "Measurement$$quantity";
-    
-    protected MeasurementDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.MeasurementView getAnything(){
-        return (view.MeasurementView)this.anything;
     }
 }
 
@@ -1061,8 +1075,10 @@ class ReferenceTypeDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class AccountDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String QuantifObject$$object = "QuantifObject$$object";
     protected static final String Account$$type = "Account$$type";
     protected static final String Account$$subAccounts = "Account$$subAccounts";
+    protected static final String Account$$entries = "Account$$entries";
     
     protected AccountDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1187,6 +1203,22 @@ class UnitDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MeasurementTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MeasurementTypeManager$$measurementTypes = "MeasurementTypeManager$$measurementTypes";
+    
+    protected MeasurementTypeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MeasurementTypeManagerView getAnything(){
+        return (view.MeasurementTypeManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class MMeasurementTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MQuantiObjectType$$type = "MQuantiObjectType$$type";
@@ -1216,6 +1248,22 @@ class MEmptySumTypeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MEmptySumTypeView getAnything(){
         return (view.MEmptySumTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class AccountTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AccountTypeManager$$accountTypes = "AccountTypeManager$$accountTypes";
+    
+    protected AccountTypeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.AccountTypeManagerView getAnything(){
+        return (view.AccountTypeManagerView)this.anything;
     }
 }
 
@@ -1460,6 +1508,22 @@ class MAspectDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MAspectView getAnything(){
         return (view.MAspectView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class AccountManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AccountManager$$accounts = "AccountManager$$accounts";
+    
+    protected AccountManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.AccountManagerView getAnything(){
+        return (view.AccountManagerView)this.anything;
     }
 }
 

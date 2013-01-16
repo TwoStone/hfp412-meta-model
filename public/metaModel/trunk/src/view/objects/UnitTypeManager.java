@@ -10,12 +10,14 @@ import view.visitor.*;
 public class UnitTypeManager extends ViewObject implements UnitTypeManagerView{
     
     protected java.util.Vector<AbsUnitTypeView> unitTypes;
+    protected java.util.Vector<UnitTypeView> atomicUnitTypes;
     protected java.util.Vector<AbsUnitView> units;
     
-    public UnitTypeManager(java.util.Vector<AbsUnitTypeView> unitTypes,java.util.Vector<AbsUnitView> units,long id, long classId) {
+    public UnitTypeManager(java.util.Vector<AbsUnitTypeView> unitTypes,java.util.Vector<UnitTypeView> atomicUnitTypes,java.util.Vector<AbsUnitView> units,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.unitTypes = unitTypes;
+        this.atomicUnitTypes = atomicUnitTypes;
         this.units = units;        
     }
     
@@ -32,6 +34,9 @@ public class UnitTypeManager extends ViewObject implements UnitTypeManagerView{
     }
     public void setUnitTypes(java.util.Vector<AbsUnitTypeView> newValue) throws ModelException {
         this.unitTypes = newValue;
+    }
+    public java.util.Vector<UnitTypeView> getAtomicUnitTypes() throws ModelException {
+        return this.atomicUnitTypes;
     }
     public java.util.Vector<AbsUnitView> getUnits() throws ModelException {
         return this.units;
@@ -58,6 +63,10 @@ public class UnitTypeManager extends ViewObject implements UnitTypeManagerView{
         if (unitTypes != null) {
             ViewObject.resolveVectorProxies(unitTypes, resultTable);
         }
+        java.util.Vector<?> atomicUnitTypes = this.getAtomicUnitTypes();
+        if (atomicUnitTypes != null) {
+            ViewObject.resolveVectorProxies(atomicUnitTypes, resultTable);
+        }
         java.util.Vector<?> units = this.getUnits();
         if (units != null) {
             ViewObject.resolveVectorProxies(units, resultTable);
@@ -71,6 +80,8 @@ public class UnitTypeManager extends ViewObject implements UnitTypeManagerView{
         int index = originalIndex;
         if(index < this.getUnitTypes().size()) return new UnitTypesUnitTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getUnitTypes().get(index));
         index = index - this.getUnitTypes().size();
+        if(index < this.getAtomicUnitTypes().size()) return new AtomicUnitTypesUnitTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getAtomicUnitTypes().get(index));
+        index = index - this.getAtomicUnitTypes().size();
         if(index < this.getUnits().size()) return new UnitsUnitTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getUnits().get(index));
         index = index - this.getUnits().size();
         return null;
@@ -78,11 +89,13 @@ public class UnitTypeManager extends ViewObject implements UnitTypeManagerView{
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getUnitTypes().size())
+            + (this.getAtomicUnitTypes().size())
             + (this.getUnits().size());
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getUnitTypes().size() == 0)
+            && (this.getAtomicUnitTypes().size() == 0)
             && (this.getUnits().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
@@ -90,6 +103,11 @@ public class UnitTypeManager extends ViewObject implements UnitTypeManagerView{
         java.util.Iterator<?> getUnitTypesIterator = this.getUnitTypes().iterator();
         while(getUnitTypesIterator.hasNext()){
             if(getUnitTypesIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
+        java.util.Iterator<?> getAtomicUnitTypesIterator = this.getAtomicUnitTypes().iterator();
+        while(getAtomicUnitTypesIterator.hasNext()){
+            if(getAtomicUnitTypesIterator.next().equals(child)) return result;
             result = result + 1;
         }
         java.util.Iterator<?> getUnitsIterator = this.getUnits().iterator();
@@ -120,7 +138,7 @@ public class UnitTypeManager extends ViewObject implements UnitTypeManagerView{
         
     }
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

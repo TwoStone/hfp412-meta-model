@@ -58,9 +58,17 @@ public class UnitTypeManagerProxi extends PersistentProxi implements PersistentU
 				throws model.DoubleDefinitionException, PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).createUnit(name, type);
     }
+    public UnitTypeSearchList getAtomicUnitTypes() 
+				throws PersistenceException{
+        return ((PersistentUnitTypeManager)this.getTheObject()).getAtomicUnitTypes();
+    }
     public void createCompUnit(final String name, final PersistentCompUnitType type, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).createCompUnit(name, type, invoker);
+    }
+    public UnitTypeSearchList getAtomicUnitTypes(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentUnitTypeManager)this.getTheObject()).getAtomicUnitTypes(observer);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

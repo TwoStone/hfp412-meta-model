@@ -1,5 +1,5 @@
 package persistence;
 
-public interface PersistentAccountListEntryProxi extends PersistentListEntryProxi {
+public interface PersistentAccountListEntryProxi extends PersistentQuantifObjectListEntryProxi {
 
 }

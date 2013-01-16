@@ -14,6 +14,9 @@ public interface ServerView extends Remote, Anything, AbstractViewProxi {
     public UnitTypeManagerView getUnitTypeManager() throws ModelException ;
     public ConversionManagerView getConversionManager() throws ModelException ;
     public FractionManagerView getFractionManager() throws ModelException ;
+    public MeasurementTypeManagerView getMeasurementTypeManager() throws ModelException ;
+    public AccountTypeManagerView getAccountTypeManager() throws ModelException ;
+    public AccountManagerView getAccountManager() throws ModelException ;
     public AssociationManagerView getAssociationManager() throws ModelException ;
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException ;
     public void setErrors(java.util.Vector<ErrorDisplayView> newValue) throws ModelException ;

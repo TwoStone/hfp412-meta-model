@@ -4,7 +4,7 @@ import model.UserException;
 
 import model.visitor.*;
 
-public class MeasurementICProxi extends PersistentInCacheProxiOptimistic implements PersistentMeasurement{
+public class MeasurementICProxi extends QuantifObjectICProxi implements PersistentMeasurement{
     
     public MeasurementICProxi(long objectId) {
         super(objectId);
@@ -38,6 +38,18 @@ public class MeasurementICProxi extends PersistentInCacheProxiOptimistic impleme
         return ((PersistentMeasurement)this.getTheObject()).getThis();
     }
     
+    public void accept(QuantifObjectVisitor visitor) throws PersistenceException {
+        visitor.handleMeasurement(this);
+    }
+    public <R> R accept(QuantifObjectReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMeasurement(this);
+    }
+    public <E extends UserException>  void accept(QuantifObjectExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMeasurement(this);
+    }
+    public <R, E extends UserException> R accept(QuantifObjectReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMeasurement(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleMeasurement(this);
     }

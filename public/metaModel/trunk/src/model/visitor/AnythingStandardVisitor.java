@@ -20,6 +20,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException{
         this.standardHandling(associationManager);
     }
+    public void handleCreateAccountCommand(PersistentCreateAccountCommand createAccountCommand) throws PersistenceException{
+        this.standardHandling(createAccountCommand);
+    }
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
         this.standardHandling(createConversionCommand);
     }
@@ -113,11 +116,20 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleUnit(PersistentUnit unit) throws PersistenceException{
         this.standardHandling(unit);
     }
+    public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException{
+        this.standardHandling(createMeasurementTypeCommand);
+    }
     public void handleMMeasurementType(PersistentMMeasurementType mMeasurementType) throws PersistenceException{
         this.standardHandling(mMeasurementType);
     }
+    public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException{
+        this.standardHandling(measurementTypeManager);
+    }
     public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException{
         this.standardHandling(mEmptySumType);
+    }
+    public void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException{
+        this.standardHandling(accountTypeManager);
     }
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException{
         this.standardHandling(commandCoordinator);
@@ -146,11 +158,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);
     }
-    public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException{
-        this.standardHandling(commandExecuter);
-    }
     public void handleQuantity(PersistentQuantity quantity) throws PersistenceException{
         this.standardHandling(quantity);
+    }
+    public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException{
+        this.standardHandling(commandExecuter);
     }
     public void handleMessage(PersistentMessage message) throws PersistenceException{
         this.standardHandling(message);
@@ -182,11 +194,17 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMAspect(PersistentMAspect mAspect) throws PersistenceException{
         this.standardHandling(mAspect);
     }
+    public void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException{
+        this.standardHandling(accountManager);
+    }
     public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
         this.standardHandling(mSumType);
     }
     public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException{
         this.standardHandling(compUnit);
+    }
+    public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException{
+        this.standardHandling(createAccountTypeCommand);
     }
     protected abstract void standardHandling(Anything anything) throws PersistenceException;
 }

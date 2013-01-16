@@ -4,7 +4,7 @@ import model.UserException;
 
 import model.visitor.*;
 
-public class AccountProxi extends PersistentProxi implements PersistentAccount{
+public class AccountProxi extends QuantifObjectProxi implements PersistentAccount{
     
     public AccountProxi(long objectId) {
         super(objectId);
@@ -31,20 +31,23 @@ public class AccountProxi extends PersistentProxi implements PersistentAccount{
     public Account_SubAccountsProxi getSubAccounts() throws PersistenceException {
         return ((PersistentAccount)this.getTheObject()).getSubAccounts();
     }
+    public Account_EntriesProxi getEntries() throws PersistenceException {
+        return ((PersistentAccount)this.getTheObject()).getEntries();
+    }
     public PersistentAccount getThis() throws PersistenceException {
         return ((PersistentAccount)this.getTheObject()).getThis();
     }
     
-    public void accept(AccountHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+    public void accept(QuantifObjectVisitor visitor) throws PersistenceException {
         visitor.handleAccount(this);
     }
-    public <R> R accept(AccountHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(QuantifObjectReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleAccount(this);
     }
-    public <E extends UserException>  void accept(AccountHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(QuantifObjectExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleAccount(this);
     }
-    public <R, E extends UserException> R accept(AccountHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(QuantifObjectReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAccount(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -57,6 +60,18 @@ public class AccountProxi extends PersistentProxi implements PersistentAccount{
          visitor.handleAccount(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAccount(this);
+    }
+    public void accept(AccountHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleAccount(this);
+    }
+    public <R> R accept(AccountHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAccount(this);
+    }
+    public <E extends UserException>  void accept(AccountHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAccount(this);
+    }
+    public <R, E extends UserException> R accept(AccountHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAccount(this);
     }
     

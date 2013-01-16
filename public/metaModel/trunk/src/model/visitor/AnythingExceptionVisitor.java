@@ -3,7 +3,7 @@ package model.visitor;
 import model.UserException;
 import persistence.*;
 
-public interface AnythingExceptionVisitor<E extends UserException> extends AbsUnitTypeExceptionVisitor<E>,AbsQuantityExceptionVisitor<E>,CommonDateExceptionVisitor<E>,MTypeExceptionVisitor<E>,AbsUnitExceptionVisitor<E>,MQuantiObjectTypeExceptionVisitor<E>,MessageOrLinkExceptionVisitor<E>,MAbsOperationExceptionVisitor<E>,MBooleanExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends UserException> extends AbsUnitTypeExceptionVisitor<E>,AbsQuantityExceptionVisitor<E>,CommonDateExceptionVisitor<E>,MTypeExceptionVisitor<E>,AbsUnitExceptionVisitor<E>,QuantifObjectExceptionVisitor<E>,MQuantiObjectTypeExceptionVisitor<E>,MessageOrLinkExceptionVisitor<E>,MAbsOperationExceptionVisitor<E>,MBooleanExceptionVisitor<E>{
     
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException, E;
@@ -12,6 +12,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleCreateProductTypeCommand(PersistentCreateProductTypeCommand createProductTypeCommand) throws PersistenceException, E;
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException, E;
     public void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException, E;
+    public void handleCreateAccountCommand(PersistentCreateAccountCommand createAccountCommand) throws PersistenceException, E;
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException, E;
     public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException, E;
     public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException, E;
@@ -27,12 +28,13 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException, E;
     public void handleReference(PersistentReference reference) throws PersistenceException, E;
     public void handleConversion(PersistentConversion conversion) throws PersistenceException, E;
-    public void handleMeasurement(PersistentMeasurement measurement) throws PersistenceException, E;
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException, E;
     public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException, E;
-    public void handleAccount(PersistentAccount account) throws PersistenceException, E;
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException, E;
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
+    public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException, E;
+    public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException, E;
+    public void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException, E;
     public void handleMFormalParameter(PersistentMFormalParameter mFormalParameter) throws PersistenceException, E;
     public void handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException, E;
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException, E;
@@ -47,5 +49,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsUn
     public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException, E;
     public void handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException, E;
     public void handleMAspect(PersistentMAspect mAspect) throws PersistenceException, E;
+    public void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException, E;
+    public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException, E;
     
 }

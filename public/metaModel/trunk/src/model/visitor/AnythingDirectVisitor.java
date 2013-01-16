@@ -5,8 +5,6 @@ import persistence.*;
 
 public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
-    public abstract void handleMeasurement(PersistentMeasurement measurement) throws PersistenceException;
-    
     public abstract void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
@@ -21,10 +19,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException{
         this.handleAbsUnitType(compUnitType);
     }
-    public abstract void handleAccount(PersistentAccount account) throws PersistenceException;
-    
     public abstract void handleQuantifObject(PersistentQuantifObject quantifObject) throws PersistenceException;
     
+    public void handleMeasurement(PersistentMeasurement measurement) throws PersistenceException{
+        this.handleQuantifObject(measurement);
+    }
+    public void handleAccount(PersistentAccount account) throws PersistenceException{
+        this.handleQuantifObject(account);
+    }
     public abstract void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     
     public abstract void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException;
@@ -37,6 +39,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException{
         this.handleAbsQuantity(compoundQuantity);
     }
+    public abstract void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException;
+    
     public abstract void handleMQuantiObjectType(PersistentMQuantiObjectType mQuantiObjectType) throws PersistenceException;
     
     public void handleMMeasurementType(PersistentMMeasurementType mMeasurementType) throws PersistenceException{
@@ -46,6 +50,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleMQuantiObjectType(mAccountType);
     }
     public abstract void handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException;
+    
+    public abstract void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
     
     public abstract void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     
@@ -75,6 +81,12 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException{
         this.handleCommonDate(createUnitTypeCommand);
     }
+    public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException{
+        this.handleCommonDate(createMeasurementTypeCommand);
+    }
+    public void handleCreateAccountCommand(PersistentCreateAccountCommand createAccountCommand) throws PersistenceException{
+        this.handleCommonDate(createAccountCommand);
+    }
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
         this.handleCommonDate(createConversionCommand);
     }
@@ -101,6 +113,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
         this.handleCommonDate(createAssociationCommand);
+    }
+    public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException{
+        this.handleCommonDate(createAccountTypeCommand);
     }
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
         this.handleCommonDate(createAtomicRootTypeCommand);
@@ -177,6 +192,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handleMAspect(PersistentMAspect mAspect) throws PersistenceException;
     
     public abstract void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
+    
+    public abstract void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException;
     
     public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
     

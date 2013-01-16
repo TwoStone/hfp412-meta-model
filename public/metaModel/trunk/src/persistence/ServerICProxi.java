@@ -95,6 +95,14 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getTypeManager();
     }
+    public PersistentMeasurementTypeManager getMeasurementTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getMeasurementTypeManager(observer);
+    }
+    public PersistentAccountTypeManager getAccountTypeManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getAccountTypeManager();
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
@@ -115,17 +123,21 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getFractionManager();
     }
-    public void createAspect(final PersistentAspectManager aspectManager, final String name) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createAspect(aspectManager, name);
-    }
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent);
     }
+    public void createAspect(final PersistentAspectManager aspectManager, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAspect(aspectManager, name);
+    }
     public boolean hasChanged() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).hasChanged();
+    }
+    public PersistentAccountManager getAccountManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getAccountManager(observer);
     }
     public void createHierarchy(final String name) 
 				throws PersistenceException{
@@ -139,17 +151,41 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getAssociationManager();
     }
+    public PersistentAccountTypeManager getAccountTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getAccountTypeManager(observer);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public PersistentMeasurementTypeManager getMeasurementTypeManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getMeasurementTypeManager();
     }
     public void createUnitType(final PersistentUnitTypeManager unitTypeManager, final String name) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createUnitType(unitTypeManager, name);
     }
+    public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createMeasurementType(measurementTypeManager, name, type, unitType);
+    }
+    public void createAccountType(final PersistentAccountTypeManager accountTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAccountType(accountTypeManager, name, type, unitType);
+    }
+    public void createAccount(final PersistentAccountManager accountManager, final String name, final PersistentMAccountType type, final PersistentInstanceObject object) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAccount(accountManager, name, type, object);
+    }
     public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createAtomicRootType(aspect, typeName, singletonType, abstractType);
+    }
+    public PersistentAccountManager getAccountManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getAccountManager();
     }
     public void createAssociation(final PersistentAssociationManager manager, final String name, final PersistentMType source, final PersistentMType target) 
 				throws PersistenceException{
@@ -159,13 +195,13 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleResult(command);
     }
-    public PersistentUnitTypeManager getUnitTypeManager() 
-				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getUnitTypeManager();
-    }
     public PersistentQuantityManager getQuantityManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getQuantityManager();
+    }
+    public PersistentUnitTypeManager getUnitTypeManager() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getUnitTypeManager();
     }
     public void addToHierarchy(final PersistentMAssociation association, final PersistentMAHierarchy theHierarchy) 
 				throws PersistenceException{

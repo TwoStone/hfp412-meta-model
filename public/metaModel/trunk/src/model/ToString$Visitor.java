@@ -4,6 +4,8 @@ import model.visitor.MBooleanReturnVisitor;
 import persistence.Anything;
 import persistence.PersistenceException;
 import persistence.PersistentAccount;
+import persistence.PersistentAccountManager;
+import persistence.PersistentAccountTypeManager;
 import persistence.PersistentActualParameter;
 import persistence.PersistentAspectManager;
 import persistence.PersistentAssociationManager;
@@ -22,7 +24,6 @@ import persistence.PersistentMAccountType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAssociation;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMBoolean;
 import persistence.PersistentMEmptyProduct;
 import persistence.PersistentMEmptySumType;
 import persistence.PersistentMFalse;
@@ -33,6 +34,7 @@ import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
 import persistence.PersistentMTrue;
 import persistence.PersistentMeasurement;
+import persistence.PersistentMeasurementTypeManager;
 import persistence.PersistentMessage;
 import persistence.PersistentQuantity;
 import persistence.PersistentQuantityManager;
@@ -137,7 +139,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleAssociationManager(
 			PersistentAssociationManager associationManager)
 			throws PersistenceException {
-		result = "[AM]";
+		result = "Liste der Assoziationen";
 	}
 	@Override
 	public void handleMAHierarchy(PersistentMAHierarchy mAHierarchy)
@@ -160,7 +162,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleConversionManager(
 			PersistentConversionManager conversionManager)
 			throws PersistenceException {
-		this.result = constants.TextConstants.CONVERSION_MANAGER_LABEL;
+		this.result = constants.TextConstants.LABEL_CONVERSION_MANAGER;
 	}
 
 	@Override
@@ -178,7 +180,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleQuantityManager(PersistentQuantityManager quantityManager)
 			throws PersistenceException {
-		this.result = constants.TextConstants.QUANTITY_MANAGER_LABEL;		
+		this.result = constants.TextConstants.LABEL_QUANTITY_MANAGER;		
 	}
 	@Override
 	public void handleUnitType(PersistentUnitType unitType)
@@ -239,13 +241,13 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager)
 			throws PersistenceException {
-		this.result = constants.TextConstants.UNIT_TYPE_MANAGER_LABEL;
+		this.result = constants.TextConstants.LABEL_UNIT_TYPE_MANAGER;
 		
 	}
 	@Override
 	public void handleFractionManager(PersistentFractionManager fractionManager)
 			throws PersistenceException {
-		this.result = constants.TextConstants.FRACTION_MANAGER_LABEL;
+		this.result = constants.TextConstants.LABEL_FRACTION_MANAGER;
 		
 	}
 
@@ -331,5 +333,22 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleLink(PersistentLink link) throws PersistenceException {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public void handleMeasurementTypeManager(
+			PersistentMeasurementTypeManager measurementTypeManager)
+			throws PersistenceException {
+		this.result = constants.TextConstants.LABEL_MEASUREMENT_TYPE_MANAGER;
+	}
+	@Override
+	public void handleAccountTypeManager(
+			PersistentAccountTypeManager accountTypeManager)
+			throws PersistenceException {
+		this.result = constants.TextConstants.LABEL_ACCOUNT_TYPE_MANAGER;
+	}
+	@Override
+	public void handleAccountManager(PersistentAccountManager accountManager)
+			throws PersistenceException {
+		this.result = constants.TextConstants.LABEL_ACCOUNT_MANAGER;
 	}
 }

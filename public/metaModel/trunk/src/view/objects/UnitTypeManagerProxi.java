@@ -15,9 +15,11 @@ public class UnitTypeManagerProxi extends ViewProxi implements UnitTypeManagerVi
     public UnitTypeManagerView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> unitTypes_string = (java.util.Vector<String>)resultTable.get("unitTypes");
         java.util.Vector<AbsUnitTypeView> unitTypes = ViewProxi.getProxiVector(unitTypes_string, connectionKey);
+        java.util.Vector<String> atomicUnitTypes_string = (java.util.Vector<String>)resultTable.get("atomicUnitTypes");
+        java.util.Vector<UnitTypeView> atomicUnitTypes = ViewProxi.getProxiVector(atomicUnitTypes_string, connectionKey);
         java.util.Vector<String> units_string = (java.util.Vector<String>)resultTable.get("units");
         java.util.Vector<AbsUnitView> units = ViewProxi.getProxiVector(units_string, connectionKey);
-        UnitTypeManagerView result$$ = new UnitTypeManager(unitTypes,units, this.getId(), this.getClassId());
+        UnitTypeManagerView result$$ = new UnitTypeManager(unitTypes,atomicUnitTypes,units, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -29,6 +31,8 @@ public class UnitTypeManagerProxi extends ViewProxi implements UnitTypeManagerVi
         int index = originalIndex;
         if(index < this.getUnitTypes().size()) return new UnitTypesUnitTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getUnitTypes().get(index));
         index = index - this.getUnitTypes().size();
+        if(index < this.getAtomicUnitTypes().size()) return new AtomicUnitTypesUnitTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getAtomicUnitTypes().get(index));
+        index = index - this.getAtomicUnitTypes().size();
         if(index < this.getUnits().size()) return new UnitsUnitTypeManagerWrapper(this, originalIndex, (ViewRoot)this.getUnits().get(index));
         index = index - this.getUnits().size();
         return null;
@@ -36,12 +40,14 @@ public class UnitTypeManagerProxi extends ViewProxi implements UnitTypeManagerVi
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getUnitTypes().size())
+            + (this.getAtomicUnitTypes().size())
             + (this.getUnits().size());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getUnitTypes().size() == 0)
+            && (this.getAtomicUnitTypes().size() == 0)
             && (this.getUnits().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
@@ -49,6 +55,11 @@ public class UnitTypeManagerProxi extends ViewProxi implements UnitTypeManagerVi
         java.util.Iterator<?> getUnitTypesIterator = this.getUnitTypes().iterator();
         while(getUnitTypesIterator.hasNext()){
             if(getUnitTypesIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
+        java.util.Iterator<?> getAtomicUnitTypesIterator = this.getAtomicUnitTypes().iterator();
+        while(getAtomicUnitTypesIterator.hasNext()){
+            if(getAtomicUnitTypesIterator.next().equals(child)) return result;
             result = result + 1;
         }
         java.util.Iterator<?> getUnitsIterator = this.getUnits().iterator();
@@ -64,6 +75,9 @@ public class UnitTypeManagerProxi extends ViewProxi implements UnitTypeManagerVi
     }
     public void setUnitTypes(java.util.Vector<AbsUnitTypeView> newValue) throws ModelException {
         ((UnitTypeManager)this.getTheObject()).setUnitTypes(newValue);
+    }
+    public java.util.Vector<UnitTypeView> getAtomicUnitTypes() throws ModelException {
+        return ((UnitTypeManager)this.getTheObject()).getAtomicUnitTypes();
     }
     public java.util.Vector<AbsUnitView> getUnits() throws ModelException {
         return ((UnitTypeManager)this.getTheObject()).getUnits();
@@ -86,7 +100,7 @@ public class UnitTypeManagerProxi extends ViewProxi implements UnitTypeManagerVi
     }
     
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     
     public void setIcon(IconRenderer renderer){

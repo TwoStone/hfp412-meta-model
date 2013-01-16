@@ -58,12 +58,13 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createAspect(AspectManagerView aspectManager, String name) throws ModelException{
+    public synchronized void addReferenceType(CompUnitTypeView compUnitType, UnitTypeView unitType, long exponent) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            parameters.add(((view.objects.ViewProxi)aspectManager).createProxiInformation());
-            parameters.add(name);
-            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createAspect", parameters);
+            parameters.add(((view.objects.ViewProxi)compUnitType).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)unitType).createProxiInformation());
+            parameters.add(new Long(exponent).toString());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "addReferenceType", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -77,13 +78,12 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void addReferenceType(CompUnitTypeView compUnitType, UnitTypeView unitType, long exponent) throws ModelException{
+    public synchronized void createAspect(AspectManagerView aspectManager, String name) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            parameters.add(((view.objects.ViewProxi)compUnitType).createProxiInformation());
-            parameters.add(((view.objects.ViewProxi)unitType).createProxiInformation());
-            parameters.add(new Long(exponent).toString());
-            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "addReferenceType", parameters);
+            parameters.add(((view.objects.ViewProxi)aspectManager).createProxiInformation());
+            parameters.add(name);
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createAspect", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -121,6 +121,69 @@ public class ServerConnection extends ConnectionMaster {
             parameters.add(((view.objects.ViewProxi)unitTypeManager).createProxiInformation());
             parameters.add(name);
             Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createUnitType", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized void createMeasurementType(MeasurementTypeManagerView measurementTypeManager, String name, MTypeView type, UnitTypeView unitType) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)measurementTypeManager).createProxiInformation());
+            parameters.add(name);
+            parameters.add(((view.objects.ViewProxi)type).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)unitType).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createMeasurementType", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized void createAccountType(AccountTypeManagerView accountTypeManager, String name, MTypeView type, UnitTypeView unitType) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)accountTypeManager).createProxiInformation());
+            parameters.add(name);
+            parameters.add(((view.objects.ViewProxi)type).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)unitType).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createAccountType", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized void createAccount(AccountManagerView accountManager, String name, MAccountTypeView type, InstanceObjectView object) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)accountManager).createProxiInformation());
+            parameters.add(name);
+            parameters.add(((view.objects.ViewProxi)type).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)object).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createAccount", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());

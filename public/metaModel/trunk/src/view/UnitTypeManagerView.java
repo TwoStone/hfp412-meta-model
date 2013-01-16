@@ -8,6 +8,7 @@ public interface UnitTypeManagerView extends Anything, AbstractViewProxi {
     
     public java.util.Vector<AbsUnitTypeView> getUnitTypes() throws ModelException ;
     public void setUnitTypes(java.util.Vector<AbsUnitTypeView> newValue) throws ModelException ;
+    public java.util.Vector<UnitTypeView> getAtomicUnitTypes() throws ModelException ;
     public java.util.Vector<AbsUnitView> getUnits() throws ModelException ;
     public void setUnits(java.util.Vector<AbsUnitView> newValue) throws ModelException ;
     

@@ -11,7 +11,7 @@ import model.visitor.*;
 public class MFalse extends model.basic.MBoolean implements PersistentMFalse{
     
     private static PersistentMFalse theMFalse = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMFalse getTheMFalse() throws PersistenceException{
         if (theMFalse == null || reset$For$Test){

@@ -1,7 +1,7 @@
 
 package model.visitor;
 
-public interface CommandVisitor extends AssociationManagerCommandVisitor,TypeManagerCommandVisitor,AspectManagerCommandVisitor,QuantityManagerCommandVisitor,UnitTypeManagerCommandVisitor,ConversionManagerCommandVisitor{
+public interface CommandVisitor extends AssociationManagerCommandVisitor,AccountTypeManagerCommandVisitor,TypeManagerCommandVisitor,AspectManagerCommandVisitor,MeasurementTypeManagerCommandVisitor,QuantityManagerCommandVisitor,AccountManagerCommandVisitor,UnitTypeManagerCommandVisitor,ConversionManagerCommandVisitor{
     
     
 }

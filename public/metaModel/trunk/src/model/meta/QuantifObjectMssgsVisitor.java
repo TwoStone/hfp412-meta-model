@@ -3,7 +3,7 @@ package model.meta;
 public interface QuantifObjectMssgsVisitor extends QuantifObjectDOWNMssgsVisitor, QuantifObjectUPMssgsVisitor {}
 
 
-interface QuantifObjectDOWNMssgsVisitor  {
+interface QuantifObjectDOWNMssgsVisitor extends MeasurementDOWNMssgsVisitor, AccountDOWNMssgsVisitor {
 
     
 }

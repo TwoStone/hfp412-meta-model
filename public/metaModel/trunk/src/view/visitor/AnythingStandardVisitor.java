@@ -80,8 +80,14 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMMeasurementType(MMeasurementTypeView mMeasurementType) throws ModelException{
         this.standardHandling(mMeasurementType);
     }
+    public void handleMeasurementTypeManager(MeasurementTypeManagerView measurementTypeManager) throws ModelException{
+        this.standardHandling(measurementTypeManager);
+    }
     public void handleMEmptySumType(MEmptySumTypeView mEmptySumType) throws ModelException{
         this.standardHandling(mEmptySumType);
+    }
+    public void handleAccountTypeManager(AccountTypeManagerView accountTypeManager) throws ModelException{
+        this.standardHandling(accountTypeManager);
     }
     public void handleMFormalParameter(MFormalParameterView mFormalParameter) throws ModelException{
         this.standardHandling(mFormalParameter);
@@ -118,6 +124,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMAspect(MAspectView mAspect) throws ModelException{
         this.standardHandling(mAspect);
+    }
+    public void handleAccountManager(AccountManagerView accountManager) throws ModelException{
+        this.standardHandling(accountManager);
     }
     public void handleMSumType(MSumTypeView mSumType) throws ModelException{
         this.standardHandling(mSumType);

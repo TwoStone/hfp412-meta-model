@@ -54,6 +54,7 @@ public class ConnectionHandler {
     public CreateUnitTypeCommandFacade theCreateUnitTypeCommandFacade;
     public AssociationManagerFacade theAssociationManagerFacade;
     public MComplexTypeFacade theMComplexTypeFacade;
+    public CreateAccountCommandFacade theCreateAccountCommandFacade;
     public CreateConversionCommandFacade theCreateConversionCommandFacade;
     public CreateAtomicSubTypeCommandFacade theCreateAtomicSubTypeCommandFacade;
     public AbsQuantityFacade theAbsQuantityFacade;
@@ -78,8 +79,8 @@ public class ConnectionHandler {
     public ReferenceFacade theReferenceFacade;
     public ConversionFacade theConversionFacade;
     public CompUnitTypeFacade theCompUnitTypeFacade;
-    public MProductTypeFacade theMProductTypeFacade;
     public MeasurementFacade theMeasurementFacade;
+    public MProductTypeFacade theMProductTypeFacade;
     public FinishModelingCommandFacade theFinishModelingCommandFacade;
     public ReferenceTypeFacade theReferenceTypeFacade;
     public AccountFacade theAccountFacade;
@@ -90,10 +91,13 @@ public class ConnectionHandler {
     public MFalseFacade theMFalseFacade;
     public UnitTypeFacade theUnitTypeFacade;
     public UnitFacade theUnitFacade;
+    public CreateMeasurementTypeCommandFacade theCreateMeasurementTypeCommandFacade;
+    public MeasurementTypeManagerFacade theMeasurementTypeManagerFacade;
     public MMeasurementTypeFacade theMMeasurementTypeFacade;
     public MEmptySumTypeFacade theMEmptySumTypeFacade;
     public MQuantiObjectTypeFacade theMQuantiObjectTypeFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
+    public AccountTypeManagerFacade theAccountTypeManagerFacade;
     public MFormalParameterFacade theMFormalParameterFacade;
     public MAssociationFacade theMAssociationFacade;
     public CreateAssociationCommandFacade theCreateAssociationCommandFacade;
@@ -117,8 +121,10 @@ public class ConnectionHandler {
     public CreateSumTypeCommandFacade theCreateSumTypeCommandFacade;
     public LinkFacade theLinkFacade;
     public MAspectFacade theMAspectFacade;
+    public AccountManagerFacade theAccountManagerFacade;
     public MSumTypeFacade theMSumTypeFacade;
     public CompUnitFacade theCompUnitFacade;
+    public CreateAccountTypeCommandFacade theCreateAccountTypeCommandFacade;
 
 	protected ConnectionHandler() throws PersistenceException {
 	}
@@ -130,6 +136,7 @@ public class ConnectionHandler {
             this.theCreateUnitTypeCommandFacade= new CreateUnitTypeCommandFacade();
             this.theAssociationManagerFacade= new AssociationManagerFacade();
             this.theMComplexTypeFacade= new MComplexTypeFacade();
+            this.theCreateAccountCommandFacade= new CreateAccountCommandFacade();
             this.theCreateConversionCommandFacade= new CreateConversionCommandFacade();
             this.theCreateAtomicSubTypeCommandFacade= new CreateAtomicSubTypeCommandFacade();
             this.theAbsQuantityFacade= new AbsQuantityFacade();
@@ -154,8 +161,8 @@ public class ConnectionHandler {
             this.theReferenceFacade= new ReferenceFacade();
             this.theConversionFacade= new ConversionFacade();
             this.theCompUnitTypeFacade= new CompUnitTypeFacade();
-            this.theMProductTypeFacade= new MProductTypeFacade();
             this.theMeasurementFacade= new MeasurementFacade();
+            this.theMProductTypeFacade= new MProductTypeFacade();
             this.theFinishModelingCommandFacade= new FinishModelingCommandFacade();
             this.theReferenceTypeFacade= new ReferenceTypeFacade();
             this.theAccountFacade= new AccountFacade();
@@ -166,10 +173,13 @@ public class ConnectionHandler {
             this.theMFalseFacade= new MFalseFacade();
             this.theUnitTypeFacade= new UnitTypeFacade();
             this.theUnitFacade= new UnitFacade();
+            this.theCreateMeasurementTypeCommandFacade= new CreateMeasurementTypeCommandFacade();
+            this.theMeasurementTypeManagerFacade= new MeasurementTypeManagerFacade();
             this.theMMeasurementTypeFacade= new MMeasurementTypeFacade();
             this.theMEmptySumTypeFacade= new MEmptySumTypeFacade();
             this.theMQuantiObjectTypeFacade= new MQuantiObjectTypeFacade();
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade();
+            this.theAccountTypeManagerFacade= new AccountTypeManagerFacade();
             this.theMFormalParameterFacade= new MFormalParameterFacade();
             this.theMAssociationFacade= new MAssociationFacade();
             this.theCreateAssociationCommandFacade= new CreateAssociationCommandFacade();
@@ -193,8 +203,10 @@ public class ConnectionHandler {
             this.theCreateSumTypeCommandFacade= new CreateSumTypeCommandFacade();
             this.theLinkFacade= new LinkFacade();
             this.theMAspectFacade= new MAspectFacade();
+            this.theAccountManagerFacade= new AccountManagerFacade();
             this.theMSumTypeFacade= new MSumTypeFacade();
             this.theCompUnitFacade= new CompUnitFacade();
+            this.theCreateAccountTypeCommandFacade= new CreateAccountTypeCommandFacade();
 	}
 	public static void initializeMapsForMappedFields() throws PersistenceException {
 		

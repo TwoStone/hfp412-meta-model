@@ -10,11 +10,11 @@ public abstract class QuantifObjectProxi extends ViewProxi implements QuantifObj
     }
     
     
-    public InstanceObjectView getDefaultType() throws ModelException {
-        return ((QuantifObject)this.getTheObject()).getDefaultType();
+    public InstanceObjectView getObject() throws ModelException {
+        return ((QuantifObject)this.getTheObject()).getObject();
     }
-    public void setDefaultType(InstanceObjectView newValue) throws ModelException {
-        ((QuantifObject)this.getTheObject()).setDefaultType(newValue);
+    public void setObject(InstanceObjectView newValue) throws ModelException {
+        ((QuantifObject)this.getTheObject()).setObject(newValue);
     }
     
     

@@ -1,5 +1,5 @@
 package persistence;
 
-public interface PersistentMeasurementListEntryProxi extends PersistentListEntryProxi {
+public interface PersistentMeasurementListEntryProxi extends PersistentQuantifObjectListEntryProxi {
 
 }

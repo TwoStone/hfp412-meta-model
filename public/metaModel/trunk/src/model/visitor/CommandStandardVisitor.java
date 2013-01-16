@@ -29,8 +29,14 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException{
         this.standardHandling(addSubTypeCommand);
     }
+    public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException{
+        this.standardHandling(createMeasurementTypeCommand);
+    }
     public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
         this.standardHandling(createConversionCommand);
+    }
+    public void handleCreateAccountCommand(PersistentCreateAccountCommand createAccountCommand) throws PersistenceException{
+        this.standardHandling(createAccountCommand);
     }
     public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicSubTypeCommand);
@@ -55,6 +61,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);
+    }
+    public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException{
+        this.standardHandling(createAccountTypeCommand);
     }
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicRootTypeCommand);

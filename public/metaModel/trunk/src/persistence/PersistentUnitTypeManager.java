@@ -21,7 +21,11 @@ public interface PersistentUnitTypeManager extends Anything, AbstractPersistentP
 				throws PersistenceException;
     public void createUnit(final String name, final PersistentUnitType type) 
 				throws model.DoubleDefinitionException, PersistenceException;
+    public UnitTypeSearchList getAtomicUnitTypes() 
+				throws PersistenceException;
     public void createCompUnit(final String name, final PersistentCompUnitType type, final Invoker invoker) 
+				throws PersistenceException;
+    public UnitTypeSearchList getAtomicUnitTypes(final TDObserver observer) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

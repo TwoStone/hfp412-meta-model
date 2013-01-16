@@ -12,11 +12,11 @@ public abstract class QuantifObjectProxi extends PersistentProxi implements Pers
     }
     
     
-    public PersistentInstanceObject getDefaultType() throws PersistenceException {
-        return ((PersistentQuantifObject)this.getTheObject()).getDefaultType();
+    public PersistentInstanceObject getObject() throws PersistenceException {
+        return ((PersistentQuantifObject)this.getTheObject()).getObject();
     }
-    public void setDefaultType(PersistentInstanceObject newValue) throws PersistenceException {
-        ((PersistentQuantifObject)this.getTheObject()).setDefaultType(newValue);
+    public void setObject(PersistentInstanceObject newValue) throws PersistenceException {
+        ((PersistentQuantifObject)this.getTheObject()).setObject(newValue);
     }
     public abstract PersistentQuantifObject getThis() throws PersistenceException ;
     

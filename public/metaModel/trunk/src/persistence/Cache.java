@@ -65,10 +65,10 @@ public class Cache {
 		this.garbageCollector.start();
 	}
 
-//	public void reset$For$Test(){
-//		this.garbageCollector.interrupt();
-//		Cache.theCache = null;
-//	}
+	public void reset$For$Test(){
+		this.garbageCollector.interrupt();
+		Cache.theCache = null;
+	}
 
 	public void finalize(){
 		this.garbageCollector.interrupt();
@@ -261,6 +261,8 @@ public class Cache {
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
 		this.number2NameMap.put(196, "Account");
+		this.number2NameMap.put(214, "AccountManager");
+		this.number2NameMap.put(213, "AccountTypeManager");
 		this.number2NameMap.put(206, "ActualParameter");
 		this.number2NameMap.put(177, "AddDefaultUnitCommand");
 		this.number2NameMap.put(181, "AddReferenceTypeCommand");
@@ -276,6 +278,8 @@ public class Cache {
 		this.number2NameMap.put(158, "CompoundQuantity");
 		this.number2NameMap.put(164, "Conversion");
 		this.number2NameMap.put(169, "ConversionManager");
+		this.number2NameMap.put(215, "CreateAccountCommand");
+		this.number2NameMap.put(217, "CreateAccountTypeCommand");
 		this.number2NameMap.put(139, "CreateAspectCommand");
 		this.number2NameMap.put(146, "CreateAssociationCommand");
 		this.number2NameMap.put(191, "CreateAtomicRootTypeCommand");
@@ -284,6 +288,7 @@ public class Cache {
 		this.number2NameMap.put(175, "CreateCompUnitTypeCommand");
 		this.number2NameMap.put(172, "CreateConversionCommand");
 		this.number2NameMap.put(144, "CreateHierarchyCommand");
+		this.number2NameMap.put(216, "CreateMeasurementTypeCommand");
 		this.number2NameMap.put(187, "CreateProductTypeCommand");
 		this.number2NameMap.put(180, "CreateQuantityCommand");
 		this.number2NameMap.put(193, "CreateSumTypeCommand");
@@ -311,6 +316,7 @@ public class Cache {
 		this.number2NameMap.put(103, "MSumType");
 		this.number2NameMap.put(138, "MTrue");
 		this.number2NameMap.put(195, "Measurement");
+		this.number2NameMap.put(212, "MeasurementTypeManager");
 		this.number2NameMap.put(205, "Message");
 		this.number2NameMap.put(157, "Quantity");
 		this.number2NameMap.put(170, "QuantityManager");

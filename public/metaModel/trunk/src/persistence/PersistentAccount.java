@@ -4,21 +4,26 @@ import model.UserException;
 
 import model.visitor.*;
 
-public interface PersistentAccount extends AccountHierarchyHIERARCHY, Anything, AbstractPersistentProxi {
+public interface PersistentAccount extends AccountHierarchyHIERARCHY, PersistentQuantifObject {
     
     public PersistentMAccountType getType() throws PersistenceException ;
     public void setType(PersistentMAccountType newValue) throws PersistenceException ;
     public Account_SubAccountsProxi getSubAccounts() throws PersistenceException ;
+    public Account_EntriesProxi getEntries() throws PersistenceException ;
     public PersistentAccount getThis() throws PersistenceException ;
     
-    public void accept(AccountHierarchyHIERARCHYVisitor visitor) throws PersistenceException;
-    public <R> R accept(AccountHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends UserException>  void accept(AccountHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends UserException> R accept(AccountHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(QuantifObjectVisitor visitor) throws PersistenceException;
+    public <R> R accept(QuantifObjectReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends UserException>  void accept(QuantifObjectExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends UserException> R accept(QuantifObjectReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(AccountHierarchyHIERARCHYVisitor visitor) throws PersistenceException;
+    public <R> R accept(AccountHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends UserException>  void accept(AccountHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends UserException> R accept(AccountHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public boolean containsAccountHierarchy(final AccountHierarchyHIERARCHY part) 
 				throws PersistenceException;

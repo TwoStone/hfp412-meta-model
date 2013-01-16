@@ -25,11 +25,13 @@ public class QuantifObjectFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
+        if(Cache.getTheCache().contains(objectId, 195)) return 195;
+        if(Cache.getTheCache().contains(objectId, 196)) return 196;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
-    public void defaultTypeSet(long QuantifObjectId, PersistentInstanceObject defaultTypeVal) throws PersistenceException {
+    public void objectSet(long QuantifObjectId, PersistentInstanceObject objectVal) throws PersistenceException {
         
     }
     public void ThisSet(long QuantifObjectId, PersistentQuantifObject ThisVal) throws PersistenceException {

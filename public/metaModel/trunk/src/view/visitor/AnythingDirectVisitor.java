@@ -5,8 +5,6 @@ import view.*;
 
 public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
-    public abstract void handleMeasurement(MeasurementView measurement) throws ModelException;
-    
     public abstract void handleConversionManager(ConversionManagerView conversionManager) throws ModelException;
     
     public abstract void handleReferenceType(ReferenceTypeView referenceType) throws ModelException;
@@ -21,10 +19,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCompUnitType(CompUnitTypeView compUnitType) throws ModelException{
         this.handleAbsUnitType(compUnitType);
     }
-    public abstract void handleAccount(AccountView account) throws ModelException;
-    
     public abstract void handleQuantifObject(QuantifObjectView quantifObject) throws ModelException;
     
+    public void handleMeasurement(MeasurementView measurement) throws ModelException{
+        this.handleQuantifObject(measurement);
+    }
+    public void handleAccount(AccountView account) throws ModelException{
+        this.handleQuantifObject(account);
+    }
     public abstract void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     
     public abstract void handleAssociationManager(AssociationManagerView associationManager) throws ModelException;
@@ -37,6 +39,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCompoundQuantity(CompoundQuantityView compoundQuantity) throws ModelException{
         this.handleAbsQuantity(compoundQuantity);
     }
+    public abstract void handleMeasurementTypeManager(MeasurementTypeManagerView measurementTypeManager) throws ModelException;
+    
     public abstract void handleMQuantiObjectType(MQuantiObjectTypeView mQuantiObjectType) throws ModelException;
     
     public void handleMMeasurementType(MMeasurementTypeView mMeasurementType) throws ModelException{
@@ -46,6 +50,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleMQuantiObjectType(mAccountType);
     }
     public abstract void handleMAHierarchy(MAHierarchyView mAHierarchy) throws ModelException;
+    
+    public abstract void handleAccountTypeManager(AccountTypeManagerView accountTypeManager) throws ModelException;
     
     public abstract void handleMFormalParameter(MFormalParameterView mFormalParameter) throws ModelException;
     
@@ -117,6 +123,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handleMAspect(MAspectView mAspect) throws ModelException;
     
     public abstract void handleFractionManager(FractionManagerView fractionManager) throws ModelException;
+    
+    public abstract void handleAccountManager(AccountManagerView accountManager) throws ModelException;
     
     public abstract void handleConversion(ConversionView conversion) throws ModelException;
     

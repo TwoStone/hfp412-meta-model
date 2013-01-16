@@ -8,19 +8,14 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class Measurement extends PersistentObject implements PersistentMeasurement{
+public class Measurement extends model.measurement.QuantifObject implements PersistentMeasurement{
     
-    /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentMeasurement getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theMeasurementFacade.getClass(objectId);
-        return (PersistentMeasurement)PersistentProxi.createProxi(objectId, classId);
+    
+    public static PersistentMeasurement createMeasurement(PersistentInstanceObject object,PersistentMMeasurementType type,PersistentAbsQuantity quantity) throws PersistenceException{
+        return createMeasurement(object,type,quantity,false);
     }
     
-    public static PersistentMeasurement createMeasurement(PersistentMMeasurementType type,PersistentAbsQuantity quantity) throws PersistenceException{
-        return createMeasurement(type,quantity,false);
-    }
-    
-    public static PersistentMeasurement createMeasurement(PersistentMMeasurementType type,PersistentAbsQuantity quantity,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMeasurement createMeasurement(PersistentInstanceObject object,PersistentMMeasurementType type,PersistentAbsQuantity quantity,boolean delayed$Persistence) throws PersistenceException {
         PersistentMeasurement result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
@@ -31,6 +26,7 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
                 .newMeasurement(-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("object", object);
         final$$Fields.put("type", type);
         final$$Fields.put("quantity", quantity);
         result.initialize(result, final$$Fields);
@@ -38,7 +34,7 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
         return result;
     }
     
-    public static PersistentMeasurement createMeasurement(PersistentMMeasurementType type,PersistentAbsQuantity quantity,boolean delayed$Persistence,PersistentMeasurement This) throws PersistenceException {
+    public static PersistentMeasurement createMeasurement(PersistentInstanceObject object,PersistentMMeasurementType type,PersistentAbsQuantity quantity,boolean delayed$Persistence,PersistentMeasurement This) throws PersistenceException {
         PersistentMeasurement result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
@@ -49,6 +45,7 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
                 .newMeasurement(-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("object", object);
         final$$Fields.put("type", type);
         final$$Fields.put("quantity", quantity);
         result.initialize(This, final$$Fields);
@@ -86,9 +83,10 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
     
     public Measurement provideCopy() throws PersistenceException{
         Measurement result = this;
-        result = new Measurement(this.type, 
-                                 this.quantity, 
+        result = new Measurement(this.object, 
                                  this.This, 
+                                 this.type, 
+                                 this.quantity, 
                                  this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -99,14 +97,12 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
     }
     protected PersistentMMeasurementType type;
     protected PersistentAbsQuantity quantity;
-    protected PersistentMeasurement This;
     
-    public Measurement(PersistentMMeasurementType type,PersistentAbsQuantity quantity,PersistentMeasurement This,long id) throws persistence.PersistenceException {
+    public Measurement(PersistentInstanceObject object,PersistentQuantifObject This,PersistentMMeasurementType type,PersistentAbsQuantity quantity,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super(id);
+        super((PersistentInstanceObject)object,(PersistentQuantifObject)This,id);
         this.type = type;
-        this.quantity = quantity;
-        if (This != null && !(this.equals(This))) this.This = This;        
+        this.quantity = quantity;        
     }
     
     static public long getTypeId() {
@@ -129,10 +125,6 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
         if(this.getQuantity() != null){
             this.getQuantity().store();
             ConnectionHandler.getTheConnectionHandler().theMeasurementFacade.quantitySet(this.getId(), getQuantity());
-        }
-        if(!this.equals(this.getThis())){
-            this.getThis().store();
-            ConnectionHandler.getTheConnectionHandler().theMeasurementFacade.ThisSet(this.getId(), getThis());
         }
         
     }
@@ -165,21 +157,6 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
             ConnectionHandler.getTheConnectionHandler().theMeasurementFacade.quantitySet(this.getId(), newValue);
         }
     }
-    protected void setThis(PersistentMeasurement newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if (newValue.equals(this)){
-            this.This = null;
-            return;
-        }
-        if(newValue.equals(this.This)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.This = (PersistentMeasurement)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theMeasurementFacade.ThisSet(this.getId(), newValue);
-        }
-    }
     public PersistentMeasurement getThis() throws PersistenceException {
         if(this.This == null){
             PersistentMeasurement result = new MeasurementProxi(this.getId());
@@ -188,6 +165,18 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
         }return (PersistentMeasurement)this.This;
     }
     
+    public void accept(QuantifObjectVisitor visitor) throws PersistenceException {
+        visitor.handleMeasurement(this);
+    }
+    public <R> R accept(QuantifObjectReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMeasurement(this);
+    }
+    public <E extends UserException>  void accept(QuantifObjectExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMeasurement(this);
+    }
+    public <R, E extends UserException> R accept(QuantifObjectReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMeasurement(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleMeasurement(this);
     }
@@ -202,6 +191,7 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
+            + (this.getObject() == null ? 0 : 1)
             + (this.getType() == null ? 0 : 1)
             + (this.getQuantity() == null ? 0 : 1));
     }
@@ -221,6 +211,7 @@ public class Measurement extends PersistentObject implements PersistentMeasureme
 				throws PersistenceException{
         this.setThis((PersistentMeasurement)This);
 		if(this.equals(This)){
+			this.setObject((PersistentInstanceObject)final$$Fields.get("object"));
 			this.setType((PersistentMMeasurementType)final$$Fields.get("type"));
 			this.setQuantity((PersistentAbsQuantity)final$$Fields.get("quantity"));
 		}

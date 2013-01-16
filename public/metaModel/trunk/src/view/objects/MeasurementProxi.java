@@ -5,13 +5,20 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class MeasurementProxi extends ViewProxi implements MeasurementView{
+public class MeasurementProxi extends QuantifObjectProxi implements MeasurementView{
     
     public MeasurementProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
     }
     
     public MeasurementView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
+        ViewProxi object = null;
+        String object$String = (String)resultTable.get("object");
+        if (object$String != null) {
+            common.ProxiInformation object$Info = common.RPCConstantsAndServices.createProxiInformation(object$String);
+            object = ViewProxi.createProxi(object$Info,connectionKey);
+            object.setToString(object$Info.getToString());
+        }
         ViewProxi type = null;
         String type$String = (String)resultTable.get("type");
         if (type$String != null) {
@@ -26,7 +33,7 @@ public class MeasurementProxi extends ViewProxi implements MeasurementView{
             quantity = ViewProxi.createProxi(quantity$Info,connectionKey);
             quantity.setToString(quantity$Info.getToString());
         }
-        MeasurementView result$$ = new Measurement((MMeasurementTypeView)type,(AbsQuantityView)quantity, this.getId(), this.getClassId());
+        MeasurementView result$$ = new Measurement((InstanceObjectView)object,(MMeasurementTypeView)type,(AbsQuantityView)quantity, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -36,6 +43,8 @@ public class MeasurementProxi extends ViewProxi implements MeasurementView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
+        if(index == 0 && this.getObject() != null) return new ObjectQuantifObjectWrapper(this, originalIndex, (ViewRoot)this.getObject());
+        if(this.getObject() != null) index = index - 1;
         if(index == 0 && this.getType() != null) return new TypeMeasurementWrapper(this, originalIndex, (ViewRoot)this.getType());
         if(this.getType() != null) index = index - 1;
         if(index == 0 && this.getQuantity() != null) return new QuantityMeasurementWrapper(this, originalIndex, (ViewRoot)this.getQuantity());
@@ -44,17 +53,21 @@ public class MeasurementProxi extends ViewProxi implements MeasurementView{
     }
     public int getChildCount() throws ModelException {
         return 0 
+            + (this.getObject() == null ? 0 : 1)
             + (this.getType() == null ? 0 : 1)
             + (this.getQuantity() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
+            && (this.getObject() == null ? true : false)
             && (this.getType() == null ? true : false)
             && (this.getQuantity() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
+        if(this.getObject() != null && this.getObject().equals(child)) return result;
+        if(this.getObject() != null) result = result + 1;
         if(this.getType() != null && this.getType().equals(child)) return result;
         if(this.getType() != null) result = result + 1;
         if(this.getQuantity() != null && this.getQuantity().equals(child)) return result;
@@ -75,6 +88,18 @@ public class MeasurementProxi extends ViewProxi implements MeasurementView{
         ((Measurement)this.getTheObject()).setQuantity(newValue);
     }
     
+    public void accept(QuantifObjectVisitor visitor) throws ModelException {
+        visitor.handleMeasurement(this);
+    }
+    public <R> R accept(QuantifObjectReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleMeasurement(this);
+    }
+    public <E extends UserException>  void accept(QuantifObjectExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleMeasurement(this);
+    }
+    public <R, E extends UserException> R accept(QuantifObjectReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleMeasurement(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleMeasurement(this);
     }

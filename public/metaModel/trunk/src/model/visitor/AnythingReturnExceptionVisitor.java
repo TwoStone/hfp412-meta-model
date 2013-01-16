@@ -3,7 +3,7 @@ package model.visitor;
 import model.UserException;
 import persistence.*;
 
-public interface AnythingReturnExceptionVisitor<R, E extends UserException> extends AbsUnitTypeReturnExceptionVisitor<R, E> ,AbsQuantityReturnExceptionVisitor<R, E> ,CommonDateReturnExceptionVisitor<R, E> ,MTypeReturnExceptionVisitor<R, E> ,AbsUnitReturnExceptionVisitor<R, E> ,MQuantiObjectTypeReturnExceptionVisitor<R, E> ,MessageOrLinkReturnExceptionVisitor<R, E> ,MAbsOperationReturnExceptionVisitor<R, E> ,MBooleanReturnExceptionVisitor<R, E> {
+public interface AnythingReturnExceptionVisitor<R, E extends UserException> extends AbsUnitTypeReturnExceptionVisitor<R, E> ,AbsQuantityReturnExceptionVisitor<R, E> ,CommonDateReturnExceptionVisitor<R, E> ,MTypeReturnExceptionVisitor<R, E> ,AbsUnitReturnExceptionVisitor<R, E> ,QuantifObjectReturnExceptionVisitor<R, E> ,MQuantiObjectTypeReturnExceptionVisitor<R, E> ,MessageOrLinkReturnExceptionVisitor<R, E> ,MAbsOperationReturnExceptionVisitor<R, E> ,MBooleanReturnExceptionVisitor<R, E> {
     
     public R handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException, E;
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException, E;
@@ -12,6 +12,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleCreateProductTypeCommand(PersistentCreateProductTypeCommand createProductTypeCommand) throws PersistenceException, E;
     public R handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException, E;
     public R handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException, E;
+    public R handleCreateAccountCommand(PersistentCreateAccountCommand createAccountCommand) throws PersistenceException, E;
     public R handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException, E;
     public R handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException, E;
     public R handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException, E;
@@ -27,12 +28,13 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException, E;
     public R handleReference(PersistentReference reference) throws PersistenceException, E;
     public R handleConversion(PersistentConversion conversion) throws PersistenceException, E;
-    public R handleMeasurement(PersistentMeasurement measurement) throws PersistenceException, E;
     public R handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException, E;
     public R handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException, E;
-    public R handleAccount(PersistentAccount account) throws PersistenceException, E;
     public R handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException, E;
     public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
+    public R handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException, E;
+    public R handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException, E;
+    public R handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException, E;
     public R handleMFormalParameter(PersistentMFormalParameter mFormalParameter) throws PersistenceException, E;
     public R handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException, E;
     public R handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException, E;
@@ -47,5 +49,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException, E;
     public R handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException, E;
     public R handleMAspect(PersistentMAspect mAspect) throws PersistenceException, E;
+    public R handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException, E;
+    public R handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException, E;
     
 }
