@@ -223,6 +223,14 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
         getThis().setIsFinal(MFalse.getTheMFalse());
         
     }
+    
+    /**
+     * Prüft, ob die Exponenten aller Referenzen je Einheitstyp in Summe den Exponenten der Referenztypen entsprechen.
+     * @throws ExponentMatchingException 
+     * wenn bei der Untersuchung aller Referenzen zu 
+     * Einheiten eines bestimmten Einheitstypen die Summe der Exponenten ungleich des Exponenten des Referenztyps ist.
+     * 
+     */
     public void checkExponents() 
 				throws model.ExponentMatchingException, PersistenceException{
         //TODO: implement method: checkExponents

@@ -224,6 +224,15 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		// TODO: implement method: initializeOnCreation
 
 	}
+    
+    /**
+     * Fügt einem zusammengesetzten Einheits-Typen einen Referenztypen hinzu.
+     * @param compUnitType der zusammengesetzte Typ, der um einen {@link ReferenceType}-Objekt erweitert wird.
+     * @param unitType der elementare Typ, der dem zusammengesetzten Typ hinzugefügt wird.
+     * @param exponent Mächtigkeit des parameters 'unitType'
+     * @throws DoubleDefinitionException wenn diesem zusammengesetzten Typen bereits ein Referenztyp mit dem gleichen elementaren Typen zugeordnet ist.
+     * @throws AlreadyFinalizedException wenn compUnitType.isFinal() == true
+     */
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
 				throws model.DoubleDefinitionException, model.AlreadyFinalizedException, PersistenceException{
     	// ---> isFinal-Attribut pr?fen
@@ -280,6 +289,15 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     			newRefType.setExponent(exponent);
     			compUnitType.getRefs().add(newRefType);        
     }
+    
+    /**
+     * Erstellt eine Einheit zu einem zusammengesetzten Einheitstypen.
+     * @param name Name der zusammengesetzten Einheit
+     * @param type Name des Typen
+     * 
+     * @throws DoubleDefinitionException wenn der Name schon vergeben ist ODER die gleiche Ausprägung schon existiert
+     * @throws NotFinalizedException wenn der Einheits-Typ noch nicht final ist.
+     */
     public void createCompUnit(final String name, final PersistentCompUnitType type) 
 				throws model.DoubleDefinitionException, model.NotFinalizedException, PersistenceException{
     	
@@ -387,6 +405,21 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		if(this.equals(This)){
 		}
     }
+    
+    /**
+     *
+     * Erstellt einen neuen CompUnitType mit einmaligem Namen und ohne Typen von Referenzen. 
+     * Siehe dazu {@link ReferenceType}
+     * Ein neu erstellter CompUnitType ist noch in einem Entwurfszustand, daher gilt
+     * nach dem Erzeugen: isFinal() == false
+     * Solange dies gilt, dürfen von diesem Typen noch keine Einheiten erstellt werden.
+     * Erst nach dem Aufrufen der Operation finishModeling() wird der Typ publiziert.
+     * 
+     * @param name Name des zusammengesetzten Typen.
+     * 
+     *  @throws DoubleDefinitionException wenn der Name schon vergeben ist.
+     * 
+     */
     public void createCompUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
 		AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
@@ -408,12 +441,21 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    /**
+     * Diese Operation definiert die Standardeinheit eines Einheitstypen.
+     */
     public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit) 
 				throws PersistenceException{
 		// TODO Was passiert, wenn es schon eine Default-Unit gibt?
+    	// TODO: Vielleicht sollten wir die Operation einfach changeDefaultUnit nennen, dann kann man flexibel die Standardeinheit ändern.
 		type.setDefaultUnit(unit);
 
 	}
+    /**
+     * Erstellt einen elementaren UnitType mit einmaligem Namen.
+     * @param name Name des Typs
+     * @throws DoubleDefinitionException wenn der Name bereits vergeben ist.
+     */
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
 		AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
