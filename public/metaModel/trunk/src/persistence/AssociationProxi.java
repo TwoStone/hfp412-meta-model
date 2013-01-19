@@ -19,7 +19,7 @@ public class AssociationProxi extends PersistentProxi implements PersistentAssoc
     }
     
     public long getClassId() {
-        return 116;
+        return 223;
     }
     
     public String getName() throws PersistenceException {

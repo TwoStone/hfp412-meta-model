@@ -19,7 +19,7 @@ public class CreateStaticMessageCommandICProxi extends PersistentInCacheProxi im
     }
     
     public long getClassId() {
-        return 166;
+        return 238;
     }
     
     public PersistentOperation getType() throws PersistenceException {

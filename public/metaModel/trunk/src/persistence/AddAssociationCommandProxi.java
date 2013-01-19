@@ -19,7 +19,7 @@ public class AddAssociationCommandProxi extends PersistentProxi implements Persi
     }
     
     public long getClassId() {
-        return 173;
+        return 241;
     }
     
     public PersistentHierarchy getH() throws PersistenceException {

@@ -19,7 +19,7 @@ public class CreateProductTypeCommandProxi extends PersistentProxi implements Pe
     }
     
     public long getClassId() {
-        return 150;
+        return 187;
     }
     
     public CreateProductTypeCommand_FactorsProxi getFactors() throws PersistenceException {

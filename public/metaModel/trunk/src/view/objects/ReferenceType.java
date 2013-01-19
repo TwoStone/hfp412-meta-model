@@ -20,7 +20,7 @@ public class ReferenceType extends ViewObject implements ReferenceTypeView{
     }
     
     static public long getTypeId() {
-        return 180;
+        return 150;
     }
     
     public long getClassId() {

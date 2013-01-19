@@ -20,7 +20,7 @@ public class Quantity extends view.objects.AbsQuantity implements QuantityView{
     }
     
     static public long getTypeId() {
-        return 192;
+        return 157;
     }
     
     public long getClassId() {

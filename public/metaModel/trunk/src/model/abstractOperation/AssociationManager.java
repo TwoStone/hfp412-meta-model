@@ -87,7 +87,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     
     static public long getTypeId() {
-        return 152;
+        return 141;
     }
     
     public long getClassId() {

@@ -83,7 +83,7 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
     }
     
     static public long getTypeId() {
-        return 186;
+        return 244;
     }
     
     public long getClassId() {

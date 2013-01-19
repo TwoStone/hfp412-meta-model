@@ -19,7 +19,7 @@ public class MTrueICProxi extends MBooleanICProxi implements PersistentMTrue{
     }
     
     public long getClassId() {
-        return 190;
+        return 138;
     }
     
     public PersistentMTrue getThis() throws PersistenceException {

@@ -6,10 +6,10 @@ import model.visitor.*;
 
 public interface PersistentAddDefaultUnitCommand extends UnitTypeManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
     
-    public PersistentAbsUnitType getType() throws PersistenceException ;
-    public void setType(PersistentAbsUnitType newValue) throws PersistenceException ;
-    public PersistentAbsUnit getUnit() throws PersistenceException ;
-    public void setUnit(PersistentAbsUnit newValue) throws PersistenceException ;
+    public PersistentUnitType getType() throws PersistenceException ;
+    public void setType(PersistentUnitType newValue) throws PersistenceException ;
+    public PersistentUnit getUnit() throws PersistenceException ;
+    public void setUnit(PersistentUnit newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
     public PersistentUnitTypeManager getCommandReceiver() throws PersistenceException ;

@@ -24,7 +24,7 @@ public class OperationManager extends ViewObject implements OperationManagerView
     }
     
     static public long getTypeId() {
-        return 120;
+        return 226;
     }
     
     public long getClassId() {

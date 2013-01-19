@@ -19,19 +19,19 @@ public class AddDefaultUnitCommandICProxi extends PersistentInCacheProxi impleme
     }
     
     public long getClassId() {
-        return 109;
+        return 177;
     }
     
-    public PersistentAbsUnitType getType() throws PersistenceException {
+    public PersistentUnitType getType() throws PersistenceException {
         return ((PersistentAddDefaultUnitCommand)this.getTheObject()).getType();
     }
-    public void setType(PersistentAbsUnitType newValue) throws PersistenceException {
+    public void setType(PersistentUnitType newValue) throws PersistenceException {
         ((PersistentAddDefaultUnitCommand)this.getTheObject()).setType(newValue);
     }
-    public PersistentAbsUnit getUnit() throws PersistenceException {
+    public PersistentUnit getUnit() throws PersistenceException {
         return ((PersistentAddDefaultUnitCommand)this.getTheObject()).getUnit();
     }
-    public void setUnit(PersistentAbsUnit newValue) throws PersistenceException {
+    public void setUnit(PersistentUnit newValue) throws PersistenceException {
         ((PersistentAddDefaultUnitCommand)this.getTheObject()).setUnit(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {

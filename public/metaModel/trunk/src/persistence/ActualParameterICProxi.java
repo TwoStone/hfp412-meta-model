@@ -19,7 +19,7 @@ public class ActualParameterICProxi extends PersistentInCacheProxiOptimistic imp
     }
     
     public long getClassId() {
-        return 194;
+        return 206;
     }
     
     public PersistentFormalParameter getType() throws PersistenceException {

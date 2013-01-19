@@ -10,19 +10,17 @@ import view.visitor.*;
 public class Conversion extends ViewObject implements ConversionView{
     
     protected UnitView source;
-    protected UnitTypeView type;
     protected FunctionView myFunction;
     
-    public Conversion(UnitView source,UnitTypeView type,FunctionView myFunction,long id, long classId) {
+    public Conversion(UnitView source,FunctionView myFunction,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.source = source;
-        this.type = type;
         this.myFunction = myFunction;        
     }
     
     static public long getTypeId() {
-        return 177;
+        return 164;
     }
     
     public long getClassId() {
@@ -34,12 +32,6 @@ public class Conversion extends ViewObject implements ConversionView{
     }
     public void setSource(UnitView newValue) throws ModelException {
         this.source = newValue;
-    }
-    public UnitTypeView getType() throws ModelException {
-        return this.type;
-    }
-    public void setType(UnitTypeView newValue) throws ModelException {
-        this.type = newValue;
     }
     public FunctionView getMyFunction() throws ModelException {
         return this.myFunction;
@@ -66,10 +58,6 @@ public class Conversion extends ViewObject implements ConversionView{
         if (source != null) {
             ((ViewProxi)source).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(source.getClassId(), source.getId())));
         }
-        UnitTypeView type = this.getType();
-        if (type != null) {
-            ((ViewProxi)type).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(type.getClassId(), type.getId())));
-        }
         FunctionView myFunction = this.getMyFunction();
         if (myFunction != null) {
             ((ViewProxi)myFunction).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(myFunction.getClassId(), myFunction.getId())));
@@ -83,8 +71,6 @@ public class Conversion extends ViewObject implements ConversionView{
         int index = originalIndex;
         if(index == 0 && this.getSource() != null) return new SourceConversionWrapper(this, originalIndex, (ViewRoot)this.getSource());
         if(this.getSource() != null) index = index - 1;
-        if(index == 0 && this.getType() != null) return new TypeConversionWrapper(this, originalIndex, (ViewRoot)this.getType());
-        if(this.getType() != null) index = index - 1;
         if(index == 0 && this.getMyFunction() != null) return new MyFunctionConversionWrapper(this, originalIndex, (ViewRoot)this.getMyFunction());
         if(this.getMyFunction() != null) index = index - 1;
         return null;
@@ -92,21 +78,17 @@ public class Conversion extends ViewObject implements ConversionView{
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getSource() == null ? 0 : 1)
-            + (this.getType() == null ? 0 : 1)
             + (this.getMyFunction() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getSource() == null ? true : false)
-            && (this.getType() == null ? true : false)
             && (this.getMyFunction() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getSource() != null && this.getSource().equals(child)) return result;
         if(this.getSource() != null) result = result + 1;
-        if(this.getType() != null && this.getType().equals(child)) return result;
-        if(this.getType() != null) result = result + 1;
         if(this.getMyFunction() != null && this.getMyFunction().equals(child)) return result;
         if(this.getMyFunction() != null) result = result + 1;
         return -1;

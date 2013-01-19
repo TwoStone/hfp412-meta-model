@@ -83,7 +83,7 @@ public class MeasurementTypeManager extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 184;
+        return 212;
     }
     
     public long getClassId() {

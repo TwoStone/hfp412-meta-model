@@ -19,7 +19,7 @@ public class AspectManagerProxi extends PersistentProxi implements PersistentAsp
     }
     
     public long getClassId() {
-        return 136;
+        return 126;
     }
     
     public AspectManager_AspectsProxi getAspects() throws PersistenceException {

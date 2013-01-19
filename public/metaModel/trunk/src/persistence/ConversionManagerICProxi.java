@@ -19,7 +19,7 @@ public class ConversionManagerICProxi extends PersistentInCacheProxiOptimistic i
     }
     
     public long getClassId() {
-        return 147;
+        return 169;
     }
     
     public ConversionManager_ConversionsProxi getConversions() throws PersistenceException {

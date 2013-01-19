@@ -28,14 +28,14 @@ public class LinkManagerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theLinkManagerFacade.getNextId();
         LinkManager result = new LinkManager(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (LinkManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 186);
+        return (LinkManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 244);
     }
     
     public LinkManager getLinkManager(long LinkManagerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 186)) return 186;
+        if(Cache.getTheCache().contains(objectId, 244)) return 244;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

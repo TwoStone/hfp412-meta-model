@@ -8,8 +8,6 @@ public interface PersistentConversion extends Anything, AbstractPersistentProxi 
     
     public PersistentUnit getSource() throws PersistenceException ;
     public void setSource(PersistentUnit newValue) throws PersistenceException ;
-    public PersistentUnitType getType() throws PersistenceException ;
-    public void setType(PersistentUnitType newValue) throws PersistenceException ;
     public PersistentFunction getMyFunction() throws PersistenceException ;
     public void setMyFunction(PersistentFunction newValue) throws PersistenceException ;
     public PersistentConversion getThis() throws PersistenceException ;

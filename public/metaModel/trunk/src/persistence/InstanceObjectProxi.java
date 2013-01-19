@@ -19,7 +19,7 @@ public class InstanceObjectProxi extends PersistentProxi implements PersistentIn
     }
     
     public long getClassId() {
-        return 130;
+        return 203;
     }
     
     public PersistentMAtomicType getType() throws PersistenceException {

@@ -60,7 +60,7 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
     }
     
     static public long getTypeId() {
-        return 126;
+        return 200;
     }
     
     public long getClassId() {

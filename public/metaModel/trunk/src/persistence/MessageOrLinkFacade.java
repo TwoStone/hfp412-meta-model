@@ -25,8 +25,8 @@ public class MessageOrLinkFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 133)) return 133;
-        if(Cache.getTheCache().contains(objectId, 139)) return 139;
+        if(Cache.getTheCache().contains(objectId, 205)) return 205;
+        if(Cache.getTheCache().contains(objectId, 207)) return 207;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

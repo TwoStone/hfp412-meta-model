@@ -122,7 +122,7 @@ public class Association extends PersistentObject implements PersistentAssociati
     }
     
     static public long getTypeId() {
-        return 116;
+        return 223;
     }
     
     public long getClassId() {
@@ -131,7 +131,7 @@ public class Association extends PersistentObject implements PersistentAssociati
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 116) ConnectionHandler.getTheConnectionHandler().theAssociationFacade
+        if (this.getClassId() == 223) ConnectionHandler.getTheConnectionHandler().theAssociationFacade
             .newAssociation(name,this.getId());
         super.store();
         if(this.getSource() != null){

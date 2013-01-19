@@ -19,7 +19,7 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements PersistentCom
     }
     
     public long getClassId() {
-        return 113;
+        return 165;
     }
     
     public CompUnitType_RefsProxi getRefs() throws PersistenceException {

@@ -76,7 +76,7 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
     }
     
     static public long getTypeId() {
-        return 142;
+        return 103;
     }
     
     public long getClassId() {
@@ -85,7 +85,7 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 142) ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
+        if (this.getClassId() == 103) ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
             .newMSumType(this.getId());
         super.store();
         

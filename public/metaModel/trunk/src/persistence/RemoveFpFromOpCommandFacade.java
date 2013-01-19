@@ -25,25 +25,25 @@ public class RemoveFpFromOpCommandFacade{
 	}
 
     public RemoveFpFromOpCommandProxi newRemoveFpFromOpCommand(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (RemoveFpFromOpCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 197);
+        if(createMinusStorePlus > 0) return (RemoveFpFromOpCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 245);
         long id = ConnectionHandler.getTheConnectionHandler().theRemoveFpFromOpCommandFacade.getNextId();
         RemoveFpFromOpCommand result = new RemoveFpFromOpCommand(null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (RemoveFpFromOpCommandProxi)PersistentProxi.createProxi(id, 197);
+        return (RemoveFpFromOpCommandProxi)PersistentProxi.createProxi(id, 245);
     }
     
     public RemoveFpFromOpCommandProxi newDelayedRemoveFpFromOpCommand() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theRemoveFpFromOpCommandFacade.getNextId();
         RemoveFpFromOpCommand result = new RemoveFpFromOpCommand(null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (RemoveFpFromOpCommandProxi)PersistentProxi.createProxi(id, 197);
+        return (RemoveFpFromOpCommandProxi)PersistentProxi.createProxi(id, 245);
     }
     
     public RemoveFpFromOpCommand getRemoveFpFromOpCommand(long RemoveFpFromOpCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 197)) return 197;
+        if(Cache.getTheCache().contains(objectId, 245)) return 245;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

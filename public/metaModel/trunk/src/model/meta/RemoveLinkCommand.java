@@ -54,7 +54,7 @@ public class RemoveLinkCommand extends PersistentObject implements PersistentRem
     }
     
     static public long getTypeId() {
-        return 117;
+        return 224;
     }
     
     public long getClassId() {
@@ -63,7 +63,7 @@ public class RemoveLinkCommand extends PersistentObject implements PersistentRem
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 117) ConnectionHandler.getTheConnectionHandler().theRemoveLinkCommandFacade
+        if (this.getClassId() == 224) ConnectionHandler.getTheConnectionHandler().theRemoveLinkCommandFacade
             .newRemoveLinkCommand(this.getId());
         super.store();
         if(this.getLink() != null){

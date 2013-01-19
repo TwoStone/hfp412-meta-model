@@ -16,7 +16,7 @@ public class MMeasurementType extends view.objects.MQuantiObjectType implements 
     }
     
     static public long getTypeId() {
-        return 125;
+        return 199;
     }
     
     public long getClassId() {

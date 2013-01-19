@@ -24,7 +24,7 @@ public class Association extends ViewObject implements AssociationView{
     }
     
     static public long getTypeId() {
-        return 116;
+        return 223;
     }
     
     public long getClassId() {

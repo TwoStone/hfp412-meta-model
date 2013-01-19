@@ -18,7 +18,7 @@ public class LinkManager extends ViewObject implements LinkManagerView{
     }
     
     static public long getTypeId() {
-        return 186;
+        return 244;
     }
     
     public long getClassId() {

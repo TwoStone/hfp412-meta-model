@@ -19,7 +19,7 @@ public class CreateAccountTypeCommandProxi extends PersistentProxi implements Pe
     }
     
     public long getClassId() {
-        return 145;
+        return 217;
     }
     
     public String getName() throws PersistenceException {

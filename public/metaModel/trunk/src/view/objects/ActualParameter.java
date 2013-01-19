@@ -20,7 +20,7 @@ public class ActualParameter extends ViewObject implements ActualParameterView{
     }
     
     static public long getTypeId() {
-        return 194;
+        return 206;
     }
     
     public long getClassId() {

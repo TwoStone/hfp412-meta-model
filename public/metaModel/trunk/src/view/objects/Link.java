@@ -18,7 +18,7 @@ public class Link extends view.objects.MessageOrLink implements LinkView{
     }
     
     static public long getTypeId() {
-        return 139;
+        return 207;
     }
     
     public long getClassId() {

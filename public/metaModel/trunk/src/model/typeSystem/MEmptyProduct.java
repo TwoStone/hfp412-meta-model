@@ -78,7 +78,7 @@ public class MEmptyProduct extends model.typeSystem.MAbstractProductType impleme
     }
     
     static public long getTypeId() {
-        return 107;
+        return 186;
     }
     
     public long getClassId() {

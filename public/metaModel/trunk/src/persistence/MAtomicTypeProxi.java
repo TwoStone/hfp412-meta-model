@@ -19,7 +19,7 @@ public class MAtomicTypeProxi extends MTypeProxi implements PersistentMAtomicTyp
     }
     
     public long getClassId() {
-        return 112;
+        return 102;
     }
     
     public String getName() throws PersistenceException {

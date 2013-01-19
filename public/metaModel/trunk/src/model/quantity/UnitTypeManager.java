@@ -129,7 +129,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     
     static public long getTypeId() {
-        return 169;
+        return 176;
     }
     
     public long getClassId() {
@@ -189,6 +189,11 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     
     
+    public void addDefaultUnit(final PersistentUnitType type, final PersistentUnit unit) 
+				throws PersistenceException{
+        //TODO: implement method: addDefaultUnit
+        
+    }
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -369,6 +374,16 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void addDefaultUnit(final PersistentUnitType type, final PersistentUnit unit, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddDefaultUnitCommand command = model.meta.AddDefaultUnitCommand.createAddDefaultUnitCommand(now, now);
+		command.setType(type);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void finishModeling(final PersistentCompUnitType compUnitType) 
 				throws model.AlreadyFinalizedException, PersistenceException{
     	
@@ -427,22 +442,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		}
 		this.getThis().getUnitTypes()
 				.add(CompUnitType.createCompUnitType(name));
-
-	}
-    public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddDefaultUnitCommand command = model.meta.AddDefaultUnitCommand.createAddDefaultUnitCommand(now, now);
-		command.setType(type);
-		command.setUnit(unit);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit) 
-				throws PersistenceException{
-		// TODO Was passiert, wenn es schon eine Default-Unit gibt?
-		type.setDefaultUnit(unit);
 
 	}
     public void createUnitType(final String name) 

@@ -25,25 +25,25 @@ public class RemoveLinkCommandFacade{
 	}
 
     public RemoveLinkCommandProxi newRemoveLinkCommand(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (RemoveLinkCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 117);
+        if(createMinusStorePlus > 0) return (RemoveLinkCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 224);
         long id = ConnectionHandler.getTheConnectionHandler().theRemoveLinkCommandFacade.getNextId();
         RemoveLinkCommand result = new RemoveLinkCommand(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (RemoveLinkCommandProxi)PersistentProxi.createProxi(id, 117);
+        return (RemoveLinkCommandProxi)PersistentProxi.createProxi(id, 224);
     }
     
     public RemoveLinkCommandProxi newDelayedRemoveLinkCommand() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theRemoveLinkCommandFacade.getNextId();
         RemoveLinkCommand result = new RemoveLinkCommand(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (RemoveLinkCommandProxi)PersistentProxi.createProxi(id, 117);
+        return (RemoveLinkCommandProxi)PersistentProxi.createProxi(id, 224);
     }
     
     public RemoveLinkCommand getRemoveLinkCommand(long RemoveLinkCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 117)) return 117;
+        if(Cache.getTheCache().contains(objectId, 224)) return 224;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

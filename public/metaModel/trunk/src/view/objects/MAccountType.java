@@ -18,7 +18,7 @@ public class MAccountType extends view.objects.MQuantiObjectType implements MAcc
     }
     
     static public long getTypeId() {
-        return 164;
+        return 194;
     }
     
     public long getClassId() {

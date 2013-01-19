@@ -19,13 +19,6 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
             source = ViewProxi.createProxi(source$Info,connectionKey);
             source.setToString(source$Info.getToString());
         }
-        ViewProxi type = null;
-        String type$String = (String)resultTable.get("type");
-        if (type$String != null) {
-            common.ProxiInformation type$Info = common.RPCConstantsAndServices.createProxiInformation(type$String);
-            type = ViewProxi.createProxi(type$Info,connectionKey);
-            type.setToString(type$Info.getToString());
-        }
         ViewProxi myFunction = null;
         String myFunction$String = (String)resultTable.get("myFunction");
         if (myFunction$String != null) {
@@ -33,7 +26,7 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
             myFunction = ViewProxi.createProxi(myFunction$Info,connectionKey);
             myFunction.setToString(myFunction$Info.getToString());
         }
-        ConversionView result$$ = new Conversion((UnitView)source,(UnitTypeView)type,(FunctionView)myFunction, this.getId(), this.getClassId());
+        ConversionView result$$ = new Conversion((UnitView)source,(FunctionView)myFunction, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -45,8 +38,6 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
         int index = originalIndex;
         if(index == 0 && this.getSource() != null) return new SourceConversionWrapper(this, originalIndex, (ViewRoot)this.getSource());
         if(this.getSource() != null) index = index - 1;
-        if(index == 0 && this.getType() != null) return new TypeConversionWrapper(this, originalIndex, (ViewRoot)this.getType());
-        if(this.getType() != null) index = index - 1;
         if(index == 0 && this.getMyFunction() != null) return new MyFunctionConversionWrapper(this, originalIndex, (ViewRoot)this.getMyFunction());
         if(this.getMyFunction() != null) index = index - 1;
         return null;
@@ -54,22 +45,18 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getSource() == null ? 0 : 1)
-            + (this.getType() == null ? 0 : 1)
             + (this.getMyFunction() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getSource() == null ? true : false)
-            && (this.getType() == null ? true : false)
             && (this.getMyFunction() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getSource() != null && this.getSource().equals(child)) return result;
         if(this.getSource() != null) result = result + 1;
-        if(this.getType() != null && this.getType().equals(child)) return result;
-        if(this.getType() != null) result = result + 1;
         if(this.getMyFunction() != null && this.getMyFunction().equals(child)) return result;
         if(this.getMyFunction() != null) result = result + 1;
         return -1;
@@ -80,12 +67,6 @@ public class ConversionProxi extends ViewProxi implements ConversionView{
     }
     public void setSource(UnitView newValue) throws ModelException {
         ((Conversion)this.getTheObject()).setSource(newValue);
-    }
-    public UnitTypeView getType() throws ModelException {
-        return ((Conversion)this.getTheObject()).getType();
-    }
-    public void setType(UnitTypeView newValue) throws ModelException {
-        ((Conversion)this.getTheObject()).setType(newValue);
     }
     public FunctionView getMyFunction() throws ModelException {
         return ((Conversion)this.getTheObject()).getMyFunction();

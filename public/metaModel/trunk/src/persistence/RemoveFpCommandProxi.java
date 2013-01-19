@@ -19,7 +19,7 @@ public class RemoveFpCommandProxi extends PersistentProxi implements PersistentR
     }
     
     public long getClassId() {
-        return 131;
+        return 227;
     }
     
     public PersistentFormalParameter getFp() throws PersistenceException {

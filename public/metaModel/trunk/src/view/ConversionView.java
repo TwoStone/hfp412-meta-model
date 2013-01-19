@@ -8,8 +8,6 @@ public interface ConversionView extends Anything, AbstractViewProxi {
     
     public UnitView getSource() throws ModelException ;
     public void setSource(UnitView newValue) throws ModelException ;
-    public UnitTypeView getType() throws ModelException ;
-    public void setType(UnitTypeView newValue) throws ModelException ;
     public FunctionView getMyFunction() throws ModelException ;
     public void setMyFunction(FunctionView newValue) throws ModelException ;
     

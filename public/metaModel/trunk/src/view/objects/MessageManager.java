@@ -18,7 +18,7 @@ public class MessageManager extends ViewObject implements MessageManagerView{
     }
     
     static public long getTypeId() {
-        return 168;
+        return 239;
     }
     
     public long getClassId() {

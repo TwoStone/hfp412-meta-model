@@ -1409,7 +1409,6 @@ class FractionManagerDefaultDetailPanel extends DefaultDetailPanel{
 class ConversionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Conversion$$source = "Conversion$$source";
-    protected static final String Conversion$$type = "Conversion$$type";
     protected static final String Conversion$$myFunction = "Conversion$$myFunction";
     
     protected ConversionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

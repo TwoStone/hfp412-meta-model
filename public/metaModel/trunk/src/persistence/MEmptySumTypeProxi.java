@@ -19,7 +19,7 @@ public class MEmptySumTypeProxi extends MAbstractSumTypeProxi implements Persist
     }
     
     public long getClassId() {
-        return 185;
+        return 190;
     }
     
     public PersistentMEmptySumType getThis() throws PersistenceException {

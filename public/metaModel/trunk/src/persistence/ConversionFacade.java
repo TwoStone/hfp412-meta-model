@@ -25,33 +25,30 @@ public class ConversionFacade{
 	}
 
     public ConversionProxi newConversion(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (ConversionProxi)PersistentProxi.createProxi(createMinusStorePlus, 177);
+        if(createMinusStorePlus > 0) return (ConversionProxi)PersistentProxi.createProxi(createMinusStorePlus, 164);
         long id = ConnectionHandler.getTheConnectionHandler().theConversionFacade.getNextId();
-        Conversion result = new Conversion(null,null,null,null,id);
+        Conversion result = new Conversion(null,null,null,id);
         Cache.getTheCache().put(result);
-        return (ConversionProxi)PersistentProxi.createProxi(id, 177);
+        return (ConversionProxi)PersistentProxi.createProxi(id, 164);
     }
     
     public ConversionProxi newDelayedConversion() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theConversionFacade.getNextId();
-        Conversion result = new Conversion(null,null,null,null,id);
+        Conversion result = new Conversion(null,null,null,id);
         Cache.getTheCache().put(result);
-        return (ConversionProxi)PersistentProxi.createProxi(id, 177);
+        return (ConversionProxi)PersistentProxi.createProxi(id, 164);
     }
     
     public Conversion getConversion(long ConversionId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 177)) return 177;
+        if(Cache.getTheCache().contains(objectId, 164)) return 164;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
     public void sourceSet(long ConversionId, PersistentUnit sourceVal) throws PersistenceException {
-        
-    }
-    public void typeSet(long ConversionId, PersistentUnitType typeVal) throws PersistenceException {
         
     }
     public void myFunctionSet(long ConversionId, PersistentFunction myFunctionVal) throws PersistenceException {
@@ -63,7 +60,7 @@ public class ConversionFacade{
     public ConversionSearchList inverseGetSource(long objectId, long classId)throws PersistenceException{
         ConversionSearchList result = new ConversionSearchList();
         java.util.Iterator<PersistentInCacheProxi> candidates;
-        candidates = Cache.getTheCache().iterator(177);
+        candidates = Cache.getTheCache().iterator(164);
         while (candidates.hasNext()){
             PersistentConversion current = (PersistentConversion)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getSource() != null){

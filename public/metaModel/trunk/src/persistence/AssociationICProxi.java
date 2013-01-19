@@ -19,7 +19,7 @@ public class AssociationICProxi extends PersistentInCacheProxiOptimistic impleme
     }
     
     public long getClassId() {
-        return 116;
+        return 223;
     }
     
     public String getName() throws PersistenceException {

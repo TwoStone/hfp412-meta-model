@@ -19,7 +19,7 @@ public class CreateAccountTypeCommandICProxi extends PersistentInCacheProxi impl
     }
     
     public long getClassId() {
-        return 145;
+        return 217;
     }
     
     public String getName() throws PersistenceException {

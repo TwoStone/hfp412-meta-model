@@ -28,7 +28,7 @@ public class MAtomicType extends view.objects.MType implements MAtomicTypeView{
     }
     
     static public long getTypeId() {
-        return 112;
+        return 102;
     }
     
     public long getClassId() {

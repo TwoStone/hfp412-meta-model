@@ -13,7 +13,7 @@ public class MEmptyProductFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theMTypeFacade.getNextId();
         MEmptyProduct result = new MEmptyProduct(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (MEmptyProductProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 107);
+        return (MEmptyProductProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 186);
     }
     
     public MEmptyProduct getMEmptyProduct(long MEmptyProductId) throws PersistenceException{

@@ -95,7 +95,7 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
     }
     
     static public long getTypeId() {
-        return 139;
+        return 207;
     }
     
     public long getClassId() {
@@ -104,7 +104,7 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 139) ConnectionHandler.getTheConnectionHandler().theLinkFacade
+        if (this.getClassId() == 207) ConnectionHandler.getTheConnectionHandler().theLinkFacade
             .newLink(this.getId());
         super.store();
         if(this.getType() != null){

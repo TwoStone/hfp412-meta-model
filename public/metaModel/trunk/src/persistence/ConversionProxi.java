@@ -19,7 +19,7 @@ public class ConversionProxi extends PersistentProxi implements PersistentConver
     }
     
     public long getClassId() {
-        return 177;
+        return 164;
     }
     
     public PersistentUnit getSource() throws PersistenceException {
@@ -27,12 +27,6 @@ public class ConversionProxi extends PersistentProxi implements PersistentConver
     }
     public void setSource(PersistentUnit newValue) throws PersistenceException {
         ((PersistentConversion)this.getTheObject()).setSource(newValue);
-    }
-    public PersistentUnitType getType() throws PersistenceException {
-        return ((PersistentConversion)this.getTheObject()).getType();
-    }
-    public void setType(PersistentUnitType newValue) throws PersistenceException {
-        ((PersistentConversion)this.getTheObject()).setType(newValue);
     }
     public PersistentFunction getMyFunction() throws PersistenceException {
         return ((PersistentConversion)this.getTheObject()).getMyFunction();

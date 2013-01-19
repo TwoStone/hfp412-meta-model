@@ -25,8 +25,8 @@ public class QuantifObjectFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 115)) return 115;
-        if(Cache.getTheCache().contains(objectId, 181)) return 181;
+        if(Cache.getTheCache().contains(objectId, 195)) return 195;
+        if(Cache.getTheCache().contains(objectId, 196)) return 196;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

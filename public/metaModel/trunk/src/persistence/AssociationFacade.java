@@ -25,25 +25,25 @@ public class AssociationFacade{
 	}
 
     public AssociationProxi newAssociation(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (AssociationProxi)PersistentProxi.createProxi(createMinusStorePlus, 116);
+        if(createMinusStorePlus > 0) return (AssociationProxi)PersistentProxi.createProxi(createMinusStorePlus, 223);
         long id = ConnectionHandler.getTheConnectionHandler().theAssociationFacade.getNextId();
         Association result = new Association(name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (AssociationProxi)PersistentProxi.createProxi(id, 116);
+        return (AssociationProxi)PersistentProxi.createProxi(id, 223);
     }
     
     public AssociationProxi newDelayedAssociation(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theAssociationFacade.getNextId();
         Association result = new Association(name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (AssociationProxi)PersistentProxi.createProxi(id, 116);
+        return (AssociationProxi)PersistentProxi.createProxi(id, 223);
     }
     
     public Association getAssociation(long AssociationId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 116)) return 116;
+        if(Cache.getTheCache().contains(objectId, 223)) return 223;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -72,7 +72,7 @@ public class AssociationFacade{
     public AssociationSearchList inverseGetHierarchies(long objectId, long classId)throws PersistenceException{
         AssociationSearchList result = new AssociationSearchList();
         java.util.Iterator<PersistentInCacheProxi> candidates;
-        candidates = Cache.getTheCache().iterator(116);
+        candidates = Cache.getTheCache().iterator(223);
         while (candidates.hasNext()){
             PersistentAssociation current = (PersistentAssociation)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null){

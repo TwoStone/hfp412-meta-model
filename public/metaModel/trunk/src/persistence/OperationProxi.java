@@ -19,7 +19,7 @@ public class OperationProxi extends AbsOperationProxi implements PersistentOpera
     }
     
     public long getClassId() {
-        return 146;
+        return 231;
     }
     
     public PersistentOperation getThis() throws PersistenceException {

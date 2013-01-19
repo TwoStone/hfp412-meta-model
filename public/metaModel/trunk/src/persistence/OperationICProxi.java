@@ -19,7 +19,7 @@ public class OperationICProxi extends AbsOperationICProxi implements PersistentO
     }
     
     public long getClassId() {
-        return 146;
+        return 231;
     }
     
     public PersistentOperation getThis() throws PersistenceException {

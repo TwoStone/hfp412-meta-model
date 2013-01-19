@@ -19,7 +19,7 @@ public class CreateVoidOperationCommandICProxi extends PersistentInCacheProxi im
     }
     
     public long getClassId() {
-        return 157;
+        return 233;
     }
     
     public PersistentMType getSource() throws PersistenceException {

@@ -19,7 +19,7 @@ public class RemoveAssociationCommandProxi extends PersistentProxi implements Pe
     }
     
     public long getClassId() {
-        return 162;
+        return 235;
     }
     
     public PersistentAssociation getA() throws PersistenceException {

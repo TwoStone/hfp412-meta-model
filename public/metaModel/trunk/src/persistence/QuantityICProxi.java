@@ -19,7 +19,7 @@ public class QuantityICProxi extends AbsQuantityICProxi implements PersistentQua
     }
     
     public long getClassId() {
-        return 192;
+        return 157;
     }
     
     public common.Fraction getAmount() throws PersistenceException {

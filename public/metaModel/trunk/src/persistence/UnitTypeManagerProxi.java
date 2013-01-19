@@ -19,7 +19,7 @@ public class UnitTypeManagerProxi extends PersistentProxi implements PersistentU
     }
     
     public long getClassId() {
-        return 169;
+        return 176;
     }
     
     public UnitTypeManager_UnitTypesProxi getUnitTypes() throws PersistenceException {
@@ -46,6 +46,10 @@ public class UnitTypeManagerProxi extends PersistentProxi implements PersistentU
     }
     
     
+    public void addDefaultUnit(final PersistentUnitType type, final PersistentUnit unit) 
+				throws PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).addDefaultUnit(type, unit);
+    }
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).addReferenceType(compUnitType, unitType, exponent, invoker);
@@ -86,6 +90,10 @@ public class UnitTypeManagerProxi extends PersistentProxi implements PersistentU
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).finishModeling(compUnitType, invoker);
     }
+    public void addDefaultUnit(final PersistentUnitType type, final PersistentUnit unit, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentUnitTypeManager)this.getTheObject()).addDefaultUnit(type, unit, invoker);
+    }
     public void finishModeling(final PersistentCompUnitType compUnitType) 
 				throws model.AlreadyFinalizedException, PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).finishModeling(compUnitType);
@@ -105,14 +113,6 @@ public class UnitTypeManagerProxi extends PersistentProxi implements PersistentU
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentUnitTypeManager)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentUnitTypeManager)this.getTheObject()).addDefaultUnit(type, unit, invoker);
-    }
-    public void addDefaultUnit(final PersistentAbsUnitType type, final PersistentAbsUnit unit) 
-				throws PersistenceException{
-        ((PersistentUnitTypeManager)this.getTheObject()).addDefaultUnit(type, unit);
     }
     public void createUnit(final String name, final PersistentUnitType type, final Invoker invoker) 
 				throws PersistenceException{

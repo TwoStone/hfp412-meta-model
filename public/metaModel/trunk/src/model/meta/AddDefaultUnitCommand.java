@@ -37,15 +37,15 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected PersistentAbsUnitType type;
-    protected PersistentAbsUnit unit;
+    protected PersistentUnitType type;
+    protected PersistentUnit unit;
     protected Invoker invoker;
     protected PersistentUnitTypeManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public AddDefaultUnitCommand(PersistentAbsUnitType type,PersistentAbsUnit unit,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public AddDefaultUnitCommand(PersistentUnitType type,PersistentUnit unit,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.type = type;
@@ -56,7 +56,7 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 109;
+        return 177;
     }
     
     public long getClassId() {
@@ -65,7 +65,7 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 109) ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade
+        if (this.getClassId() == 177) ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade
             .newAddDefaultUnitCommand(this.getId());
         super.store();
         if(this.getType() != null){
@@ -91,29 +91,29 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
         
     }
     
-    public PersistentAbsUnitType getType() throws PersistenceException {
+    public PersistentUnitType getType() throws PersistenceException {
         return this.type;
     }
-    public void setType(PersistentAbsUnitType newValue) throws PersistenceException {
+    public void setType(PersistentUnitType newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.type)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.type = (PersistentAbsUnitType)PersistentProxi.createProxi(objectId, classId);
+        this.type = (PersistentUnitType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.typeSet(this.getId(), newValue);
         }
     }
-    public PersistentAbsUnit getUnit() throws PersistenceException {
+    public PersistentUnit getUnit() throws PersistenceException {
         return this.unit;
     }
-    public void setUnit(PersistentAbsUnit newValue) throws PersistenceException {
+    public void setUnit(PersistentUnit newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.unit)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.unit = (PersistentAbsUnit)PersistentProxi.createProxi(objectId, classId);
+        this.unit = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.unitSet(this.getId(), newValue);

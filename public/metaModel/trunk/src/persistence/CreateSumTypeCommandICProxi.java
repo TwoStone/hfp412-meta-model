@@ -19,7 +19,7 @@ public class CreateSumTypeCommandICProxi extends PersistentInCacheProxi implemen
     }
     
     public long getClassId() {
-        return 196;
+        return 193;
     }
     
     public CreateSumTypeCommand_AddendsProxi getAddends() throws PersistenceException {

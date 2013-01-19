@@ -19,7 +19,7 @@ public class FractionManagerProxi extends PersistentProxi implements PersistentF
     }
     
     public long getClassId() {
-        return 175;
+        return 178;
     }
     
     public PersistentFractionManager getThis() throws PersistenceException {

@@ -19,7 +19,7 @@ public class LinkProxi extends MessageOrLinkProxi implements PersistentLink{
     }
     
     public long getClassId() {
-        return 139;
+        return 207;
     }
     
     public PersistentAssociation getType() throws PersistenceException {

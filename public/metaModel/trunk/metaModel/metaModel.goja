@@ -71,12 +71,16 @@ server Server {
 
 	
 	/** Quantity/Unit **/
-	void createUnitType@@Create_unit_type(UnitTypeManager unitTypeManager, String name);
-	void createCompUnitType@@Create_compound_unit_type(UnitTypeManager unitTypeManager, String name);
+	void createUnitType@@Create_unit_type(UnitTypeManager manager, String name);
+	void createCompUnitType@@Create_compound_unit_type(String name);
 	void addReferenceType(CompUnitType compUnitType, UnitType unitType {unitTypeManager;atomicUnitTypes}, Integer exponent);
 	void finishModeling@@Publish(CompUnitType compUnitType);
-	void createUnit@@Create_unit(AbsUnitType type, String name);
+	void createUnit@@Create_unit(UnitType type, String name);
+	void createCompUnit(CompUnitType compUnitType, String name);
+	void addReference(CompUnit compUnit, Unit unit, Integer exponent);
 	void createQuantity@@Create_quantity(AbsUnit unit, Fraction f);
+	void addConversion(Unit unit, Fraction factor, Fraction constant);
+	void addDefaultUnit(UnitType type, Unit defaultUnit);
 
 	/** Measurement/Account **/
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
@@ -243,7 +247,7 @@ part quantity {
 	class Conversion {
 		// from und to sind Oracle-Schluesselwoerter.
 		prior one-to-one (myConversion) Unit source;
-		prior UnitType type;
+		// prior UnitType type; überflüssig, kann über Unit gegangen werden
 		Function myFunction;
 
 		Quantity convert(Fraction amount);
@@ -259,26 +263,25 @@ part quantity {
 	}
 
 
-/*
-* Manager
-*/
-singleton UnitTypeManager {
-	AbsUnitType ** unitTypes;
-	derived UnitType** atomicUnitTypes;
-	AbsUnit ** units;
+	/*
+	* Manager
+	*/
+	singleton UnitTypeManager {
+		AbsUnitType ** unitTypes;
+		derived UnitType** atomicUnitTypes;
+		AbsUnit ** units;
+	
+		/* Operationen f?r Typebene */
+		active void createUnitType(String name) throws DoubleDefinitionException;
+		active void createCompUnitType(String name) throws DoubleDefinitionException;
+		active void finishModeling(CompUnitType compUnitType) throws AlreadyFinalizedException;
+		active void addDefaultUnit(UnitType type, Unit unit);
+		active void addReferenceType(CompUnitType compUnitType, UnitType unitType, Integer exponent) 
+			throws DoubleDefinitionException, AlreadyFinalizedException;
 
-	/* Operationen f?r Typebene */
-	active void createUnitType(String name) throws DoubleDefinitionException;
-	active void createCompUnitType(String name) throws DoubleDefinitionException;
-	active void finishModeling(CompUnitType compUnitType) throws AlreadyFinalizedException;
-	active void addDefaultUnit(AbsUnitType type, AbsUnit unit);
-	active void addReferenceType(CompUnitType compUnitType, UnitType unitType, Integer exponent) 
-		throws DoubleDefinitionException, AlreadyFinalizedException;
-
-	/* Operationen f?r Exemplarebene */
-	active void createUnit(String name, UnitType type) throws DoubleDefinitionException;
-	active void createCompUnit(String name, CompUnitType type) throws DoubleDefinitionException, NotFinalizedException;
-
+		/* Operationen f?r Exemplarebene */
+		active void createUnit(String name, UnitType type) throws DoubleDefinitionException;
+		active void createCompUnit(String name, CompUnitType type) throws DoubleDefinitionException, NotFinalizedException;
 	}
 
 	singleton QuantityManager {

@@ -56,7 +56,7 @@ public class AddAssociationCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 173;
+        return 241;
     }
     
     public long getClassId() {
@@ -65,7 +65,7 @@ public class AddAssociationCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 173) ConnectionHandler.getTheConnectionHandler().theAddAssociationCommandFacade
+        if (this.getClassId() == 241) ConnectionHandler.getTheConnectionHandler().theAddAssociationCommandFacade
             .newAddAssociationCommand(this.getId());
         super.store();
         if(this.getH() != null){

@@ -10,18 +10,18 @@ public class MAbstractProductTypeFacade{
 	}
 
     public MAbstractProductTypeProxi newMAbstractProductType(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (MAbstractProductTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 134);
+        if(createMinusStorePlus > 0) return (MAbstractProductTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 192);
         long id = ConnectionHandler.getTheConnectionHandler().theMTypeFacade.getNextId();
         MAbstractProductType result = new MAbstractProductType(null,id);
         Cache.getTheCache().put(result);
-        return (MAbstractProductTypeProxi)PersistentProxi.createProxi(id, 134);
+        return (MAbstractProductTypeProxi)PersistentProxi.createProxi(id, 192);
     }
     
     public MAbstractProductTypeProxi newDelayedMAbstractProductType() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theMTypeFacade.getNextId();
         MAbstractProductType result = new MAbstractProductType(null,id);
         Cache.getTheCache().put(result);
-        return (MAbstractProductTypeProxi)PersistentProxi.createProxi(id, 134);
+        return (MAbstractProductTypeProxi)PersistentProxi.createProxi(id, 192);
     }
     
     public MAbstractProductType getMAbstractProductType(long MAbstractProductTypeId) throws PersistenceException{
