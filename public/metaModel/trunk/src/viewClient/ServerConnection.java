@@ -116,6 +116,24 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
+    public synchronized void publishCompUnit(CompUnitView compUnit) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)compUnit).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "publishCompUnit", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
     public synchronized void createVoidOperation(OperationManagerView operationManager, MTypeView source, String name, java.util.Vector<FormalParameterView> fp) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
@@ -369,6 +387,35 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
+    @SuppressWarnings("unchecked")
+    public synchronized AbsQuantityView mul(AbsQuantityView factor1, AbsQuantityView factor2) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)factor1).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)factor2).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "mul", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
+                view.objects.ViewProxi.resolveReferences(allResults, this.getHandler());
+                common.ProxiInformation proxiInformation = common.RPCConstantsAndServices.createProxiInformation((String) success.get(common.RPCConstantsAndServices.RootFieldName));
+                AbsQuantityView result = (AbsQuantityView) view.objects.ViewProxi.createProxi(proxiInformation, this.getHandler());
+                if (result != null) ((view.objects.ViewRoot)result).setToString(proxiInformation.getToString());
+                view.objects.ViewObject root = (view.objects.ViewObject) allResults.get(proxiInformation.getHashKey());
+                if (root != null) ((view.objects.ViewProxi)result).setObject(root);
+                return result;
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
     public synchronized void removeFp(FormalParameterView fp) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
@@ -463,6 +510,35 @@ public class ServerConnection extends ConnectionMaster {
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    @SuppressWarnings("unchecked")
+    public synchronized AbsQuantityView add(AbsQuantityView summand1, AbsQuantityView summand2) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)summand1).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)summand2).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "add", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
+                view.objects.ViewProxi.resolveReferences(allResults, this.getHandler());
+                common.ProxiInformation proxiInformation = common.RPCConstantsAndServices.createProxiInformation((String) success.get(common.RPCConstantsAndServices.RootFieldName));
+                AbsQuantityView result = (AbsQuantityView) view.objects.ViewProxi.createProxi(proxiInformation, this.getHandler());
+                if (result != null) ((view.objects.ViewRoot)result).setToString(proxiInformation.getToString());
+                view.objects.ViewObject root = (view.objects.ViewObject) allResults.get(proxiInformation.getHashKey());
+                if (root != null) ((view.objects.ViewProxi)result).setObject(root);
+                return result;
             }
         }catch(IOException ioe){
             throw new ModelException(ioe.getMessage(),0);
@@ -646,6 +722,35 @@ public class ServerConnection extends ConnectionMaster {
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    @SuppressWarnings("unchecked")
+    public synchronized AbsQuantityView div(AbsQuantityView dividend, AbsQuantityView divisor) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)dividend).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)divisor).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "div", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
+                view.objects.ViewProxi.resolveReferences(allResults, this.getHandler());
+                common.ProxiInformation proxiInformation = common.RPCConstantsAndServices.createProxiInformation((String) success.get(common.RPCConstantsAndServices.RootFieldName));
+                AbsQuantityView result = (AbsQuantityView) view.objects.ViewProxi.createProxi(proxiInformation, this.getHandler());
+                if (result != null) ((view.objects.ViewRoot)result).setToString(proxiInformation.getToString());
+                view.objects.ViewObject root = (view.objects.ViewObject) allResults.get(proxiInformation.getHashKey());
+                if (root != null) ((view.objects.ViewProxi)result).setObject(root);
+                return result;
             }
         }catch(IOException ioe){
             throw new ModelException(ioe.getMessage(),0);
@@ -902,6 +1007,35 @@ public class ServerConnection extends ConnectionMaster {
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    @SuppressWarnings("unchecked")
+    public synchronized AbsQuantityView sub(AbsQuantityView minuend, AbsQuantityView subtrahend) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)minuend).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)subtrahend).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "sub", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
+                view.objects.ViewProxi.resolveReferences(allResults, this.getHandler());
+                common.ProxiInformation proxiInformation = common.RPCConstantsAndServices.createProxiInformation((String) success.get(common.RPCConstantsAndServices.RootFieldName));
+                AbsQuantityView result = (AbsQuantityView) view.objects.ViewProxi.createProxi(proxiInformation, this.getHandler());
+                if (result != null) ((view.objects.ViewRoot)result).setToString(proxiInformation.getToString());
+                view.objects.ViewObject root = (view.objects.ViewObject) allResults.get(proxiInformation.getHashKey());
+                if (root != null) ((view.objects.ViewProxi)result).setObject(root);
+                return result;
             }
         }catch(IOException ioe){
             throw new ModelException(ioe.getMessage(),0);

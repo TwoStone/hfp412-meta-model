@@ -369,135 +369,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof MessageManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("createConstant ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard wizard = new ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard("createConstant");
-                        wizard.setFirstArgument((MessageManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createMessage ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard("createMessage");
-                        wizard.setFirstArgument((MessageManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createStaticMessage ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard("createStaticMessage");
-                        wizard.setFirstArgument((MessageManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createVoidMessage ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard("createVoidMessage");
-                        wizard.setFirstArgument((MessageManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof MessageView){
-                item = new javax.swing.JMenuItem();
-                item.setText("removeMessage");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeMessage" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
-                            try {
-                                getConnection().removeMessage((MessageView)selected);
-                                getConnection().setEagerRefresh();
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof MTypeView){
-                item = new javax.swing.JMenuItem();
-                item.setText("createOperation ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateOperationMTypeMTypeStringFormalParameterLSTMssgWizard wizard = new ServerCreateOperationMTypeMTypeStringFormalParameterLSTMssgWizard("createOperation");
-                        wizard.setFirstArgument((MTypeView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createVoidOperation ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateVoidOperationMTypeStringFormalParameterLSTMssgWizard wizard = new ServerCreateVoidOperationMTypeStringFormalParameterLSTMssgWizard("createVoidOperation");
-                        wizard.setFirstArgument((MTypeView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof UnitTypeManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("Create unit type ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateUnitTypeUnitTypeManagerStringMssgWizard wizard = new ServerCreateUnitTypeUnitTypeManagerStringMssgWizard("Create unit type");
-                        wizard.setFirstArgument((UnitTypeManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
             if (selected instanceof AssociationView){
                 item = new javax.swing.JMenuItem();
                 item.setText("addToHierarchy ... ");
@@ -559,40 +430,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                                 handleException(me);
                             }
                         }
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof AspectManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("createAspect ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAspectAspectManagerStringMssgWizard wizard = new ServerCreateAspectAspectManagerStringMssgWizard("createAspect");
-                        wizard.setFirstArgument((AspectManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof AbsUnitView){
-                item = new javax.swing.JMenuItem();
-                item.setText("Create quantity ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateQuantityAbsUnitFractionMssgWizard wizard = new ServerCreateQuantityAbsUnitFractionMssgWizard("Create quantity");
-                        wizard.setFirstArgument((AbsUnitView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
                     }
                     
                 });
@@ -675,28 +512,13 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof AssociationManagerView){
+            if (selected instanceof UnitView){
                 item = new javax.swing.JMenuItem();
-                item.setText("createAssociation ... ");
+                item.setText("addConversion ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard wizard = new ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard("createAssociation");
-                        wizard.setFirstArgument((AssociationManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createHierarchy ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard wizard = new ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard("createHierarchy");
-                        wizard.setFirstArgument((AssociationManagerView)selected);
+                        ServerAddConversionUnitFractionFractionMssgWizard wizard = new ServerAddConversionUnitFractionFractionMssgWizard("addConversion");
+                        wizard.setFirstArgument((UnitView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -739,13 +561,13 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof UnitView){
+            if (selected instanceof AssociationManagerView){
                 item = new javax.swing.JMenuItem();
-                item.setText("addConversion ... ");
+                item.setText("createAssociation ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddConversionUnitFractionFractionMssgWizard wizard = new ServerAddConversionUnitFractionFractionMssgWizard("addConversion");
-                        wizard.setFirstArgument((UnitView)selected);
+                        ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard wizard = new ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard("createAssociation");
+                        wizard.setFirstArgument((AssociationManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -755,14 +577,12 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     
                 });
                 result.add(item);
-            }
-            if (selected instanceof MAtomicTypeView){
                 item = new javax.swing.JMenuItem();
-                item.setText("createAtomicSubType ... ");
+                item.setText("createHierarchy ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAtomicSubTypeMAtomicTypeStringMBooleanMBooleanMssgWizard wizard = new ServerCreateAtomicSubTypeMAtomicTypeStringMBooleanMBooleanMssgWizard("createAtomicSubType");
-                        wizard.setFirstArgument((MAtomicTypeView)selected);
+                        ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard wizard = new ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard("createHierarchy");
+                        wizard.setFirstArgument((AssociationManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -790,31 +610,58 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof LinkView){
+            if (selected instanceof AbsQuantityView){
                 item = new javax.swing.JMenuItem();
-                item.setText("removeLink");
+                item.setText("add ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeLink" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
-                            try {
-                                getConnection().removeLink((LinkView)selected);
-                                getConnection().setEagerRefresh();
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
+                        ServerAddAbsQuantityAbsQuantityMssgWizard wizard = new ServerAddAbsQuantityAbsQuantityMssgWizard("add");
+                        wizard.setFirstArgument((AbsQuantityView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
                     }
                     
                 });
                 result.add(item);
-            }
-            if (selected instanceof MAspectView){
                 item = new javax.swing.JMenuItem();
-                item.setText("createAtomicRootType ... ");
+                item.setText("div ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAtomicRootTypeMAspectStringMBooleanMBooleanMssgWizard wizard = new ServerCreateAtomicRootTypeMAspectStringMBooleanMBooleanMssgWizard("createAtomicRootType");
-                        wizard.setFirstArgument((MAspectView)selected);
+                        ServerDivAbsQuantityAbsQuantityMssgWizard wizard = new ServerDivAbsQuantityAbsQuantityMssgWizard("div");
+                        wizard.setFirstArgument((AbsQuantityView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("mul ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerMulAbsQuantityAbsQuantityMssgWizard wizard = new ServerMulAbsQuantityAbsQuantityMssgWizard("mul");
+                        wizard.setFirstArgument((AbsQuantityView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("sub ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerSubAbsQuantityAbsQuantityMssgWizard wizard = new ServerSubAbsQuantityAbsQuantityMssgWizard("sub");
+                        wizard.setFirstArgument((AbsQuantityView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -849,40 +696,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     public void actionPerformed(java.awt.event.ActionEvent e) {
                         ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard wizard = new ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard("createLink");
                         wizard.setFirstArgument((LinkManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof AccountManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("Konto anlegen ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAccountAccountManagerStringMAccountTypeInstanceObjectMssgWizard wizard = new ServerCreateAccountAccountManagerStringMAccountTypeInstanceObjectMssgWizard("Konto anlegen");
-                        wizard.setFirstArgument((AccountManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof CompUnitView){
-                item = new javax.swing.JMenuItem();
-                item.setText("addReference ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddReferenceCompUnitUnitIntegerMssgWizard wizard = new ServerAddReferenceCompUnitUnitIntegerMssgWizard("addReference");
-                        wizard.setFirstArgument((CompUnitView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -962,6 +775,271 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     public void actionPerformed(java.awt.event.ActionEvent e) {
                         ServerRemoveFromHierarchyHierarchyAssociationMssgWizard wizard = new ServerRemoveFromHierarchyHierarchyAssociationMssgWizard("removeFromHierarchy");
                         wizard.setFirstArgument((HierarchyView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof MessageManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createConstant ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard wizard = new ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard("createConstant");
+                        wizard.setFirstArgument((MessageManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createMessage ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard("createMessage");
+                        wizard.setFirstArgument((MessageManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createStaticMessage ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard("createStaticMessage");
+                        wizard.setFirstArgument((MessageManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createVoidMessage ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard("createVoidMessage");
+                        wizard.setFirstArgument((MessageManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof MessageView){
+                item = new javax.swing.JMenuItem();
+                item.setText("removeMessage");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeMessage" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().removeMessage((MessageView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof UnitTypeManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Create unit type ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateUnitTypeUnitTypeManagerStringMssgWizard wizard = new ServerCreateUnitTypeUnitTypeManagerStringMssgWizard("Create unit type");
+                        wizard.setFirstArgument((UnitTypeManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof MTypeView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createOperation ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateOperationMTypeMTypeStringFormalParameterLSTMssgWizard wizard = new ServerCreateOperationMTypeMTypeStringFormalParameterLSTMssgWizard("createOperation");
+                        wizard.setFirstArgument((MTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createVoidOperation ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateVoidOperationMTypeStringFormalParameterLSTMssgWizard wizard = new ServerCreateVoidOperationMTypeStringFormalParameterLSTMssgWizard("createVoidOperation");
+                        wizard.setFirstArgument((MTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof AbsUnitView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Create quantity ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateQuantityAbsUnitFractionMssgWizard wizard = new ServerCreateQuantityAbsUnitFractionMssgWizard("Create quantity");
+                        wizard.setFirstArgument((AbsUnitView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof AspectManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createAspect ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateAspectAspectManagerStringMssgWizard wizard = new ServerCreateAspectAspectManagerStringMssgWizard("createAspect");
+                        wizard.setFirstArgument((AspectManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof MAtomicTypeView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createAtomicSubType ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateAtomicSubTypeMAtomicTypeStringMBooleanMBooleanMssgWizard wizard = new ServerCreateAtomicSubTypeMAtomicTypeStringMBooleanMBooleanMssgWizard("createAtomicSubType");
+                        wizard.setFirstArgument((MAtomicTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof LinkView){
+                item = new javax.swing.JMenuItem();
+                item.setText("removeLink");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeLink" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().removeLink((LinkView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof MAspectView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createAtomicRootType ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateAtomicRootTypeMAspectStringMBooleanMBooleanMssgWizard wizard = new ServerCreateAtomicRootTypeMAspectStringMBooleanMBooleanMssgWizard("createAtomicRootType");
+                        wizard.setFirstArgument((MAspectView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof AccountManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Konto anlegen ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateAccountAccountManagerStringMAccountTypeInstanceObjectMssgWizard wizard = new ServerCreateAccountAccountManagerStringMAccountTypeInstanceObjectMssgWizard("Konto anlegen");
+                        wizard.setFirstArgument((AccountManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof CompUnitView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Publish");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Publish" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().publishCompUnit((CompUnitView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("addReference ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAddReferenceCompUnitUnitIntegerMssgWizard wizard = new ServerAddReferenceCompUnitUnitIntegerMssgWizard("addReference");
+                        wizard.setFirstArgument((CompUnitView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -1744,6 +1822,57 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
+	class ServerMulAbsQuantityAbsQuantityMssgWizard extends Wizard {
+
+		protected ServerMulAbsQuantityAbsQuantityMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerMulAbsQuantityAbsQuantityMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				ViewRoot result = (ViewRoot) getConnection().mul(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				ReturnValueView view = new ReturnValueView(result, new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
+				view.setLocationRelativeTo(getNavigationScrollPane());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();
+				view.setVisible(true);
+				view.repaint();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("factor2", "view.AbsQuantityView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AbsQuantityView firstArgument; 
+	
+		public void setFirstArgument(AbsQuantityView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerAddFpOperationFormalParameterMssgWizard extends Wizard {
 
 		protected ServerAddFpOperationFormalParameterMssgWizard(String operationName){
@@ -1953,6 +2082,57 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			}catch(ModelException me){
 				 handleException(me);
 			}
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerAddAbsQuantityAbsQuantityMssgWizard extends Wizard {
+
+		protected ServerAddAbsQuantityAbsQuantityMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddAbsQuantityAbsQuantityMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				ViewRoot result = (ViewRoot) getConnection().add(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				ReturnValueView view = new ReturnValueView(result, new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
+				view.setLocationRelativeTo(getNavigationScrollPane());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();
+				view.setVisible(true);
+				view.repaint();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("summand2", "view.AbsQuantityView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AbsQuantityView firstArgument; 
+	
+		public void setFirstArgument(AbsQuantityView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
 			this.check();
 		}
 		
@@ -2400,6 +2580,57 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private InstanceObjectView firstArgument; 
 	
 		public void setFirstArgument(InstanceObjectView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerDivAbsQuantityAbsQuantityMssgWizard extends Wizard {
+
+		protected ServerDivAbsQuantityAbsQuantityMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerDivAbsQuantityAbsQuantityMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				ViewRoot result = (ViewRoot) getConnection().div(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				ReturnValueView view = new ReturnValueView(result, new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
+				view.setLocationRelativeTo(getNavigationScrollPane());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();
+				view.setVisible(true);
+				view.repaint();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("divisor", "view.AbsQuantityView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AbsQuantityView firstArgument; 
+	
+		public void setFirstArgument(AbsQuantityView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -2863,6 +3094,57 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private MessageManagerView firstArgument; 
 	
 		public void setFirstArgument(MessageManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerSubAbsQuantityAbsQuantityMssgWizard extends Wizard {
+
+		protected ServerSubAbsQuantityAbsQuantityMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerSubAbsQuantityAbsQuantityMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				ViewRoot result = (ViewRoot) getConnection().sub(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				ReturnValueView view = new ReturnValueView(result, new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
+				view.setLocationRelativeTo(getNavigationScrollPane());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();
+				view.setVisible(true);
+				view.repaint();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("subtrahend", "view.AbsQuantityView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AbsQuantityView firstArgument; 
+	
+		public void setFirstArgument(AbsQuantityView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();

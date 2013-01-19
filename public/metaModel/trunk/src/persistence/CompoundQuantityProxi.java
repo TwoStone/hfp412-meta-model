@@ -55,9 +55,9 @@ public class CompoundQuantityProxi extends AbsQuantityProxi implements Persisten
     }
     
     
-    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend) 
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
 				throws PersistenceException{
-        return ((PersistentCompoundQuantity)this.getTheObject()).sub(minuend);
+        return ((PersistentCompoundQuantity)this.getTheObject()).sub(subtrahend);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

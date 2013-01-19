@@ -48,6 +48,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void createVoidOperation(final PersistentOperationManager operationManager, final PersistentMType source, final String name, final FormalParameterSearchList fp) 
 				throws PersistenceException;
+    public void publishCompUnit(final PersistentCompUnit compUnit) 
+				throws PersistenceException;
     public void createOperation(final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
 				throws PersistenceException;
     public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
@@ -90,6 +92,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void removeAssociation(final PersistentAssociation a) 
 				throws PersistenceException;
+    public PersistentAbsQuantity mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2) 
+				throws PersistenceException;
     public PersistentAssociationManager getAssociationManager(final TDObserver observer) 
 				throws PersistenceException;
     public void removeFp(final PersistentFormalParameter fp) 
@@ -113,6 +117,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public PersistentMeasurementTypeManager getMeasurementTypeManager(final TDObserver observer) 
 				throws PersistenceException;
     public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy) 
+				throws PersistenceException;
+    public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) 
 				throws PersistenceException;
     public void addDefaultUnit(final PersistentUnitType type, final PersistentUnit defaultUnit) 
 				throws PersistenceException;
@@ -139,6 +145,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public void createLink(final PersistentInstanceObject source, final PersistentAssociation type, final PersistentInstanceObject target) 
 				throws PersistenceException;
     public PersistentMeasurementTypeManager getMeasurementTypeManager() 
+				throws PersistenceException;
+    public PersistentAbsQuantity div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) 
 				throws PersistenceException;
     public void createCompUnitType(final String name) 
 				throws PersistenceException;
@@ -179,6 +187,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void createConst(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentInstanceObject target) 
+				throws PersistenceException;
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend, final PersistentAbsQuantity subtrahend) 
 				throws PersistenceException;
     public void removeFpFromOp(final PersistentOperation operation, final PersistentFormalParameter fp) 
 				throws PersistenceException;

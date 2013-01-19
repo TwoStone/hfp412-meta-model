@@ -123,6 +123,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).removeFromHierarchy(h, a);
     }
+    public void publishCompUnit(final PersistentCompUnit compUnit) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).publishCompUnit(compUnit);
+    }
     public void createVoidOperation(final PersistentOperationManager operationManager, final PersistentMType source, final String name, final FormalParameterSearchList fp) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createVoidOperation(operationManager, source, name, fp);
@@ -215,6 +219,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).removeAssociation(a);
     }
+    public PersistentAbsQuantity mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).mul(factor1, factor2);
+    }
     public PersistentAssociationManager getAssociationManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getAssociationManager(observer);
@@ -254,6 +262,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getConversionManager(observer);
+    }
+    public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).add(summand1, summand2);
     }
     public PersistentMeasurementTypeManager getMeasurementTypeManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -314,6 +326,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public PersistentMeasurementTypeManager getMeasurementTypeManager() 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getMeasurementTypeManager();
+    }
+    public PersistentAbsQuantity div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).div(dividend, divisor);
     }
     public void createCompUnitType(final String name) 
 				throws PersistenceException{
@@ -398,6 +414,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public void createConst(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentInstanceObject target) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createConst(manager, type, name, target);
+    }
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend, final PersistentAbsQuantity subtrahend) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).sub(minuend, subtrahend);
     }
     public void removeFpFromOp(final PersistentOperation operation, final PersistentFormalParameter fp) 
 				throws PersistenceException{

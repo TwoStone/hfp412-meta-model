@@ -64,9 +64,9 @@ public class QuantityICProxi extends AbsQuantityICProxi implements PersistentQua
     }
     
     
-    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend) 
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
 				throws PersistenceException{
-        return ((PersistentQuantity)this.getTheObject()).sub(minuend);
+        return ((PersistentQuantity)this.getTheObject()).sub(subtrahend);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

@@ -13,7 +13,7 @@ public interface PersistentAbsQuantity extends Anything, AbstractPersistentProxi
     public <E extends UserException>  void accept(AbsQuantityExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends UserException> R accept(AbsQuantityReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend) 
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;

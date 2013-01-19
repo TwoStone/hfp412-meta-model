@@ -16,9 +16,9 @@ public abstract class AbsQuantityProxi extends PersistentProxi implements Persis
     
     
     
-    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend) 
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
 				throws PersistenceException{
-        return ((PersistentAbsQuantity)this.getTheObject()).sub(minuend);
+        return ((PersistentAbsQuantity)this.getTheObject()).sub(subtrahend);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
