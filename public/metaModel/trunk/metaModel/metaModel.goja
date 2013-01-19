@@ -78,9 +78,16 @@ server Server {
 	void createUnit@@Create_unit(UnitType type, String name);
 	void createCompUnit(CompUnitType compUnitType, String name);
 	void addReference(CompUnit compUnit, Unit unit, Integer exponent);
+	void publishCompUnit@@Publish(CompUnit compUnit);
 	void createQuantity@@Create_quantity(AbsUnit unit, Fraction f);
 	void addConversion(Unit unit, Fraction factor, Fraction constant);
 	void addDefaultUnit(UnitType type, Unit defaultUnit);
+
+	/** computing **/
+	AbsQuantity add(AbsQuantity summand1, AbsQuantity summand2);
+	AbsQuantity sub(AbsQuantity minuend, AbsQuantity subtrahend);
+	AbsQuantity mul(AbsQuantity factor1, AbsQuantity factor2);
+	AbsQuantity div(AbsQuantity dividend, AbsQuantity divisor);
 
 	/** Measurement/Account **/
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
@@ -190,7 +197,7 @@ part quantity {
 	abstract class AbsQuantity {
 	
 		AbsQuantity add(AbsQuantity summand);
-		AbsQuantity sub(AbsQuantity minuend);
+		AbsQuantity sub(AbsQuantity subtrahend);
 		AbsQuantity mul(AbsQuantity factor);
 		AbsQuantity div(AbsQuantity divisor);
 	}
