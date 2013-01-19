@@ -289,38 +289,172 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private java.util.Vector<javax.swing.JButton> getToolButtonsForStaticOperations() {
         java.util.Vector<javax.swing.JButton> result = new java.util.Vector<javax.swing.JButton>();
         javax.swing.JButton currentButton = null;
-        currentButton = new javax.swing.JButton("createHierarchy ... ");
-        currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateHierarchyStringMssgWizard wizard = new ServerCreateHierarchyStringMssgWizard("createHierarchy");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });result.add(currentButton);
         return result;
     }
     private JPopupMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations) {
         JPopupMenu result = new JPopupMenu();
         javax.swing.JMenuItem item = null;
-        item = new javax.swing.JMenuItem();
-        item.setText("(S) createHierarchy ... ");
-        item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateHierarchyStringMssgWizard wizard = new ServerCreateHierarchyStringMssgWizard("createHierarchy");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });
-        if (withStaticOperations) result.add(item);
         if (selected != null){
+            if (selected instanceof OperationView){
+                item = new javax.swing.JMenuItem();
+                item.setText("addFormalParameter ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAddFpOperationFormalParameterMssgWizard wizard = new ServerAddFpOperationFormalParameterMssgWizard("addFormalParameter");
+                        wizard.setFirstArgument((OperationView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("removeFormalParameter ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerRemoveFpFromOpOperationFormalParameterMssgWizard wizard = new ServerRemoveFpFromOpOperationFormalParameterMssgWizard("removeFormalParameter");
+                        wizard.setFirstArgument((OperationView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("removeOperation");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeOperation" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().removeOperation((OperationView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof MessageManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createConstant ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard wizard = new ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard("createConstant");
+                        wizard.setFirstArgument((MessageManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createMessage ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard("createMessage");
+                        wizard.setFirstArgument((MessageManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createStaticMessage ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard("createStaticMessage");
+                        wizard.setFirstArgument((MessageManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createVoidMessage ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard("createVoidMessage");
+                        wizard.setFirstArgument((MessageManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof MessageView){
+                item = new javax.swing.JMenuItem();
+                item.setText("removeMessage");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeMessage" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().removeMessage((MessageView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof MTypeView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createOperation ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateOperationMTypeMTypeStringFormalParameterLSTMssgWizard wizard = new ServerCreateOperationMTypeMTypeStringFormalParameterLSTMssgWizard("createOperation");
+                        wizard.setFirstArgument((MTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createVoidOperation ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateVoidOperationMTypeStringFormalParameterLSTMssgWizard wizard = new ServerCreateVoidOperationMTypeStringFormalParameterLSTMssgWizard("createVoidOperation");
+                        wizard.setFirstArgument((MTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             if (selected instanceof UnitTypeManagerView){
                 item = new javax.swing.JMenuItem();
                 item.setText("Create compound unit type ... ");
@@ -353,13 +487,13 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof MTypeView){
+            if (selected instanceof AssociationView){
                 item = new javax.swing.JMenuItem();
-                item.setText("createAssociationFrom ... ");
+                item.setText("addToHierarchy ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAssociationFromMTypeStringMTypeMssgWizard wizard = new ServerCreateAssociationFromMTypeStringMTypeMssgWizard("createAssociationFrom");
-                        wizard.setFirstArgument((MTypeView)selected);
+                        ServerAddToHierarchyAssociationHierarchyMssgWizard wizard = new ServerAddToHierarchyAssociationHierarchyMssgWizard("addToHierarchy");
+                        wizard.setFirstArgument((AssociationView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -370,16 +504,50 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
                 item = new javax.swing.JMenuItem();
-                item.setText("createAssociationTo ... ");
+                item.setText("createHierarchy ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAssociationToMTypeStringMTypeMssgWizard wizard = new ServerCreateAssociationToMTypeStringMTypeMssgWizard("createAssociationTo");
-                        wizard.setFirstArgument((MTypeView)selected);
+                        ServerCreateHierarchyAssociationStringMssgWizard wizard = new ServerCreateHierarchyAssociationStringMssgWizard("createHierarchy");
+                        wizard.setFirstArgument((AssociationView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
                         wizard.setLocationRelativeTo(getNavigationPanel());
                         wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("removeAssociation");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeAssociation" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().removeAssociation((AssociationView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof FormalParameterView){
+                item = new javax.swing.JMenuItem();
+                item.setText("removeFormalParameter");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeFormalParameter" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().removeFp((FormalParameterView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
                     }
                     
                 });
@@ -436,12 +604,104 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
+            if (selected instanceof OperationManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createConstant ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateConstantOperationManagerStringMTypeMssgWizard wizard = new ServerCreateConstantOperationManagerStringMTypeMssgWizard("createConstant");
+                        wizard.setFirstArgument((OperationManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createFormalParameter ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateFpOperationManagerStringMTypeMssgWizard wizard = new ServerCreateFpOperationManagerStringMTypeMssgWizard("createFormalParameter");
+                        wizard.setFirstArgument((OperationManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createOperation ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateOperationOperationManagerMTypeMTypeStringFormalParameterLSTMssgWizard wizard = new ServerCreateOperationOperationManagerMTypeMTypeStringFormalParameterLSTMssgWizard("createOperation");
+                        wizard.setFirstArgument((OperationManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createStaticOp ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateStaticOpOperationManagerStringMTypeFormalParameterLSTMssgWizard wizard = new ServerCreateStaticOpOperationManagerStringMTypeFormalParameterLSTMssgWizard("createStaticOp");
+                        wizard.setFirstArgument((OperationManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createVoidOperation ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateVoidOperationOperationManagerMTypeStringFormalParameterLSTMssgWizard wizard = new ServerCreateVoidOperationOperationManagerMTypeStringFormalParameterLSTMssgWizard("createVoidOperation");
+                        wizard.setFirstArgument((OperationManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             if (selected instanceof AssociationManagerView){
                 item = new javax.swing.JMenuItem();
                 item.setText("createAssociation ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAssociationAssociationManagerStringMTypeMTypeMssgWizard wizard = new ServerCreateAssociationAssociationManagerStringMTypeMTypeMssgWizard("createAssociation");
+                        ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard wizard = new ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard("createAssociation");
+                        wizard.setFirstArgument((AssociationManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createHierarchy ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard wizard = new ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard("createHierarchy");
                         wizard.setFirstArgument((AssociationManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -487,18 +747,19 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof MAHierarchyView){
+            if (selected instanceof LinkView){
                 item = new javax.swing.JMenuItem();
-                item.setText("addAssociations ... ");
+                item.setText("removeLink");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddAssociationsMAHierarchyMAssociationMssgWizard wizard = new ServerAddAssociationsMAHierarchyMAssociationMssgWizard("addAssociations");
-                        wizard.setFirstArgument((MAHierarchyView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeLink" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().removeLink((LinkView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
                     }
                     
                 });
@@ -538,6 +799,23 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
+            if (selected instanceof LinkManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createLink ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard wizard = new ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard("createLink");
+                        wizard.setFirstArgument((LinkManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             if (selected instanceof AccountManagerView){
                 item = new javax.swing.JMenuItem();
                 item.setText("Konto anlegen ... ");
@@ -555,13 +833,75 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof MAssociationView){
+            if (selected instanceof InstanceObjectView){
                 item = new javax.swing.JMenuItem();
-                item.setText("addToHierarchy ... ");
+                item.setText("createLink ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddToHierarchyMAssociationMAHierarchyMssgWizard wizard = new ServerAddToHierarchyMAssociationMAHierarchyMssgWizard("addToHierarchy");
-                        wizard.setFirstArgument((MAssociationView)selected);
+                        ServerCreateLinkInstanceObjectAssociationInstanceObjectMssgWizard wizard = new ServerCreateLinkInstanceObjectAssociationInstanceObjectMssgWizard("createLink");
+                        wizard.setFirstArgument((InstanceObjectView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createMessage ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateMessageInstanceObjectOperationInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateMessageInstanceObjectOperationInstanceObjectActualParameterLSTMssgWizard("createMessage");
+                        wizard.setFirstArgument((InstanceObjectView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createVoidMessage ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateVoidMessageInstanceObjectOperationActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageInstanceObjectOperationActualParameterLSTMssgWizard("createVoidMessage");
+                        wizard.setFirstArgument((InstanceObjectView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof HierarchyView){
+                item = new javax.swing.JMenuItem();
+                item.setText("addAssociation ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAddAssociationHierarchyAssociationMssgWizard wizard = new ServerAddAssociationHierarchyAssociationMssgWizard("addAssociation");
+                        wizard.setFirstArgument((HierarchyView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("removeFromHierarchy ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerRemoveFromHierarchyHierarchyAssociationMssgWizard wizard = new ServerRemoveFromHierarchyHierarchyAssociationMssgWizard("removeFromHierarchy");
+                        wizard.setFirstArgument((HierarchyView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -577,7 +917,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Publish");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Publish" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Publish" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().finishModeling((CompUnitTypeView)selected);
                                 getConnection().setEagerRefresh();
@@ -612,21 +952,22 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
         return result;
     }
     
-	class ServerCreateAssociationFromMTypeStringMTypeMssgWizard extends Wizard {
+	class ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard extends Wizard {
 
-		protected ServerCreateAssociationFromMTypeStringMTypeMssgWizard(String operationName){
+		protected ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateAssociationFromMTypeStringMTypeMssgWizard.help";
+			this.helpFileName = "ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createAssociationFrom(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult());
+				getConnection().createAssociation(firstArgument, (MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(2)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -643,8 +984,207 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AssociationManagerView firstArgument; 
+	
+		public void setFirstArgument(AssociationManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard extends Wizard {
+
+		protected ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createHierarchy(firstArgument, (AssociationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("a", "view.AssociationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AssociationManagerView firstArgument; 
+	
+		public void setFirstArgument(AssociationManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerRemoveFromHierarchyHierarchyAssociationMssgWizard extends Wizard {
+
+		protected ServerRemoveFromHierarchyHierarchyAssociationMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerRemoveFromHierarchyHierarchyAssociationMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().removeFromHierarchy(firstArgument, (AssociationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("a", "view.AssociationView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private HierarchyView firstArgument; 
+	
+		public void setFirstArgument(HierarchyView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateVoidOperationOperationManagerMTypeStringFormalParameterLSTMssgWizard extends Wizard {
+
+		protected ServerCreateVoidOperationOperationManagerMTypeStringFormalParameterLSTMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateVoidOperationOperationManagerMTypeStringFormalParameterLSTMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createVoidOperation(firstArgument, (MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(java.util.Vector<FormalParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
 			getParametersPanel().add(new StringSelectionPanel("name", this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));		
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("fp", "view.FormalParameterView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private OperationManagerView firstArgument; 
+	
+		public void setFirstArgument(OperationManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateOperationMTypeMTypeStringFormalParameterLSTMssgWizard extends Wizard {
+
+		protected ServerCreateOperationMTypeMTypeStringFormalParameterLSTMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateOperationMTypeMTypeStringFormalParameterLSTMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createOperation(firstArgument, (MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(java.util.Vector<FormalParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("fp", "view.FormalParameterView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -661,20 +1201,694 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateAssociationToMTypeStringMTypeMssgWizard extends Wizard {
+	class ServerCreateVoidOperationMTypeStringFormalParameterLSTMssgWizard extends Wizard {
 
-		protected ServerCreateAssociationToMTypeStringMTypeMssgWizard(String operationName){
+		protected ServerCreateVoidOperationMTypeStringFormalParameterLSTMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateAssociationToMTypeStringMTypeMssgWizard.help";
+			this.helpFileName = "ServerCreateVoidOperationMTypeStringFormalParameterLSTMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createAssociationTo(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+				getConnection().createVoidOperation(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(java.util.Vector<FormalParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(1)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("fp", "view.FormalParameterView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MTypeView firstArgument; 
+	
+		public void setFirstArgument(MTypeView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateUnitTypeUnitTypeManagerStringMssgWizard extends Wizard {
+
+		protected ServerCreateUnitTypeUnitTypeManagerStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateUnitTypeUnitTypeManagerStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createUnitType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private UnitTypeManagerView firstArgument; 
+	
+		public void setFirstArgument(UnitTypeManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateAccountTypeAccountTypeManagerStringMTypeUnitTypeMssgWizard extends Wizard {
+
+		protected ServerCreateAccountTypeAccountTypeManagerStringMTypeUnitTypeMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateAccountTypeAccountTypeManagerStringMTypeUnitTypeMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createAccountType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(UnitTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("type", "view.MTypeView", new ListRoot(((TypeManagerView)((ServerView)getConnection().getServerView()).getTypeManager()).getTypes()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("unitType", "view.UnitTypeView", new ListRoot(((UnitTypeManagerView)((ServerView)getConnection().getServerView()).getUnitTypeManager()).getAtomicUnitTypes()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AccountTypeManagerView firstArgument; 
+	
+		public void setFirstArgument(AccountTypeManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateAtomicRootTypeMAspectStringMBooleanMBooleanMssgWizard extends Wizard {
+
+		protected ServerCreateAtomicRootTypeMAspectStringMBooleanMBooleanMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateAtomicRootTypeMAspectStringMBooleanMBooleanMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createAtomicRootType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MBooleanView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(MBooleanView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("typeName", this));
+			getParametersPanel().add(new ObjectSelectionPanel("singletonType", "view.MBooleanView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("abstractType", "view.MBooleanView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MAspectView firstArgument; 
+	
+		public void setFirstArgument(MAspectView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateHierarchyAssociationStringMssgWizard extends Wizard {
+
+		protected ServerCreateHierarchyAssociationStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateHierarchyAssociationStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createHierarchy(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AssociationView firstArgument; 
+	
+		public void setFirstArgument(AssociationView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
+				selectionPanel.preset(firstArgument.getName());
+				if (!selectionPanel.check()) selectionPanel.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateQuantityAbsUnitFractionMssgWizard extends Wizard {
+
+		protected ServerCreateQuantityAbsUnitFractionMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateQuantityAbsUnitFractionMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createQuantity(firstArgument, ((FractionSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new FractionSelectionPanel("f", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AbsUnitView firstArgument; 
+	
+		public void setFirstArgument(AbsUnitView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateCompUnitTypeUnitTypeManagerStringMssgWizard extends Wizard {
+
+		protected ServerCreateCompUnitTypeUnitTypeManagerStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateCompUnitTypeUnitTypeManagerStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createCompUnitType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private UnitTypeManagerView firstArgument; 
+	
+		public void setFirstArgument(UnitTypeManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard extends Wizard {
+
+		protected ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createStaticMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult(),
+									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(3)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MessageManagerView firstArgument; 
+	
+		public void setFirstArgument(MessageManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard extends Wizard {
+
+		protected ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult(),
+									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(3)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MessageManagerView firstArgument; 
+	
+		public void setFirstArgument(MessageManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerAddFpOperationFormalParameterMssgWizard extends Wizard {
+
+		protected ServerAddFpOperationFormalParameterMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddFpOperationFormalParameterMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().addFp(firstArgument, (FormalParameterView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("fp", "view.FormalParameterView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private OperationView firstArgument; 
+	
+		public void setFirstArgument(OperationView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateVoidMessageInstanceObjectOperationActualParameterLSTMssgWizard extends Wizard {
+
+		protected ServerCreateVoidMessageInstanceObjectOperationActualParameterLSTMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateVoidMessageInstanceObjectOperationActualParameterLSTMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createVoidMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(1)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private InstanceObjectView firstArgument; 
+	
+		public void setFirstArgument(InstanceObjectView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateAtomicSubTypeMAtomicTypeStringMBooleanMBooleanMssgWizard extends Wizard {
+
+		protected ServerCreateAtomicSubTypeMAtomicTypeStringMBooleanMBooleanMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateAtomicSubTypeMAtomicTypeStringMBooleanMBooleanMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createAtomicSubType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MBooleanView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(MBooleanView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("typeName", this));
+			getParametersPanel().add(new ObjectSelectionPanel("singletonType", "view.MBooleanView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("abstractType", "view.MBooleanView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MAtomicTypeView firstArgument; 
+	
+		public void setFirstArgument(MAtomicTypeView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(1);
+				selectionPanel.preset((Anything)firstArgument.getSingletonType());
+				if (!selectionPanel.check()) selectionPanel.preset((Anything)null);
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(2);
+				selectionPanel.preset((Anything)firstArgument.getAbstractType());
+				if (!selectionPanel.check()) selectionPanel.preset((Anything)null);
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerAddToHierarchyAssociationHierarchyMssgWizard extends Wizard {
+
+		protected ServerAddToHierarchyAssociationHierarchyMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddToHierarchyAssociationHierarchyMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().addToHierarchy(firstArgument, (HierarchyView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("theHierarchy", "view.HierarchyView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AssociationView firstArgument; 
+	
+		public void setFirstArgument(AssociationView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateFpOperationManagerStringMTypeMssgWizard extends Wizard {
+
+		protected ServerCreateFpOperationManagerStringMTypeMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateFpOperationManagerStringMTypeMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createFp(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
 									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
@@ -693,15 +1907,66 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 		protected void addParameters(){
 			getParametersPanel().add(new StringSelectionPanel("name", this));
-			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));		
+			getParametersPanel().add(new ObjectSelectionPanel("ofType", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private MTypeView firstArgument; 
+		private OperationManagerView firstArgument; 
 	
-		public void setFirstArgument(MTypeView firstArgument){
+		public void setFirstArgument(OperationManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateMessageInstanceObjectOperationInstanceObjectActualParameterLSTMssgWizard extends Wizard {
+
+		protected ServerCreateMessageInstanceObjectOperationInstanceObjectActualParameterLSTMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateMessageInstanceObjectOperationInstanceObjectActualParameterLSTMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private InstanceObjectView firstArgument; 
+	
+		public void setFirstArgument(InstanceObjectView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -813,20 +2078,21 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateHierarchyStringMssgWizard extends Wizard {
+	class ServerCreateLinkInstanceObjectAssociationInstanceObjectMssgWizard extends Wizard {
 
-		protected ServerCreateHierarchyStringMssgWizard(String operationName){
+		protected ServerCreateLinkInstanceObjectAssociationInstanceObjectMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateHierarchyStringMssgWizard.help";
+			this.helpFileName = "ServerCreateLinkInstanceObjectAssociationInstanceObjectMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createHierarchy(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().createLink(firstArgument, (AssociationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -843,53 +2109,16 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.AssociationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-	}
-
-	class ServerCreateUnitTypeUnitTypeManagerStringMssgWizard extends Wizard {
-
-		protected ServerCreateUnitTypeUnitTypeManagerStringMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateUnitTypeUnitTypeManagerStringMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createUnitType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private UnitTypeManagerView firstArgument; 
+		private InstanceObjectView firstArgument; 
 	
-		public void setFirstArgument(UnitTypeManagerView firstArgument){
+		public void setFirstArgument(InstanceObjectView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -963,22 +2192,22 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateAccountTypeAccountTypeManagerStringMTypeUnitTypeMssgWizard extends Wizard {
+	class ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard extends Wizard {
 
-		protected ServerCreateAccountTypeAccountTypeManagerStringMTypeUnitTypeMssgWizard(String operationName){
+		protected ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateAccountTypeAccountTypeManagerStringMTypeUnitTypeMssgWizard.help";
+			this.helpFileName = "ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createAccountType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(UnitTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().createVoidMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -995,31 +2224,17 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));
-			try{
-				getParametersPanel().add(new ObjectSelectionPanel("type", "view.MTypeView", new ListRoot(((TypeManagerView)((ServerView)getConnection().getServerView()).getTypeManager()).getTypes()), this));
-			}catch(ModelException me){;
-				 handleException(me);
-				 setVisible(false);
-				 dispose();
-				 return;
-			 }
-			try{
-				getParametersPanel().add(new ObjectSelectionPanel("unitType", "view.UnitTypeView", new ListRoot(((UnitTypeManagerView)((ServerView)getConnection().getServerView()).getUnitTypeManager()).getAtomicUnitTypes()), this));
-			}catch(ModelException me){;
-				 handleException(me);
-				 setVisible(false);
-				 dispose();
-				 return;
-			 }		
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private AccountTypeManagerView firstArgument; 
+		private MessageManagerView firstArgument; 
 	
-		public void setFirstArgument(AccountTypeManagerView firstArgument){
+		public void setFirstArgument(MessageManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1086,22 +2301,20 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateAtomicRootTypeMAspectStringMBooleanMBooleanMssgWizard extends Wizard {
+	class ServerAddAssociationHierarchyAssociationMssgWizard extends Wizard {
 
-		protected ServerCreateAtomicRootTypeMAspectStringMBooleanMBooleanMssgWizard(String operationName){
+		protected ServerAddAssociationHierarchyAssociationMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateAtomicRootTypeMAspectStringMBooleanMBooleanMssgWizard.help";
+			this.helpFileName = "ServerAddAssociationHierarchyAssociationMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createAtomicRootType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MBooleanView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(MBooleanView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().addAssociation(firstArgument, (AssociationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -1118,17 +2331,15 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("typeName", this));
-			getParametersPanel().add(new ObjectSelectionPanel("singletonType", "view.MBooleanView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("abstractType", "view.MBooleanView", (ViewRoot)getConnection().getServerView(), this));		
+			getParametersPanel().add(new ObjectSelectionPanel("a", "view.AssociationView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private MAspectView firstArgument; 
+		private HierarchyView firstArgument; 
 	
-		public void setFirstArgument(MAspectView firstArgument){
+		public void setFirstArgument(HierarchyView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1137,22 +2348,21 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateAssociationAssociationManagerStringMTypeMTypeMssgWizard extends Wizard {
+	class ServerCreateConstantOperationManagerStringMTypeMssgWizard extends Wizard {
 
-		protected ServerCreateAssociationAssociationManagerStringMTypeMTypeMssgWizard(String operationName){
+		protected ServerCreateConstantOperationManagerStringMTypeMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateAssociationAssociationManagerStringMTypeMTypeMssgWizard.help";
+			this.helpFileName = "ServerCreateConstantOperationManagerStringMTypeMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createAssociation(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().createConstant(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -1170,16 +2380,15 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 		protected void addParameters(){
 			getParametersPanel().add(new StringSelectionPanel("name", this));
-			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
 			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private AssociationManagerView firstArgument; 
+		private OperationManagerView firstArgument; 
 	
-		public void setFirstArgument(AssociationManagerView firstArgument){
+		public void setFirstArgument(OperationManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1188,20 +2397,22 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerAddToHierarchyMAssociationMAHierarchyMssgWizard extends Wizard {
+	class ServerCreateStaticOpOperationManagerStringMTypeFormalParameterLSTMssgWizard extends Wizard {
 
-		protected ServerAddToHierarchyMAssociationMAHierarchyMssgWizard(String operationName){
+		protected ServerCreateStaticOpOperationManagerStringMTypeFormalParameterLSTMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerAddToHierarchyMAssociationMAHierarchyMssgWizard.help";
+			this.helpFileName = "ServerCreateStaticOpOperationManagerStringMTypeFormalParameterLSTMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().addToHierarchy(firstArgument, (MAHierarchyView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().createStaticOp(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(java.util.Vector<FormalParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -1218,15 +2429,17 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("theHierarchy", "view.MAHierarchyView", (ViewRoot)getConnection().getServerView(), this));		
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("fp", "view.FormalParameterView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private MAssociationView firstArgument; 
+		private OperationManagerView firstArgument; 
 	
-		public void setFirstArgument(MAssociationView firstArgument){
+		public void setFirstArgument(OperationManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1235,20 +2448,23 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateQuantityAbsUnitFractionMssgWizard extends Wizard {
+	class ServerCreateOperationOperationManagerMTypeMTypeStringFormalParameterLSTMssgWizard extends Wizard {
 
-		protected ServerCreateQuantityAbsUnitFractionMssgWizard(String operationName){
+		protected ServerCreateOperationOperationManagerMTypeMTypeStringFormalParameterLSTMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateQuantityAbsUnitFractionMssgWizard.help";
+			this.helpFileName = "ServerCreateOperationOperationManagerMTypeMTypeStringFormalParameterLSTMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createQuantity(firstArgument, ((FractionSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().createOperation(firstArgument, (MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(2)).getResult(),
+									(java.util.Vector<FormalParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(3)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -1265,109 +2481,18 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new FractionSelectionPanel("f", this));		
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("fp", "view.FormalParameterView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private AbsUnitView firstArgument; 
+		private OperationManagerView firstArgument; 
 	
-		public void setFirstArgument(AbsUnitView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateCompUnitTypeUnitTypeManagerStringMssgWizard extends Wizard {
-
-		protected ServerCreateCompUnitTypeUnitTypeManagerStringMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateCompUnitTypeUnitTypeManagerStringMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createCompUnitType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private UnitTypeManagerView firstArgument; 
-	
-		public void setFirstArgument(UnitTypeManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerAddAssociationsMAHierarchyMAssociationMssgWizard extends Wizard {
-
-		protected ServerAddAssociationsMAHierarchyMAssociationMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerAddAssociationsMAHierarchyMAssociationMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().addAssociations(firstArgument, (MAssociationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("association", "view.MAssociationView", (ViewRoot)getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private MAHierarchyView firstArgument; 
-	
-		public void setFirstArgument(MAHierarchyView firstArgument){
+		public void setFirstArgument(OperationManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1430,22 +2555,22 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateAtomicSubTypeMAtomicTypeStringMBooleanMBooleanMssgWizard extends Wizard {
+	class ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard extends Wizard {
 
-		protected ServerCreateAtomicSubTypeMAtomicTypeStringMBooleanMBooleanMssgWizard(String operationName){
+		protected ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateAtomicSubTypeMAtomicTypeStringMBooleanMBooleanMssgWizard.help";
+			this.helpFileName = "ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createAtomicSubType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MBooleanView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(MBooleanView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().createConst(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -1462,33 +2587,117 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("typeName", this));
-			getParametersPanel().add(new ObjectSelectionPanel("singletonType", "view.MBooleanView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("abstractType", "view.MBooleanView", (ViewRoot)getConnection().getServerView(), this));		
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private MAtomicTypeView firstArgument; 
+		private MessageManagerView firstArgument; 
 	
-		public void setFirstArgument(MAtomicTypeView firstArgument){
+		public void setFirstArgument(MessageManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
-			try{
-				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(1);
-				selectionPanel.preset((Anything)firstArgument.getSingletonType());
-				if (!selectionPanel.check()) selectionPanel.preset((Anything)null);
-			}catch(ModelException me){
-				 handleException(me);
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerRemoveFpFromOpOperationFormalParameterMssgWizard extends Wizard {
+
+		protected ServerRemoveFpFromOpOperationFormalParameterMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerRemoveFpFromOpOperationFormalParameterMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().removeFpFromOp(firstArgument, (FormalParameterView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
 			}
-			try{
-				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(2);
-				selectionPanel.preset((Anything)firstArgument.getAbstractType());
-				if (!selectionPanel.check()) selectionPanel.preset((Anything)null);
-			}catch(ModelException me){
-				 handleException(me);
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
 			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("fp", "view.FormalParameterView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private OperationView firstArgument; 
+	
+		public void setFirstArgument(OperationView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard extends Wizard {
+
+		protected ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createLink(firstArgument, (AssociationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.AssociationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private LinkManagerView firstArgument; 
+	
+		public void setFirstArgument(LinkManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
 			this.check();
 		}
 		

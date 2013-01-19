@@ -38,28 +38,28 @@ public class CreateAssociationCommand extends PersistentObject implements Persis
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected String name;
     protected PersistentMType source;
     protected PersistentMType target;
+    protected String name;
     protected Invoker invoker;
     protected PersistentAssociationManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateAssociationCommand(String name,PersistentMType source,PersistentMType target,Invoker invoker,PersistentAssociationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateAssociationCommand(PersistentMType source,PersistentMType target,String name,Invoker invoker,PersistentAssociationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.name = name;
         this.source = source;
         this.target = target;
+        this.name = name;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
     }
     
     static public long getTypeId() {
-        return 146;
+        return 187;
     }
     
     public long getClassId() {
@@ -68,7 +68,7 @@ public class CreateAssociationCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 146) ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade
+        if (this.getClassId() == 187) ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade
             .newCreateAssociationCommand(name,this.getId());
         super.store();
         if(this.getSource() != null){
@@ -94,14 +94,6 @@ public class CreateAssociationCommand extends PersistentObject implements Persis
         
     }
     
-    public String getName() throws PersistenceException {
-        return this.name;
-    }
-    public void setName(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade.nameSet(this.getId(), newValue);
-        this.name = newValue;
-    }
     public PersistentMType getSource() throws PersistenceException {
         return this.source;
     }
@@ -129,6 +121,14 @@ public class CreateAssociationCommand extends PersistentObject implements Persis
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade.targetSet(this.getId(), newValue);
         }
+    }
+    public String getName() throws PersistenceException {
+        return this.name;
+    }
+    public void setName(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -248,7 +248,7 @@ public class CreateAssociationCommand extends PersistentObject implements Persis
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createAssociation(this.getName(), this.getSource(), this.getTarget());
+			this.getCommandReceiver().createAssociation(this.getSource(), this.getTarget(), this.getName());
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;

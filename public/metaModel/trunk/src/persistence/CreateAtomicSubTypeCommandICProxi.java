@@ -19,7 +19,7 @@ public class CreateAtomicSubTypeCommandICProxi extends PersistentInCacheProxi im
     }
     
     public long getClassId() {
-        return 188;
+        return 155;
     }
     
     public PersistentMAtomicType getSuperType() throws PersistenceException {

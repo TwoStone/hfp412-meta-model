@@ -16,7 +16,7 @@ public class MEmptySumType extends view.objects.MAbstractSumType implements MEmp
     }
     
     static public long getTypeId() {
-        return 190;
+        return 185;
     }
     
     public long getClassId() {

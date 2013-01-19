@@ -19,7 +19,7 @@ public class MFalseProxi extends MBooleanProxi implements PersistentMFalse{
     }
     
     public long getClassId() {
-        return 136;
+        return 183;
     }
     
     public PersistentMFalse getThis() throws PersistenceException {

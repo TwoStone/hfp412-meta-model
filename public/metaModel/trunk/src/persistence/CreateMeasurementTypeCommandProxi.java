@@ -19,7 +19,7 @@ public class CreateMeasurementTypeCommandProxi extends PersistentProxi implement
     }
     
     public long getClassId() {
-        return 216;
+        return 124;
     }
     
     public String getName() throws PersistenceException {

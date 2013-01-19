@@ -33,7 +33,7 @@ public class LinkProxi extends MessageOrLinkProxi implements LinkView{
             type = ViewProxi.createProxi(type$Info,connectionKey);
             type.setToString(type$Info.getToString());
         }
-        LinkView result$$ = new Link((InstanceObjectView)source,(InstanceObjectView)target,(MAssociationView)type, this.getId(), this.getClassId());
+        LinkView result$$ = new Link((InstanceObjectView)source,(InstanceObjectView)target,(AssociationView)type, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -75,10 +75,10 @@ public class LinkProxi extends MessageOrLinkProxi implements LinkView{
         return -1;
     }
     
-    public MAssociationView getType() throws ModelException {
+    public AssociationView getType() throws ModelException {
         return ((Link)this.getTheObject()).getType();
     }
-    public void setType(MAssociationView newValue) throws ModelException {
+    public void setType(AssociationView newValue) throws ModelException {
         ((Link)this.getTheObject()).setType(newValue);
     }
     

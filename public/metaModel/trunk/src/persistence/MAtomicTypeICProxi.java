@@ -19,7 +19,7 @@ public class MAtomicTypeICProxi extends MTypeICProxi implements PersistentMAtomi
     }
     
     public long getClassId() {
-        return 102;
+        return 112;
     }
     
     public String getName() throws PersistenceException {

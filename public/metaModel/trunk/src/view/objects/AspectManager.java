@@ -18,7 +18,7 @@ public class AspectManager extends ViewObject implements AspectManagerView{
     }
     
     static public long getTypeId() {
-        return 126;
+        return 136;
     }
     
     public long getClassId() {

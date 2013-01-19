@@ -19,13 +19,13 @@ public class ActualParameterICProxi extends PersistentInCacheProxiOptimistic imp
     }
     
     public long getClassId() {
-        return 206;
+        return 194;
     }
     
-    public PersistentMFormalParameter getType() throws PersistenceException {
+    public PersistentFormalParameter getType() throws PersistenceException {
         return ((PersistentActualParameter)this.getTheObject()).getType();
     }
-    public void setType(PersistentMFormalParameter newValue) throws PersistenceException {
+    public void setType(PersistentFormalParameter newValue) throws PersistenceException {
         ((PersistentActualParameter)this.getTheObject()).setType(newValue);
     }
     public PersistentInstanceObject getValue() throws PersistenceException {

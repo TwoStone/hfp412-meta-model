@@ -38,7 +38,7 @@ public abstract class MBoolean extends PersistentObject implements PersistentMBo
     }
     
     static public long getTypeId() {
-        return 137;
+        return 132;
     }
     
     public long getClassId() {

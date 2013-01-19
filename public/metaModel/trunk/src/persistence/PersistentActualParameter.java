@@ -6,8 +6,8 @@ import model.visitor.*;
 
 public interface PersistentActualParameter extends Anything, AbstractPersistentProxi {
     
-    public PersistentMFormalParameter getType() throws PersistenceException ;
-    public void setType(PersistentMFormalParameter newValue) throws PersistenceException ;
+    public PersistentFormalParameter getType() throws PersistenceException ;
+    public void setType(PersistentFormalParameter newValue) throws PersistenceException ;
     public PersistentInstanceObject getValue() throws PersistenceException ;
     public void setValue(PersistentInstanceObject newValue) throws PersistenceException ;
     public PersistentActualParameter getThis() throws PersistenceException ;

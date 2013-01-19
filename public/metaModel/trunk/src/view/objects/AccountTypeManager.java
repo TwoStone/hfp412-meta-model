@@ -18,7 +18,7 @@ public class AccountTypeManager extends ViewObject implements AccountTypeManager
     }
     
     static public long getTypeId() {
-        return 213;
+        return 128;
     }
     
     public long getClassId() {

@@ -4,8 +4,8 @@ import view.visitor.*;
 
 public interface LinkView extends MessageOrLinkView {
     
-    public MAssociationView getType() throws ModelException ;
-    public void setType(MAssociationView newValue) throws ModelException ;
+    public AssociationView getType() throws ModelException ;
+    public void setType(AssociationView newValue) throws ModelException ;
     
     public void accept(MessageOrLinkVisitor visitor) throws ModelException;
     public <R> R accept(MessageOrLinkReturnVisitor<R>  visitor) throws ModelException;

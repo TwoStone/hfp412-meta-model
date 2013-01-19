@@ -1,21 +1,21 @@
 package persistence;
 
-import model.*;
+import model.abstractOperation.*;
 
 import java.util.Iterator;
 
-public class AssociationManager_HierarchiesProxi extends PersistentListProxi<PersistentMAHierarchy> {
+public class AssociationManager_HierarchiesProxi extends PersistentListProxi<PersistentHierarchy> {
 
-  private MAHierarchyList list;
+  private HierarchyList list;
   private AssociationManager owner;
 
   public AssociationManager_HierarchiesProxi(AssociationManager owner) {
     this.owner = owner;
   }
-  public MAHierarchyList getList() throws PersistenceException{
+  public HierarchyList getList() throws PersistenceException{
     if (this.list == null) {
       if (this.owner.isDelayed$Persistence()) {
-        this.list = new MAHierarchyList();
+        this.list = new HierarchyList();
       } else {
         this.list = ConnectionHandler
                     .getTheConnectionHandler()
@@ -24,22 +24,22 @@ public class AssociationManager_HierarchiesProxi extends PersistentListProxi<Per
     }
     return this.list;
   }
-  public Iterator<PersistentMAHierarchy> iterator() throws PersistenceException{
+  public Iterator<PersistentHierarchy> iterator() throws PersistenceException{
     return this.getList().iterator(this);
   }
   public long getLength() throws PersistenceException{
 	  return this.getList().getLength();
   }
-  public void add(PersistentMAHierarchy entry) throws PersistenceException {
+  public void add(PersistentHierarchy entry) throws PersistenceException {
     if (entry != null) {
-      MAHierarchyList list = this.getList();
+      HierarchyList list = this.getList();
       long entryId = 0;
       if (!this.owner.isDelayed$Persistence()) {
         entry.store();  	
         entryId = ConnectionHandler.getTheConnectionHandler().theAssociationManagerFacade
                        .hierarchiesAdd(owner.getId(), entry);
       }
-      list.add((PersistentMAHierarchy)PersistentProxi.createListEntryProxi(entry.getId(),
+      list.add((PersistentHierarchy)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
       
@@ -57,9 +57,9 @@ public class AssociationManager_HierarchiesProxi extends PersistentListProxi<Per
   	return result;
   } 
   public void store() throws PersistenceException {
-  	java.util.Iterator<PersistentMAHierarchy> entries = (this.list == null ? new java.util.Vector<PersistentMAHierarchy>().iterator() : this.list.iterator(this));
+  	java.util.Iterator<PersistentHierarchy> entries = (this.list == null ? new java.util.Vector<PersistentHierarchy>().iterator() : this.list.iterator(this));
   	while (entries.hasNext()){
-  		PersistentMAHierarchy current = entries.next();
+  		PersistentHierarchy current = entries.next();
   		current.store();
       	long entryId = ConnectionHandler.getTheConnectionHandler().theAssociationManagerFacade
                        .hierarchiesAdd(owner.getId(), current);

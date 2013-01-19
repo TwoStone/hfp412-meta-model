@@ -5,6 +5,9 @@ import view.*;
 
 public abstract class AnythingStandardVisitor implements AnythingVisitor {
     
+    public void handleOperation(OperationView operation) throws ModelException{
+        this.standardHandling(operation);
+    }
     public void handleConversionManager(ConversionManagerView conversionManager) throws ModelException{
         this.standardHandling(conversionManager);
     }
@@ -14,8 +17,8 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAssociationManager(AssociationManagerView associationManager) throws ModelException{
         this.standardHandling(associationManager);
     }
-    public void handleMAHierarchy(MAHierarchyView mAHierarchy) throws ModelException{
-        this.standardHandling(mAHierarchy);
+    public void handleHierarchy(HierarchyView hierarchy) throws ModelException{
+        this.standardHandling(hierarchy);
     }
     public void handleMAccountType(MAccountTypeView mAccountType) throws ModelException{
         this.standardHandling(mAccountType);
@@ -23,14 +26,17 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleTypeManager(TypeManagerView typeManager) throws ModelException{
         this.standardHandling(typeManager);
     }
-    public void handleCompoundQuantity(CompoundQuantityView compoundQuantity) throws ModelException{
-        this.standardHandling(compoundQuantity);
+    public void handleMessageManager(MessageManagerView messageManager) throws ModelException{
+        this.standardHandling(messageManager);
     }
     public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
         this.standardHandling(mEmptyProduct);
     }
     public void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException{
         this.standardHandling(unitTypeManager);
+    }
+    public void handleCompoundQuantity(CompoundQuantityView compoundQuantity) throws ModelException{
+        this.standardHandling(compoundQuantity);
     }
     public void handleServer(ServerView server) throws ModelException{
         this.standardHandling(server);
@@ -56,17 +62,26 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMeasurement(MeasurementView measurement) throws ModelException{
         this.standardHandling(measurement);
     }
+    public void handleAssociation(AssociationView association) throws ModelException{
+        this.standardHandling(association);
+    }
     public void handleReferenceType(ReferenceTypeView referenceType) throws ModelException{
         this.standardHandling(referenceType);
     }
-    public void handleMOperation(MOperationView mOperation) throws ModelException{
-        this.standardHandling(mOperation);
+    public void handleFormalParameter(FormalParameterView formalParameter) throws ModelException{
+        this.standardHandling(formalParameter);
     }
     public void handleAccount(AccountView account) throws ModelException{
         this.standardHandling(account);
     }
+    public void handleOperationManager(OperationManagerView operationManager) throws ModelException{
+        this.standardHandling(operationManager);
+    }
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException{
         this.standardHandling(errorDisplay);
+    }
+    public void handleUnit(UnitView unit) throws ModelException{
+        this.standardHandling(unit);
     }
     public void handleMFalse(MFalseView mFalse) throws ModelException{
         this.standardHandling(mFalse);
@@ -74,14 +89,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleUnitType(UnitTypeView unitType) throws ModelException{
         this.standardHandling(unitType);
     }
-    public void handleUnit(UnitView unit) throws ModelException{
-        this.standardHandling(unit);
+    public void handleMeasurementTypeManager(MeasurementTypeManagerView measurementTypeManager) throws ModelException{
+        this.standardHandling(measurementTypeManager);
     }
     public void handleMMeasurementType(MMeasurementTypeView mMeasurementType) throws ModelException{
         this.standardHandling(mMeasurementType);
-    }
-    public void handleMeasurementTypeManager(MeasurementTypeManagerView measurementTypeManager) throws ModelException{
-        this.standardHandling(measurementTypeManager);
     }
     public void handleMEmptySumType(MEmptySumTypeView mEmptySumType) throws ModelException{
         this.standardHandling(mEmptySumType);
@@ -89,11 +101,8 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAccountTypeManager(AccountTypeManagerView accountTypeManager) throws ModelException{
         this.standardHandling(accountTypeManager);
     }
-    public void handleMFormalParameter(MFormalParameterView mFormalParameter) throws ModelException{
-        this.standardHandling(mFormalParameter);
-    }
-    public void handleMAssociation(MAssociationView mAssociation) throws ModelException{
-        this.standardHandling(mAssociation);
+    public void handleLinkManager(LinkManagerView linkManager) throws ModelException{
+        this.standardHandling(linkManager);
     }
     public void handleInstanceObject(InstanceObjectView instanceObject) throws ModelException{
         this.standardHandling(instanceObject);

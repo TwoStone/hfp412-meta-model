@@ -17,6 +17,9 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleCycleException(CycleException cycleException) throws ModelException{
         this.standardHandling(cycleException);
     }
+    public void handleNotAvailableException(NotAvailableException notAvailableException) throws ModelException{
+        this.standardHandling(notAvailableException);
+    }
     public void handleAlreadyFinalizedException(AlreadyFinalizedException alreadyFinalizedException) throws ModelException{
         this.standardHandling(alreadyFinalizedException);
     }

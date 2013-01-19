@@ -19,15 +19,9 @@ public class CreateAssociationCommandProxi extends PersistentProxi implements Pe
     }
     
     public long getClassId() {
-        return 146;
+        return 187;
     }
     
-    public String getName() throws PersistenceException {
-        return ((PersistentCreateAssociationCommand)this.getTheObject()).getName();
-    }
-    public void setName(String newValue) throws PersistenceException {
-        ((PersistentCreateAssociationCommand)this.getTheObject()).setName(newValue);
-    }
     public PersistentMType getSource() throws PersistenceException {
         return ((PersistentCreateAssociationCommand)this.getTheObject()).getSource();
     }
@@ -39,6 +33,12 @@ public class CreateAssociationCommandProxi extends PersistentProxi implements Pe
     }
     public void setTarget(PersistentMType newValue) throws PersistenceException {
         ((PersistentCreateAssociationCommand)this.getTheObject()).setTarget(newValue);
+    }
+    public String getName() throws PersistenceException {
+        return ((PersistentCreateAssociationCommand)this.getTheObject()).getName();
+    }
+    public void setName(String newValue) throws PersistenceException {
+        ((PersistentCreateAssociationCommand)this.getTheObject()).setName(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentCreateAssociationCommand)this.getTheObject()).getInvoker();

@@ -11,6 +11,7 @@ public class MessageProxi extends MessageOrLinkProxi implements MessageView{
         super(objectId, classId, connectionKey);
     }
     
+    @SuppressWarnings("unchecked")
     public MessageView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         ViewProxi source = null;
         String source$String = (String)resultTable.get("source");
@@ -33,7 +34,9 @@ public class MessageProxi extends MessageOrLinkProxi implements MessageView{
             type = ViewProxi.createProxi(type$Info,connectionKey);
             type.setToString(type$Info.getToString());
         }
-        MessageView result$$ = new Message((InstanceObjectView)source,(InstanceObjectView)target,(MOperationView)type, this.getId(), this.getClassId());
+        java.util.Vector<String> actualParameters_string = (java.util.Vector<String>)resultTable.get("actualParameters");
+        java.util.Vector<ActualParameterView> actualParameters = ViewProxi.getProxiVector(actualParameters_string, connectionKey);
+        MessageView result$$ = new Message((InstanceObjectView)source,(InstanceObjectView)target,(OperationView)type,actualParameters, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -49,20 +52,24 @@ public class MessageProxi extends MessageOrLinkProxi implements MessageView{
         if(this.getTarget() != null) index = index - 1;
         if(index == 0 && this.getType() != null) return new TypeMessageWrapper(this, originalIndex, (ViewRoot)this.getType());
         if(this.getType() != null) index = index - 1;
+        if(index < this.getActualParameters().size()) return new ActualParametersMessageWrapper(this, originalIndex, (ViewRoot)this.getActualParameters().get(index));
+        index = index - this.getActualParameters().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getSource() == null ? 0 : 1)
             + (this.getTarget() == null ? 0 : 1)
-            + (this.getType() == null ? 0 : 1);
+            + (this.getType() == null ? 0 : 1)
+            + (this.getActualParameters().size());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getSource() == null ? true : false)
             && (this.getTarget() == null ? true : false)
-            && (this.getType() == null ? true : false);
+            && (this.getType() == null ? true : false)
+            && (this.getActualParameters().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -72,14 +79,25 @@ public class MessageProxi extends MessageOrLinkProxi implements MessageView{
         if(this.getTarget() != null) result = result + 1;
         if(this.getType() != null && this.getType().equals(child)) return result;
         if(this.getType() != null) result = result + 1;
+        java.util.Iterator<?> getActualParametersIterator = this.getActualParameters().iterator();
+        while(getActualParametersIterator.hasNext()){
+            if(getActualParametersIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     
-    public MOperationView getType() throws ModelException {
+    public OperationView getType() throws ModelException {
         return ((Message)this.getTheObject()).getType();
     }
-    public void setType(MOperationView newValue) throws ModelException {
+    public void setType(OperationView newValue) throws ModelException {
         ((Message)this.getTheObject()).setType(newValue);
+    }
+    public java.util.Vector<ActualParameterView> getActualParameters() throws ModelException {
+        return ((Message)this.getTheObject()).getActualParameters();
+    }
+    public void setActualParameters(java.util.Vector<ActualParameterView> newValue) throws ModelException {
+        ((Message)this.getTheObject()).setActualParameters(newValue);
     }
     
     public void accept(MessageOrLinkVisitor visitor) throws ModelException {

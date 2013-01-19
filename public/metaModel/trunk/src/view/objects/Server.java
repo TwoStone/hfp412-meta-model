@@ -20,10 +20,13 @@ public class Server extends ViewObject implements ServerView{
     protected AccountTypeManagerView accountTypeManager;
     protected AccountManagerView accountManager;
     protected AssociationManagerView associationManager;
+    protected OperationManagerView operationManager;
+    protected MessageManagerView messageManager;
+    protected LinkManagerView linkManager;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(AspectManagerView aspectManager,TypeManagerView typeManager,QuantityManagerView quantityManager,UnitTypeManagerView unitTypeManager,ConversionManagerView conversionManager,FractionManagerView fractionManager,MeasurementTypeManagerView measurementTypeManager,AccountTypeManagerView accountTypeManager,AccountManagerView accountManager,AssociationManagerView associationManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(AspectManagerView aspectManager,TypeManagerView typeManager,QuantityManagerView quantityManager,UnitTypeManagerView unitTypeManager,ConversionManagerView conversionManager,FractionManagerView fractionManager,MeasurementTypeManagerView measurementTypeManager,AccountTypeManagerView accountTypeManager,AccountManagerView accountManager,AssociationManagerView associationManager,OperationManagerView operationManager,MessageManagerView messageManager,LinkManagerView linkManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.aspectManager = aspectManager;
@@ -36,12 +39,15 @@ public class Server extends ViewObject implements ServerView{
         this.accountTypeManager = accountTypeManager;
         this.accountManager = accountManager;
         this.associationManager = associationManager;
+        this.operationManager = operationManager;
+        this.messageManager = messageManager;
+        this.linkManager = linkManager;
         this.errors = errors;
         this.user = user;        
     }
     
     static public long getTypeId() {
-        return -105;
+        return -111;
     }
     
     public long getClassId() {
@@ -77,6 +83,15 @@ public class Server extends ViewObject implements ServerView{
     }
     public AssociationManagerView getAssociationManager() throws ModelException {
         return this.associationManager;
+    }
+    public OperationManagerView getOperationManager() throws ModelException {
+        return this.operationManager;
+    }
+    public MessageManagerView getMessageManager() throws ModelException {
+        return this.messageManager;
+    }
+    public LinkManagerView getLinkManager() throws ModelException {
+        return this.linkManager;
     }
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException {
         return this.errors;
@@ -157,6 +172,18 @@ public class Server extends ViewObject implements ServerView{
         if (associationManager != null) {
             ((ViewProxi)associationManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(associationManager.getClassId(), associationManager.getId())));
         }
+        OperationManagerView operationManager = this.getOperationManager();
+        if (operationManager != null) {
+            ((ViewProxi)operationManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(operationManager.getClassId(), operationManager.getId())));
+        }
+        MessageManagerView messageManager = this.getMessageManager();
+        if (messageManager != null) {
+            ((ViewProxi)messageManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(messageManager.getClassId(), messageManager.getId())));
+        }
+        LinkManagerView linkManager = this.getLinkManager();
+        if (linkManager != null) {
+            ((ViewProxi)linkManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(linkManager.getClassId(), linkManager.getId())));
+        }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
             ViewObject.resolveVectorProxies(errors, resultTable);
@@ -188,6 +215,12 @@ public class Server extends ViewObject implements ServerView{
         if(this.getAccountManager() != null) index = index - 1;
         if(index == 0 && this.getAssociationManager() != null) return new AssociationManagerServerWrapper(this, originalIndex, (ViewRoot)this.getAssociationManager());
         if(this.getAssociationManager() != null) index = index - 1;
+        if(index == 0 && this.getOperationManager() != null) return new OperationManagerServerWrapper(this, originalIndex, (ViewRoot)this.getOperationManager());
+        if(this.getOperationManager() != null) index = index - 1;
+        if(index == 0 && this.getMessageManager() != null) return new MessageManagerServerWrapper(this, originalIndex, (ViewRoot)this.getMessageManager());
+        if(this.getMessageManager() != null) index = index - 1;
+        if(index == 0 && this.getLinkManager() != null) return new LinkManagerServerWrapper(this, originalIndex, (ViewRoot)this.getLinkManager());
+        if(this.getLinkManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
@@ -201,7 +234,10 @@ public class Server extends ViewObject implements ServerView{
             + (this.getMeasurementTypeManager() == null ? 0 : 1)
             + (this.getAccountTypeManager() == null ? 0 : 1)
             + (this.getAccountManager() == null ? 0 : 1)
-            + (this.getAssociationManager() == null ? 0 : 1);
+            + (this.getAssociationManager() == null ? 0 : 1)
+            + (this.getOperationManager() == null ? 0 : 1)
+            + (this.getMessageManager() == null ? 0 : 1)
+            + (this.getLinkManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
@@ -214,7 +250,10 @@ public class Server extends ViewObject implements ServerView{
             && (this.getMeasurementTypeManager() == null ? true : false)
             && (this.getAccountTypeManager() == null ? true : false)
             && (this.getAccountManager() == null ? true : false)
-            && (this.getAssociationManager() == null ? true : false);
+            && (this.getAssociationManager() == null ? true : false)
+            && (this.getOperationManager() == null ? true : false)
+            && (this.getMessageManager() == null ? true : false)
+            && (this.getLinkManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -238,10 +277,16 @@ public class Server extends ViewObject implements ServerView{
         if(this.getAccountManager() != null) result = result + 1;
         if(this.getAssociationManager() != null && this.getAssociationManager().equals(child)) return result;
         if(this.getAssociationManager() != null) result = result + 1;
+        if(this.getOperationManager() != null && this.getOperationManager().equals(child)) return result;
+        if(this.getOperationManager() != null) result = result + 1;
+        if(this.getMessageManager() != null && this.getMessageManager().equals(child)) return result;
+        if(this.getMessageManager() != null) result = result + 1;
+        if(this.getLinkManager() != null && this.getLinkManager().equals(child)) return result;
+        if(this.getLinkManager() != null) result = result + 1;
         return -1;
     }
     public int getUserIndex() throws ModelException {
-        return 0 + (this.getAspectManager() == null ? 0 : 1) + (this.getTypeManager() == null ? 0 : 1) + (this.getQuantityManager() == null ? 0 : 1) + (this.getUnitTypeManager() == null ? 0 : 1) + (this.getConversionManager() == null ? 0 : 1) + (this.getFractionManager() == null ? 0 : 1) + (this.getMeasurementTypeManager() == null ? 0 : 1) + (this.getAccountTypeManager() == null ? 0 : 1) + (this.getAccountManager() == null ? 0 : 1) + (this.getAssociationManager() == null ? 0 : 1);
+        return 0 + (this.getAspectManager() == null ? 0 : 1) + (this.getTypeManager() == null ? 0 : 1) + (this.getQuantityManager() == null ? 0 : 1) + (this.getUnitTypeManager() == null ? 0 : 1) + (this.getConversionManager() == null ? 0 : 1) + (this.getFractionManager() == null ? 0 : 1) + (this.getMeasurementTypeManager() == null ? 0 : 1) + (this.getAccountTypeManager() == null ? 0 : 1) + (this.getAccountManager() == null ? 0 : 1) + (this.getAssociationManager() == null ? 0 : 1) + (this.getOperationManager() == null ? 0 : 1) + (this.getMessageManager() == null ? 0 : 1) + (this.getLinkManager() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

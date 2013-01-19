@@ -9,26 +9,26 @@ import view.visitor.*;
 
 public class Link extends view.objects.MessageOrLink implements LinkView{
     
-    protected MAssociationView type;
+    protected AssociationView type;
     
-    public Link(InstanceObjectView source,InstanceObjectView target,MAssociationView type,long id, long classId) {
+    public Link(InstanceObjectView source,InstanceObjectView target,AssociationView type,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((InstanceObjectView)source,(InstanceObjectView)target,id, classId);
         this.type = type;        
     }
     
     static public long getTypeId() {
-        return 207;
+        return 139;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
-    public MAssociationView getType() throws ModelException {
+    public AssociationView getType() throws ModelException {
         return this.type;
     }
-    public void setType(MAssociationView newValue) throws ModelException {
+    public void setType(AssociationView newValue) throws ModelException {
         this.type = newValue;
     }
     
@@ -66,7 +66,7 @@ public class Link extends view.objects.MessageOrLink implements LinkView{
         if (target != null) {
             ((ViewProxi)target).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(target.getClassId(), target.getId())));
         }
-        MAssociationView type = this.getType();
+        AssociationView type = this.getType();
         if (type != null) {
             ((ViewProxi)type).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(type.getClassId(), type.getId())));
         }

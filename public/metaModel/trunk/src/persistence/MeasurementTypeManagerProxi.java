@@ -19,7 +19,7 @@ public class MeasurementTypeManagerProxi extends PersistentProxi implements Pers
     }
     
     public long getClassId() {
-        return 212;
+        return 184;
     }
     
     public MeasurementTypeManager_MeasurementTypesProxi getMeasurementTypes() throws PersistenceException {

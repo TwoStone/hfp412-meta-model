@@ -22,14 +22,53 @@ server Server {
 	void createAtomicSubType(MAtomicType superType, String typeName, MBoolean singletonType, MBoolean abstractType);
 	//	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
 
-	/** Associations **/
+	/** Manager zu AbstractOperation **/
 	derived AssociationManager associationManager;
-	void createAssociation(AssociationManager manager, String name, MType source, MType target);
-	void createAssociationFrom(MType source, String name, MType target);
-	void createAssociationTo(MType target, String name, MType source);
-	void createHierarchy(String name);
-	void addToHierarchy(MAssociation association, MAHierarchy theHierarchy);
-	void addAssociations(MAHierarchy theHierarchy, MAssociation association);
+	derived OperationManager operationManager;
+	derived MessageManager messageManager;
+	derived LinkManager linkManager;
+
+	/** Associations und Hierarchy **/
+	void createAssociation(AssociationManager manager, MType source, MType target, String name);
+	void removeAssociation(Association a);
+	void createHierarchy(AssociationManager manager, Association a, String name);
+	void createHierarchy(Association a, String name);
+
+	void addAssociation(Hierarchy h, Association a);
+	void addToHierarchy(Association association, Hierarchy theHierarchy);
+	void removeFromHierarchy(Hierarchy h, Association a);
+
+	/** Operations **/
+	void createConstant(OperationManager operationManager, String name, MType target);
+	void createStaticOp(OperationManager operationManager, String name, MType target, FormalParameter** fp);
+	void createOperation(OperationManager operationManager, MType source, MType target, String name, FormalParameter** fp);
+	void createOperation(MType source, MType target, String name, FormalParameter** fp);
+
+	void createVoidOperation(OperationManager operationManager, MType source, String name, FormalParameter** fp);
+	void createVoidOperation(MType source, String name, FormalParameter** fp);
+ 	void createFp@@createFormalParameter(OperationManager operationManager, String name, MType ofType);
+
+	void addFp@@addFormalParameter(Operation op, FormalParameter fp);
+	void removeFpFromOp@@removeFormalParameter(Operation operation, FormalParameter fp); 
+	void removeFp@@removeFormalParameter(FormalParameter fp);
+	void removeOperation(Operation op);
+
+	/** Messages **/
+	void createMessage(MessageManager manager, Operation type, InstanceObject source, InstanceObject target, ActualParameter** ap);
+	void createMessage(InstanceObject source, Operation type, InstanceObject target, ActualParameter** ap);
+
+	void createVoidMessage(MessageManager manager, Operation type, InstanceObject source, ActualParameter** ap);
+	void createVoidMessage(InstanceObject source, Operation type, ActualParameter** ap);
+
+	void createConst@@createConstant(MessageManager manager, Operation type, String name, InstanceObject target);
+	void createStaticMessage(MessageManager manager, Operation type, String name, InstanceObject target, ActualParameter** ap);
+	void removeMessage(Message m);
+
+	/** Links **/
+	void createLink(LinkManager link, Association type, InstanceObject source, InstanceObject target);
+	void createLink(InstanceObject source, Association type, InstanceObject target);
+	void removeLink(Link link);
+
 	
 	/** Quantity/Unit **/
 	void createUnitType@@Create_unit_type(UnitTypeManager unitTypeManager, String name);
@@ -259,54 +298,92 @@ singleton UnitTypeManager {
 }
 
 
-/*** MANAGER ***/
-
-
-
-
-singleton AssociationManager {
-	MAssociation ** associations;
-	MAHierarchy** hierarchies;
-	
-	active void createHierarchy(String name) throws DoubleDefinitionException;
-	active void createAssociation(String name, MType source, MType target) throws DoubleDefinitionException;
-	active void addToHierarchy(MAssociation association, MAHierarchy theHierarchy);
-
-}
-
-
 class InstanceObject {
 	prior MAtomicType type;
 }
 
-/** ASSOCIATIONS **/
-class MFormalParameter@@FormalParameter {
+part abstractOperation {
+
+/*** MANAGER ***/
+singleton AssociationManager {
+	Association ** associations;
+	Hierarchy** hierarchies;
+
+active void createAssociation(MType source, MType target, String name) throws DoubleDefinitionException;
+active void removeAssociation(Association a) throws CycleException, ConsistencyException;
+active void createHierarchy(Association a, String name) throws DoubleDefinitionException;
+
+active void addAssociation(Hierarchy h, Association a) throws DoubleDefinitionException, CycleException;
+active void removeAssoFrmHier(Hierarchy h, Association a) throws CycleException, NotAvailableException;
+}
+
+singleton OperationManager {
+	Operation ** operations; // TODO: Typunterscheidung (spezialisierung static/nonstatic & constants)
+	derived Operation** staticOperations;
+	derived Operation** constants;
+	FormalParameter ** formalParameters;
+
+active void createConstant(String name, MType target) throws DoubleDefinitionException;
+active void createStaticOp(String name, MType target, FormalParameter** fp) throws DoubleDefinitionException;
+active void createOperation(MType source, MType target, String name, FormalParameter** fp) throws DoubleDefinitionException;
+active void createVoidOperation(MType source, String name, FormalParameter** fp) throws DoubleDefinitionException;
+active void createFp(String name, MType ofType) throws DoubleDefinitionException;
+
+active void addFp(Operation op, FormalParameter fp);
+active void removeFpFromOp(Operation op, FormalParameter fp) throws NotAvailableException;
+active void removeFp(FormalParameter fp);
+active void removeOperation(Operation op);
+}
+
+class FormalParameter {
     prior MType ofType;
     indexed prior String name;
 }
 
-class ActualParameter {
-    prior MFormalParameter type;
-    prior InstanceObject value;
-}
-
-abstract class MAbsOperation@@AbstractOperation {
+abstract class AbsOperation@@AbstractOperation {
     indexed prior String name;
     prior MType source;
     prior MType target;
-    MFormalParameter ** parameters;
+    FormalParameter ** parameters;
 }
 
-class MAssociation {
+class Association {
 	prior String name;
 	prior MType source;
 	prior MType target;
-	symmetric(associations) MAHierarchy** hierarchies; 
+	symmetric(associations) Hierarchy** hierarchies; 
 
 	MBoolean isObservation();
 }
 
-class MOperation extends MAbsOperation {
+class Operation extends AbsOperation {
+	MBoolean isStatic();
+}
+
+
+class Hierarchy {
+	prior indexed String name;
+}
+
+}
+
+part messageOrLink {
+
+singleton MessageManager{
+Message** messages;
+
+active void createMessage(Operation type, InstanceObject source, InstanceObject target, ActualParameter** ap) throws DoubleDefinitionException, ConsistencyException;
+active void createVoidMessage(Operation type, InstanceObject source, ActualParameter** ap) throws DoubleDefinitionException, ConsistencyException;
+active void createConst(Operation type, String name, InstanceObject target) throws DoubleDefinitionException, ConsistencyException;
+active void createStaticMessage(Operation type, String name, InstanceObject target, ActualParameter** ap) throws DoubleDefinitionException, ConsistencyException;
+active void removeMessage(Message m);
+}
+
+singleton LinkManager {
+Link** links;
+
+active void createLink(Association type, InstanceObject source, InstanceObject target);
+active void removeLink(Link link);
 }
 
 abstract class MessageOrLink {
@@ -316,16 +393,18 @@ abstract class MessageOrLink {
 
 // TODO: Was ist mit statische Methoden und Methoden die void zurueck geben sollen? Source/Target 0..1? Eventuell noch mal spezialisieren
 class Message extends MessageOrLink {
-    prior MOperation type;
+   prior Operation type;
+	ActualParameter** actualParameters;
+}
+
+class ActualParameter {
+    prior FormalParameter type;
+    prior InstanceObject value;
 }
 
 class Link extends MessageOrLink {
-    prior MAssociation type;
+    prior Association type;
 }
-
-
-class MAHierarchy {
-	prior indexed String name;
 }
 
 
@@ -396,6 +475,7 @@ exception DoubleDefinitionException{}
 exception ConsistencyException{}
 exception WrongSubTypeAspectException{}
 
+exception NotAvailableException{}
 
 exception AlreadyFinalizedException{}
 exception NotFinalizedException{}

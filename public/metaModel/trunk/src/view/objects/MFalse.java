@@ -16,7 +16,7 @@ public class MFalse extends view.objects.MBoolean implements MFalseView{
     }
     
     static public long getTypeId() {
-        return 136;
+        return 183;
     }
     
     public long getClassId() {

@@ -1,21 +1,21 @@
 package persistence;
 
-import model.*;
+import model.abstractOperation.*;
 
 import java.util.Iterator;
 
-public class AssociationManager_AssociationsProxi extends PersistentListProxi<PersistentMAssociation> {
+public class AssociationManager_AssociationsProxi extends PersistentListProxi<PersistentAssociation> {
 
-  private MAssociationList list;
+  private AssociationList list;
   private AssociationManager owner;
 
   public AssociationManager_AssociationsProxi(AssociationManager owner) {
     this.owner = owner;
   }
-  public MAssociationList getList() throws PersistenceException{
+  public AssociationList getList() throws PersistenceException{
     if (this.list == null) {
       if (this.owner.isDelayed$Persistence()) {
-        this.list = new MAssociationList();
+        this.list = new AssociationList();
       } else {
         this.list = ConnectionHandler
                     .getTheConnectionHandler()
@@ -24,22 +24,22 @@ public class AssociationManager_AssociationsProxi extends PersistentListProxi<Pe
     }
     return this.list;
   }
-  public Iterator<PersistentMAssociation> iterator() throws PersistenceException{
+  public Iterator<PersistentAssociation> iterator() throws PersistenceException{
     return this.getList().iterator(this);
   }
   public long getLength() throws PersistenceException{
 	  return this.getList().getLength();
   }
-  public void add(PersistentMAssociation entry) throws PersistenceException {
+  public void add(PersistentAssociation entry) throws PersistenceException {
     if (entry != null) {
-      MAssociationList list = this.getList();
+      AssociationList list = this.getList();
       long entryId = 0;
       if (!this.owner.isDelayed$Persistence()) {
         entry.store();  	
         entryId = ConnectionHandler.getTheConnectionHandler().theAssociationManagerFacade
                        .associationsAdd(owner.getId(), entry);
       }
-      list.add((PersistentMAssociation)PersistentProxi.createListEntryProxi(entry.getId(),
+      list.add((PersistentAssociation)PersistentProxi.createListEntryProxi(entry.getId(),
                                entry.getClassId(),
                                entryId));
       
@@ -57,9 +57,9 @@ public class AssociationManager_AssociationsProxi extends PersistentListProxi<Pe
   	return result;
   } 
   public void store() throws PersistenceException {
-  	java.util.Iterator<PersistentMAssociation> entries = (this.list == null ? new java.util.Vector<PersistentMAssociation>().iterator() : this.list.iterator(this));
+  	java.util.Iterator<PersistentAssociation> entries = (this.list == null ? new java.util.Vector<PersistentAssociation>().iterator() : this.list.iterator(this));
   	while (entries.hasNext()){
-  		PersistentMAssociation current = entries.next();
+  		PersistentAssociation current = entries.next();
   		current.store();
       	long entryId = ConnectionHandler.getTheConnectionHandler().theAssociationManagerFacade
                        .associationsAdd(owner.getId(), current);

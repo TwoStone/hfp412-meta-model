@@ -6,8 +6,9 @@ import model.visitor.*;
 
 public interface PersistentMessage extends PersistentMessageOrLink {
     
-    public PersistentMOperation getType() throws PersistenceException ;
-    public void setType(PersistentMOperation newValue) throws PersistenceException ;
+    public PersistentOperation getType() throws PersistenceException ;
+    public void setType(PersistentOperation newValue) throws PersistenceException ;
+    public Message_ActualParametersProxi getActualParameters() throws PersistenceException ;
     public PersistentMessage getThis() throws PersistenceException ;
     
     public void accept(MessageOrLinkVisitor visitor) throws PersistenceException;

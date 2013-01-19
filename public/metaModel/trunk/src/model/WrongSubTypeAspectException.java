@@ -29,7 +29,7 @@ public class WrongSubTypeAspectException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -134;
+        return -226;
     }
     
     public long getClassId() {

@@ -19,9 +19,15 @@ public class CreateHierarchyCommandProxi extends PersistentProxi implements Pers
     }
     
     public long getClassId() {
-        return 144;
+        return 119;
     }
     
+    public PersistentAssociation getA() throws PersistenceException {
+        return ((PersistentCreateHierarchyCommand)this.getTheObject()).getA();
+    }
+    public void setA(PersistentAssociation newValue) throws PersistenceException {
+        ((PersistentCreateHierarchyCommand)this.getTheObject()).setA(newValue);
+    }
     public String getName() throws PersistenceException {
         return ((PersistentCreateHierarchyCommand)this.getTheObject()).getName();
     }

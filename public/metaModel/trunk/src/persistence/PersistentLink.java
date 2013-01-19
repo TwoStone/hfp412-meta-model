@@ -6,8 +6,8 @@ import model.visitor.*;
 
 public interface PersistentLink extends PersistentMessageOrLink {
     
-    public PersistentMAssociation getType() throws PersistenceException ;
-    public void setType(PersistentMAssociation newValue) throws PersistenceException ;
+    public PersistentAssociation getType() throws PersistenceException ;
+    public void setType(PersistentAssociation newValue) throws PersistenceException ;
     public PersistentLink getThis() throws PersistenceException ;
     
     public void accept(MessageOrLinkVisitor visitor) throws PersistenceException;

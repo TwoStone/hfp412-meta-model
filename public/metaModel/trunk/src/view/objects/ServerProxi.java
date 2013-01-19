@@ -83,10 +83,31 @@ public class ServerProxi extends ViewProxi implements ServerView{
             associationManager = ViewProxi.createProxi(associationManager$Info,connectionKey);
             associationManager.setToString(associationManager$Info.getToString());
         }
+        ViewProxi operationManager = null;
+        String operationManager$String = (String)resultTable.get("operationManager");
+        if (operationManager$String != null) {
+            common.ProxiInformation operationManager$Info = common.RPCConstantsAndServices.createProxiInformation(operationManager$String);
+            operationManager = ViewProxi.createProxi(operationManager$Info,connectionKey);
+            operationManager.setToString(operationManager$Info.getToString());
+        }
+        ViewProxi messageManager = null;
+        String messageManager$String = (String)resultTable.get("messageManager");
+        if (messageManager$String != null) {
+            common.ProxiInformation messageManager$Info = common.RPCConstantsAndServices.createProxiInformation(messageManager$String);
+            messageManager = ViewProxi.createProxi(messageManager$Info,connectionKey);
+            messageManager.setToString(messageManager$Info.getToString());
+        }
+        ViewProxi linkManager = null;
+        String linkManager$String = (String)resultTable.get("linkManager");
+        if (linkManager$String != null) {
+            common.ProxiInformation linkManager$Info = common.RPCConstantsAndServices.createProxiInformation(linkManager$String);
+            linkManager = ViewProxi.createProxi(linkManager$Info,connectionKey);
+            linkManager.setToString(linkManager$Info.getToString());
+        }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server((AspectManagerView)aspectManager,(TypeManagerView)typeManager,(QuantityManagerView)quantityManager,(UnitTypeManagerView)unitTypeManager,(ConversionManagerView)conversionManager,(FractionManagerView)fractionManager,(MeasurementTypeManagerView)measurementTypeManager,(AccountTypeManagerView)accountTypeManager,(AccountManagerView)accountManager,(AssociationManagerView)associationManager,errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server((AspectManagerView)aspectManager,(TypeManagerView)typeManager,(QuantityManagerView)quantityManager,(UnitTypeManagerView)unitTypeManager,(ConversionManagerView)conversionManager,(FractionManagerView)fractionManager,(MeasurementTypeManagerView)measurementTypeManager,(AccountTypeManagerView)accountTypeManager,(AccountManagerView)accountManager,(AssociationManagerView)associationManager,(OperationManagerView)operationManager,(MessageManagerView)messageManager,(LinkManagerView)linkManager,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -116,6 +137,12 @@ public class ServerProxi extends ViewProxi implements ServerView{
         if(this.getAccountManager() != null) index = index - 1;
         if(index == 0 && this.getAssociationManager() != null) return new AssociationManagerServerWrapper(this, originalIndex, (ViewRoot)this.getAssociationManager());
         if(this.getAssociationManager() != null) index = index - 1;
+        if(index == 0 && this.getOperationManager() != null) return new OperationManagerServerWrapper(this, originalIndex, (ViewRoot)this.getOperationManager());
+        if(this.getOperationManager() != null) index = index - 1;
+        if(index == 0 && this.getMessageManager() != null) return new MessageManagerServerWrapper(this, originalIndex, (ViewRoot)this.getMessageManager());
+        if(this.getMessageManager() != null) index = index - 1;
+        if(index == 0 && this.getLinkManager() != null) return new LinkManagerServerWrapper(this, originalIndex, (ViewRoot)this.getLinkManager());
+        if(this.getLinkManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
@@ -129,7 +156,10 @@ public class ServerProxi extends ViewProxi implements ServerView{
             + (this.getMeasurementTypeManager() == null ? 0 : 1)
             + (this.getAccountTypeManager() == null ? 0 : 1)
             + (this.getAccountManager() == null ? 0 : 1)
-            + (this.getAssociationManager() == null ? 0 : 1);
+            + (this.getAssociationManager() == null ? 0 : 1)
+            + (this.getOperationManager() == null ? 0 : 1)
+            + (this.getMessageManager() == null ? 0 : 1)
+            + (this.getLinkManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
@@ -143,7 +173,10 @@ public class ServerProxi extends ViewProxi implements ServerView{
             && (this.getMeasurementTypeManager() == null ? true : false)
             && (this.getAccountTypeManager() == null ? true : false)
             && (this.getAccountManager() == null ? true : false)
-            && (this.getAssociationManager() == null ? true : false);
+            && (this.getAssociationManager() == null ? true : false)
+            && (this.getOperationManager() == null ? true : false)
+            && (this.getMessageManager() == null ? true : false)
+            && (this.getLinkManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -167,6 +200,12 @@ public class ServerProxi extends ViewProxi implements ServerView{
         if(this.getAccountManager() != null) result = result + 1;
         if(this.getAssociationManager() != null && this.getAssociationManager().equals(child)) return result;
         if(this.getAssociationManager() != null) result = result + 1;
+        if(this.getOperationManager() != null && this.getOperationManager().equals(child)) return result;
+        if(this.getOperationManager() != null) result = result + 1;
+        if(this.getMessageManager() != null && this.getMessageManager().equals(child)) return result;
+        if(this.getMessageManager() != null) result = result + 1;
+        if(this.getLinkManager() != null && this.getLinkManager().equals(child)) return result;
+        if(this.getLinkManager() != null) result = result + 1;
         return -1;
     }
     
@@ -199,6 +238,15 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     public AssociationManagerView getAssociationManager() throws ModelException {
         return ((Server)this.getTheObject()).getAssociationManager();
+    }
+    public OperationManagerView getOperationManager() throws ModelException {
+        return ((Server)this.getTheObject()).getOperationManager();
+    }
+    public MessageManagerView getMessageManager() throws ModelException {
+        return ((Server)this.getTheObject()).getMessageManager();
+    }
+    public LinkManagerView getLinkManager() throws ModelException {
+        return ((Server)this.getTheObject()).getLinkManager();
     }
     public java.util.Vector<ErrorDisplayView> getErrors() throws ModelException {
         return ((Server)this.getTheObject()).getErrors();

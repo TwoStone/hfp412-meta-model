@@ -19,7 +19,7 @@ public class AddSubTypeCommandProxi extends PersistentProxi implements Persisten
     }
     
     public long getClassId() {
-        return 133;
+        return 195;
     }
     
     public PersistentMAtomicType getSuperType() throws PersistenceException {

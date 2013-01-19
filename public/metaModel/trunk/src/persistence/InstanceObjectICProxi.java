@@ -19,7 +19,7 @@ public class InstanceObjectICProxi extends PersistentInCacheProxiOptimistic impl
     }
     
     public long getClassId() {
-        return 203;
+        return 130;
     }
     
     public PersistentMAtomicType getType() throws PersistenceException {

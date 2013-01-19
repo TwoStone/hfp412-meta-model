@@ -6,6 +6,8 @@ import model.visitor.*;
 
 public interface PersistentCreateHierarchyCommand extends AssociationManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
     
+    public PersistentAssociation getA() throws PersistenceException ;
+    public void setA(PersistentAssociation newValue) throws PersistenceException ;
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;

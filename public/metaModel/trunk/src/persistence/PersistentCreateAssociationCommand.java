@@ -6,12 +6,12 @@ import model.visitor.*;
 
 public interface PersistentCreateAssociationCommand extends AssociationManagerCommand, Anything, PersistentCommonDate, AbstractPersistentProxi {
     
-    public String getName() throws PersistenceException ;
-    public void setName(String newValue) throws PersistenceException ;
     public PersistentMType getSource() throws PersistenceException ;
     public void setSource(PersistentMType newValue) throws PersistenceException ;
     public PersistentMType getTarget() throws PersistenceException ;
     public void setTarget(PersistentMType newValue) throws PersistenceException ;
+    public String getName() throws PersistenceException ;
+    public void setName(String newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
     public PersistentAssociationManager getCommandReceiver() throws PersistenceException ;

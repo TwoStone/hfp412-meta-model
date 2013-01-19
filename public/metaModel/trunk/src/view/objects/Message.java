@@ -9,27 +9,35 @@ import view.visitor.*;
 
 public class Message extends view.objects.MessageOrLink implements MessageView{
     
-    protected MOperationView type;
+    protected OperationView type;
+    protected java.util.Vector<ActualParameterView> actualParameters;
     
-    public Message(InstanceObjectView source,InstanceObjectView target,MOperationView type,long id, long classId) {
+    public Message(InstanceObjectView source,InstanceObjectView target,OperationView type,java.util.Vector<ActualParameterView> actualParameters,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((InstanceObjectView)source,(InstanceObjectView)target,id, classId);
-        this.type = type;        
+        this.type = type;
+        this.actualParameters = actualParameters;        
     }
     
     static public long getTypeId() {
-        return 205;
+        return 133;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
-    public MOperationView getType() throws ModelException {
+    public OperationView getType() throws ModelException {
         return this.type;
     }
-    public void setType(MOperationView newValue) throws ModelException {
+    public void setType(OperationView newValue) throws ModelException {
         this.type = newValue;
+    }
+    public java.util.Vector<ActualParameterView> getActualParameters() throws ModelException {
+        return this.actualParameters;
+    }
+    public void setActualParameters(java.util.Vector<ActualParameterView> newValue) throws ModelException {
+        this.actualParameters = newValue;
     }
     
     public void accept(MessageOrLinkVisitor visitor) throws ModelException {
@@ -66,9 +74,13 @@ public class Message extends view.objects.MessageOrLink implements MessageView{
         if (target != null) {
             ((ViewProxi)target).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(target.getClassId(), target.getId())));
         }
-        MOperationView type = this.getType();
+        OperationView type = this.getType();
         if (type != null) {
             ((ViewProxi)type).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(type.getClassId(), type.getId())));
+        }
+        java.util.Vector<?> actualParameters = this.getActualParameters();
+        if (actualParameters != null) {
+            ViewObject.resolveVectorProxies(actualParameters, resultTable);
         }
         
     }
@@ -83,19 +95,23 @@ public class Message extends view.objects.MessageOrLink implements MessageView{
         if(this.getTarget() != null) index = index - 1;
         if(index == 0 && this.getType() != null) return new TypeMessageWrapper(this, originalIndex, (ViewRoot)this.getType());
         if(this.getType() != null) index = index - 1;
+        if(index < this.getActualParameters().size()) return new ActualParametersMessageWrapper(this, originalIndex, (ViewRoot)this.getActualParameters().get(index));
+        index = index - this.getActualParameters().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getSource() == null ? 0 : 1)
             + (this.getTarget() == null ? 0 : 1)
-            + (this.getType() == null ? 0 : 1);
+            + (this.getType() == null ? 0 : 1)
+            + (this.getActualParameters().size());
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getSource() == null ? true : false)
             && (this.getTarget() == null ? true : false)
-            && (this.getType() == null ? true : false);
+            && (this.getType() == null ? true : false)
+            && (this.getActualParameters().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -105,6 +121,11 @@ public class Message extends view.objects.MessageOrLink implements MessageView{
         if(this.getTarget() != null) result = result + 1;
         if(this.getType() != null && this.getType().equals(child)) return result;
         if(this.getType() != null) result = result + 1;
+        java.util.Iterator<?> getActualParametersIterator = this.getActualParameters().iterator();
+        while(getActualParametersIterator.hasNext()){
+            if(getActualParametersIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     public int getRowCount(){

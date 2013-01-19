@@ -25,25 +25,25 @@ public class CreateAspectCommandFacade{
 	}
 
     public CreateAspectCommandProxi newCreateAspectCommand(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateAspectCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 139);
+        if(createMinusStorePlus > 0) return (CreateAspectCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 105);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.getNextId();
         CreateAspectCommand result = new CreateAspectCommand(name,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateAspectCommandProxi)PersistentProxi.createProxi(id, 139);
+        return (CreateAspectCommandProxi)PersistentProxi.createProxi(id, 105);
     }
     
     public CreateAspectCommandProxi newDelayedCreateAspectCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade.getNextId();
         CreateAspectCommand result = new CreateAspectCommand(name,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateAspectCommandProxi)PersistentProxi.createProxi(id, 139);
+        return (CreateAspectCommandProxi)PersistentProxi.createProxi(id, 105);
     }
     
     public CreateAspectCommand getCreateAspectCommand(long CreateAspectCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 139)) return 139;
+        if(Cache.getTheCache().contains(objectId, 105)) return 105;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

@@ -19,13 +19,13 @@ public class LinkProxi extends MessageOrLinkProxi implements PersistentLink{
     }
     
     public long getClassId() {
-        return 207;
+        return 139;
     }
     
-    public PersistentMAssociation getType() throws PersistenceException {
+    public PersistentAssociation getType() throws PersistenceException {
         return ((PersistentLink)this.getTheObject()).getType();
     }
-    public void setType(PersistentMAssociation newValue) throws PersistenceException {
+    public void setType(PersistentAssociation newValue) throws PersistenceException {
         ((PersistentLink)this.getTheObject()).setType(newValue);
     }
     public PersistentLink getThis() throws PersistenceException {

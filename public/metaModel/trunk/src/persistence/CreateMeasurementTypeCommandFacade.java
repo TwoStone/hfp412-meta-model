@@ -25,25 +25,25 @@ public class CreateMeasurementTypeCommandFacade{
 	}
 
     public CreateMeasurementTypeCommandProxi newCreateMeasurementTypeCommand(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateMeasurementTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 216);
+        if(createMinusStorePlus > 0) return (CreateMeasurementTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 124);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateMeasurementTypeCommandFacade.getNextId();
         CreateMeasurementTypeCommand result = new CreateMeasurementTypeCommand(name,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateMeasurementTypeCommandProxi)PersistentProxi.createProxi(id, 216);
+        return (CreateMeasurementTypeCommandProxi)PersistentProxi.createProxi(id, 124);
     }
     
     public CreateMeasurementTypeCommandProxi newDelayedCreateMeasurementTypeCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateMeasurementTypeCommandFacade.getNextId();
         CreateMeasurementTypeCommand result = new CreateMeasurementTypeCommand(name,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateMeasurementTypeCommandProxi)PersistentProxi.createProxi(id, 216);
+        return (CreateMeasurementTypeCommandProxi)PersistentProxi.createProxi(id, 124);
     }
     
     public CreateMeasurementTypeCommand getCreateMeasurementTypeCommand(long CreateMeasurementTypeCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 216)) return 216;
+        if(Cache.getTheCache().contains(objectId, 124)) return 124;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

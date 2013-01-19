@@ -9,10 +9,10 @@ import view.visitor.*;
 
 public class AssociationManager extends ViewObject implements AssociationManagerView{
     
-    protected java.util.Vector<MAssociationView> associations;
-    protected java.util.Vector<MAHierarchyView> hierarchies;
+    protected java.util.Vector<AssociationView> associations;
+    protected java.util.Vector<HierarchyView> hierarchies;
     
-    public AssociationManager(java.util.Vector<MAssociationView> associations,java.util.Vector<MAHierarchyView> hierarchies,long id, long classId) {
+    public AssociationManager(java.util.Vector<AssociationView> associations,java.util.Vector<HierarchyView> hierarchies,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.associations = associations;
@@ -20,23 +20,23 @@ public class AssociationManager extends ViewObject implements AssociationManager
     }
     
     static public long getTypeId() {
-        return 141;
+        return 152;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
-    public java.util.Vector<MAssociationView> getAssociations() throws ModelException {
+    public java.util.Vector<AssociationView> getAssociations() throws ModelException {
         return this.associations;
     }
-    public void setAssociations(java.util.Vector<MAssociationView> newValue) throws ModelException {
+    public void setAssociations(java.util.Vector<AssociationView> newValue) throws ModelException {
         this.associations = newValue;
     }
-    public java.util.Vector<MAHierarchyView> getHierarchies() throws ModelException {
+    public java.util.Vector<HierarchyView> getHierarchies() throws ModelException {
         return this.hierarchies;
     }
-    public void setHierarchies(java.util.Vector<MAHierarchyView> newValue) throws ModelException {
+    public void setHierarchies(java.util.Vector<HierarchyView> newValue) throws ModelException {
         this.hierarchies = newValue;
     }
     

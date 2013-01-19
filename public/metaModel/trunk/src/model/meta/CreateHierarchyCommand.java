@@ -38,6 +38,7 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected PersistentAssociation a;
     protected String name;
     protected Invoker invoker;
     protected PersistentAssociationManager commandReceiver;
@@ -45,9 +46,10 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     
     private model.UserException commandException = null;
     
-    public CreateHierarchyCommand(String name,Invoker invoker,PersistentAssociationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateHierarchyCommand(PersistentAssociation a,String name,Invoker invoker,PersistentAssociationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.a = a;
         this.name = name;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
@@ -55,7 +57,7 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 144;
+        return 119;
     }
     
     public long getClassId() {
@@ -64,9 +66,13 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 144) ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade
+        if (this.getClassId() == 119) ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade
             .newCreateHierarchyCommand(name,this.getId());
         super.store();
+        if(this.getA() != null){
+            this.getA().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade.aSet(this.getId(), getA());
+        }
         if(this.getInvoker() != null){
             this.getInvoker().store();
             ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade.invokerSet(this.getId(), getInvoker());
@@ -82,6 +88,20 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
         
     }
     
+    public PersistentAssociation getA() throws PersistenceException {
+        return this.a;
+    }
+    public void setA(PersistentAssociation newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.a)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.a = (PersistentAssociation)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade.aSet(this.getId(), newValue);
+        }
+    }
     public String getName() throws PersistenceException {
         return this.name;
     }
@@ -199,6 +219,7 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
+            + (this.getA() == null ? 0 : 1)
             + (this.getCommandReceiver() == null ? 0 : 1));
     }
     
@@ -206,7 +227,7 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createHierarchy(this.getName());
+			this.getCommandReceiver().createHierarchy(this.getA(), this.getName());
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;

@@ -1,6 +1,9 @@
 package model;
 
+import java.util.Iterator;
+
 import model.visitor.MBooleanReturnVisitor;
+import model.visitor.MBooleanVisitor;
 import persistence.Anything;
 import persistence.PersistenceException;
 import persistence.PersistentAccount;
@@ -8,34 +11,37 @@ import persistence.PersistentAccountManager;
 import persistence.PersistentAccountTypeManager;
 import persistence.PersistentActualParameter;
 import persistence.PersistentAspectManager;
+import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
 import persistence.PersistentCompUnit;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentConversion;
 import persistence.PersistentConversionManager;
+import persistence.PersistentFormalParameter;
 import persistence.PersistentFractionManager;
 import persistence.PersistentFunction;
+import persistence.PersistentHierarchy;
 import persistence.PersistentInstanceObject;
 import persistence.PersistentLink;
-import persistence.PersistentMAHierarchy;
+import persistence.PersistentLinkManager;
 import persistence.PersistentMAbstractProductType;
 import persistence.PersistentMAccountType;
 import persistence.PersistentMAspect;
-import persistence.PersistentMAssociation;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMEmptyProduct;
 import persistence.PersistentMEmptySumType;
 import persistence.PersistentMFalse;
-import persistence.PersistentMFormalParameter;
 import persistence.PersistentMMeasurementType;
-import persistence.PersistentMOperation;
 import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
 import persistence.PersistentMTrue;
 import persistence.PersistentMeasurement;
 import persistence.PersistentMeasurementTypeManager;
 import persistence.PersistentMessage;
+import persistence.PersistentMessageManager;
+import persistence.PersistentOperation;
+import persistence.PersistentOperationManager;
 import persistence.PersistentQuantity;
 import persistence.PersistentQuantityManager;
 import persistence.PersistentReference;
@@ -153,13 +159,13 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException {
-		result = mAHierarchy.getName();
+	public void handleHierarchy(PersistentHierarchy hierarchy) throws PersistenceException {
+		result = hierarchy.getName();
 	}
 
 	@Override
-	public void handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException {
-		result = mAssociation.getName() + " (" + mAssociation.getSource().fetchName() + ")";
+	public void handleAssociation(PersistentAssociation association) throws PersistenceException {
+		result = association.getName() + " (" + association.getSource().fetchName() + ")";
 	}
 
 	@Override
@@ -290,9 +296,8 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleMOperation(PersistentMOperation mOperation) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+	public void handleOperation(PersistentOperation operation) throws PersistenceException {
+		result = operation.getName();
 	}
 
 	@Override
@@ -308,9 +313,8 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleMFormalParameter(PersistentMFormalParameter mFormalParameter) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+	public void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException {
+		result = formalParameter.getName();
 	}
 
 	@Override
@@ -321,20 +325,44 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleMessage(PersistentMessage message) throws PersistenceException {
-		// TODO Auto-generated method stub
+		final PersistentMessage internalMessage = message;
 
+		message.getType().isStatic().accept(new MBooleanVisitor() {
+
+			@Override
+			public void handleMTrue(PersistentMTrue mTrue) throws PersistenceException {
+				result = "";
+			}
+
+			@Override
+			public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException {
+				result = internalMessage.getSource().toString();
+			}
+		});
+		result += "#" + message.getTarget().toString() + " " + message.getType().toString() + "(";
+
+		Iterator<PersistentActualParameter> it = message.getActualParameters().iterator();
+
+		// Sonderbehandlung fuer den Ersten
+		if (it.hasNext()) {
+			result += it.next();
+		}
+
+		while (it.hasNext()) {
+			result += ", " + it.next().toString();
+		}
+
+		result += ")";
 	}
 
 	@Override
 	public void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		result = actualParameter.getType().toString() + "=" + actualParameter.getValue().toString();
 	}
 
 	@Override
 	public void handleLink(PersistentLink link) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		result = link.getSource().toString() + "." + link.getType().getName() + ">>" + link.getTarget().toString();
 	}
 
 	@Override
@@ -351,5 +379,20 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_ACCOUNT_MANAGER;
+	}
+
+	@Override
+	public void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException {
+		result = "Liste der Nachrichten";
+	}
+
+	@Override
+	public void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException {
+		result = "Liste der Operationen";
+	}
+
+	@Override
+	public void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException {
+		result = "Liste der Links";
 	}
 }

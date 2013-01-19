@@ -5,15 +5,17 @@ import persistence.*;
 
 public abstract class ToString$Visitor extends AnythingStandardVisitor{
     
+    public abstract void handleOperation(PersistentOperation operation) throws PersistenceException;
     public abstract void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     public abstract void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
     public abstract void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException;
-    public abstract void handleMAHierarchy(PersistentMAHierarchy mAHierarchy) throws PersistenceException;
+    public abstract void handleHierarchy(PersistentHierarchy hierarchy) throws PersistenceException;
     public abstract void handleMAccountType(PersistentMAccountType mAccountType) throws PersistenceException;
     public abstract void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException;
-    public abstract void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException;
+    public abstract void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException;
     public abstract void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException;
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
+    public abstract void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException;
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
     public abstract void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException;
     public abstract void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
@@ -22,18 +24,19 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException;
     public abstract void handleMProductType(PersistentMProductType mProductType) throws PersistenceException;
     public abstract void handleMeasurement(PersistentMeasurement measurement) throws PersistenceException;
+    public abstract void handleAssociation(PersistentAssociation association) throws PersistenceException;
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
-    public abstract void handleMOperation(PersistentMOperation mOperation) throws PersistenceException;
+    public abstract void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException;
     public abstract void handleAccount(PersistentAccount account) throws PersistenceException;
+    public abstract void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException;
+    public abstract void handleUnit(PersistentUnit unit) throws PersistenceException;
     public abstract void handleMFalse(PersistentMFalse mFalse) throws PersistenceException;
     public abstract void handleUnitType(PersistentUnitType unitType) throws PersistenceException;
-    public abstract void handleUnit(PersistentUnit unit) throws PersistenceException;
-    public abstract void handleMMeasurementType(PersistentMMeasurementType mMeasurementType) throws PersistenceException;
     public abstract void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException;
+    public abstract void handleMMeasurementType(PersistentMMeasurementType mMeasurementType) throws PersistenceException;
     public abstract void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException;
     public abstract void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
-    public abstract void handleMFormalParameter(PersistentMFormalParameter mFormalParameter) throws PersistenceException;
-    public abstract void handleMAssociation(PersistentMAssociation mAssociation) throws PersistenceException;
+    public abstract void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;
     public abstract void handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException;
     public abstract void handleMTrue(PersistentMTrue mTrue) throws PersistenceException;
     public abstract void handleQuantity(PersistentQuantity quantity) throws PersistenceException;

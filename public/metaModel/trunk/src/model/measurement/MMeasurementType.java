@@ -81,7 +81,7 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     }
     
     static public long getTypeId() {
-        return 199;
+        return 125;
     }
     
     public long getClassId() {
@@ -90,7 +90,7 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 199) ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
+        if (this.getClassId() == 125) ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
             .newMMeasurementType(this.getId());
         super.store();
         

@@ -1,6 +1,6 @@
 package persistence;
 
-import model.*;
+import model.abstractOperation.*;
 
 public class AssociationManagerFacade{
 
@@ -28,35 +28,35 @@ public class AssociationManagerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theAssociationManagerFacade.getNextId();
         AssociationManager result = new AssociationManager(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (AssociationManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 141);
+        return (AssociationManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 152);
     }
     
     public AssociationManager getAssociationManager(long AssociationManagerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 141)) return 141;
+        if(Cache.getTheCache().contains(objectId, 152)) return 152;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
     }
-    public long associationsAdd(long AssociationManagerId, PersistentMAssociation associationsVal) throws PersistenceException {
+    public long associationsAdd(long AssociationManagerId, PersistentAssociation associationsVal) throws PersistenceException {
         return 0;
     }
     public void associationsRem(long associationsId) throws PersistenceException {
         
     }
-    public MAssociationList associationsGet(long AssociationManagerId) throws PersistenceException {
-        return new MAssociationList(); // remote access for initialization only!
+    public AssociationList associationsGet(long AssociationManagerId) throws PersistenceException {
+        return new AssociationList(); // remote access for initialization only!
     }
-    public long hierarchiesAdd(long AssociationManagerId, PersistentMAHierarchy hierarchiesVal) throws PersistenceException {
+    public long hierarchiesAdd(long AssociationManagerId, PersistentHierarchy hierarchiesVal) throws PersistenceException {
         return 0;
     }
     public void hierarchiesRem(long hierarchiesId) throws PersistenceException {
         
     }
-    public MAHierarchyList hierarchiesGet(long AssociationManagerId) throws PersistenceException {
-        return new MAHierarchyList(); // remote access for initialization only!
+    public HierarchyList hierarchiesGet(long AssociationManagerId) throws PersistenceException {
+        return new HierarchyList(); // remote access for initialization only!
     }
     public void ThisSet(long AssociationManagerId, PersistentAssociationManager ThisVal) throws PersistenceException {
         

@@ -14,9 +14,9 @@ public class AssociationManagerProxi extends ViewProxi implements AssociationMan
     @SuppressWarnings("unchecked")
     public AssociationManagerView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> associations_string = (java.util.Vector<String>)resultTable.get("associations");
-        java.util.Vector<MAssociationView> associations = ViewProxi.getProxiVector(associations_string, connectionKey);
+        java.util.Vector<AssociationView> associations = ViewProxi.getProxiVector(associations_string, connectionKey);
         java.util.Vector<String> hierarchies_string = (java.util.Vector<String>)resultTable.get("hierarchies");
-        java.util.Vector<MAHierarchyView> hierarchies = ViewProxi.getProxiVector(hierarchies_string, connectionKey);
+        java.util.Vector<HierarchyView> hierarchies = ViewProxi.getProxiVector(hierarchies_string, connectionKey);
         AssociationManagerView result$$ = new AssociationManager(associations,hierarchies, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
@@ -59,16 +59,16 @@ public class AssociationManagerProxi extends ViewProxi implements AssociationMan
         return -1;
     }
     
-    public java.util.Vector<MAssociationView> getAssociations() throws ModelException {
+    public java.util.Vector<AssociationView> getAssociations() throws ModelException {
         return ((AssociationManager)this.getTheObject()).getAssociations();
     }
-    public void setAssociations(java.util.Vector<MAssociationView> newValue) throws ModelException {
+    public void setAssociations(java.util.Vector<AssociationView> newValue) throws ModelException {
         ((AssociationManager)this.getTheObject()).setAssociations(newValue);
     }
-    public java.util.Vector<MAHierarchyView> getHierarchies() throws ModelException {
+    public java.util.Vector<HierarchyView> getHierarchies() throws ModelException {
         return ((AssociationManager)this.getTheObject()).getHierarchies();
     }
-    public void setHierarchies(java.util.Vector<MAHierarchyView> newValue) throws ModelException {
+    public void setHierarchies(java.util.Vector<HierarchyView> newValue) throws ModelException {
         ((AssociationManager)this.getTheObject()).setHierarchies(newValue);
     }
     

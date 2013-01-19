@@ -26,7 +26,7 @@ public class ActualParameterProxi extends ViewProxi implements ActualParameterVi
             value = ViewProxi.createProxi(value$Info,connectionKey);
             value.setToString(value$Info.getToString());
         }
-        ActualParameterView result$$ = new ActualParameter((MFormalParameterView)type,(InstanceObjectView)value, this.getId(), this.getClassId());
+        ActualParameterView result$$ = new ActualParameter((FormalParameterView)type,(InstanceObjectView)value, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -62,10 +62,10 @@ public class ActualParameterProxi extends ViewProxi implements ActualParameterVi
         return -1;
     }
     
-    public MFormalParameterView getType() throws ModelException {
+    public FormalParameterView getType() throws ModelException {
         return ((ActualParameter)this.getTheObject()).getType();
     }
-    public void setType(MFormalParameterView newValue) throws ModelException {
+    public void setType(FormalParameterView newValue) throws ModelException {
         ((ActualParameter)this.getTheObject()).setType(newValue);
     }
     public InstanceObjectView getValue() throws ModelException {

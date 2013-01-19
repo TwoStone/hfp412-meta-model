@@ -9,10 +9,10 @@ import view.visitor.*;
 
 public class ActualParameter extends ViewObject implements ActualParameterView{
     
-    protected MFormalParameterView type;
+    protected FormalParameterView type;
     protected InstanceObjectView value;
     
-    public ActualParameter(MFormalParameterView type,InstanceObjectView value,long id, long classId) {
+    public ActualParameter(FormalParameterView type,InstanceObjectView value,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.type = type;
@@ -20,17 +20,17 @@ public class ActualParameter extends ViewObject implements ActualParameterView{
     }
     
     static public long getTypeId() {
-        return 206;
+        return 194;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
-    public MFormalParameterView getType() throws ModelException {
+    public FormalParameterView getType() throws ModelException {
         return this.type;
     }
-    public void setType(MFormalParameterView newValue) throws ModelException {
+    public void setType(FormalParameterView newValue) throws ModelException {
         this.type = newValue;
     }
     public InstanceObjectView getValue() throws ModelException {
@@ -54,7 +54,7 @@ public class ActualParameter extends ViewObject implements ActualParameterView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        MFormalParameterView type = this.getType();
+        FormalParameterView type = this.getType();
         if (type != null) {
             ((ViewProxi)type).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(type.getClassId(), type.getId())));
         }

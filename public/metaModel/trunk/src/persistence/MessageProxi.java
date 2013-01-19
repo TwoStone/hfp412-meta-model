@@ -19,14 +19,17 @@ public class MessageProxi extends MessageOrLinkProxi implements PersistentMessag
     }
     
     public long getClassId() {
-        return 205;
+        return 133;
     }
     
-    public PersistentMOperation getType() throws PersistenceException {
+    public PersistentOperation getType() throws PersistenceException {
         return ((PersistentMessage)this.getTheObject()).getType();
     }
-    public void setType(PersistentMOperation newValue) throws PersistenceException {
+    public void setType(PersistentOperation newValue) throws PersistenceException {
         ((PersistentMessage)this.getTheObject()).setType(newValue);
+    }
+    public Message_ActualParametersProxi getActualParameters() throws PersistenceException {
+        return ((PersistentMessage)this.getTheObject()).getActualParameters();
     }
     public PersistentMessage getThis() throws PersistenceException {
         return ((PersistentMessage)this.getTheObject()).getThis();

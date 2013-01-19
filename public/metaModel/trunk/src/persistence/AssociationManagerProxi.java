@@ -19,7 +19,7 @@ public class AssociationManagerProxi extends PersistentProxi implements Persiste
     }
     
     public long getClassId() {
-        return 141;
+        return 152;
     }
     
     public AssociationManager_AssociationsProxi getAssociations() throws PersistenceException {
@@ -46,45 +46,61 @@ public class AssociationManagerProxi extends PersistentProxi implements Persiste
     }
     
     
-    public void addToHierarchy(final PersistentMAssociation association, final PersistentMAHierarchy theHierarchy) 
-				throws PersistenceException{
-        ((PersistentAssociationManager)this.getTheObject()).addToHierarchy(association, theHierarchy);
-    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentAssociationManager)this.getTheObject()).initializeOnInstantiation();
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        ((PersistentAssociationManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    public void createAssociation(final PersistentMType source, final PersistentMType target, final String name) 
+				throws model.DoubleDefinitionException, PersistenceException{
+        ((PersistentAssociationManager)this.getTheObject()).createAssociation(source, target, name);
     }
-    public void createHierarchy(final String name, final Invoker invoker) 
+    public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a, final Invoker invoker) 
 				throws PersistenceException{
-        ((PersistentAssociationManager)this.getTheObject()).createHierarchy(name, invoker);
+        ((PersistentAssociationManager)this.getTheObject()).addAssociation(h, a, invoker);
     }
-    public void addToHierarchy(final PersistentMAssociation association, final PersistentMAHierarchy theHierarchy, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentAssociationManager)this.getTheObject()).addToHierarchy(association, theHierarchy, invoker);
+    public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
+				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+        ((PersistentAssociationManager)this.getTheObject()).addAssociation(h, a);
     }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        ((PersistentAssociationManager)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public void createAssociation(final String name, final PersistentMType source, final PersistentMType target, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentAssociationManager)this.getTheObject()).createAssociation(name, source, target, invoker);
+    public void removeAssoFrmHier(final PersistentHierarchy h, final PersistentAssociation a) 
+				throws model.NotAvailableException, model.CycleException, PersistenceException{
+        ((PersistentAssociationManager)this.getTheObject()).removeAssoFrmHier(h, a);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentAssociationManager)this.getTheObject()).initializeOnCreation();
     }
-    public void createAssociation(final String name, final PersistentMType source, final PersistentMType target) 
-				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentAssociationManager)this.getTheObject()).createAssociation(name, source, target);
+    public void removeAssoFrmHier(final PersistentHierarchy h, final PersistentAssociation a, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentAssociationManager)this.getTheObject()).removeAssoFrmHier(h, a, invoker);
     }
-    public void createHierarchy(final String name) 
+    public void removeAssociation(final PersistentAssociation a) 
+				throws model.ConsistencyException, model.CycleException, PersistenceException{
+        ((PersistentAssociationManager)this.getTheObject()).removeAssociation(a);
+    }
+    public void createAssociation(final PersistentMType source, final PersistentMType target, final String name, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentAssociationManager)this.getTheObject()).createAssociation(source, target, name, invoker);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        ((PersistentAssociationManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void createHierarchy(final PersistentAssociation a, final String name, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentAssociationManager)this.getTheObject()).createHierarchy(a, name, invoker);
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        ((PersistentAssociationManager)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void removeAssociation(final PersistentAssociation a, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentAssociationManager)this.getTheObject()).removeAssociation(a, invoker);
+    }
+    public void createHierarchy(final PersistentAssociation a, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        ((PersistentAssociationManager)this.getTheObject()).createHierarchy(name);
+        ((PersistentAssociationManager)this.getTheObject()).createHierarchy(a, name);
     }
 
     

@@ -4,8 +4,10 @@ import view.visitor.*;
 
 public interface MessageView extends MessageOrLinkView {
     
-    public MOperationView getType() throws ModelException ;
-    public void setType(MOperationView newValue) throws ModelException ;
+    public OperationView getType() throws ModelException ;
+    public void setType(OperationView newValue) throws ModelException ;
+    public java.util.Vector<ActualParameterView> getActualParameters() throws ModelException ;
+    public void setActualParameters(java.util.Vector<ActualParameterView> newValue) throws ModelException ;
     
     public void accept(MessageOrLinkVisitor visitor) throws ModelException;
     public <R> R accept(MessageOrLinkReturnVisitor<R>  visitor) throws ModelException;

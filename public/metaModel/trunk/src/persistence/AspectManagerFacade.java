@@ -28,14 +28,14 @@ public class AspectManagerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theAspectManagerFacade.getNextId();
         AspectManager result = new AspectManager(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (AspectManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 126);
+        return (AspectManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 136);
     }
     
     public AspectManager getAspectManager(long AspectManagerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 126)) return 126;
+        if(Cache.getTheCache().contains(objectId, 136)) return 136;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

@@ -25,12 +25,12 @@ public class MTypeFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 190)) return 190;
-        if(Cache.getTheCache().contains(objectId, 103)) return 103;
-        if(Cache.getTheCache().contains(objectId, 186)) return 186;
-        if(Cache.getTheCache().contains(objectId, 101)) return 101;
-        if(Cache.getTheCache().contains(objectId, 192)) return 192;
-        if(Cache.getTheCache().contains(objectId, 102)) return 102;
+        if(Cache.getTheCache().contains(objectId, 185)) return 185;
+        if(Cache.getTheCache().contains(objectId, 142)) return 142;
+        if(Cache.getTheCache().contains(objectId, 107)) return 107;
+        if(Cache.getTheCache().contains(objectId, 114)) return 114;
+        if(Cache.getTheCache().contains(objectId, 134)) return 134;
+        if(Cache.getTheCache().contains(objectId, 112)) return 112;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
