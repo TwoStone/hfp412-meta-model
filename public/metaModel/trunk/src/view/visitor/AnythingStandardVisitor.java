@@ -104,6 +104,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleLinkManager(LinkManagerView linkManager) throws ModelException{
         this.standardHandling(linkManager);
     }
+    public void handleMObject(MObjectView mObject) throws ModelException{
+        this.standardHandling(mObject);
+    }
     public void handleInstanceObject(InstanceObjectView instanceObject) throws ModelException{
         this.standardHandling(instanceObject);
     }
@@ -142,6 +145,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCompUnit(CompUnitView compUnit) throws ModelException{
         this.standardHandling(compUnit);
+    }
+    public void handleObjectManager(ObjectManagerView objectManager) throws ModelException{
+        this.standardHandling(objectManager);
     }
     protected abstract void standardHandling(Anything anything) throws ModelException;
 }

@@ -33,6 +33,7 @@ import persistence.PersistentMEmptyProduct;
 import persistence.PersistentMEmptySumType;
 import persistence.PersistentMFalse;
 import persistence.PersistentMMeasurementType;
+import persistence.PersistentMObject;
 import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
 import persistence.PersistentMTrue;
@@ -40,6 +41,7 @@ import persistence.PersistentMeasurement;
 import persistence.PersistentMeasurementTypeManager;
 import persistence.PersistentMessage;
 import persistence.PersistentMessageManager;
+import persistence.PersistentObjectManager;
 import persistence.PersistentOperation;
 import persistence.PersistentOperationManager;
 import persistence.PersistentQuantity;
@@ -394,5 +396,17 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException {
 		result = "Liste der Links";
+	}
+
+	@Override
+	public void handleMObject(PersistentMObject mObject) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException {
+		// TODO Auto-generated method stub
+
 	}
 }

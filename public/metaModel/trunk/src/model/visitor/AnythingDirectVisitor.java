@@ -55,11 +55,13 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMAccountType(PersistentMAccountType mAccountType) throws PersistenceException{
         this.handleMQuantiObjectType(mAccountType);
     }
-    public abstract void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
-    
     public abstract void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     
+    public abstract void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
+    
     public abstract void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;
+    
+    public abstract void handleMObject(PersistentMObject mObject) throws PersistenceException;
     
     public abstract void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     
@@ -68,6 +70,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException{
         this.handleCommonDate(removeLinkCommand);
+    }
+    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
+        this.handleCommonDate(createMObjectCommand);
     }
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException{
         this.handleCommonDate(createHierarchyCommand);
@@ -99,11 +104,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateLinkCommand(PersistentCreateLinkCommand createLinkCommand) throws PersistenceException{
         this.handleCommonDate(createLinkCommand);
     }
-    public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
-        this.handleCommonDate(createAspectCommand);
-    }
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.handleCommonDate(createUnitCommand);
+    }
+    public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
+        this.handleCommonDate(createAspectCommand);
     }
     public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
         this.handleCommonDate(createCompUnitCommand);
@@ -117,11 +122,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.handleCommonDate(createQuantityCommand);
     }
-    public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException{
-        this.handleCommonDate(removeFpCommand);
-    }
     public void handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException{
         this.handleCommonDate(removeAssociationCommand);
+    }
+    public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException{
+        this.handleCommonDate(removeFpCommand);
     }
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
         this.handleCommonDate(createAtomicRootTypeCommand);
@@ -258,6 +263,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handleReference(PersistentReference reference) throws PersistenceException;
     
     public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
+    
+    public abstract void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException;
     
     
 }

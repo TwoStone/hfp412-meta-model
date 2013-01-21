@@ -51,6 +51,8 @@ public interface PersistentMAtomicType extends MAtomicTypeHierarchyHIERARCHY, Pe
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
+    public PersistentMBoolean hasConcreteSubType() 
+				throws PersistenceException;
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException;
 

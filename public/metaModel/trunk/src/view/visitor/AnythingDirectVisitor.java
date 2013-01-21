@@ -59,6 +59,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleLinkManager(LinkManagerView linkManager) throws ModelException;
     
+    public abstract void handleMObject(MObjectView mObject) throws ModelException;
+    
     public abstract void handleMessageOrLink(MessageOrLinkView messageOrLink) throws ModelException;
     
     public void handleLink(LinkView link) throws ModelException{
@@ -135,6 +137,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handleReference(ReferenceView reference) throws ModelException;
     
     public abstract void handleConversion(ConversionView conversion) throws ModelException;
+    
+    public abstract void handleObjectManager(ObjectManagerView objectManager) throws ModelException;
     
     
 }

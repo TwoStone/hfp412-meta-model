@@ -294,6 +294,7 @@ public class Cache {
 		this.number2NameMap.put(247, "CreateFpCommand");
 		this.number2NameMap.put(144, "CreateHierarchyCommand");
 		this.number2NameMap.put(234, "CreateLinkCommand");
+		this.number2NameMap.put(252, "CreateMObjectCommand");
 		this.number2NameMap.put(216, "CreateMeasurementTypeCommand");
 		this.number2NameMap.put(230, "CreateMessageCommand");
 		this.number2NameMap.put(243, "CreateOperationCommand");
@@ -323,6 +324,7 @@ public class Cache {
 		this.number2NameMap.put(190, "MEmptySumType");
 		this.number2NameMap.put(136, "MFalse");
 		this.number2NameMap.put(199, "MMeasurementType");
+		this.number2NameMap.put(253, "MObject");
 		this.number2NameMap.put(101, "MProductType");
 		this.number2NameMap.put(103, "MSumType");
 		this.number2NameMap.put(138, "MTrue");
@@ -330,6 +332,7 @@ public class Cache {
 		this.number2NameMap.put(212, "MeasurementTypeManager");
 		this.number2NameMap.put(205, "Message");
 		this.number2NameMap.put(239, "MessageManager");
+		this.number2NameMap.put(254, "ObjectManager");
 		this.number2NameMap.put(231, "Operation");
 		this.number2NameMap.put(226, "OperationManager");
 		this.number2NameMap.put(157, "Quantity");

@@ -47,11 +47,12 @@ public class ConnectionHandler {
 
 
 
+    public CreateMObjectCommandFacade theCreateMObjectCommandFacade;
     public CreateUnitTypeCommandFacade theCreateUnitTypeCommandFacade;
     public MComplexTypeFacade theMComplexTypeFacade;
     public MAbstractSumTypeFacade theMAbstractSumTypeFacade;
-    public CreateUnitCommandFacade theCreateUnitCommandFacade;
     public CreateAspectCommandFacade theCreateAspectCommandFacade;
+    public CreateUnitCommandFacade theCreateUnitCommandFacade;
     public AbsOperationFacade theAbsOperationFacade;
     public MEmptyProductFacade theMEmptyProductFacade;
     public CompoundQuantityFacade theCompoundQuantityFacade;
@@ -75,6 +76,7 @@ public class ConnectionHandler {
     public MQuantiObjectTypeFacade theMQuantiObjectTypeFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public AccountTypeManagerFacade theAccountTypeManagerFacade;
+    public MObjectFacade theMObjectFacade;
     public CreateQuantityCommandFacade theCreateQuantityCommandFacade;
     public InstanceObjectFacade theInstanceObjectFacade;
     public RemoveFpCommandFacade theRemoveFpCommandFacade;
@@ -145,16 +147,18 @@ public class ConnectionHandler {
     public CreateSumTypeCommandFacade theCreateSumTypeCommandFacade;
     public RemoveFpFromOpCommandFacade theRemoveFpFromOpCommandFacade;
     public RemoveMessageCommandFacade theRemoveMessageCommandFacade;
+    public ObjectManagerFacade theObjectManagerFacade;
     public CreateFpCommandFacade theCreateFpCommandFacade;
 
 	protected ConnectionHandler() throws PersistenceException {
 	}
 	public void connect(String databaseName, String currentSchemaName, String user, char[] pw, boolean autoCommit) throws PersistenceException {
+            this.theCreateMObjectCommandFacade= new CreateMObjectCommandFacade();
             this.theCreateUnitTypeCommandFacade= new CreateUnitTypeCommandFacade();
             this.theMComplexTypeFacade= new MComplexTypeFacade();
             this.theMAbstractSumTypeFacade= new MAbstractSumTypeFacade();
-            this.theCreateUnitCommandFacade= new CreateUnitCommandFacade();
             this.theCreateAspectCommandFacade= new CreateAspectCommandFacade();
+            this.theCreateUnitCommandFacade= new CreateUnitCommandFacade();
             this.theAbsOperationFacade= new AbsOperationFacade();
             this.theMEmptyProductFacade= new MEmptyProductFacade();
             this.theCompoundQuantityFacade= new CompoundQuantityFacade();
@@ -178,6 +182,7 @@ public class ConnectionHandler {
             this.theMQuantiObjectTypeFacade= new MQuantiObjectTypeFacade();
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade();
             this.theAccountTypeManagerFacade= new AccountTypeManagerFacade();
+            this.theMObjectFacade= new MObjectFacade();
             this.theCreateQuantityCommandFacade= new CreateQuantityCommandFacade();
             this.theInstanceObjectFacade= new InstanceObjectFacade();
             this.theRemoveFpCommandFacade= new RemoveFpCommandFacade();
@@ -248,6 +253,7 @@ public class ConnectionHandler {
             this.theCreateSumTypeCommandFacade= new CreateSumTypeCommandFacade();
             this.theRemoveFpFromOpCommandFacade= new RemoveFpFromOpCommandFacade();
             this.theRemoveMessageCommandFacade= new RemoveMessageCommandFacade();
+            this.theObjectManagerFacade= new ObjectManagerFacade();
             this.theCreateFpCommandFacade= new CreateFpCommandFacade();
 	}
 	public static void initializeMapsForMappedFields() throws PersistenceException {

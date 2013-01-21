@@ -12,20 +12,25 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[151];
+			iCProxiFactories = new ICProxiFactory[155];
+        iCProxiFactories[151] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateMObjectCommandICProxi(objectId);
+            }
+        };
         iCProxiFactories[70] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateUnitTypeCommandICProxi(objectId);
             }
         };
-        iCProxiFactories[72] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new CreateUnitCommandICProxi(objectId);
-            }
-        };
         iCProxiFactories[38] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateAspectCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[72] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateUnitCommandICProxi(objectId);
             }
         };
         iCProxiFactories[85] = new ICProxiFactory(){
@@ -126,6 +131,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[112] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new AccountTypeManagerICProxi(objectId);
+            }
+        };
+        iCProxiFactories[152] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new MObjectICProxi(objectId);
             }
         };
         iCProxiFactories[79] = new ICProxiFactory(){
@@ -446,6 +456,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[145] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new RemoveMessageCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[153] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ObjectManagerICProxi(objectId);
             }
         };
         iCProxiFactories[146] = new ICProxiFactory(){

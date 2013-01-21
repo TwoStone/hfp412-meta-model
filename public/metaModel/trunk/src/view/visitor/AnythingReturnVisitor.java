@@ -11,6 +11,7 @@ public interface AnythingReturnVisitor<R> extends AbsOperationReturnVisitor<R> ,
     public R handleOperationManager(OperationManagerView operationManager) throws ModelException;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public R handleAccountTypeManager(AccountTypeManagerView accountTypeManager) throws ModelException;
+    public R handleMObject(MObjectView mObject) throws ModelException;
     public R handleInstanceObject(InstanceObjectView instanceObject) throws ModelException;
     public R handleFunction(FunctionView function) throws ModelException;
     public R handleAspectManager(AspectManagerView aspectManager) throws ModelException;
@@ -30,5 +31,6 @@ public interface AnythingReturnVisitor<R> extends AbsOperationReturnVisitor<R> ,
     public R handleMeasurementTypeManager(MeasurementTypeManagerView measurementTypeManager) throws ModelException;
     public R handleLinkManager(LinkManagerView linkManager) throws ModelException;
     public R handleActualParameter(ActualParameterView actualParameter) throws ModelException;
+    public R handleObjectManager(ObjectManagerView objectManager) throws ModelException;
     
 }

@@ -11,6 +11,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleOperationManager(OperationManagerView operationManager) throws ModelException, E;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
     public R handleAccountTypeManager(AccountTypeManagerView accountTypeManager) throws ModelException, E;
+    public R handleMObject(MObjectView mObject) throws ModelException, E;
     public R handleInstanceObject(InstanceObjectView instanceObject) throws ModelException, E;
     public R handleFunction(FunctionView function) throws ModelException, E;
     public R handleAspectManager(AspectManagerView aspectManager) throws ModelException, E;
@@ -30,5 +31,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleMeasurementTypeManager(MeasurementTypeManagerView measurementTypeManager) throws ModelException, E;
     public R handleLinkManager(LinkManagerView linkManager) throws ModelException, E;
     public R handleActualParameter(ActualParameterView actualParameter) throws ModelException, E;
+    public R handleObjectManager(ObjectManagerView objectManager) throws ModelException, E;
     
 }

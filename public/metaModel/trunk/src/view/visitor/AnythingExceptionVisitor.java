@@ -11,6 +11,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsOp
     public void handleOperationManager(OperationManagerView operationManager) throws ModelException, E;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
     public void handleAccountTypeManager(AccountTypeManagerView accountTypeManager) throws ModelException, E;
+    public void handleMObject(MObjectView mObject) throws ModelException, E;
     public void handleInstanceObject(InstanceObjectView instanceObject) throws ModelException, E;
     public void handleFunction(FunctionView function) throws ModelException, E;
     public void handleAspectManager(AspectManagerView aspectManager) throws ModelException, E;
@@ -30,5 +31,6 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsOp
     public void handleMeasurementTypeManager(MeasurementTypeManagerView measurementTypeManager) throws ModelException, E;
     public void handleLinkManager(LinkManagerView linkManager) throws ModelException, E;
     public void handleActualParameter(ActualParameterView actualParameter) throws ModelException, E;
+    public void handleObjectManager(ObjectManagerView objectManager) throws ModelException, E;
     
 }

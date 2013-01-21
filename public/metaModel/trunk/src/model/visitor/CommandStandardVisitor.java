@@ -11,6 +11,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException{
         this.standardHandling(removeLinkCommand);
     }
+    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
+        this.standardHandling(createMObjectCommand);
+    }
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException{
         this.standardHandling(createHierarchyCommand);
     }

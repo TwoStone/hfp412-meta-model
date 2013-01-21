@@ -130,6 +130,10 @@ public class MAtomicTypeProxi extends MTypeProxi implements PersistentMAtomicTyp
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
+    public PersistentMBoolean hasConcreteSubType() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).hasConcreteSubType();
+    }
     public PersistentMBoolean isLessOrEqual() 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).isLessOrEqual();

@@ -14,6 +14,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException{
         this.standardHandling(quantityManager);
     }
+    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
+        this.standardHandling(createMObjectCommand);
+    }
     public void handleCreateProductTypeCommand(PersistentCreateProductTypeCommand createProductTypeCommand) throws PersistenceException{
         this.standardHandling(createProductTypeCommand);
     }
@@ -35,26 +38,26 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicSubTypeCommand);
     }
-    public void handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException{
-        this.standardHandling(createVoidOperationCommand);
-    }
     public void handleCreateLinkCommand(PersistentCreateLinkCommand createLinkCommand) throws PersistenceException{
         this.standardHandling(createLinkCommand);
     }
-    public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
-        this.standardHandling(createUnitCommand);
+    public void handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException{
+        this.standardHandling(createVoidOperationCommand);
     }
     public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
         this.standardHandling(createAspectCommand);
     }
+    public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
+        this.standardHandling(createUnitCommand);
+    }
     public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
         this.standardHandling(createCompUnitCommand);
     }
-    public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
-        this.standardHandling(createCompUnitTypeCommand);
-    }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
+    }
+    public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
+        this.standardHandling(createCompUnitTypeCommand);
     }
     public void handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException{
         this.standardHandling(removeAssociationCommand);
@@ -185,17 +188,20 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException{
         this.standardHandling(linkManager);
     }
+    public void handleMObject(PersistentMObject mObject) throws PersistenceException{
+        this.standardHandling(mObject);
+    }
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
         this.standardHandling(createAssociationCommand);
     }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);
     }
-    public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException{
-        this.standardHandling(removeFpCommand);
-    }
     public void handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException{
         this.standardHandling(instanceObject);
+    }
+    public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException{
+        this.standardHandling(removeFpCommand);
     }
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicRootTypeCommand);
@@ -262,6 +268,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException{
         this.standardHandling(createMessageCommand);
+    }
+    public void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException{
+        this.standardHandling(objectManager);
     }
     public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException{
         this.standardHandling(createAccountTypeCommand);

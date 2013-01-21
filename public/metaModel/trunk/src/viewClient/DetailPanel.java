@@ -625,6 +625,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleAccountTypeManager(view.AccountTypeManagerView object){
         result = new AccountTypeManagerDefaultDetailPanel(handler, object);
     }
+    public void handleMObject(view.MObjectView object){
+        result = new MObjectDefaultDetailPanel(handler, object);
+    }
     public void handleInstanceObject(view.InstanceObjectView object){
         result = new InstanceObjectDefaultDetailPanel(handler, object);
     }
@@ -720,6 +723,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleActualParameter(view.ActualParameterView object){
         result = new ActualParameterDefaultDetailPanel(handler, object);
+    }
+    public void handleObjectManager(view.ObjectManagerView object){
+        result = new ObjectManagerDefaultDetailPanel(handler, object);
     }
 
 }
@@ -1025,6 +1031,20 @@ class AccountTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.AccountTypeManagerView getAnything(){
         return (view.AccountTypeManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MObjectDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected MObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MObjectView getAnything(){
+        return (view.MObjectView)this.anything;
     }
 }
 
@@ -1627,5 +1647,21 @@ class ActualParameterDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ActualParameterView getAnything(){
         return (view.ActualParameterView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ObjectManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ObjectManager$$objects = "ObjectManager$$objects";
+    
+    protected ObjectManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ObjectManagerView getAnything(){
+        return (view.ObjectManagerView)this.anything;
     }
 }

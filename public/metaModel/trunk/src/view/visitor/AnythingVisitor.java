@@ -11,6 +11,7 @@ public interface AnythingVisitor extends AbsOperationVisitor,QuantifObjectVisito
     public void handleOperationManager(OperationManagerView operationManager) throws ModelException;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public void handleAccountTypeManager(AccountTypeManagerView accountTypeManager) throws ModelException;
+    public void handleMObject(MObjectView mObject) throws ModelException;
     public void handleInstanceObject(InstanceObjectView instanceObject) throws ModelException;
     public void handleFunction(FunctionView function) throws ModelException;
     public void handleAspectManager(AspectManagerView aspectManager) throws ModelException;
@@ -30,5 +31,6 @@ public interface AnythingVisitor extends AbsOperationVisitor,QuantifObjectVisito
     public void handleMeasurementTypeManager(MeasurementTypeManagerView measurementTypeManager) throws ModelException;
     public void handleLinkManager(LinkManagerView linkManager) throws ModelException;
     public void handleActualParameter(ActualParameterView actualParameter) throws ModelException;
+    public void handleObjectManager(ObjectManagerView objectManager) throws ModelException;
     
 }

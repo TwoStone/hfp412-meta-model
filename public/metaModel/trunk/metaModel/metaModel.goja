@@ -128,7 +128,9 @@ part typeSystem {
 		prior MBoolean abstractType;
 		no-view prior symmetric(types) MAspect aspect;
 		no-view symmetric(subTypes) MAtomicType superType hierarchy MAtomicTypeHierarchy;
-			/*
+		
+		MBoolean hasConcreteSubType();	
+		/*
 			void addSubType(MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
 			MBoolean transitiveHasConcreteSubtype();
 			*/
@@ -159,7 +161,10 @@ part typeSystem {
 	
 	class MProductType@@ProductType extends MAbstractProductType {
 	}
-
+	
+	/* Objekte */
+	class MObject {
+	}
 
 	/*** MANAGER ***/
 	/* Manager  for Aspects */
@@ -180,6 +185,14 @@ part typeSystem {
 
 		active void addSubType(MAtomicType superType, MAtomicType subType) throws CycleException, ConsistencyException;
 	}
+	
+	singleton ObjectManager {
+		MObject** objects;
+		
+		active MObject createMObject(MAtomicType** types) throws ConsistencyException		
+
+	}
+	
 	
 	/*** HIERARCHIES ***/
 	/* Partielle Ordnung "<=" auf atomaren Typen */
@@ -278,7 +291,7 @@ part quantity {
 		derived UnitType** atomicUnitTypes;
 		AbsUnit ** units;
 	
-		/* Operationen f?r Typebene */
+		/* Operationen fuer Typebene */
 		active void createUnitType(String name) throws DoubleDefinitionException;
 		active void createCompUnitType(String name) throws DoubleDefinitionException;
 		active void finishModeling(CompUnitType compUnitType) throws AlreadyFinalizedException;
@@ -286,7 +299,7 @@ part quantity {
 		active void addReferenceType(CompUnitType compUnitType, UnitType unitType, Integer exponent) 
 			throws DoubleDefinitionException, AlreadyFinalizedException;
 
-		/* Operationen f?r Exemplarebene */
+		/* Operationen fuer Exemplarebene */
 		active void createUnit(String name, UnitType type) throws DoubleDefinitionException;
 		active void createCompUnit(String name, CompUnitType type) throws DoubleDefinitionException, NotFinalizedException;
 	}

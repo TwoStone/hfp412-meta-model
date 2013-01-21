@@ -37,6 +37,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException;
     public abstract void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
     public abstract void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;
+    public abstract void handleMObject(PersistentMObject mObject) throws PersistenceException;
     public abstract void handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException;
     public abstract void handleMTrue(PersistentMTrue mTrue) throws PersistenceException;
     public abstract void handleQuantity(PersistentQuantity quantity) throws PersistenceException;
@@ -50,5 +51,6 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException;
     public abstract void handleMSumType(PersistentMSumType mSumType) throws PersistenceException;
     public abstract void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException;
+    public abstract void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException;
     
 }

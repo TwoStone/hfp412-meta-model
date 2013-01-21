@@ -11,6 +11,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException{
         this.standardHandling(removeLinkCommand);
     }
+    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
+        this.standardHandling(createMObjectCommand);
+    }
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException{
         this.standardHandling(createHierarchyCommand);
     }
@@ -41,20 +44,20 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateLinkCommand(PersistentCreateLinkCommand createLinkCommand) throws PersistenceException{
         this.standardHandling(createLinkCommand);
     }
-    public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
-        this.standardHandling(createAspectCommand);
-    }
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.standardHandling(createUnitCommand);
+    }
+    public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
+        this.standardHandling(createAspectCommand);
     }
     public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
         this.standardHandling(createCompUnitCommand);
     }
-    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
-        this.standardHandling(commonDate);
-    }
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createCompUnitTypeCommand);
+    }
+    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
+        this.standardHandling(commonDate);
     }
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
         this.standardHandling(createAssociationCommand);
