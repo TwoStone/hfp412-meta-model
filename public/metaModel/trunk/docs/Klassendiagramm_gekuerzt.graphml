@@ -256,7 +256,7 @@ singleton : Boolean</y:AttributeLabel>
           <y:Geometry height="28.0" width="148.0" x="2766.1105747108786" y="746.1276649316517"/>
           <y:Fill color="#FFCC99" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="56.0" x="46.0" y="3.0">Account<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="56.0" x="-56.0" y="32.0">Account<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -277,7 +277,7 @@ singleton : Boolean</y:AttributeLabel>
           <y:Geometry height="28.00000000000003" width="148.0" x="2766.1105747108786" y="376.87159695057755"/>
           <y:Fill color="#FFB061" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="86.341796875" x="30.8291015625" y="3.0">AccountType<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="86.341796875" x="-86.341796875" y="32.0">AccountType<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -756,10 +756,10 @@ den Untertypen<y:LabelModel>
       <data key="d4"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="101.0" width="148.0" x="1105.523260567799" y="609.5"/>
+          <y:Geometry height="101.0" width="240.4201319298245" x="1013.1031286379746" y="609.5"/>
           <y:Fill color="#AFFFAF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="75.5126953125" x="36.24365234375" y="3.0">Conversion<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="75.5126953125" x="82.45371830866225" y="3.0">Conversion<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -767,10 +767,9 @@ den Untertypen<y:LabelModel>
             </y:ModelParameter>
           </y:NodeLabel>
           <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
-            <y:AttributeLabel>factor : Fraction
-constant : Fraction</y:AttributeLabel>
-            <y:MethodLabel>f : Function
-f^-1 : Function</y:MethodLabel>
+            <y:AttributeLabel/>
+            <y:MethodLabel>convert(amount: Fraction) : Quantity
+convertInverse(amount: Fraction) : Quantity</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -909,6 +908,51 @@ Exemplar<y:LabelModel>
           <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="singleton" use3DEffect="false">
             <y:AttributeLabel/>
             <y:MethodLabel/>
+          </y:UML>
+        </y:UMLClassNode>
+      </data>
+    </node>
+    <node id="n42">
+      <data key="d4"/>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="101.0" width="148.0" x="822.8194402169217" y="801.2717852631578"/>
+          <y:Fill color="#AFFFAF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="97.88818359375" x="25.055908203125" y="3.0">LinearFunction<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.5" labelRatioY="0.5" nodeRatioX="0.2281322582347971" nodeRatioY="-0.5" offsetX="0.0" offsetY="-4.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
+            <y:AttributeLabel>factor : Fraction
+constant : Fraction</y:AttributeLabel>
+            <y:MethodLabel>execute(amount: Fraction) : Fraction
+executeInverse(amount: Fraction) : Fraction</y:MethodLabel>
+          </y:UML>
+        </y:UMLClassNode>
+      </data>
+    </node>
+    <node id="n43">
+      <data key="d4"/>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="101.0" width="148.0" x="822.8194402169217" y="609.5"/>
+          <y:Fill color="#AFFFAF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="111.61181640625" x="18.194091796875" y="3.0">AbstractFunction<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.5" labelRatioY="0.5" nodeRatioX="0.2281322582347971" nodeRatioY="-0.5" offsetX="0.0" offsetY="-4.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="false">
+            <y:AttributeLabel/>
+            <y:MethodLabel>execute(amount: Fraction) : Fraction
+</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -1685,27 +1729,13 @@ Exemplar<y:LabelModel>
           <y:Path sx="0.0" sy="36.5" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="six_pos" modelPosition="head" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="28.0" x="42.24795840889965" y="-20.701171875">from<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="0.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="six_pos" modelPosition="head" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="28.0" x="42.23709415108715" y="-20.701171875">from<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="0.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
           </y:EdgeLabel>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e45" source="n35" target="n24">
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="1179.523260567799" y="389.7238721345937"/>
-          </y:Path>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="six_pos" modelPosition="head" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="26.681640625" x="-28.68169548688843" y="-123.78930904989068">type<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="0.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
-          </y:EdgeLabel>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e46" source="n24" target="n26">
+    <edge id="e45" source="n24" target="n26">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-10.52326056779907" sy="0.0" tx="0.0" ty="0.0"/>
@@ -1719,7 +1749,7 @@ Exemplar<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e47" source="n25" target="n32">
+    <edge id="e46" source="n25" target="n32">
       <data key="d8"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -1734,7 +1764,7 @@ Exemplar<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e48" source="n32" target="n26">
+    <edge id="e47" source="n32" target="n26">
       <data key="d8"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -1749,8 +1779,7 @@ Exemplar<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e49" source="n2" target="n3">
-      <data key="d9"/>
+    <edge id="e48" source="n2" target="n3">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="17.727805191211473" tx="-93.49780002324428" ty="-1.8279298245613802"/>
@@ -1777,8 +1806,7 @@ Exemplar<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e50" source="n37" target="n19">
-      <data key="d9"/>
+    <edge id="e49" source="n37" target="n19">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-23.123721777630067" ty="0.0"/>
@@ -1796,8 +1824,7 @@ Exemplar<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e51" source="n1" target="n38">
-      <data key="d9"/>
+    <edge id="e50" source="n1" target="n38">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-38.46782750992287" sy="-14.0" tx="2.0952694006308263" ty="0.0">
@@ -1813,8 +1840,7 @@ Exemplar<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e52" source="n37" target="n38">
-      <data key="d9"/>
+    <edge id="e51" source="n37" target="n38">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="28.962245536554306" sy="14.0" tx="2.0952694006308263" ty="0.0">
@@ -1840,7 +1866,7 @@ also nochmal spezialisieren. <y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e53" source="n39" target="n20">
+    <edge id="e52" source="n39" target="n20">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="2.379257070120275" ty="9.70661641928163"/>
@@ -1852,7 +1878,7 @@ also nochmal spezialisieren. <y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e54" source="n39" target="n0">
+    <edge id="e53" source="n39" target="n0">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="52.936964329430396" sy="-10.69263302550928" tx="0.0" ty="-14.0">
@@ -1868,7 +1894,7 @@ also nochmal spezialisieren. <y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e55" source="n38" target="n39">
+    <edge id="e54" source="n38" target="n39">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -1889,7 +1915,7 @@ also nochmal spezialisieren. <y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e56" source="n41" target="n9">
+    <edge id="e55" source="n41" target="n9">
       <data key="d8"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -1903,7 +1929,7 @@ also nochmal spezialisieren. <y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e57" source="n40" target="n9">
+    <edge id="e56" source="n40" target="n9">
       <data key="d8"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -1916,6 +1942,34 @@ also nochmal spezialisieren. <y:LabelModel>
           <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="six_pos" modelPosition="ttail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="4.0" x="-151.90139508771927" y="-40.578848757578385">
             <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="0.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
           </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e57" source="n42" target="n43">
+      <data key="d8"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="white_delta"/>
+          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="six_pos" modelPosition="ttail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="4.0" x="1.9999822091092483" y="-80.6287841796875">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="0.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e58" source="n35" target="n42">
+      <data key="d8"/>
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+            <y:Point x="1133.3131946028868" y="851.7717852631578"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
       </data>
