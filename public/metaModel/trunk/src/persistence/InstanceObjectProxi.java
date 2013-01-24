@@ -46,6 +46,10 @@ public class InstanceObjectProxi extends PersistentProxi implements PersistentIn
     }
     
     
+    public QuantifObjectSearchList inverseGetObject() 
+				throws PersistenceException{
+        return ((PersistentInstanceObject)this.getTheObject()).inverseGetObject();
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentInstanceObject)this.getTheObject()).initializeOnInstantiation();

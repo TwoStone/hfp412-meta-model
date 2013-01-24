@@ -65,10 +65,10 @@ public class Cache {
 		this.garbageCollector.start();
 	}
 
-//	public void reset$For$Test(){
-//		this.garbageCollector.interrupt();
-//		Cache.theCache = null;
-//	}
+	public void reset$For$Test(){
+		this.garbageCollector.interrupt();
+		Cache.theCache = null;
+	}
 
 	public void finalize(){
 		this.garbageCollector.interrupt();

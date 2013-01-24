@@ -24,7 +24,7 @@ import persistence.TDObserver;
 public class AccountManager extends PersistentObject implements PersistentAccountManager{
     
     private static PersistentAccountManager theAccountManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentAccountManager getTheAccountManager() throws PersistenceException{
         if (theAccountManager == null || reset$For$Test){

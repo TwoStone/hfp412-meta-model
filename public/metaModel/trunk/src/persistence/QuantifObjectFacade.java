@@ -37,6 +37,31 @@ public class QuantifObjectFacade{
     public void ThisSet(long QuantifObjectId, PersistentQuantifObject ThisVal) throws PersistenceException {
         
     }
+    public QuantifObjectSearchList inverseGetObject(long objectId, long classId)throws PersistenceException{
+        QuantifObjectSearchList result = new QuantifObjectSearchList();
+        java.util.Iterator<PersistentInCacheProxi> candidates;
+        candidates = Cache.getTheCache().iterator(195);
+        while (candidates.hasNext()){
+            PersistentQuantifObject current = (PersistentQuantifObject)((PersistentRoot)candidates.next()).getTheObject();
+            if (current != null && !current.isDltd() && current.getObject() != null){
+                if (current.getObject().getClassId() == classId && current.getObject().getId() == objectId) {
+                    PersistentQuantifObject proxi = (PersistentQuantifObject)PersistentProxi.createProxi(current.getId(), current.getClassId());
+                    result.add((PersistentQuantifObject)proxi.getThis());
+                }
+            }
+        }
+        candidates = Cache.getTheCache().iterator(196);
+        while (candidates.hasNext()){
+            PersistentQuantifObject current = (PersistentQuantifObject)((PersistentRoot)candidates.next()).getTheObject();
+            if (current != null && !current.isDltd() && current.getObject() != null){
+                if (current.getObject().getClassId() == classId && current.getObject().getId() == objectId) {
+                    PersistentQuantifObject proxi = (PersistentQuantifObject)PersistentProxi.createProxi(current.getId(), current.getClassId());
+                    result.add((PersistentQuantifObject)proxi.getThis());
+                }
+            }
+        }
+        return result;
+    }
 
 }
 

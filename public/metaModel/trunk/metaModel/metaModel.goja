@@ -472,7 +472,7 @@ class MAccountType@@AccountType extends MQuantiObjectType {
 
 
 abstract class QuantifObject@@QuantifiedObject {
-	prior InstanceObject object;
+	symmetric prior InstanceObject object;
 	// TODO: aggregate(s:AggregationStrategy) : Quantity
 }
 

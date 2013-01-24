@@ -17,6 +17,8 @@ public interface PersistentInstanceObject extends Anything, AbstractPersistentPr
     
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public QuantifObjectSearchList inverseGetObject() 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 

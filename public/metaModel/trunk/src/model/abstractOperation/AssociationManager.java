@@ -11,7 +11,7 @@ import model.visitor.*;
 public class AssociationManager extends PersistentObject implements PersistentAssociationManager{
     
     private static PersistentAssociationManager theAssociationManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentAssociationManager getTheAssociationManager() throws PersistenceException{
         if (theAssociationManager == null || reset$For$Test){

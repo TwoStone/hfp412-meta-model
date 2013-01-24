@@ -178,6 +178,13 @@ public class InstanceObject extends PersistentObject implements PersistentInstan
         //TODO: implement method: initializeOnInstantiation
         
     }
+    public QuantifObjectSearchList inverseGetObject() 
+				throws PersistenceException{
+        QuantifObjectSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade
+							.inverseGetObject(this.getId(), this.getClassId());
+		return result;
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         //TODO: implement method: copyingPrivateUserAttributes

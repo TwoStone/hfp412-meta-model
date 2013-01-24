@@ -11,7 +11,7 @@ import model.visitor.*;
 public class MeasurementTypeManager extends PersistentObject implements PersistentMeasurementTypeManager{
     
     private static PersistentMeasurementTypeManager theMeasurementTypeManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMeasurementTypeManager getTheMeasurementTypeManager() throws PersistenceException{
         if (theMeasurementTypeManager == null || reset$For$Test){

@@ -46,6 +46,10 @@ public class InstanceObjectICProxi extends PersistentInCacheProxiOptimistic impl
     }
     
     
+    public QuantifObjectSearchList inverseGetObject() 
+				throws PersistenceException{
+        return ((PersistentInstanceObject)this.getTheObject()).inverseGetObject();
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentInstanceObject)this.getTheObject()).initializeOnInstantiation();

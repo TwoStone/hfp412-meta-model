@@ -11,7 +11,7 @@ import model.visitor.*;
 public class MEmptyProduct extends model.typeSystem.MAbstractProductType implements PersistentMEmptyProduct{
     
     private static PersistentMEmptyProduct theMEmptyProduct = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMEmptyProduct getTheMEmptyProduct() throws PersistenceException{
         if (theMEmptyProduct == null || reset$For$Test){
