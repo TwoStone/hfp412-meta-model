@@ -19,7 +19,7 @@ public class AddReferenceTypeCommandICProxi extends PersistentInCacheProxi imple
     }
     
     public long getClassId() {
-        return 181;
+        return 193;
     }
     
     public PersistentCompUnitType getCompUnitType() throws PersistenceException {

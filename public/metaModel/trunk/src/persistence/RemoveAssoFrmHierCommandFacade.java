@@ -25,25 +25,25 @@ public class RemoveAssoFrmHierCommandFacade{
 	}
 
     public RemoveAssoFrmHierCommandProxi newRemoveAssoFrmHierCommand(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (RemoveAssoFrmHierCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 222);
+        if(createMinusStorePlus > 0) return (RemoveAssoFrmHierCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 110);
         long id = ConnectionHandler.getTheConnectionHandler().theRemoveAssoFrmHierCommandFacade.getNextId();
         RemoveAssoFrmHierCommand result = new RemoveAssoFrmHierCommand(null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (RemoveAssoFrmHierCommandProxi)PersistentProxi.createProxi(id, 222);
+        return (RemoveAssoFrmHierCommandProxi)PersistentProxi.createProxi(id, 110);
     }
     
     public RemoveAssoFrmHierCommandProxi newDelayedRemoveAssoFrmHierCommand() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theRemoveAssoFrmHierCommandFacade.getNextId();
         RemoveAssoFrmHierCommand result = new RemoveAssoFrmHierCommand(null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (RemoveAssoFrmHierCommandProxi)PersistentProxi.createProxi(id, 222);
+        return (RemoveAssoFrmHierCommandProxi)PersistentProxi.createProxi(id, 110);
     }
     
     public RemoveAssoFrmHierCommand getRemoveAssoFrmHierCommand(long RemoveAssoFrmHierCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 222)) return 222;
+        if(Cache.getTheCache().contains(objectId, 110)) return 110;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

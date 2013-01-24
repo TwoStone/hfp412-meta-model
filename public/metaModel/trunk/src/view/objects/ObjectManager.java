@@ -18,7 +18,7 @@ public class ObjectManager extends ViewObject implements ObjectManagerView{
     }
     
     static public long getTypeId() {
-        return 254;
+        return 237;
     }
     
     public long getClassId() {

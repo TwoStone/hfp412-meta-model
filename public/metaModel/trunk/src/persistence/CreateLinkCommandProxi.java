@@ -19,7 +19,7 @@ public class CreateLinkCommandProxi extends PersistentProxi implements Persisten
     }
     
     public long getClassId() {
-        return 234;
+        return 158;
     }
     
     public PersistentAssociation getType() throws PersistenceException {

@@ -19,7 +19,7 @@ public class MessageProxi extends MessageOrLinkProxi implements PersistentMessag
     }
     
     public long getClassId() {
-        return 205;
+        return 133;
     }
     
     public PersistentOperation getType() throws PersistenceException {

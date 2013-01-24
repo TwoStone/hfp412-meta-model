@@ -22,7 +22,7 @@ public class Account extends view.objects.QuantifObject implements AccountView{
     }
     
     static public long getTypeId() {
-        return 196;
+        return 181;
     }
     
     public long getClassId() {

@@ -11,7 +11,7 @@ import model.visitor.*;
 public class ObjectManager extends PersistentObject implements PersistentObjectManager{
     
     private static PersistentObjectManager theObjectManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentObjectManager getTheObjectManager() throws PersistenceException{
         if (theObjectManager == null || reset$For$Test){
@@ -83,7 +83,7 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     }
     
     static public long getTypeId() {
-        return 254;
+        return 237;
     }
     
     public long getClassId() {

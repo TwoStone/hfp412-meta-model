@@ -5,4 +5,4 @@ public interface AbsOperationMssgs {
 }
 
 interface AbsOperationDOWNMssgs extends Mssgs, AbsOperationMssgs{}
-interface AbsOperationUPMssgs extends OperationUPMssgs, AbsOperationMssgs{}
+interface AbsOperationUPMssgs extends OperationUPMssgs, AssociationUPMssgs, AbsOperationMssgs{}

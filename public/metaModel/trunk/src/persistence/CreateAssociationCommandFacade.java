@@ -25,25 +25,25 @@ public class CreateAssociationCommandFacade{
 	}
 
     public CreateAssociationCommandProxi newCreateAssociationCommand(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateAssociationCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 146);
+        if(createMinusStorePlus > 0) return (CreateAssociationCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 187);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade.getNextId();
         CreateAssociationCommand result = new CreateAssociationCommand(null,null,name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateAssociationCommandProxi)PersistentProxi.createProxi(id, 146);
+        return (CreateAssociationCommandProxi)PersistentProxi.createProxi(id, 187);
     }
     
     public CreateAssociationCommandProxi newDelayedCreateAssociationCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade.getNextId();
         CreateAssociationCommand result = new CreateAssociationCommand(null,null,name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateAssociationCommandProxi)PersistentProxi.createProxi(id, 146);
+        return (CreateAssociationCommandProxi)PersistentProxi.createProxi(id, 187);
     }
     
     public CreateAssociationCommand getCreateAssociationCommand(long CreateAssociationCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 146)) return 146;
+        if(Cache.getTheCache().contains(objectId, 187)) return 187;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

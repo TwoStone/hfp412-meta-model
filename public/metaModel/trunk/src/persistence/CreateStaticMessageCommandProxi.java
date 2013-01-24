@@ -19,7 +19,7 @@ public class CreateStaticMessageCommandProxi extends PersistentProxi implements 
     }
     
     public long getClassId() {
-        return 238;
+        return 166;
     }
     
     public PersistentOperation getType() throws PersistenceException {

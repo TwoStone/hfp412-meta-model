@@ -24,7 +24,7 @@ import persistence.TDObserver;
 public class AccountTypeManager extends PersistentObject implements PersistentAccountTypeManager{
     
     private static PersistentAccountTypeManager theAccountTypeManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentAccountTypeManager getTheAccountTypeManager() throws PersistenceException{
         if (theAccountTypeManager == null || reset$For$Test){
@@ -96,7 +96,7 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
     }
     
     static public long getTypeId() {
-        return 213;
+        return 128;
     }
     
     public long getClassId() {

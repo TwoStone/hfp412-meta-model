@@ -6,7 +6,6 @@ import view.*;
 public interface AnythingReturnExceptionVisitor<R, E extends UserException> extends AbsOperationReturnExceptionVisitor<R, E> ,QuantifObjectReturnExceptionVisitor<R, E> ,MQuantiObjectTypeReturnExceptionVisitor<R, E> ,MBooleanReturnExceptionVisitor<R, E> ,AbsUnitTypeReturnExceptionVisitor<R, E> ,AbsQuantityReturnExceptionVisitor<R, E> ,MTypeReturnExceptionVisitor<R, E> ,AbsUnitReturnExceptionVisitor<R, E> ,MessageOrLinkReturnExceptionVisitor<R, E> {
     
     public R handleServer(ServerView server) throws ModelException, E;
-    public R handleAssociation(AssociationView association) throws ModelException, E;
     public R handleFormalParameter(FormalParameterView formalParameter) throws ModelException, E;
     public R handleOperationManager(OperationManagerView operationManager) throws ModelException, E;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;

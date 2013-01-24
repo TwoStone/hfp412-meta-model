@@ -59,7 +59,7 @@ public class CreateStaticOpCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 232;
+        return 151;
     }
     
     public long getClassId() {
@@ -68,7 +68,7 @@ public class CreateStaticOpCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 232) ConnectionHandler.getTheConnectionHandler().theCreateStaticOpCommandFacade
+        if (this.getClassId() == 151) ConnectionHandler.getTheConnectionHandler().theCreateStaticOpCommandFacade
             .newCreateStaticOpCommand(name,this.getId());
         super.store();
         if(this.getTarget() != null){

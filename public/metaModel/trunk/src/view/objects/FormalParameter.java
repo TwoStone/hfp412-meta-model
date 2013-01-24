@@ -20,7 +20,7 @@ public class FormalParameter extends ViewObject implements FormalParameterView{
     }
     
     static public long getTypeId() {
-        return 225;
+        return 118;
     }
     
     public long getClassId() {

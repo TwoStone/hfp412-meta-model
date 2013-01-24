@@ -888,9 +888,10 @@ class MeasurementDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class AssociationDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Association$$name = "Association$$name";
-    protected static final String Association$$source = "Association$$source";
-    protected static final String Association$$target = "Association$$target";
+    protected static final String AbsOperation$$name = "AbsOperation$$name";
+    protected static final String AbsOperation$$source = "AbsOperation$$source";
+    protected static final String AbsOperation$$target = "AbsOperation$$target";
+    protected static final String AbsOperation$$parameters = "AbsOperation$$parameters";
     protected static final String Association$$hierarchies = "Association$$hierarchies";
     
     protected AssociationDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -900,7 +901,7 @@ class AssociationDefaultDetailPanel extends DefaultDetailPanel{
         try{
             BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
             this.getScrollablePane().add(panel);
-            this.panels.put(Association$$name, panel);
+            this.panels.put(AbsOperation$$name, panel);
         }catch(view.ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }

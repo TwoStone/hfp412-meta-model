@@ -9,7 +9,7 @@ interface AssociationDOWNMssgsVisitor  {
 }
 
 
-interface AssociationUPMssgsVisitor  {
+interface AssociationUPMssgsVisitor extends AbsOperationUPMssgsVisitor {
 
     
 }

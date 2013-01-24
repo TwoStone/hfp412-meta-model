@@ -19,7 +19,7 @@ public class MeasurementProxi extends QuantifObjectProxi implements PersistentMe
     }
     
     public long getClassId() {
-        return 195;
+        return 115;
     }
     
     public PersistentMMeasurementType getType() throws PersistenceException {

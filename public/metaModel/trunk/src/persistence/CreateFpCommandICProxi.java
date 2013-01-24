@@ -19,7 +19,7 @@ public class CreateFpCommandICProxi extends PersistentInCacheProxi implements Pe
     }
     
     public long getClassId() {
-        return 247;
+        return 199;
     }
     
     public String getName() throws PersistenceException {

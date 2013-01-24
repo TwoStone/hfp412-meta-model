@@ -106,7 +106,7 @@ public class Unit extends model.quantity.AbsUnit implements PersistentUnit{
     }
     
     static public long getTypeId() {
-        return 153;
+        return 123;
     }
     
     public long getClassId() {
@@ -115,7 +115,7 @@ public class Unit extends model.quantity.AbsUnit implements PersistentUnit{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 153) ConnectionHandler.getTheConnectionHandler().theUnitFacade
+        if (this.getClassId() == 123) ConnectionHandler.getTheConnectionHandler().theUnitFacade
             .newUnit(name,this.getId());
         super.store();
         

@@ -25,25 +25,25 @@ public class CreateStaticOpCommandFacade{
 	}
 
     public CreateStaticOpCommandProxi newCreateStaticOpCommand(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateStaticOpCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 232);
+        if(createMinusStorePlus > 0) return (CreateStaticOpCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 151);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateStaticOpCommandFacade.getNextId();
         CreateStaticOpCommand result = new CreateStaticOpCommand(name,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateStaticOpCommandProxi)PersistentProxi.createProxi(id, 232);
+        return (CreateStaticOpCommandProxi)PersistentProxi.createProxi(id, 151);
     }
     
     public CreateStaticOpCommandProxi newDelayedCreateStaticOpCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateStaticOpCommandFacade.getNextId();
         CreateStaticOpCommand result = new CreateStaticOpCommand(name,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateStaticOpCommandProxi)PersistentProxi.createProxi(id, 232);
+        return (CreateStaticOpCommandProxi)PersistentProxi.createProxi(id, 151);
     }
     
     public CreateStaticOpCommand getCreateStaticOpCommand(long CreateStaticOpCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 232)) return 232;
+        if(Cache.getTheCache().contains(objectId, 151)) return 151;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

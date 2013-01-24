@@ -19,7 +19,7 @@ public class AddFpCommandICProxi extends PersistentInCacheProxi implements Persi
     }
     
     public long getClassId() {
-        return 237;
+        return 165;
     }
     
     public PersistentOperation getOp() throws PersistenceException {

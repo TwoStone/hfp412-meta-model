@@ -19,7 +19,7 @@ public class CreateProductTypeCommandICProxi extends PersistentInCacheProxi impl
     }
     
     public long getClassId() {
-        return 187;
+        return 150;
     }
     
     public CreateProductTypeCommand_FactorsProxi getFactors() throws PersistenceException {

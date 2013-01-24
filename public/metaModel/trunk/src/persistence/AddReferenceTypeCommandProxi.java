@@ -19,7 +19,7 @@ public class AddReferenceTypeCommandProxi extends PersistentProxi implements Per
     }
     
     public long getClassId() {
-        return 181;
+        return 193;
     }
     
     public PersistentCompUnitType getCompUnitType() throws PersistenceException {

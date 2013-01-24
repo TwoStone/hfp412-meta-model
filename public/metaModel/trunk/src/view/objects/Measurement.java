@@ -20,7 +20,7 @@ public class Measurement extends view.objects.QuantifObject implements Measureme
     }
     
     static public long getTypeId() {
-        return 195;
+        return 115;
     }
     
     public long getClassId() {

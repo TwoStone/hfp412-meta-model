@@ -19,7 +19,7 @@ public class QuantityProxi extends AbsQuantityProxi implements PersistentQuantit
     }
     
     public long getClassId() {
-        return 157;
+        return 192;
     }
     
     public common.Fraction getAmount() throws PersistenceException {

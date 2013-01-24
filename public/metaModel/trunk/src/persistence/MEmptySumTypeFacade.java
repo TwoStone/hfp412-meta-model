@@ -13,7 +13,7 @@ public class MEmptySumTypeFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theMTypeFacade.getNextId();
         MEmptySumType result = new MEmptySumType(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (MEmptySumTypeProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 190);
+        return (MEmptySumTypeProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 185);
     }
     
     public MEmptySumType getMEmptySumType(long MEmptySumTypeId) throws PersistenceException{

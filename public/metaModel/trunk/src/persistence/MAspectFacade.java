@@ -25,25 +25,25 @@ public class MAspectFacade{
 	}
 
     public MAspectProxi newMAspect(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (MAspectProxi)PersistentProxi.createProxi(createMinusStorePlus, 127);
+        if(createMinusStorePlus > 0) return (MAspectProxi)PersistentProxi.createProxi(createMinusStorePlus, 140);
         long id = ConnectionHandler.getTheConnectionHandler().theMAspectFacade.getNextId();
         MAspect result = new MAspect(name,null,id);
         Cache.getTheCache().put(result);
-        return (MAspectProxi)PersistentProxi.createProxi(id, 127);
+        return (MAspectProxi)PersistentProxi.createProxi(id, 140);
     }
     
     public MAspectProxi newDelayedMAspect(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theMAspectFacade.getNextId();
         MAspect result = new MAspect(name,null,id);
         Cache.getTheCache().put(result);
-        return (MAspectProxi)PersistentProxi.createProxi(id, 127);
+        return (MAspectProxi)PersistentProxi.createProxi(id, 140);
     }
     
     public MAspect getMAspect(long MAspectId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 127)) return 127;
+        if(Cache.getTheCache().contains(objectId, 140)) return 140;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -51,7 +51,7 @@ public class MAspectFacade{
     public MAspectSearchList getMAspectByName(String name) throws PersistenceException {
         MAspectSearchList result = new MAspectSearchList();
         java.util.Iterator<?> candidates;
-        candidates = Cache.getTheCache().iterator(127);
+        candidates = Cache.getTheCache().iterator(140);
         while (candidates.hasNext()){
             PersistentMAspect current = (PersistentMAspect)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getName().equals(name))

@@ -19,7 +19,7 @@ public class RemoveAssociationCommandICProxi extends PersistentInCacheProxi impl
     }
     
     public long getClassId() {
-        return 235;
+        return 162;
     }
     
     public PersistentAssociation getA() throws PersistenceException {

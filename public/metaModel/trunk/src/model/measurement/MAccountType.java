@@ -85,7 +85,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     }
     
     static public long getTypeId() {
-        return 194;
+        return 164;
     }
     
     public long getClassId() {
@@ -94,7 +94,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 194) ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
+        if (this.getClassId() == 164) ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
             .newMAccountType(this.getId());
         super.store();
         this.getSubAccountTypes().store();

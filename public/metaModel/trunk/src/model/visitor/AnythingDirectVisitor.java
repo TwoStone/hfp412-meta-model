@@ -7,8 +7,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     
-    public abstract void handleAssociation(PersistentAssociation association) throws PersistenceException;
-    
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     
     public abstract void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException;
@@ -197,6 +195,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public void handleOperation(PersistentOperation operation) throws PersistenceException{
         this.handleAbsOperation(operation);
+    }
+    public void handleAssociation(PersistentAssociation association) throws PersistenceException{
+        this.handleAbsOperation(association);
     }
     public abstract void handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException;
     

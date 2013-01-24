@@ -19,7 +19,7 @@ public class CreateAspectCommandProxi extends PersistentProxi implements Persist
     }
     
     public long getClassId() {
-        return 139;
+        return 105;
     }
     
     public String getName() throws PersistenceException {

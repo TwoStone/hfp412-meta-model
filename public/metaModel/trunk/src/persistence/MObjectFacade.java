@@ -25,25 +25,25 @@ public class MObjectFacade{
 	}
 
     public MObjectProxi newMObject(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (MObjectProxi)PersistentProxi.createProxi(createMinusStorePlus, 253);
+        if(createMinusStorePlus > 0) return (MObjectProxi)PersistentProxi.createProxi(createMinusStorePlus, 236);
         long id = ConnectionHandler.getTheConnectionHandler().theMObjectFacade.getNextId();
         MObject result = new MObject(null,id);
         Cache.getTheCache().put(result);
-        return (MObjectProxi)PersistentProxi.createProxi(id, 253);
+        return (MObjectProxi)PersistentProxi.createProxi(id, 236);
     }
     
     public MObjectProxi newDelayedMObject() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theMObjectFacade.getNextId();
         MObject result = new MObject(null,id);
         Cache.getTheCache().put(result);
-        return (MObjectProxi)PersistentProxi.createProxi(id, 253);
+        return (MObjectProxi)PersistentProxi.createProxi(id, 236);
     }
     
     public MObject getMObject(long MObjectId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 253)) return 253;
+        if(Cache.getTheCache().contains(objectId, 236)) return 236;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

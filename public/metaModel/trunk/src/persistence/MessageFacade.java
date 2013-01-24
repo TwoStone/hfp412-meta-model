@@ -10,18 +10,18 @@ public class MessageFacade{
 	}
 
     public MessageProxi newMessage(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (MessageProxi)PersistentProxi.createProxi(createMinusStorePlus, 205);
+        if(createMinusStorePlus > 0) return (MessageProxi)PersistentProxi.createProxi(createMinusStorePlus, 133);
         long id = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade.getNextId();
         Message result = new Message(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (MessageProxi)PersistentProxi.createProxi(id, 205);
+        return (MessageProxi)PersistentProxi.createProxi(id, 133);
     }
     
     public MessageProxi newDelayedMessage() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade.getNextId();
         Message result = new Message(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (MessageProxi)PersistentProxi.createProxi(id, 205);
+        return (MessageProxi)PersistentProxi.createProxi(id, 133);
     }
     
     public Message getMessage(long MessageId) throws PersistenceException{

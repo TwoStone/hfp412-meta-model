@@ -16,7 +16,7 @@ public class MTrue extends view.objects.MBoolean implements MTrueView{
     }
     
     static public long getTypeId() {
-        return 138;
+        return 190;
     }
     
     public long getClassId() {

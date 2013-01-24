@@ -54,7 +54,7 @@ public class RemoveOperationCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 228;
+        return 137;
     }
     
     public long getClassId() {
@@ -63,7 +63,7 @@ public class RemoveOperationCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 228) ConnectionHandler.getTheConnectionHandler().theRemoveOperationCommandFacade
+        if (this.getClassId() == 137) ConnectionHandler.getTheConnectionHandler().theRemoveOperationCommandFacade
             .newRemoveOperationCommand(this.getId());
         super.store();
         if(this.getOp() != null){

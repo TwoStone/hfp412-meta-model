@@ -25,25 +25,25 @@ public class CreateQuantityCommandFacade{
 	}
 
     public CreateQuantityCommandProxi newCreateQuantityCommand(common.Fraction amount,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateQuantityCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 180);
+        if(createMinusStorePlus > 0) return (CreateQuantityCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 129);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade.getNextId();
         CreateQuantityCommand result = new CreateQuantityCommand(null,amount,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateQuantityCommandProxi)PersistentProxi.createProxi(id, 180);
+        return (CreateQuantityCommandProxi)PersistentProxi.createProxi(id, 129);
     }
     
     public CreateQuantityCommandProxi newDelayedCreateQuantityCommand(common.Fraction amount) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade.getNextId();
         CreateQuantityCommand result = new CreateQuantityCommand(null,amount,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateQuantityCommandProxi)PersistentProxi.createProxi(id, 180);
+        return (CreateQuantityCommandProxi)PersistentProxi.createProxi(id, 129);
     }
     
     public CreateQuantityCommand getCreateQuantityCommand(long CreateQuantityCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 180)) return 180;
+        if(Cache.getTheCache().contains(objectId, 129)) return 129;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

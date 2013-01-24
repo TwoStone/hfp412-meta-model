@@ -12,7 +12,7 @@ import model.visitor.*;
 public class AspectManager extends PersistentObject implements PersistentAspectManager{
     
     private static PersistentAspectManager theAspectManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentAspectManager getTheAspectManager() throws PersistenceException{
         if (theAspectManager == null || reset$For$Test){
@@ -84,7 +84,7 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     }
     
     static public long getTypeId() {
-        return 126;
+        return 136;
     }
     
     public long getClassId() {

@@ -6,7 +6,6 @@ import view.*;
 public interface AnythingExceptionVisitor<E extends UserException> extends AbsOperationExceptionVisitor<E>,QuantifObjectExceptionVisitor<E>,MQuantiObjectTypeExceptionVisitor<E>,MBooleanExceptionVisitor<E>,AbsUnitTypeExceptionVisitor<E>,AbsQuantityExceptionVisitor<E>,MTypeExceptionVisitor<E>,AbsUnitExceptionVisitor<E>,MessageOrLinkExceptionVisitor<E>{
     
     public void handleServer(ServerView server) throws ModelException, E;
-    public void handleAssociation(AssociationView association) throws ModelException, E;
     public void handleFormalParameter(FormalParameterView formalParameter) throws ModelException, E;
     public void handleOperationManager(OperationManagerView operationManager) throws ModelException, E;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;

@@ -267,7 +267,7 @@ part quantity {
 	class Conversion {
 		// from und to sind Oracle-Schluesselwoerter.
 		prior one-to-one (myConversion) Unit source;
-		// prior UnitType type; überflüssig, kann über Unit gegangen werden
+		// prior UnitType type; ?berfl?ssig, kann ?ber Unit gegangen werden
 		Function myFunction;
 
 		Quantity convert(Fraction amount);
@@ -370,13 +370,11 @@ abstract class AbsOperation@@AbstractOperation {
     FormalParameter ** parameters;
 }
 
-class Association {
-	prior String name;
-	prior MType source;
-	prior MType target;
+class Association extends AbsOperation {
 	symmetric(associations) Hierarchy** hierarchies; 
 
 	MBoolean isObservation();
+	MBoolean hasEqualSourceTargetName(Association other);
 }
 
 class Operation extends AbsOperation {

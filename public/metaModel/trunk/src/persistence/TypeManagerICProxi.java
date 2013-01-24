@@ -19,7 +19,7 @@ public class TypeManagerICProxi extends PersistentInCacheProxiOptimistic impleme
     }
     
     public long getClassId() {
-        return 118;
+        return 167;
     }
     
     public TypeManager_TypesProxi getTypes() throws PersistenceException {

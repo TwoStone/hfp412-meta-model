@@ -55,7 +55,7 @@ public class CreateCompUnitTypeCommand extends PersistentObject implements Persi
     }
     
     static public long getTypeId() {
-        return 175;
+        return 161;
     }
     
     public long getClassId() {
@@ -64,7 +64,7 @@ public class CreateCompUnitTypeCommand extends PersistentObject implements Persi
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 175) ConnectionHandler.getTheConnectionHandler().theCreateCompUnitTypeCommandFacade
+        if (this.getClassId() == 161) ConnectionHandler.getTheConnectionHandler().theCreateCompUnitTypeCommandFacade
             .newCreateCompUnitTypeCommand(name,this.getId());
         super.store();
         if(this.getInvoker() != null){

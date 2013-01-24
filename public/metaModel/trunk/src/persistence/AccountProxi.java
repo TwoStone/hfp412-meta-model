@@ -19,7 +19,7 @@ public class AccountProxi extends QuantifObjectProxi implements PersistentAccoun
     }
     
     public long getClassId() {
-        return 196;
+        return 181;
     }
     
     public PersistentMAccountType getType() throws PersistenceException {

@@ -19,7 +19,7 @@ public class MObjectProxi extends PersistentProxi implements PersistentMObject{
     }
     
     public long getClassId() {
-        return 253;
+        return 236;
     }
     
     public PersistentMObject getThis() throws PersistenceException {

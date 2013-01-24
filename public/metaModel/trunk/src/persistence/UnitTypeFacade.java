@@ -10,18 +10,18 @@ public class UnitTypeFacade{
 	}
 
     public UnitTypeProxi newUnitType(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (UnitTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 152);
+        if(createMinusStorePlus > 0) return (UnitTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 182);
         long id = ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.getNextId();
         UnitType result = new UnitType(null,name,null,id);
         Cache.getTheCache().put(result);
-        return (UnitTypeProxi)PersistentProxi.createProxi(id, 152);
+        return (UnitTypeProxi)PersistentProxi.createProxi(id, 182);
     }
     
     public UnitTypeProxi newDelayedUnitType(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.getNextId();
         UnitType result = new UnitType(null,name,null,id);
         Cache.getTheCache().put(result);
-        return (UnitTypeProxi)PersistentProxi.createProxi(id, 152);
+        return (UnitTypeProxi)PersistentProxi.createProxi(id, 182);
     }
     
     public UnitType getUnitType(long UnitTypeId) throws PersistenceException{

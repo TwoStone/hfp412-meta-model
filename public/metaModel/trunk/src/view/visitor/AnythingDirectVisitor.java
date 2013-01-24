@@ -7,8 +7,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleConversionManager(ConversionManagerView conversionManager) throws ModelException;
     
-    public abstract void handleAssociation(AssociationView association) throws ModelException;
-    
     public abstract void handleReferenceType(ReferenceTypeView referenceType) throws ModelException;
     
     public abstract void handleFormalParameter(FormalParameterView formalParameter) throws ModelException;
@@ -73,6 +71,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public void handleOperation(OperationView operation) throws ModelException{
         this.handleAbsOperation(operation);
+    }
+    public void handleAssociation(AssociationView association) throws ModelException{
+        this.handleAbsOperation(association);
     }
     public abstract void handleInstanceObject(InstanceObjectView instanceObject) throws ModelException;
     

@@ -20,7 +20,7 @@ public class Hierarchy extends ViewObject implements HierarchyView{
     }
     
     static public long getTypeId() {
-        return 236;
+        return 163;
     }
     
     public long getClassId() {

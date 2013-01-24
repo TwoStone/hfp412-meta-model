@@ -14,7 +14,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException, E;
     public R handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException, E;
     public R handleServer(PersistentServer server) throws PersistenceException, E;
-    public R handleAssociation(PersistentAssociation association) throws PersistenceException, E;
     public R handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException, E;
     public R handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException, E;
     public R handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException, E;

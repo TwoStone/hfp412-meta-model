@@ -4,5 +4,5 @@ public interface AssociationMssgs {
     void accept(AssociationMssgsVisitor visitor) throws persistence.PersistenceException;
 }
 
-interface AssociationDOWNMssgs extends Mssgs, AssociationMssgs{}
+interface AssociationDOWNMssgs extends AbsOperationDOWNMssgs, AssociationMssgs{}
 interface AssociationUPMssgs extends Mssgs, AssociationMssgs{}

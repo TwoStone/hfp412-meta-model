@@ -19,7 +19,7 @@ public class MAbstractProductTypeICProxi extends MComplexTypeICProxi implements 
     }
     
     public long getClassId() {
-        return 192;
+        return 134;
     }
     
     public PersistentMAbstractProductType getThis() throws PersistenceException {

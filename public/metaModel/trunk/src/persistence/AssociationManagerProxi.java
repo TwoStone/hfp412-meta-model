@@ -19,7 +19,7 @@ public class AssociationManagerProxi extends PersistentProxi implements Persiste
     }
     
     public long getClassId() {
-        return 141;
+        return 152;
     }
     
     public AssociationManager_AssociationsProxi getAssociations() throws PersistenceException {

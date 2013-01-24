@@ -19,7 +19,7 @@ public class CreateStaticOpCommandICProxi extends PersistentInCacheProxi impleme
     }
     
     public long getClassId() {
-        return 232;
+        return 151;
     }
     
     public String getName() throws PersistenceException {

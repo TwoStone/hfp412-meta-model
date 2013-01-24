@@ -14,7 +14,6 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsOp
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException, E;
     public void handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException, E;
     public void handleServer(PersistentServer server) throws PersistenceException, E;
-    public void handleAssociation(PersistentAssociation association) throws PersistenceException, E;
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException, E;
     public void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException, E;
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException, E;

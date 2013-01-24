@@ -4,7 +4,7 @@ import model.UserException;
 
 import model.visitor.*;
 
-public class AssociationICProxi extends PersistentInCacheProxiOptimistic implements PersistentAssociation{
+public class AssociationICProxi extends AbsOperationICProxi implements PersistentAssociation{
     
     public AssociationICProxi(long objectId) {
         super(objectId);
@@ -19,27 +19,9 @@ public class AssociationICProxi extends PersistentInCacheProxiOptimistic impleme
     }
     
     public long getClassId() {
-        return 223;
+        return 116;
     }
     
-    public String getName() throws PersistenceException {
-        return ((PersistentAssociation)this.getTheObject()).getName();
-    }
-    public void setName(String newValue) throws PersistenceException {
-        ((PersistentAssociation)this.getTheObject()).setName(newValue);
-    }
-    public PersistentMType getSource() throws PersistenceException {
-        return ((PersistentAssociation)this.getTheObject()).getSource();
-    }
-    public void setSource(PersistentMType newValue) throws PersistenceException {
-        ((PersistentAssociation)this.getTheObject()).setSource(newValue);
-    }
-    public PersistentMType getTarget() throws PersistenceException {
-        return ((PersistentAssociation)this.getTheObject()).getTarget();
-    }
-    public void setTarget(PersistentMType newValue) throws PersistenceException {
-        ((PersistentAssociation)this.getTheObject()).setTarget(newValue);
-    }
     public Association_HierarchiesProxi getHierarchies() throws PersistenceException {
         return ((PersistentAssociation)this.getTheObject()).getHierarchies();
     }
@@ -47,6 +29,18 @@ public class AssociationICProxi extends PersistentInCacheProxiOptimistic impleme
         return ((PersistentAssociation)this.getTheObject()).getThis();
     }
     
+    public void accept(AbsOperationVisitor visitor) throws PersistenceException {
+        visitor.handleAssociation(this);
+    }
+    public <R> R accept(AbsOperationReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAssociation(this);
+    }
+    public <E extends UserException>  void accept(AbsOperationExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAssociation(this);
+    }
+    public <R, E extends UserException> R accept(AbsOperationReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAssociation(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleAssociation(this);
     }
@@ -61,6 +55,10 @@ public class AssociationICProxi extends PersistentInCacheProxiOptimistic impleme
     }
     
     
+    public PersistentMBoolean hasEqualSourceTargetName(final PersistentAssociation other) 
+				throws PersistenceException{
+        return ((PersistentAssociation)this.getTheObject()).hasEqualSourceTargetName(other);
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentAssociation)this.getTheObject()).initializeOnInstantiation();

@@ -6,7 +6,6 @@ import view.*;
 public interface AnythingVisitor extends AbsOperationVisitor,QuantifObjectVisitor,MQuantiObjectTypeVisitor,MBooleanVisitor,AbsUnitTypeVisitor,AbsQuantityVisitor,MTypeVisitor,AbsUnitVisitor,MessageOrLinkVisitor{
     
     public void handleServer(ServerView server) throws ModelException;
-    public void handleAssociation(AssociationView association) throws ModelException;
     public void handleFormalParameter(FormalParameterView formalParameter) throws ModelException;
     public void handleOperationManager(OperationManagerView operationManager) throws ModelException;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;

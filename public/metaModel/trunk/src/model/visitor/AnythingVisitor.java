@@ -14,7 +14,6 @@ public interface AnythingVisitor extends AbsOperationVisitor,QuantifObjectVisito
     public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException;
     public void handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException;
     public void handleServer(PersistentServer server) throws PersistenceException;
-    public void handleAssociation(PersistentAssociation association) throws PersistenceException;
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException;
     public void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException;
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException;

@@ -19,7 +19,7 @@ public class LinkManagerProxi extends PersistentProxi implements PersistentLinkM
     }
     
     public long getClassId() {
-        return 244;
+        return 186;
     }
     
     public LinkManager_LinksProxi getLinks() throws PersistenceException {

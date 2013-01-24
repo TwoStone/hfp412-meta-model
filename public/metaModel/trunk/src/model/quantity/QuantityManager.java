@@ -27,7 +27,7 @@ import persistence.TDObserver;
 public class QuantityManager extends PersistentObject implements PersistentQuantityManager{
     
     private static PersistentQuantityManager theQuantityManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentQuantityManager getTheQuantityManager() throws PersistenceException{
         if (theQuantityManager == null || reset$For$Test){
@@ -99,7 +99,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     }
     
     static public long getTypeId() {
-        return 170;
+        return 148;
     }
     
     public long getClassId() {

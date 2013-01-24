@@ -25,25 +25,25 @@ public class CreateAtomicRootTypeCommandFacade{
 	}
 
     public CreateAtomicRootTypeCommandProxi newCreateAtomicRootTypeCommand(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateAtomicRootTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 191);
+        if(createMinusStorePlus > 0) return (CreateAtomicRootTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 189);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAtomicRootTypeCommandFacade.getNextId();
         CreateAtomicRootTypeCommand result = new CreateAtomicRootTypeCommand(null,name,null,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateAtomicRootTypeCommandProxi)PersistentProxi.createProxi(id, 191);
+        return (CreateAtomicRootTypeCommandProxi)PersistentProxi.createProxi(id, 189);
     }
     
     public CreateAtomicRootTypeCommandProxi newDelayedCreateAtomicRootTypeCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAtomicRootTypeCommandFacade.getNextId();
         CreateAtomicRootTypeCommand result = new CreateAtomicRootTypeCommand(null,name,null,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateAtomicRootTypeCommandProxi)PersistentProxi.createProxi(id, 191);
+        return (CreateAtomicRootTypeCommandProxi)PersistentProxi.createProxi(id, 189);
     }
     
     public CreateAtomicRootTypeCommand getCreateAtomicRootTypeCommand(long CreateAtomicRootTypeCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 191)) return 191;
+        if(Cache.getTheCache().contains(objectId, 189)) return 189;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

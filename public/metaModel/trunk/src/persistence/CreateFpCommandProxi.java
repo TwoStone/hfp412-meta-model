@@ -19,7 +19,7 @@ public class CreateFpCommandProxi extends PersistentProxi implements PersistentC
     }
     
     public long getClassId() {
-        return 247;
+        return 199;
     }
     
     public String getName() throws PersistenceException {
