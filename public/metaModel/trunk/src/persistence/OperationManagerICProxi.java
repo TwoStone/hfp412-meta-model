@@ -19,7 +19,7 @@ public class OperationManagerICProxi extends PersistentInCacheProxiOptimistic im
     }
     
     public long getClassId() {
-        return 226;
+        return 121;
     }
     
     public OperationManager_OperationsProxi getOperations() throws PersistenceException {

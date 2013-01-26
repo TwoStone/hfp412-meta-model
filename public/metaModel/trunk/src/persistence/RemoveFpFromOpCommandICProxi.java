@@ -19,7 +19,7 @@ public class RemoveFpFromOpCommandICProxi extends PersistentInCacheProxi impleme
     }
     
     public long getClassId() {
-        return 245;
+        return 198;
     }
     
     public PersistentOperation getOp() throws PersistenceException {

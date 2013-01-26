@@ -18,7 +18,7 @@ public class CompoundQuantity extends view.objects.AbsQuantity implements Compou
     }
     
     static public long getTypeId() {
-        return 158;
+        return 109;
     }
     
     public long getClassId() {

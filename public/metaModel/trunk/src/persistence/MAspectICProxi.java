@@ -19,7 +19,7 @@ public class MAspectICProxi extends PersistentInCacheProxiOptimistic implements 
     }
     
     public long getClassId() {
-        return 127;
+        return 142;
     }
     
     public String getName() throws PersistenceException {

@@ -23,11 +23,11 @@ public interface PersistentMType extends MComplexTypeHierarchyHIERARCHY, Anythin
 				throws PersistenceException;
     public String fetchName() 
 				throws PersistenceException;
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public PersistentMBoolean isSingleton() 
-				throws PersistenceException;
-    public PersistentMBoolean isLessOrEqual() 
 				throws PersistenceException;
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException;

@@ -10,18 +10,18 @@ public class MeasurementFacade{
 	}
 
     public MeasurementProxi newMeasurement(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (MeasurementProxi)PersistentProxi.createProxi(createMinusStorePlus, 195);
+        if(createMinusStorePlus > 0) return (MeasurementProxi)PersistentProxi.createProxi(createMinusStorePlus, 116);
         long id = ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade.getNextId();
         Measurement result = new Measurement(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (MeasurementProxi)PersistentProxi.createProxi(id, 195);
+        return (MeasurementProxi)PersistentProxi.createProxi(id, 116);
     }
     
     public MeasurementProxi newDelayedMeasurement() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade.getNextId();
         Measurement result = new Measurement(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (MeasurementProxi)PersistentProxi.createProxi(id, 195);
+        return (MeasurementProxi)PersistentProxi.createProxi(id, 116);
     }
     
     public Measurement getMeasurement(long MeasurementId) throws PersistenceException{

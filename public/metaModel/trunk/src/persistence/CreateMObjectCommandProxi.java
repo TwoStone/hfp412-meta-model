@@ -19,7 +19,7 @@ public class CreateMObjectCommandProxi extends PersistentProxi implements Persis
     }
     
     public long getClassId() {
-        return 252;
+        return 101;
     }
     
     public CreateMObjectCommand_TypesProxi getTypes() throws PersistenceException {

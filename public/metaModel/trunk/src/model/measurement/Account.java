@@ -100,7 +100,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 196;
+        return 183;
     }
     
     public long getClassId() {
@@ -109,7 +109,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 196) ConnectionHandler.getTheConnectionHandler().theAccountFacade
+        if (this.getClassId() == 183) ConnectionHandler.getTheConnectionHandler().theAccountFacade
             .newAccount(this.getId());
         super.store();
         if(this.getType() != null){

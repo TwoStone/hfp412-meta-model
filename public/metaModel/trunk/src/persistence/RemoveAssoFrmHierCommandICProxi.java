@@ -19,7 +19,7 @@ public class RemoveAssoFrmHierCommandICProxi extends PersistentInCacheProxi impl
     }
     
     public long getClassId() {
-        return 222;
+        return 111;
     }
     
     public PersistentHierarchy getH() throws PersistenceException {

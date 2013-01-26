@@ -19,7 +19,7 @@ public class CreateAssociationCommandProxi extends PersistentProxi implements Pe
     }
     
     public long getClassId() {
-        return 146;
+        return 189;
     }
     
     public PersistentMType getSource() throws PersistenceException {

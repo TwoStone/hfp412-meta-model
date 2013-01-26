@@ -19,7 +19,7 @@ public class CreateVoidMessageCommandProxi extends PersistentProxi implements Pe
     }
     
     public long getClassId() {
-        return 240;
+        return 173;
     }
     
     public PersistentOperation getType() throws PersistenceException {

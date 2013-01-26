@@ -20,7 +20,7 @@ public class MAspect extends ViewObject implements MAspectView{
     }
     
     static public long getTypeId() {
-        return 127;
+        return 142;
     }
     
     public long getClassId() {

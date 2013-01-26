@@ -19,7 +19,7 @@ public class LinkManagerICProxi extends PersistentInCacheProxiOptimistic impleme
     }
     
     public long getClassId() {
-        return 244;
+        return 188;
     }
     
     public LinkManager_LinksProxi getLinks() throws PersistenceException {

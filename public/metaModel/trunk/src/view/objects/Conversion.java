@@ -20,7 +20,7 @@ public class Conversion extends ViewObject implements ConversionView{
     }
     
     static public long getTypeId() {
-        return 164;
+        return 179;
     }
     
     public long getClassId() {

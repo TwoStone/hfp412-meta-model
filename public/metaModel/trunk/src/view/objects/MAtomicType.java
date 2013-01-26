@@ -10,13 +10,13 @@ import view.visitor.*;
 public class MAtomicType extends view.objects.MType implements MAtomicTypeView{
     
     protected String name;
-    protected MBooleanView singletonType;
-    protected MBooleanView abstractType;
+    protected String singletonType;
+    protected String abstractType;
     protected MAspectView aspect;
     protected MAtomicTypeView superType;
     protected java.util.Vector<MAtomicTypeView> subTypes;
     
-    public MAtomicType(String name,MBooleanView singletonType,MBooleanView abstractType,MAspectView aspect,MAtomicTypeView superType,java.util.Vector<MAtomicTypeView> subTypes,long id, long classId) {
+    public MAtomicType(String name,String singletonType,String abstractType,MAspectView aspect,MAtomicTypeView superType,java.util.Vector<MAtomicTypeView> subTypes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
@@ -28,7 +28,7 @@ public class MAtomicType extends view.objects.MType implements MAtomicTypeView{
     }
     
     static public long getTypeId() {
-        return 102;
+        return 113;
     }
     
     public long getClassId() {
@@ -41,16 +41,16 @@ public class MAtomicType extends view.objects.MType implements MAtomicTypeView{
     public void setName(String newValue) throws ModelException {
         this.name = newValue;
     }
-    public MBooleanView getSingletonType() throws ModelException {
+    public String getSingletonType() throws ModelException {
         return this.singletonType;
     }
-    public void setSingletonType(MBooleanView newValue) throws ModelException {
+    public void setSingletonType(String newValue) throws ModelException {
         this.singletonType = newValue;
     }
-    public MBooleanView getAbstractType() throws ModelException {
+    public String getAbstractType() throws ModelException {
         return this.abstractType;
     }
-    public void setAbstractType(MBooleanView newValue) throws ModelException {
+    public void setAbstractType(String newValue) throws ModelException {
         this.abstractType = newValue;
     }
     public MAspectView getAspect() throws ModelException {
@@ -95,14 +95,6 @@ public class MAtomicType extends view.objects.MType implements MAtomicTypeView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        MBooleanView singletonType = this.getSingletonType();
-        if (singletonType != null) {
-            ((ViewProxi)singletonType).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(singletonType.getClassId(), singletonType.getId())));
-        }
-        MBooleanView abstractType = this.getAbstractType();
-        if (abstractType != null) {
-            ((ViewProxi)abstractType).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(abstractType.getClassId(), abstractType.getId())));
-        }
         MAspectView aspect = this.getAspect();
         if (aspect != null) {
             ((ViewProxi)aspect).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(aspect.getClassId(), aspect.getId())));
@@ -122,32 +114,20 @@ public class MAtomicType extends view.objects.MType implements MAtomicTypeView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index == 0 && this.getSingletonType() != null) return new SingletonTypeMAtomicTypeWrapper(this, originalIndex, (ViewRoot)this.getSingletonType());
-        if(this.getSingletonType() != null) index = index - 1;
-        if(index == 0 && this.getAbstractType() != null) return new AbstractTypeMAtomicTypeWrapper(this, originalIndex, (ViewRoot)this.getAbstractType());
-        if(this.getAbstractType() != null) index = index - 1;
         if(index < this.getSubTypes().size()) return new SubTypesMAtomicTypeWrapper(this, originalIndex, (ViewRoot)this.getSubTypes().get(index));
         index = index - this.getSubTypes().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getSingletonType() == null ? 0 : 1)
-            + (this.getAbstractType() == null ? 0 : 1)
             + (this.getSubTypes().size());
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getSingletonType() == null ? true : false)
-            && (this.getAbstractType() == null ? true : false)
             && (this.getSubTypes().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getSingletonType() != null && this.getSingletonType().equals(child)) return result;
-        if(this.getSingletonType() != null) result = result + 1;
-        if(this.getAbstractType() != null && this.getAbstractType().equals(child)) return result;
-        if(this.getAbstractType() != null) result = result + 1;
         java.util.Iterator<?> getSubTypesIterator = this.getSubTypes().iterator();
         while(getSubTypesIterator.hasNext()){
             if(getSubTypesIterator.next().equals(child)) return result;
@@ -158,8 +138,16 @@ public class MAtomicType extends view.objects.MType implements MAtomicTypeView{
     public int getNameIndex() throws ModelException {
         return 0;
     }
+    public int getSingletonTypeIndex() throws ModelException {
+        return 0 + 1;
+    }
+    public int getAbstractTypeIndex() throws ModelException {
+        return 0 + 1 + 1;
+    }
     public int getRowCount(){
         return 0 
+            + 1
+            + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
@@ -167,8 +155,16 @@ public class MAtomicType extends view.objects.MType implements MAtomicTypeView{
             if(columnIndex == 0){
                 if(rowIndex == 0) return "name";
                 rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "singletonType";
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "abstractType";
+                rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getSingletonType();
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getAbstractType();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -186,6 +182,8 @@ public class MAtomicType extends view.objects.MType implements MAtomicTypeView{
             return;
         }
         rowIndex = rowIndex - 1;
+        
+        
     }
     public boolean hasTransientFields(){
         return true;

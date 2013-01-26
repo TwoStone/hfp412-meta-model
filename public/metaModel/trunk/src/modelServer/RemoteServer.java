@@ -179,18 +179,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createAtomicRootType(String aspectProxiString, String typeName, String singletonTypeProxiString, String abstractTypeProxiString){
-        try {
-            PersistentMAspect aspect = (PersistentMAspect)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aspectProxiString));
-            PersistentMBoolean singletonType = (PersistentMBoolean)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(singletonTypeProxiString));
-            PersistentMBoolean abstractType = (PersistentMBoolean)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(abstractTypeProxiString));
-            ((PersistentServer)this.server).createAtomicRootType(aspect, typeName, singletonType, abstractType);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> createHierarchy(String aProxiString, String name){
         try {
             PersistentAssociation a = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aProxiString));
@@ -291,6 +279,16 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> createAtomicRootType(String aspectProxiString, String typeName, String singletonType, String abstractType){
+        try {
+            PersistentMAspect aspect = (PersistentMAspect)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aspectProxiString));
+            ((PersistentServer)this.server).createAtomicRootType(aspect, typeName, singletonType, abstractType);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> createVoidMessage(String sourceProxiString, String typeProxiString, java.util.Vector<String> apTrnsprt){
         try {
             PersistentInstanceObject source = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
@@ -302,18 +300,6 @@ public  class RemoteServer extends RemoteServerMaster {
 				ap.add(currentProxi);
 			}
             ((PersistentServer)this.server).createVoidMessage(source, type, ap);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> createAtomicSubType(String superTypeProxiString, String typeName, String singletonTypeProxiString, String abstractTypeProxiString){
-        try {
-            PersistentMAtomicType superType = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(superTypeProxiString));
-            PersistentMBoolean singletonType = (PersistentMBoolean)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(singletonTypeProxiString));
-            PersistentMBoolean abstractType = (PersistentMBoolean)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(abstractTypeProxiString));
-            ((PersistentServer)this.server).createAtomicSubType(superType, typeName, singletonType, abstractType);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -434,6 +420,16 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentAssociation type = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
             PersistentInstanceObject target = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
             ((PersistentServer)this.server).createLink(source, type, target);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createAtomicSubType(String superTypeProxiString, String typeName, String singletonType, String abstractType){
+        try {
+            PersistentMAtomicType superType = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(superTypeProxiString));
+            ((PersistentServer)this.server).createAtomicSubType(superType, typeName, singletonType, abstractType);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

@@ -1,11 +1,23 @@
-
 package model.typeSystem;
 
-import persistence.*;
 import model.ConsistencyException;
 import model.UserException;
-import model.visitor.*;
-
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.AspectManagerProxi;
+import persistence.AspectManager_AspectsProxi;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAspectManager;
+import persistence.PersistentCreateAspectCommand;
+import persistence.PersistentMAspect;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -84,7 +96,7 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     }
     
     static public long getTypeId() {
-        return 126;
+        return 138;
     }
     
     public long getClassId() {
@@ -141,22 +153,19 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+	}
     public PersistentMAspect createAspect(final String name) 
 				throws model.ConsistencyException, PersistenceException{
-    	if (MAspect.getMAspectByName(name).getLength() > 0) {
-    		throw new ConsistencyException("There already exists an aspect with name " + name);
-    	}
-    	PersistentMAspect result = MAspect.createMAspect(name);
-    	getThis().getAspects().add(result);
-    	return result;
-    }
+		if (MAspect.getMAspectByName(name).getLength() > 0) {
+			throw new ConsistencyException("There already exists an aspect with name " + name);
+		}
+		PersistentMAspect result = MAspect.createMAspect(name);
+		getThis().getAspects().add(result);
+		return result;
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-    }
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAspectManager)This);
@@ -173,12 +182,10 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

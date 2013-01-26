@@ -19,7 +19,7 @@ public class CreateStaticOpCommandProxi extends PersistentProxi implements Persi
     }
     
     public long getClassId() {
-        return 232;
+        return 153;
     }
     
     public String getName() throws PersistenceException {

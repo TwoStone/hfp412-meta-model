@@ -20,7 +20,7 @@ public class AssociationManager extends ViewObject implements AssociationManager
     }
     
     static public long getTypeId() {
-        return 141;
+        return 154;
     }
     
     public long getClassId() {

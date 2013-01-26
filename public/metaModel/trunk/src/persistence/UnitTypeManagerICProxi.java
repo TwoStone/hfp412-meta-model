@@ -19,7 +19,7 @@ public class UnitTypeManagerICProxi extends PersistentInCacheProxiOptimistic imp
     }
     
     public long getClassId() {
-        return 176;
+        return 171;
     }
     
     public UnitTypeManager_UnitTypesProxi getUnitTypes() throws PersistenceException {

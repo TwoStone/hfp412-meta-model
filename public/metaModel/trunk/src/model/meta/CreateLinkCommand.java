@@ -58,7 +58,7 @@ public class CreateLinkCommand extends PersistentObject implements PersistentCre
     }
     
     static public long getTypeId() {
-        return 234;
+        return 160;
     }
     
     public long getClassId() {
@@ -67,7 +67,7 @@ public class CreateLinkCommand extends PersistentObject implements PersistentCre
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 234) ConnectionHandler.getTheConnectionHandler().theCreateLinkCommandFacade
+        if (this.getClassId() == 160) ConnectionHandler.getTheConnectionHandler().theCreateLinkCommandFacade
             .newCreateLinkCommand(this.getId());
         super.store();
         if(this.getType() != null){

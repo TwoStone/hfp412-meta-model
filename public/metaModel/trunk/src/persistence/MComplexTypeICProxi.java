@@ -47,6 +47,10 @@ public abstract class MComplexTypeICProxi extends MTypeICProxi implements Persis
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+        return ((PersistentMComplexType)this.getTheObject()).isLessOrEqual(other);
+    }
     public String fetchTypeLinkOperator() 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).fetchTypeLinkOperator();
@@ -58,10 +62,6 @@ public abstract class MComplexTypeICProxi extends MTypeICProxi implements Persis
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
         return ((PersistentMComplexType)this.getTheObject()).isSingleton();
-    }
-    public PersistentMBoolean isLessOrEqual() 
-				throws PersistenceException{
-        return ((PersistentMComplexType)this.getTheObject()).isLessOrEqual();
     }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{

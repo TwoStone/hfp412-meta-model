@@ -25,25 +25,25 @@ public class CreateProductTypeCommandFacade{
 	}
 
     public CreateProductTypeCommandProxi newCreateProductTypeCommand(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateProductTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 187);
+        if(createMinusStorePlus > 0) return (CreateProductTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 152);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateProductTypeCommandFacade.getNextId();
         CreateProductTypeCommand result = new CreateProductTypeCommand(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateProductTypeCommandProxi)PersistentProxi.createProxi(id, 187);
+        return (CreateProductTypeCommandProxi)PersistentProxi.createProxi(id, 152);
     }
     
     public CreateProductTypeCommandProxi newDelayedCreateProductTypeCommand() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateProductTypeCommandFacade.getNextId();
         CreateProductTypeCommand result = new CreateProductTypeCommand(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateProductTypeCommandProxi)PersistentProxi.createProxi(id, 187);
+        return (CreateProductTypeCommandProxi)PersistentProxi.createProxi(id, 152);
     }
     
     public CreateProductTypeCommand getCreateProductTypeCommand(long CreateProductTypeCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 187)) return 187;
+        if(Cache.getTheCache().contains(objectId, 152)) return 152;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

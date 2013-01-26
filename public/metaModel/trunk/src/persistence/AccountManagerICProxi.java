@@ -19,7 +19,7 @@ public class AccountManagerICProxi extends PersistentInCacheProxiOptimistic impl
     }
     
     public long getClassId() {
-        return 214;
+        return 143;
     }
     
     public AccountManager_AccountsProxi getAccounts() throws PersistenceException {

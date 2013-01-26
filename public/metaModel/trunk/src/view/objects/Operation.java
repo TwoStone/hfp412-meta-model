@@ -16,7 +16,7 @@ public class Operation extends view.objects.AbsOperation implements OperationVie
     }
     
     static public long getTypeId() {
-        return 231;
+        return 148;
     }
     
     public long getClassId() {

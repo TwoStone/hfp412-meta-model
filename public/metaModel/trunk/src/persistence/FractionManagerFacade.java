@@ -28,14 +28,14 @@ public class FractionManagerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theFractionManagerFacade.getNextId();
         FractionManager result = new FractionManager(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (FractionManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 178);
+        return (FractionManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 177);
     }
     
     public FractionManager getFractionManager(long FractionManagerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 178)) return 178;
+        if(Cache.getTheCache().contains(objectId, 177)) return 177;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

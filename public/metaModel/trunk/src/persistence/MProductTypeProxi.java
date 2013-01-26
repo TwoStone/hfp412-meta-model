@@ -19,7 +19,7 @@ public class MProductTypeProxi extends MAbstractProductTypeProxi implements Pers
     }
     
     public long getClassId() {
-        return 101;
+        return 115;
     }
     
     public PersistentMProductType getThis() throws PersistenceException {
@@ -116,6 +116,10 @@ public class MProductTypeProxi extends MAbstractProductTypeProxi implements Pers
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+        return ((PersistentMProductType)this.getTheObject()).isLessOrEqual(other);
+    }
     public String fetchTypeLinkOperator() 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).fetchTypeLinkOperator();
@@ -127,10 +131,6 @@ public class MProductTypeProxi extends MAbstractProductTypeProxi implements Pers
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
         return ((PersistentMProductType)this.getTheObject()).isSingleton();
-    }
-    public PersistentMBoolean isLessOrEqual() 
-				throws PersistenceException{
-        return ((PersistentMProductType)this.getTheObject()).isLessOrEqual();
     }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{

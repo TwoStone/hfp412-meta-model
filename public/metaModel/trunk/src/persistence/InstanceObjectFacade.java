@@ -25,25 +25,25 @@ public class InstanceObjectFacade{
 	}
 
     public InstanceObjectProxi newInstanceObject(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (InstanceObjectProxi)PersistentProxi.createProxi(createMinusStorePlus, 203);
+        if(createMinusStorePlus > 0) return (InstanceObjectProxi)PersistentProxi.createProxi(createMinusStorePlus, 132);
         long id = ConnectionHandler.getTheConnectionHandler().theInstanceObjectFacade.getNextId();
         InstanceObject result = new InstanceObject(null,null,id);
         Cache.getTheCache().put(result);
-        return (InstanceObjectProxi)PersistentProxi.createProxi(id, 203);
+        return (InstanceObjectProxi)PersistentProxi.createProxi(id, 132);
     }
     
     public InstanceObjectProxi newDelayedInstanceObject() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theInstanceObjectFacade.getNextId();
         InstanceObject result = new InstanceObject(null,null,id);
         Cache.getTheCache().put(result);
-        return (InstanceObjectProxi)PersistentProxi.createProxi(id, 203);
+        return (InstanceObjectProxi)PersistentProxi.createProxi(id, 132);
     }
     
     public InstanceObject getInstanceObject(long InstanceObjectId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 203)) return 203;
+        if(Cache.getTheCache().contains(objectId, 132)) return 132;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

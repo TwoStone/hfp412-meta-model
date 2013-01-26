@@ -1,12 +1,33 @@
-
 package model.typeSystem;
 
-import persistence.*;
 import model.ConsistencyException;
 import model.CycleException;
 import model.UserException;
-import model.visitor.*;
-
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.MTypeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentCreateAtomicRootTypeCommand;
+import persistence.PersistentCreateAtomicSubTypeCommand;
+import persistence.PersistentCreateProductTypeCommand;
+import persistence.PersistentCreateSumTypeCommand;
+import persistence.PersistentMAbstractProductType;
+import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMAspect;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentTypeManager;
+import persistence.TDObserver;
+import persistence.TypeManagerProxi;
+import persistence.TypeManager_TypesProxi;
 
 /* Additional import section end */
 
@@ -85,7 +106,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     
     static public long getTypeId() {
-        return 118;
+        return 169;
     }
     
     public long getClassId() {
@@ -140,25 +161,33 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     
     
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType) 
-				throws model.ConsistencyException, model.CycleException, PersistenceException{
-        //TODO: implement method: addSubType
-    }
     public PersistentMAbstractSumType createSumType(final MTypeSearchList addends) 
 				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: createSumType
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"createSumType\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		// TODO: implement method: createSumType
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"createSumType\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
+	}
+    public void createAtomicRootType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateAtomicRootTypeCommand command = model.meta.CreateAtomicRootTypeCommand.createCreateAtomicRootTypeCommand(name, now, now);
+		command.setAspect(aspect);
+		command.setSingletonType(singletonType);
+		command.setAbstractType(abstractType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void createSumType(final MTypeSearchList addends, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -183,47 +212,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public PersistentMAbstractProductType createProductType(final MTypeSearchList factors) 
-				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: createProductType
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"createProductType\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddSubTypeCommand command = model.meta.AddSubTypeCommand.createAddSubTypeCommand(now, now);
-		command.setSuperType(superType);
-		command.setSubType(subType);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void createAtomicRootType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateAtomicRootTypeCommand command = model.meta.CreateAtomicRootTypeCommand.createCreateAtomicRootTypeCommand(name, now, now);
-		command.setAspect(aspect);
-		command.setSingletonType(singletonType);
-		command.setAbstractType(abstractType);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentTypeManager)This);
@@ -241,37 +229,55 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public PersistentMAbstractProductType createProductType(final MTypeSearchList factors) 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: createProductType
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"createProductType\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
     public PersistentMAtomicType createAtomicSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws model.ConsistencyException, PersistenceException{
-    	checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
-    	PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType, superType.getAspect());
-    	try {
+		checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
+		PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType,
+				superType.getAspect(), true);
+		try {
 			result.setSuperType(superType);
 		} catch (CycleException e) {
+			// TODO: Kann nicht auftreten; exception entwickeln fuer sowas
 			throw new ConsistencyException(e.getMessage());
 		}
-    	getThis().getTypes().add(result);
-    	return result;
-    }
+		getThis().getTypes().add(result);
+		return result;
+	}
     public PersistentMAtomicType createAtomicRootType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws model.ConsistencyException, PersistenceException{
-    	checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
-    	PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType, aspect);
-    	getThis().getTypes().add(result);
-    	return result;
-    }
+		checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
+		PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType, aspect);
+		getThis().getTypes().add(result);
+		return result;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    private void checkMAtomicTypeNameAndConsitency(String name, PersistentMBoolean singletonType, PersistentMBoolean abstractType) throws PersistenceException, ConsistencyException{
-    	if (singletonType.toBoolean() && abstractType.toBoolean()) {
-    		throw new ConsistencyException("Singletons may not be abstract");
-    	}
-    	
-    	
-    	if(MAtomicType.getMAtomicTypeByName(name).getLength()>0){
-    		throw new ConsistencyException("AtomicType-names must be unique. An AtomicType with name " + name +" is already existing.");
-    	}
-    }
-    /* End of protected part that is not overridden by persistence generator */
+	private static void checkMAtomicTypeNameAndConsitency(String name, PersistentMBoolean singletonType,
+			PersistentMBoolean abstractType) throws PersistenceException, ConsistencyException {
+		if (singletonType.toBoolean() && abstractType.toBoolean()) {
+			throw new ConsistencyException("Singletons may not be abstract");
+		}
+		if (name.isEmpty()) {
+			throw new ConsistencyException("Atomic-Type must have a non-empty name");
+		}
+		if (MAtomicType.getMAtomicTypeByName(name).getLength() > 0) {
+			throw new ConsistencyException("AtomicType-names must be unique. An AtomicType with name " + name
+					+ " is already existing.");
+		}
+	}
+	/* End of protected part that is not overridden by persistence generator */
     
 }

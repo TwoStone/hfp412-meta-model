@@ -25,25 +25,25 @@ public class CreateConversionCommandFacade{
 	}
 
     public CreateConversionCommandProxi newCreateConversionCommand(common.Fraction factor,common.Fraction constant,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateConversionCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 172);
+        if(createMinusStorePlus > 0) return (CreateConversionCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 156);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.getNextId();
         CreateConversionCommand result = new CreateConversionCommand(null,factor,constant,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateConversionCommandProxi)PersistentProxi.createProxi(id, 172);
+        return (CreateConversionCommandProxi)PersistentProxi.createProxi(id, 156);
     }
     
     public CreateConversionCommandProxi newDelayedCreateConversionCommand(common.Fraction factor,common.Fraction constant) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.getNextId();
         CreateConversionCommand result = new CreateConversionCommand(null,factor,constant,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateConversionCommandProxi)PersistentProxi.createProxi(id, 172);
+        return (CreateConversionCommandProxi)PersistentProxi.createProxi(id, 156);
     }
     
     public CreateConversionCommand getCreateConversionCommand(long CreateConversionCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 172)) return 172;
+        if(Cache.getTheCache().contains(objectId, 156)) return 156;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

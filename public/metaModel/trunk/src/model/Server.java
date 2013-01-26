@@ -1,5 +1,6 @@
 package model;
 
+import model.basic.MBoolean;
 import model.quantity.ConversionManager;
 import model.quantity.FractionManager;
 import model.quantity.QuantityManager;
@@ -45,7 +46,6 @@ import persistence.PersistentLinkManager;
 import persistence.PersistentMAccountType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMBoolean;
 import persistence.PersistentMType;
 import persistence.PersistentMeasurementTypeManager;
 import persistence.PersistentMessage;
@@ -297,7 +297,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     static public long getTypeId() {
-        return -105;
+        return -112;
     }
     
     public long getClassId() {
@@ -306,7 +306,7 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == -105) ConnectionHandler.getTheConnectionHandler().theServerFacade
+        if (this.getClassId() == -112) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
         super.store();
         if(!this.equals(this.getThis())){
@@ -465,9 +465,9 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void publishCompUnit(final PersistentCompUnit compUnit) 
 				throws PersistenceException{
-        //TODO: implement method: publishCompUnit
-        
-    }
+		// TODO: implement method: publishCompUnit
+
+	}
     public void createVoidOperation(final PersistentOperationManager operationManager, final PersistentMType source, final String name, final FormalParameterSearchList fp) 
 				throws PersistenceException{
 		// TODO: implement method: createVoidOperation
@@ -522,10 +522,6 @@ public class Server extends PersistentObject implements PersistentServer{
         //TODO: implement method: createQuantity
         
     }
-    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
-				throws PersistenceException{
-		getThis().getTypeManager().createAtomicRootType(aspect, typeName, singletonType, abstractType, getThis());
-	}
     public void createHierarchy(final PersistentAssociation a, final String name) 
 				throws PersistenceException{
 		// TODO: implement method: createHierarchy
@@ -646,14 +642,15 @@ public class Server extends PersistentObject implements PersistentServer{
 		// TODO: implement method: addFp
 
 	}
+    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final String singletonType, final String abstractType) 
+				throws PersistenceException{
+		getThis().getTypeManager().createAtomicRootType(aspect, typeName,
+				MBoolean.createFromFactoryString(singletonType), MBoolean.createFromFactoryString(abstractType),
+				getThis());
+	}
     public void createVoidMessage(final PersistentInstanceObject source, final PersistentOperation type, final ActualParameterSearchList ap) 
 				throws PersistenceException{
 		// TODO: implement method: createVoidMessage
-
-	}
-    public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
-				throws PersistenceException{
-		getThis().getTypeManager().createAtomicSubType(superType, typeName, singletonType, abstractType, getThis());
 
 	}
     public void createUnit(final PersistentUnitTypeManager manager, final PersistentUnitType type, final String name) 
@@ -742,6 +739,12 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		// TODO: implement method: createLink
 
+	}
+    public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final String singletonType, final String abstractType) 
+				throws PersistenceException{
+		getThis().getTypeManager().createAtomicSubType(superType, typeName,
+				MBoolean.createFromFactoryString(singletonType), MBoolean.createFromFactoryString(abstractType),
+				getThis());
 	}
     public PersistentMeasurementTypeManager getMeasurementTypeManager() 
 				throws PersistenceException{

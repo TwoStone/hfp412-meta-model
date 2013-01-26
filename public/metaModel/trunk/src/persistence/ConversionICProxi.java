@@ -19,7 +19,7 @@ public class ConversionICProxi extends PersistentInCacheProxiOptimistic implemen
     }
     
     public long getClassId() {
-        return 164;
+        return 179;
     }
     
     public PersistentUnit getSource() throws PersistenceException {

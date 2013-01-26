@@ -16,7 +16,7 @@ public class MObject extends ViewObject implements MObjectView{
     }
     
     static public long getTypeId() {
-        return 253;
+        return 130;
     }
     
     public long getClassId() {

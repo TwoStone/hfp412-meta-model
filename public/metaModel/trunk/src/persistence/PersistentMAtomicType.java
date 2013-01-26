@@ -45,6 +45,8 @@ public interface PersistentMAtomicType extends MAtomicTypeHierarchyHIERARCHY, Pe
 				throws PersistenceException;
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException;
+    public String abstractTypeAsString() 
+				throws PersistenceException;
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException;
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
@@ -52,6 +54,8 @@ public interface PersistentMAtomicType extends MAtomicTypeHierarchyHIERARCHY, Pe
     public void initializeOnCreation() 
 				throws PersistenceException;
     public PersistentMBoolean hasConcreteSubType() 
+				throws PersistenceException;
+    public String singletonTypeAsString() 
 				throws PersistenceException;
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException;

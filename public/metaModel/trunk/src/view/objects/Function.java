@@ -20,7 +20,7 @@ public class Function extends ViewObject implements FunctionView{
     }
     
     static public long getTypeId() {
-        return 159;
+        return 137;
     }
     
     public long getClassId() {

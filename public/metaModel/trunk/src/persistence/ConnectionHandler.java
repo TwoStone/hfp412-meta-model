@@ -143,7 +143,6 @@ public class ConnectionHandler {
     public QuantityFacade theQuantityFacade;
     public AddReferenceTypeCommandFacade theAddReferenceTypeCommandFacade;
     public ActualParameterFacade theActualParameterFacade;
-    public AddSubTypeCommandFacade theAddSubTypeCommandFacade;
     public CreateSumTypeCommandFacade theCreateSumTypeCommandFacade;
     public RemoveFpFromOpCommandFacade theRemoveFpFromOpCommandFacade;
     public RemoveMessageCommandFacade theRemoveMessageCommandFacade;
@@ -249,7 +248,6 @@ public class ConnectionHandler {
             this.theQuantityFacade= new QuantityFacade();
             this.theAddReferenceTypeCommandFacade= new AddReferenceTypeCommandFacade();
             this.theActualParameterFacade= new ActualParameterFacade();
-            this.theAddSubTypeCommandFacade= new AddSubTypeCommandFacade();
             this.theCreateSumTypeCommandFacade= new CreateSumTypeCommandFacade();
             this.theRemoveFpFromOpCommandFacade= new RemoveFpFromOpCommandFacade();
             this.theRemoveMessageCommandFacade= new RemoveMessageCommandFacade();

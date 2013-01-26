@@ -236,9 +236,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleRemoveOperationCommand(PersistentRemoveOperationCommand removeOperationCommand) throws PersistenceException{
         this.standardHandling(removeOperationCommand);
     }
-    public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException{
-        this.standardHandling(addSubTypeCommand);
-    }
     public void handleCreateConstantCommand(PersistentCreateConstantCommand createConstantCommand) throws PersistenceException{
         this.standardHandling(createConstantCommand);
     }

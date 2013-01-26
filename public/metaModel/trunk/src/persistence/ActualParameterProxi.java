@@ -19,7 +19,7 @@ public class ActualParameterProxi extends PersistentProxi implements PersistentA
     }
     
     public long getClassId() {
-        return 206;
+        return 196;
     }
     
     public PersistentFormalParameter getType() throws PersistenceException {

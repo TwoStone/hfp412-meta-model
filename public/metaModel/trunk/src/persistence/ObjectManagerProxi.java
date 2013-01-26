@@ -19,7 +19,7 @@ public class ObjectManagerProxi extends PersistentProxi implements PersistentObj
     }
     
     public long getClassId() {
-        return 254;
+        return 200;
     }
     
     public ObjectManager_ObjectsProxi getObjects() throws PersistenceException {

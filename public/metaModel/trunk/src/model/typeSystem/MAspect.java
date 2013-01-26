@@ -1,10 +1,20 @@
-
 package model.typeSystem;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
-
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MAspectProxi;
+import persistence.MAspectSearchList;
+import persistence.MAtomicTypeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentMAspect;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -96,7 +106,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     }
     
     static public long getTypeId() {
-        return 127;
+        return 142;
     }
     
     public long getClassId() {
@@ -105,7 +115,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 127) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
+        if (this.getClassId() == 142) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
             .newMAspect(name,this.getId());
         super.store();
         if(!this.equals(this.getThis())){
@@ -166,14 +176,10 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+	}
     public MAtomicTypeSearchList getTypes() 
 				throws PersistenceException{
         MAtomicTypeSearchList result = null;
@@ -190,12 +196,10 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

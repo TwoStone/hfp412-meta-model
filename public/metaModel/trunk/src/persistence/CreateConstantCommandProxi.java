@@ -19,7 +19,7 @@ public class CreateConstantCommandProxi extends PersistentProxi implements Persi
     }
     
     public long getClassId() {
-        return 229;
+        return 140;
     }
     
     public String getName() throws PersistenceException {

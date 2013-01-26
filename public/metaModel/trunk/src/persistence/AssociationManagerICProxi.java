@@ -19,7 +19,7 @@ public class AssociationManagerICProxi extends PersistentInCacheProxiOptimistic 
     }
     
     public long getClassId() {
-        return 141;
+        return 154;
     }
     
     public AssociationManager_AssociationsProxi getAssociations() throws PersistenceException {

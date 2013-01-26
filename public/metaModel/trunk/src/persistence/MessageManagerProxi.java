@@ -19,7 +19,7 @@ public class MessageManagerProxi extends PersistentProxi implements PersistentMe
     }
     
     public long getClassId() {
-        return 239;
+        return 170;
     }
     
     public MessageManager_MessagesProxi getMessages() throws PersistenceException {

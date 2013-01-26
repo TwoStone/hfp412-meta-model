@@ -19,7 +19,7 @@ public class CreateMessageCommandProxi extends PersistentProxi implements Persis
     }
     
     public long getClassId() {
-        return 230;
+        return 146;
     }
     
     public PersistentOperation getType() throws PersistenceException {

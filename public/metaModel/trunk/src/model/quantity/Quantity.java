@@ -109,7 +109,7 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     }
     
     static public long getTypeId() {
-        return 157;
+        return 194;
     }
     
     public long getClassId() {
@@ -118,7 +118,7 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 157) ConnectionHandler.getTheConnectionHandler().theQuantityFacade
+        if (this.getClassId() == 194) ConnectionHandler.getTheConnectionHandler().theQuantityFacade
             .newQuantity(amount,this.getId());
         super.store();
         if(this.getUnit() != null){

@@ -19,7 +19,7 @@ public class FinishModelingCommandProxi extends PersistentProxi implements Persi
     }
     
     public long getClassId() {
-        return 179;
+        return 181;
     }
     
     public PersistentCompUnitType getCompUnitType() throws PersistenceException {

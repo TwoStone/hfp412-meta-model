@@ -25,25 +25,25 @@ public class CreateAccountCommandFacade{
 	}
 
     public CreateAccountCommandProxi newCreateAccountCommand(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateAccountCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 215);
+        if(createMinusStorePlus > 0) return (CreateAccountCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 155);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade.getNextId();
         CreateAccountCommand result = new CreateAccountCommand(name,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateAccountCommandProxi)PersistentProxi.createProxi(id, 215);
+        return (CreateAccountCommandProxi)PersistentProxi.createProxi(id, 155);
     }
     
     public CreateAccountCommandProxi newDelayedCreateAccountCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade.getNextId();
         CreateAccountCommand result = new CreateAccountCommand(name,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateAccountCommandProxi)PersistentProxi.createProxi(id, 215);
+        return (CreateAccountCommandProxi)PersistentProxi.createProxi(id, 155);
     }
     
     public CreateAccountCommand getCreateAccountCommand(long CreateAccountCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 215)) return 215;
+        if(Cache.getTheCache().contains(objectId, 155)) return 155;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

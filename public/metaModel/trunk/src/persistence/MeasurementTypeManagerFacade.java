@@ -28,14 +28,14 @@ public class MeasurementTypeManagerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theMeasurementTypeManagerFacade.getNextId();
         MeasurementTypeManager result = new MeasurementTypeManager(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (MeasurementTypeManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 212);
+        return (MeasurementTypeManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 186);
     }
     
     public MeasurementTypeManager getMeasurementTypeManager(long MeasurementTypeManagerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 212)) return 212;
+        if(Cache.getTheCache().contains(objectId, 186)) return 186;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

@@ -19,7 +19,7 @@ public class MAtomicTypeProxi extends MTypeProxi implements PersistentMAtomicTyp
     }
     
     public long getClassId() {
-        return 102;
+        return 113;
     }
     
     public String getName() throws PersistenceException {
@@ -126,6 +126,10 @@ public class MAtomicTypeProxi extends MTypeProxi implements PersistentMAtomicTyp
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).isStructuralEquivalant(other);
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).isLessOrEqual(other);
+    }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
@@ -133,10 +137,6 @@ public class MAtomicTypeProxi extends MTypeProxi implements PersistentMAtomicTyp
     public PersistentMBoolean hasConcreteSubType() 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).hasConcreteSubType();
-    }
-    public PersistentMBoolean isLessOrEqual() 
-				throws PersistenceException{
-        return ((PersistentMAtomicType)this.getTheObject()).isLessOrEqual();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -154,6 +154,10 @@ public class MAtomicTypeProxi extends MTypeProxi implements PersistentMAtomicTyp
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public String abstractTypeAsString() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).abstractTypeAsString();
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentMAtomicType)this.getTheObject()).initialize(This, final$$Fields);
@@ -161,6 +165,10 @@ public class MAtomicTypeProxi extends MTypeProxi implements PersistentMAtomicTyp
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
         return ((PersistentMAtomicType)this.getTheObject()).isSingleton();
+    }
+    public String singletonTypeAsString() 
+				throws PersistenceException{
+        return ((PersistentMAtomicType)this.getTheObject()).singletonTypeAsString();
     }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{

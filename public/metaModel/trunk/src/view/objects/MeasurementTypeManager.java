@@ -18,7 +18,7 @@ public class MeasurementTypeManager extends ViewObject implements MeasurementTyp
     }
     
     static public long getTypeId() {
-        return 212;
+        return 186;
     }
     
     public long getClassId() {

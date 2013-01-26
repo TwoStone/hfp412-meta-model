@@ -16,7 +16,7 @@ public class FractionManager extends ViewObject implements FractionManagerView{
     }
     
     static public long getTypeId() {
-        return 178;
+        return 177;
     }
     
     public long getClassId() {

@@ -25,25 +25,25 @@ public class CreateMessageCommandFacade{
 	}
 
     public CreateMessageCommandProxi newCreateMessageCommand(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateMessageCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 230);
+        if(createMinusStorePlus > 0) return (CreateMessageCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 146);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateMessageCommandFacade.getNextId();
         CreateMessageCommand result = new CreateMessageCommand(null,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateMessageCommandProxi)PersistentProxi.createProxi(id, 230);
+        return (CreateMessageCommandProxi)PersistentProxi.createProxi(id, 146);
     }
     
     public CreateMessageCommandProxi newDelayedCreateMessageCommand() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateMessageCommandFacade.getNextId();
         CreateMessageCommand result = new CreateMessageCommand(null,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateMessageCommandProxi)PersistentProxi.createProxi(id, 230);
+        return (CreateMessageCommandProxi)PersistentProxi.createProxi(id, 146);
     }
     
     public CreateMessageCommand getCreateMessageCommand(long CreateMessageCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 230)) return 230;
+        if(Cache.getTheCache().contains(objectId, 146)) return 146;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

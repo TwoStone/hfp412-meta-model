@@ -56,7 +56,7 @@ public class CreateProductTypeCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 187;
+        return 152;
     }
     
     public long getClassId() {
@@ -65,7 +65,7 @@ public class CreateProductTypeCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 187) ConnectionHandler.getTheConnectionHandler().theCreateProductTypeCommandFacade
+        if (this.getClassId() == 152) ConnectionHandler.getTheConnectionHandler().theCreateProductTypeCommandFacade
             .newCreateProductTypeCommand(this.getId());
         super.store();
         this.getFactors().store();

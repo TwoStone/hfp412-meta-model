@@ -40,13 +40,13 @@ public abstract class MAbstractSumTypeICProxi extends MComplexTypeICProxi implem
 				throws PersistenceException{
         ((PersistentMAbstractSumType)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+        return ((PersistentMAbstractSumType)this.getTheObject()).isLessOrEqual(other);
+    }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentMAbstractSumType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
-    }
-    public PersistentMBoolean isLessOrEqual() 
-				throws PersistenceException{
-        return ((PersistentMAbstractSumType)this.getTheObject()).isLessOrEqual();
     }
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{

@@ -19,7 +19,7 @@ public class MAspectProxi extends PersistentProxi implements PersistentMAspect{
     }
     
     public long getClassId() {
-        return 127;
+        return 142;
     }
     
     public String getName() throws PersistenceException {

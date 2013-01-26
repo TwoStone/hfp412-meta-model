@@ -19,7 +19,7 @@ public class MSumTypeICProxi extends MAbstractSumTypeICProxi implements Persiste
     }
     
     public long getClassId() {
-        return 103;
+        return 144;
     }
     
     public PersistentMSumType getThis() throws PersistenceException {
@@ -116,6 +116,10 @@ public class MSumTypeICProxi extends MAbstractSumTypeICProxi implements Persiste
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+        return ((PersistentMSumType)this.getTheObject()).isLessOrEqual(other);
+    }
     public String fetchTypeLinkOperator() 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).fetchTypeLinkOperator();
@@ -127,10 +131,6 @@ public class MSumTypeICProxi extends MAbstractSumTypeICProxi implements Persiste
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
         return ((PersistentMSumType)this.getTheObject()).isSingleton();
-    }
-    public PersistentMBoolean isLessOrEqual() 
-				throws PersistenceException{
-        return ((PersistentMSumType)this.getTheObject()).isLessOrEqual();
     }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{

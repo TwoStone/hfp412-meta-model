@@ -82,7 +82,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
     }
     
     static public long getTypeId() {
-        return 253;
+        return 130;
     }
     
     public long getClassId() {
@@ -91,7 +91,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 253) ConnectionHandler.getTheConnectionHandler().theMObjectFacade
+        if (this.getClassId() == 130) ConnectionHandler.getTheConnectionHandler().theMObjectFacade
             .newMObject(this.getId());
         super.store();
         if(!this.equals(this.getThis())){

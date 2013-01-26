@@ -19,7 +19,7 @@ public class ReferenceICProxi extends PersistentInCacheProxiOptimistic implement
     }
     
     public long getClassId() {
-        return 163;
+        return 180;
     }
     
     public PersistentReferenceType getType() throws PersistenceException {

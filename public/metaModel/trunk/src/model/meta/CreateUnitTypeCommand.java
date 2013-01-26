@@ -55,7 +55,7 @@ public class CreateUnitTypeCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 171;
+        return 102;
     }
     
     public long getClassId() {
@@ -64,7 +64,7 @@ public class CreateUnitTypeCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 171) ConnectionHandler.getTheConnectionHandler().theCreateUnitTypeCommandFacade
+        if (this.getClassId() == 102) ConnectionHandler.getTheConnectionHandler().theCreateUnitTypeCommandFacade
             .newCreateUnitTypeCommand(name,this.getId());
         super.store();
         if(this.getInvoker() != null){

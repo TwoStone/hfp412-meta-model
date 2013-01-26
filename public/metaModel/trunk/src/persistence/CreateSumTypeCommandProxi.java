@@ -19,7 +19,7 @@ public class CreateSumTypeCommandProxi extends PersistentProxi implements Persis
     }
     
     public long getClassId() {
-        return 193;
+        return 197;
     }
     
     public CreateSumTypeCommand_AddendsProxi getAddends() throws PersistenceException {

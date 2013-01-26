@@ -19,7 +19,7 @@ public class HierarchyICProxi extends PersistentInCacheProxiOptimistic implement
     }
     
     public long getClassId() {
-        return 236;
+        return 165;
     }
     
     public String getName() throws PersistenceException {

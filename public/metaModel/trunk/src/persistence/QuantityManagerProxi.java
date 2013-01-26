@@ -19,7 +19,7 @@ public class QuantityManagerProxi extends PersistentProxi implements PersistentQ
     }
     
     public long getClassId() {
-        return 170;
+        return 150;
     }
     
     public QuantityManager_QuantitiesProxi getQuantities() throws PersistenceException {

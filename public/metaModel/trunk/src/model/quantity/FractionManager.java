@@ -89,7 +89,7 @@ public class FractionManager extends PersistentObject implements PersistentFract
     }
     
     static public long getTypeId() {
-        return 178;
+        return 177;
     }
     
     public long getClassId() {

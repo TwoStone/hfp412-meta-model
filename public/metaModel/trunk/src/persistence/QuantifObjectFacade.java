@@ -25,8 +25,8 @@ public class QuantifObjectFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 195)) return 195;
-        if(Cache.getTheCache().contains(objectId, 196)) return 196;
+        if(Cache.getTheCache().contains(objectId, 116)) return 116;
+        if(Cache.getTheCache().contains(objectId, 183)) return 183;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -40,7 +40,7 @@ public class QuantifObjectFacade{
     public QuantifObjectSearchList inverseGetObject(long objectId, long classId)throws PersistenceException{
         QuantifObjectSearchList result = new QuantifObjectSearchList();
         java.util.Iterator<PersistentInCacheProxi> candidates;
-        candidates = Cache.getTheCache().iterator(195);
+        candidates = Cache.getTheCache().iterator(116);
         while (candidates.hasNext()){
             PersistentQuantifObject current = (PersistentQuantifObject)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getObject() != null){
@@ -50,7 +50,7 @@ public class QuantifObjectFacade{
                 }
             }
         }
-        candidates = Cache.getTheCache().iterator(196);
+        candidates = Cache.getTheCache().iterator(183);
         while (candidates.hasNext()){
             PersistentQuantifObject current = (PersistentQuantifObject)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getObject() != null){

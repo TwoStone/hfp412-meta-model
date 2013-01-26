@@ -19,7 +19,7 @@ public class TypeManagerProxi extends PersistentProxi implements PersistentTypeM
     }
     
     public long getClassId() {
-        return 118;
+        return 169;
     }
     
     public TypeManager_TypesProxi getTypes() throws PersistenceException {
@@ -43,13 +43,13 @@ public class TypeManagerProxi extends PersistentProxi implements PersistentTypeM
     }
     
     
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType) 
-				throws model.ConsistencyException, model.CycleException, PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).addSubType(superType, subType);
-    }
     public PersistentMAbstractSumType createSumType(final MTypeSearchList addends) 
 				throws model.ConsistencyException, PersistenceException{
         return ((PersistentTypeManager)this.getTheObject()).createSumType(addends);
+    }
+    public void createAtomicRootType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).createAtomicRootType(aspect, name, singletonType, abstractType, invoker);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -59,29 +59,13 @@ public class TypeManagerProxi extends PersistentProxi implements PersistentTypeM
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).createSumType(addends, invoker);
     }
-    public void createProductType(final MTypeSearchList factors, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).createProductType(factors, invoker);
-    }
-    public PersistentMAbstractProductType createProductType(final MTypeSearchList factors) 
-				throws model.ConsistencyException, PersistenceException{
-        return ((PersistentTypeManager)this.getTheObject()).createProductType(factors);
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).initializeOnCreation();
-    }
-    public void addSubType(final PersistentMAtomicType superType, final PersistentMAtomicType subType, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).addSubType(superType, subType, invoker);
-    }
-    public void createAtomicRootType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentTypeManager)this.getTheObject()).createAtomicRootType(aspect, name, singletonType, abstractType, invoker);
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void createProductType(final MTypeSearchList factors, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).createProductType(factors, invoker);
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -91,9 +75,17 @@ public class TypeManagerProxi extends PersistentProxi implements PersistentTypeM
 				throws PersistenceException{
         ((PersistentTypeManager)this.getTheObject()).createAtomicSubType(superType, name, singletonType, abstractType, invoker);
     }
+    public PersistentMAbstractProductType createProductType(final MTypeSearchList factors) 
+				throws model.ConsistencyException, PersistenceException{
+        return ((PersistentTypeManager)this.getTheObject()).createProductType(factors);
+    }
     public PersistentMAtomicType createAtomicSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws model.ConsistencyException, PersistenceException{
         return ((PersistentTypeManager)this.getTheObject()).createAtomicSubType(superType, name, singletonType, abstractType);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        ((PersistentTypeManager)this.getTheObject()).initializeOnCreation();
     }
     public PersistentMAtomicType createAtomicRootType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws model.ConsistencyException, PersistenceException{

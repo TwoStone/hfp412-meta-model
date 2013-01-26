@@ -19,7 +19,7 @@ public class UnitTypeICProxi extends AbsUnitTypeICProxi implements PersistentUni
     }
     
     public long getClassId() {
-        return 152;
+        return 184;
     }
     
     public PersistentUnit getDefaultUnit() throws PersistenceException {

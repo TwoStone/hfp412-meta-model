@@ -76,7 +76,7 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
     }
     
     static public long getTypeId() {
-        return 103;
+        return 144;
     }
     
     public long getClassId() {
@@ -85,7 +85,7 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 103) ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
+        if (this.getClassId() == 144) ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
             .newMSumType(this.getId());
         super.store();
         
@@ -209,6 +209,16 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
             throw uoe;
         }
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+        //TODO: implement method: isLessOrEqual
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$containedTypes$$MSumType = strategy.initialize$$MSumType$$containedTypes(getThis(), parameter);
@@ -224,16 +234,6 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
-    }
-    public PersistentMBoolean isLessOrEqual() 
-				throws PersistenceException{
-        //TODO: implement method: isLessOrEqual
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
     }
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{

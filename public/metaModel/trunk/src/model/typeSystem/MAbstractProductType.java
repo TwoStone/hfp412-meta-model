@@ -76,7 +76,7 @@ public class MAbstractProductType extends model.typeSystem.MComplexType implemen
     }
     
     static public long getTypeId() {
-        return 192;
+        return 136;
     }
     
     public long getClassId() {
@@ -85,7 +85,7 @@ public class MAbstractProductType extends model.typeSystem.MComplexType implemen
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 192) ConnectionHandler.getTheConnectionHandler().theMAbstractProductTypeFacade
+        if (this.getClassId() == 136) ConnectionHandler.getTheConnectionHandler().theMAbstractProductTypeFacade
             .newMAbstractProductType(this.getId());
         super.store();
         
@@ -220,6 +220,16 @@ public class MAbstractProductType extends model.typeSystem.MComplexType implemen
 		}
 		return strategy.finalize$$MAbstractProductType(getThis(), parameter,result$$containedTypes$$MAbstractProductType);
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+        //TODO: implement method: isLessOrEqual
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
@@ -240,16 +250,6 @@ public class MAbstractProductType extends model.typeSystem.MComplexType implemen
         //TODO: implement method: isSingleton
         try{
             throw new java.lang.UnsupportedOperationException("Method \"isSingleton\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
-    public PersistentMBoolean isLessOrEqual() 
-				throws PersistenceException{
-        //TODO: implement method: isLessOrEqual
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
         } catch (java.lang.UnsupportedOperationException uoe){
             uoe.printStackTrace();
             throw uoe;

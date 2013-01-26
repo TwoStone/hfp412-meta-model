@@ -25,25 +25,25 @@ public class CreateVoidOperationCommandFacade{
 	}
 
     public CreateVoidOperationCommandProxi newCreateVoidOperationCommand(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateVoidOperationCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 233);
+        if(createMinusStorePlus > 0) return (CreateVoidOperationCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 159);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateVoidOperationCommandFacade.getNextId();
         CreateVoidOperationCommand result = new CreateVoidOperationCommand(null,name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateVoidOperationCommandProxi)PersistentProxi.createProxi(id, 233);
+        return (CreateVoidOperationCommandProxi)PersistentProxi.createProxi(id, 159);
     }
     
     public CreateVoidOperationCommandProxi newDelayedCreateVoidOperationCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateVoidOperationCommandFacade.getNextId();
         CreateVoidOperationCommand result = new CreateVoidOperationCommand(null,name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateVoidOperationCommandProxi)PersistentProxi.createProxi(id, 233);
+        return (CreateVoidOperationCommandProxi)PersistentProxi.createProxi(id, 159);
     }
     
     public CreateVoidOperationCommand getCreateVoidOperationCommand(long CreateVoidOperationCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 233)) return 233;
+        if(Cache.getTheCache().contains(objectId, 159)) return 159;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

@@ -10,18 +10,18 @@ public class MMeasurementTypeFacade{
 	}
 
     public MMeasurementTypeProxi newMMeasurementType(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (MMeasurementTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 199);
+        if(createMinusStorePlus > 0) return (MMeasurementTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 126);
         long id = ConnectionHandler.getTheConnectionHandler().theMQuantiObjectTypeFacade.getNextId();
         MMeasurementType result = new MMeasurementType(null,null,null,id);
         Cache.getTheCache().put(result);
-        return (MMeasurementTypeProxi)PersistentProxi.createProxi(id, 199);
+        return (MMeasurementTypeProxi)PersistentProxi.createProxi(id, 126);
     }
     
     public MMeasurementTypeProxi newDelayedMMeasurementType() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theMQuantiObjectTypeFacade.getNextId();
         MMeasurementType result = new MMeasurementType(null,null,null,id);
         Cache.getTheCache().put(result);
-        return (MMeasurementTypeProxi)PersistentProxi.createProxi(id, 199);
+        return (MMeasurementTypeProxi)PersistentProxi.createProxi(id, 126);
     }
     
     public MMeasurementType getMMeasurementType(long MMeasurementTypeId) throws PersistenceException{

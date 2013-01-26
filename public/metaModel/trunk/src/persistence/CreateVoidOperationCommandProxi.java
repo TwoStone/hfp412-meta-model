@@ -19,7 +19,7 @@ public class CreateVoidOperationCommandProxi extends PersistentProxi implements 
     }
     
     public long getClassId() {
-        return 233;
+        return 159;
     }
     
     public PersistentMType getSource() throws PersistenceException {

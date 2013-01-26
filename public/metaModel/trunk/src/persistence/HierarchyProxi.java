@@ -19,7 +19,7 @@ public class HierarchyProxi extends PersistentProxi implements PersistentHierarc
     }
     
     public long getClassId() {
-        return 236;
+        return 165;
     }
     
     public String getName() throws PersistenceException {

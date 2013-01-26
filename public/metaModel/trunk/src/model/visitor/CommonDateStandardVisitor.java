@@ -98,9 +98,6 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleRemoveOperationCommand(PersistentRemoveOperationCommand removeOperationCommand) throws PersistenceException{
         this.standardHandling(removeOperationCommand);
     }
-    public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException{
-        this.standardHandling(addSubTypeCommand);
-    }
     public void handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException{
         this.standardHandling(createConstCommand);
     }

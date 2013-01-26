@@ -19,7 +19,7 @@ public class RemoveFpCommandICProxi extends PersistentInCacheProxi implements Pe
     }
     
     public long getClassId() {
-        return 227;
+        return 133;
     }
     
     public PersistentFormalParameter getFp() throws PersistenceException {

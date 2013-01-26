@@ -25,25 +25,25 @@ public class FinishModelingCommandFacade{
 	}
 
     public FinishModelingCommandProxi newFinishModelingCommand(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (FinishModelingCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 179);
+        if(createMinusStorePlus > 0) return (FinishModelingCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 181);
         long id = ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.getNextId();
         FinishModelingCommand result = new FinishModelingCommand(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (FinishModelingCommandProxi)PersistentProxi.createProxi(id, 179);
+        return (FinishModelingCommandProxi)PersistentProxi.createProxi(id, 181);
     }
     
     public FinishModelingCommandProxi newDelayedFinishModelingCommand() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade.getNextId();
         FinishModelingCommand result = new FinishModelingCommand(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (FinishModelingCommandProxi)PersistentProxi.createProxi(id, 179);
+        return (FinishModelingCommandProxi)PersistentProxi.createProxi(id, 181);
     }
     
     public FinishModelingCommand getFinishModelingCommand(long FinishModelingCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 179)) return 179;
+        if(Cache.getTheCache().contains(objectId, 181)) return 181;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

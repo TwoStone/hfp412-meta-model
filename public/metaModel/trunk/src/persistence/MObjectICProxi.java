@@ -19,7 +19,7 @@ public class MObjectICProxi extends PersistentInCacheProxiOptimistic implements 
     }
     
     public long getClassId() {
-        return 253;
+        return 130;
     }
     
     public PersistentMObject getThis() throws PersistenceException {

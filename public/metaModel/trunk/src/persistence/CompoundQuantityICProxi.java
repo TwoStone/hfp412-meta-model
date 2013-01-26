@@ -19,7 +19,7 @@ public class CompoundQuantityICProxi extends AbsQuantityICProxi implements Persi
     }
     
     public long getClassId() {
-        return 158;
+        return 109;
     }
     
     public CompoundQuantity_PartsProxi getParts() throws PersistenceException {

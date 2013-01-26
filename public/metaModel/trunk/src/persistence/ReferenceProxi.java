@@ -19,7 +19,7 @@ public class ReferenceProxi extends PersistentProxi implements PersistentReferen
     }
     
     public long getClassId() {
-        return 163;
+        return 180;
     }
     
     public PersistentReferenceType getType() throws PersistenceException {

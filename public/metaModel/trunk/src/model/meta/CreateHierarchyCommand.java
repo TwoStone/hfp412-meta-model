@@ -57,7 +57,7 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 144;
+        return 120;
     }
     
     public long getClassId() {
@@ -66,7 +66,7 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 144) ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade
+        if (this.getClassId() == 120) ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade
             .newCreateHierarchyCommand(name,this.getId());
         super.store();
         if(this.getA() != null){

@@ -19,7 +19,7 @@ public class AssociationProxi extends AbsOperationProxi implements PersistentAss
     }
     
     public long getClassId() {
-        return 223;
+        return 117;
     }
     
     public Association_HierarchiesProxi getHierarchies() throws PersistenceException {

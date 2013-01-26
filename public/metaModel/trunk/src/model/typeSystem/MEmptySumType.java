@@ -78,7 +78,7 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
     }
     
     static public long getTypeId() {
-        return 190;
+        return 187;
     }
     
     public long getClassId() {
@@ -207,6 +207,16 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
             throw uoe;
         }
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+        //TODO: implement method: isLessOrEqual
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$containedTypes$$MEmptySumType = strategy.initialize$$MEmptySumType$$containedTypes(getThis(), parameter);
@@ -222,16 +232,6 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
-    }
-    public PersistentMBoolean isLessOrEqual() 
-				throws PersistenceException{
-        //TODO: implement method: isLessOrEqual
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
     }
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{

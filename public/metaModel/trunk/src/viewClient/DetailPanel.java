@@ -22,8 +22,12 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 
+import rGType.CharacterType;
+
 import view.Anything;
 import view.ModelException;
+import expressions.RegularExpression;
+import expressions.RegularExpressionHandler;
 
 @SuppressWarnings("serial")
 abstract public class DetailPanel extends JPanel {
@@ -49,7 +53,7 @@ abstract public class DetailPanel extends JPanel {
 		button.setIcon(Wizard.NotOKIcon);
 		button.setEnabled(false);
 	}
-	
+		
 	protected Anything anything;
 	private ExceptionAndEventHandler exceptionAndEventHandler;
 	
@@ -205,12 +209,39 @@ class FractionPanel extends BaseTypePanel {
 		super(master, name, value.toString());
 	}
 }
+
 @SuppressWarnings("serial")
 class StringPanel extends BaseTypePanel {
 	protected StringPanel(DefaultDetailPanel master, String name, String value) {
 		super(master, name, value);
 	}
 }
+@SuppressWarnings("serial")
+class RegularExpressionPanel extends BaseTypePanel {
+
+	private RegularExpressionHandler handler;
+
+	protected RegularExpressionPanel(DefaultDetailPanel master, String name, String value, RegularExpressionHandler handler) {
+		super(master, name, value);
+		this.handler = handler;
+		this.getValueTextField().addMouseListener(new MouseListener(){
+			public void mouseClicked(MouseEvent e) {
+				if (getValueTextField().isEditable() && e.isAltDown()) getMaster().switchToRegExprView(RegularExpressionPanel.this);
+			}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+		});
+	}
+	protected boolean check() {
+		return this.handler.check(this.getValue());
+	}
+	public RegularExpression<Character,rGType.CharacterType> getExpression() {
+		return handler.getRegExpr();
+	}
+}
+
 @SuppressWarnings("serial")
 class TextPanel extends BaseTypePanel {
 	private String value;
@@ -230,9 +261,6 @@ class TextPanel extends BaseTypePanel {
 	}
 	public String getValue(){
 		return this.value;
-	}
-	protected boolean check() {
-		return true;
 	}
 	protected void setValue(String value){
 		this.value = value;
@@ -313,6 +341,7 @@ abstract class UpdaterForTimeStamp extends StandardUpdater {
 		}
 	}
 }
+
 @SuppressWarnings("serial")
 abstract class DefaultDetailPanel extends DetailPanel {
 
@@ -388,6 +417,86 @@ abstract class DefaultDetailPanel extends DetailPanel {
 		this.updateUI();
 		this.getTextView().grabFocus();
 	}
+	private RegularExpressionPanel currentRegExpPanel = null;
+	public void switchToRegExprView(RegularExpressionPanel panel) {
+		this.currentRegExpPanel = panel;
+		this.getMainPane().remove(this.getMainScrollPane());
+		this.getMainPane().add(this.getRegExprComfortPanel(panel.getExpression(),panel.getLabel().getText(),panel.getValue()),BorderLayout.CENTER);
+		this.getMainPane().invalidate();
+		this.regExprComfortPanel.invalidate();
+		this.updateUI();
+		this.currentRegExpPanel.getValueTextField().grabFocus();
+	}
+	private JPanel regExprComfortPanel = null;
+	private JPanel getRegExprComfortPanel(RegularExpression<Character,CharacterType> expression, String name,String value) {
+		if (this.regExprComfortPanel == null){
+			this.regExprComfortPanel = new JPanel();
+			this.regExprComfortPanel.setLayout(new BorderLayout());
+			this.regExprComfortPanel.add(this.getRegExprComfortToolBar(), BorderLayout.SOUTH);
+		}else{
+			this.regExprComfortPanel.remove(this.regExprPane);
+		}
+		this.regExprComfortPanel.updateUI();
+		this.getRegExprPane(expression,name,value);
+		this.regExprComfortPanel.add(regExprPane,BorderLayout.CENTER);
+		return regExprComfortPanel;
+	}
+	private JToolBar regExprComfortToolBar = null;
+	private JToolBar getRegExprComfortToolBar() {
+		if (this.regExprComfortToolBar == null){
+			this.regExprComfortToolBar = new JToolBar();
+			this.regExprComfortToolBar.add(getRegExpOkButton());
+			this.regExprComfortToolBar.add(getRegExpCancelButton());
+		}
+		return regExprComfortToolBar;
+	}
+	private JButton regExpOkButton = null;
+	private JButton getRegExpOkButton() {
+		if (this.regExpOkButton == null){
+			this.regExpOkButton = new JButton();
+			this.regExpOkButton.setText(Wizard.UpdateButtonText);
+			this.regExpOkButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					switchBackFromRegExpView(true);
+				}
+			});
+		}
+		return regExpOkButton;
+	}
+	public void switchBackFromRegExpView (boolean update){
+		this.getMainPane().remove(this.regExprComfortPanel);
+		this.getMainPane().add(this.getMainScrollPane(),BorderLayout.CENTER);
+		if (update){
+			String value = this.regExprPane.getRegExprInput().getText();
+			this.currentRegExpPanel.setValue(value);
+			this.currentRegExpPanel.setOK(this.currentRegExpPanel.check());
+		}
+		this.getMainPane().invalidate();
+		this.getMainScrollPane().invalidate();
+		this.updateUI();
+	}
+
+	private JButton regExpCancelButton = null;
+	private JButton getRegExpCancelButton() {
+		if (this.regExpCancelButton == null){
+			this.regExpCancelButton = new JButton();
+			this.regExpCancelButton.setText(Wizard.CancelButtonText);
+			this.regExpCancelButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					switchBackFromRegExpView(false);
+				}
+			});
+		}
+		return regExpCancelButton;
+	}
+
+	private view.RegExprPanel regExprPane = null;
+	private view.RegExprPanel getRegExprPane(RegularExpression<Character,CharacterType> expression, String name, String value) {
+		 this.regExprPane = new view.RegExprPanel(expression,name);
+		 this.regExprPane.getRegExprInput().setText(value);
+		 return regExprPane;
+	}
+
 	private JPanel mainPanel = null;
 	private JPanel getMainPane() {
 		if (mainPanel == null){
@@ -471,6 +580,7 @@ abstract class DefaultDetailPanel extends DetailPanel {
 		if (status == BaseTypePanel.OK)DetailPanel.setButtonToOK(this.getUpdateAllButton());
 		if (status == BaseTypePanel.NotOK)DetailPanel.setButtonToNotOk(this.getUpdateAllButton());
 	}
+
 
 	private JScrollPane detailScrollPane = null;
 	private JScrollPane getDetailScrollPane() {
@@ -572,6 +682,7 @@ abstract class DefaultDetailPanel extends DetailPanel {
 	}
 	public void setAnything(Anything anything) {
 		this.anything = anything;
+		((view.objects.ViewProxi)anything).expand();
 		this.addFields();
 	}
 }
@@ -816,6 +927,20 @@ class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
             BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
             this.getScrollablePane().add(panel);
             this.panels.put(MAtomicType$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new StringPanel(this, "singletonType", this.getAnything().getSingletonType());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MAtomicType$$singletonType, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new StringPanel(this, "abstractType", this.getAnything().getAbstractType());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MAtomicType$$abstractType, panel);
         }catch(view.ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }

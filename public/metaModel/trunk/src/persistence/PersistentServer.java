@@ -70,8 +70,6 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit, final common.Fraction f) 
 				throws PersistenceException;
-    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
-				throws PersistenceException;
     public void createHierarchy(final PersistentAssociation a, final String name) 
 				throws PersistenceException;
     public void handleResult(final Command command) 
@@ -110,9 +108,9 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
 				throws PersistenceException;
-    public void createVoidMessage(final PersistentInstanceObject source, final PersistentOperation type, final ActualParameterSearchList ap) 
+    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final String singletonType, final String abstractType) 
 				throws PersistenceException;
-    public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+    public void createVoidMessage(final PersistentInstanceObject source, final PersistentOperation type, final ActualParameterSearchList ap) 
 				throws PersistenceException;
     public void createUnit(final PersistentUnitTypeManager manager, final PersistentUnitType type, final String name) 
 				throws PersistenceException;
@@ -145,6 +143,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException;
     public void createLink(final PersistentInstanceObject source, final PersistentAssociation type, final PersistentInstanceObject target) 
+				throws PersistenceException;
+    public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final String singletonType, final String abstractType) 
 				throws PersistenceException;
     public PersistentMeasurementTypeManager getMeasurementTypeManager() 
 				throws PersistenceException;

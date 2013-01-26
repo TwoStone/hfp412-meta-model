@@ -19,7 +19,7 @@ public class MEmptySumTypeICProxi extends MAbstractSumTypeICProxi implements Per
     }
     
     public long getClassId() {
-        return 190;
+        return 187;
     }
     
     public PersistentMEmptySumType getThis() throws PersistenceException {
@@ -116,6 +116,10 @@ public class MEmptySumTypeICProxi extends MAbstractSumTypeICProxi implements Per
 				throws PersistenceException{
         return ((PersistentMEmptySumType)this.getTheObject()).strategyMComplexTypeHierarchy(parameter, strategy);
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+        return ((PersistentMEmptySumType)this.getTheObject()).isLessOrEqual(other);
+    }
     public String fetchTypeLinkOperator() 
 				throws PersistenceException{
         return ((PersistentMEmptySumType)this.getTheObject()).fetchTypeLinkOperator();
@@ -127,10 +131,6 @@ public class MEmptySumTypeICProxi extends MAbstractSumTypeICProxi implements Per
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
         return ((PersistentMEmptySumType)this.getTheObject()).isSingleton();
-    }
-    public PersistentMBoolean isLessOrEqual() 
-				throws PersistenceException{
-        return ((PersistentMEmptySumType)this.getTheObject()).isLessOrEqual();
     }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{

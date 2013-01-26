@@ -14,9 +14,6 @@ public abstract class TypeManagerCommandStandardVisitor implements TypeManagerCo
     public void handleCreateProductTypeCommand(PersistentCreateProductTypeCommand createProductTypeCommand) throws PersistenceException{
         this.standardHandling(createProductTypeCommand);
     }
-    public void handleAddSubTypeCommand(PersistentAddSubTypeCommand addSubTypeCommand) throws PersistenceException{
-        this.standardHandling(addSubTypeCommand);
-    }
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicRootTypeCommand);
     }

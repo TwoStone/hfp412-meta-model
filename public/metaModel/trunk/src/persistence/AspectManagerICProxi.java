@@ -19,7 +19,7 @@ public class AspectManagerICProxi extends PersistentInCacheProxiOptimistic imple
     }
     
     public long getClassId() {
-        return 126;
+        return 138;
     }
     
     public AspectManager_AspectsProxi getAspects() throws PersistenceException {

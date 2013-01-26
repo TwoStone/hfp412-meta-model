@@ -18,8 +18,8 @@ server Server {
 
 	/** Type **/
 	void createAspect(AspectManager aspectManager, String name);
-	void createAtomicRootType(MAspect aspect, String typeName, MBoolean singletonType, MBoolean abstractType);
-	void createAtomicSubType(MAtomicType superType, String typeName, MBoolean singletonType, MBoolean abstractType);
+	void createAtomicRootType(MAspect aspect, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
+	void createAtomicSubType(MAtomicType superType, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
 	//	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
 
 	/** Manager zu AbstractOperation **/
@@ -102,7 +102,7 @@ part typeSystem {
 	/* Abstrakte Typen */
 	abstract class MType@@Type {
 		abstract String fetchName();
-		abstract MBoolean isLessOrEqual();
+		abstract MBoolean isLessOrEqual(MType other);
 		abstract MBoolean isSingleton();
 		abstract MBoolean isAbstract();
 		abstract MBoolean isStructuralEquivalant(MType other);  	/*		
@@ -124,8 +124,8 @@ part typeSystem {
 	/* Atomare Typen */
 	class MAtomicType@@AtomicType extends MType {
 		prior indexed String name;
-		prior MBoolean singletonType;
-		prior MBoolean abstractType;
+		client-as-string prior MBoolean singletonType;
+		client-as-string prior MBoolean abstractType;
 		no-view prior symmetric(types) MAspect aspect;
 		no-view symmetric(subTypes) MAtomicType superType hierarchy MAtomicTypeHierarchy;
 		
@@ -183,7 +183,7 @@ part typeSystem {
 		active MAbstractSumType createSumType(MType** addends) throws ConsistencyException;
 		active MAbstractProductType createProductType(MType** factors) throws ConsistencyException;
 
-		active void addSubType(MAtomicType superType, MAtomicType subType) throws CycleException, ConsistencyException;
+		//active void addSubType(MAtomicType superType, MAtomicType subType) throws CycleException, ConsistencyException;
 	}
 	
 	singleton ObjectManager {
@@ -432,7 +432,7 @@ class Link extends MessageOrLink {
 
 part basic {
 	/* Boolean */
-	abstract class MBoolean(MTrue, MFalse){
+	string-factory abstract class MBoolean(MTrue@@true, MFalse@@false){
 		extern boolean toBoolean();	
 		MBoolean invert();
 	}

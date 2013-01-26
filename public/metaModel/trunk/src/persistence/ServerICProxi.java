@@ -19,7 +19,7 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     public long getClassId() {
-        return -105;
+        return -112;
     }
     
     public Server_ErrorsProxi getErrors() throws PersistenceException {
@@ -175,10 +175,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createQuantity(manager, unit, f);
     }
-    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createAtomicRootType(aspect, typeName, singletonType, abstractType);
-    }
     public void createHierarchy(final PersistentAssociation a, final String name) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createHierarchy(a, name);
@@ -255,13 +251,13 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addFp(op, fp);
     }
+    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final String singletonType, final String abstractType) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAtomicRootType(aspect, typeName, singletonType, abstractType);
+    }
     public void createVoidMessage(final PersistentInstanceObject source, final PersistentOperation type, final ActualParameterSearchList ap) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createVoidMessage(source, type, ap);
-    }
-    public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createAtomicSubType(superType, typeName, singletonType, abstractType);
     }
     public void createUnit(final PersistentUnitTypeManager manager, final PersistentUnitType type, final String name) 
 				throws PersistenceException{
@@ -326,6 +322,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void createLink(final PersistentInstanceObject source, final PersistentAssociation type, final PersistentInstanceObject target) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createLink(source, type, target);
+    }
+    public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final String singletonType, final String abstractType) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createAtomicSubType(superType, typeName, singletonType, abstractType);
     }
     public PersistentMeasurementTypeManager getMeasurementTypeManager() 
 				throws PersistenceException{

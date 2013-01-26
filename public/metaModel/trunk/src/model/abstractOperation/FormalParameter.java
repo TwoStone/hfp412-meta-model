@@ -109,7 +109,7 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     }
     
     static public long getTypeId() {
-        return 225;
+        return 119;
     }
     
     public long getClassId() {
@@ -118,7 +118,7 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 225) ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade
+        if (this.getClassId() == 119) ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade
             .newFormalParameter(name,this.getId());
         super.store();
         if(this.getOfType() != null){

@@ -25,25 +25,25 @@ public class CreateAtomicSubTypeCommandFacade{
 	}
 
     public CreateAtomicSubTypeCommandProxi newCreateAtomicSubTypeCommand(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateAtomicSubTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 188);
+        if(createMinusStorePlus > 0) return (CreateAtomicSubTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 157);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAtomicSubTypeCommandFacade.getNextId();
         CreateAtomicSubTypeCommand result = new CreateAtomicSubTypeCommand(null,name,null,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateAtomicSubTypeCommandProxi)PersistentProxi.createProxi(id, 188);
+        return (CreateAtomicSubTypeCommandProxi)PersistentProxi.createProxi(id, 157);
     }
     
     public CreateAtomicSubTypeCommandProxi newDelayedCreateAtomicSubTypeCommand(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateAtomicSubTypeCommandFacade.getNextId();
         CreateAtomicSubTypeCommand result = new CreateAtomicSubTypeCommand(null,name,null,null,null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateAtomicSubTypeCommandProxi)PersistentProxi.createProxi(id, 188);
+        return (CreateAtomicSubTypeCommandProxi)PersistentProxi.createProxi(id, 157);
     }
     
     public CreateAtomicSubTypeCommand getCreateAtomicSubTypeCommand(long CreateAtomicSubTypeCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 188)) return 188;
+        if(Cache.getTheCache().contains(objectId, 157)) return 157;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

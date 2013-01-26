@@ -19,7 +19,7 @@ public class MessageICProxi extends MessageOrLinkICProxi implements PersistentMe
     }
     
     public long getClassId() {
-        return 205;
+        return 135;
     }
     
     public PersistentOperation getType() throws PersistenceException {

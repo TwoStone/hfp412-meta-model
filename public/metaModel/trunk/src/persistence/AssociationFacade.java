@@ -10,18 +10,18 @@ public class AssociationFacade{
 	}
 
     public AssociationProxi newAssociation(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (AssociationProxi)PersistentProxi.createProxi(createMinusStorePlus, 223);
+        if(createMinusStorePlus > 0) return (AssociationProxi)PersistentProxi.createProxi(createMinusStorePlus, 117);
         long id = ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade.getNextId();
         Association result = new Association(name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (AssociationProxi)PersistentProxi.createProxi(id, 223);
+        return (AssociationProxi)PersistentProxi.createProxi(id, 117);
     }
     
     public AssociationProxi newDelayedAssociation(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade.getNextId();
         Association result = new Association(name,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (AssociationProxi)PersistentProxi.createProxi(id, 223);
+        return (AssociationProxi)PersistentProxi.createProxi(id, 117);
     }
     
     public Association getAssociation(long AssociationId) throws PersistenceException{
@@ -39,7 +39,7 @@ public class AssociationFacade{
     public AssociationSearchList inverseGetHierarchies(long objectId, long classId)throws PersistenceException{
         AssociationSearchList result = new AssociationSearchList();
         java.util.Iterator<PersistentInCacheProxi> candidates;
-        candidates = Cache.getTheCache().iterator(223);
+        candidates = Cache.getTheCache().iterator(117);
         while (candidates.hasNext()){
             PersistentAssociation current = (PersistentAssociation)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null){
