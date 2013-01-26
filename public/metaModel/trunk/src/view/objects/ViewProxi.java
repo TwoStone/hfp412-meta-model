@@ -47,12 +47,7 @@ public abstract class ViewProxi extends ViewRoot {
 	
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [137];
-        proxiFactories[7] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new MEmptyProductProxi(objectId, classId, connectionKey);
-            }
-        };
+		proxiFactories = new ProxiFactory [138];
         proxiFactories[8] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new CompoundQuantityProxi(objectId, classId, connectionKey);
@@ -98,6 +93,11 @@ public abstract class ViewProxi extends ViewRoot {
                 return new OperationManagerProxi(objectId, classId, connectionKey);
             }
         };
+        proxiFactories[137] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new MEmptyProductTypeProxi(objectId, classId, connectionKey);
+            }
+        };
         proxiFactories[22] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ErrorDisplayProxi(objectId, classId, connectionKey);
@@ -131,11 +131,6 @@ public abstract class ViewProxi extends ViewRoot {
         proxiFactories[34] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new MessageProxi(objectId, classId, connectionKey);
-            }
-        };
-        proxiFactories[35] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new MAbstractProductTypeProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[36] = new ProxiFactory(){

@@ -1,10 +1,10 @@
 package persistence;
 
-public class MEmptyProductListEntryProxi extends MEmptyProductProxi implements PersistentMEmptyProductListEntryProxi {
+public class MEmptyProductTypeListEntryProxi extends MEmptyProductTypeProxi implements PersistentMEmptyProductTypeListEntryProxi {
 
   long entryId;
 
-  public MEmptyProductListEntryProxi(long objectId, long entryId) {
+  public MEmptyProductTypeListEntryProxi(long objectId, long entryId) {
     super(objectId);
     this.entryId = entryId;
   }

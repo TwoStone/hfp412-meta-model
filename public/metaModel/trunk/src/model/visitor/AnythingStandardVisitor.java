@@ -80,9 +80,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException{
         this.standardHandling(messageManager);
     }
-    public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
-        this.standardHandling(mEmptyProduct);
-    }
     public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException{
         this.standardHandling(unitTypeManager);
     }
@@ -152,6 +149,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException{
         this.standardHandling(createHierarchyCommand);
     }
+    public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
+        this.standardHandling(mEmptyProductType);
+    }
     public void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException{
         this.standardHandling(operationManager);
     }
@@ -220,9 +220,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMessage(PersistentMessage message) throws PersistenceException{
         this.standardHandling(message);
-    }
-    public void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException{
-        this.standardHandling(mAbstractProductType);
     }
     public void handleFunction(PersistentFunction function) throws PersistenceException{
         this.standardHandling(function);

@@ -315,11 +315,10 @@ public class Cache {
 		this.number2NameMap.put(132, "InstanceObject");
 		this.number2NameMap.put(141, "Link");
 		this.number2NameMap.put(188, "LinkManager");
-		this.number2NameMap.put(136, "MAbstractProductType");
 		this.number2NameMap.put(166, "MAccountType");
 		this.number2NameMap.put(142, "MAspect");
 		this.number2NameMap.put(113, "MAtomicType");
-		this.number2NameMap.put(108, "MEmptyProduct");
+		this.number2NameMap.put(238, "MEmptyProductType");
 		this.number2NameMap.put(187, "MEmptySumType");
 		this.number2NameMap.put(185, "MFalse");
 		this.number2NameMap.put(126, "MMeasurementType");

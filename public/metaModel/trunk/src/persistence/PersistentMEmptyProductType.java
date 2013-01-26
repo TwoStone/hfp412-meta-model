@@ -4,9 +4,9 @@ import model.UserException;
 
 import model.visitor.*;
 
-public interface PersistentMEmptyProduct extends PersistentMAbstractProductType {
+public interface PersistentMEmptyProductType extends PersistentMAbstractProductType {
     
-    public PersistentMEmptyProduct getThis() throws PersistenceException ;
+    public PersistentMEmptyProductType getThis() throws PersistenceException ;
     
     public void accept(MAbstractProductTypeVisitor visitor) throws PersistenceException;
     public <R> R accept(MAbstractProductTypeReturnVisitor<R>  visitor) throws PersistenceException;

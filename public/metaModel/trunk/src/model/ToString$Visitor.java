@@ -25,11 +25,10 @@ import persistence.PersistentHierarchy;
 import persistence.PersistentInstanceObject;
 import persistence.PersistentLink;
 import persistence.PersistentLinkManager;
-import persistence.PersistentMAbstractProductType;
 import persistence.PersistentMAccountType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMEmptyProduct;
+import persistence.PersistentMEmptyProductType;
 import persistence.PersistentMEmptySumType;
 import persistence.PersistentMFalse;
 import persistence.PersistentMMeasurementType;
@@ -270,19 +269,13 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException {
+	public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProduct) throws PersistenceException {
 		result = "[Empty Product]";
 	}
 
 	@Override
 	public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
 		result = "[Empty Sum]";
-	}
-
-	@Override
-	public void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType)
-			throws PersistenceException {
-		result = "[AbstractProductType]";
 	}
 
 	@Override

@@ -29,9 +29,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMessageManager(MessageManagerView messageManager) throws ModelException{
         this.standardHandling(messageManager);
     }
-    public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
-        this.standardHandling(mEmptyProduct);
-    }
     public void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException{
         this.standardHandling(unitTypeManager);
     }
@@ -73,6 +70,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleAccount(AccountView account) throws ModelException{
         this.standardHandling(account);
+    }
+    public void handleMEmptyProductType(MEmptyProductTypeView mEmptyProductType) throws ModelException{
+        this.standardHandling(mEmptyProductType);
     }
     public void handleOperationManager(OperationManagerView operationManager) throws ModelException{
         this.standardHandling(operationManager);
@@ -118,9 +118,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMessage(MessageView message) throws ModelException{
         this.standardHandling(message);
-    }
-    public void handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException{
-        this.standardHandling(mAbstractProductType);
     }
     public void handleFunction(FunctionView function) throws ModelException{
         this.standardHandling(function);

@@ -14,14 +14,11 @@ public abstract class MTypeStandardVisitor implements MTypeVisitor {
     public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException{
         this.standardHandling(mEmptySumType);
     }
-    public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
-        this.standardHandling(mEmptyProduct);
-    }
-    public void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException{
-        this.standardHandling(mAbstractProductType);
-    }
     public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
         this.standardHandling(mSumType);
+    }
+    public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
+        this.standardHandling(mEmptyProductType);
     }
     protected abstract void standardHandling(PersistentMType mType) throws PersistenceException;
 }

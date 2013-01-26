@@ -174,16 +174,95 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
         //TODO: implement method: copyingPrivateUserAttributes
         
     }
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
+		while(iterator0.hasNext())
+			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
+		return false;
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMProductType)This);
 		if(this.equals(This)){
 		}
     }
+    public String fetchName() 
+				throws PersistenceException{
+        //TODO: implement method: fetchName
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"fetchName\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
+        //TODO: implement method: isStructuralEquivalant
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+        //TODO: implement method: isLessOrEqual
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$containedTypes$$MProductType = strategy.initialize$$MProductType$$containedTypes(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
+		while (iterator$$.hasNext()){
+			PersistentMType current$$Field = (PersistentMType)iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MProductType, strategy);
+			result$$containedTypes$$MProductType = strategy.consolidate$$MProductType$$containedTypes(getThis(), result$$containedTypes$$MProductType, current$$);
+		}
+		return strategy.finalize$$MProductType(getThis(), parameter,result$$containedTypes$$MProductType);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
+    }
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
+        //TODO: implement method: isSingleton
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isSingleton\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+        //TODO: implement method: isAbstract
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isAbstract\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
+    public String fetchTypeLinkOperator() 
+				throws PersistenceException{
+        //TODO: implement method: fetchTypeLinkOperator
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"fetchTypeLinkOperator\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
 
     /* Start of protected part that is not overridden by persistence generator */

@@ -8,11 +8,8 @@ public abstract class MAbstractProductTypeStandardVisitor implements MAbstractPr
     public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException{
         this.standardHandling(mProductType);
     }
-    public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
-        this.standardHandling(mEmptyProduct);
-    }
-    public void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException{
-        this.standardHandling(mAbstractProductType);
+    public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
+        this.standardHandling(mEmptyProductType);
     }
     protected abstract void standardHandling(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException;
 }

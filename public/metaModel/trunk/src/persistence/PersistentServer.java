@@ -38,6 +38,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void removeMessage(final PersistentMessage m) 
 				throws PersistenceException;
+    public void createSumType(final MTypeSearchList containees) 
+				throws PersistenceException;
     public void createAssociation(final PersistentAssociationManager manager, final PersistentMType source, final PersistentMType target, final String name) 
 				throws PersistenceException;
     public void createHierarchy(final PersistentAssociationManager manager, final PersistentAssociation a, final String name) 
@@ -150,9 +152,9 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public PersistentAbsQuantity div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) 
 				throws PersistenceException;
-    public void createVoidMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentInstanceObject source, final ActualParameterSearchList ap) 
-				throws PersistenceException;
     public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
+				throws PersistenceException;
+    public void createVoidMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentInstanceObject source, final ActualParameterSearchList ap) 
 				throws PersistenceException;
     public void createAccount(final PersistentAccountManager accountManager, final String name, final PersistentMAccountType type, final PersistentInstanceObject object) 
 				throws PersistenceException;
@@ -173,6 +175,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException;
     public void createConstant(final PersistentOperationManager operationManager, final String name, final PersistentMType target) 
+				throws PersistenceException;
+    public void createProductType(final MTypeSearchList containees) 
 				throws PersistenceException;
     public void removeLink(final PersistentLink link) 
 				throws PersistenceException;

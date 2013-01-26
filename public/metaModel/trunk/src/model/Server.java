@@ -26,6 +26,7 @@ import persistence.Anything;
 import persistence.Command;
 import persistence.ConnectionHandler;
 import persistence.FormalParameterSearchList;
+import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnit;
@@ -447,6 +448,15 @@ public class Server extends PersistentObject implements PersistentServer{
 		// TODO: implement method: addConversion
 
 	}
+    public void removeFromHierarchy(final PersistentHierarchy h, final PersistentAssociation a) 
+				throws PersistenceException{
+		// TODO: implement method: removeFromHierarchy
+
+	}
+    public void createSumType(final MTypeSearchList containees) 
+				throws PersistenceException{
+		getThis().getTypeManager().createSumType(containees, getThis());
+	}
     public void createAssociation(final PersistentAssociationManager manager, final PersistentMType source, final PersistentMType target, final String name) 
 				throws PersistenceException{
 		// TODO: implement method: createAssociation
@@ -455,11 +465,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void createHierarchy(final PersistentAssociationManager manager, final PersistentAssociation a, final String name) 
 				throws PersistenceException{
 		// TODO: implement method: createHierarchy
-
-	}
-    public void removeFromHierarchy(final PersistentHierarchy h, final PersistentAssociation a) 
-				throws PersistenceException{
-		// TODO: implement method: removeFromHierarchy
 
 	}
     public void publishCompUnit(final PersistentCompUnit compUnit) 
@@ -487,9 +492,9 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createCompUnit(final PersistentUnitTypeManager manager, final PersistentCompUnitType compUnitType, final String name) 
 				throws PersistenceException{
-        //TODO: implement method: createCompUnit
-        
-    }
+		// TODO: implement method: createCompUnit
+
+	}
     public PersistentLinkManager getLinkManager() 
 				throws PersistenceException{
 		return model.messageOrLink.LinkManager.getTheLinkManager();
@@ -509,18 +514,18 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createUnitType(final PersistentUnitTypeManager manager, final String name) 
 				throws PersistenceException{
-        //TODO: implement method: createUnitType
-        
-    }
+		// TODO: implement method: createUnitType
+
+	}
     public void createAccountType(final PersistentAccountTypeManager accountTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
 				throws PersistenceException{
 		accountTypeManager.createAccountType(name, type, unitType, this.getThis());
 	}
     public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit, final common.Fraction f) 
 				throws PersistenceException{
-        //TODO: implement method: createQuantity
-        
-    }
+		// TODO: implement method: createQuantity
+
+	}
     public void createHierarchy(final PersistentAssociation a, final String name) 
 				throws PersistenceException{
 		// TODO: implement method: createHierarchy
@@ -570,9 +575,9 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void createCompUnitType(final PersistentUnitTypeManager manager, final String name) 
 				throws PersistenceException{
-        //TODO: implement method: createCompUnitType
-        
-    }
+		// TODO: implement method: createCompUnitType
+
+	}
     public PersistentMessageManager getMessageManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentMessageManager result = getThis().getMessageManager();
@@ -654,9 +659,9 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createUnit(final PersistentUnitTypeManager manager, final PersistentUnitType type, final String name) 
 				throws PersistenceException{
-        //TODO: implement method: createUnit
-        
-    }
+		// TODO: implement method: createUnit
+
+	}
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentConversionManager result = getThis().getConversionManager();
@@ -759,14 +764,14 @@ public class Server extends PersistentObject implements PersistentServer{
 			throw uoe;
 		}
 	}
+    public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
+				throws PersistenceException{
+		measurementTypeManager.createMeasurementType(name, type, unitType, this.getThis());
+	}
     public void createVoidMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentInstanceObject source, final ActualParameterSearchList ap) 
 				throws PersistenceException{
 		// TODO: implement method: createVoidMessage
 
-	}
-    public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
-				throws PersistenceException{
-		measurementTypeManager.createMeasurementType(name, type, unitType, this.getThis());
 	}
     public void createAccount(final PersistentAccountManager accountManager, final String name, final PersistentMAccountType type, final PersistentInstanceObject object) 
 				throws PersistenceException{
@@ -813,6 +818,10 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		// TODO: implement method: createConstant
 
+	}
+    public void createProductType(final MTypeSearchList containees) 
+				throws PersistenceException{
+		getThis().getTypeManager().createProductType(containees, getThis());
 	}
     public void removeLink(final PersistentLink link) 
 				throws PersistenceException{

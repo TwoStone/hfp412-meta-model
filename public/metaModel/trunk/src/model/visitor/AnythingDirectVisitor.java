@@ -225,14 +225,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException{
         this.handleMType(mEmptySumType);
     }
-    public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
-        this.handleMType(mEmptyProduct);
-    }
-    public void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException{
-        this.handleMType(mAbstractProductType);
-    }
     public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
         this.handleMType(mSumType);
+    }
+    public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
+        this.handleMType(mEmptyProductType);
     }
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     

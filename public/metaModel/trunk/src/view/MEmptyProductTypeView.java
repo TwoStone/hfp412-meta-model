@@ -2,7 +2,7 @@ package view;
 
 import view.visitor.*;
 
-public interface MEmptyProductView extends MAbstractProductTypeView {
+public interface MEmptyProductTypeView extends MAbstractProductTypeView {
     
     
     public void accept(MAbstractProductTypeVisitor visitor) throws ModelException;

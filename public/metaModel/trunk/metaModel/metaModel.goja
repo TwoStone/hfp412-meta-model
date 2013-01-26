@@ -20,6 +20,8 @@ server Server {
 	void createAspect(AspectManager aspectManager, String name);
 	void createAtomicRootType(MAspect aspect, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
 	void createAtomicSubType(MAtomicType superType, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
+	void createSumType(MType** containees{typeManager;types});
+	void createProductType(MType** containees{typeManager;types});
 	//	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
 
 	/** Manager zu AbstractOperation **/
@@ -153,10 +155,10 @@ part typeSystem {
 	}
 
 	/* ** Produkttypen ** */
-	class MAbstractProductType##MAbstrProd@@AbstractProductType extends MComplexType {
+	abstract class MAbstractProductType##MAbstrProd@@AbstractProductType extends MComplexType {
 	}
 
-	singleton MEmptyProduct@@EmptyProductType extends MAbstractProductType{
+	singleton MEmptyProductType##MEmptProd@@EmptyProductType extends MAbstractProductType{
 	}
 	
 	class MProductType@@ProductType extends MAbstractProductType {
@@ -182,7 +184,10 @@ part typeSystem {
 			throws ConsistencyException;
 		active MAbstractSumType createSumType(MType** addends) throws ConsistencyException;
 		active MAbstractProductType createProductType(MType** factors) throws ConsistencyException;
+		
 
+		
+		
 		//active void addSubType(MAtomicType superType, MAtomicType subType) throws CycleException, ConsistencyException;
 	}
 	

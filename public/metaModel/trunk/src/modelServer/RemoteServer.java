@@ -40,6 +40,32 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> removeFromHierarchy(String hProxiString, String aProxiString){
+        try {
+            PersistentHierarchy h = (PersistentHierarchy)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(hProxiString));
+            PersistentAssociation a = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aProxiString));
+            ((PersistentServer)this.server).removeFromHierarchy(h, a);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createSumType(java.util.Vector<String> containeesTrnsprt){
+        try {
+            MTypeSearchList containees = new MTypeSearchList();
+			java.util.Iterator<String> containeesItrtr = containeesTrnsprt.iterator();
+			while (containeesItrtr.hasNext()){
+				PersistentMType currentProxi = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(containeesItrtr.next()));
+				containees.add(currentProxi);
+			}
+            ((PersistentServer)this.server).createSumType(containees);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> createAssociation(String managerProxiString, String sourceProxiString, String targetProxiString, String name){
         try {
             PersistentAssociationManager manager = (PersistentAssociationManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
@@ -57,17 +83,6 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentAssociationManager manager = (PersistentAssociationManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
             PersistentAssociation a = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aProxiString));
             ((PersistentServer)this.server).createHierarchy(manager, a, name);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> removeFromHierarchy(String hProxiString, String aProxiString){
-        try {
-            PersistentHierarchy h = (PersistentHierarchy)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(hProxiString));
-            PersistentAssociation a = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aProxiString));
-            ((PersistentServer)this.server).removeFromHierarchy(h, a);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -448,18 +463,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createMeasurementType(String measurementTypeManagerProxiString, String name, String typeProxiString, String unitTypeProxiString){
-        try {
-            PersistentMeasurementTypeManager measurementTypeManager = (PersistentMeasurementTypeManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(measurementTypeManagerProxiString));
-            PersistentMType type = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentUnitType unitType = (PersistentUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitTypeProxiString));
-            ((PersistentServer)this.server).createMeasurementType(measurementTypeManager, name, type, unitType);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> createVoidMessage(String managerProxiString, String typeProxiString, String sourceProxiString, java.util.Vector<String> apTrnsprt){
         try {
             PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
@@ -472,6 +475,18 @@ public  class RemoteServer extends RemoteServerMaster {
 				ap.add(currentProxi);
 			}
             ((PersistentServer)this.server).createVoidMessage(manager, type, source, ap);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createMeasurementType(String measurementTypeManagerProxiString, String name, String typeProxiString, String unitTypeProxiString){
+        try {
+            PersistentMeasurementTypeManager measurementTypeManager = (PersistentMeasurementTypeManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(measurementTypeManagerProxiString));
+            PersistentMType type = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            PersistentUnitType unitType = (PersistentUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitTypeProxiString));
+            ((PersistentServer)this.server).createMeasurementType(measurementTypeManager, name, type, unitType);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -505,6 +520,21 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentHierarchy h = (PersistentHierarchy)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(hProxiString));
             PersistentAssociation a = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aProxiString));
             ((PersistentServer)this.server).addAssociation(h, a);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createProductType(java.util.Vector<String> containeesTrnsprt){
+        try {
+            MTypeSearchList containees = new MTypeSearchList();
+			java.util.Iterator<String> containeesItrtr = containeesTrnsprt.iterator();
+			while (containeesItrtr.hasNext()){
+				PersistentMType currentProxi = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(containeesItrtr.next()));
+				containees.add(currentProxi);
+			}
+            ((PersistentServer)this.server).createProductType(containees);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

@@ -1,10 +1,8 @@
 package persistence;
 
-import model.UserException;
 
-import model.visitor.*;
 
-public class MAbstractProductTypeICProxi extends MComplexTypeICProxi implements PersistentMAbstractProductType{
+public abstract class MAbstractProductTypeICProxi extends MComplexTypeICProxi implements PersistentMAbstractProductType{
     
     public MAbstractProductTypeICProxi(long objectId) {
         super(objectId);
@@ -13,79 +11,9 @@ public class MAbstractProductTypeICProxi extends MComplexTypeICProxi implements 
         super(object);
     }
     
-    protected PersistentObject getRemote() throws PersistenceException {
-        return ConnectionHandler.getTheConnectionHandler().theMAbstractProductTypeFacade
-            .getMAbstractProductType(this.getId());
-    }
     
-    public long getClassId() {
-        return 136;
-    }
+    public abstract PersistentMAbstractProductType getThis() throws PersistenceException ;
     
-    public PersistentMAbstractProductType getThis() throws PersistenceException {
-        return ((PersistentMAbstractProductType)this.getTheObject()).getThis();
-    }
-    
-    public void accept(MAbstractProductTypeVisitor visitor) throws PersistenceException {
-        visitor.handleMAbstractProductType(this);
-    }
-    public <R> R accept(MAbstractProductTypeReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public <E extends UserException>  void accept(MAbstractProductTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAbstractProductType(this);
-    }
-    public <R, E extends UserException> R accept(MAbstractProductTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
-        visitor.handleMAbstractProductType(this);
-    }
-    public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAbstractProductType(this);
-    }
-    public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public void accept(MTypeVisitor visitor) throws PersistenceException {
-        visitor.handleMAbstractProductType(this);
-    }
-    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAbstractProductType(this);
-    }
-    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-        visitor.handleMAbstractProductType(this);
-    }
-    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAbstractProductType(this);
-    }
-    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleMAbstractProductType(this);
-    }
-    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAbstractProductType(this);
-    }
-    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAbstractProductType(this);
-    }
     
     
     public void initializeOnInstantiation() 

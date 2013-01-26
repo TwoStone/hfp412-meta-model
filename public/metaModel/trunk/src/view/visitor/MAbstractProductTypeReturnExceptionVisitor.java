@@ -5,8 +5,7 @@ import view.*;
 
 public interface MAbstractProductTypeReturnExceptionVisitor<R, E extends UserException> {
     
-    public R handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException, E;
     public R handleMProductType(MProductTypeView mProductType) throws ModelException, E;
-    public R handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException, E;
+    public R handleMEmptyProductType(MEmptyProductTypeView mEmptyProductType) throws ModelException, E;
     
 }

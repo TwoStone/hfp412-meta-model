@@ -102,14 +102,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMEmptySumType(MEmptySumTypeView mEmptySumType) throws ModelException{
         this.handleMType(mEmptySumType);
     }
-    public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
-        this.handleMType(mEmptyProduct);
-    }
-    public void handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException{
-        this.handleMType(mAbstractProductType);
-    }
     public void handleMSumType(MSumTypeView mSumType) throws ModelException{
         this.handleMType(mSumType);
+    }
+    public void handleMEmptyProductType(MEmptyProductTypeView mEmptyProductType) throws ModelException{
+        this.handleMType(mEmptyProductType);
     }
     public abstract void handleUnitTypeManager(UnitTypeManagerView unitTypeManager) throws ModelException;
     

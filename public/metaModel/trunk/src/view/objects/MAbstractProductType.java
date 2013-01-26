@@ -7,7 +7,7 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class MAbstractProductType extends view.objects.MComplexType implements MAbstractProductTypeView{
+public abstract class MAbstractProductType extends view.objects.MComplexType implements MAbstractProductTypeView{
     
     
     public MAbstractProductType(java.util.Vector<MTypeView> containedTypes,long id, long classId) {
@@ -15,63 +15,7 @@ public class MAbstractProductType extends view.objects.MComplexType implements M
         super(containedTypes,id, classId);        
     }
     
-    static public long getTypeId() {
-        return 136;
-    }
     
-    public long getClassId() {
-        return getTypeId();
-    }
-    
-    
-    public void accept(MAbstractProductTypeVisitor visitor) throws ModelException {
-        visitor.handleMAbstractProductType(this);
-    }
-    public <R> R accept(MAbstractProductTypeReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public <E extends UserException>  void accept(MAbstractProductTypeExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleMAbstractProductType(this);
-    }
-    public <R, E extends UserException> R accept(MAbstractProductTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public void accept(MComplexTypeVisitor visitor) throws ModelException {
-        visitor.handleMAbstractProductType(this);
-    }
-    public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleMAbstractProductType(this);
-    }
-    public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public void accept(MTypeVisitor visitor) throws ModelException {
-        visitor.handleMAbstractProductType(this);
-    }
-    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleMAbstractProductType(this);
-    }
-    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public void accept(AnythingVisitor visitor) throws ModelException {
-        visitor.handleMAbstractProductType(this);
-    }
-    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleMAbstractProductType(this);
-    }
-    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleMAbstractProductType(this);
-    }
-    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleMAbstractProductType(this);
-    }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
         java.util.Vector<?> containedTypes = this.getContainedTypes();
@@ -125,9 +69,6 @@ public class MAbstractProductType extends view.objects.MComplexType implements M
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
         
-    }
-    public boolean hasTransientFields(){
-        return false;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

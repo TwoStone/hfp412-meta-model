@@ -18,8 +18,8 @@ public abstract class MComplexTypeDirectVisitor implements MComplexTypeVisitor {
     public void handleMProductType(MProductTypeView mProductType) throws ModelException{
         this.handleMAbstractProductType(mProductType);
     }
-    public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
-        this.handleMAbstractProductType(mEmptyProduct);
+    public void handleMEmptyProductType(MEmptyProductTypeView mEmptyProductType) throws ModelException{
+        this.handleMAbstractProductType(mEmptyProductType);
     }
     
 }

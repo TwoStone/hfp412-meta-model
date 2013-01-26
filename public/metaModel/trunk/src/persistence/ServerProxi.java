@@ -111,6 +111,14 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addConversion(unit, factor, constant);
     }
+    public void removeFromHierarchy(final PersistentHierarchy h, final PersistentAssociation a) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).removeFromHierarchy(h, a);
+    }
+    public void createSumType(final MTypeSearchList containees) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createSumType(containees);
+    }
     public void createAssociation(final PersistentAssociationManager manager, final PersistentMType source, final PersistentMType target, final String name) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createAssociation(manager, source, target, name);
@@ -118,10 +126,6 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public void createHierarchy(final PersistentAssociationManager manager, final PersistentAssociation a, final String name) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createHierarchy(manager, a, name);
-    }
-    public void removeFromHierarchy(final PersistentHierarchy h, final PersistentAssociation a) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).removeFromHierarchy(h, a);
     }
     public void publishCompUnit(final PersistentCompUnit compUnit) 
 				throws PersistenceException{
@@ -335,13 +339,13 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).div(dividend, divisor);
     }
-    public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createMeasurementType(measurementTypeManager, name, type, unitType);
-    }
     public void createVoidMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentInstanceObject source, final ActualParameterSearchList ap) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createVoidMessage(manager, type, source, ap);
+    }
+    public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createMeasurementType(measurementTypeManager, name, type, unitType);
     }
     public void createAccount(final PersistentAccountManager accountManager, final String name, final PersistentMAccountType type, final PersistentInstanceObject object) 
 				throws PersistenceException{
@@ -378,6 +382,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getQuantityManager(observer);
+    }
+    public void createProductType(final MTypeSearchList containees) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createProductType(containees);
     }
     public void createConstant(final PersistentOperationManager operationManager, final String name, final PersistentMType target) 
 				throws PersistenceException{

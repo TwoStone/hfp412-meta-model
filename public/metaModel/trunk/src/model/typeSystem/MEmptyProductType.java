@@ -6,10 +6,10 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import model.visitor.MAbstractSumTypeExceptionVisitor;
-import model.visitor.MAbstractSumTypeReturnExceptionVisitor;
-import model.visitor.MAbstractSumTypeReturnVisitor;
-import model.visitor.MAbstractSumTypeVisitor;
+import model.visitor.MAbstractProductTypeExceptionVisitor;
+import model.visitor.MAbstractProductTypeReturnExceptionVisitor;
+import model.visitor.MAbstractProductTypeReturnVisitor;
+import model.visitor.MAbstractProductTypeVisitor;
 import model.visitor.MComplexTypeExceptionVisitor;
 import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
 import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
@@ -26,30 +26,30 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MComplexTypeHierarchyHIERARCHY;
 import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
-import persistence.MEmptySumTypeProxi;
+import persistence.MEmptyProductTypeProxi;
 import persistence.PersistenceException;
 import persistence.PersistentMBoolean;
-import persistence.PersistentMEmptySumType;
+import persistence.PersistentMEmptyProductType;
 import persistence.PersistentMType;
 import persistence.TDObserver;
 
 /* Additional import section end */
 
-public class MEmptySumType extends model.typeSystem.MAbstractSumType implements PersistentMEmptySumType{
+public class MEmptyProductType extends model.typeSystem.MAbstractProductType implements PersistentMEmptyProductType{
     
-    private static PersistentMEmptySumType theMEmptySumType = null;
+    private static PersistentMEmptyProductType theMEmptyProductType = null;
     public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
-    public static PersistentMEmptySumType getTheMEmptySumType() throws PersistenceException{
-        if (theMEmptySumType == null || reset$For$Test){
+    public static PersistentMEmptyProductType getTheMEmptyProductType() throws PersistenceException{
+        if (theMEmptyProductType == null || reset$For$Test){
             class Initializer implements Runnable {
                 PersistenceException exception = null;
                 public void run(){
                     try {
-                        MEmptySumTypeProxi proxi = null;
+                        MEmptyProductTypeProxi proxi = null;
                         synchronized ($$lock){
-                            proxi = ConnectionHandler.getTheConnectionHandler().theMEmptySumTypeFacade.getTheMEmptySumType();
-                            theMEmptySumType = proxi;
+                            proxi = ConnectionHandler.getTheConnectionHandler().theMEmptyProductTypeFacade.getTheMEmptyProductType();
+                            theMEmptyProductType = proxi;
                         }
                         if(proxi.getId() < 0) {
                             proxi.setId(proxi.getId() * -1);
@@ -61,9 +61,9 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
                     }
                     synchronized ($$lock){$$lock.notify();}
                 }
-                PersistentMEmptySumType getResult() throws PersistenceException{
+                PersistentMEmptyProductType getResult() throws PersistenceException{
                     if(exception != null) throw exception;
-                    return theMEmptySumType;
+                    return theMEmptyProductType;
                 }
             }
             synchronized ($$lock) {
@@ -74,7 +74,7 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
                 return initializer.getResult();
             }
         }
-        return theMEmptySumType;
+        return theMEmptyProductType;
     }
     public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
@@ -86,10 +86,10 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
         return result;
     }
     
-    public MEmptySumType provideCopy() throws PersistenceException{
-        MEmptySumType result = this;
-        result = new MEmptySumType(this.This, 
-                                   this.getId());
+    public MEmptyProductType provideCopy() throws PersistenceException{
+        MEmptyProductType result = this;
+        result = new MEmptyProductType(this.This, 
+                                       this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -98,13 +98,13 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
         return false;
     }
     
-    public MEmptySumType(PersistentMType This,long id) throws persistence.PersistenceException {
+    public MEmptyProductType(PersistentMType This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((PersistentMType)This,id);        
     }
     
     static public long getTypeId() {
-        return 187;
+        return 238;
     }
     
     public long getClassId() {
@@ -115,73 +115,73 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
         // Singletons cannot be delayed!
     }
     
-    public PersistentMEmptySumType getThis() throws PersistenceException {
+    public PersistentMEmptyProductType getThis() throws PersistenceException {
         if(this.This == null){
-            PersistentMEmptySumType result = new MEmptySumTypeProxi(this.getId());
+            PersistentMEmptyProductType result = new MEmptyProductTypeProxi(this.getId());
             result.getTheObject();
             return result;
-        }return (PersistentMEmptySumType)this.This;
+        }return (PersistentMEmptyProductType)this.This;
     }
     
-    public void accept(MAbstractSumTypeVisitor visitor) throws PersistenceException {
-        visitor.handleMEmptySumType(this);
+    public void accept(MAbstractProductTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyProductType(this);
     }
-    public <R> R accept(MAbstractSumTypeReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMEmptySumType(this);
+    public <R> R accept(MAbstractProductTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyProductType(this);
     }
-    public <E extends UserException>  void accept(MAbstractSumTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMEmptySumType(this);
+    public <E extends UserException>  void accept(MAbstractProductTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyProductType(this);
     }
-    public <R, E extends UserException> R accept(MAbstractSumTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMEmptySumType(this);
+    public <R, E extends UserException> R accept(MAbstractProductTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyProductType(this);
     }
     public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
-        visitor.handleMEmptySumType(this);
+        visitor.handleMEmptyProductType(this);
     }
     public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMEmptySumType(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMEmptySumType(this);
+         visitor.handleMEmptyProductType(this);
     }
     public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMEmptySumType(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public void accept(MTypeVisitor visitor) throws PersistenceException {
-        visitor.handleMEmptySumType(this);
+        visitor.handleMEmptyProductType(this);
     }
     public <R> R accept(MTypeReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMEmptySumType(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMEmptySumType(this);
+         visitor.handleMEmptyProductType(this);
     }
     public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMEmptySumType(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-        visitor.handleMEmptySumType(this);
+        visitor.handleMEmptyProductType(this);
     }
     public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMEmptySumType(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMEmptySumType(this);
+         visitor.handleMEmptyProductType(this);
     }
     public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMEmptySumType(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleMEmptySumType(this);
+        visitor.handleMEmptyProductType(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMEmptySumType(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMEmptySumType(this);
+         visitor.handleMEmptyProductType(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMEmptySumType(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
@@ -191,9 +191,13 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
 	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
@@ -205,7 +209,7 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
-        this.setThis((PersistentMEmptySumType)This);
+        this.setThis((PersistentMEmptyProductType)This);
 		if(this.equals(This)){
 		}
     }
@@ -235,17 +239,19 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        T result$$containedTypes$$MEmptySumType = strategy.initialize$$MEmptySumType$$containedTypes(getThis(), parameter);
+        T result$$containedTypes$$MEmptyProductType = strategy.initialize$$MEmptyProductType$$containedTypes(getThis(), parameter);
 		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
 		while (iterator$$.hasNext()){
 			PersistentMType current$$Field = (PersistentMType)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MEmptySumType, strategy);
-			result$$containedTypes$$MEmptySumType = strategy.consolidate$$MEmptySumType$$containedTypes(getThis(), result$$containedTypes$$MEmptySumType, current$$);
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MEmptyProductType, strategy);
+			result$$containedTypes$$MEmptyProductType = strategy.consolidate$$MEmptyProductType$$containedTypes(getThis(), result$$containedTypes$$MEmptyProductType, current$$);
 		}
-		return strategy.finalize$$MEmptySumType(getThis(), parameter,result$$containedTypes$$MEmptySumType);
+		return strategy.finalize$$MEmptyProductType(getThis(), parameter,result$$containedTypes$$MEmptyProductType);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
+		// TODO: implement method: initializeOnCreation
+
 	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{

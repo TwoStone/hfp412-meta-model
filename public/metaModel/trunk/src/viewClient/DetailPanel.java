@@ -694,9 +694,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 	public DetailPanelFactory(ExceptionAndEventHandler handler) {
 		this.handler = handler;
 	}
-    public void handleMEmptyProduct(view.MEmptyProductView object){
-        result = new MEmptyProductDefaultDetailPanel(handler, object);
-    }
     public void handleCompoundQuantity(view.CompoundQuantityView object){
         result = new CompoundQuantityDefaultDetailPanel(handler, object);
     }
@@ -724,6 +721,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleOperationManager(view.OperationManagerView object){
         result = new OperationManagerDefaultDetailPanel(handler, object);
     }
+    public void handleMEmptyProductType(view.MEmptyProductTypeView object){
+        result = new MEmptyProductTypeDefaultDetailPanel(handler, object);
+    }
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
     }
@@ -744,9 +744,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleMessage(view.MessageView object){
         result = new MessageDefaultDetailPanel(handler, object);
-    }
-    public void handleMAbstractProductType(view.MAbstractProductTypeView object){
-        result = new MAbstractProductTypeDefaultDetailPanel(handler, object);
     }
     public void handleFunction(view.FunctionView object){
         result = new FunctionDefaultDetailPanel(handler, object);
@@ -842,22 +839,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 }
 
 
-
-@SuppressWarnings("serial")
-class MEmptyProductDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
-    
-    protected MEmptyProductDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.MEmptyProductView getAnything(){
-        return (view.MEmptyProductView)this.anything;
-    }
-}
 
 @SuppressWarnings("serial")
 class CompoundQuantityDefaultDetailPanel extends DefaultDetailPanel{
@@ -1080,6 +1061,22 @@ class OperationManagerDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MEmptyProductTypeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    
+    protected MEmptyProductTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MEmptyProductTypeView getAnything(){
+        return (view.MEmptyProductTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ErrorDisplay$$message = "ErrorDisplay$$message";
@@ -1205,22 +1202,6 @@ class MessageDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MessageView getAnything(){
         return (view.MessageView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class MAbstractProductTypeDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
-    
-    protected MAbstractProductTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.MAbstractProductTypeView getAnything(){
-        return (view.MAbstractProductTypeView)this.anything;
     }
 }
 

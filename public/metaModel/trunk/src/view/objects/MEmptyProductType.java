@@ -7,16 +7,16 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class MEmptyProduct extends view.objects.MAbstractProductType implements MEmptyProductView{
+public class MEmptyProductType extends view.objects.MAbstractProductType implements MEmptyProductTypeView{
     
     
-    public MEmptyProduct(java.util.Vector<MTypeView> containedTypes,long id, long classId) {
+    public MEmptyProductType(java.util.Vector<MTypeView> containedTypes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(containedTypes,id, classId);        
     }
     
     static public long getTypeId() {
-        return 108;
+        return 238;
     }
     
     public long getClassId() {
@@ -25,52 +25,52 @@ public class MEmptyProduct extends view.objects.MAbstractProductType implements 
     
     
     public void accept(MAbstractProductTypeVisitor visitor) throws ModelException {
-        visitor.handleMEmptyProduct(this);
+        visitor.handleMEmptyProductType(this);
     }
     public <R> R accept(MAbstractProductTypeReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleMEmptyProduct(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public <E extends UserException>  void accept(MAbstractProductTypeExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleMEmptyProduct(this);
+         visitor.handleMEmptyProductType(this);
     }
     public <R, E extends UserException> R accept(MAbstractProductTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleMEmptyProduct(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public void accept(MComplexTypeVisitor visitor) throws ModelException {
-        visitor.handleMEmptyProduct(this);
+        visitor.handleMEmptyProductType(this);
     }
     public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleMEmptyProduct(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleMEmptyProduct(this);
+         visitor.handleMEmptyProductType(this);
     }
     public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleMEmptyProduct(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public void accept(MTypeVisitor visitor) throws ModelException {
-        visitor.handleMEmptyProduct(this);
+        visitor.handleMEmptyProductType(this);
     }
     public <R> R accept(MTypeReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleMEmptyProduct(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleMEmptyProduct(this);
+         visitor.handleMEmptyProductType(this);
     }
     public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleMEmptyProduct(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public void accept(AnythingVisitor visitor) throws ModelException {
-        visitor.handleMEmptyProduct(this);
+        visitor.handleMEmptyProductType(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException {
-         return visitor.handleMEmptyProduct(this);
+         return visitor.handleMEmptyProductType(this);
     }
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E {
-         visitor.handleMEmptyProduct(this);
+         visitor.handleMEmptyProductType(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
-         return visitor.handleMEmptyProduct(this);
+         return visitor.handleMEmptyProductType(this);
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {

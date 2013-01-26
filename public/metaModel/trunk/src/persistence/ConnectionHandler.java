@@ -111,7 +111,6 @@ public class ConnectionHandler {
     public CreateAspectCommandFacade theCreateAspectCommandFacade;
     public CreateUnitCommandFacade theCreateUnitCommandFacade;
     public AbsOperationFacade theAbsOperationFacade;
-    public MEmptyProductFacade theMEmptyProductFacade;
     public CompoundQuantityFacade theCompoundQuantityFacade;
     public AddDefaultUnitCommandFacade theAddDefaultUnitCommandFacade;
     public RemoveAssoFrmHierCommandFacade theRemoveAssoFrmHierCommandFacade;
@@ -125,6 +124,7 @@ public class ConnectionHandler {
     public FormalParameterFacade theFormalParameterFacade;
     public CreateHierarchyCommandFacade theCreateHierarchyCommandFacade;
     public OperationManagerFacade theOperationManagerFacade;
+    public MEmptyProductTypeFacade theMEmptyProductTypeFacade;
     public QuantifObjectFacade theQuantifObjectFacade;
     public ErrorDisplayFacade theErrorDisplayFacade;
     public UnitFacade theUnitFacade;
@@ -233,7 +233,6 @@ public class ConnectionHandler {
             this.theCreateAspectCommandFacade= new CreateAspectCommandFacade(this.schemaName, this.con);
             this.theCreateUnitCommandFacade= new CreateUnitCommandFacade(this.schemaName, this.con);
             this.theAbsOperationFacade= new AbsOperationFacade(this.schemaName, this.con);
-            this.theMEmptyProductFacade= new MEmptyProductFacade(this.schemaName, this.con);
             this.theCompoundQuantityFacade= new CompoundQuantityFacade(this.schemaName, this.con);
             this.theAddDefaultUnitCommandFacade= new AddDefaultUnitCommandFacade(this.schemaName, this.con);
             this.theRemoveAssoFrmHierCommandFacade= new RemoveAssoFrmHierCommandFacade(this.schemaName, this.con);
@@ -247,6 +246,7 @@ public class ConnectionHandler {
             this.theFormalParameterFacade= new FormalParameterFacade(this.schemaName, this.con);
             this.theCreateHierarchyCommandFacade= new CreateHierarchyCommandFacade(this.schemaName, this.con);
             this.theOperationManagerFacade= new OperationManagerFacade(this.schemaName, this.con);
+            this.theMEmptyProductTypeFacade= new MEmptyProductTypeFacade(this.schemaName, this.con);
             this.theQuantifObjectFacade= new QuantifObjectFacade(this.schemaName, this.con);
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
             this.theUnitFacade= new UnitFacade(this.schemaName, this.con);

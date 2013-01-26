@@ -13,7 +13,6 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleMAccountType(PersistentMAccountType mAccountType) throws PersistenceException;
     public abstract void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException;
     public abstract void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException;
-    public abstract void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException;
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     public abstract void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException;
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
@@ -28,6 +27,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     public abstract void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException;
     public abstract void handleAccount(PersistentAccount account) throws PersistenceException;
+    public abstract void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException;
     public abstract void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException;
     public abstract void handleUnit(PersistentUnit unit) throws PersistenceException;
     public abstract void handleMFalse(PersistentMFalse mFalse) throws PersistenceException;
@@ -42,7 +42,6 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleMTrue(PersistentMTrue mTrue) throws PersistenceException;
     public abstract void handleQuantity(PersistentQuantity quantity) throws PersistenceException;
     public abstract void handleMessage(PersistentMessage message) throws PersistenceException;
-    public abstract void handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException;
     public abstract void handleFunction(PersistentFunction function) throws PersistenceException;
     public abstract void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
     public abstract void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException;

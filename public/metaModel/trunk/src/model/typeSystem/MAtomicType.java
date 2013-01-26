@@ -32,11 +32,10 @@ import persistence.MAtomicTypeSearchList;
 import persistence.MComplexTypeHierarchyHIERARCHY;
 import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
 import persistence.PersistenceException;
-import persistence.PersistentMAbstractProductType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
-import persistence.PersistentMEmptyProduct;
+import persistence.PersistentMEmptyProductType;
 import persistence.PersistentMEmptySumType;
 import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
@@ -345,54 +344,11 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 	}
     public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
 				throws PersistenceException{
-		return other.accept(new MTypeReturnVisitor<PersistentMBoolean>() {
-
-			@Override
-			public PersistentMBoolean handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType)
-					throws PersistenceException {
-				return MFalse.getTheMFalse();
-			}
-
-			@Override
-			public PersistentMBoolean handleMEmptySumType(PersistentMEmptySumType mEmptySumType)
-					throws PersistenceException {
-				return MFalse.getTheMFalse();
-			}
-
-			@Override
-			public PersistentMBoolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
-				return MFalse.getTheMFalse();
-			}
-
-			@Override
-			public PersistentMBoolean handleMProductType(PersistentMProductType mProductType)
-					throws PersistenceException {
-				return MFalse.getTheMFalse();
-			}
-
-			@Override
-			public PersistentMBoolean handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct)
-					throws PersistenceException {
-				return MFalse.getTheMFalse();
-			}
-
-			@Override
-			public PersistentMBoolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
-				return MBoolean.createFromBoolean(getThis().getAspect().equals(mAtomicType.getAspect())
-						&& getThis().getName().equals(mAtomicType.getName()));
-			}
-		});
+		return MBoolean.createFromBoolean(getThis().equals(other));
 	}
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
-
-			@Override
-			public Boolean handleMAbstractProductType(PersistentMAbstractProductType mAbstractProductType)
-					throws PersistenceException {
-				// TODO Auto-generated method stub
-				return null;
-			}
 
 			@Override
 			public Boolean handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
@@ -407,12 +363,6 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 			}
 
 			@Override
-			public Boolean handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
 			public Boolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
 				// TODO Auto-generated method stub
 				return null;
@@ -421,6 +371,13 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 			@Override
 			public Boolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
 				return mAtomicType.containsMAtomicTypeHierarchy(getThis());
+			}
+
+			@Override
+			public Boolean handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType)
+					throws PersistenceException {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		}));
 	}
@@ -460,8 +417,8 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 	}
     public String abstractTypeAsString() 
 				throws PersistenceException{
-        return getThis().getAbstractType().toString();
-    }
+		return getThis().getAbstractType().toString();
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMAtomicType)This);
@@ -479,8 +436,8 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 	}
     public String singletonTypeAsString() 
 				throws PersistenceException{
-        return getThis().getSingletonType().toString();
-    }
+		return getThis().getSingletonType().toString();
+	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
 		return getThis().getAbstractType();

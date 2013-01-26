@@ -244,21 +244,21 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
             throw uoe;
         }
     }
-    public String fetchTypeLinkOperator() 
-				throws PersistenceException{
-        //TODO: implement method: fetchTypeLinkOperator
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchTypeLinkOperator\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
         //TODO: implement method: isAbstract
         try{
             throw new java.lang.UnsupportedOperationException("Method \"isAbstract\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
+    public String fetchTypeLinkOperator() 
+				throws PersistenceException{
+        //TODO: implement method: fetchTypeLinkOperator
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"fetchTypeLinkOperator\" not implemented yet.");
         } catch (java.lang.UnsupportedOperationException uoe){
             uoe.printStackTrace();
             throw uoe;

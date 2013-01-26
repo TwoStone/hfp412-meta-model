@@ -1,6 +1,6 @@
 package persistence;
 
-public class MAbstractProductTypeListEntryProxi extends MAbstractProductTypeProxi implements PersistentMAbstractProductTypeListEntryProxi {
+public abstract class MAbstractProductTypeListEntryProxi extends MAbstractProductTypeProxi implements PersistentMAbstractProductTypeListEntryProxi {
 
   long entryId;
 

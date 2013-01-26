@@ -18,8 +18,8 @@ public abstract class MComplexTypeDirectVisitor implements MComplexTypeVisitor {
     public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException{
         this.handleMAbstractProductType(mProductType);
     }
-    public void handleMEmptyProduct(PersistentMEmptyProduct mEmptyProduct) throws PersistenceException{
-        this.handleMAbstractProductType(mEmptyProduct);
+    public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
+        this.handleMAbstractProductType(mEmptyProductType);
     }
     
 }

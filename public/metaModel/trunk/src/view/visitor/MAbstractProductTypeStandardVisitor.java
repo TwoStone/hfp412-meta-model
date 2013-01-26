@@ -8,11 +8,8 @@ public abstract class MAbstractProductTypeStandardVisitor implements MAbstractPr
     public void handleMProductType(MProductTypeView mProductType) throws ModelException{
         this.standardHandling(mProductType);
     }
-    public void handleMEmptyProduct(MEmptyProductView mEmptyProduct) throws ModelException{
-        this.standardHandling(mEmptyProduct);
-    }
-    public void handleMAbstractProductType(MAbstractProductTypeView mAbstractProductType) throws ModelException{
-        this.standardHandling(mAbstractProductType);
+    public void handleMEmptyProductType(MEmptyProductTypeView mEmptyProductType) throws ModelException{
+        this.standardHandling(mEmptyProductType);
     }
     protected abstract void standardHandling(MAbstractProductTypeView mAbstractProductType) throws ModelException;
 }

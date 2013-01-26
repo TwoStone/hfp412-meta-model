@@ -1,8 +1,10 @@
-
 package model.typeSystem;
 
-import persistence.*;
-
+import persistence.Anything;
+import persistence.PersistenceException;
+import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMType;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -50,14 +52,14 @@ public abstract class MAbstractSumType extends model.typeSystem.MComplexType imp
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMAbstractSumType)This);
@@ -66,12 +68,16 @@ public abstract class MAbstractSumType extends model.typeSystem.MComplexType imp
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
+    public String fetchTypeLinkOperator() 
+				throws PersistenceException{
+		return MAbstractSumType.TYPE_LINK_OPERATOR;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+	public static String TYPE_LINK_OPERATOR = "++";
+	/* End of protected part that is not overridden by persistence generator */
     
 }

@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[137];
+			iCProxiFactories = new ICProxiFactory[138];
         iCProxiFactories[0] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateMObjectCommandICProxi(objectId);
@@ -31,11 +31,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[5] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateUnitCommandICProxi(objectId);
-            }
-        };
-        iCProxiFactories[7] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new MEmptyProductICProxi(objectId);
             }
         };
         iCProxiFactories[8] = new ICProxiFactory(){
@@ -103,6 +98,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new OperationManagerICProxi(objectId);
             }
         };
+        iCProxiFactories[137] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new MEmptyProductTypeICProxi(objectId);
+            }
+        };
         iCProxiFactories[22] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ErrorDisplayICProxi(objectId);
@@ -156,11 +156,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[34] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new MessageICProxi(objectId);
-            }
-        };
-        iCProxiFactories[35] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new MAbstractProductTypeICProxi(objectId);
             }
         };
         iCProxiFactories[36] = new ICProxiFactory(){
