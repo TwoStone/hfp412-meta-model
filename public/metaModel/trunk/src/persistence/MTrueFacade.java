@@ -13,7 +13,7 @@ public class MTrueFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theMBooleanFacade.getNextId();
         MTrue result = new MTrue(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (MTrueProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 190);
+        return (MTrueProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 138);
     }
     
     public MTrue getMTrue(long MTrueId) throws PersistenceException{

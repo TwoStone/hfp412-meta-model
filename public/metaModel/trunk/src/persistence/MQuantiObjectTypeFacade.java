@@ -25,8 +25,8 @@ public class MQuantiObjectTypeFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 164)) return 164;
-        if(Cache.getTheCache().contains(objectId, 125)) return 125;
+        if(Cache.getTheCache().contains(objectId, 194)) return 194;
+        if(Cache.getTheCache().contains(objectId, 199)) return 199;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

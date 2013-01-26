@@ -19,7 +19,7 @@ public class RemoveAssoFrmHierCommandProxi extends PersistentProxi implements Pe
     }
     
     public long getClassId() {
-        return 110;
+        return 222;
     }
     
     public PersistentHierarchy getH() throws PersistenceException {

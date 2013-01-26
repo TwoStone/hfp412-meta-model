@@ -19,7 +19,7 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     public long getClassId() {
-        return -111;
+        return -105;
     }
     
     public Server_ErrorsProxi getErrors() throws PersistenceException {
@@ -139,6 +139,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createOperation(source, target, name, fp);
     }
+    public void createCompUnit(final PersistentUnitTypeManager manager, final PersistentCompUnitType compUnitType, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createCompUnit(manager, compUnitType, name);
+    }
     public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createVoidOperation(source, name, fp);
@@ -166,6 +170,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void createAccountType(final PersistentAccountTypeManager accountTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createAccountType(accountTypeManager, name, type, unitType);
+    }
+    public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit, final common.Fraction f) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createQuantity(manager, unit, f);
     }
     public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws PersistenceException{
@@ -195,9 +203,9 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).getUnitTypeManager(observer);
     }
-    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction f) 
+    public void createCompUnitType(final PersistentUnitTypeManager manager, final String name) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createQuantity(unit, f);
+        ((PersistentServer)this.getTheObject()).createCompUnitType(manager, name);
     }
     public PersistentMessageManager getMessageManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -247,10 +255,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addFp(op, fp);
     }
-    public void createUnit(final PersistentUnitType type, final String name) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createUnit(type, name);
-    }
     public void createVoidMessage(final PersistentInstanceObject source, final PersistentOperation type, final ActualParameterSearchList ap) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createVoidMessage(source, type, ap);
@@ -258,6 +262,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createAtomicSubType(superType, typeName, singletonType, abstractType);
+    }
+    public void createUnit(final PersistentUnitTypeManager manager, final PersistentUnitType type, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createUnit(manager, type, name);
     }
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -267,13 +275,13 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).add(summand1, summand2);
     }
-    public PersistentMeasurementTypeManager getMeasurementTypeManager(final TDObserver observer) 
-				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).getMeasurementTypeManager(observer);
-    }
     public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addToHierarchy(association, theHierarchy);
+    }
+    public PersistentMeasurementTypeManager getMeasurementTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getMeasurementTypeManager(observer);
     }
     public void addDefaultUnit(final PersistentUnitType type, final PersistentUnit defaultUnit) 
 				throws PersistenceException{
@@ -286,10 +294,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void addReference(final PersistentCompUnit compUnit, final PersistentUnit unit, final long exponent) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addReference(compUnit, unit, exponent);
-    }
-    public void createCompUnit(final PersistentCompUnitType compUnitType, final String name) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createCompUnit(compUnitType, name);
     }
     public void createMessage(final PersistentInstanceObject source, final PersistentOperation type, final PersistentInstanceObject target, final ActualParameterSearchList ap) 
 				throws PersistenceException{
@@ -330,10 +334,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public PersistentAbsQuantity div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).div(dividend, divisor);
-    }
-    public void createCompUnitType(final String name) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createCompUnitType(name);
     }
     public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
 				throws PersistenceException{

@@ -28,14 +28,14 @@ public class MessageManagerFacade{
         long id = ConnectionHandler.getTheConnectionHandler().theMessageManagerFacade.getNextId();
         MessageManager result = new MessageManager(null, id);
         PersistentInCacheProxi cached = Cache.getTheCache().putSingleton(result);
-        return (MessageManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 168);
+        return (MessageManagerProxi)PersistentProxi.createProxi(cached.getId()  * (cached.getTheObject().equals(result) ? -1 : 1), 239);
     }
     
     public MessageManager getMessageManager(long MessageManagerId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 168)) return 168;
+        if(Cache.getTheCache().contains(objectId, 239)) return 239;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

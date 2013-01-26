@@ -19,7 +19,7 @@ public class OperationManagerProxi extends PersistentProxi implements Persistent
     }
     
     public long getClassId() {
-        return 120;
+        return 226;
     }
     
     public OperationManager_OperationsProxi getOperations() throws PersistenceException {

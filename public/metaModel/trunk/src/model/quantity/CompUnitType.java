@@ -90,8 +90,7 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
     
     public CompUnitType provideCopy() throws PersistenceException{
         CompUnitType result = this;
-        result = new CompUnitType(this.defaultUnit, 
-                                  this.name, 
+        result = new CompUnitType(this.name, 
                                   this.This, 
                                   this.isFinal, 
                                   this.getId());
@@ -106,15 +105,15 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
     protected CompUnitType_RefsProxi refs;
     protected PersistentMBoolean isFinal;
     
-    public CompUnitType(PersistentAbsUnit defaultUnit,String name,PersistentAbsUnitType This,PersistentMBoolean isFinal,long id) throws persistence.PersistenceException {
+    public CompUnitType(String name,PersistentAbsUnitType This,PersistentMBoolean isFinal,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentAbsUnit)defaultUnit,(String)name,(PersistentAbsUnitType)This,id);
+        super((String)name,(PersistentAbsUnitType)This,id);
         this.refs = new CompUnitType_RefsProxi(this);
         this.isFinal = isFinal;        
     }
     
     static public long getTypeId() {
-        return 113;
+        return 165;
     }
     
     public long getClassId() {
@@ -123,7 +122,7 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 113) ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
+        if (this.getClassId() == 165) ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
             .newCompUnitType(name,this.getId());
         super.store();
         this.getRefs().store();
@@ -185,7 +184,6 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + (this.getDefaultUnit() == null ? 0 : 1)
             + this.getRefs().getLength());
     }
     

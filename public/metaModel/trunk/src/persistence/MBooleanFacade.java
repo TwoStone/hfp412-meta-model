@@ -25,8 +25,8 @@ public class MBooleanFacade{
 	}
 
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 183)) return 183;
-        if(Cache.getTheCache().contains(objectId, 190)) return 190;
+        if(Cache.getTheCache().contains(objectId, 136)) return 136;
+        if(Cache.getTheCache().contains(objectId, 138)) return 138;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

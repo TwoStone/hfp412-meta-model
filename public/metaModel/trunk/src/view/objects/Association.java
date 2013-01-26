@@ -18,7 +18,7 @@ public class Association extends view.objects.AbsOperation implements Associatio
     }
     
     static public long getTypeId() {
-        return 116;
+        return 223;
     }
     
     public long getClassId() {

@@ -19,7 +19,7 @@ public class CreateCompUnitTypeCommandICProxi extends PersistentInCacheProxi imp
     }
     
     public long getClassId() {
-        return 161;
+        return 175;
     }
     
     public String getName() throws PersistenceException {

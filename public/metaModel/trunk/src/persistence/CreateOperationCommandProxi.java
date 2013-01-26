@@ -19,7 +19,7 @@ public class CreateOperationCommandProxi extends PersistentProxi implements Pers
     }
     
     public long getClassId() {
-        return 176;
+        return 243;
     }
     
     public PersistentMType getSource() throws PersistenceException {

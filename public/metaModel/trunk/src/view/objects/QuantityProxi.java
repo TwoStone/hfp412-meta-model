@@ -20,7 +20,7 @@ public class QuantityProxi extends AbsQuantityProxi implements QuantityView{
             unit = ViewProxi.createProxi(unit$Info,connectionKey);
             unit.setToString(unit$Info.getToString());
         }
-        QuantityView result$$ = new Quantity((common.Fraction)amount,(UnitView)unit, this.getId(), this.getClassId());
+        QuantityView result$$ = new Quantity((common.Fraction)amount,(AbsUnitView)unit, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -56,10 +56,10 @@ public class QuantityProxi extends AbsQuantityProxi implements QuantityView{
     public void setAmount(common.Fraction newValue) throws ModelException {
         ((Quantity)this.getTheObject()).setAmount(newValue);
     }
-    public UnitView getUnit() throws ModelException {
+    public AbsUnitView getUnit() throws ModelException {
         return ((Quantity)this.getTheObject()).getUnit();
     }
-    public void setUnit(UnitView newValue) throws ModelException {
+    public void setUnit(AbsUnitView newValue) throws ModelException {
         ((Quantity)this.getTheObject()).setUnit(newValue);
     }
     

@@ -1,4 +1,3 @@
-
 package model.quantity;
 
 import model.UserException;
@@ -20,6 +19,7 @@ import persistence.PersistentUnit;
 import persistence.PersistentUnitType;
 import persistence.TDObserver;
 
+import common.Fraction;
 
 /* Additional import section end */
 
@@ -31,11 +31,11 @@ public class Conversion extends PersistentObject implements PersistentConversion
         return (PersistentConversion)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentConversion createConversion(PersistentUnit source) throws PersistenceException{
-        return createConversion(source,false);
+    public static PersistentConversion createConversion(PersistentUnit source,PersistentFunction myFunction) throws PersistenceException{
+        return createConversion(source,myFunction,false);
     }
     
-    public static PersistentConversion createConversion(PersistentUnit source,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentConversion createConversion(PersistentUnit source,PersistentFunction myFunction,boolean delayed$Persistence) throws PersistenceException {
         PersistentConversion result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
@@ -47,12 +47,13 @@ public class Conversion extends PersistentObject implements PersistentConversion
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("source", source);
+        final$$Fields.put("myFunction", myFunction);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentConversion createConversion(PersistentUnit source,boolean delayed$Persistence,PersistentConversion This) throws PersistenceException {
+    public static PersistentConversion createConversion(PersistentUnit source,PersistentFunction myFunction,boolean delayed$Persistence,PersistentConversion This) throws PersistenceException {
         PersistentConversion result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theConversionFacade
@@ -64,6 +65,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("source", source);
+        final$$Fields.put("myFunction", myFunction);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -123,7 +125,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
     }
     
     static public long getTypeId() {
-        return 177;
+        return 164;
     }
     
     public long getClassId() {
@@ -132,7 +134,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 177) ConnectionHandler.getTheConnectionHandler().theConversionFacade
+        if (this.getClassId() == 164) ConnectionHandler.getTheConnectionHandler().theConversionFacade
             .newConversion(this.getId());
         super.store();
         if(this.getSource() != null){
@@ -222,49 +224,43 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     public PersistentQuantity convert(final common.Fraction amount) 
 				throws PersistenceException{
-        //TODO: implement method: convert
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"convert\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		Fraction convertedAmount = this.getThis().getMyFunction().execute(amount);
+		// TODO: Quantity mit QuantityManager erstellen?
+		return Quantity.createQuantity(convertedAmount,
+				((PersistentUnitType) this.getThis().getSource().getType()).getDefaultUnit());
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentConversion)This);
 		if(this.equals(This)){
 			this.setSource((PersistentUnit)final$$Fields.get("source"));
+			this.setMyFunction((PersistentFunction)final$$Fields.get("myFunction"));
 		}
     }
     public PersistentQuantity convertInverse(final common.Fraction amount) 
 				throws PersistenceException{
-        //TODO: implement method: convertInverse
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"convertInverse\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		Fraction convertedAmount = this.getThis().getMyFunction().executeInverse(amount);
+		// TODO: Quantity mit QuantityManager erstellen?
+		return Quantity.createQuantity(convertedAmount, this.getThis().getSource());
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// implement method: initializeOnCreation
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

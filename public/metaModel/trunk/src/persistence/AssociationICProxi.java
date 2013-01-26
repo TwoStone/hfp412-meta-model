@@ -19,7 +19,7 @@ public class AssociationICProxi extends AbsOperationICProxi implements Persisten
     }
     
     public long getClassId() {
-        return 116;
+        return 223;
     }
     
     public Association_HierarchiesProxi getHierarchies() throws PersistenceException {

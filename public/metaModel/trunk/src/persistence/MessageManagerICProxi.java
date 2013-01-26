@@ -19,7 +19,7 @@ public class MessageManagerICProxi extends PersistentInCacheProxiOptimistic impl
     }
     
     public long getClassId() {
-        return 168;
+        return 239;
     }
     
     public MessageManager_MessagesProxi getMessages() throws PersistenceException {

@@ -9,20 +9,28 @@ import view.visitor.*;
 
 public class UnitType extends view.objects.AbsUnitType implements UnitTypeView{
     
+    protected UnitView defaultUnit;
     
-    public UnitType(AbsUnitView defaultUnit,String name,long id, long classId) {
+    public UnitType(String name,UnitView defaultUnit,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((AbsUnitView)defaultUnit,(String)name,id, classId);        
+        super((String)name,id, classId);
+        this.defaultUnit = defaultUnit;        
     }
     
     static public long getTypeId() {
-        return 182;
+        return 152;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
+    public UnitView getDefaultUnit() throws ModelException {
+        return this.defaultUnit;
+    }
+    public void setDefaultUnit(UnitView newValue) throws ModelException {
+        this.defaultUnit = newValue;
+    }
     
     public void accept(AbsUnitTypeVisitor visitor) throws ModelException {
         visitor.handleUnitType(this);
@@ -50,7 +58,7 @@ public class UnitType extends view.objects.AbsUnitType implements UnitTypeView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        AbsUnitView defaultUnit = this.getDefaultUnit();
+        UnitView defaultUnit = this.getDefaultUnit();
         if (defaultUnit != null) {
             ((ViewProxi)defaultUnit).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(defaultUnit.getClassId(), defaultUnit.getId())));
         }
@@ -61,7 +69,7 @@ public class UnitType extends view.objects.AbsUnitType implements UnitTypeView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index == 0 && this.getDefaultUnit() != null) return new DefaultUnitAbsUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getDefaultUnit());
+        if(index == 0 && this.getDefaultUnit() != null) return new DefaultUnitUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getDefaultUnit());
         if(this.getDefaultUnit() != null) index = index - 1;
         return null;
     }
@@ -80,7 +88,7 @@ public class UnitType extends view.objects.AbsUnitType implements UnitTypeView{
         return -1;
     }
     public int getNameIndex() throws ModelException {
-        return 0 + (this.getDefaultUnit() == null ? 0 : 1);
+        return 0;
     }
     public int getRowCount(){
         return 0 

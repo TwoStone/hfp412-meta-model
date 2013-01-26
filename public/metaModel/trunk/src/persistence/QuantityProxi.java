@@ -19,7 +19,7 @@ public class QuantityProxi extends AbsQuantityProxi implements PersistentQuantit
     }
     
     public long getClassId() {
-        return 192;
+        return 157;
     }
     
     public common.Fraction getAmount() throws PersistenceException {
@@ -28,10 +28,10 @@ public class QuantityProxi extends AbsQuantityProxi implements PersistentQuantit
     public void setAmount(common.Fraction newValue) throws PersistenceException {
         ((PersistentQuantity)this.getTheObject()).setAmount(newValue);
     }
-    public PersistentUnit getUnit() throws PersistenceException {
+    public PersistentAbsUnit getUnit() throws PersistenceException {
         return ((PersistentQuantity)this.getTheObject()).getUnit();
     }
-    public void setUnit(PersistentUnit newValue) throws PersistenceException {
+    public void setUnit(PersistentAbsUnit newValue) throws PersistenceException {
         ((PersistentQuantity)this.getTheObject()).setUnit(newValue);
     }
     public PersistentQuantity getThis() throws PersistenceException {

@@ -11,7 +11,7 @@ import model.visitor.*;
 public class MessageManager extends PersistentObject implements PersistentMessageManager{
     
     private static PersistentMessageManager theMessageManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMessageManager getTheMessageManager() throws PersistenceException{
         if (theMessageManager == null || reset$For$Test){
@@ -83,7 +83,7 @@ public class MessageManager extends PersistentObject implements PersistentMessag
     }
     
     static public long getTypeId() {
-        return 168;
+        return 239;
     }
     
     public long getClassId() {

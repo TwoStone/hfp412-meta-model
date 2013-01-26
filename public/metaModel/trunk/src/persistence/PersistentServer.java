@@ -54,6 +54,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
 				throws PersistenceException;
+    public void createCompUnit(final PersistentUnitTypeManager manager, final PersistentCompUnitType compUnitType, final String name) 
+				throws PersistenceException;
     public PersistentLinkManager getLinkManager() 
 				throws PersistenceException;
     public PersistentAssociationManager getAssociationManager() 
@@ -65,6 +67,8 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public void createUnitType(final PersistentUnitTypeManager manager, final String name) 
 				throws PersistenceException;
     public void createAccountType(final PersistentAccountTypeManager accountTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
+				throws PersistenceException;
+    public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit, final common.Fraction f) 
 				throws PersistenceException;
     public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws PersistenceException;
@@ -80,7 +84,7 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
 				throws PersistenceException;
-    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction f) 
+    public void createCompUnitType(final PersistentUnitTypeManager manager, final String name) 
 				throws PersistenceException;
     public PersistentMessageManager getMessageManager(final TDObserver observer) 
 				throws PersistenceException;
@@ -106,11 +110,11 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
 				throws PersistenceException;
     public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
 				throws PersistenceException;
-    public void createUnit(final PersistentUnitType type, final String name) 
-				throws PersistenceException;
     public void createVoidMessage(final PersistentInstanceObject source, final PersistentOperation type, final ActualParameterSearchList ap) 
 				throws PersistenceException;
     public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
+				throws PersistenceException;
+    public void createUnit(final PersistentUnitTypeManager manager, final PersistentUnitType type, final String name) 
 				throws PersistenceException;
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException;
@@ -125,8 +129,6 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public void createFp(final PersistentOperationManager operationManager, final String name, final PersistentMType ofType) 
 				throws PersistenceException;
     public void addReference(final PersistentCompUnit compUnit, final PersistentUnit unit, final long exponent) 
-				throws PersistenceException;
-    public void createCompUnit(final PersistentCompUnitType compUnitType, final String name) 
 				throws PersistenceException;
     public void createMessage(final PersistentInstanceObject source, final PersistentOperation type, final PersistentInstanceObject target, final ActualParameterSearchList ap) 
 				throws PersistenceException;
@@ -147,8 +149,6 @@ public interface PersistentServer extends Invoker, Remote, Anything, AbstractPer
     public PersistentMeasurementTypeManager getMeasurementTypeManager() 
 				throws PersistenceException;
     public PersistentAbsQuantity div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) 
-				throws PersistenceException;
-    public void createCompUnitType(final String name) 
 				throws PersistenceException;
     public void createVoidMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentInstanceObject source, final ActualParameterSearchList ap) 
 				throws PersistenceException;

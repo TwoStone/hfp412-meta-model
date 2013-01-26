@@ -829,7 +829,6 @@ class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class CompUnitTypeDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String AbsUnitType$$defaultUnit = "AbsUnitType$$defaultUnit";
     protected static final String AbsUnitType$$name = "AbsUnitType$$name";
     protected static final String CompUnitType$$refs = "CompUnitType$$refs";
     
@@ -1513,8 +1512,8 @@ class AccountDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class UnitTypeDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String AbsUnitType$$defaultUnit = "AbsUnitType$$defaultUnit";
     protected static final String AbsUnitType$$name = "AbsUnitType$$name";
+    protected static final String UnitType$$defaultUnit = "UnitType$$defaultUnit";
     
     protected UnitTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

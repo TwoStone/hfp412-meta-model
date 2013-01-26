@@ -63,7 +63,7 @@ public class CreateAtomicSubTypeCommand extends PersistentObject implements Pers
     }
     
     static public long getTypeId() {
-        return 155;
+        return 188;
     }
     
     public long getClassId() {
@@ -72,7 +72,7 @@ public class CreateAtomicSubTypeCommand extends PersistentObject implements Pers
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 155) ConnectionHandler.getTheConnectionHandler().theCreateAtomicSubTypeCommandFacade
+        if (this.getClassId() == 188) ConnectionHandler.getTheConnectionHandler().theCreateAtomicSubTypeCommandFacade
             .newCreateAtomicSubTypeCommand(name,this.getId());
         super.store();
         if(this.getSuperType() != null){

@@ -297,7 +297,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     static public long getTypeId() {
-        return -111;
+        return -105;
     }
     
     public long getClassId() {
@@ -306,7 +306,7 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == -111) ConnectionHandler.getTheConnectionHandler().theServerFacade
+        if (this.getClassId() == -105) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
         super.store();
         if(!this.equals(this.getThis())){
@@ -486,6 +486,11 @@ public class Server extends PersistentObject implements PersistentServer{
 		// TODO: implement method: createVoidOperation
 
 	}
+    public void createCompUnit(final PersistentUnitTypeManager manager, final PersistentCompUnitType compUnitType, final String name) 
+				throws PersistenceException{
+        //TODO: implement method: createCompUnit
+        
+    }
     public PersistentLinkManager getLinkManager() 
 				throws PersistenceException{
 		return model.messageOrLink.LinkManager.getTheLinkManager();
@@ -505,13 +510,18 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createUnitType(final PersistentUnitTypeManager manager, final String name) 
 				throws PersistenceException{
-		// TODO: implement method: createUnitType
-
-	}
+        //TODO: implement method: createUnitType
+        
+    }
     public void createAccountType(final PersistentAccountTypeManager accountTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
 				throws PersistenceException{
 		accountTypeManager.createAccountType(name, type, unitType, this.getThis());
 	}
+    public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit, final common.Fraction f) 
+				throws PersistenceException{
+        //TODO: implement method: createQuantity
+        
+    }
     public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws PersistenceException{
 		getThis().getTypeManager().createAtomicRootType(aspect, typeName, singletonType, abstractType, getThis());
@@ -563,10 +573,11 @@ public class Server extends PersistentObject implements PersistentServer{
 		observer.updateTransientDerived(getThis(), "unitTypeManager", result);
 		return result;
     }
-    public void createQuantity(final PersistentAbsUnit unit, final common.Fraction f) 
+    public void createCompUnitType(final PersistentUnitTypeManager manager, final String name) 
 				throws PersistenceException{
-		getThis().getQuantityManager().createQuantity(unit, f, getThis());
-	}
+        //TODO: implement method: createCompUnitType
+        
+    }
     public PersistentMessageManager getMessageManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentMessageManager result = getThis().getMessageManager();
@@ -635,11 +646,6 @@ public class Server extends PersistentObject implements PersistentServer{
 		// TODO: implement method: addFp
 
 	}
-    public void createUnit(final PersistentUnitType type, final String name) 
-				throws PersistenceException{
-		// TODO: implement method: createUnit
-
-	}
     public void createVoidMessage(final PersistentInstanceObject source, final PersistentOperation type, final ActualParameterSearchList ap) 
 				throws PersistenceException{
 		// TODO: implement method: createVoidMessage
@@ -650,6 +656,11 @@ public class Server extends PersistentObject implements PersistentServer{
 		getThis().getTypeManager().createAtomicSubType(superType, typeName, singletonType, abstractType, getThis());
 
 	}
+    public void createUnit(final PersistentUnitTypeManager manager, final PersistentUnitType type, final String name) 
+				throws PersistenceException{
+        //TODO: implement method: createUnit
+        
+    }
     public PersistentConversionManager getConversionManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentConversionManager result = getThis().getConversionManager();
@@ -666,17 +677,17 @@ public class Server extends PersistentObject implements PersistentServer{
 			throw uoe;
 		}
 	}
+    public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy) 
+				throws PersistenceException{
+		// TODO: implement method: addToHierarchy
+
+	}
     public PersistentMeasurementTypeManager getMeasurementTypeManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentMeasurementTypeManager result = getThis().getMeasurementTypeManager();
 		observer.updateTransientDerived(getThis(), "measurementTypeManager", result);
 		return result;
     }
-    public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy) 
-				throws PersistenceException{
-		// TODO: implement method: addToHierarchy
-
-	}
     public void addDefaultUnit(final PersistentUnitType type, final PersistentUnit defaultUnit) 
 				throws PersistenceException{
 		// TODO: implement method: addDefaultUnit
@@ -690,11 +701,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void addReference(final PersistentCompUnit compUnit, final PersistentUnit unit, final long exponent) 
 				throws PersistenceException{
 		// TODO: implement method: addReference
-
-	}
-    public void createCompUnit(final PersistentCompUnitType compUnitType, final String name) 
-				throws PersistenceException{
-		// TODO: implement method: createCompUnit
 
 	}
     public void createMessage(final PersistentInstanceObject source, final PersistentOperation type, final PersistentInstanceObject target, final ActualParameterSearchList ap) 
@@ -750,11 +756,6 @@ public class Server extends PersistentObject implements PersistentServer{
 			uoe.printStackTrace();
 			throw uoe;
 		}
-	}
-    public void createCompUnitType(final String name) 
-				throws PersistenceException{
-		// TODO: implement method: createCompUnitType
-
 	}
     public void createVoidMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentInstanceObject source, final ActualParameterSearchList ap) 
 				throws PersistenceException{

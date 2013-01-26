@@ -6,8 +6,6 @@ import view.visitor.*;
 
 public interface AbsUnitTypeView extends Anything, AbstractViewProxi {
     
-    public AbsUnitView getDefaultUnit() throws ModelException ;
-    public void setDefaultUnit(AbsUnitView newValue) throws ModelException ;
     public String getName() throws ModelException ;
     public void setName(String newValue) throws ModelException ;
     

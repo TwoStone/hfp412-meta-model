@@ -16,7 +16,7 @@ public class MSumType extends view.objects.MAbstractSumType implements MSumTypeV
     }
     
     static public long getTypeId() {
-        return 142;
+        return 103;
     }
     
     public long getClassId() {

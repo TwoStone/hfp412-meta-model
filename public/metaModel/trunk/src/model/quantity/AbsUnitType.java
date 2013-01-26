@@ -27,15 +27,6 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot defaultUnit = (AbstractPersistentRoot)this.getDefaultUnit();
-            if (defaultUnit != null) {
-                result.put("defaultUnit", defaultUnit.createProxiInformation(false));
-                if(depth > 1) {
-                    defaultUnit.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && defaultUnit.hasEssentialFields())defaultUnit.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             result.put("name", this.getName());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
@@ -53,20 +44,18 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentAbsUnit defaultUnit;
     protected String name;
     protected PersistentAbsUnitType This;
     
-    public AbsUnitType(PersistentAbsUnit defaultUnit,String name,PersistentAbsUnitType This,long id) throws persistence.PersistenceException {
+    public AbsUnitType(String name,PersistentAbsUnitType This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.defaultUnit = defaultUnit;
         this.name = name;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
     static public long getTypeId() {
-        return 149;
+        return 151;
     }
     
     public long getClassId() {
@@ -76,10 +65,6 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(this.getDefaultUnit() != null){
-            this.getDefaultUnit().store();
-            ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.defaultUnitSet(this.getId(), getDefaultUnit());
-        }
         if(!this.equals(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.ThisSet(this.getId(), getThis());
@@ -87,20 +72,6 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
         
     }
     
-    public PersistentAbsUnit getDefaultUnit() throws PersistenceException {
-        return this.defaultUnit;
-    }
-    public void setDefaultUnit(PersistentAbsUnit newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.defaultUnit)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.defaultUnit = (PersistentAbsUnit)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.defaultUnitSet(this.getId(), newValue);
-        }
-    }
     public String getName() throws PersistenceException {
         return this.name;
     }

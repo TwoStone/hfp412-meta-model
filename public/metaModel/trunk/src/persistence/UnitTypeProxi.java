@@ -19,9 +19,15 @@ public class UnitTypeProxi extends AbsUnitTypeProxi implements PersistentUnitTyp
     }
     
     public long getClassId() {
-        return 182;
+        return 152;
     }
     
+    public PersistentUnit getDefaultUnit() throws PersistenceException {
+        return ((PersistentUnitType)this.getTheObject()).getDefaultUnit();
+    }
+    public void setDefaultUnit(PersistentUnit newValue) throws PersistenceException {
+        ((PersistentUnitType)this.getTheObject()).setDefaultUnit(newValue);
+    }
     public PersistentUnitType getThis() throws PersistenceException {
         return ((PersistentUnitType)this.getTheObject()).getThis();
     }

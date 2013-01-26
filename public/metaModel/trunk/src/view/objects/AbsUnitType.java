@@ -8,22 +8,14 @@ import view.*;
 
 public abstract class AbsUnitType extends ViewObject implements AbsUnitTypeView{
     
-    protected AbsUnitView defaultUnit;
     protected String name;
     
-    public AbsUnitType(AbsUnitView defaultUnit,String name,long id, long classId) {
+    public AbsUnitType(String name,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.defaultUnit = defaultUnit;
         this.name = name;        
     }
     
-    public AbsUnitView getDefaultUnit() throws ModelException {
-        return this.defaultUnit;
-    }
-    public void setDefaultUnit(AbsUnitView newValue) throws ModelException {
-        this.defaultUnit = newValue;
-    }
     public String getName() throws ModelException {
         return this.name;
     }
@@ -33,37 +25,27 @@ public abstract class AbsUnitType extends ViewObject implements AbsUnitTypeView{
     
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        AbsUnitView defaultUnit = this.getDefaultUnit();
-        if (defaultUnit != null) {
-            ((ViewProxi)defaultUnit).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(defaultUnit.getClassId(), defaultUnit.getId())));
-        }
         
     }
     public void sortSetValuedFields() throws ModelException {
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
-        int index = originalIndex;
-        if(index == 0 && this.getDefaultUnit() != null) return new DefaultUnitAbsUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getDefaultUnit());
-        if(this.getDefaultUnit() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getDefaultUnit() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        return true 
-            && (this.getDefaultUnit() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getDefaultUnit() != null && this.getDefaultUnit().equals(child)) return result;
-        if(this.getDefaultUnit() != null) result = result + 1;
+        
         return -1;
     }
     public int getNameIndex() throws ModelException {
-        return 0 + (this.getDefaultUnit() == null ? 0 : 1);
+        return 0;
     }
     public int getRowCount(){
         return 0 

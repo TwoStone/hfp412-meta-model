@@ -57,7 +57,7 @@ public class CreateFpCommand extends PersistentObject implements PersistentCreat
     }
     
     static public long getTypeId() {
-        return 199;
+        return 247;
     }
     
     public long getClassId() {
@@ -66,7 +66,7 @@ public class CreateFpCommand extends PersistentObject implements PersistentCreat
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 199) ConnectionHandler.getTheConnectionHandler().theCreateFpCommandFacade
+        if (this.getClassId() == 247) ConnectionHandler.getTheConnectionHandler().theCreateFpCommandFacade
             .newCreateFpCommand(name,this.getId());
         super.store();
         if(this.getOfType() != null){

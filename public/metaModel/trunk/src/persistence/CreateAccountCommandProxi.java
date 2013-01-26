@@ -19,7 +19,7 @@ public class CreateAccountCommandProxi extends PersistentProxi implements Persis
     }
     
     public long getClassId() {
-        return 153;
+        return 215;
     }
     
     public String getName() throws PersistenceException {

@@ -19,7 +19,7 @@ public class UnitTypeManagerProxi extends PersistentProxi implements PersistentU
     }
     
     public long getClassId() {
-        return 169;
+        return 176;
     }
     
     public UnitTypeManager_UnitTypesProxi getUnitTypes() throws PersistenceException {

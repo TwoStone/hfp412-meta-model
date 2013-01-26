@@ -29,7 +29,7 @@ public class NotAvailableException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -231;
+        return -251;
     }
     
     public long getClassId() {

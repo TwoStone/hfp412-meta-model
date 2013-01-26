@@ -10,18 +10,18 @@ public class CompUnitTypeFacade{
 	}
 
     public CompUnitTypeProxi newCompUnitType(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CompUnitTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 113);
+        if(createMinusStorePlus > 0) return (CompUnitTypeProxi)PersistentProxi.createProxi(createMinusStorePlus, 165);
         long id = ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.getNextId();
-        CompUnitType result = new CompUnitType(null,name,null,null,id);
+        CompUnitType result = new CompUnitType(name,null,null,id);
         Cache.getTheCache().put(result);
-        return (CompUnitTypeProxi)PersistentProxi.createProxi(id, 113);
+        return (CompUnitTypeProxi)PersistentProxi.createProxi(id, 165);
     }
     
     public CompUnitTypeProxi newDelayedCompUnitType(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theAbsUnitTypeFacade.getNextId();
-        CompUnitType result = new CompUnitType(null,name,null,null,id);
+        CompUnitType result = new CompUnitType(name,null,null,id);
         Cache.getTheCache().put(result);
-        return (CompUnitTypeProxi)PersistentProxi.createProxi(id, 113);
+        return (CompUnitTypeProxi)PersistentProxi.createProxi(id, 165);
     }
     
     public CompUnitType getCompUnitType(long CompUnitTypeId) throws PersistenceException{

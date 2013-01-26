@@ -12,12 +12,6 @@ public abstract class AbsUnitTypeProxi extends PersistentProxi implements Persis
     }
     
     
-    public PersistentAbsUnit getDefaultUnit() throws PersistenceException {
-        return ((PersistentAbsUnitType)this.getTheObject()).getDefaultUnit();
-    }
-    public void setDefaultUnit(PersistentAbsUnit newValue) throws PersistenceException {
-        ((PersistentAbsUnitType)this.getTheObject()).setDefaultUnit(newValue);
-    }
     public String getName() throws PersistenceException {
         return ((PersistentAbsUnitType)this.getTheObject()).getName();
     }

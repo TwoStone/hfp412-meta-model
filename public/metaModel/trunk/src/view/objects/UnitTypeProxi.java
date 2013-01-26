@@ -12,6 +12,7 @@ public class UnitTypeProxi extends AbsUnitTypeProxi implements UnitTypeView{
     }
     
     public UnitTypeView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
+        String name = (String)resultTable.get("name");
         ViewProxi defaultUnit = null;
         String defaultUnit$String = (String)resultTable.get("defaultUnit");
         if (defaultUnit$String != null) {
@@ -19,8 +20,7 @@ public class UnitTypeProxi extends AbsUnitTypeProxi implements UnitTypeView{
             defaultUnit = ViewProxi.createProxi(defaultUnit$Info,connectionKey);
             defaultUnit.setToString(defaultUnit$Info.getToString());
         }
-        String name = (String)resultTable.get("name");
-        UnitTypeView result$$ = new UnitType((AbsUnitView)defaultUnit,(String)name, this.getId(), this.getClassId());
+        UnitTypeView result$$ = new UnitType((String)name,(UnitView)defaultUnit, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -30,7 +30,7 @@ public class UnitTypeProxi extends AbsUnitTypeProxi implements UnitTypeView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index == 0 && this.getDefaultUnit() != null) return new DefaultUnitAbsUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getDefaultUnit());
+        if(index == 0 && this.getDefaultUnit() != null) return new DefaultUnitUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getDefaultUnit());
         if(this.getDefaultUnit() != null) index = index - 1;
         return null;
     }
@@ -50,6 +50,12 @@ public class UnitTypeProxi extends AbsUnitTypeProxi implements UnitTypeView{
         return -1;
     }
     
+    public UnitView getDefaultUnit() throws ModelException {
+        return ((UnitType)this.getTheObject()).getDefaultUnit();
+    }
+    public void setDefaultUnit(UnitView newValue) throws ModelException {
+        ((UnitType)this.getTheObject()).setDefaultUnit(newValue);
+    }
     
     public void accept(AbsUnitTypeVisitor visitor) throws ModelException {
         visitor.handleUnitType(this);

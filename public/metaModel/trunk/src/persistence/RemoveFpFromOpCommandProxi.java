@@ -19,7 +19,7 @@ public class RemoveFpFromOpCommandProxi extends PersistentProxi implements Persi
     }
     
     public long getClassId() {
-        return 197;
+        return 245;
     }
     
     public PersistentOperation getOp() throws PersistenceException {

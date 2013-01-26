@@ -10,12 +10,6 @@ public abstract class AbsUnitTypeProxi extends ViewProxi implements AbsUnitTypeV
     }
     
     
-    public AbsUnitView getDefaultUnit() throws ModelException {
-        return ((AbsUnitType)this.getTheObject()).getDefaultUnit();
-    }
-    public void setDefaultUnit(AbsUnitView newValue) throws ModelException {
-        ((AbsUnitType)this.getTheObject()).setDefaultUnit(newValue);
-    }
     public String getName() throws ModelException {
         return ((AbsUnitType)this.getTheObject()).getName();
     }

@@ -19,7 +19,7 @@ public class MeasurementTypeManagerICProxi extends PersistentInCacheProxiOptimis
     }
     
     public long getClassId() {
-        return 184;
+        return 212;
     }
     
     public MeasurementTypeManager_MeasurementTypesProxi getMeasurementTypes() throws PersistenceException {

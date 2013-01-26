@@ -93,7 +93,7 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
     }
     
     static public long getTypeId() {
-        return 108;
+        return 158;
     }
     
     public long getClassId() {
@@ -102,7 +102,7 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 108) ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
+        if (this.getClassId() == 158) ConnectionHandler.getTheConnectionHandler().theCompoundQuantityFacade
             .newCompoundQuantity(this.getId());
         super.store();
         this.getParts().store();

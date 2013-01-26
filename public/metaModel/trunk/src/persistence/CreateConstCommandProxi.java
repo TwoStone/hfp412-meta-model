@@ -19,7 +19,7 @@ public class CreateConstCommandProxi extends PersistentProxi implements Persiste
     }
     
     public long getClassId() {
-        return 174;
+        return 242;
     }
     
     public PersistentOperation getType() throws PersistenceException {

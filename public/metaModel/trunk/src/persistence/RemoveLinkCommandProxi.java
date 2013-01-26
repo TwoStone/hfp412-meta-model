@@ -19,7 +19,7 @@ public class RemoveLinkCommandProxi extends PersistentProxi implements Persisten
     }
     
     public long getClassId() {
-        return 117;
+        return 224;
     }
     
     public PersistentLink getLink() throws PersistenceException {

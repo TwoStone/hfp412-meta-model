@@ -10,9 +10,9 @@ import view.visitor.*;
 public class Quantity extends view.objects.AbsQuantity implements QuantityView{
     
     protected common.Fraction amount;
-    protected UnitView unit;
+    protected AbsUnitView unit;
     
-    public Quantity(common.Fraction amount,UnitView unit,long id, long classId) {
+    public Quantity(common.Fraction amount,AbsUnitView unit,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.amount = amount;
@@ -20,7 +20,7 @@ public class Quantity extends view.objects.AbsQuantity implements QuantityView{
     }
     
     static public long getTypeId() {
-        return 192;
+        return 157;
     }
     
     public long getClassId() {
@@ -33,10 +33,10 @@ public class Quantity extends view.objects.AbsQuantity implements QuantityView{
     public void setAmount(common.Fraction newValue) throws ModelException {
         this.amount = newValue;
     }
-    public UnitView getUnit() throws ModelException {
+    public AbsUnitView getUnit() throws ModelException {
         return this.unit;
     }
-    public void setUnit(UnitView newValue) throws ModelException {
+    public void setUnit(AbsUnitView newValue) throws ModelException {
         this.unit = newValue;
     }
     
@@ -66,7 +66,7 @@ public class Quantity extends view.objects.AbsQuantity implements QuantityView{
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        UnitView unit = this.getUnit();
+        AbsUnitView unit = this.getUnit();
         if (unit != null) {
             ((ViewProxi)unit).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(unit.getClassId(), unit.getId())));
         }

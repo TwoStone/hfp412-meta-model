@@ -1,4 +1,3 @@
-
 package model.quantity;
 
 import model.UserException;
@@ -15,49 +14,52 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
+import persistence.PersistentAbsUnit;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantity;
-import persistence.PersistentUnit;
 import persistence.QuantityProxi;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
 public class Quantity extends model.quantity.AbsQuantity implements PersistentQuantity{
     
     
-    public static PersistentQuantity createQuantity() throws PersistenceException{
-        return createQuantity(false);
+    public static PersistentQuantity createQuantity(common.Fraction amount,PersistentAbsUnit unit) throws PersistenceException{
+        return createQuantity(amount,unit,false);
     }
     
-    public static PersistentQuantity createQuantity(boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentQuantity createQuantity(common.Fraction amount,PersistentAbsUnit unit,boolean delayed$Persistence) throws PersistenceException {
         PersistentQuantity result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theQuantityFacade
-                .newDelayedQuantity(common.Fraction.Null);
+                .newDelayedQuantity(amount);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theQuantityFacade
-                .newQuantity(common.Fraction.Null,-1);
+                .newQuantity(amount,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("amount", amount);
+        final$$Fields.put("unit", unit);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentQuantity createQuantity(boolean delayed$Persistence,PersistentQuantity This) throws PersistenceException {
+    public static PersistentQuantity createQuantity(common.Fraction amount,PersistentAbsUnit unit,boolean delayed$Persistence,PersistentQuantity This) throws PersistenceException {
         PersistentQuantity result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theQuantityFacade
-                .newDelayedQuantity(common.Fraction.Null);
+                .newDelayedQuantity(amount);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theQuantityFacade
-                .newQuantity(common.Fraction.Null,-1);
+                .newQuantity(amount,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("amount", amount);
+        final$$Fields.put("unit", unit);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -97,9 +99,9 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
         return false;
     }
     protected common.Fraction amount;
-    protected PersistentUnit unit;
+    protected PersistentAbsUnit unit;
     
-    public Quantity(PersistentAbsQuantity This,common.Fraction amount,PersistentUnit unit,long id) throws persistence.PersistenceException {
+    public Quantity(PersistentAbsQuantity This,common.Fraction amount,PersistentAbsUnit unit,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((PersistentAbsQuantity)This,id);
         this.amount = amount;
@@ -107,7 +109,7 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     }
     
     static public long getTypeId() {
-        return 192;
+        return 157;
     }
     
     public long getClassId() {
@@ -116,8 +118,8 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 192) ConnectionHandler.getTheConnectionHandler().theQuantityFacade
-            .newQuantity(common.Fraction.Null,this.getId());
+        if (this.getClassId() == 157) ConnectionHandler.getTheConnectionHandler().theQuantityFacade
+            .newQuantity(amount,this.getId());
         super.store();
         if(this.getUnit() != null){
             this.getUnit().store();
@@ -133,15 +135,15 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theQuantityFacade.amountSet(this.getId(), newValue);
         this.amount = newValue;
     }
-    public PersistentUnit getUnit() throws PersistenceException {
+    public PersistentAbsUnit getUnit() throws PersistenceException {
         return this.unit;
     }
-    public void setUnit(PersistentUnit newValue) throws PersistenceException {
+    public void setUnit(PersistentAbsUnit newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.unit)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.unit = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
+        this.unit = (PersistentAbsUnit)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theQuantityFacade.unitSet(this.getId(), newValue);
@@ -187,56 +189,53 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentQuantity)This);
 		if(this.equals(This)){
+			this.setAmount((common.Fraction)final$$Fields.get("amount"));
+			this.setUnit((PersistentAbsUnit)final$$Fields.get("unit"));
 		}
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 
-
 	@Override
-	public PersistentAbsQuantity sub(PersistentAbsQuantity minuend)
-			throws PersistenceException {
+	public PersistentAbsQuantity sub(PersistentAbsQuantity minuend) throws PersistenceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PersistentAbsQuantity div(PersistentAbsQuantity divisor)
-			throws PersistenceException {
+	public PersistentAbsQuantity div(PersistentAbsQuantity divisor) throws PersistenceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PersistentAbsQuantity mul(PersistentAbsQuantity factor)
-			throws PersistenceException {
+	public PersistentAbsQuantity mul(PersistentAbsQuantity factor) throws PersistenceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PersistentAbsQuantity add(PersistentAbsQuantity summand)
-			throws PersistenceException {
+	public PersistentAbsQuantity add(PersistentAbsQuantity summand) throws PersistenceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

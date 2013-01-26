@@ -1,4 +1,3 @@
-
 package model.quantity;
 
 import model.UserException;
@@ -16,18 +15,16 @@ import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantity;
 import persistence.PersistentQuantityManager;
-import persistence.PersistentUnit;
 import persistence.QuantityManagerProxi;
 import persistence.QuantityManager_QuantitiesProxi;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
 public class QuantityManager extends PersistentObject implements PersistentQuantityManager{
     
     private static PersistentQuantityManager theQuantityManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentQuantityManager getTheQuantityManager() throws PersistenceException{
         if (theQuantityManager == null || reset$For$Test){
@@ -99,7 +96,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     }
     
     static public long getTypeId() {
-        return 148;
+        return 170;
     }
     
     public long getClassId() {
@@ -165,23 +162,21 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void createQuantity(final PersistentAbsUnit unit, final common.Fraction amount) 
 				throws model.NotFinalizedException, PersistenceException{
-        //TODO: amount in FractionManager suchen oder neu erstellen.
-    	PersistentQuantity newQuantity = Quantity.createQuantity();
-    	newQuantity.setAmount(amount);
-    	newQuantity.setUnit((PersistentUnit) unit);
-    	getThis().getQuantities().add(newQuantity);
-        
-    }
+		// TODO: amount in FractionManager suchen oder neu erstellen.
+		PersistentQuantity newQuantity = Quantity.createQuantity(amount, unit);
+		getThis().getQuantities().add(newQuantity);
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentQuantityManager)This);
@@ -190,12 +185,12 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

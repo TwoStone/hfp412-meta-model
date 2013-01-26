@@ -16,7 +16,7 @@ public class MEmptyProduct extends view.objects.MAbstractProductType implements 
     }
     
     static public long getTypeId() {
-        return 107;
+        return 186;
     }
     
     public long getClassId() {

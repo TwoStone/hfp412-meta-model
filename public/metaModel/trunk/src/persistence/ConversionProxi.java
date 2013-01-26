@@ -19,7 +19,7 @@ public class ConversionProxi extends PersistentProxi implements PersistentConver
     }
     
     public long getClassId() {
-        return 177;
+        return 164;
     }
     
     public PersistentUnit getSource() throws PersistenceException {

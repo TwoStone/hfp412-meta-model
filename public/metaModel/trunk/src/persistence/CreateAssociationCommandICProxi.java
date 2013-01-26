@@ -19,7 +19,7 @@ public class CreateAssociationCommandICProxi extends PersistentInCacheProxi impl
     }
     
     public long getClassId() {
-        return 187;
+        return 146;
     }
     
     public PersistentMType getSource() throws PersistenceException {

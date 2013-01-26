@@ -12,15 +12,15 @@ public class CompUnitType extends view.objects.AbsUnitType implements CompUnitTy
     protected java.util.Vector<ReferenceTypeView> refs;
     protected MBooleanView isFinal;
     
-    public CompUnitType(AbsUnitView defaultUnit,String name,java.util.Vector<ReferenceTypeView> refs,MBooleanView isFinal,long id, long classId) {
+    public CompUnitType(String name,java.util.Vector<ReferenceTypeView> refs,MBooleanView isFinal,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((AbsUnitView)defaultUnit,(String)name,id, classId);
+        super((String)name,id, classId);
         this.refs = refs;
         this.isFinal = isFinal;        
     }
     
     static public long getTypeId() {
-        return 113;
+        return 165;
     }
     
     public long getClassId() {
@@ -66,10 +66,6 @@ public class CompUnitType extends view.objects.AbsUnitType implements CompUnitTy
     }
     
     public void resolveProxies(java.util.Hashtable<String, Object> resultTable) throws ModelException {
-        AbsUnitView defaultUnit = this.getDefaultUnit();
-        if (defaultUnit != null) {
-            ((ViewProxi)defaultUnit).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(defaultUnit.getClassId(), defaultUnit.getId())));
-        }
         java.util.Vector<?> refs = this.getRefs();
         if (refs != null) {
             ViewObject.resolveVectorProxies(refs, resultTable);
@@ -85,26 +81,20 @@ public class CompUnitType extends view.objects.AbsUnitType implements CompUnitTy
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index == 0 && this.getDefaultUnit() != null) return new DefaultUnitAbsUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getDefaultUnit());
-        if(this.getDefaultUnit() != null) index = index - 1;
         if(index < this.getRefs().size()) return new RefsCompUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getRefs().get(index));
         index = index - this.getRefs().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getDefaultUnit() == null ? 0 : 1)
             + (this.getRefs().size());
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getDefaultUnit() == null ? true : false)
             && (this.getRefs().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getDefaultUnit() != null && this.getDefaultUnit().equals(child)) return result;
-        if(this.getDefaultUnit() != null) result = result + 1;
         java.util.Iterator<?> getRefsIterator = this.getRefs().iterator();
         while(getRefsIterator.hasNext()){
             if(getRefsIterator.next().equals(child)) return result;
@@ -113,7 +103,7 @@ public class CompUnitType extends view.objects.AbsUnitType implements CompUnitTy
         return -1;
     }
     public int getNameIndex() throws ModelException {
-        return 0 + (this.getDefaultUnit() == null ? 0 : 1);
+        return 0;
     }
     public int getRowCount(){
         return 0 

@@ -6,6 +6,8 @@ import model.visitor.*;
 
 public interface PersistentUnitType extends PersistentAbsUnitType {
     
+    public PersistentUnit getDefaultUnit() throws PersistenceException ;
+    public void setDefaultUnit(PersistentUnit newValue) throws PersistenceException ;
     public PersistentUnitType getThis() throws PersistenceException ;
     
     public void accept(AbsUnitTypeVisitor visitor) throws PersistenceException;

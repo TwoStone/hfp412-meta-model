@@ -72,14 +72,14 @@ server Server {
 	
 	/** Quantity/Unit **/
 	void createUnitType@@Create_unit_type(UnitTypeManager manager, String name);
-	void createCompUnitType@@Create_compound_unit_type(String name);
+	void createCompUnitType@@Create_compound_unit_type(UnitTypeManager manager, String name);
 	void addReferenceType(CompUnitType compUnitType, UnitType unitType {unitTypeManager;atomicUnitTypes}, Integer exponent);
 	void finishModeling@@Publish(CompUnitType compUnitType);
-	void createUnit@@Create_unit(UnitType type, String name);
-	void createCompUnit(CompUnitType compUnitType, String name);
+	void createUnit@@Create_unit(UnitTypeManager manager, UnitType type, String name);
+	void createCompUnit(UnitTypeManager manager, CompUnitType compUnitType, String name);
 	void addReference(CompUnit compUnit, Unit unit, Integer exponent);
 	void publishCompUnit@@Publish(CompUnit compUnit);
-	void createQuantity@@Create_quantity(AbsUnit unit, Fraction f);
+	void createQuantity@@Create_quantity(QuantityManager manager, AbsUnit unit, Fraction f);
 	void addConversion(Unit unit, Fraction factor, Fraction constant);
 	void addDefaultUnit(UnitType type, Unit defaultUnit);
 
@@ -216,8 +216,8 @@ part quantity {
 	}
 
 	class Quantity extends AbsQuantity {
-		Fraction amount;
-		Unit unit;
+		prior Fraction amount;
+		prior AbsUnit unit;
 	}
 
 	class CompoundQuantity extends AbsQuantity {
@@ -241,7 +241,6 @@ part quantity {
 	class Unit extends AbsUnit {	}
 
 	abstract class AbsUnitType {
-		AbsUnit defaultUnit; // 0..1
 		indexed prior String name;
 	}
 
@@ -252,7 +251,9 @@ part quantity {
 		MBoolean isFinal();
 	}
 
-	class UnitType extends AbsUnitType {}
+	class UnitType extends AbsUnitType {
+		Unit defaultUnit;
+	}
 
 	class ReferenceType {
 		Integer exponent;
@@ -268,7 +269,7 @@ part quantity {
 		// from und to sind Oracle-Schluesselwoerter.
 		prior one-to-one (myConversion) Unit source;
 		// prior UnitType type; ?berfl?ssig, kann ?ber Unit gegangen werden
-		Function myFunction;
+		prior Function myFunction;
 
 		Quantity convert(Fraction amount);
 		Quantity convertInverse(Fraction amount);

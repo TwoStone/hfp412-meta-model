@@ -56,7 +56,7 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
     }
     
     static public long getTypeId() {
-        return 195;
+        return 133;
     }
     
     public long getClassId() {
@@ -65,7 +65,7 @@ public class AddSubTypeCommand extends PersistentObject implements PersistentAdd
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 195) ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade
+        if (this.getClassId() == 133) ConnectionHandler.getTheConnectionHandler().theAddSubTypeCommandFacade
             .newAddSubTypeCommand(this.getId());
         super.store();
         if(this.getSuperType() != null){

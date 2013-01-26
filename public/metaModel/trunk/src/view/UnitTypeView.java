@@ -4,6 +4,8 @@ import view.visitor.*;
 
 public interface UnitTypeView extends AbsUnitTypeView {
     
+    public UnitView getDefaultUnit() throws ModelException ;
+    public void setDefaultUnit(UnitView newValue) throws ModelException ;
     
     public void accept(AbsUnitTypeVisitor visitor) throws ModelException;
     public <R> R accept(AbsUnitTypeReturnVisitor<R>  visitor) throws ModelException;

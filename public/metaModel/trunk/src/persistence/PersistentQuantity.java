@@ -8,8 +8,8 @@ public interface PersistentQuantity extends PersistentAbsQuantity {
     
     public common.Fraction getAmount() throws PersistenceException ;
     public void setAmount(common.Fraction newValue) throws PersistenceException ;
-    public PersistentUnit getUnit() throws PersistenceException ;
-    public void setUnit(PersistentUnit newValue) throws PersistenceException ;
+    public PersistentAbsUnit getUnit() throws PersistenceException ;
+    public void setUnit(PersistentAbsUnit newValue) throws PersistenceException ;
     public PersistentQuantity getThis() throws PersistenceException ;
     
     public void accept(AbsQuantityVisitor visitor) throws PersistenceException;

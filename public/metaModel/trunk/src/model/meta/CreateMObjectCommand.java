@@ -56,7 +56,7 @@ public class CreateMObjectCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 235;
+        return 252;
     }
     
     public long getClassId() {
@@ -65,7 +65,7 @@ public class CreateMObjectCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 235) ConnectionHandler.getTheConnectionHandler().theCreateMObjectCommandFacade
+        if (this.getClassId() == 252) ConnectionHandler.getTheConnectionHandler().theCreateMObjectCommandFacade
             .newCreateMObjectCommand(this.getId());
         super.store();
         this.getTypes().store();

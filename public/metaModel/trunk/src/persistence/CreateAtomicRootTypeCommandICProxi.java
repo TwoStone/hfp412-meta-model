@@ -19,7 +19,7 @@ public class CreateAtomicRootTypeCommandICProxi extends PersistentInCacheProxi i
     }
     
     public long getClassId() {
-        return 189;
+        return 191;
     }
     
     public PersistentMAspect getAspect() throws PersistenceException {

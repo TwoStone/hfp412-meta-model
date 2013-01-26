@@ -54,7 +54,7 @@ public class RemoveAssociationCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 162;
+        return 235;
     }
     
     public long getClassId() {
@@ -63,7 +63,7 @@ public class RemoveAssociationCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 162) ConnectionHandler.getTheConnectionHandler().theRemoveAssociationCommandFacade
+        if (this.getClassId() == 235) ConnectionHandler.getTheConnectionHandler().theRemoveAssociationCommandFacade
             .newRemoveAssociationCommand(this.getId());
         super.store();
         if(this.getA() != null){

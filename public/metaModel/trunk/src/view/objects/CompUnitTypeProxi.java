@@ -13,13 +13,6 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements CompUnitTypeV
     
     @SuppressWarnings("unchecked")
     public CompUnitTypeView getRemoteObject(java.util.Hashtable<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        ViewProxi defaultUnit = null;
-        String defaultUnit$String = (String)resultTable.get("defaultUnit");
-        if (defaultUnit$String != null) {
-            common.ProxiInformation defaultUnit$Info = common.RPCConstantsAndServices.createProxiInformation(defaultUnit$String);
-            defaultUnit = ViewProxi.createProxi(defaultUnit$Info,connectionKey);
-            defaultUnit.setToString(defaultUnit$Info.getToString());
-        }
         String name = (String)resultTable.get("name");
         java.util.Vector<String> refs_string = (java.util.Vector<String>)resultTable.get("refs");
         java.util.Vector<ReferenceTypeView> refs = ViewProxi.getProxiVector(refs_string, connectionKey);
@@ -30,7 +23,7 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements CompUnitTypeV
             isFinal = ViewProxi.createProxi(isFinal$Info,connectionKey);
             isFinal.setToString(isFinal$Info.getToString());
         }
-        CompUnitTypeView result$$ = new CompUnitType((AbsUnitView)defaultUnit,(String)name,refs,(MBooleanView)isFinal, this.getId(), this.getClassId());
+        CompUnitTypeView result$$ = new CompUnitType((String)name,refs,(MBooleanView)isFinal, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -40,27 +33,21 @@ public class CompUnitTypeProxi extends AbsUnitTypeProxi implements CompUnitTypeV
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException {
         int index = originalIndex;
-        if(index == 0 && this.getDefaultUnit() != null) return new DefaultUnitAbsUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getDefaultUnit());
-        if(this.getDefaultUnit() != null) index = index - 1;
         if(index < this.getRefs().size()) return new RefsCompUnitTypeWrapper(this, originalIndex, (ViewRoot)this.getRefs().get(index));
         index = index - this.getRefs().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getDefaultUnit() == null ? 0 : 1)
             + (this.getRefs().size());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getDefaultUnit() == null ? true : false)
             && (this.getRefs().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getDefaultUnit() != null && this.getDefaultUnit().equals(child)) return result;
-        if(this.getDefaultUnit() != null) result = result + 1;
         java.util.Iterator<?> getRefsIterator = this.getRefs().iterator();
         while(getRefsIterator.hasNext()){
             if(getRefsIterator.next().equals(child)) return result;

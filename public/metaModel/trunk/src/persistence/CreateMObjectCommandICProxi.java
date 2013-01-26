@@ -19,7 +19,7 @@ public class CreateMObjectCommandICProxi extends PersistentInCacheProxi implemen
     }
     
     public long getClassId() {
-        return 235;
+        return 252;
     }
     
     public CreateMObjectCommand_TypesProxi getTypes() throws PersistenceException {

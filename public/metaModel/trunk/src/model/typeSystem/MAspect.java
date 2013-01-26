@@ -96,7 +96,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     }
     
     static public long getTypeId() {
-        return 140;
+        return 127;
     }
     
     public long getClassId() {
@@ -105,7 +105,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 140) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
+        if (this.getClassId() == 127) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
             .newMAspect(name,this.getId());
         super.store();
         if(!this.equals(this.getThis())){

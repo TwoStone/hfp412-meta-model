@@ -19,7 +19,7 @@ public class MSumTypeProxi extends MAbstractSumTypeProxi implements PersistentMS
     }
     
     public long getClassId() {
-        return 142;
+        return 103;
     }
     
     public PersistentMSumType getThis() throws PersistenceException {

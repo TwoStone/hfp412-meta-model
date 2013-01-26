@@ -25,25 +25,25 @@ public class CreateSumTypeCommandFacade{
 	}
 
     public CreateSumTypeCommandProxi newCreateSumTypeCommand(long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (CreateSumTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 196);
+        if(createMinusStorePlus > 0) return (CreateSumTypeCommandProxi)PersistentProxi.createProxi(createMinusStorePlus, 193);
         long id = ConnectionHandler.getTheConnectionHandler().theCreateSumTypeCommandFacade.getNextId();
         CreateSumTypeCommand result = new CreateSumTypeCommand(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateSumTypeCommandProxi)PersistentProxi.createProxi(id, 196);
+        return (CreateSumTypeCommandProxi)PersistentProxi.createProxi(id, 193);
     }
     
     public CreateSumTypeCommandProxi newDelayedCreateSumTypeCommand() throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theCreateSumTypeCommandFacade.getNextId();
         CreateSumTypeCommand result = new CreateSumTypeCommand(null,null,null,null,id);
         Cache.getTheCache().put(result);
-        return (CreateSumTypeCommandProxi)PersistentProxi.createProxi(id, 196);
+        return (CreateSumTypeCommandProxi)PersistentProxi.createProxi(id, 193);
     }
     
     public CreateSumTypeCommand getCreateSumTypeCommand(long CreateSumTypeCommandId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 196)) return 196;
+        if(Cache.getTheCache().contains(objectId, 193)) return 193;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         

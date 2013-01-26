@@ -19,7 +19,7 @@ public class RemoveMessageCommandICProxi extends PersistentInCacheProxi implemen
     }
     
     public long getClassId() {
-        return 198;
+        return 246;
     }
     
     public PersistentMessage getM() throws PersistenceException {

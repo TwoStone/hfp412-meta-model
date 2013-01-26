@@ -6,8 +6,6 @@ import model.visitor.*;
 
 public interface PersistentAbsUnitType extends Anything, AbstractPersistentProxi {
     
-    public PersistentAbsUnit getDefaultUnit() throws PersistenceException ;
-    public void setDefaultUnit(PersistentAbsUnit newValue) throws PersistenceException ;
     public String getName() throws PersistenceException ;
     public void setName(String newValue) throws PersistenceException ;
     public abstract PersistentAbsUnitType getThis() throws PersistenceException ;

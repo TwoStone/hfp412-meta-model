@@ -19,7 +19,7 @@ public class QuantityManagerICProxi extends PersistentInCacheProxiOptimistic imp
     }
     
     public long getClassId() {
-        return 148;
+        return 170;
     }
     
     public QuantityManager_QuantitiesProxi getQuantities() throws PersistenceException {

@@ -19,7 +19,7 @@ public class ObjectManagerICProxi extends PersistentInCacheProxiOptimistic imple
     }
     
     public long getClassId() {
-        return 237;
+        return 254;
     }
     
     public ObjectManager_ObjectsProxi getObjects() throws PersistenceException {

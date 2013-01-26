@@ -6,8 +6,8 @@ public interface QuantityView extends AbsQuantityView {
     
     public common.Fraction getAmount() throws ModelException ;
     public void setAmount(common.Fraction newValue) throws ModelException ;
-    public UnitView getUnit() throws ModelException ;
-    public void setUnit(UnitView newValue) throws ModelException ;
+    public AbsUnitView getUnit() throws ModelException ;
+    public void setUnit(AbsUnitView newValue) throws ModelException ;
     
     public void accept(AbsQuantityVisitor visitor) throws ModelException;
     public <R> R accept(AbsQuantityReturnVisitor<R>  visitor) throws ModelException;

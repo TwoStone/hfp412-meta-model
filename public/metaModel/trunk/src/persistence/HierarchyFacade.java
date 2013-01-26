@@ -25,25 +25,25 @@ public class HierarchyFacade{
 	}
 
     public HierarchyProxi newHierarchy(String name,long createMinusStorePlus) throws PersistenceException {
-        if(createMinusStorePlus > 0) return (HierarchyProxi)PersistentProxi.createProxi(createMinusStorePlus, 163);
+        if(createMinusStorePlus > 0) return (HierarchyProxi)PersistentProxi.createProxi(createMinusStorePlus, 236);
         long id = ConnectionHandler.getTheConnectionHandler().theHierarchyFacade.getNextId();
         Hierarchy result = new Hierarchy(name,null,id);
         Cache.getTheCache().put(result);
-        return (HierarchyProxi)PersistentProxi.createProxi(id, 163);
+        return (HierarchyProxi)PersistentProxi.createProxi(id, 236);
     }
     
     public HierarchyProxi newDelayedHierarchy(String name) throws PersistenceException {
         long id = ConnectionHandler.getTheConnectionHandler().theHierarchyFacade.getNextId();
         Hierarchy result = new Hierarchy(name,null,id);
         Cache.getTheCache().put(result);
-        return (HierarchyProxi)PersistentProxi.createProxi(id, 163);
+        return (HierarchyProxi)PersistentProxi.createProxi(id, 236);
     }
     
     public Hierarchy getHierarchy(long HierarchyId) throws PersistenceException{
         return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        if(Cache.getTheCache().contains(objectId, 163)) return 163;
+        if(Cache.getTheCache().contains(objectId, 236)) return 236;
         
         throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
         
@@ -51,7 +51,7 @@ public class HierarchyFacade{
     public HierarchySearchList getHierarchyByName(String name) throws PersistenceException {
         HierarchySearchList result = new HierarchySearchList();
         java.util.Iterator<?> candidates;
-        candidates = Cache.getTheCache().iterator(163);
+        candidates = Cache.getTheCache().iterator(236);
         while (candidates.hasNext()){
             PersistentHierarchy current = (PersistentHierarchy)((PersistentRoot)candidates.next()).getTheObject();
             if (current != null && !current.isDltd() && current.getName().equals(name))

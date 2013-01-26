@@ -18,7 +18,7 @@ public class QuantityManager extends ViewObject implements QuantityManagerView{
     }
     
     static public long getTypeId() {
-        return 148;
+        return 170;
     }
     
     public long getClassId() {

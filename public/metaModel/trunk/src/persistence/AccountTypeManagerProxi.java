@@ -19,7 +19,7 @@ public class AccountTypeManagerProxi extends PersistentProxi implements Persiste
     }
     
     public long getClassId() {
-        return 128;
+        return 213;
     }
     
     public AccountTypeManager_AccountTypesProxi getAccountTypes() throws PersistenceException {
