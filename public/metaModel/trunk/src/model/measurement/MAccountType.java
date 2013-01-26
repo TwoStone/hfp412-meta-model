@@ -68,7 +68,6 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
                                   this.unitType, 
                                   this.This, 
                                   this.getId());
-        result.subAccountTypes = this.subAccountTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

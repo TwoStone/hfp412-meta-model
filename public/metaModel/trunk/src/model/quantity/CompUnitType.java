@@ -94,7 +94,6 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
                                   this.This, 
                                   this.isFinal, 
                                   this.getId());
-        result.refs = this.refs.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

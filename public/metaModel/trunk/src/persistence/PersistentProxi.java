@@ -1043,15 +1043,9 @@ public abstract class PersistentProxi extends PersistentRoot {
 		this.getTheObject().delete$Me();
 	}
 	
-    protected void setDltd() throws PersistenceException{
-        this.getTheObject().setDltd();
-    }
-    public boolean isDltd() throws PersistenceException {
-        return this.getTheObject().isDltd();
-    }
+    	
 	
-	
-//	public void finalize(){
-//		if (this.object != null)this.object.decrementUserCount();
-//	}
+	public void finalize(){
+		if (this.object != null)this.object.decrementUserCount();
+	}
 }

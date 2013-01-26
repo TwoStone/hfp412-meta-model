@@ -61,7 +61,6 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
         MProductType result = this;
         result = new MProductType(this.This, 
                                   this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

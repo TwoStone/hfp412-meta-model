@@ -1,51 +1,108 @@
 package persistence;
 
-import java.util.Hashtable;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
+import java.sql.SQLException;
+import java.sql.DriverManager;
+import java.sql.CallableStatement;
+
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Vector;
 
 public class ConnectionHandler {
 
+	private static final String AutoCommitName = "AUTO COMMIT (DEFAULT)";
+	
 	private static Hashtable<Thread,CommitConnectionHandler> connections = new Hashtable<Thread,CommitConnectionHandler>();
-
+	
 	private static ConnectionHandler theConnectionHandler;
 
-	public static void disconnect() throws PersistenceException {
+	public static String openFile(File file) throws IOException {
+		int size = (int) file.length();
+		int chars_read = 0;
+		FileReader in = new FileReader(file);
+		char[] data = new char[size];
+		while (in.ready()) {
+			chars_read += in.read(data, chars_read, size - chars_read);
+		}
+		in.close();
+		String raw = new String(data, 0, chars_read);
+		return raw;
+	}
+
+	public static Vector<ConnectionHandler> getConnections(){
+		Vector<ConnectionHandler> result = new Vector<ConnectionHandler>();
+		Iterator<CommitConnectionHandler> committers = connections.values().iterator();
+		while (committers.hasNext())result.add(committers.next());
+		result.add(theConnectionHandler);
+		return result;
 	}
 	
+	public static void disconnect() throws PersistenceException{
+		Iterator<CommitConnectionHandler> connectionIterator = connections.values().iterator();
+		try {
+			while (connectionIterator.hasNext()){
+				ConnectionHandler current = (ConnectionHandler)connectionIterator.next();
+				if(!current.con.isClosed())current.con.close();
+			}
+			if (theConnectionHandler != null && theConnectionHandler.con != null && !theConnectionHandler.con.isClosed()){
+				theConnectionHandler.con.close();
+			}
+		}catch (SQLException sqlExc) {
+			throw new PersistenceException(sqlExc.getMessage(), sqlExc.getErrorCode());
+		}
+	}
 
 	public static CommitConnectionHandler getNewConnection(Thread thread) throws PersistenceException {
-		CommitConnectionHandler result = new CommitConnectionHandler();
+		CommitConnectionHandler result = new CommitConnectionHandler(thread.getName());
 		connections.put(thread, result);
 		return result;
 	}
 
 	public static void releaseConnection() throws PersistenceException {
-		connections.remove(Thread.currentThread());
+		try {
+			CommitConnectionHandler connection = connections.get(Thread.currentThread());
+			if (connection != null && !connection.con.isClosed()){
+				connection.con.close();
+				connections.remove(Thread.currentThread());
+			}
+		}catch (SQLException sqlExc) {
+			throw new PersistenceException(sqlExc.getMessage(), sqlExc.getErrorCode());
+		}
+	}
+	public static boolean isCommitConnectionHandler() {
+		CommitConnectionHandler handler = connections.get(Thread.currentThread());
+		return handler != null && handler.isInTransaction();
 	}
 
-	protected static ConnectionHandler getDefaultConnectionHandler() throws PersistenceException{
-		if (theConnectionHandler == null) theConnectionHandler = new ConnectionHandler();
-		return theConnectionHandler;
-	}
-	
 	public static ConnectionHandler getTheConnectionHandler() throws PersistenceException {
 		ConnectionHandler result;
 		CommitConnectionHandler commitHandler = connections.get(Thread.currentThread());
 		if (commitHandler == null){
-			if (theConnectionHandler == null) theConnectionHandler = new ConnectionHandler();
+			if (theConnectionHandler == null) theConnectionHandler = new ConnectionHandler(AutoCommitName);
 			result = theConnectionHandler;
 		}else{
 			result = commitHandler;
 		}
 		return result;
 	}
-
-	public static boolean isCommitConnectionHandler() {
-		CommitConnectionHandler handler = connections.get(Thread.currentThread());
-		return handler != null && handler.isInTransaction();
+	
+	private static String asString (char[] pw) {
+		String result = "";
+		for (int i = 0; i < pw.length; i++) {
+			result = result + pw[i];
+		}
+		return result;
 	}
 
+	private final String DatabaseProtocol = "jdbc:oracle:thin:@";
 
+	private String schemaName;
+	protected Connection con;
+	private String name;
 
     public CreateMObjectCommandFacade theCreateMObjectCommandFacade;
     public CreateUnitTypeCommandFacade theCreateUnitTypeCommandFacade;
@@ -149,117 +206,152 @@ public class ConnectionHandler {
     public ObjectManagerFacade theObjectManagerFacade;
     public CreateFpCommandFacade theCreateFpCommandFacade;
 
-	protected ConnectionHandler() throws PersistenceException {
+	protected ConnectionHandler(String name) throws PersistenceException {
+		this.name = name;
+		try {
+			DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+		} catch (SQLException sqlExc) {
+			throw new PersistenceException(sqlExc.getMessage(), sqlExc.getErrorCode());
+		}
 	}
+	public String getName(){
+		return this.name;
+	}
+	
 	public void connect(String databaseName, String currentSchemaName, String user, char[] pw, boolean autoCommit) throws PersistenceException {
-            this.theCreateMObjectCommandFacade= new CreateMObjectCommandFacade();
-            this.theCreateUnitTypeCommandFacade= new CreateUnitTypeCommandFacade();
-            this.theMComplexTypeFacade= new MComplexTypeFacade();
-            this.theMAbstractSumTypeFacade= new MAbstractSumTypeFacade();
-            this.theCreateAspectCommandFacade= new CreateAspectCommandFacade();
-            this.theCreateUnitCommandFacade= new CreateUnitCommandFacade();
-            this.theAbsOperationFacade= new AbsOperationFacade();
-            this.theMEmptyProductFacade= new MEmptyProductFacade();
-            this.theCompoundQuantityFacade= new CompoundQuantityFacade();
-            this.theAddDefaultUnitCommandFacade= new AddDefaultUnitCommandFacade();
-            this.theRemoveAssoFrmHierCommandFacade= new RemoveAssoFrmHierCommandFacade();
-            this.theServerFacade= new ServerFacade();
-            this.theMAtomicTypeFacade= new MAtomicTypeFacade();
-            this.theCompUnitTypeFacade= new CompUnitTypeFacade();
-            this.theMProductTypeFacade= new MProductTypeFacade();
-            this.theMeasurementFacade= new MeasurementFacade();
-            this.theAssociationFacade= new AssociationFacade();
-            this.theRemoveLinkCommandFacade= new RemoveLinkCommandFacade();
-            this.theFormalParameterFacade= new FormalParameterFacade();
-            this.theCreateHierarchyCommandFacade= new CreateHierarchyCommandFacade();
-            this.theOperationManagerFacade= new OperationManagerFacade();
-            this.theQuantifObjectFacade= new QuantifObjectFacade();
+		try {
+			this.schemaName = currentSchemaName;
+			this.con = new Connection(DriverManager.getConnection(this.DatabaseProtocol + databaseName, user, asString(pw)));
+			this.con.setAutoCommit(autoCommit);
+			CallableStatement callable = this.con.prepareCall("Begin " + this.schemaName + ".ClassFacade.initialize; end;");
+			callable.execute();
+			callable.close();
+            this.theCreateMObjectCommandFacade= new CreateMObjectCommandFacade(this.schemaName, this.con);
+            this.theCreateUnitTypeCommandFacade= new CreateUnitTypeCommandFacade(this.schemaName, this.con);
+            this.theMComplexTypeFacade= new MComplexTypeFacade(this.schemaName, this.con);
+            this.theMAbstractSumTypeFacade= new MAbstractSumTypeFacade(this.schemaName, this.con);
+            this.theCreateAspectCommandFacade= new CreateAspectCommandFacade(this.schemaName, this.con);
+            this.theCreateUnitCommandFacade= new CreateUnitCommandFacade(this.schemaName, this.con);
+            this.theAbsOperationFacade= new AbsOperationFacade(this.schemaName, this.con);
+            this.theMEmptyProductFacade= new MEmptyProductFacade(this.schemaName, this.con);
+            this.theCompoundQuantityFacade= new CompoundQuantityFacade(this.schemaName, this.con);
+            this.theAddDefaultUnitCommandFacade= new AddDefaultUnitCommandFacade(this.schemaName, this.con);
+            this.theRemoveAssoFrmHierCommandFacade= new RemoveAssoFrmHierCommandFacade(this.schemaName, this.con);
+            this.theServerFacade= new ServerFacade(this.schemaName, this.con);
+            this.theMAtomicTypeFacade= new MAtomicTypeFacade(this.schemaName, this.con);
+            this.theCompUnitTypeFacade= new CompUnitTypeFacade(this.schemaName, this.con);
+            this.theMProductTypeFacade= new MProductTypeFacade(this.schemaName, this.con);
+            this.theMeasurementFacade= new MeasurementFacade(this.schemaName, this.con);
+            this.theAssociationFacade= new AssociationFacade(this.schemaName, this.con);
+            this.theRemoveLinkCommandFacade= new RemoveLinkCommandFacade(this.schemaName, this.con);
+            this.theFormalParameterFacade= new FormalParameterFacade(this.schemaName, this.con);
+            this.theCreateHierarchyCommandFacade= new CreateHierarchyCommandFacade(this.schemaName, this.con);
+            this.theOperationManagerFacade= new OperationManagerFacade(this.schemaName, this.con);
+            this.theQuantifObjectFacade= new QuantifObjectFacade(this.schemaName, this.con);
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
-            this.theUnitFacade= new UnitFacade();
-            this.theCreateMeasurementTypeCommandFacade= new CreateMeasurementTypeCommandFacade();
-            this.theMMeasurementTypeFacade= new MMeasurementTypeFacade();
-            this.theMQuantiObjectTypeFacade= new MQuantiObjectTypeFacade();
-            this.theCommandCoordinatorFacade= new CommandCoordinatorFacade();
-            this.theAccountTypeManagerFacade= new AccountTypeManagerFacade();
-            this.theMObjectFacade= new MObjectFacade();
-            this.theCreateQuantityCommandFacade= new CreateQuantityCommandFacade();
-            this.theInstanceObjectFacade= new InstanceObjectFacade();
-            this.theRemoveFpCommandFacade= new RemoveFpCommandFacade();
-            this.theMBooleanFacade= new MBooleanFacade();
-            this.theMessageFacade= new MessageFacade();
-            this.theMAbstractProductTypeFacade= new MAbstractProductTypeFacade();
-            this.theFunctionFacade= new FunctionFacade();
-            this.theAspectManagerFacade= new AspectManagerFacade();
-            this.theRemoveOperationCommandFacade= new RemoveOperationCommandFacade();
-            this.theCreateConstantCommandFacade= new CreateConstantCommandFacade();
-            this.theLinkFacade= new LinkFacade();
-            this.theMAspectFacade= new MAspectFacade();
-            this.theAccountManagerFacade= new AccountManagerFacade();
-            this.theMSumTypeFacade= new MSumTypeFacade();
-            this.theCompUnitFacade= new CompUnitFacade();
-            this.theCreateMessageCommandFacade= new CreateMessageCommandFacade();
-            this.theCreateAccountTypeCommandFacade= new CreateAccountTypeCommandFacade();
-            this.theOperationFacade= new OperationFacade();
-            this.theConversionManagerFacade= new ConversionManagerFacade();
-            this.theQuantityManagerFacade= new QuantityManagerFacade();
-            this.theAbsUnitTypeFacade= new AbsUnitTypeFacade();
-            this.theCreateProductTypeCommandFacade= new CreateProductTypeCommandFacade();
-            this.theCreateStaticOpCommandFacade= new CreateStaticOpCommandFacade();
-            this.theAssociationManagerFacade= new AssociationManagerFacade();
-            this.theCreateAccountCommandFacade= new CreateAccountCommandFacade();
-            this.theCreateConversionCommandFacade= new CreateConversionCommandFacade();
-            this.theCreateAtomicSubTypeCommandFacade= new CreateAtomicSubTypeCommandFacade();
-            this.theAbsQuantityFacade= new AbsQuantityFacade();
-            this.theCreateVoidOperationCommandFacade= new CreateVoidOperationCommandFacade();
-            this.theCreateLinkCommandFacade= new CreateLinkCommandFacade();
-            this.theCreateCompUnitCommandFacade= new CreateCompUnitCommandFacade();
-            this.theCommonDateFacade= new CommonDateFacade();
-            this.theCreateCompUnitTypeCommandFacade= new CreateCompUnitTypeCommandFacade();
-            this.theRemoveAssociationCommandFacade= new RemoveAssociationCommandFacade();
-            this.theHierarchyFacade= new HierarchyFacade();
-            this.theMAccountTypeFacade= new MAccountTypeFacade();
-            this.theAddFpCommandFacade= new AddFpCommandFacade();
-            this.theCreateStaticMessageCommandFacade= new CreateStaticMessageCommandFacade();
-            this.theTypeManagerFacade= new TypeManagerFacade();
-            this.theMessageManagerFacade= new MessageManagerFacade();
-            this.theUnitTypeManagerFacade= new UnitTypeManagerFacade();
-            this.theMTypeFacade= new MTypeFacade();
-            this.theCreateVoidMessageCommandFacade= new CreateVoidMessageCommandFacade();
-            this.theAbsUnitFacade= new AbsUnitFacade();
-            this.theAddAssociationCommandFacade= new AddAssociationCommandFacade();
-            this.theCreateConstCommandFacade= new CreateConstCommandFacade();
-            this.theFractionManagerFacade= new FractionManagerFacade();
-            this.theCreateOperationCommandFacade= new CreateOperationCommandFacade();
-            this.theConversionFacade= new ConversionFacade();
-            this.theReferenceFacade= new ReferenceFacade();
-            this.theFinishModelingCommandFacade= new FinishModelingCommandFacade();
-            this.theReferenceTypeFacade= new ReferenceTypeFacade();
-            this.theAccountFacade= new AccountFacade();
-            this.theUnitTypeFacade= new UnitTypeFacade();
-            this.theMFalseFacade= new MFalseFacade();
-            this.theMeasurementTypeManagerFacade= new MeasurementTypeManagerFacade();
-            this.theMEmptySumTypeFacade= new MEmptySumTypeFacade();
-            this.theLinkManagerFacade= new LinkManagerFacade();
-            this.theCreateAssociationCommandFacade= new CreateAssociationCommandFacade();
-            this.theMessageOrLinkFacade= new MessageOrLinkFacade();
-            this.theCreateAtomicRootTypeCommandFacade= new CreateAtomicRootTypeCommandFacade();
-            this.theMTrueFacade= new MTrueFacade();
-            this.theCommandExecuterFacade= new CommandExecuterFacade();
-            this.theQuantityFacade= new QuantityFacade();
-            this.theAddReferenceTypeCommandFacade= new AddReferenceTypeCommandFacade();
-            this.theActualParameterFacade= new ActualParameterFacade();
-            this.theCreateSumTypeCommandFacade= new CreateSumTypeCommandFacade();
-            this.theRemoveFpFromOpCommandFacade= new RemoveFpFromOpCommandFacade();
-            this.theRemoveMessageCommandFacade= new RemoveMessageCommandFacade();
-            this.theObjectManagerFacade= new ObjectManagerFacade();
-            this.theCreateFpCommandFacade= new CreateFpCommandFacade();
+            this.theUnitFacade= new UnitFacade(this.schemaName, this.con);
+            this.theCreateMeasurementTypeCommandFacade= new CreateMeasurementTypeCommandFacade(this.schemaName, this.con);
+            this.theMMeasurementTypeFacade= new MMeasurementTypeFacade(this.schemaName, this.con);
+            this.theMQuantiObjectTypeFacade= new MQuantiObjectTypeFacade(this.schemaName, this.con);
+            this.theCommandCoordinatorFacade= new CommandCoordinatorFacade(this.schemaName, this.con);
+            this.theAccountTypeManagerFacade= new AccountTypeManagerFacade(this.schemaName, this.con);
+            this.theMObjectFacade= new MObjectFacade(this.schemaName, this.con);
+            this.theCreateQuantityCommandFacade= new CreateQuantityCommandFacade(this.schemaName, this.con);
+            this.theInstanceObjectFacade= new InstanceObjectFacade(this.schemaName, this.con);
+            this.theRemoveFpCommandFacade= new RemoveFpCommandFacade(this.schemaName, this.con);
+            this.theMBooleanFacade= new MBooleanFacade(this.schemaName, this.con);
+            this.theMessageFacade= new MessageFacade(this.schemaName, this.con);
+            this.theMAbstractProductTypeFacade= new MAbstractProductTypeFacade(this.schemaName, this.con);
+            this.theFunctionFacade= new FunctionFacade(this.schemaName, this.con);
+            this.theAspectManagerFacade= new AspectManagerFacade(this.schemaName, this.con);
+            this.theRemoveOperationCommandFacade= new RemoveOperationCommandFacade(this.schemaName, this.con);
+            this.theCreateConstantCommandFacade= new CreateConstantCommandFacade(this.schemaName, this.con);
+            this.theLinkFacade= new LinkFacade(this.schemaName, this.con);
+            this.theMAspectFacade= new MAspectFacade(this.schemaName, this.con);
+            this.theAccountManagerFacade= new AccountManagerFacade(this.schemaName, this.con);
+            this.theMSumTypeFacade= new MSumTypeFacade(this.schemaName, this.con);
+            this.theCompUnitFacade= new CompUnitFacade(this.schemaName, this.con);
+            this.theCreateMessageCommandFacade= new CreateMessageCommandFacade(this.schemaName, this.con);
+            this.theCreateAccountTypeCommandFacade= new CreateAccountTypeCommandFacade(this.schemaName, this.con);
+            this.theOperationFacade= new OperationFacade(this.schemaName, this.con);
+            this.theConversionManagerFacade= new ConversionManagerFacade(this.schemaName, this.con);
+            this.theQuantityManagerFacade= new QuantityManagerFacade(this.schemaName, this.con);
+            this.theAbsUnitTypeFacade= new AbsUnitTypeFacade(this.schemaName, this.con);
+            this.theCreateProductTypeCommandFacade= new CreateProductTypeCommandFacade(this.schemaName, this.con);
+            this.theCreateStaticOpCommandFacade= new CreateStaticOpCommandFacade(this.schemaName, this.con);
+            this.theAssociationManagerFacade= new AssociationManagerFacade(this.schemaName, this.con);
+            this.theCreateAccountCommandFacade= new CreateAccountCommandFacade(this.schemaName, this.con);
+            this.theCreateConversionCommandFacade= new CreateConversionCommandFacade(this.schemaName, this.con);
+            this.theCreateAtomicSubTypeCommandFacade= new CreateAtomicSubTypeCommandFacade(this.schemaName, this.con);
+            this.theAbsQuantityFacade= new AbsQuantityFacade(this.schemaName, this.con);
+            this.theCreateVoidOperationCommandFacade= new CreateVoidOperationCommandFacade(this.schemaName, this.con);
+            this.theCreateLinkCommandFacade= new CreateLinkCommandFacade(this.schemaName, this.con);
+            this.theCreateCompUnitCommandFacade= new CreateCompUnitCommandFacade(this.schemaName, this.con);
+            this.theCommonDateFacade= new CommonDateFacade(this.schemaName, this.con);
+            this.theCreateCompUnitTypeCommandFacade= new CreateCompUnitTypeCommandFacade(this.schemaName, this.con);
+            this.theRemoveAssociationCommandFacade= new RemoveAssociationCommandFacade(this.schemaName, this.con);
+            this.theHierarchyFacade= new HierarchyFacade(this.schemaName, this.con);
+            this.theMAccountTypeFacade= new MAccountTypeFacade(this.schemaName, this.con);
+            this.theAddFpCommandFacade= new AddFpCommandFacade(this.schemaName, this.con);
+            this.theCreateStaticMessageCommandFacade= new CreateStaticMessageCommandFacade(this.schemaName, this.con);
+            this.theTypeManagerFacade= new TypeManagerFacade(this.schemaName, this.con);
+            this.theMessageManagerFacade= new MessageManagerFacade(this.schemaName, this.con);
+            this.theUnitTypeManagerFacade= new UnitTypeManagerFacade(this.schemaName, this.con);
+            this.theMTypeFacade= new MTypeFacade(this.schemaName, this.con);
+            this.theCreateVoidMessageCommandFacade= new CreateVoidMessageCommandFacade(this.schemaName, this.con);
+            this.theAbsUnitFacade= new AbsUnitFacade(this.schemaName, this.con);
+            this.theAddAssociationCommandFacade= new AddAssociationCommandFacade(this.schemaName, this.con);
+            this.theCreateConstCommandFacade= new CreateConstCommandFacade(this.schemaName, this.con);
+            this.theFractionManagerFacade= new FractionManagerFacade(this.schemaName, this.con);
+            this.theCreateOperationCommandFacade= new CreateOperationCommandFacade(this.schemaName, this.con);
+            this.theConversionFacade= new ConversionFacade(this.schemaName, this.con);
+            this.theReferenceFacade= new ReferenceFacade(this.schemaName, this.con);
+            this.theFinishModelingCommandFacade= new FinishModelingCommandFacade(this.schemaName, this.con);
+            this.theReferenceTypeFacade= new ReferenceTypeFacade(this.schemaName, this.con);
+            this.theAccountFacade= new AccountFacade(this.schemaName, this.con);
+            this.theUnitTypeFacade= new UnitTypeFacade(this.schemaName, this.con);
+            this.theMFalseFacade= new MFalseFacade(this.schemaName, this.con);
+            this.theMeasurementTypeManagerFacade= new MeasurementTypeManagerFacade(this.schemaName, this.con);
+            this.theMEmptySumTypeFacade= new MEmptySumTypeFacade(this.schemaName, this.con);
+            this.theLinkManagerFacade= new LinkManagerFacade(this.schemaName, this.con);
+            this.theCreateAssociationCommandFacade= new CreateAssociationCommandFacade(this.schemaName, this.con);
+            this.theMessageOrLinkFacade= new MessageOrLinkFacade(this.schemaName, this.con);
+            this.theCreateAtomicRootTypeCommandFacade= new CreateAtomicRootTypeCommandFacade(this.schemaName, this.con);
+            this.theMTrueFacade= new MTrueFacade(this.schemaName, this.con);
+            this.theCommandExecuterFacade= new CommandExecuterFacade(this.schemaName, this.con);
+            this.theQuantityFacade= new QuantityFacade(this.schemaName, this.con);
+            this.theAddReferenceTypeCommandFacade= new AddReferenceTypeCommandFacade(this.schemaName, this.con);
+            this.theActualParameterFacade= new ActualParameterFacade(this.schemaName, this.con);
+            this.theCreateSumTypeCommandFacade= new CreateSumTypeCommandFacade(this.schemaName, this.con);
+            this.theRemoveFpFromOpCommandFacade= new RemoveFpFromOpCommandFacade(this.schemaName, this.con);
+            this.theRemoveMessageCommandFacade= new RemoveMessageCommandFacade(this.schemaName, this.con);
+            this.theObjectManagerFacade= new ObjectManagerFacade(this.schemaName, this.con);
+            this.theCreateFpCommandFacade= new CreateFpCommandFacade(this.schemaName, this.con);
+		} catch (SQLException sqlExc) {
+			throw new PersistenceException(sqlExc.getMessage(), sqlExc.getErrorCode());
+		}
 	}
 	public static void initializeMapsForMappedFields() throws PersistenceException {
 		
 	}
+	
 	public void dltObjct(PersistentRoot object) throws PersistenceException{
-		object.setDltd();
+		Connection con = this.getConnection();
+		CallableStatement callable;
+		try {
+			callable = con.prepareCall("Begin " + this.schemaName + ".ClassFacade.deleteObject(?,?); end;");
+            callable.setLong(1, object.getId());
+            callable.setLong(2, object.getClassId());
+			callable.execute();
+			callable.close();
+		} catch (SQLException se) {
+	           throw new PersistenceException(se.getMessage(), se.getErrorCode());
+	    }
 	}
 
+	
+	public Connection getConnection(){
+		return this.con;
+	}
+	
 }
-

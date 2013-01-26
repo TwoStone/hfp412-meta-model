@@ -63,7 +63,6 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
         MEmptySumType result = this;
         result = new MEmptySumType(this.This, 
                                    this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

@@ -78,8 +78,6 @@ public class Account extends model.measurement.QuantifObject implements Persiste
                              this.This, 
                              this.type, 
                              this.getId());
-        result.subAccounts = this.subAccounts.copy(result);
-        result.entries = this.entries.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

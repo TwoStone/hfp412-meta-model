@@ -100,7 +100,6 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
                               this.This, 
                               this.isFinal, 
                               this.getId());
-        result.refs = this.refs.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

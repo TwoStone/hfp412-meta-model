@@ -23,5 +23,5 @@ public interface AbstractPersistentRoot {
   abstract public int getIconInfo() throws PersistenceException;
   abstract public int getLeafInfo() throws PersistenceException;
   
-  abstract boolean isDltd() throws PersistenceException ;
+  
 }

@@ -21,10 +21,14 @@ import persistence.PersistentMAbstractSumType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentTypeManager;
+import persistence.Predcate;
+import persistence.ProcdureException;
 import persistence.TDObserver;
 import persistence.TypeManagerProxi;
 import persistence.TypeManager_TypesProxi;
@@ -87,7 +91,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
         TypeManager result = this;
         result = new TypeManager(this.This, 
                                  this.getId());
-        result.types = this.types.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -163,13 +166,33 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     
     public PersistentMAbstractSumType createSumType(final MTypeSearchList addends) 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: createSumType
+		final PersistentMSumType transientResult = MSumType.createMSumType(true);
+
 		try {
-			throw new java.lang.UnsupportedOperationException("Method \"createSumType\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+			addends.applyToAllException(new ProcdureException<PersistentMType, CycleException>() {
+
+				@Override
+				public void doItTo(PersistentMType argument) throws PersistenceException, CycleException {
+					transientResult.getContainedTypes().add(argument);
+				}
+			});
+		} catch (CycleException e) {
+			throw new ConsistencyException("Cycle: " + e.getMessage());
 		}
+
+		PersistentMType existingTypeOrNull = getThis().getTypes().findFirst(new Predcate<PersistentMType>() {
+
+			@Override
+			public boolean test(PersistentMType argument) throws PersistenceException {
+				return argument.isStructuralEquivalant(transientResult).toBoolean();
+			}
+		});
+
+		if (existingTypeOrNull == null) {
+			getThis().getTypes().add(transientResult);
+			return transientResult;
+		}
+		return (PersistentMSumType) existingTypeOrNull;
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -231,13 +254,34 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     public PersistentMAbstractProductType createProductType(final MTypeSearchList factors) 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: createProductType
+		// TODO: Faktoren nur aus getrennten Aspekten
+		final PersistentMProductType transientResult = MProductType.createMProductType(true);
+
 		try {
-			throw new java.lang.UnsupportedOperationException("Method \"createProductType\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+			factors.applyToAllException(new ProcdureException<PersistentMType, CycleException>() {
+
+				@Override
+				public void doItTo(PersistentMType argument) throws PersistenceException, CycleException {
+					transientResult.getContainedTypes().add(argument);
+				}
+			});
+		} catch (CycleException e) {
+			throw new ConsistencyException("Cycle: " + e.getMessage());
 		}
+
+		PersistentMType existingTypeOrNull = getThis().getTypes().findFirst(new Predcate<PersistentMType>() {
+
+			@Override
+			public boolean test(PersistentMType argument) throws PersistenceException {
+				return argument.isStructuralEquivalant(transientResult).toBoolean();
+			}
+		});
+
+		if (existingTypeOrNull == null) {
+			getThis().getTypes().add(transientResult);
+			return transientResult;
+		}
+		return (PersistentMProductType) existingTypeOrNull;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{

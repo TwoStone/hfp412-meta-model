@@ -64,7 +64,6 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
         LinkManager result = this;
         result = new LinkManager(this.This, 
                                  this.getId());
-        result.links = this.links.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

@@ -70,7 +70,6 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
                                this.target, 
                                this.This, 
                                this.getId());
-        result.parameters = this.parameters.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

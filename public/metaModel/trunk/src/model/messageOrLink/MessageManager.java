@@ -64,7 +64,6 @@ public class MessageManager extends PersistentObject implements PersistentMessag
         MessageManager result = this;
         result = new MessageManager(this.This, 
                                     this.getId());
-        result.messages = this.messages.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

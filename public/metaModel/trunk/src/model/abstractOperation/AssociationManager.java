@@ -65,8 +65,6 @@ public class AssociationManager extends PersistentObject implements PersistentAs
         AssociationManager result = this;
         result = new AssociationManager(this.This, 
                                         this.getId());
-        result.associations = this.associations.copy(result);
-        result.hierarchies = this.hierarchies.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

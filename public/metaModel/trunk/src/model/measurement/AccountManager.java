@@ -77,7 +77,6 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
         AccountManager result = this;
         result = new AccountManager(this.This, 
                                     this.getId());
-        result.accounts = this.accounts.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

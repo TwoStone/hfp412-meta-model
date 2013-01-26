@@ -61,7 +61,6 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
         MSumType result = this;
         result = new MSumType(this.This, 
                               this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

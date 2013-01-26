@@ -63,7 +63,6 @@ public class MEmptyProduct extends model.typeSystem.MAbstractProductType impleme
         MEmptyProduct result = this;
         result = new MEmptyProduct(this.This, 
                                    this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
