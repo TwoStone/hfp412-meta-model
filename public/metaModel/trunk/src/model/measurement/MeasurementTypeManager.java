@@ -64,6 +64,7 @@ public class MeasurementTypeManager extends PersistentObject implements Persiste
         MeasurementTypeManager result = this;
         result = new MeasurementTypeManager(this.This, 
                                             this.getId());
+        result.measurementTypes = this.measurementTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

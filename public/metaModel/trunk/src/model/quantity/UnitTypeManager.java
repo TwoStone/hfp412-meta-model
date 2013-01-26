@@ -106,6 +106,8 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
         UnitTypeManager result = this;
         result = new UnitTypeManager(this.This, 
                                      this.getId());
+        result.unitTypes = this.unitTypes.copy(result);
+        result.units = this.units.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

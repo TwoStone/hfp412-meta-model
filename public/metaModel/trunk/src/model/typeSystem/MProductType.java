@@ -1,10 +1,38 @@
-
 package model.typeSystem;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
-
+import model.basic.MFalse;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MAbstractProductTypeExceptionVisitor;
+import model.visitor.MAbstractProductTypeReturnExceptionVisitor;
+import model.visitor.MAbstractProductTypeReturnVisitor;
+import model.visitor.MAbstractProductTypeVisitor;
+import model.visitor.MComplexTypeExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MComplexTypeReturnExceptionVisitor;
+import model.visitor.MComplexTypeReturnVisitor;
+import model.visitor.MComplexTypeVisitor;
+import model.visitor.MTypeExceptionVisitor;
+import model.visitor.MTypeReturnExceptionVisitor;
+import model.visitor.MTypeReturnVisitor;
+import model.visitor.MTypeVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MComplexTypeHierarchyHIERARCHY;
+import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
+import persistence.MProductTypeProxi;
+import persistence.PersistenceException;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMComplexType;
+import persistence.PersistentMProductType;
+import persistence.PersistentMType;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -61,6 +89,7 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
         MProductType result = this;
         result = new MProductType(this.This, 
                                   this.getId());
+        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -166,14 +195,14 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -188,36 +217,23 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
 		if(this.equals(This)){
 		}
     }
-    public String fetchName() 
-				throws PersistenceException{
-        //TODO: implement method: fetchName
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchName\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
     public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
 				throws PersistenceException{
-        //TODO: implement method: isStructuralEquivalant
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		if (other instanceof PersistentMProductType) {
+			return allChildrenAreStructuralEquivalent((PersistentMComplexType) other);
+		}
+		return MFalse.getTheMFalse();
+	}
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-        //TODO: implement method: isLessOrEqual
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		// TODO: implement method: isLessOrEqual
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$containedTypes$$MProductType = strategy.initialize$$MProductType$$containedTypes(getThis(), parameter);
@@ -231,42 +247,32 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
-        //TODO: implement method: isSingleton
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"isSingleton\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		// TODO: implement method: isSingleton
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isSingleton\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
-        //TODO: implement method: isAbstract
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"isAbstract\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
-    public String fetchTypeLinkOperator() 
-				throws PersistenceException{
-        //TODO: implement method: fetchTypeLinkOperator
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchTypeLinkOperator\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		// TODO: implement method: isAbstract
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isAbstract\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

@@ -1,6 +1,7 @@
 package model;
 
 import model.basic.MBoolean;
+import model.basic.MFalse;
 import model.quantity.ConversionManager;
 import model.quantity.FractionManager;
 import model.quantity.QuantityManager;
@@ -266,6 +267,7 @@ public class Server extends PersistentObject implements PersistentServer{
                             this.hackCount, 
                             this.hackDelay, 
                             this.getId());
+        result.errors = this.errors.copy(result);
         result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -586,10 +588,35 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
+
+		// TODO Das geht so nicht!!!! Auch hier die Methoden aus den Managern verwenden!!!!
 		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Gewicht"));
 		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Strecke"));
-		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("W??hrung"));
+		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Währung"));
 		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Zeit"));
+
+		try {
+			PersistentMAspect aspect1 = getThis().getAspectManager().createAspect("Aspekt1");
+			PersistentMAtomicType a = getThis().getTypeManager().createAtomicRootType(aspect1, "A",
+					MFalse.getTheMFalse(), MFalse.getTheMFalse());
+			PersistentMAtomicType b = getThis().getTypeManager().createAtomicRootType(aspect1, "B",
+					MFalse.getTheMFalse(), MFalse.getTheMFalse());
+
+			PersistentMAtomicType c = getThis().getTypeManager().createAtomicSubType(a, "C", MFalse.getTheMFalse(),
+					MFalse.getTheMFalse());
+
+			MTypeSearchList addends = new MTypeSearchList();
+			addends.add(a);
+			addends.add(b);
+
+			getThis().getTypeManager().createSumType(addends);
+			// TODO TEST Das sollte jetzt eigentlich nicht gehen!
+			getThis().getTypeManager().createProductType(addends);
+
+		} catch (ConsistencyException e) {
+			System.err.println("Fehler bei der Initialisierung des Servers!");
+		}
+
 	}
     public void createStaticMessage(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentInstanceObject target, final ActualParameterSearchList ap) 
 				throws PersistenceException{

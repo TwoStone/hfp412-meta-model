@@ -90,6 +90,7 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
         MEmptySumType result = this;
         result = new MEmptySumType(this.This, 
                                    this.getId());
+        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -209,16 +210,6 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 		if(this.equals(This)){
 		}
     }
-    public String fetchName() 
-				throws PersistenceException{
-		// TODO: implement method: fetchName
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchName\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
     public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(getThis().equals(other));
@@ -267,15 +258,9 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 			throw uoe;
 		}
 	}
-    public String fetchTypeLinkOperator() 
+    public String fetchName() 
 				throws PersistenceException{
-		// TODO: implement method: fetchTypeLinkOperator
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchTypeLinkOperator\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return "[Empty Sum]";
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

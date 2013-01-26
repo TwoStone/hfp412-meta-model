@@ -80,6 +80,7 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
                              this.This, 
                              this.type, 
                              this.getId());
+        result.actualParameters = this.actualParameters.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

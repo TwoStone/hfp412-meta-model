@@ -92,6 +92,8 @@ public class OperationManager extends PersistentObject implements PersistentOper
         OperationManager result = this;
         result = new OperationManager(this.This, 
                                       this.getId());
+        result.operations = this.operations.copy(result);
+        result.formalParameters = this.formalParameters.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

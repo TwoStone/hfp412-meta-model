@@ -64,6 +64,7 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
         ObjectManager result = this;
         result = new ObjectManager(this.This, 
                                    this.getId());
+        result.objects = this.objects.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

@@ -90,6 +90,7 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
         MEmptyProductType result = this;
         result = new MEmptyProductType(this.This, 
                                        this.getId());
+        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -191,13 +192,9 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
@@ -213,16 +210,6 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
 		if(this.equals(This)){
 		}
     }
-    public String fetchName() 
-				throws PersistenceException{
-		// TODO: implement method: fetchName
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchName\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
     public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(getThis().equals(other));
@@ -250,8 +237,6 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
-
 	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
@@ -273,15 +258,9 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
 			throw uoe;
 		}
 	}
-    public String fetchTypeLinkOperator() 
+    public String fetchName() 
 				throws PersistenceException{
-		// TODO: implement method: fetchTypeLinkOperator
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchTypeLinkOperator\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return "[Empty Product]";
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

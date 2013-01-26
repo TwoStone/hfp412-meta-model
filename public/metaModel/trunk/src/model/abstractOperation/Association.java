@@ -71,6 +71,8 @@ public class Association extends model.abstractOperation.AbsOperation implements
                                  this.target, 
                                  this.This, 
                                  this.getId());
+        result.parameters = this.parameters.copy(result);
+        result.hierarchies = this.hierarchies.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
