@@ -25,7 +25,7 @@ import persistence.TDObserver;
 public class ConversionManager extends PersistentObject implements PersistentConversionManager{
     
     private static PersistentConversionManager theConversionManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentConversionManager getTheConversionManager() throws PersistenceException{
         if (theConversionManager == null || reset$For$Test){
@@ -97,7 +97,7 @@ public class ConversionManager extends PersistentObject implements PersistentCon
     }
     
     static public long getTypeId() {
-        return 149;
+        return 147;
     }
     
     public long getClassId() {

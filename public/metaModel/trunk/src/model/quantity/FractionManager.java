@@ -21,7 +21,7 @@ import persistence.TDObserver;
 public class FractionManager extends PersistentObject implements PersistentFractionManager{
     
     private static PersistentFractionManager theFractionManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentFractionManager getTheFractionManager() throws PersistenceException{
         if (theFractionManager == null || reset$For$Test){
@@ -89,7 +89,7 @@ public class FractionManager extends PersistentObject implements PersistentFract
     }
     
     static public long getTypeId() {
-        return 177;
+        return 175;
     }
     
     public long getClassId() {

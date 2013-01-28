@@ -380,7 +380,6 @@ class Association extends AbsOperation {
 	symmetric(associations) Hierarchy** hierarchies; 
 
 	MBoolean isObservation();
-	MBoolean hasEqualSourceTargetName(Association other);
 }
 
 class Operation extends AbsOperation {

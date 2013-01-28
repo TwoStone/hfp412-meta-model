@@ -299,7 +299,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     static public long getTypeId() {
-        return -112;
+        return -111;
     }
     
     public long getClassId() {
@@ -308,7 +308,7 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == -112) ConnectionHandler.getTheConnectionHandler().theServerFacade
+        if (this.getClassId() == -111) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
         super.store();
         if(!this.equals(this.getThis())){
@@ -592,7 +592,7 @@ public class Server extends PersistentObject implements PersistentServer{
 		// TODO Das geht so nicht!!!! Auch hier die Methoden aus den Managern verwenden!!!!
 		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Gewicht"));
 		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Strecke"));
-		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Währung"));
+		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("W??hrung"));
 		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Zeit"));
 
 		try {

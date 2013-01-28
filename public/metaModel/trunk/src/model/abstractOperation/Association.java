@@ -89,7 +89,7 @@ public class Association extends model.abstractOperation.AbsOperation implements
     }
     
     static public long getTypeId() {
-        return 117;
+        return 116;
     }
     
     public long getClassId() {
@@ -98,7 +98,7 @@ public class Association extends model.abstractOperation.AbsOperation implements
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 117) ConnectionHandler.getTheConnectionHandler().theAssociationFacade
+        if (this.getClassId() == 116) ConnectionHandler.getTheConnectionHandler().theAssociationFacade
             .newAssociation(name,this.getId());
         super.store();
         this.getHierarchies().store();
@@ -153,16 +153,6 @@ public class Association extends model.abstractOperation.AbsOperation implements
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
         
-    }
-    public PersistentMBoolean hasEqualSourceTargetName(final PersistentAssociation other) 
-				throws PersistenceException{
-        //TODO: implement method: hasEqualSourceTargetName
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"hasEqualSourceTargetName\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
