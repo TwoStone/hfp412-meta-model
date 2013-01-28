@@ -6,6 +6,8 @@ import model.basic.MFalse;
 import model.basic.MTrue;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
+import model.typeSystem.MEmptyProductType;
+import model.typeSystem.MEmptySumType;
 import model.typeSystem.MProductType;
 import model.typeSystem.MSumType;
 import modelServer.ConnectionServer;
@@ -19,6 +21,8 @@ import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMEmptySumType;
 import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
 
@@ -34,7 +38,7 @@ public abstract class AbstractTest {
 	protected PersistentMAtomicType mat5;
 	protected PersistentMAtomicType mat6;
 
-	protected PersistentMProductType mptEmpty;
+	protected PersistentMEmptyProductType mptEmpty;
 	protected PersistentMProductType mptSingle1;
 	protected PersistentMProductType mptSingle2;
 	protected PersistentMProductType mptSingle3;
@@ -45,6 +49,7 @@ public abstract class AbstractTest {
 	protected PersistentMProductType mptMultiple5And6;
 	protected PersistentMProductType mptMultiple4And5;
 
+	protected PersistentMEmptySumType mstEmpty;
 	protected PersistentMSumType mstSingle1;
 	protected PersistentMSumType mstSingle2;
 	protected PersistentMSumType mstSingle3;
@@ -59,12 +64,13 @@ public abstract class AbstractTest {
 	public AbstractTest() throws CycleException, PersistenceException {
 		this.initHierarchy();
 	}
-	
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		DBConnectionConstants.Password = new char[2];
 		ConnectionHandler connection = ConnectionHandler.getTheConnectionHandler();
-		connection.connect(DBConnectionConstants.DataBaseName, DBConnectionConstants.SchemaName, DBConnectionConstants.UserName, DBConnectionConstants.Password, true);
+		connection.connect(DBConnectionConstants.DataBaseName, DBConnectionConstants.SchemaName,
+				DBConnectionConstants.UserName, DBConnectionConstants.Password, true);
 		ConnectionHandler.initializeMapsForMappedFields();
 		ConnectionServer.startTheConnectionServer(EmptyServerReporter.getTheInstance());
 	}
@@ -99,7 +105,7 @@ public abstract class AbstractTest {
 		mat2.setSuperType(mat3);
 
 		// ProductType
-		mptEmpty = MProductType.createMProductType();
+		mptEmpty = MEmptyProductType.getTheMEmptyProductType();
 		mptSingle1 = MProductType.createMProductType();
 		mptSingle2 = MProductType.createMProductType();
 		mptSingle3 = MProductType.createMProductType();
@@ -125,6 +131,7 @@ public abstract class AbstractTest {
 		mptMultiple4And5.getContainedTypes().add(mat5);
 
 		// SumType
+		mstEmpty = MEmptySumType.getTheMEmptySumType();
 		mstSingle1 = MSumType.createMSumType();
 		mstSingle2 = MSumType.createMSumType();
 		mstSingle3 = MSumType.createMSumType();
