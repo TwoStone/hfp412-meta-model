@@ -781,9 +781,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleOperation(view.OperationView object){
         result = new OperationDefaultDetailPanel(handler, object);
     }
-    public void handleConversionManager(view.ConversionManagerView object){
-        result = new ConversionManagerDefaultDetailPanel(handler, object);
-    }
     public void handleQuantityManager(view.QuantityManagerView object){
         result = new QuantityManagerDefaultDetailPanel(handler, object);
     }
@@ -905,7 +902,6 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Server$$typeManager = "Server$$typeManager";
     protected static final String Server$$quantityManager = "Server$$quantityManager";
     protected static final String Server$$unitTypeManager = "Server$$unitTypeManager";
-    protected static final String Server$$conversionManager = "Server$$conversionManager";
     protected static final String Server$$fractionManager = "Server$$fractionManager";
     protected static final String Server$$measurementTypeManager = "Server$$measurementTypeManager";
     protected static final String Server$$accountTypeManager = "Server$$accountTypeManager";
@@ -1490,22 +1486,6 @@ class OperationDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class ConversionManagerDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String ConversionManager$$conversions = "ConversionManager$$conversions";
-    
-    protected ConversionManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.ConversionManagerView getAnything(){
-        return (view.ConversionManagerView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
 class QuantityManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String QuantityManager$$quantities = "QuantityManager$$quantities";
@@ -1663,7 +1643,6 @@ class FractionManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class ConversionDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Conversion$$source = "Conversion$$source";
     protected static final String Conversion$$myFunction = "Conversion$$myFunction";
     
     protected ConversionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

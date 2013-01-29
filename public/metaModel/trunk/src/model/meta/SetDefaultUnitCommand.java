@@ -8,27 +8,27 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class AddDefaultUnitCommand extends PersistentObject implements PersistentAddDefaultUnitCommand{
+public class SetDefaultUnitCommand extends PersistentObject implements PersistentSetDefaultUnitCommand{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentAddDefaultUnitCommand getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.getClass(objectId);
-        return (PersistentAddDefaultUnitCommand)PersistentProxi.createProxi(objectId, classId);
+    public static PersistentSetDefaultUnitCommand getById(long objectId) throws PersistenceException{
+        long classId = ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.getClass(objectId);
+        return (PersistentSetDefaultUnitCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentAddDefaultUnitCommand createAddDefaultUnitCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createAddDefaultUnitCommand(createDate,commitDate,false);
+    public static PersistentSetDefaultUnitCommand createSetDefaultUnitCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createSetDefaultUnitCommand(createDate,commitDate,false);
     }
     
-    public static PersistentAddDefaultUnitCommand createAddDefaultUnitCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
-        PersistentAddDefaultUnitCommand result = null;
+    public static PersistentSetDefaultUnitCommand createSetDefaultUnitCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        PersistentSetDefaultUnitCommand result = null;
         if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade
-                .newDelayedAddDefaultUnitCommand();
+            result = ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade
+                .newDelayedSetDefaultUnitCommand();
             result.setDelayed$Persistence(true);
         }else{
-            result = ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade
-                .newAddDefaultUnitCommand(-1);
+            result = ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade
+                .newSetDefaultUnitCommand(-1);
         }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -45,7 +45,7 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
     
     private model.UserException commandException = null;
     
-    public AddDefaultUnitCommand(PersistentUnitType type,PersistentUnit unit,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public SetDefaultUnitCommand(PersistentUnitType type,PersistentUnit unit,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.type = type;
@@ -56,7 +56,7 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 110;
+        return 269;
     }
     
     public long getClassId() {
@@ -65,28 +65,28 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 110) ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade
-            .newAddDefaultUnitCommand(this.getId());
+        if (this.getClassId() == 269) ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade
+            .newSetDefaultUnitCommand(this.getId());
         super.store();
         if(this.getType() != null){
             this.getType().store();
-            ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.typeSet(this.getId(), getType());
+            ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.typeSet(this.getId(), getType());
         }
         if(this.getUnit() != null){
             this.getUnit().store();
-            ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.unitSet(this.getId(), getUnit());
+            ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.unitSet(this.getId(), getUnit());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
-            ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.invokerSet(this.getId(), getInvoker());
+            ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.invokerSet(this.getId(), getInvoker());
         }
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
-            ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+            ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
-            ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
+            ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
         }
         
     }
@@ -102,7 +102,7 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
         this.type = (PersistentUnitType)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.typeSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.typeSet(this.getId(), newValue);
         }
     }
     public PersistentUnit getUnit() throws PersistenceException {
@@ -116,7 +116,7 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
         this.unit = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.unitSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.unitSet(this.getId(), newValue);
         }
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -130,7 +130,7 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.invokerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
     public PersistentUnitTypeManager getCommandReceiver() throws PersistenceException {
@@ -144,7 +144,7 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
         this.commandReceiver = (PersistentUnitTypeManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.commandReceiverSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -158,7 +158,7 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
         this.myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddDefaultUnitCommandFacade.myCommonDateSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theSetDefaultUnitCommandFacade.myCommonDateSet(this.getId(), newValue);
         }
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
@@ -179,52 +179,52 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
     }
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException {
-        visitor.handleAddDefaultUnitCommand(this);
+        visitor.handleSetDefaultUnitCommand(this);
     }
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddDefaultUnitCommand(this);
+         return visitor.handleSetDefaultUnitCommand(this);
     }
     public <E extends UserException>  void accept(CommonDateExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddDefaultUnitCommand(this);
+         visitor.handleSetDefaultUnitCommand(this);
     }
     public <R, E extends UserException> R accept(CommonDateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddDefaultUnitCommand(this);
+         return visitor.handleSetDefaultUnitCommand(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleAddDefaultUnitCommand(this);
+        visitor.handleSetDefaultUnitCommand(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddDefaultUnitCommand(this);
+         return visitor.handleSetDefaultUnitCommand(this);
     }
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddDefaultUnitCommand(this);
+         visitor.handleSetDefaultUnitCommand(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddDefaultUnitCommand(this);
+         return visitor.handleSetDefaultUnitCommand(this);
     }
     public void accept(CommandVisitor visitor) throws PersistenceException {
-        visitor.handleAddDefaultUnitCommand(this);
+        visitor.handleSetDefaultUnitCommand(this);
     }
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddDefaultUnitCommand(this);
+         return visitor.handleSetDefaultUnitCommand(this);
     }
     public <E extends UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddDefaultUnitCommand(this);
+         visitor.handleSetDefaultUnitCommand(this);
     }
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddDefaultUnitCommand(this);
+         return visitor.handleSetDefaultUnitCommand(this);
     }
     public void accept(UnitTypeManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleAddDefaultUnitCommand(this);
+        visitor.handleSetDefaultUnitCommand(this);
     }
     public <R> R accept(UnitTypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddDefaultUnitCommand(this);
+         return visitor.handleSetDefaultUnitCommand(this);
     }
     public <E extends UserException>  void accept(UnitTypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddDefaultUnitCommand(this);
+         visitor.handleSetDefaultUnitCommand(this);
     }
     public <R, E extends UserException> R accept(UnitTypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddDefaultUnitCommand(this);
+         return visitor.handleSetDefaultUnitCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
@@ -236,7 +236,7 @@ public class AddDefaultUnitCommand extends PersistentObject implements Persisten
     
     public void execute() 
 				throws PersistenceException{
-        this.getCommandReceiver().addDefaultUnit(this.getType(), this.getUnit());
+        this.getCommandReceiver().setDefaultUnit(this.getType(), this.getUnit());
 		
     }
     public void checkException() 

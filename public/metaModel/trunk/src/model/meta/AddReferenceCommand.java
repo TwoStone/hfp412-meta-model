@@ -8,27 +8,27 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class CreateConversionCommand extends PersistentObject implements PersistentCreateConversionCommand{
+public class AddReferenceCommand extends PersistentObject implements PersistentAddReferenceCommand{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentCreateConversionCommand getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.getClass(objectId);
-        return (PersistentCreateConversionCommand)PersistentProxi.createProxi(objectId, classId);
+    public static PersistentAddReferenceCommand getById(long objectId) throws PersistenceException{
+        long classId = ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.getClass(objectId);
+        return (PersistentAddReferenceCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentCreateConversionCommand createCreateConversionCommand(common.Fraction factor,common.Fraction constant,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createCreateConversionCommand(factor,constant,createDate,commitDate,false);
+    public static PersistentAddReferenceCommand createAddReferenceCommand(long exponent,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createAddReferenceCommand(exponent,createDate,commitDate,false);
     }
     
-    public static PersistentCreateConversionCommand createCreateConversionCommand(common.Fraction factor,common.Fraction constant,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
-        PersistentCreateConversionCommand result = null;
+    public static PersistentAddReferenceCommand createAddReferenceCommand(long exponent,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        PersistentAddReferenceCommand result = null;
         if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade
-                .newDelayedCreateConversionCommand(factor,constant);
+            result = ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade
+                .newDelayedAddReferenceCommand(exponent);
             result.setDelayed$Persistence(true);
         }else{
-            result = ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade
-                .newCreateConversionCommand(factor,constant,-1);
+            result = ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade
+                .newAddReferenceCommand(exponent,-1);
         }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -37,28 +37,28 @@ public class CreateConversionCommand extends PersistentObject implements Persist
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected PersistentCompUnit compUnit;
     protected PersistentUnit unit;
-    protected common.Fraction factor;
-    protected common.Fraction constant;
+    protected long exponent;
     protected Invoker invoker;
-    protected PersistentConversionManager commandReceiver;
+    protected PersistentUnitTypeManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateConversionCommand(PersistentUnit unit,common.Fraction factor,common.Fraction constant,Invoker invoker,PersistentConversionManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public AddReferenceCommand(PersistentCompUnit compUnit,PersistentUnit unit,long exponent,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.compUnit = compUnit;
         this.unit = unit;
-        this.factor = factor;
-        this.constant = constant;
+        this.exponent = exponent;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
     }
     
     static public long getTypeId() {
-        return 156;
+        return 268;
     }
     
     public long getClassId() {
@@ -67,28 +67,46 @@ public class CreateConversionCommand extends PersistentObject implements Persist
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 156) ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade
-            .newCreateConversionCommand(factor,constant,this.getId());
+        if (this.getClassId() == 268) ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade
+            .newAddReferenceCommand(exponent,this.getId());
         super.store();
+        if(this.getCompUnit() != null){
+            this.getCompUnit().store();
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.compUnitSet(this.getId(), getCompUnit());
+        }
         if(this.getUnit() != null){
             this.getUnit().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.unitSet(this.getId(), getUnit());
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.unitSet(this.getId(), getUnit());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.invokerSet(this.getId(), getInvoker());
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.invokerSet(this.getId(), getInvoker());
         }
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
         }
         
     }
     
+    public PersistentCompUnit getCompUnit() throws PersistenceException {
+        return this.compUnit;
+    }
+    public void setCompUnit(PersistentCompUnit newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.compUnit)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.compUnit = (PersistentCompUnit)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.compUnitSet(this.getId(), newValue);
+        }
+    }
     public PersistentUnit getUnit() throws PersistenceException {
         return this.unit;
     }
@@ -100,22 +118,15 @@ public class CreateConversionCommand extends PersistentObject implements Persist
         this.unit = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.unitSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.unitSet(this.getId(), newValue);
         }
     }
-    public common.Fraction getFactor() throws PersistenceException {
-        return this.factor;
+    public long getExponent() throws PersistenceException {
+        return this.exponent;
     }
-    public void setFactor(common.Fraction newValue) throws PersistenceException {
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.factorSet(this.getId(), newValue);
-        this.factor = newValue;
-    }
-    public common.Fraction getConstant() throws PersistenceException {
-        return this.constant;
-    }
-    public void setConstant(common.Fraction newValue) throws PersistenceException {
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.constantSet(this.getId(), newValue);
-        this.constant = newValue;
+    public void setExponent(long newValue) throws PersistenceException {
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.exponentSet(this.getId(), newValue);
+        this.exponent = newValue;
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -128,21 +139,21 @@ public class CreateConversionCommand extends PersistentObject implements Persist
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.invokerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public PersistentConversionManager getCommandReceiver() throws PersistenceException {
+    public PersistentUnitTypeManager getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(PersistentConversionManager newValue) throws PersistenceException {
+    public void setCommandReceiver(PersistentUnitTypeManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentConversionManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentUnitTypeManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.commandReceiverSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -156,7 +167,7 @@ public class CreateConversionCommand extends PersistentObject implements Persist
         this.myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateConversionCommandFacade.myCommonDateSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.myCommonDateSet(this.getId(), newValue);
         }
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
@@ -177,55 +188,56 @@ public class CreateConversionCommand extends PersistentObject implements Persist
     }
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException {
-        visitor.handleCreateConversionCommand(this);
+        visitor.handleAddReferenceCommand(this);
     }
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateConversionCommand(this);
+         return visitor.handleAddReferenceCommand(this);
     }
     public <E extends UserException>  void accept(CommonDateExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateConversionCommand(this);
+         visitor.handleAddReferenceCommand(this);
     }
     public <R, E extends UserException> R accept(CommonDateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateConversionCommand(this);
+         return visitor.handleAddReferenceCommand(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleCreateConversionCommand(this);
+        visitor.handleAddReferenceCommand(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateConversionCommand(this);
+         return visitor.handleAddReferenceCommand(this);
     }
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateConversionCommand(this);
+         visitor.handleAddReferenceCommand(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateConversionCommand(this);
+         return visitor.handleAddReferenceCommand(this);
     }
     public void accept(CommandVisitor visitor) throws PersistenceException {
-        visitor.handleCreateConversionCommand(this);
+        visitor.handleAddReferenceCommand(this);
     }
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateConversionCommand(this);
+         return visitor.handleAddReferenceCommand(this);
     }
     public <E extends UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateConversionCommand(this);
+         visitor.handleAddReferenceCommand(this);
     }
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateConversionCommand(this);
+         return visitor.handleAddReferenceCommand(this);
     }
-    public void accept(ConversionManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleCreateConversionCommand(this);
+    public void accept(UnitTypeManagerCommandVisitor visitor) throws PersistenceException {
+        visitor.handleAddReferenceCommand(this);
     }
-    public <R> R accept(ConversionManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateConversionCommand(this);
+    public <R> R accept(UnitTypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAddReferenceCommand(this);
     }
-    public <E extends UserException>  void accept(ConversionManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateConversionCommand(this);
+    public <E extends UserException>  void accept(UnitTypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAddReferenceCommand(this);
     }
-    public <R, E extends UserException> R accept(ConversionManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateConversionCommand(this);
+    public <R, E extends UserException> R accept(UnitTypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAddReferenceCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
+            + (this.getCompUnit() == null ? 0 : 1)
             + (this.getUnit() == null ? 0 : 1)
             + (this.getCommandReceiver() == null ? 0 : 1));
     }
@@ -233,8 +245,12 @@ public class CreateConversionCommand extends PersistentObject implements Persist
     
     public void execute() 
 				throws PersistenceException{
-        this.getCommandReceiver().createConversion(this.getUnit(), this.getFactor(), this.getConstant());
-		
+        try{
+			this.getCommandReceiver().addReference(this.getCompUnit(), this.getUnit(), this.getExponent());
+		}
+		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
+		}
     }
     public void checkException() 
 				throws UserException, PersistenceException{

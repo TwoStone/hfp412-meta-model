@@ -33,7 +33,6 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleMSumType(PersistentMSumType mSumType) throws PersistenceException;
     public abstract void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException;
     public abstract void handleOperation(PersistentOperation operation) throws PersistenceException;
-    public abstract void handleConversionManager(PersistentConversionManager conversionManager) throws PersistenceException;
     public abstract void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
     public abstract void handleNameSchemeManager(PersistentNameSchemeManager nameSchemeManager) throws PersistenceException;
     public abstract void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException;

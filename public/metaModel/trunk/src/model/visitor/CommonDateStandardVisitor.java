@@ -35,9 +35,6 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException{
         this.standardHandling(createMeasurementTypeCommand);
     }
-    public void handleCreateConversionCommand(PersistentCreateConversionCommand createConversionCommand) throws PersistenceException{
-        this.standardHandling(createConversionCommand);
-    }
     public void handleCreateAccountCommand(PersistentCreateAccountCommand createAccountCommand) throws PersistenceException{
         this.standardHandling(createAccountCommand);
     }
@@ -61,6 +58,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     }
     public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
         this.standardHandling(createCompUnitCommand);
+    }
+    public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException{
+        this.standardHandling(setDefaultUnitCommand);
     }
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createCompUnitTypeCommand);
@@ -95,9 +95,6 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);
     }
-    public void handleAddDefaultUnitCommand(PersistentAddDefaultUnitCommand addDefaultUnitCommand) throws PersistenceException{
-        this.standardHandling(addDefaultUnitCommand);
-    }
     public void handleCreateVoidMessageCommand(PersistentCreateVoidMessageCommand createVoidMessageCommand) throws PersistenceException{
         this.standardHandling(createVoidMessageCommand);
     }
@@ -110,6 +107,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException{
         this.standardHandling(replaceTypeCommand);
     }
+    public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
+        this.standardHandling(setConversionCommand);
+    }
     public void handleRemoveOperationCommand(PersistentRemoveOperationCommand removeOperationCommand) throws PersistenceException{
         this.standardHandling(removeOperationCommand);
     }
@@ -118,6 +118,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     }
     public void handleCreateConstantCommand(PersistentCreateConstantCommand createConstantCommand) throws PersistenceException{
         this.standardHandling(createConstantCommand);
+    }
+    public void handleAddReferenceCommand(PersistentAddReferenceCommand addReferenceCommand) throws PersistenceException{
+        this.standardHandling(addReferenceCommand);
     }
     public void handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException{
         this.standardHandling(createSumTypeCommand);
