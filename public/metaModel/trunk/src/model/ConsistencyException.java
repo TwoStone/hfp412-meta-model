@@ -29,7 +29,7 @@ public class ConsistencyException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -230;
+        return -227;
     }
     
     public long getClassId() {

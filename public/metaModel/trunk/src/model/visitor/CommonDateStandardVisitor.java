@@ -44,6 +44,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicSubTypeCommand);
     }
+    public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException{
+        this.standardHandling(addMultipleFpCommand);
+    }
     public void handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException{
         this.standardHandling(createVoidOperationCommand);
     }

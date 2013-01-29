@@ -58,7 +58,7 @@ public class CreateVoidMessageCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 173;
+        return 171;
     }
     
     public long getClassId() {
@@ -67,7 +67,7 @@ public class CreateVoidMessageCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 173) ConnectionHandler.getTheConnectionHandler().theCreateVoidMessageCommandFacade
+        if (this.getClassId() == 171) ConnectionHandler.getTheConnectionHandler().theCreateVoidMessageCommandFacade
             .newCreateVoidMessageCommand(this.getId());
         super.store();
         if(this.getType() != null){

@@ -75,6 +75,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException, E;
     public R handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException, E;
     public R handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException, E;
+    public R handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException, E;
     public R handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException, E;
     public R handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException, E;
     public R handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException, E;

@@ -75,6 +75,7 @@ public interface AnythingVisitor extends AbsOperationVisitor,QuantifObjectVisito
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException;
     public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException;
+    public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException;
     public void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException;
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException;

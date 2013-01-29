@@ -14,7 +14,7 @@ import persistence.*;
 public class TypeManager extends PersistentObject implements PersistentTypeManager{
     
     private static PersistentTypeManager theTypeManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentTypeManager getTheTypeManager() throws PersistenceException{
         if (theTypeManager == null || reset$For$Test){
@@ -86,7 +86,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     
     static public long getTypeId() {
-        return 169;
+        return 167;
     }
     
     public long getClassId() {
@@ -267,7 +267,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 				throws model.ConsistencyException, PersistenceException{
 		checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
 
-		// TODO Hier müsste man noch überprüfen, ob der SuperType abstrakt ist, wenn nicht -> Exception!
+		// TODO Hier m??sste man noch ??berpr??fen, ob der SuperType abstrakt ist, wenn nicht -> Exception!
 		PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType,
 				superType.getAspect(), true);
 		try {

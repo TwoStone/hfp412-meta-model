@@ -75,6 +75,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsOp
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException, E;
     public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException, E;
     public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException, E;
+    public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException, E;
     public void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException, E;
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException, E;
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException, E;

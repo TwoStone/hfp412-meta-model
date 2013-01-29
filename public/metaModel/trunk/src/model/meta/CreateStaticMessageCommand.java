@@ -61,7 +61,7 @@ public class CreateStaticMessageCommand extends PersistentObject implements Pers
     }
     
     static public long getTypeId() {
-        return 168;
+        return 166;
     }
     
     public long getClassId() {
@@ -70,7 +70,7 @@ public class CreateStaticMessageCommand extends PersistentObject implements Pers
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 168) ConnectionHandler.getTheConnectionHandler().theCreateStaticMessageCommandFacade
+        if (this.getClassId() == 166) ConnectionHandler.getTheConnectionHandler().theCreateStaticMessageCommandFacade
             .newCreateStaticMessageCommand(name,this.getId());
         super.store();
         if(this.getType() != null){

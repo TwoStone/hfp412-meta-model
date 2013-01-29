@@ -12,6 +12,7 @@ public interface OperationManagerCommandVisitor {
     public void handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException;
     public void handleAddFpCommand(PersistentAddFpCommand addFpCommand) throws PersistenceException;
     public void handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException;
+    public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException;
     public void handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException;
     public void handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException;
     

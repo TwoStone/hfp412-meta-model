@@ -12,6 +12,7 @@ public interface OperationManagerCommandReturnExceptionVisitor<R, E extends User
     public R handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException, E;
     public R handleAddFpCommand(PersistentAddFpCommand addFpCommand) throws PersistenceException, E;
     public R handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException, E;
+    public R handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException, E;
     public R handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException, E;
     public R handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException, E;
     

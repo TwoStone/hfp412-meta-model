@@ -29,7 +29,7 @@ server Server {
 	//	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
 
 	void createMObject@@Exemplar_erstellen(MAtomicType type {typeManager;types}, MAtomicType** otherTypes {typeManager;types});	
-	void addType@@Typen_hinzufügen(MObject object, MAtomicType newType {typeManager;types});
+	void addType@@Typen_hinzuf?gen(MObject object, MAtomicType newType {typeManager;types});
 	void removeType@@Typen_entfernen(MObject object, MAtomicType oldType {;object;types});
 	void replaceType@@Typen_ersetzen(MObject object, MAtomicType oldType {;object;types}, MAtomicType newType {;oldType;aspect;types});
 
@@ -384,6 +384,7 @@ active void createVoidOperation(MType source, String name, FormalParameter** fp)
 active void createFp(String name, MType ofType) throws DoubleDefinitionException;
 
 active void addFp(Operation op, FormalParameter fp);
+active void addMultipleFp(Operation op, FormalParameter** fp);
 active void removeFpFromOp(Operation op, FormalParameter fp) throws NotAvailableException;
 active void removeFp(FormalParameter fp);
 active void removeOperation(Operation op);

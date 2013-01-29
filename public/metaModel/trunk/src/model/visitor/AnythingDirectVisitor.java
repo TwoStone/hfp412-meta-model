@@ -104,6 +104,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException{
         this.handleCommonDate(createAtomicSubTypeCommand);
     }
+    public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException{
+        this.handleCommonDate(addMultipleFpCommand);
+    }
     public void handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException{
         this.handleCommonDate(createVoidOperationCommand);
     }
@@ -241,6 +244,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException;
     
+    public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
+    
     public abstract void handleMType(PersistentMType mType) throws PersistenceException;
     
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
@@ -258,8 +263,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
         this.handleMType(mEmptyProductType);
     }
-    public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
-    
     public abstract void handleNameSchemeInstaceManager(PersistentNameSchemeInstaceManager nameSchemeInstaceManager) throws PersistenceException;
     
     public abstract void handleFunction(PersistentFunction function) throws PersistenceException;

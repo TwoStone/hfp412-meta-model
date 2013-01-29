@@ -47,6 +47,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException{
         this.standardHandling(createVoidOperationCommand);
     }
+    public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException{
+        this.standardHandling(addMultipleFpCommand);
+    }
     public void handleCreateLinkCommand(PersistentCreateLinkCommand createLinkCommand) throws PersistenceException{
         this.standardHandling(createLinkCommand);
     }

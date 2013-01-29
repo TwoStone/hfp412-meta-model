@@ -75,6 +75,7 @@ public interface AnythingReturnVisitor<R> extends AbsOperationReturnVisitor<R> ,
     public R handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException;
     public R handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     public R handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException;
+    public R handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException;
     public R handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;
     public R handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException;
     public R handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException;

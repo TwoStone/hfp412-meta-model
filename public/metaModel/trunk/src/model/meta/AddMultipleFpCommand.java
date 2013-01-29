@@ -8,27 +8,27 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class AddFpCommand extends PersistentObject implements PersistentAddFpCommand{
+public class AddMultipleFpCommand extends PersistentObject implements PersistentAddMultipleFpCommand{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentAddFpCommand getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.getClass(objectId);
-        return (PersistentAddFpCommand)PersistentProxi.createProxi(objectId, classId);
+    public static PersistentAddMultipleFpCommand getById(long objectId) throws PersistenceException{
+        long classId = ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade.getClass(objectId);
+        return (PersistentAddMultipleFpCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentAddFpCommand createAddFpCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createAddFpCommand(createDate,commitDate,false);
+    public static PersistentAddMultipleFpCommand createAddMultipleFpCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createAddMultipleFpCommand(createDate,commitDate,false);
     }
     
-    public static PersistentAddFpCommand createAddFpCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
-        PersistentAddFpCommand result = null;
+    public static PersistentAddMultipleFpCommand createAddMultipleFpCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        PersistentAddMultipleFpCommand result = null;
         if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade
-                .newDelayedAddFpCommand();
+            result = ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade
+                .newDelayedAddMultipleFpCommand();
             result.setDelayed$Persistence(true);
         }else{
-            result = ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade
-                .newAddFpCommand(-1);
+            result = ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade
+                .newAddMultipleFpCommand(-1);
         }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -38,25 +38,25 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
         return true;
     }
     protected PersistentOperation op;
-    protected PersistentFormalParameter fp;
+    protected AddMultipleFpCommand_FpProxi fp;
     protected Invoker invoker;
     protected PersistentOperationManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public AddFpCommand(PersistentOperation op,PersistentFormalParameter fp,Invoker invoker,PersistentOperationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public AddMultipleFpCommand(PersistentOperation op,Invoker invoker,PersistentOperationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.op = op;
-        this.fp = fp;
+        this.fp = new AddMultipleFpCommand_FpProxi(this);
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
     }
     
     static public long getTypeId() {
-        return 165;
+        return 256;
     }
     
     public long getClassId() {
@@ -65,28 +65,25 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 165) ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade
-            .newAddFpCommand(this.getId());
+        if (this.getClassId() == 256) ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade
+            .newAddMultipleFpCommand(this.getId());
         super.store();
         if(this.getOp() != null){
             this.getOp().store();
-            ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.opSet(this.getId(), getOp());
+            ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade.opSet(this.getId(), getOp());
         }
-        if(this.getFp() != null){
-            this.getFp().store();
-            ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.fpSet(this.getId(), getFp());
-        }
+        this.getFp().store();
         if(this.getInvoker() != null){
             this.getInvoker().store();
-            ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.invokerSet(this.getId(), getInvoker());
+            ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade.invokerSet(this.getId(), getInvoker());
         }
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
-            ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+            ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
-            ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
+            ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
         }
         
     }
@@ -102,22 +99,11 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
         this.op = (PersistentOperation)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.opSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade.opSet(this.getId(), newValue);
         }
     }
-    public PersistentFormalParameter getFp() throws PersistenceException {
+    public AddMultipleFpCommand_FpProxi getFp() throws PersistenceException {
         return this.fp;
-    }
-    public void setFp(PersistentFormalParameter newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.fp)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.fp = (PersistentFormalParameter)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.fpSet(this.getId(), newValue);
-        }
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -130,7 +116,7 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.invokerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
     public PersistentOperationManager getCommandReceiver() throws PersistenceException {
@@ -144,7 +130,7 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
         this.commandReceiver = (PersistentOperationManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.commandReceiverSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -158,7 +144,7 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
         this.myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade.myCommonDateSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade.myCommonDateSet(this.getId(), newValue);
         }
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
@@ -179,64 +165,64 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
     }
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException {
-        visitor.handleAddFpCommand(this);
+        visitor.handleAddMultipleFpCommand(this);
     }
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddFpCommand(this);
+         return visitor.handleAddMultipleFpCommand(this);
     }
     public <E extends UserException>  void accept(CommonDateExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddFpCommand(this);
+         visitor.handleAddMultipleFpCommand(this);
     }
     public <R, E extends UserException> R accept(CommonDateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddFpCommand(this);
+         return visitor.handleAddMultipleFpCommand(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleAddFpCommand(this);
+        visitor.handleAddMultipleFpCommand(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddFpCommand(this);
+         return visitor.handleAddMultipleFpCommand(this);
     }
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddFpCommand(this);
+         visitor.handleAddMultipleFpCommand(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddFpCommand(this);
+         return visitor.handleAddMultipleFpCommand(this);
     }
     public void accept(CommandVisitor visitor) throws PersistenceException {
-        visitor.handleAddFpCommand(this);
+        visitor.handleAddMultipleFpCommand(this);
     }
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddFpCommand(this);
+         return visitor.handleAddMultipleFpCommand(this);
     }
     public <E extends UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddFpCommand(this);
+         visitor.handleAddMultipleFpCommand(this);
     }
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddFpCommand(this);
+         return visitor.handleAddMultipleFpCommand(this);
     }
     public void accept(OperationManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleAddFpCommand(this);
+        visitor.handleAddMultipleFpCommand(this);
     }
     public <R> R accept(OperationManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddFpCommand(this);
+         return visitor.handleAddMultipleFpCommand(this);
     }
     public <E extends UserException>  void accept(OperationManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddFpCommand(this);
+         visitor.handleAddMultipleFpCommand(this);
     }
     public <R, E extends UserException> R accept(OperationManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddFpCommand(this);
+         return visitor.handleAddMultipleFpCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + (this.getOp() == null ? 0 : 1)
-            + (this.getFp() == null ? 0 : 1)
+            + this.getFp().getLength()
             + (this.getCommandReceiver() == null ? 0 : 1));
     }
     
     
     public void execute() 
 				throws PersistenceException{
-        this.getCommandReceiver().addFp(this.getOp(), this.getFp());
+        this.getCommandReceiver().addMultipleFp(this.getOp(), this.getFp().getList());
 		
     }
     public void checkException() 

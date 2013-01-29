@@ -12,6 +12,7 @@ public interface OperationManagerCommandReturnVisitor<R> {
     public R handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException;
     public R handleAddFpCommand(PersistentAddFpCommand addFpCommand) throws PersistenceException;
     public R handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException;
+    public R handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException;
     public R handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException;
     public R handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException;
     

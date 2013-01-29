@@ -93,7 +93,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
     }
     
     static public long getTypeId() {
-        return 130;
+        return 236;
     }
     
     public long getClassId() {
@@ -102,7 +102,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 130) ConnectionHandler.getTheConnectionHandler().theMObjectFacade
+        if (this.getClassId() == 236) ConnectionHandler.getTheConnectionHandler().theMObjectFacade
             .newMObject(this.getId());
         super.store();
         this.getTypes().store();
@@ -190,7 +190,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
     public void addType(final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
 		if (newType.isAbstract().toBoolean()) {
-			throw new ConsistencyException("Objekte dürfen nur in konkreten Typen klassifiziert werden!");
+			throw new ConsistencyException("Objekte d??rfen nur in konkreten Typen klassifiziert werden!");
 		}
 
 		if (this.getAspects().contains(newType.getAspect())) {
@@ -207,7 +207,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
 				throws model.ConsistencyException, PersistenceException{
 		if (this.getThis().getTypes().getLength() <= 1) {
 			throw new ConsistencyException(
-					"Das Objekt muss in mindestens einem Typen klassifiziert! Fügen sie einen weiteren Typen hinzu bevor Sie diesen entfernen!");
+					"Das Objekt muss in mindestens einem Typen klassifiziert! F??gen sie einen weiteren Typen hinzu bevor Sie diesen entfernen!");
 		}
 		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
 

@@ -266,6 +266,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException{
         this.standardHandling(measurementTypeManager);
     }
+    public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException{
+        this.standardHandling(addMultipleFpCommand);
+    }
     public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException{
         this.standardHandling(mEmptySumType);
     }

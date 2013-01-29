@@ -56,7 +56,7 @@ public class RemoveTypeCommand extends PersistentObject implements PersistentRem
     }
     
     static public long getTypeId() {
-        return 240;
+        return 242;
     }
     
     public long getClassId() {
@@ -65,7 +65,7 @@ public class RemoveTypeCommand extends PersistentObject implements PersistentRem
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 240) ConnectionHandler.getTheConnectionHandler().theRemoveTypeCommandFacade
+        if (this.getClassId() == 242) ConnectionHandler.getTheConnectionHandler().theRemoveTypeCommandFacade
             .newRemoveTypeCommand(this.getId());
         super.store();
         if(this.getObject() != null){

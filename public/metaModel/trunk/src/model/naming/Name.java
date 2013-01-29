@@ -110,7 +110,7 @@ public class Name extends PersistentObject implements PersistentName{
     }
     
     static public long getTypeId() {
-        return 258;
+        return 252;
     }
     
     public long getClassId() {
@@ -119,7 +119,7 @@ public class Name extends PersistentObject implements PersistentName{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 258) ConnectionHandler.getTheConnectionHandler().theNameFacade
+        if (this.getClassId() == 252) ConnectionHandler.getTheConnectionHandler().theNameFacade
             .newName(this.getId());
         super.store();
         if(this.getFromType() != null){
