@@ -16,6 +16,10 @@ server Server {
 	derived AccountTypeManager accountTypeManager;
 	derived AccountManager accountManager;
 
+	derived ObjectManager objectManager;
+	derived NameSchemeManager nameSchemeManager;
+	derived NameSchemeInstaceManager nameSchemeInstanceManager;
+
 	/** Type **/
 	void createAspect(AspectManager aspectManager, String name);
 	void createAtomicRootType(MAspect aspect, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
@@ -23,6 +27,11 @@ server Server {
 	void createSumType(MType** containees{typeManager;types});
 	void createProductType(MType** containees{typeManager;types});
 	//	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
+
+	void createMObject@@Exemplar_erstellen(MAtomicType type {typeManager;types}, MAtomicType** otherTypes {typeManager;types});	
+	void addType@@Typen_hinzufügen(MObject object, MAtomicType newType {typeManager;types});
+	void removeType@@Typen_entfernen(MObject object, MAtomicType oldType {;object;types});
+	void replaceType@@Typen_ersetzen(MObject object, MAtomicType oldType {;object;types}, MAtomicType newType {;oldType;aspect;types});
 
 	/** Manager zu AbstractOperation **/
 	derived AssociationManager associationManager;
@@ -95,6 +104,12 @@ server Server {
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
 	void createAccountType@@Kontotyp_anlegen(AccountTypeManager accountTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
 	void createAccount@@Konto_anlegen(AccountManager accountManager, String name, MAccountType type {accountTypeManager;accountTypes}, InstanceObject object);
+
+
+ 	/** Naming **/
+	void createNameScheme(String schemeName, String regExp);
+	void assignType(NameScheme scheme, MAtomicType type);
+	void assignName(MObject object, Name scheme {;object;types}, String name);
 }
 
 
@@ -121,6 +136,8 @@ part typeSystem {
 	/* Aspekte */
 	class MAspect@@Aspect {
 		prior indexed String name; 
+
+		derived MAtomicType ** types;
 	}
 	
 	/* Atomare Typen */
@@ -166,6 +183,11 @@ part typeSystem {
 	
 	/* Objekte */
 	class MObject {
+		MAtomicType ** types;
+
+		void addType(MAtomicType newType) throws ConsistencyException;
+		void removeType(MAtomicType oldType) throws ConsistencyException;
+		void replaceType(MAtomicType oldType, MAtomicType newType) throws ConsistencyException; 
 	}
 
 	/*** MANAGER ***/
@@ -194,8 +216,10 @@ part typeSystem {
 	singleton ObjectManager {
 		MObject** objects;
 		
-		active MObject createMObject(MAtomicType** types) throws ConsistencyException		
-
+		active MObject createMObject(MAtomicType type, MAtomicType** otherTypes) throws ConsistencyException		
+		active void addType(MObject object, MAtomicType newType) throws ConsistencyException;
+		active void removeType(MObject object, MAtomicType oldType) throws ConsistencyException;
+		active void replaceType(MObject object, MAtomicType oldType, MAtomicType newType) throws ConsistencyException;
 	}
 	
 	
@@ -327,6 +351,7 @@ part quantity {
 }
 
 
+/* Deprecated */
 class InstanceObject {
 	prior MAtomicType type;
 }
@@ -495,8 +520,50 @@ class Account extends QuantifObject {
 }
 
 
-/*** EXCEPTIONS ***/
+part naming {
+	class Name {
+		prior symmetric (possibleNames) MAtomicType fromType;
+		prior NameScheme nameScheme;
+	}
+	
+	class NameInstance {
+		prior Name type;
+		prior symmetric(names) MObject fromObject;
+		prior NameSchemeInstance nameScheme;
+	}
 
+
+	class NameScheme {
+		prior String regExpPattern;
+		indexed String name;
+
+		MBoolean match(String name);
+	}
+
+
+	class NameSchemeInstance##NSInst {
+		prior String name;
+		prior symmetric (names) NameScheme type;
+	}
+	
+
+	singleton NameSchemeManager {
+		NameScheme ** schemes;
+
+		active NameScheme createNameScheme(String regExpPattern);
+		active void assignNameScheme(MAtomicType type, NameScheme nameScheme);
+	}
+
+	singleton NameSchemeInstaceManager##NSIMngr {
+		active NameSchemeInstance createInstance(String name, NameScheme scheme) throws PatternNotMatchException;
+	
+		active void assignName(MObject object, Name name, String value) throws PatternNotMatchException;
+	}
+}
+
+
+/*** EXCEPTIONS ***/
+exception PatternNotMatchException{}
 exception DoubleDefinitionException{}
 exception ConsistencyException{}
 exception WrongSubTypeAspectException{}

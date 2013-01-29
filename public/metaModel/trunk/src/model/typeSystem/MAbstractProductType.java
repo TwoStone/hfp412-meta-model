@@ -33,7 +33,7 @@ public abstract class MAbstractProductType extends model.typeSystem.MComplexType
     }
     
     static public long getTypeId() {
-        return 134;
+        return 136;
     }
     
     public long getClassId() {

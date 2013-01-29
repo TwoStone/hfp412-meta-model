@@ -71,7 +71,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("name", this.getName());
-            result.put("types", this.getTypes().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
+            result.put("types", this.getTypes(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -106,7 +106,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     }
     
     static public long getTypeId() {
-        return 140;
+        return 142;
     }
     
     public long getClassId() {
@@ -115,7 +115,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 140) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
+        if (this.getClassId() == 142) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
             .newMAspect(name,this.getId());
         super.store();
         if(!this.equals(this.getThis())){
@@ -174,6 +174,12 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     }
     
     
+    public MAtomicTypeSearchList getTypes(final TDObserver observer) 
+				throws PersistenceException{
+        MAtomicTypeSearchList result = getThis().getTypes();
+		observer.updateTransientDerived(getThis(), "types", result);
+		return result;
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}

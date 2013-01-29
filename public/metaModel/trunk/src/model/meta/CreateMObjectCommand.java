@@ -37,7 +37,8 @@ public class CreateMObjectCommand extends PersistentObject implements Persistent
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected CreateMObjectCommand_TypesProxi types;
+    protected PersistentMAtomicType type;
+    protected CreateMObjectCommand_OtherTypesProxi otherTypes;
     protected Invoker invoker;
     protected PersistentObjectManager commandReceiver;
     protected PersistentMObject commandResult;
@@ -45,10 +46,11 @@ public class CreateMObjectCommand extends PersistentObject implements Persistent
     
     private model.UserException commandException = null;
     
-    public CreateMObjectCommand(Invoker invoker,PersistentObjectManager commandReceiver,PersistentMObject commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateMObjectCommand(PersistentMAtomicType type,Invoker invoker,PersistentObjectManager commandReceiver,PersistentMObject commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.types = new CreateMObjectCommand_TypesProxi(this);
+        this.type = type;
+        this.otherTypes = new CreateMObjectCommand_OtherTypesProxi(this);
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.commandResult = commandResult;
@@ -56,7 +58,7 @@ public class CreateMObjectCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 235;
+        return 101;
     }
     
     public long getClassId() {
@@ -65,10 +67,14 @@ public class CreateMObjectCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 235) ConnectionHandler.getTheConnectionHandler().theCreateMObjectCommandFacade
+        if (this.getClassId() == 101) ConnectionHandler.getTheConnectionHandler().theCreateMObjectCommandFacade
             .newCreateMObjectCommand(this.getId());
         super.store();
-        this.getTypes().store();
+        if(this.getType() != null){
+            this.getType().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateMObjectCommandFacade.typeSet(this.getId(), getType());
+        }
+        this.getOtherTypes().store();
         if(this.getInvoker() != null){
             this.getInvoker().store();
             ConnectionHandler.getTheConnectionHandler().theCreateMObjectCommandFacade.invokerSet(this.getId(), getInvoker());
@@ -88,8 +94,22 @@ public class CreateMObjectCommand extends PersistentObject implements Persistent
         
     }
     
-    public CreateMObjectCommand_TypesProxi getTypes() throws PersistenceException {
-        return this.types;
+    public PersistentMAtomicType getType() throws PersistenceException {
+        return this.type;
+    }
+    public void setType(PersistentMAtomicType newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.type)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.type = (PersistentMAtomicType)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateMObjectCommandFacade.typeSet(this.getId(), newValue);
+        }
+    }
+    public CreateMObjectCommand_OtherTypesProxi getOtherTypes() throws PersistenceException {
+        return this.otherTypes;
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -214,7 +234,8 @@ public class CreateMObjectCommand extends PersistentObject implements Persistent
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + this.getTypes().getLength()
+            + (this.getType() == null ? 0 : 1)
+            + this.getOtherTypes().getLength()
             + (this.getCommandReceiver() == null ? 0 : 1)
             + (this.getCommandResult() == null ? 0 : 1));
     }
@@ -223,7 +244,7 @@ public class CreateMObjectCommand extends PersistentObject implements Persistent
     public void execute() 
 				throws PersistenceException{
         try{
-			this.setCommandResult(this.getCommandReceiver().createMObject(this.getTypes().getList()));
+			this.setCommandResult(this.getCommandReceiver().createMObject(this.getType(), this.getOtherTypes().getList()));
 		}
 		catch(model.ConsistencyException e){
 			this.commandException = e;

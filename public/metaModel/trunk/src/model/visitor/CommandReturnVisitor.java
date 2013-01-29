@@ -1,7 +1,7 @@
 
 package model.visitor;
 
-public interface CommandReturnVisitor<R> extends AssociationManagerCommandReturnVisitor<R> ,AccountTypeManagerCommandReturnVisitor<R> ,TypeManagerCommandReturnVisitor<R> ,AspectManagerCommandReturnVisitor<R> ,MessageManagerCommandReturnVisitor<R> ,MeasurementTypeManagerCommandReturnVisitor<R> ,QuantityManagerCommandReturnVisitor<R> ,AccountManagerCommandReturnVisitor<R> ,ObjectManagerCommandReturnVisitor<R> ,UnitTypeManagerCommandReturnVisitor<R> ,LinkManagerCommandReturnVisitor<R> ,OperationManagerCommandReturnVisitor<R> ,ConversionManagerCommandReturnVisitor<R> {
+public interface CommandReturnVisitor<R> extends AspectManagerCommandReturnVisitor<R> ,MessageManagerCommandReturnVisitor<R> ,QuantityManagerCommandReturnVisitor<R> ,AccountManagerCommandReturnVisitor<R> ,UnitTypeManagerCommandReturnVisitor<R> ,AssociationManagerCommandReturnVisitor<R> ,TypeManagerCommandReturnVisitor<R> ,AccountTypeManagerCommandReturnVisitor<R> ,NameSchemeManagerCommandReturnVisitor<R> ,MeasurementTypeManagerCommandReturnVisitor<R> ,ObjectManagerCommandReturnVisitor<R> ,LinkManagerCommandReturnVisitor<R> ,NameSchemeInstaceManagerCommandReturnVisitor<R> ,OperationManagerCommandReturnVisitor<R> ,ConversionManagerCommandReturnVisitor<R> {
     
     
 }

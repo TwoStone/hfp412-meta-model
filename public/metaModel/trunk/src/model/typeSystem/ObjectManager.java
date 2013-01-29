@@ -1,17 +1,19 @@
-
 package model.typeSystem;
 
-import persistence.*;
+import model.ConsistencyException;
 import model.UserException;
-import model.visitor.*;
-
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.*;
 
 /* Additional import section end */
 
 public class ObjectManager extends PersistentObject implements PersistentObjectManager{
     
     private static PersistentObjectManager theObjectManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentObjectManager getTheObjectManager() throws PersistenceException{
         if (theObjectManager == null || reset$For$Test){
@@ -83,7 +85,7 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     }
     
     static public long getTypeId() {
-        return 237;
+        return 200;
     }
     
     public long getClassId() {
@@ -138,25 +140,57 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     }
     
     
-    public PersistentMObject createMObject(final MAtomicTypeSearchList types) 
+    public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType) 
 				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: createMObject
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"createMObject\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+		object.removeType(oldType);
+	}
+    public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
+				throws model.ConsistencyException, PersistenceException{
+		object.replaceType(oldType, newType);
+
+	}
+    public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveTypeCommand command = model.meta.RemoveTypeCommand.createRemoveTypeCommand(now, now);
+		command.setObject(object);
+		command.setOldType(oldType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+	}
+    public PersistentMObject createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes) 
+				throws model.ConsistencyException, PersistenceException{
+
+		final PersistentMObject newObject = MObject.createMObject(true);
+		newObject.addType(type);
+		otherTypes.applyToAllException(new ProcdureException<PersistentMAtomicType, ConsistencyException>() {
+
+			@Override
+			public void doItTo(PersistentMAtomicType argument) throws PersistenceException, ConsistencyException {
+				newObject.addType(argument);
+			}
+		});
+
+		this.getThis().getObjects().add(newObject);
+		return newObject;
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
+	}
+    public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentReplaceTypeCommand command = model.meta.ReplaceTypeCommand.createReplaceTypeCommand(now, now);
+		command.setObject(object);
+		command.setOldType(oldType);
+		command.setNewType(newType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -164,26 +198,39 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
 		if(this.equals(This)){
 		}
     }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
-    public void createMObject(final MAtomicTypeSearchList types, final Invoker invoker) 
+    public void createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentCreateMObjectCommand command = model.meta.CreateMObjectCommand.createCreateMObjectCommand(now, now);
-		java.util.Iterator<PersistentMAtomicType> typesIterator = types.iterator();
-		while(typesIterator.hasNext()){
-			command.getTypes().add(typesIterator.next());
+		command.setType(type);
+		java.util.Iterator<PersistentMAtomicType> otherTypesIterator = otherTypes.iterator();
+		while(otherTypesIterator.hasNext()){
+			command.getOtherTypes().add(otherTypesIterator.next());
 		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void addType(final PersistentMObject object, final PersistentMAtomicType newType) 
+				throws model.ConsistencyException, PersistenceException{
+		object.addType(newType);
+	}
+    public void addType(final PersistentMObject object, final PersistentMAtomicType newType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddTypeCommand command = model.meta.AddTypeCommand.createAddTypeCommand(now, now);
+		command.setObject(object);
+		command.setNewType(newType);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

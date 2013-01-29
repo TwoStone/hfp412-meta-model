@@ -694,11 +694,17 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 	public DetailPanelFactory(ExceptionAndEventHandler handler) {
 		this.handler = handler;
 	}
+    public void handleNameSchemeInstance(view.NameSchemeInstanceView object){
+        result = new NameSchemeInstanceDefaultDetailPanel(handler, object);
+    }
     public void handleCompoundQuantity(view.CompoundQuantityView object){
         result = new CompoundQuantityDefaultDetailPanel(handler, object);
     }
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
+    }
+    public void handleNameScheme(view.NameSchemeView object){
+        result = new NameSchemeDefaultDetailPanel(handler, object);
     }
     public void handleMAtomicType(view.MAtomicTypeView object){
         result = new MAtomicTypeDefaultDetailPanel(handler, object);
@@ -742,8 +748,14 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleInstanceObject(view.InstanceObjectView object){
         result = new InstanceObjectDefaultDetailPanel(handler, object);
     }
+    public void handleNameInstance(view.NameInstanceView object){
+        result = new NameInstanceDefaultDetailPanel(handler, object);
+    }
     public void handleMessage(view.MessageView object){
         result = new MessageDefaultDetailPanel(handler, object);
+    }
+    public void handleNameSchemeInstaceManager(view.NameSchemeInstaceManagerView object){
+        result = new NameSchemeInstaceManagerDefaultDetailPanel(handler, object);
     }
     public void handleFunction(view.FunctionView object){
         result = new FunctionDefaultDetailPanel(handler, object);
@@ -774,6 +786,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleQuantityManager(view.QuantityManagerView object){
         result = new QuantityManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleNameSchemeManager(view.NameSchemeManagerView object){
+        result = new NameSchemeManagerDefaultDetailPanel(handler, object);
     }
     public void handleAssociationManager(view.AssociationManagerView object){
         result = new AssociationManagerDefaultDetailPanel(handler, object);
@@ -832,6 +847,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleActualParameter(view.ActualParameterView object){
         result = new ActualParameterDefaultDetailPanel(handler, object);
     }
+    public void handleName(view.NameView object){
+        result = new NameDefaultDetailPanel(handler, object);
+    }
     public void handleObjectManager(view.ObjectManagerView object){
         result = new ObjectManagerDefaultDetailPanel(handler, object);
     }
@@ -839,6 +857,30 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 }
 
 
+
+@SuppressWarnings("serial")
+class NameSchemeInstanceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String NameSchemeInstance$$name = "NameSchemeInstance$$name";
+    protected static final String NameSchemeInstance$$type = "NameSchemeInstance$$type";
+    
+    protected NameSchemeInstanceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(NameSchemeInstance$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.NameSchemeInstanceView getAnything(){
+        return (view.NameSchemeInstanceView)this.anything;
+    }
+}
 
 @SuppressWarnings("serial")
 class CompoundQuantityDefaultDetailPanel extends DefaultDetailPanel{
@@ -868,6 +910,9 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Server$$measurementTypeManager = "Server$$measurementTypeManager";
     protected static final String Server$$accountTypeManager = "Server$$accountTypeManager";
     protected static final String Server$$accountManager = "Server$$accountManager";
+    protected static final String Server$$objectManager = "Server$$objectManager";
+    protected static final String Server$$nameSchemeManager = "Server$$nameSchemeManager";
+    protected static final String Server$$nameSchemeInstanceManager = "Server$$nameSchemeInstanceManager";
     protected static final String Server$$associationManager = "Server$$associationManager";
     protected static final String Server$$operationManager = "Server$$operationManager";
     protected static final String Server$$messageManager = "Server$$messageManager";
@@ -893,12 +938,45 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class NameSchemeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String NameScheme$$regExpPattern = "NameScheme$$regExpPattern";
+    protected static final String NameScheme$$name = "NameScheme$$name";
+    protected static final String NameScheme$$names = "NameScheme$$names";
+    
+    protected NameSchemeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "regExpPattern", this.getAnything().getRegExpPattern());
+            this.getScrollablePane().add(panel);
+            this.panels.put(NameScheme$$regExpPattern, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(NameScheme$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.NameSchemeView getAnything(){
+        return (view.NameSchemeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MAtomicType$$name = "MAtomicType$$name";
     protected static final String MAtomicType$$singletonType = "MAtomicType$$singletonType";
     protected static final String MAtomicType$$abstractType = "MAtomicType$$abstractType";
     protected static final String MAtomicType$$subTypes = "MAtomicType$$subTypes";
+    protected static final String MAtomicType$$possibleNames = "MAtomicType$$possibleNames";
     
     protected MAtomicTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1159,6 +1237,9 @@ class AccountTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MObject$$types = "MObject$$types";
+    protected static final String MObject$$names = "MObject$$names";
+    
     protected MObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
@@ -1187,6 +1268,24 @@ class InstanceObjectDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class NameInstanceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String NameInstance$$type = "NameInstance$$type";
+    protected static final String NameInstance$$fromObject = "NameInstance$$fromObject";
+    protected static final String NameInstance$$nameScheme = "NameInstance$$nameScheme";
+    
+    protected NameInstanceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.NameInstanceView getAnything(){
+        return (view.NameInstanceView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class MessageDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MessageOrLink$$source = "MessageOrLink$$source";
@@ -1202,6 +1301,20 @@ class MessageDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MessageView getAnything(){
         return (view.MessageView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class NameSchemeInstaceManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected NameSchemeInstaceManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.NameSchemeInstaceManagerView getAnything(){
+        return (view.NameSchemeInstaceManagerView)this.anything;
     }
 }
 
@@ -1405,6 +1518,22 @@ class QuantityManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.QuantityManagerView getAnything(){
         return (view.QuantityManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class NameSchemeManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String NameSchemeManager$$schemes = "NameSchemeManager$$schemes";
+    
+    protected NameSchemeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.NameSchemeManagerView getAnything(){
+        return (view.NameSchemeManagerView)this.anything;
     }
 }
 
@@ -1753,6 +1882,23 @@ class ActualParameterDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ActualParameterView getAnything(){
         return (view.ActualParameterView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class NameDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Name$$fromType = "Name$$fromType";
+    protected static final String Name$$nameScheme = "Name$$nameScheme";
+    
+    protected NameDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.NameView getAnything(){
+        return (view.NameView)this.anything;
     }
 }
 

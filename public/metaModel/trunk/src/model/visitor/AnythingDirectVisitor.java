@@ -11,6 +11,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException;
     
+    public abstract void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
+    
     public abstract void handleAbsUnitType(PersistentAbsUnitType absUnitType) throws PersistenceException;
     
     public void handleUnitType(PersistentUnitType unitType) throws PersistenceException{
@@ -19,9 +21,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException{
         this.handleAbsUnitType(compUnitType);
     }
-    public abstract void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
-    
     public abstract void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException;
+    
+    public abstract void handleNameSchemeManager(PersistentNameSchemeManager nameSchemeManager) throws PersistenceException;
     
     public abstract void handleQuantifObject(PersistentQuantifObject quantifObject) throws PersistenceException;
     
@@ -57,20 +59,26 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
     
-    public abstract void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;
+    public abstract void handleNameSchemeInstance(PersistentNameSchemeInstance nameSchemeInstance) throws PersistenceException;
     
-    public abstract void handleMObject(PersistentMObject mObject) throws PersistenceException;
+    public abstract void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;
     
     public abstract void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
         this.handleCommonDate(finishModelingCommand);
     }
+    public void handleCreateInstanceCommand(PersistentCreateInstanceCommand createInstanceCommand) throws PersistenceException{
+        this.handleCommonDate(createInstanceCommand);
+    }
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException{
         this.handleCommonDate(removeLinkCommand);
     }
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
         this.handleCommonDate(createMObjectCommand);
+    }
+    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
+        this.handleCommonDate(addTypeCommand);
     }
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException{
         this.handleCommonDate(createHierarchyCommand);
@@ -117,6 +125,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
         this.handleCommonDate(createAssociationCommand);
     }
+    public void handleRemoveTypeCommand(PersistentRemoveTypeCommand removeTypeCommand) throws PersistenceException{
+        this.handleCommonDate(removeTypeCommand);
+    }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.handleCommonDate(createQuantityCommand);
     }
@@ -150,6 +161,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleAddAssociationCommand(PersistentAddAssociationCommand addAssociationCommand) throws PersistenceException{
         this.handleCommonDate(addAssociationCommand);
     }
+    public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException{
+        this.handleCommonDate(replaceTypeCommand);
+    }
     public void handleRemoveOperationCommand(PersistentRemoveOperationCommand removeOperationCommand) throws PersistenceException{
         this.handleCommonDate(removeOperationCommand);
     }
@@ -162,11 +176,20 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException{
         this.handleCommonDate(createSumTypeCommand);
     }
+    public void handleAssignNameSchemeCommand(PersistentAssignNameSchemeCommand assignNameSchemeCommand) throws PersistenceException{
+        this.handleCommonDate(assignNameSchemeCommand);
+    }
     public void handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException{
         this.handleCommonDate(createOperationCommand);
     }
     public void handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException{
         this.handleCommonDate(removeFpFromOpCommand);
+    }
+    public void handleCreateNameSchemeCommand(PersistentCreateNameSchemeCommand createNameSchemeCommand) throws PersistenceException{
+        this.handleCommonDate(createNameSchemeCommand);
+    }
+    public void handleAssignNameCommand(PersistentAssignNameCommand assignNameCommand) throws PersistenceException{
+        this.handleCommonDate(assignNameCommand);
     }
     public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException{
         this.handleCommonDate(removeMessageCommand);
@@ -180,6 +203,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException{
         this.handleCommonDate(createFpCommand);
     }
+    public abstract void handleMObject(PersistentMObject mObject) throws PersistenceException;
+    
     public abstract void handleMessageOrLink(PersistentMessageOrLink messageOrLink) throws PersistenceException;
     
     public void handleLink(PersistentLink link) throws PersistenceException{
@@ -214,6 +239,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException;
     
+    public abstract void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException;
+    
     public abstract void handleMType(PersistentMType mType) throws PersistenceException;
     
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
@@ -233,6 +260,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     
+    public abstract void handleNameSchemeInstaceManager(PersistentNameSchemeInstaceManager nameSchemeInstaceManager) throws PersistenceException;
+    
     public abstract void handleFunction(PersistentFunction function) throws PersistenceException;
     
     public abstract void handleAbsUnit(PersistentAbsUnit absUnit) throws PersistenceException;
@@ -247,7 +276,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException;
     
+    public abstract void handleNameScheme(PersistentNameScheme nameScheme) throws PersistenceException;
+    
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
+    
+    public abstract void handleName(PersistentName name) throws PersistenceException;
     
     public abstract void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     
@@ -255,9 +288,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException;
     
-    public abstract void handleReference(PersistentReference reference) throws PersistenceException;
-    
     public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
+    
+    public abstract void handleReference(PersistentReference reference) throws PersistenceException;
     
     public abstract void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException;
     

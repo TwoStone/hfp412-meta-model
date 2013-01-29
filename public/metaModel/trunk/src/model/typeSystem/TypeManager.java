@@ -7,38 +7,14 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.MTypeSearchList;
-import persistence.PersistenceException;
-import persistence.PersistentCreateAtomicRootTypeCommand;
-import persistence.PersistentCreateAtomicSubTypeCommand;
-import persistence.PersistentCreateProductTypeCommand;
-import persistence.PersistentCreateSumTypeCommand;
-import persistence.PersistentMAbstractProductType;
-import persistence.PersistentMAbstractSumType;
-import persistence.PersistentMAspect;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
-import persistence.PersistentMType;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
-import persistence.PersistentTypeManager;
-import persistence.Predcate;
-import persistence.ProcdureException;
-import persistence.TDObserver;
-import persistence.TypeManagerProxi;
-import persistence.TypeManager_TypesProxi;
+import persistence.*;
 
 /* Additional import section end */
 
 public class TypeManager extends PersistentObject implements PersistentTypeManager{
     
     private static PersistentTypeManager theTypeManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentTypeManager getTheTypeManager() throws PersistenceException{
         if (theTypeManager == null || reset$For$Test){
@@ -110,7 +86,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     
     static public long getTypeId() {
-        return 167;
+        return 169;
     }
     
     public long getClassId() {
@@ -290,6 +266,8 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     public PersistentMAtomicType createAtomicSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws model.ConsistencyException, PersistenceException{
 		checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
+
+		// TODO Hier müsste man noch überprüfen, ob der SuperType abstrakt ist, wenn nicht -> Exception!
 		PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType,
 				superType.getAspect(), true);
 		try {

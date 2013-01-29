@@ -6,42 +6,8 @@ import model.UserException;
 import model.basic.MBoolean;
 import model.basic.MFalse;
 import model.basic.MTrue;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.MAtomicTypeHierarchyHIERARCHYExceptionVisitor;
-import model.visitor.MAtomicTypeHierarchyHIERARCHYReturnExceptionVisitor;
-import model.visitor.MAtomicTypeHierarchyHIERARCHYReturnVisitor;
-import model.visitor.MAtomicTypeHierarchyHIERARCHYVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
-import model.visitor.MTypeExceptionVisitor;
-import model.visitor.MTypeReturnExceptionVisitor;
-import model.visitor.MTypeReturnVisitor;
-import model.visitor.MTypeVisitor;
-import persistence.AbstractPersistentRoot;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.MAtomicTypeHierarchyHIERARCHY;
-import persistence.MAtomicTypeHierarchyHIERARCHYStrategy;
-import persistence.MAtomicTypeProxi;
-import persistence.MAtomicTypeSearchList;
-import persistence.MComplexTypeHierarchyHIERARCHY;
-import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
-import persistence.PersistenceException;
-import persistence.PersistentMAspect;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMEmptySumType;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
-import persistence.PersistentMType;
-import persistence.PersistentProxi;
-import persistence.TDObserver;
+import model.visitor.*;
+import persistence.*;
 
 /* Additional import section end */
 
@@ -120,6 +86,7 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
                 }
             }
             result.put("subTypes", this.getSubTypes().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
+            result.put("possibleNames", this.getPossibleNames().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -164,7 +131,7 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     }
     
     static public long getTypeId() {
-        return 112;
+        return 113;
     }
     
     public long getClassId() {
@@ -173,7 +140,7 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 112) ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+        if (this.getClassId() == 113) ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
             .newMAtomicType(name,this.getId());
         super.store();
         if(this.getSingletonType() != null){
@@ -320,10 +287,18 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
         return (int) (0 
             + (this.getSingletonType() == null ? 0 : 1)
             + (this.getAbstractType() == null ? 0 : 1)
-            + this.getSubTypes().getLength());
+            + this.getSubTypes().getLength()
+            + this.getPossibleNames().getLength());
     }
     
     
+    public NameSearchList getPossibleNames() 
+				throws PersistenceException{
+        NameSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameFacade
+							.inverseGetFromType(this.getId(), this.getClassId());
+		return result;
+    }
     public boolean containsMAtomicTypeHierarchy(final MAtomicTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;

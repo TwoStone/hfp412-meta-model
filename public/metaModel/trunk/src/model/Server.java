@@ -2,6 +2,7 @@ package model;
 
 import model.basic.MBoolean;
 import model.basic.MFalse;
+import model.basic.MTrue;
 import model.quantity.ConversionManager;
 import model.quantity.FractionManager;
 import model.quantity.QuantityManager;
@@ -9,63 +10,8 @@ import model.quantity.UnitType;
 import model.quantity.UnitTypeManager;
 import model.typeSystem.AspectManager;
 import model.typeSystem.TypeManager;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.InvokerExceptionVisitor;
-import model.visitor.InvokerReturnExceptionVisitor;
-import model.visitor.InvokerReturnVisitor;
-import model.visitor.InvokerVisitor;
-import model.visitor.RemoteExceptionVisitor;
-import model.visitor.RemoteReturnExceptionVisitor;
-import model.visitor.RemoteReturnVisitor;
-import model.visitor.RemoteVisitor;
-import persistence.AbstractPersistentRoot;
-import persistence.ActualParameterSearchList;
-import persistence.Anything;
-import persistence.Command;
-import persistence.ConnectionHandler;
-import persistence.FormalParameterSearchList;
-import persistence.MTypeSearchList;
-import persistence.PersistenceException;
-import persistence.PersistentAbsQuantity;
-import persistence.PersistentAbsUnit;
-import persistence.PersistentAccountManager;
-import persistence.PersistentAccountTypeManager;
-import persistence.PersistentAspectManager;
-import persistence.PersistentAssociation;
-import persistence.PersistentAssociationManager;
-import persistence.PersistentCompUnit;
-import persistence.PersistentCompUnitType;
-import persistence.PersistentConversionManager;
-import persistence.PersistentFormalParameter;
-import persistence.PersistentFractionManager;
-import persistence.PersistentHierarchy;
-import persistence.PersistentInstanceObject;
-import persistence.PersistentLink;
-import persistence.PersistentLinkManager;
-import persistence.PersistentMAccountType;
-import persistence.PersistentMAspect;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMType;
-import persistence.PersistentMeasurementTypeManager;
-import persistence.PersistentMessage;
-import persistence.PersistentMessageManager;
-import persistence.PersistentObject;
-import persistence.PersistentOperation;
-import persistence.PersistentOperationManager;
-import persistence.PersistentProxi;
-import persistence.PersistentQuantityManager;
-import persistence.PersistentServer;
-import persistence.PersistentTypeManager;
-import persistence.PersistentUnit;
-import persistence.PersistentUnitType;
-import persistence.PersistentUnitTypeManager;
-import persistence.ServerProxi;
-import persistence.ServerSearchList;
-import persistence.Server_ErrorsProxi;
-import persistence.TDObserver;
+import model.visitor.*;
+import persistence.*;
 
 /* Additional import section end */
 
@@ -210,6 +156,33 @@ public class Server extends PersistentObject implements PersistentServer{
                     if(forGUI && accountManager.hasEssentialFields())accountManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            AbstractPersistentRoot objectManager = (AbstractPersistentRoot)this.getObjectManager(tdObserver);
+            if (objectManager != null) {
+                result.put("objectManager", objectManager.createProxiInformation(false));
+                if(depth > 1) {
+                    objectManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && objectManager.hasEssentialFields())objectManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot nameSchemeManager = (AbstractPersistentRoot)this.getNameSchemeManager(tdObserver);
+            if (nameSchemeManager != null) {
+                result.put("nameSchemeManager", nameSchemeManager.createProxiInformation(false));
+                if(depth > 1) {
+                    nameSchemeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && nameSchemeManager.hasEssentialFields())nameSchemeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot nameSchemeInstanceManager = (AbstractPersistentRoot)this.getNameSchemeInstanceManager(tdObserver);
+            if (nameSchemeInstanceManager != null) {
+                result.put("nameSchemeInstanceManager", nameSchemeInstanceManager.createProxiInformation(false));
+                if(depth > 1) {
+                    nameSchemeInstanceManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && nameSchemeInstanceManager.hasEssentialFields())nameSchemeInstanceManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             AbstractPersistentRoot associationManager = (AbstractPersistentRoot)this.getAssociationManager(tdObserver);
             if (associationManager != null) {
                 result.put("associationManager", associationManager.createProxiInformation(false));
@@ -299,7 +272,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     static public long getTypeId() {
-        return -111;
+        return -112;
     }
     
     public long getClassId() {
@@ -308,7 +281,7 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == -111) ConnectionHandler.getTheConnectionHandler().theServerFacade
+        if (this.getClassId() == -112) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
         super.store();
         if(!this.equals(this.getThis())){
@@ -421,6 +394,9 @@ public class Server extends PersistentObject implements PersistentServer{
             + (this.getMeasurementTypeManager() == null ? 0 : 1)
             + (this.getAccountTypeManager() == null ? 0 : 1)
             + (this.getAccountManager() == null ? 0 : 1)
+            + (this.getObjectManager() == null ? 0 : 1)
+            + (this.getNameSchemeManager() == null ? 0 : 1)
+            + (this.getNameSchemeInstanceManager() == null ? 0 : 1)
             + (this.getAssociationManager() == null ? 0 : 1)
             + (this.getOperationManager() == null ? 0 : 1)
             + (this.getMessageManager() == null ? 0 : 1)
@@ -428,40 +404,17 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     
-    public PersistentAccountTypeManager getAccountTypeManager() 
+    public PersistentObjectManager getObjectManager() 
 				throws PersistenceException{
-		return model.measurement.AccountTypeManager.getTheAccountTypeManager();
-	}
-    public PersistentTypeManager getTypeManager() 
-				throws PersistenceException{
-		return TypeManager.getTheTypeManager();
+		return model.typeSystem.ObjectManager.getTheObjectManager();
 	}
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         this.changed = signal;
     }
-    public void removeMessage(final PersistentMessage m) 
-				throws PersistenceException{
-		// TODO: implement method: removeMessage
-
-	}
     public void addConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
 				throws PersistenceException{
 		// TODO: implement method: addConversion
-
-	}
-    public void removeFromHierarchy(final PersistentHierarchy h, final PersistentAssociation a) 
-				throws PersistenceException{
-		// TODO: implement method: removeFromHierarchy
-
-	}
-    public void createSumType(final MTypeSearchList containees) 
-				throws PersistenceException{
-		getThis().getTypeManager().createSumType(containees, getThis());
-	}
-    public void createAssociation(final PersistentAssociationManager manager, final PersistentMType source, final PersistentMType target, final String name) 
-				throws PersistenceException{
-		// TODO: implement method: createAssociation
 
 	}
     public void createHierarchy(final PersistentAssociationManager manager, final PersistentAssociation a, final String name) 
@@ -469,41 +422,15 @@ public class Server extends PersistentObject implements PersistentServer{
 		// TODO: implement method: createHierarchy
 
 	}
-    public void publishCompUnit(final PersistentCompUnit compUnit) 
+    public PersistentNameSchemeManager getNameSchemeManager(final TDObserver observer) 
 				throws PersistenceException{
-		// TODO: implement method: publishCompUnit
-
-	}
-    public void createVoidOperation(final PersistentOperationManager operationManager, final PersistentMType source, final String name, final FormalParameterSearchList fp) 
-				throws PersistenceException{
-		// TODO: implement method: createVoidOperation
-
-	}
-    public void connected(final String user) 
-				throws PersistenceException{
-	}
-    public void createOperation(final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
-				throws PersistenceException{
-		// TODO: implement method: createOperation
-
-	}
-    public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
-				throws PersistenceException{
-		// TODO: implement method: createVoidOperation
-
-	}
-    public void createCompUnit(final PersistentUnitTypeManager manager, final PersistentCompUnitType compUnitType, final String name) 
-				throws PersistenceException{
-		// TODO: implement method: createCompUnit
-
-	}
+        PersistentNameSchemeManager result = getThis().getNameSchemeManager();
+		observer.updateTransientDerived(getThis(), "nameSchemeManager", result);
+		return result;
+    }
     public PersistentLinkManager getLinkManager() 
 				throws PersistenceException{
 		return model.messageOrLink.LinkManager.getTheLinkManager();
-	}
-    public PersistentAssociationManager getAssociationManager() 
-				throws PersistenceException{
-		return model.abstractOperation.AssociationManager.getTheAssociationManager();
 	}
     public PersistentAccountTypeManager getAccountTypeManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -511,22 +438,9 @@ public class Server extends PersistentObject implements PersistentServer{
 		observer.updateTransientDerived(getThis(), "accountTypeManager", result);
 		return result;
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public PersistentNameSchemeManager getNameSchemeManager() 
 				throws PersistenceException{
-	}
-    public void createUnitType(final PersistentUnitTypeManager manager, final String name) 
-				throws PersistenceException{
-		// TODO: implement method: createUnitType
-
-	}
-    public void createAccountType(final PersistentAccountTypeManager accountTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
-				throws PersistenceException{
-		accountTypeManager.createAccountType(name, type, unitType, this.getThis());
-	}
-    public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit, final common.Fraction f) 
-				throws PersistenceException{
-		// TODO: implement method: createQuantity
-
+		return model.naming.NameSchemeManager.getTheNameSchemeManager();
 	}
     public void createHierarchy(final PersistentAssociation a, final String name) 
 				throws PersistenceException{
@@ -555,13 +469,15 @@ public class Server extends PersistentObject implements PersistentServer{
 			}
 		}).start();
 	}
+    public PersistentNameSchemeInstaceManager getNameSchemeInstanceManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentNameSchemeInstaceManager result = getThis().getNameSchemeInstanceManager();
+		observer.updateTransientDerived(getThis(), "nameSchemeInstanceManager", result);
+		return result;
+    }
     public PersistentUnitTypeManager getUnitTypeManager() 
 				throws PersistenceException{
 		return UnitTypeManager.getTheUnitTypeManager();
-	}
-    public PersistentMessageManager getMessageManager() 
-				throws PersistenceException{
-		return model.messageOrLink.MessageManager.getTheMessageManager();
 	}
     public PersistentAspectManager getAspectManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -580,57 +496,9 @@ public class Server extends PersistentObject implements PersistentServer{
 		// TODO: implement method: createCompUnitType
 
 	}
-    public PersistentMessageManager getMessageManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentMessageManager result = getThis().getMessageManager();
-		observer.updateTransientDerived(getThis(), "messageManager", result);
-		return result;
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-
-		// TODO Das geht so nicht!!!! Auch hier die Methoden aus den Managern verwenden!!!!
-		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Gewicht"));
-		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Strecke"));
-		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("W??hrung"));
-		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Zeit"));
-
-		try {
-			PersistentMAspect aspect1 = getThis().getAspectManager().createAspect("Aspekt1");
-			PersistentMAtomicType a = getThis().getTypeManager().createAtomicRootType(aspect1, "A",
-					MFalse.getTheMFalse(), MFalse.getTheMFalse());
-			PersistentMAtomicType b = getThis().getTypeManager().createAtomicRootType(aspect1, "B",
-					MFalse.getTheMFalse(), MFalse.getTheMFalse());
-
-			PersistentMAtomicType c = getThis().getTypeManager().createAtomicSubType(a, "C", MFalse.getTheMFalse(),
-					MFalse.getTheMFalse());
-
-			MTypeSearchList addends = new MTypeSearchList();
-			addends.add(a);
-			addends.add(b);
-
-			getThis().getTypeManager().createSumType(addends);
-			// TODO TEST Das sollte jetzt eigentlich nicht gehen!
-			getThis().getTypeManager().createProductType(addends);
-
-		} catch (ConsistencyException e) {
-			System.err.println("Fehler bei der Initialisierung des Servers!");
-		}
-
-	}
-    public void createStaticMessage(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentInstanceObject target, final ActualParameterSearchList ap) 
-				throws PersistenceException{
-		// TODO: implement method: createStaticMessage
-
-	}
     public void createMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentInstanceObject source, final PersistentInstanceObject target, final ActualParameterSearchList ap) 
 				throws PersistenceException{
 		// TODO: implement method: createMessage
-
-	}
-    public void removeAssociation(final PersistentAssociation a) 
-				throws PersistenceException{
-		// TODO: implement method: removeAssociation
 
 	}
     public PersistentAbsQuantity mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2) 
@@ -643,41 +511,16 @@ public class Server extends PersistentObject implements PersistentServer{
 			throw uoe;
 		}
 	}
-    public PersistentAssociationManager getAssociationManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentAssociationManager result = getThis().getAssociationManager();
-		observer.updateTransientDerived(getThis(), "associationManager", result);
-		return result;
-    }
-    public void removeFp(final PersistentFormalParameter fp) 
-				throws PersistenceException{
-		// TODO: implement method: removeFp
-
-	}
     public PersistentFractionManager getFractionManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentFractionManager result = getThis().getFractionManager();
 		observer.updateTransientDerived(getThis(), "fractionManager", result);
 		return result;
     }
-    public PersistentAspectManager getAspectManager() 
-				throws PersistenceException{
-		return AspectManager.getTheAspectManager();
-	}
-    public PersistentConversionManager getConversionManager() 
-				throws PersistenceException{
-		return ConversionManager.getTheConversionManager();
-	}
     public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
 				throws PersistenceException{
 		// TODO: implement method: addFp
 
-	}
-    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final String singletonType, final String abstractType) 
-				throws PersistenceException{
-		getThis().getTypeManager().createAtomicRootType(aspect, typeName,
-				MBoolean.createFromFactoryString(singletonType), MBoolean.createFromFactoryString(abstractType),
-				getThis());
 	}
     public void createVoidMessage(final PersistentInstanceObject source, final PersistentOperation type, final ActualParameterSearchList ap) 
 				throws PersistenceException{
@@ -695,30 +538,15 @@ public class Server extends PersistentObject implements PersistentServer{
 		observer.updateTransientDerived(getThis(), "conversionManager", result);
 		return result;
     }
-    public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) 
-				throws PersistenceException{
-		// TODO: implement method: add
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"add\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
-    public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy) 
-				throws PersistenceException{
-		// TODO: implement method: addToHierarchy
-
-	}
     public PersistentMeasurementTypeManager getMeasurementTypeManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentMeasurementTypeManager result = getThis().getMeasurementTypeManager();
 		observer.updateTransientDerived(getThis(), "measurementTypeManager", result);
 		return result;
     }
-    public void addDefaultUnit(final PersistentUnitType type, final PersistentUnit defaultUnit) 
+    public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy) 
 				throws PersistenceException{
-		// TODO: implement method: addDefaultUnit
+		// TODO: implement method: addToHierarchy
 
 	}
     public void createFp(final PersistentOperationManager operationManager, final String name, final PersistentMType ofType) 
@@ -736,50 +564,27 @@ public class Server extends PersistentObject implements PersistentServer{
 		// TODO: implement method: createMessage
 
 	}
-    public PersistentFractionManager getFractionManager() 
-				throws PersistenceException{
-		return FractionManager.getTheFractionManager();
-	}
-    public void createAspect(final PersistentAspectManager aspectManager, final String name) 
-				throws PersistenceException{
-		aspectManager.createAspect(name, this.getThis());
-	}
-    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
-				throws PersistenceException{
-		getThis().getUnitTypeManager().addReferenceType(compUnitType, unitType, exponent, getThis());
-	}
-    public boolean hasChanged() 
-				throws PersistenceException{
-		boolean result = this.changed;
-		this.changed = false;
-		return result;
-	}
     public PersistentAccountManager getAccountManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentAccountManager result = getThis().getAccountManager();
 		observer.updateTransientDerived(getThis(), "accountManager", result);
 		return result;
     }
+    public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
+				throws PersistenceException{
+		this.getThis().getObjectManager().replaceType(object, oldType, newType, this.getThis());
+	}
     public PersistentTypeManager getTypeManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentTypeManager result = getThis().getTypeManager();
 		observer.updateTransientDerived(getThis(), "typeManager", result);
 		return result;
     }
-    public void createLink(final PersistentInstanceObject source, final PersistentAssociation type, final PersistentInstanceObject target) 
-				throws PersistenceException{
-		// TODO: implement method: createLink
-
-	}
     public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final String singletonType, final String abstractType) 
 				throws PersistenceException{
 		getThis().getTypeManager().createAtomicSubType(superType, typeName,
 				MBoolean.createFromFactoryString(singletonType), MBoolean.createFromFactoryString(abstractType),
 				getThis());
-	}
-    public PersistentMeasurementTypeManager getMeasurementTypeManager() 
-				throws PersistenceException{
-		return model.measurement.MeasurementTypeManager.getTheMeasurementTypeManager();
 	}
     public PersistentAbsQuantity div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) 
 				throws PersistenceException{
@@ -791,28 +596,18 @@ public class Server extends PersistentObject implements PersistentServer{
 			throw uoe;
 		}
 	}
-    public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
-				throws PersistenceException{
-		measurementTypeManager.createMeasurementType(name, type, unitType, this.getThis());
-	}
     public void createVoidMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentInstanceObject source, final ActualParameterSearchList ap) 
 				throws PersistenceException{
 		// TODO: implement method: createVoidMessage
 
 	}
+    public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
+				throws PersistenceException{
+		measurementTypeManager.createMeasurementType(name, type, unitType, this.getThis());
+	}
     public void createAccount(final PersistentAccountManager accountManager, final String name, final PersistentMAccountType type, final PersistentInstanceObject object) 
 				throws PersistenceException{
 		accountManager.createAccount(name, type, object, this.getThis());
-	}
-    public PersistentLinkManager getLinkManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentLinkManager result = getThis().getLinkManager();
-		observer.updateTransientDerived(getThis(), "linkManager", result);
-		return result;
-    }
-    public PersistentAccountManager getAccountManager() 
-				throws PersistenceException{
-		return model.measurement.AccountManager.getTheAccountManager();
 	}
     public PersistentQuantityManager getQuantityManager() 
 				throws PersistenceException{
@@ -823,54 +618,31 @@ public class Server extends PersistentObject implements PersistentServer{
 		// TODO: implement method: removeOperation
 
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public PersistentOperationManager getOperationManager() 
-				throws PersistenceException{
-		return model.abstractOperation.OperationManager.getTheOperationManager();
-	}
     public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
 				throws PersistenceException{
 		// TODO: implement method: addAssociation
 
 	}
-    public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
+    public PersistentOperationManager getOperationManager() 
 				throws PersistenceException{
-        PersistentQuantityManager result = getThis().getQuantityManager();
-		observer.updateTransientDerived(getThis(), "quantityManager", result);
-		return result;
-    }
-    public void createConstant(final PersistentOperationManager operationManager, final String name, final PersistentMType target) 
-				throws PersistenceException{
-		// TODO: implement method: createConstant
-
+		return model.abstractOperation.OperationManager.getTheOperationManager();
 	}
     public void createProductType(final MTypeSearchList containees) 
 				throws PersistenceException{
 		getThis().getTypeManager().createProductType(containees, getThis());
+	}
+    public void createConstant(final PersistentOperationManager operationManager, final String name, final PersistentMType target) 
+				throws PersistenceException{
+		// TODO: implement method: createConstant
+
 	}
     public void removeLink(final PersistentLink link) 
 				throws PersistenceException{
 		// TODO: implement method: removeLink
 
 	}
-    public void createStaticOp(final PersistentOperationManager operationManager, final String name, final PersistentMType target, final FormalParameterSearchList fp) 
-				throws PersistenceException{
-		// TODO: implement method: createStaticOp
-
-	}
     public void disconnected() 
 				throws PersistenceException{
-	}
-    public void finishModeling(final PersistentCompUnitType compUnitType) 
-				throws PersistenceException{
-		getThis().getUnitTypeManager().finishModeling(compUnitType, getThis());
-	}
-    public void createOperation(final PersistentOperationManager operationManager, final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
-				throws PersistenceException{
-		// TODO: implement method: createOperation
-
 	}
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -891,20 +663,9 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
     }
-    public void createConst(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentInstanceObject target) 
+    public void addType(final PersistentMObject object, final PersistentMAtomicType newType) 
 				throws PersistenceException{
-		// TODO: implement method: createConst
-
-	}
-    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend, final PersistentAbsQuantity subtrahend) 
-				throws PersistenceException{
-		// TODO: implement method: sub
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"sub\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		this.getThis().getObjectManager().addType(object, newType, this.getThis());
 	}
     public void removeFpFromOp(final PersistentOperation operation, final PersistentFormalParameter fp) 
 				throws PersistenceException{
@@ -917,6 +678,287 @@ public class Server extends PersistentObject implements PersistentServer{
 		observer.updateTransientDerived(getThis(), "operationManager", result);
 		return result;
     }
+    public PersistentTypeManager getTypeManager() 
+				throws PersistenceException{
+		return TypeManager.getTheTypeManager();
+	}
+    public PersistentAccountTypeManager getAccountTypeManager() 
+				throws PersistenceException{
+		return model.measurement.AccountTypeManager.getTheAccountTypeManager();
+	}
+    public void removeMessage(final PersistentMessage m) 
+				throws PersistenceException{
+		// TODO: implement method: removeMessage
+
+	}
+    public void createAssociation(final PersistentAssociationManager manager, final PersistentMType source, final PersistentMType target, final String name) 
+				throws PersistenceException{
+		// TODO: implement method: createAssociation
+
+	}
+    public void createSumType(final MTypeSearchList containees) 
+				throws PersistenceException{
+		getThis().getTypeManager().createSumType(containees, getThis());
+	}
+    public void removeFromHierarchy(final PersistentHierarchy h, final PersistentAssociation a) 
+				throws PersistenceException{
+		// TODO: implement method: removeFromHierarchy
+
+	}
+    public void publishCompUnit(final PersistentCompUnit compUnit) 
+				throws PersistenceException{
+		// TODO: implement method: publishCompUnit
+
+	}
+    public void createVoidOperation(final PersistentOperationManager operationManager, final PersistentMType source, final String name, final FormalParameterSearchList fp) 
+				throws PersistenceException{
+		// TODO: implement method: createVoidOperation
+
+	}
+    public void connected(final String user) 
+				throws PersistenceException{
+	}
+    public void createOperation(final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
+				throws PersistenceException{
+		// TODO: implement method: createOperation
+
+	}
+    public void createCompUnit(final PersistentUnitTypeManager manager, final PersistentCompUnitType compUnitType, final String name) 
+				throws PersistenceException{
+		// TODO: implement method: createCompUnit
+
+	}
+    public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
+				throws PersistenceException{
+		// TODO: implement method: createVoidOperation
+
+	}
+    public PersistentAssociationManager getAssociationManager() 
+				throws PersistenceException{
+		return model.abstractOperation.AssociationManager.getTheAssociationManager();
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public void createUnitType(final PersistentUnitTypeManager manager, final String name) 
+				throws PersistenceException{
+		// TODO: implement method: createUnitType
+
+	}
+    public void createAccountType(final PersistentAccountTypeManager accountTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
+				throws PersistenceException{
+		accountTypeManager.createAccountType(name, type, unitType, this.getThis());
+	}
+    public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit, final common.Fraction f) 
+				throws PersistenceException{
+		// TODO: implement method: createQuantity
+
+	}
+    public PersistentMessageManager getMessageManager() 
+				throws PersistenceException{
+		return model.messageOrLink.MessageManager.getTheMessageManager();
+	}
+    public PersistentMessageManager getMessageManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentMessageManager result = getThis().getMessageManager();
+		observer.updateTransientDerived(getThis(), "messageManager", result);
+		return result;
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+
+		// TODO Das geht so nicht!!!! Auch hier die Methoden aus den Managern verwenden!!!!
+		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Gewicht"));
+		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Strecke"));
+		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Währung"));
+		getThis().getUnitTypeManager().getUnitTypes().add(UnitType.createUnitType("Zeit"));
+
+		try {
+			PersistentMAspect aspect1 = getThis().getAspectManager().createAspect("Aspekt1");
+			PersistentMAtomicType a = getThis().getTypeManager().createAtomicRootType(aspect1, "A",
+					MFalse.getTheMFalse(), MFalse.getTheMFalse());
+			PersistentMAtomicType b = getThis().getTypeManager().createAtomicRootType(aspect1, "B",
+					MFalse.getTheMFalse(), MFalse.getTheMFalse());
+
+			PersistentMAtomicType c = getThis().getTypeManager().createAtomicSubType(a, "C", MFalse.getTheMFalse(),
+					MFalse.getTheMFalse());
+			PersistentMAspect aspect2 = getThis().getAspectManager().createAspect("Aspekt2");
+
+			PersistentMAspect genderAspect = getThis().getAspectManager().createAspect("Geschlecht");
+
+			getThis().getTypeManager().createAtomicRootType(genderAspect, "männlich", MTrue.getTheMTrue(),
+					MFalse.getTheMFalse());
+			getThis().getTypeManager().createAtomicRootType(genderAspect, "weiblich", MTrue.getTheMTrue(),
+					MFalse.getTheMFalse());
+
+			MTypeSearchList addends = new MTypeSearchList();
+			addends.add(a);
+			addends.add(b);
+
+			getThis().getTypeManager().createSumType(addends);
+			// TODO TEST Das sollte jetzt eigentlich nicht gehen!
+			getThis().getTypeManager().createProductType(addends);
+
+		} catch (ConsistencyException e) {
+			System.err.println("Fehler bei der Initialisierung des Servers!");
+		}
+
+	}
+    public void createStaticMessage(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentInstanceObject target, final ActualParameterSearchList ap) 
+				throws PersistenceException{
+		// TODO: implement method: createStaticMessage
+
+	}
+    public void removeAssociation(final PersistentAssociation a) 
+				throws PersistenceException{
+		// TODO: implement method: removeAssociation
+
+	}
+    public void removeFp(final PersistentFormalParameter fp) 
+				throws PersistenceException{
+		// TODO: implement method: removeFp
+
+	}
+    public PersistentAssociationManager getAssociationManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentAssociationManager result = getThis().getAssociationManager();
+		observer.updateTransientDerived(getThis(), "associationManager", result);
+		return result;
+    }
+    public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType) 
+				throws PersistenceException{
+		this.getThis().getObjectManager().removeType(object, oldType, this.getThis());
+	}
+    public PersistentAspectManager getAspectManager() 
+				throws PersistenceException{
+		return AspectManager.getTheAspectManager();
+	}
+    public void createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes) 
+				throws PersistenceException{
+		this.getThis().getObjectManager().createMObject(type, otherTypes, this.getThis());
+	}
+    public PersistentConversionManager getConversionManager() 
+				throws PersistenceException{
+		return ConversionManager.getTheConversionManager();
+	}
+    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final String singletonType, final String abstractType) 
+				throws PersistenceException{
+		getThis().getTypeManager().createAtomicRootType(aspect, typeName,
+				MBoolean.createFromFactoryString(singletonType), MBoolean.createFromFactoryString(abstractType),
+				getThis());
+	}
+    public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) 
+				throws PersistenceException{
+		// TODO: implement method: add
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"add\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
+    public void addDefaultUnit(final PersistentUnitType type, final PersistentUnit defaultUnit) 
+				throws PersistenceException{
+		// TODO: implement method: addDefaultUnit
+
+	}
+    public PersistentFractionManager getFractionManager() 
+				throws PersistenceException{
+		return FractionManager.getTheFractionManager();
+	}
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
+				throws PersistenceException{
+		getThis().getUnitTypeManager().addReferenceType(compUnitType, unitType, exponent, getThis());
+	}
+    public void createAspect(final PersistentAspectManager aspectManager, final String name) 
+				throws PersistenceException{
+		aspectManager.createAspect(name, this.getThis());
+	}
+    public boolean hasChanged() 
+				throws PersistenceException{
+		boolean result = this.changed;
+		this.changed = false;
+		return result;
+	}
+    public void createLink(final PersistentInstanceObject source, final PersistentAssociation type, final PersistentInstanceObject target) 
+				throws PersistenceException{
+		// TODO: implement method: createLink
+
+	}
+    public PersistentMeasurementTypeManager getMeasurementTypeManager() 
+				throws PersistenceException{
+		return model.measurement.MeasurementTypeManager.getTheMeasurementTypeManager();
+	}
+    public PersistentLinkManager getLinkManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentLinkManager result = getThis().getLinkManager();
+		observer.updateTransientDerived(getThis(), "linkManager", result);
+		return result;
+    }
+    public PersistentAccountManager getAccountManager() 
+				throws PersistenceException{
+		return model.measurement.AccountManager.getTheAccountManager();
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentQuantityManager result = getThis().getQuantityManager();
+		observer.updateTransientDerived(getThis(), "quantityManager", result);
+		return result;
+    }
+    public PersistentNameSchemeInstaceManager getNameSchemeInstanceManager() 
+				throws PersistenceException{
+		return model.naming.NameSchemeInstaceManager.getTheNameSchemeInstaceManager();
+	}
+    public void createStaticOp(final PersistentOperationManager operationManager, final String name, final PersistentMType target, final FormalParameterSearchList fp) 
+				throws PersistenceException{
+		// TODO: implement method: createStaticOp
+
+	}
+    public void finishModeling(final PersistentCompUnitType compUnitType) 
+				throws PersistenceException{
+		getThis().getUnitTypeManager().finishModeling(compUnitType, getThis());
+	}
+    public void createOperation(final PersistentOperationManager operationManager, final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
+				throws PersistenceException{
+		// TODO: implement method: createOperation
+
+	}
+    public void createNameScheme(final String schemeName, final String regExp) 
+				throws PersistenceException{
+		this.getThis().getNameSchemeManager().createNameScheme(regExp, this.getThis());
+	}
+    public void createConst(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentInstanceObject target) 
+				throws PersistenceException{
+		// TODO: implement method: createConst
+
+	}
+    public PersistentObjectManager getObjectManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentObjectManager result = getThis().getObjectManager();
+		observer.updateTransientDerived(getThis(), "objectManager", result);
+		return result;
+    }
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend, final PersistentAbsQuantity subtrahend) 
+				throws PersistenceException{
+		// TODO: implement method: sub
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"sub\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
+    public void assignName(final PersistentMObject object, final PersistentName scheme, final String name) 
+				throws PersistenceException{
+		this.getThis().getNameSchemeInstanceManager().assignName(object, scheme, name, this.getThis());
+	}
+    public void assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type) 
+				throws PersistenceException{
+		this.getThis().getNameSchemeManager().assignNameScheme(type, scheme);
+	}
     public void createLink(final PersistentLinkManager link, final PersistentAssociation type, final PersistentInstanceObject source, final PersistentInstanceObject target) 
 				throws PersistenceException{
 		// TODO: implement method: createLink

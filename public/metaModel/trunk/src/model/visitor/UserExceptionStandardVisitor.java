@@ -17,6 +17,9 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException{
         this.standardHandling(cycleException);
     }
+    public void handlePatternNotMatchException(model.PatternNotMatchException patternNotMatchException) throws PersistenceException{
+        this.standardHandling(patternNotMatchException);
+    }
     public void handleNotAvailableException(model.NotAvailableException notAvailableException) throws PersistenceException{
         this.standardHandling(notAvailableException);
     }
