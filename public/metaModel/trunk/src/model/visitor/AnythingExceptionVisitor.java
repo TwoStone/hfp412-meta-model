@@ -10,6 +10,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsOp
     public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException, E;
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException, E;
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException, E;
+    public void handleRemoveUnitTypeCommand(PersistentRemoveUnitTypeCommand removeUnitTypeCommand) throws PersistenceException, E;
     public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException, E;
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException, E;
     public void handleNameSchemeInstance(PersistentNameSchemeInstance nameSchemeInstance) throws PersistenceException, E;
@@ -68,8 +69,9 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsOp
     public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException, E;
     public void handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException, E;
     public void handleAssignNameSchemeCommand(PersistentAssignNameSchemeCommand assignNameSchemeCommand) throws PersistenceException, E;
-    public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException, E;
     public void handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException, E;
+    public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException, E;
+    public void handleRemoveUnitCommand(PersistentRemoveUnitCommand removeUnitCommand) throws PersistenceException, E;
     public void handleConversion(PersistentConversion conversion) throws PersistenceException, E;
     public void handleReference(PersistentReference reference) throws PersistenceException, E;
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException, E;
@@ -84,6 +86,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends AbsOp
     public void handleName(PersistentName name) throws PersistenceException, E;
     public void handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException, E;
     public void handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException, E;
+    public void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException, E;
     public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException, E;
     public void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException, E;
     public void handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException, E;

@@ -847,6 +847,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleName(view.NameView object){
         result = new NameDefaultDetailPanel(handler, object);
     }
+    public void handleFunctionManager(view.FunctionManagerView object){
+        result = new FunctionManagerDefaultDetailPanel(handler, object);
+    }
     public void handleObjectManager(view.ObjectManagerView object){
         result = new ObjectManagerDefaultDetailPanel(handler, object);
     }
@@ -1878,6 +1881,22 @@ class NameDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.NameView getAnything(){
         return (view.NameView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class FunctionManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String FunctionManager$$functions = "FunctionManager$$functions";
+    
+    protected FunctionManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.FunctionManagerView getAnything(){
+        return (view.FunctionManagerView)this.anything;
     }
 }
 

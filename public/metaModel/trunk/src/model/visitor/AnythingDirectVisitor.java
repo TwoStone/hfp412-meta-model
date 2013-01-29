@@ -90,6 +90,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException{
         this.handleCommonDate(createUnitTypeCommand);
     }
+    public void handleRemoveUnitTypeCommand(PersistentRemoveUnitTypeCommand removeUnitTypeCommand) throws PersistenceException{
+        this.handleCommonDate(removeUnitTypeCommand);
+    }
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException{
         this.handleCommonDate(createMeasurementTypeCommand);
     }
@@ -188,6 +191,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException{
         this.handleCommonDate(removeFpFromOpCommand);
+    }
+    public void handleRemoveUnitCommand(PersistentRemoveUnitCommand removeUnitCommand) throws PersistenceException{
+        this.handleCommonDate(removeUnitCommand);
     }
     public void handleCreateNameSchemeCommand(PersistentCreateNameSchemeCommand createNameSchemeCommand) throws PersistenceException{
         this.handleCommonDate(createNameSchemeCommand);
@@ -291,6 +297,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handleMAspect(PersistentMAspect mAspect) throws PersistenceException;
     
     public abstract void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException;
+    
+    public abstract void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException;
     
     public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
     

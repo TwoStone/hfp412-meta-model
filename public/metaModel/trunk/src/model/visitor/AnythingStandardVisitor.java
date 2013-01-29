@@ -14,6 +14,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createUnitTypeCommand);
     }
+    public void handleRemoveUnitTypeCommand(PersistentRemoveUnitTypeCommand removeUnitTypeCommand) throws PersistenceException{
+        this.standardHandling(removeUnitTypeCommand);
+    }
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.standardHandling(createUnitCommand);
     }
@@ -242,11 +245,14 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException{
         this.standardHandling(fractionManager);
     }
-    public void handleConversion(PersistentConversion conversion) throws PersistenceException{
-        this.standardHandling(conversion);
+    public void handleRemoveUnitCommand(PersistentRemoveUnitCommand removeUnitCommand) throws PersistenceException{
+        this.standardHandling(removeUnitCommand);
     }
     public void handleReference(PersistentReference reference) throws PersistenceException{
         this.standardHandling(reference);
+    }
+    public void handleConversion(PersistentConversion conversion) throws PersistenceException{
+        this.standardHandling(conversion);
     }
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
         this.standardHandling(finishModelingCommand);
@@ -257,11 +263,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAccount(PersistentAccount account) throws PersistenceException{
         this.standardHandling(account);
     }
-    public void handleUnitType(PersistentUnitType unitType) throws PersistenceException{
-        this.standardHandling(unitType);
-    }
     public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException{
         this.standardHandling(mFalse);
+    }
+    public void handleUnitType(PersistentUnitType unitType) throws PersistenceException{
+        this.standardHandling(unitType);
     }
     public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException{
         this.standardHandling(measurementTypeManager);
@@ -304,6 +310,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException{
         this.standardHandling(removeFpFromOpCommand);
+    }
+    public void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException{
+        this.standardHandling(functionManager);
     }
     public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException{
         this.standardHandling(removeMessageCommand);

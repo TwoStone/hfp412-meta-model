@@ -18,6 +18,7 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
 import persistence.PersistenceException;
+import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentAddReferenceCommand;
 import persistence.PersistentAddReferenceTypeCommand;
@@ -34,6 +35,8 @@ import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentReference;
 import persistence.PersistentReferenceType;
+import persistence.PersistentRemoveUnitCommand;
+import persistence.PersistentRemoveUnitTypeCommand;
 import persistence.PersistentSetConversionCommand;
 import persistence.PersistentSetDefaultUnitCommand;
 import persistence.PersistentUnit;
@@ -190,18 +193,9 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     
     
-    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddReferenceTypeCommand command = model.meta.AddReferenceTypeCommand.createAddReferenceTypeCommand(exponent, now, now);
-		command.setCompUnitType(compUnitType);
-		command.setUnitType(unitType);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
+    public void addReference(final PersistentCompUnit compUnit, final PersistentUnit unit, final long exponent) 
+				throws model.DoubleDefinitionException, PersistenceException{
+		// TODO: implement method: addReference
 
 	}
     public void createUnit(final String name, final PersistentUnitType type) 
@@ -211,11 +205,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION + name);
 		}
 		getThis().getUnits().add(Unit.createUnit(type, name));
-
-	}
-    public void addReference(final PersistentCompUnit compUnit, final PersistentUnit unit, final long exponent) 
-				throws model.DoubleDefinitionException, PersistenceException{
-		// TODO: implement method: addReference
 
 	}
     public UnitTypeSearchList getAtomicUnitTypes() 
@@ -240,30 +229,11 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 
 		return result;
 	}
-    public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentSetConversionCommand command = model.meta.SetConversionCommand.createSetConversionCommand(factor, constant, now, now);
-		command.setUnit(unit);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void createCompUnit(final String name, final PersistentCompUnitType type, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentCreateCompUnitCommand command = model.meta.CreateCompUnitCommand.createCreateCompUnitCommand(name, now, now);
 		command.setType(type);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void addReference(final PersistentCompUnit compUnit, final PersistentUnit unit, final long exponent, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddReferenceCommand command = model.meta.AddReferenceCommand.createAddReferenceCommand(exponent, now, now);
-		command.setCompUnit(compUnit);
-		command.setUnit(unit);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -274,10 +244,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		observer.updateTransientDerived(getThis(), "atomicUnitTypes", result);
 		return result;
     }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-
-	}
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
 				throws model.DoubleDefinitionException, model.AlreadyFinalizedException, PersistenceException{
 		// ---> isFinal-Attribut pr?fen
@@ -367,12 +333,100 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		this.getThis().getUnits().add(newCompUnit);
 
 	}
-    public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 
-		// TODO: Conversion ändern, wenn schon vorhanden
-		// TODO: Doppelte Functions?
-		Conversion.createConversion(unit, Function.createFunction(factor, constant));
+	}
+    public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentSetDefaultUnitCommand command = model.meta.SetDefaultUnitCommand.createSetDefaultUnitCommand(now, now);
+		command.setType(type);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createUnitType(final String name, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateUnitTypeCommand command = model.meta.CreateUnitTypeCommand.createCreateUnitTypeCommand(name, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createCompUnitType(final String name) 
+				throws model.DoubleDefinitionException, PersistenceException{
+		AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
+		}
+		this.getThis().getUnitTypes().add(CompUnitType.createCompUnitType(name));
+
+	}
+    public void removeUnit(final PersistentAbsUnit unit, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveUnitCommand command = model.meta.RemoveUnitCommand.createRemoveUnitCommand(now, now);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void removeUnitType(final PersistentAbsUnitType type) 
+				throws PersistenceException{
+		// TODO: implement method: removeUnitType
+
+	}
+    public void createUnit(final String name, final PersistentUnitType type, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateUnitCommand command = model.meta.CreateUnitCommand.createCreateUnitCommand(name, now, now);
+		command.setType(type);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddReferenceTypeCommand command = model.meta.AddReferenceTypeCommand.createAddReferenceTypeCommand(exponent, now, now);
+		command.setCompUnitType(compUnitType);
+		command.setUnitType(unitType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+
+	}
+    public void removeUnit(final PersistentAbsUnit unit) 
+				throws PersistenceException{
+		// TODO: implement method: removeUnit
+
+	}
+    public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentSetConversionCommand command = model.meta.SetConversionCommand.createSetConversionCommand(factor, constant, now, now);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void addReference(final PersistentCompUnit compUnit, final PersistentUnit unit, final long exponent, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddReferenceCommand command = model.meta.AddReferenceCommand.createAddReferenceCommand(exponent, now, now);
+		command.setCompUnit(compUnit);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
 
 	}
     public void finishModeling(final PersistentCompUnitType compUnitType, final Invoker invoker) 
@@ -384,6 +438,14 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
+				throws PersistenceException{
+
+		// TODO: Conversion ändern, wenn schon vorhanden
+		// TODO: Doppelte Functions?
+		Conversion.createConversion(unit, Function.createFunction(factor, constant));
+
+	}
     public void finishModeling(final PersistentCompUnitType compUnitType) 
 				throws model.AlreadyFinalizedException, PersistenceException{
 
@@ -409,24 +471,11 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 
 		compUnitType.finishModeling();
 	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-
-	}
-    public void createUnitType(final String name, final Invoker invoker) 
+    public void removeUnitType(final PersistentAbsUnitType type, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateUnitTypeCommand command = model.meta.CreateUnitTypeCommand.createCreateUnitTypeCommand(name, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentSetDefaultUnitCommand command = model.meta.SetDefaultUnitCommand.createSetDefaultUnitCommand(now, now);
+		PersistentRemoveUnitTypeCommand command = model.meta.RemoveUnitTypeCommand.createRemoveUnitTypeCommand(now, now);
 		command.setType(type);
-		command.setUnit(unit);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -437,19 +486,9 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		if(this.equals(This)){
 		}
     }
-    public void createCompUnitType(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-		AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
-		if (old.iterator().hasNext()) {
-			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
-		}
-		this.getThis().getUnitTypes().add(CompUnitType.createCompUnitType(name));
-
-	}
     public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit) 
 				throws PersistenceException{
-		// TODO: implement method: setDefaultUnit
-
+		type.setDefaultUnit(unit);
 	}
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
@@ -462,15 +501,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		this.getThis().getUnitTypes().add(UnitType.createUnitType(name));
 
 	}
-    public void createUnit(final String name, final PersistentUnitType type, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateUnitCommand command = model.meta.CreateUnitCommand.createCreateUnitCommand(name, now, now);
-		command.setType(type);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void createCompUnitType(final String name, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());

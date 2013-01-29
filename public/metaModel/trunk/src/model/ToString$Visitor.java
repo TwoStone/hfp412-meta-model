@@ -20,6 +20,7 @@ import persistence.PersistentConversion;
 import persistence.PersistentFormalParameter;
 import persistence.PersistentFractionManager;
 import persistence.PersistentFunction;
+import persistence.PersistentFunctionManager;
 import persistence.PersistentHierarchy;
 import persistence.PersistentInstanceObject;
 import persistence.PersistentLink;
@@ -439,5 +440,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleName(PersistentName name) throws PersistenceException {
 		result = name.getFromType().toString(true) + "->" + name.getNameScheme().toString(true);
+	}
+
+	@Override
+	public void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException {
+		// TODO Auto-generated method stub
+
 	}
 }

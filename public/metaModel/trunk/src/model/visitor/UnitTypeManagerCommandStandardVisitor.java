@@ -23,6 +23,9 @@ public abstract class UnitTypeManagerCommandStandardVisitor implements UnitTypeM
     public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException{
         this.standardHandling(setDefaultUnitCommand);
     }
+    public void handleRemoveUnitCommand(PersistentRemoveUnitCommand removeUnitCommand) throws PersistenceException{
+        this.standardHandling(removeUnitCommand);
+    }
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createCompUnitTypeCommand);
     }
@@ -31,6 +34,9 @@ public abstract class UnitTypeManagerCommandStandardVisitor implements UnitTypeM
     }
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException{
         this.standardHandling(createUnitTypeCommand);
+    }
+    public void handleRemoveUnitTypeCommand(PersistentRemoveUnitTypeCommand removeUnitTypeCommand) throws PersistenceException{
+        this.standardHandling(removeUnitTypeCommand);
     }
     protected abstract void standardHandling(UnitTypeManagerCommand unitTypeManagerCommand) throws PersistenceException;
 }
