@@ -38,7 +38,7 @@ public abstract class MType extends PersistentObject implements PersistentMType{
     }
     
     static public long getTypeId() {
-        return 172;
+        return 170;
     }
     
     public long getClassId() {
@@ -94,6 +94,13 @@ public abstract class MType extends PersistentObject implements PersistentMType{
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
+    }
+    public AbsOperationSearchList inverseGetSource() 
+				throws PersistenceException{
+        AbsOperationSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade
+							.inverseGetSource(this.getId(), this.getClassId());
+		return result;
     }
 
     /* Start of protected part that is not overridden by persistence generator */

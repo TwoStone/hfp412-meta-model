@@ -61,7 +61,7 @@ public class CreateOperationCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 178;
+        return 176;
     }
     
     public long getClassId() {
@@ -70,7 +70,7 @@ public class CreateOperationCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 178) ConnectionHandler.getTheConnectionHandler().theCreateOperationCommandFacade
+        if (this.getClassId() == 176) ConnectionHandler.getTheConnectionHandler().theCreateOperationCommandFacade
             .newCreateOperationCommand(name,this.getId());
         super.store();
         if(this.getSource() != null){

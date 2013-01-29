@@ -385,11 +385,11 @@ active void createOperation(MType source, MType target, String name, FormalParam
 active void createVoidOperation(MType source, String name, FormalParameter** fp) throws DoubleDefinitionException;
 active void createFp(String name, MType ofType) throws DoubleDefinitionException;
 
-active void addFp(Operation op, FormalParameter fp);
+active void addFp(Operation op, FormalParameter fp) throws ConsistencyException;
 active void addMultipleFp(Operation op, FormalParameter** fp);
-active void removeFpFromOp(Operation op, FormalParameter fp) throws NotAvailableException;
-active void removeFp(FormalParameter fp);
-active void removeOperation(Operation op);
+active void removeFpFromOp(Operation op, FormalParameter fp);
+active void removeFp(FormalParameter fp) throws ConsistencyException;
+active void removeOperation(Operation op) throws ConsistencyException;
 }
 
 class FormalParameter {
@@ -399,7 +399,7 @@ class FormalParameter {
 
 abstract class AbsOperation@@AbstractOperation {
     indexed prior String name;
-    prior MType source;
+    prior symmetric MType source;
     prior MType target;
     FormalParameter ** parameters;
 }
@@ -447,7 +447,7 @@ abstract class MessageOrLink {
 
 // TODO: Was ist mit statische Methoden und Methoden die void zurueck geben sollen? Source/Target 0..1? Eventuell noch mal spezialisieren
 class Message extends MessageOrLink {
-   prior Operation type;
+   prior symmetric Operation type;
 	ActualParameter** actualParameters;
 }
 

@@ -1,14 +1,19 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Iterator;
 
+import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
+import model.NotAvailableException;
+import model.abstractOperation.FormalParameter;
 import model.abstractOperation.Operation;
 import model.abstractOperation.OperationManager;
 import model.typeSystem.MEmptySumType;
@@ -20,6 +25,7 @@ import org.junit.Test;
 import persistence.PersistenceException;
 import persistence.PersistentAbsOperation;
 import persistence.PersistentAssociation;
+import persistence.PersistentFormalParameter;
 import persistence.PersistentOperation;
 import persistence.PersistentOperationManager;
 import persistence.Predcate;
@@ -54,8 +60,6 @@ public class OperationManagerTest extends AbstractTest {
 	public void equalNamedOperationsAreNotAllowed() throws DoubleDefinitionException, PersistenceException {
 		manager.createOperation(mat2, mat3, "test1", manager.getFormalParameters().getList());
 		manager.createOperation(mat3, mat4, "test1", manager.getFormalParameters().getList());
-
-		fail("Zwei Operationen mit gleichem Namen angelegt!");
 	}
 
 	@Test
@@ -65,10 +69,10 @@ public class OperationManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void listShouldContainOperationAfterInvocationOfCreateOperation() throws DoubleDefinitionException,
-			PersistenceException {
+	public void listShouldContainOperationAfterCreation() throws DoubleDefinitionException, PersistenceException {
 		String name = "einName";
 		manager.createOperation(mat2, mat3, name, manager.getFormalParameters().getList());
+
 		if (Operation.getAbsOperationByName(name).getLength() <= 0) {
 			fail("Operation wurde offenbar nicht erstellt!");
 		}
@@ -147,6 +151,106 @@ public class OperationManagerTest extends AbstractTest {
 				// erstmal nicht relevant.
 			}
 		});
+	}
+
+	@Test
+	public void listShouldNotContainOperationAfterRemove() throws DoubleDefinitionException, PersistenceException,
+			ConsistencyException {
+		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner", mat3, mat4);
+		manager.removeOperation(createOperation);
+		PersistentOperation found = manager.getOperations().getList().findFirst(new Predcate<PersistentOperation>() {
+
+			@Override
+			public boolean test(PersistentOperation argument) throws PersistenceException {
+				return argument.equals(createOperation);
+			}
+		});
+
+		assertNull(found);
+	}
+
+	@Test
+	public void removingOperationIsNotAllowedIfMessagesExists() throws PersistenceException {
+		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
+		// TODO: Messages loeschen oder Exception schmeissen?
+		fail("Noch nicht testbar da Objekte erstellt werden muessen");
+	}
+
+	@Test
+	public void operationShouldContainParameterAfterAdd() throws PersistenceException, ConsistencyException {
+		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
+		PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
+		manager.addFp(createOperation, param);
+
+		PersistentFormalParameter foundParam = createOperation.getParameters().findFirst(
+				new Predcate<PersistentFormalParameter>() {
+
+					@Override
+					public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+						return param.equals(argument);
+					}
+				});
+
+		assertNotNull(foundParam);
+	}
+
+	@Test(expected = DoubleDefinitionException.class)
+	public void equalNamedParametersInSameOperationAreNotAllowd() throws PersistenceException, ConsistencyException {
+		PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
+		PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "x");
+
+		PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
+		manager.addFp(createOperation, param);
+		manager.addFp(createOperation, param2);
+	}
+
+	@Test
+	public void operationShouldNotContainParameterAfterRemove() throws PersistenceException, NotAvailableException,
+			ConsistencyException {
+		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
+		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "y");
+
+		PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
+		manager.addFp(createOperation, param);
+		manager.addFp(createOperation, param2);
+
+		manager.removeFpFromOp(createOperation, param);
+
+		PersistentFormalParameter foundParam = createOperation.getParameters().findFirst(
+				new Predcate<PersistentFormalParameter>() {
+
+					@Override
+					public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+						return param.equals(argument);
+					}
+				});
+
+		assertNull(foundParam);
+	}
+
+	/**
+	 * Wenn ein Formalparameter von einer Operation benutzt wird, kann dieser nicht geloescht werden.
+	 * 
+	 * @throws PersistenceException
+	 * @throws NotAvailableException
+	 * @throws ConsistencyException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void removingUsedParametersIsNotAllowed() throws PersistenceException, NotAvailableException,
+			ConsistencyException {
+		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
+		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "y");
+
+		PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
+		manager.addFp(createOperation, param);
+		manager.addFp(createOperation, param2);
+
+		manager.removeFp(param);
+	}
+
+	@Test
+	public void removingFormalParameterIsNotAllowedIfActualParameterExists() throws PersistenceException {
+		fail("Noch nicht testbar da Objekte erstellt werden muessen");
 	}
 
 	/**

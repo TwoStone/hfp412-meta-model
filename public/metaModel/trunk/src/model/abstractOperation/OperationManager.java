@@ -46,7 +46,7 @@ import persistence.TDObserver;
 public class OperationManager extends PersistentObject implements PersistentOperationManager{
     
     private static PersistentOperationManager theOperationManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentOperationManager getTheOperationManager() throws PersistenceException{
         if (theOperationManager == null || reset$For$Test){
@@ -124,7 +124,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     
     static public long getTypeId() {
-        return 121;
+        return 120;
     }
     
     public long getClassId() {
@@ -309,7 +309,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		}));
 	}
     public void removeOperation(final PersistentOperation op) 
-				throws PersistenceException{
+				throws model.ConsistencyException, PersistenceException{
 		// TODO: implement method: removeOperation
 
 	}
@@ -354,7 +354,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void removeFp(final PersistentFormalParameter fp) 
-				throws PersistenceException{
+				throws model.ConsistencyException, PersistenceException{
 		// TODO: implement method: removeFp
 
 	}
@@ -374,7 +374,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
-				throws PersistenceException{
+				throws model.ConsistencyException, PersistenceException{
 		// TODO: implement method: addFp
 
 	}
@@ -403,7 +403,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 
 	}
     public void removeFpFromOp(final PersistentOperation op, final PersistentFormalParameter fp) 
-				throws model.NotAvailableException, PersistenceException{
+				throws PersistenceException{
 		// TODO: implement method: removeFpFromOp
 
 	}

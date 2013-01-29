@@ -38,7 +38,7 @@ import persistence.TDObserver;
 public class MEmptySumType extends model.typeSystem.MAbstractSumType implements PersistentMEmptySumType{
     
     private static PersistentMEmptySumType theMEmptySumType = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMEmptySumType getTheMEmptySumType() throws PersistenceException{
         if (theMEmptySumType == null || reset$For$Test){
@@ -105,7 +105,7 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
     }
     
     static public long getTypeId() {
-        return 187;
+        return 185;
     }
     
     public long getClassId() {
@@ -214,16 +214,6 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(getThis().equals(other));
 	}
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
-				throws PersistenceException{
-		// TODO: implement method: isLessOrEqual
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$containedTypes$$MEmptySumType = strategy.initialize$$MEmptySumType$$containedTypes(getThis(), parameter);
@@ -235,6 +225,16 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 		}
 		return strategy.finalize$$MEmptySumType(getThis(), parameter,result$$containedTypes$$MEmptySumType);
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+		// TODO: implement method: isLessOrEqual
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}

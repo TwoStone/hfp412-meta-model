@@ -56,7 +56,7 @@ import constants.ExceptionConstants;
 public class UnitTypeManager extends PersistentObject implements PersistentUnitTypeManager{
     
     private static PersistentUnitTypeManager theUnitTypeManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentUnitTypeManager getTheUnitTypeManager() throws PersistenceException{
         if (theUnitTypeManager == null || reset$For$Test){
@@ -133,7 +133,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     
     static public long getTypeId() {
-        return 171;
+        return 169;
     }
     
     public long getClassId() {
@@ -441,7 +441,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
 				throws PersistenceException{
 
-		// TODO: Conversion ändern, wenn schon vorhanden
+		// TODO: Conversion ??ndern, wenn schon vorhanden
 		// TODO: Doppelte Functions?
 		Conversion.createConversion(unit, Function.createFunction(factor, constant));
 

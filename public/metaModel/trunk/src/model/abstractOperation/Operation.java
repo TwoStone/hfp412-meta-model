@@ -85,7 +85,7 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
     }
     
     static public long getTypeId() {
-        return 148;
+        return 146;
     }
     
     public long getClassId() {
@@ -94,7 +94,7 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 148) ConnectionHandler.getTheConnectionHandler().theOperationFacade
+        if (this.getClassId() == 146) ConnectionHandler.getTheConnectionHandler().theOperationFacade
             .newOperation(name,this.getId());
         super.store();
         
@@ -168,6 +168,13 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
 			this.setSource((PersistentMType)final$$Fields.get("source"));
 			this.setTarget((PersistentMType)final$$Fields.get("target"));
 		}
+    }
+    public MessageSearchList inverseGetType() 
+				throws PersistenceException{
+        MessageSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageFacade
+							.inverseGetType(this.getId(), this.getClassId());
+		return result;
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

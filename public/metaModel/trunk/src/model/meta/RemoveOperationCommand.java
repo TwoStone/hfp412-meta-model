@@ -54,7 +54,7 @@ public class RemoveOperationCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 139;
+        return 137;
     }
     
     public long getClassId() {
@@ -63,7 +63,7 @@ public class RemoveOperationCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 139) ConnectionHandler.getTheConnectionHandler().theRemoveOperationCommandFacade
+        if (this.getClassId() == 137) ConnectionHandler.getTheConnectionHandler().theRemoveOperationCommandFacade
             .newRemoveOperationCommand(this.getId());
         super.store();
         if(this.getOp() != null){
@@ -215,8 +215,12 @@ public class RemoveOperationCommand extends PersistentObject implements Persiste
     
     public void execute() 
 				throws PersistenceException{
-        this.getCommandReceiver().removeOperation(this.getOp());
-		
+        try{
+			this.getCommandReceiver().removeOperation(this.getOp());
+		}
+		catch(model.ConsistencyException e){
+			this.commandException = e;
+		}
     }
     public void checkException() 
 				throws UserException, PersistenceException{
