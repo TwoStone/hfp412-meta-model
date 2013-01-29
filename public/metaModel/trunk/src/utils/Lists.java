@@ -97,7 +97,7 @@ public final class Lists {
 		}
 	}
 
-	public static <T> boolean isEmpty(Iterable<T> iterable) {
+	public static boolean isEmpty(Iterable<?> iterable) {
 		return !iterable.iterator().hasNext();
 	}
 
