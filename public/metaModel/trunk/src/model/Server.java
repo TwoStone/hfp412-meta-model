@@ -701,8 +701,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createUnit(final PersistentUnitTypeManager manager, final PersistentUnitType type, final String name)
 			throws PersistenceException {
-		// TODO: implement method: createUnit
-
+		manager.createUnit(name, type, this.getThis());
 	}
 
 	@Override
