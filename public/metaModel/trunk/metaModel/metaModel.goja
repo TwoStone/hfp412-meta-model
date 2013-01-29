@@ -17,7 +17,6 @@ server Server {
 
 	derived ObjectManager objectManager;
 	derived NameSchemeManager nameSchemeManager;
-	derived NameSchemeInstaceManager nameSchemeInstanceManager;
 
 	/** Type **/
 	void createAspect(AspectManager aspectManager, String name);
@@ -27,8 +26,9 @@ server Server {
 	void createProductType(MType** containees{typeManager;types});
 	//	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
 
+	/** Object **/
 	void createMObject@@Exemplar_erstellen(MAtomicType type {typeManager;types}, MAtomicType** otherTypes {typeManager;types});	
-	void addType@@Typen_hinzuf?gen(MObject object, MAtomicType newType {typeManager;types});
+	void addType@@Typen_hinzufügen(MObject object, MAtomicType newType {typeManager;types});
 	void removeType@@Typen_entfernen(MObject object, MAtomicType oldType {;object;types});
 	void replaceType@@Typen_ersetzen(MObject object, MAtomicType oldType {;object;types}, MAtomicType newType {;oldType;aspect;types});
 
@@ -107,9 +107,10 @@ server Server {
 
 
  	/** Naming **/
-	void createNameScheme(String schemeName, String regExp);
-	void assignType(NameScheme scheme, MAtomicType type);
-	void assignName(MObject object, Name scheme {;object;types}, String name);
+	void createNameScheme@@Namensschema_erstellen(NameSchemeManager manager, String schemeName, String regExp);
+	void assignType@@Typen_zuordnen(NameScheme scheme, MAtomicType type);
+	void assignNameScheme@@Namensschema_zuordnen(MAtomicType type, NameScheme scheme {nameSchemeManager;schemes});
+	void assignName@@Benennen(MObject object, Name scheme {;object;types}, String name);
 }
 
 
@@ -184,6 +185,8 @@ part typeSystem {
 	/* Objekte */
 	class MObject {
 		MAtomicType ** types;
+		
+		derived Name ** possibleNames;
 
 		void addType(MAtomicType newType) throws ConsistencyException;
 		void removeType(MAtomicType oldType) throws ConsistencyException;
@@ -538,7 +541,7 @@ part naming {
 
 	class NameScheme {
 		prior String regExpPattern;
-		indexed String name;
+		prior indexed String name;
 
 		MBoolean match(String name);
 	}
@@ -551,17 +554,14 @@ part naming {
 	
 
 	singleton NameSchemeManager {
-		NameScheme ** schemes;
-
-		active NameScheme createNameScheme(String regExpPattern);
-		active void assignNameScheme(MAtomicType type, NameScheme nameScheme);
+		NameScheme ** schemes@@Schemata;
+		Name ** names@@Zuordnungen;
+		
+		active Name assignType(NameScheme scheme, MAtomicType type);
+		active NameScheme createNameScheme(String name, String regExpPattern);
+		active void assignName(MObject object, Name name, String value) throws PatternNotMatchException, ConsistencyException;
 	}
 
-	singleton NameSchemeInstaceManager##NSIMngr {
-		active NameSchemeInstance createInstance(String name, NameScheme scheme) throws PatternNotMatchException;
-	
-		active void assignName(MObject object, Name name, String value) throws PatternNotMatchException;
-	}
 }
 
 

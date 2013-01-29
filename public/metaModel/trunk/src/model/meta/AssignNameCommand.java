@@ -42,12 +42,12 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
     protected PersistentName name;
     protected String value;
     protected Invoker invoker;
-    protected PersistentNameSchemeInstaceManager commandReceiver;
+    protected PersistentNameSchemeManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public AssignNameCommand(PersistentMObject object,PersistentName name,String value,Invoker invoker,PersistentNameSchemeInstaceManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public AssignNameCommand(PersistentMObject object,PersistentName name,String value,Invoker invoker,PersistentNameSchemeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.object = object;
@@ -59,7 +59,7 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
     }
     
     static public long getTypeId() {
-        return 244;
+        return 245;
     }
     
     public long getClassId() {
@@ -68,7 +68,7 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 244) ConnectionHandler.getTheConnectionHandler().theAssignNameCommandFacade
+        if (this.getClassId() == 245) ConnectionHandler.getTheConnectionHandler().theAssignNameCommandFacade
             .newAssignNameCommand(value,this.getId());
         super.store();
         if(this.getObject() != null){
@@ -144,15 +144,15 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
             ConnectionHandler.getTheConnectionHandler().theAssignNameCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public PersistentNameSchemeInstaceManager getCommandReceiver() throws PersistenceException {
+    public PersistentNameSchemeManager getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(PersistentNameSchemeInstaceManager newValue) throws PersistenceException {
+    public void setCommandReceiver(PersistentNameSchemeManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentNameSchemeInstaceManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentNameSchemeManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theAssignNameCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -225,16 +225,16 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAssignNameCommand(this);
     }
-    public void accept(NameSchemeInstaceManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(NameSchemeManagerCommandVisitor visitor) throws PersistenceException {
         visitor.handleAssignNameCommand(this);
     }
-    public <R> R accept(NameSchemeInstaceManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(NameSchemeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleAssignNameCommand(this);
     }
-    public <E extends UserException>  void accept(NameSchemeInstaceManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(NameSchemeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleAssignNameCommand(this);
     }
-    public <R, E extends UserException> R accept(NameSchemeInstaceManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(NameSchemeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAssignNameCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
@@ -251,6 +251,9 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
 			this.getCommandReceiver().assignName(this.getObject(), this.getName(), this.getValue());
 		}
 		catch(model.PatternNotMatchException e){
+			this.commandException = e;
+		}
+		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}
     }

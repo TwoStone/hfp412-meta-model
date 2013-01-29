@@ -63,6 +63,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("types", this.getTypes().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
+            result.put("possibleNames", this.getPossibleNames(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             result.put("names", this.getNames().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
@@ -93,7 +94,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
     }
     
     static public long getTypeId() {
-        return 236;
+        return 130;
     }
     
     public long getClassId() {
@@ -102,7 +103,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 236) ConnectionHandler.getTheConnectionHandler().theMObjectFacade
+        if (this.getClassId() == 130) ConnectionHandler.getTheConnectionHandler().theMObjectFacade
             .newMObject(this.getId());
         super.store();
         this.getTypes().store();
@@ -154,10 +155,32 @@ public class MObject extends PersistentObject implements PersistentMObject{
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + this.getTypes().getLength()
+            + this.getPossibleNames().getLength()
             + this.getNames().getLength());
     }
     
     
+    public NameSearchList getPossibleNames(final TDObserver observer) 
+				throws PersistenceException{
+        NameSearchList result = getThis().getPossibleNames();
+		observer.updateTransientDerived(getThis(), "possibleNames", result);
+		return result;
+    }
+    public NameSearchList getPossibleNames() 
+				throws PersistenceException{
+		final NameSearchList list = new NameSearchList();
+
+		this.getThis().getTypes().applyToAll(new Procdure<PersistentMAtomicType>() {
+
+			@Override
+			public void doItTo(PersistentMAtomicType argument) throws PersistenceException {
+				list.add(argument.getPossibleNames());
+			}
+		});
+
+		return list;
+
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}

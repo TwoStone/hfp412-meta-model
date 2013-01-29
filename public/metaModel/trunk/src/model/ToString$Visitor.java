@@ -4,60 +4,7 @@ import java.util.Iterator;
 
 import model.visitor.MBooleanReturnVisitor;
 import model.visitor.MBooleanVisitor;
-import persistence.Anything;
-import persistence.PersistenceException;
-import persistence.PersistentAccount;
-import persistence.PersistentAccountManager;
-import persistence.PersistentAccountTypeManager;
-import persistence.PersistentActualParameter;
-import persistence.PersistentAspectManager;
-import persistence.PersistentAssociation;
-import persistence.PersistentAssociationManager;
-import persistence.PersistentCompUnit;
-import persistence.PersistentCompUnitType;
-import persistence.PersistentCompoundQuantity;
-import persistence.PersistentConversion;
-import persistence.PersistentFormalParameter;
-import persistence.PersistentFractionManager;
-import persistence.PersistentFunction;
-import persistence.PersistentFunctionManager;
-import persistence.PersistentHierarchy;
-import persistence.PersistentInstanceObject;
-import persistence.PersistentLink;
-import persistence.PersistentLinkManager;
-import persistence.PersistentMAccountType;
-import persistence.PersistentMAspect;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMEmptySumType;
-import persistence.PersistentMFalse;
-import persistence.PersistentMMeasurementType;
-import persistence.PersistentMObject;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
-import persistence.PersistentMTrue;
-import persistence.PersistentMeasurement;
-import persistence.PersistentMeasurementTypeManager;
-import persistence.PersistentMessage;
-import persistence.PersistentMessageManager;
-import persistence.PersistentName;
-import persistence.PersistentNameInstance;
-import persistence.PersistentNameScheme;
-import persistence.PersistentNameSchemeInstaceManager;
-import persistence.PersistentNameSchemeInstance;
-import persistence.PersistentNameSchemeManager;
-import persistence.PersistentObjectManager;
-import persistence.PersistentOperation;
-import persistence.PersistentOperationManager;
-import persistence.PersistentQuantity;
-import persistence.PersistentQuantityManager;
-import persistence.PersistentReference;
-import persistence.PersistentReferenceType;
-import persistence.PersistentServer;
-import persistence.PersistentTypeManager;
-import persistence.PersistentUnit;
-import persistence.PersistentUnitType;
-import persistence.PersistentUnitTypeManager;
+import persistence.*;
 import utils.Strings;
 
 public class ToString$Visitor extends model.visitor.ToString$Visitor {
@@ -396,7 +343,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleMObject(PersistentMObject mObject) throws PersistenceException {
 		result = String.valueOf(mObject.getId());
-		result += Strings.join(",", mObject.getNames().iterator(),
+		result += Strings.join(", ", mObject.getNames().iterator(),
 				new Strings.ToStringStrategy<PersistentNameInstance>() {
 
 					@Override
@@ -423,13 +370,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException {
-		result = nameInstance.getFromObject().toString(true) + " -> " + nameInstance.getNameScheme().toString(true);
-	}
-
-	@Override
-	public void handleNameSchemeInstaceManager(PersistentNameSchemeInstaceManager nameSchemeInstaceManager)
-			throws PersistenceException {
-		result = "Exeplarwelt der Namen";
+		result = nameInstance.getNameScheme().getName() + "(" + nameInstance.getNameScheme().getType().getName() + ")";
 	}
 
 	@Override
@@ -439,7 +380,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleName(PersistentName name) throws PersistenceException {
-		result = name.getFromType().toString(true) + "->" + name.getNameScheme().toString(true);
+		result = name.getFromType().getName() + "->" + name.getNameScheme().getName();
 	}
 
 	@Override

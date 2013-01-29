@@ -58,7 +58,7 @@ public class SetConversionCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 258;
+        return 270;
     }
     
     public long getClassId() {
@@ -67,7 +67,7 @@ public class SetConversionCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 258) ConnectionHandler.getTheConnectionHandler().theSetConversionCommandFacade
+        if (this.getClassId() == 270) ConnectionHandler.getTheConnectionHandler().theSetConversionCommandFacade
             .newSetConversionCommand(factor,constant,this.getId());
         super.store();
         if(this.getUnit() != null){

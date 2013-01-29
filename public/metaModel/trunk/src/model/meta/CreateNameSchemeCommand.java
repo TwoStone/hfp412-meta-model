@@ -16,20 +16,21 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
         return (PersistentCreateNameSchemeCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentCreateNameSchemeCommand createCreateNameSchemeCommand(String regExpPattern,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createCreateNameSchemeCommand(regExpPattern,createDate,commitDate,false);
+    public static PersistentCreateNameSchemeCommand createCreateNameSchemeCommand(String name,String regExpPattern,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createCreateNameSchemeCommand(name,regExpPattern,createDate,commitDate,false);
     }
     
-    public static PersistentCreateNameSchemeCommand createCreateNameSchemeCommand(String regExpPattern,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentCreateNameSchemeCommand createCreateNameSchemeCommand(String name,String regExpPattern,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if (regExpPattern == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentCreateNameSchemeCommand result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade
-                .newDelayedCreateNameSchemeCommand(regExpPattern);
+                .newDelayedCreateNameSchemeCommand(name,regExpPattern);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade
-                .newCreateNameSchemeCommand(regExpPattern,-1);
+                .newCreateNameSchemeCommand(name,regExpPattern,-1);
         }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -38,6 +39,7 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected String name;
     protected String regExpPattern;
     protected Invoker invoker;
     protected PersistentNameSchemeManager commandReceiver;
@@ -46,9 +48,10 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     
     private model.UserException commandException = null;
     
-    public CreateNameSchemeCommand(String regExpPattern,Invoker invoker,PersistentNameSchemeManager commandReceiver,PersistentNameScheme commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateNameSchemeCommand(String name,String regExpPattern,Invoker invoker,PersistentNameSchemeManager commandReceiver,PersistentNameScheme commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.name = name;
         this.regExpPattern = regExpPattern;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
@@ -57,7 +60,7 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     }
     
     static public long getTypeId() {
-        return 248;
+        return 251;
     }
     
     public long getClassId() {
@@ -66,8 +69,8 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 248) ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade
-            .newCreateNameSchemeCommand(regExpPattern,this.getId());
+        if (this.getClassId() == 251) ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade
+            .newCreateNameSchemeCommand(name,regExpPattern,this.getId());
         super.store();
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -88,6 +91,14 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
         
     }
     
+    public String getName() throws PersistenceException {
+        return this.name;
+    }
+    public void setName(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
+    }
     public String getRegExpPattern() throws PersistenceException {
         return this.regExpPattern;
     }
@@ -226,7 +237,7 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     
     public void execute() 
 				throws PersistenceException{
-        this.setCommandResult(this.getCommandReceiver().createNameScheme(this.getRegExpPattern()));
+        this.setCommandResult(this.getCommandReceiver().createNameScheme(this.getName(), this.getRegExpPattern()));
 		
     }
     public void checkException() 

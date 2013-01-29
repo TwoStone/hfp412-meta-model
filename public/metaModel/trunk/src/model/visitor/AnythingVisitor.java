@@ -9,6 +9,7 @@ public interface AnythingVisitor extends AbsOperationVisitor,QuantifObjectVisito
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException;
+    public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException;
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;
     public void handleRemoveUnitTypeCommand(PersistentRemoveUnitTypeCommand removeUnitTypeCommand) throws PersistenceException;
     public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException;
@@ -20,7 +21,6 @@ public interface AnythingVisitor extends AbsOperationVisitor,QuantifObjectVisito
     public void handleServer(PersistentServer server) throws PersistenceException;
     public void handleNameScheme(PersistentNameScheme nameScheme) throws PersistenceException;
     public void handleAssignNameCommand(PersistentAssignNameCommand assignNameCommand) throws PersistenceException;
-    public void handleCreateInstanceCommand(PersistentCreateInstanceCommand createInstanceCommand) throws PersistenceException;
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException;
     public void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException;
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException;
@@ -33,7 +33,6 @@ public interface AnythingVisitor extends AbsOperationVisitor,QuantifObjectVisito
     public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException;
     public void handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException;
     public void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException;
-    public void handleNameSchemeInstaceManager(PersistentNameSchemeInstaceManager nameSchemeInstaceManager) throws PersistenceException;
     public void handleFunction(PersistentFunction function) throws PersistenceException;
     public void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
     public void handleRemoveOperationCommand(PersistentRemoveOperationCommand removeOperationCommand) throws PersistenceException;
@@ -68,7 +67,6 @@ public interface AnythingVisitor extends AbsOperationVisitor,QuantifObjectVisito
     public void handleAddAssociationCommand(PersistentAddAssociationCommand addAssociationCommand) throws PersistenceException;
     public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException;
     public void handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException;
-    public void handleAssignNameSchemeCommand(PersistentAssignNameSchemeCommand assignNameSchemeCommand) throws PersistenceException;
     public void handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException;
     public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     public void handleRemoveUnitCommand(PersistentRemoveUnitCommand removeUnitCommand) throws PersistenceException;

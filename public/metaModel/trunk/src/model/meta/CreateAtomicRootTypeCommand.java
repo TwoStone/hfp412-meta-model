@@ -63,7 +63,7 @@ public class CreateAtomicRootTypeCommand extends PersistentObject implements Per
     }
     
     static public long getTypeId() {
-        return 189;
+        return 191;
     }
     
     public long getClassId() {
@@ -72,7 +72,7 @@ public class CreateAtomicRootTypeCommand extends PersistentObject implements Per
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 189) ConnectionHandler.getTheConnectionHandler().theCreateAtomicRootTypeCommandFacade
+        if (this.getClassId() == 191) ConnectionHandler.getTheConnectionHandler().theCreateAtomicRootTypeCommandFacade
             .newCreateAtomicRootTypeCommand(name,this.getId());
         super.store();
         if(this.getAspect() != null){

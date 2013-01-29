@@ -20,41 +20,45 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
         return (PersistentNameScheme)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentNameScheme createNameScheme(String regExpPattern) throws PersistenceException{
-        return createNameScheme(regExpPattern,false);
+    public static PersistentNameScheme createNameScheme(String regExpPattern,String name) throws PersistenceException{
+        return createNameScheme(regExpPattern,name,false);
     }
     
-    public static PersistentNameScheme createNameScheme(String regExpPattern,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentNameScheme createNameScheme(String regExpPattern,String name,boolean delayed$Persistence) throws PersistenceException {
         if (regExpPattern == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentNameScheme result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade
-                .newDelayedNameScheme(regExpPattern,"");
+                .newDelayedNameScheme(regExpPattern,name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade
-                .newNameScheme(regExpPattern,"",-1);
+                .newNameScheme(regExpPattern,name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("regExpPattern", regExpPattern);
+        final$$Fields.put("name", name);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentNameScheme createNameScheme(String regExpPattern,boolean delayed$Persistence,PersistentNameScheme This) throws PersistenceException {
+    public static PersistentNameScheme createNameScheme(String regExpPattern,String name,boolean delayed$Persistence,PersistentNameScheme This) throws PersistenceException {
         if (regExpPattern == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentNameScheme result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade
-                .newDelayedNameScheme(regExpPattern,"");
+                .newDelayedNameScheme(regExpPattern,name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade
-                .newNameScheme(regExpPattern,"",-1);
+                .newNameScheme(regExpPattern,name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("regExpPattern", regExpPattern);
+        final$$Fields.put("name", name);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -104,7 +108,7 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
     }
     
     static public long getTypeId() {
-        return 243;
+        return 244;
     }
     
     public long getClassId() {
@@ -113,8 +117,8 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 243) ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade
-            .newNameScheme(regExpPattern,"",this.getId());
+        if (this.getClassId() == 244) ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade
+            .newNameScheme(regExpPattern,name,this.getId());
         super.store();
         if(!this.equals(this.getThis())){
             this.getThis().store();
@@ -191,6 +195,7 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
         this.setThis((PersistentNameScheme)This);
 		if(this.equals(This)){
 			this.setRegExpPattern((String)final$$Fields.get("regExpPattern"));
+			this.setName((String)final$$Fields.get("name"));
 		}
     }
     public void initializeOnCreation() 

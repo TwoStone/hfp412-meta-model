@@ -8,11 +8,11 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
         this.standardHandling(finishModelingCommand);
     }
-    public void handleCreateInstanceCommand(PersistentCreateInstanceCommand createInstanceCommand) throws PersistenceException{
-        this.standardHandling(createInstanceCommand);
-    }
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException{
         this.standardHandling(removeLinkCommand);
+    }
+    public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
+        this.standardHandling(assignTypeCommand);
     }
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
         this.standardHandling(createMObjectCommand);
@@ -127,9 +127,6 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     }
     public void handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException{
         this.standardHandling(createSumTypeCommand);
-    }
-    public void handleAssignNameSchemeCommand(PersistentAssignNameSchemeCommand assignNameSchemeCommand) throws PersistenceException{
-        this.standardHandling(assignNameSchemeCommand);
     }
     public void handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException{
         this.standardHandling(createOperationCommand);

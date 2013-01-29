@@ -11,6 +11,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
         this.standardHandling(createMObjectCommand);
     }
+    public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
+        this.standardHandling(assignTypeCommand);
+    }
     public void handleCreateProductTypeCommand(PersistentCreateProductTypeCommand createProductTypeCommand) throws PersistenceException{
         this.standardHandling(createProductTypeCommand);
     }
@@ -80,9 +83,6 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException{
         this.standardHandling(createConstCommand);
     }
-    public void handleAssignNameSchemeCommand(PersistentAssignNameSchemeCommand assignNameSchemeCommand) throws PersistenceException{
-        this.standardHandling(assignNameSchemeCommand);
-    }
     public void handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException{
         this.standardHandling(createOperationCommand);
     }
@@ -94,9 +94,6 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
         this.standardHandling(finishModelingCommand);
-    }
-    public void handleCreateInstanceCommand(PersistentCreateInstanceCommand createInstanceCommand) throws PersistenceException{
-        this.standardHandling(createInstanceCommand);
     }
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException{
         this.standardHandling(removeLinkCommand);

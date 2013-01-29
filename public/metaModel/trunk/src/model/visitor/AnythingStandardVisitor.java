@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class AnythingStandardVisitor implements AnythingVisitor {
     
+    public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
+        this.standardHandling(assignTypeCommand);
+    }
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
         this.standardHandling(createMObjectCommand);
     }
@@ -62,9 +65,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAssociation(PersistentAssociation association) throws PersistenceException{
         this.standardHandling(association);
     }
-    public void handleCreateInstanceCommand(PersistentCreateInstanceCommand createInstanceCommand) throws PersistenceException{
-        this.standardHandling(createInstanceCommand);
-    }
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException{
         this.standardHandling(removeLinkCommand);
     }
@@ -115,9 +115,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMessage(PersistentMessage message) throws PersistenceException{
         this.standardHandling(message);
-    }
-    public void handleNameSchemeInstaceManager(PersistentNameSchemeInstaceManager nameSchemeInstaceManager) throws PersistenceException{
-        this.standardHandling(nameSchemeInstaceManager);
     }
     public void handleFunction(PersistentFunction function) throws PersistenceException{
         this.standardHandling(function);
@@ -236,9 +233,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException{
         this.standardHandling(createConstCommand);
     }
-    public void handleAssignNameSchemeCommand(PersistentAssignNameSchemeCommand assignNameSchemeCommand) throws PersistenceException{
-        this.standardHandling(assignNameSchemeCommand);
-    }
     public void handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException{
         this.standardHandling(createOperationCommand);
     }
@@ -248,11 +242,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleRemoveUnitCommand(PersistentRemoveUnitCommand removeUnitCommand) throws PersistenceException{
         this.standardHandling(removeUnitCommand);
     }
-    public void handleReference(PersistentReference reference) throws PersistenceException{
-        this.standardHandling(reference);
-    }
     public void handleConversion(PersistentConversion conversion) throws PersistenceException{
         this.standardHandling(conversion);
+    }
+    public void handleReference(PersistentReference reference) throws PersistenceException{
+        this.standardHandling(reference);
     }
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
         this.standardHandling(finishModelingCommand);
@@ -263,11 +257,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAccount(PersistentAccount account) throws PersistenceException{
         this.standardHandling(account);
     }
-    public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException{
-        this.standardHandling(mFalse);
-    }
     public void handleUnitType(PersistentUnitType unitType) throws PersistenceException{
         this.standardHandling(unitType);
+    }
+    public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException{
+        this.standardHandling(mFalse);
     }
     public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException{
         this.standardHandling(measurementTypeManager);

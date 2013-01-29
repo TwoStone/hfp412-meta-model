@@ -1,33 +1,32 @@
 package viewClient;
 
-import view.*;
-import view.objects.ViewRoot;
-
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JPopupMenu;
-import javax.swing.JSplitPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.tree.DefaultTreeSelectionModel;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeSelectionModel;
-import javax.swing.tree.DefaultTreeSelectionModel;
 
+import view.*;
+import view.objects.ViewRoot;
 
 @SuppressWarnings("serial")
-public class ServerClientView extends JPanel implements ExceptionAndEventHandler{
+public class ServerClientView extends JPanel implements ExceptionAndEventHandler {
 
 	ConnectionMaster connection;
 	ExceptionAndEventHandler parent;
-	
+
 	private JSplitPane mainSplitPane = null;
 	private JPanel treePanel = null;
 	private JTreeRefresh navigationTree = null;
 	private JScrollPane navigationScrollPane = null;
 	private JPanel detailsPanel = null;
 
-	private ServerView service;
+	private final ServerView service;
 
 	/**
 	 * This is the default constructor
@@ -38,24 +37,31 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		this.service = service;
 		initialize();
 	}
+
 	@SuppressWarnings("unused")
-	private ServerView getService(){
+	private ServerView getService() {
 		return this.service;
 	}
+
 	private void initialize() {
-        this.setLayout(new BorderLayout());
-        this.add(getMainSplitPane(), BorderLayout.CENTER);
-        javax.swing.JToolBar mainToolBar = getMainToolBar();
-        if (!WithStaticOperations && mainToolBar.getComponentCount() > 0) this.add(mainToolBar, BorderLayout.NORTH);
+		this.setLayout(new BorderLayout());
+		this.add(getMainSplitPane(), BorderLayout.CENTER);
+		javax.swing.JToolBar mainToolBar = getMainToolBar();
+		if (!WithStaticOperations && mainToolBar.getComponentCount() > 0)
+			this.add(mainToolBar, BorderLayout.NORTH);
 	}
+
 	private javax.swing.JToolBar mainToolBar = null;
+
 	private javax.swing.JToolBar getMainToolBar() {
-		if (this.mainToolBar == null){
+		if (this.mainToolBar == null) {
 			this.mainToolBar = new javax.swing.JToolBar();
-			for (javax.swing.JButton current : this.getToolButtonsForStaticOperations()) this.mainToolBar.add(current);
+			for (javax.swing.JButton current : this.getToolButtonsForStaticOperations())
+				this.mainToolBar.add(current);
 		}
 		return this.mainToolBar;
 	}
+
 	private JSplitPane getMainSplitPane() {
 		if (mainSplitPane == null) {
 			mainSplitPane = new JSplitPane();
@@ -65,9 +71,11 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		return mainSplitPane;
 	}
+
 	private JSplitPane navigationSplitPane = null;
-	private JSplitPane getNavigationSplitPane(){
-		if (this.navigationSplitPane == null){
+
+	private JSplitPane getNavigationSplitPane() {
+		if (this.navigationSplitPane == null) {
 			this.navigationSplitPane = new JSplitPane();
 			navigationSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 			navigationSplitPane.setLeftComponent(getNavigationPanel());
@@ -76,54 +84,66 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		return this.navigationSplitPane;
 	}
+
 	private JPanel errorPanel = null;
-	private JPanel getErrorPanel(){
-		if (this.errorPanel == null){
+
+	private JPanel getErrorPanel() {
+		if (this.errorPanel == null) {
 			this.errorPanel = new JPanel();
 			errorPanel.setBorder(new javax.swing.border.TitledBorder(Wizard.ErrorTitle));
 			errorPanel.setLayout(new BorderLayout());
-			errorPanel.add(getErrorScrollPane(),BorderLayout.CENTER);
+			errorPanel.add(getErrorScrollPane(), BorderLayout.CENTER);
 			errorPanel.setVisible(false);
 		}
 		return this.errorPanel;
 	}
+
 	private JScrollPane errorScrollPane = null;
-	private JScrollPane getErrorScrollPane(){
-		if (this.errorScrollPane == null){
+
+	private JScrollPane getErrorScrollPane() {
+		if (this.errorScrollPane == null) {
 			this.errorScrollPane = new JScrollPane();
 			this.errorScrollPane.setViewportView(getErrorJTree());
 		}
 		return this.errorScrollPane;
 	}
+
 	private JTreeRefresh errorJTree = null;
-	private JTreeRefresh getErrorJTree(){
-		if (this.errorJTree == null){
+
+	private JTreeRefresh getErrorJTree() {
+		if (this.errorJTree == null) {
 			this.errorJTree = new JTreeRefresh();
 			DefaultTreeSelectionModel selectionModel = new DefaultTreeSelectionModel();
 			selectionModel.setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 			this.errorJTree.setSelectionModel(selectionModel);
-			this.errorJTree.addMouseListener(new java.awt.event.MouseAdapter() {   
-				public void mouseReleased(MouseEvent e) {    
-					tryShowContextMenu(e,errorJTree,false);
+			this.errorJTree.addMouseListener(new java.awt.event.MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					tryShowContextMenu(e, errorJTree, false);
 				}
+
+				@Override
 				public void mousePressed(MouseEvent e) {
-					tryShowContextMenu(e,errorJTree,false);
+					tryShowContextMenu(e, errorJTree, false);
 				}
 			});
 		}
 		return this.errorJTree;
 	}
-	private void setErrors(TreeModel errors){
+
+	private void setErrors(TreeModel errors) {
 		this.getErrorPanel().setVisible(true);
 		this.getErrorJTree().setModel(null);
 		this.getErrorJTree().setModel(errors);
-		this.getNavigationSplitPane().setDividerLocation(550.0/700.0);
+		this.getNavigationSplitPane().setDividerLocation(550.0 / 700.0);
 		this.getNavigationSplitPane().setDividerSize(5);
 	}
-	private void setNoErrors(){
+
+	private void setNoErrors() {
 		this.getErrorPanel().setVisible(false);
 		this.getNavigationSplitPane().setDividerSize(0);
 	}
+
 	private JPanel getNavigationPanel() {
 		if (treePanel == null) {
 			treePanel = new JPanel();
@@ -133,6 +153,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		return treePanel;
 	}
+
 	private JPanel getDetailsPanel() {
 		if (detailsPanel == null) {
 			detailsPanel = new JPanel();
@@ -142,47 +163,56 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		return detailsPanel;
 	}
+
 	private JTreeRefresh getNavigationTree() {
 		if (navigationTree == null) {
 			navigationTree = new JTreeRefresh();
 			DefaultTreeSelectionModel selectionModel = new DefaultTreeSelectionModel();
 			selectionModel.setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 			navigationTree.setSelectionModel(selectionModel);
-			navigationTree
-					.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
-						public void valueChanged(javax.swing.event.TreeSelectionEvent e) {
-							Anything selected = (Anything) getNavigationTree().getSelectedObject();
-							setDetailsTable(selected);
-						}
-					});
-			navigationTree.addMouseListener(new java.awt.event.MouseAdapter() {   
-				public void mouseReleased(MouseEvent e) {    
-					tryShowContextMenu(e,navigationTree,WithStaticOperations);
+			navigationTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+				@Override
+				public void valueChanged(javax.swing.event.TreeSelectionEvent e) {
+					Anything selected = (Anything) getNavigationTree().getSelectedObject();
+					setDetailsTable(selected);
 				}
+			});
+			navigationTree.addMouseListener(new java.awt.event.MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					tryShowContextMenu(e, navigationTree, WithStaticOperations);
+				}
+
+				@Override
 				public void mousePressed(MouseEvent e) {
-					tryShowContextMenu(e,navigationTree,WithStaticOperations);
+					tryShowContextMenu(e, navigationTree, WithStaticOperations);
 				}
 			});
 		}
 		return navigationTree;
 	}
+
 	private DetailPanel currentDetails = null;
+
 	protected void setDetailsTable(Anything object) {
 		this.getDetailsPanel().setVisible(false);
-		if (currentDetails != null) this.getDetailsPanel().remove(currentDetails);
-		if (object == null && this.getConnection() != null) object = this.getConnection().getServerView();
-		if (object == null){
+		if (currentDetails != null)
+			this.getDetailsPanel().remove(currentDetails);
+		if (object == null && this.getConnection() != null)
+			object = this.getConnection().getServerView();
+		if (object == null) {
 			this.currentDetails = getNoDetailsPanel();
-		}else{
+		} else {
 			try {
 				this.currentDetails = this.getDetailView(object);
 			} catch (ModelException e) {
 				this.handleException(e);
 				this.currentDetails = null;
 			}
-			if(this.currentDetails == null) this.currentDetails = getStandardDetailsTable(object);
+			if (this.currentDetails == null)
+				this.currentDetails = getStandardDetailsTable(object);
 		}
-		this.getDetailsPanel().add(currentDetails,BorderLayout.CENTER);
+		this.getDetailsPanel().add(currentDetails, BorderLayout.CENTER);
 		this.getDetailsPanel().setVisible(true);
 	}
 
@@ -190,31 +220,39 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		class PanelDecider extends view.visitor.AnythingStandardVisitor {
 
 			private DetailPanel result;
-			
+
 			public DetailPanel getResult() {
 				return this.result;
 			}
+
+			@Override
 			protected void standardHandling(Anything Anything) throws ModelException {
 				this.result = null;
 			}
-			//TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
+			// TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
 		}
 		PanelDecider decider = new PanelDecider();
 		anything.accept(decider);
 		return decider.getResult();
 	}
+
 	private NoDetailPanel noDetailPanel = null;
+
 	public DetailPanel getNoDetailsPanel() {
-		if(noDetailPanel == null) noDetailPanel = new NoDetailPanel(this);
+		if (noDetailPanel == null)
+			noDetailPanel = new NoDetailPanel(this);
 		return noDetailPanel;
 	}
+
 	protected void tryShowContextMenu(MouseEvent e, JTreeRefresh tree, boolean withStaticOperations) {
-		if(e.isPopupTrigger()){
+		if (e.isPopupTrigger()) {
 			ViewRoot selected = tree.getSelectedObject();
 			JPopupMenu popup = this.getContextMenu(selected, withStaticOperations);
-			if(popup.getComponentCount() != 0)popup.show(tree, e.getX(), e.getY());
+			if (popup.getComponentCount() != 0)
+				popup.show(tree, e.getX(), e.getY());
 		}
 	}
+
 	private JScrollPane getNavigationScrollPane() {
 		if (navigationScrollPane == null) {
 			navigationScrollPane = new JScrollPane();
@@ -225,57 +263,76 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 
 	private DetailPanel getStandardDetailsTable(Anything object) {
 		try {
-			return DefaultDetailPanel.getStandardDetailPanel(object,this);
+			return DefaultDetailPanel.getStandardDetailPanel(object, this);
 		} catch (ModelException e) {
 			this.handleException(e);
 			return new NoDetailPanel(this);
 		}
 	}
 
-	public void setConnection(ConnectionMaster connection){
+	@Override
+	public void setConnection(ConnectionMaster connection) {
 		this.connection = connection;
 	}
-	public ServerConnection getConnection(){
-        	return (ServerConnection)this.connection;
+
+	public ServerConnection getConnection() {
+		return (ServerConnection) this.connection;
 	}
-	/** Is called by the refresher thread if the server object has changed
-	**/
-	public void handleRefresh(){
-		java.awt.EventQueue.invokeLater(new Runnable(){
-			public void run(){
+
+	/**
+	 * Is called by the refresher thread if the server object has changed
+	 **/
+	@Override
+	public void handleRefresh() {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
 				try {
 					getNavigationTree().refresh();
 					java.util.Vector<?> errors = getConnection().getServerView().getErrors();
-					if (errors.size() >0 )setErrors(new ListRoot(errors));
-					else setNoErrors();
+					if (errors.size() > 0)
+						setErrors(new ListRoot(errors));
+					else
+						setNoErrors();
 				} catch (ModelException e) {
 					handleException(e);
-				}			
+				}
 			}
 		});
-		//TODO adjust implementation: handleRefresh()!
+		// TODO adjust implementation: handleRefresh()!
 	}
-	/** Is called only once after the connection has been established
-	**/
-	public void initializeConnection(){
-		java.awt.EventQueue.invokeLater(new Runnable(){
-			public void run(){
-				getNavigationTree().setModel((TreeModel) getConnection().getServerView());			
-				getNavigationTree().setSelectionPath(new javax.swing.tree.TreePath(getNavigationTree().getModel().getRoot()));
+
+	/**
+	 * Is called only once after the connection has been established
+	 **/
+	@Override
+	public void initializeConnection() {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				getNavigationTree().setModel((TreeModel) getConnection().getServerView());
+				getNavigationTree().setSelectionPath(
+						new javax.swing.tree.TreePath(getNavigationTree().getModel().getRoot()));
 			}
 		});
-		//TODO adjust implementation: initializeConnection
+		// TODO adjust implementation: initializeConnection
 	}
+
+	@Override
 	public void handleException(ModelException exception) {
 		this.parent.handleException(exception);
 	}
+
+	@Override
 	public void handleOKMessage(String message) {
 		this.parent.handleOKMessage(message);
 	}
+
+	@Override
 	public void handleUserException(UserException exception) {
-		this.parent.handleUserException(exception);	
-	}	
-	
+		this.parent.handleUserException(exception);
+	}
+
 	/* Menu and wizard section start */
 
 	static boolean WithStaticOperations = false;
@@ -284,18 +341,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private java.util.Vector<javax.swing.JButton> getToolButtonsForStaticOperations() {
         java.util.Vector<javax.swing.JButton> result = new java.util.Vector<javax.swing.JButton>();
         javax.swing.JButton currentButton = null;
-        currentButton = new javax.swing.JButton("createNameScheme ... ");
-        currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateNameSchemeStringStringMssgWizard wizard = new ServerCreateNameSchemeStringStringMssgWizard("createNameScheme");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });result.add(currentButton);
         currentButton = new javax.swing.JButton("createProductType ... ");
         currentButton.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -325,20 +370,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private JPopupMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations) {
         JPopupMenu result = new JPopupMenu();
         javax.swing.JMenuItem item = null;
-        item = new javax.swing.JMenuItem();
-        item.setText("(S) createNameScheme ... ");
-        item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateNameSchemeStringStringMssgWizard wizard = new ServerCreateNameSchemeStringStringMssgWizard("createNameScheme");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });
-        if (withStaticOperations) result.add(item);
         item = new javax.swing.JMenuItem();
         item.setText("(S) createProductType ... ");
         item.addActionListener(new java.awt.event.ActionListener() {
@@ -403,7 +434,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeOperation");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeOperation" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeOperation" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeOperation((OperationView)selected);
                                 getConnection().setEagerRefresh();
@@ -451,7 +482,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeAssociation");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeAssociation" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeAssociation" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeAssociation((AssociationView)selected);
                                 getConnection().setEagerRefresh();
@@ -469,9 +500,27 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeUnitType");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeUnitType" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeUnitType" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeUnitType((AbsUnitTypeView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof FormalParameterView){
+                item = new javax.swing.JMenuItem();
+                item.setText("removeFormalParameter");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeFormalParameter" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().removeFp((FormalParameterView)selected);
                                 getConnection().setEagerRefresh();
                             }catch(ModelException me){
                                 handleException(me);
@@ -499,19 +548,18 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof FormalParameterView){
+            if (selected instanceof NameSchemeManagerView){
                 item = new javax.swing.JMenuItem();
-                item.setText("removeFormalParameter");
+                item.setText("Namensschema erstellen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeFormalParameter" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
-                            try {
-                                getConnection().removeFp((FormalParameterView)selected);
-                                getConnection().setEagerRefresh();
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
+                        ServerCreateNameSchemeNameSchemeManagerStringStringMssgWizard wizard = new ServerCreateNameSchemeNameSchemeManagerStringStringMssgWizard("Namensschema erstellen");
+                        wizard.setFirstArgument((NameSchemeManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
                     }
                     
                 });
@@ -773,6 +821,21 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
             }
             if (selected instanceof MObjectView){
                 item = new javax.swing.JMenuItem();
+                item.setText("Benennen ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAssignNameMObjectNameStringMssgWizard wizard = new ServerAssignNameMObjectNameStringMssgWizard("Benennen");
+                        wizard.setFirstArgument((MObjectView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
                 item.setText("Typen entfernen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -803,25 +866,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
                 item = new javax.swing.JMenuItem();
-                item.setText("Typen hinzuf?gen ... ");
+                item.setText("Typen hinzufügen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddTypeMObjectMAtomicTypeMssgWizard wizard = new ServerAddTypeMObjectMAtomicTypeMssgWizard("Typen hinzuf?gen");
-                        wizard.setFirstArgument((MObjectView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("assignName ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAssignNameMObjectNameStringMssgWizard wizard = new ServerAssignNameMObjectNameStringMssgWizard("assignName");
+                        ServerAddTypeMObjectMAtomicTypeMssgWizard wizard = new ServerAddTypeMObjectMAtomicTypeMssgWizard("Typen hinzufügen");
                         wizard.setFirstArgument((MObjectView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -996,7 +1044,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeMessage");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeMessage" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeMessage" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeMessage((MessageView)selected);
                                 getConnection().setEagerRefresh();
@@ -1078,7 +1126,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeUnit");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeUnit" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeUnit" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeUnit((AbsUnitView)selected);
                                 getConnection().setEagerRefresh();
@@ -1110,10 +1158,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
             }
             if (selected instanceof NameSchemeView){
                 item = new javax.swing.JMenuItem();
-                item.setText("assignType ... ");
+                item.setText("Typen zuordnen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAssignTypeNameSchemeMAtomicTypeMssgWizard wizard = new ServerAssignTypeNameSchemeMAtomicTypeMssgWizard("assignType");
+                        ServerAssignTypeNameSchemeMAtomicTypeMssgWizard wizard = new ServerAssignTypeNameSchemeMAtomicTypeMssgWizard("Typen zuordnen");
                         wizard.setFirstArgument((NameSchemeView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -1131,6 +1179,21 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
                         ServerCreateMObjectMAtomicTypeMAtomicTypeLSTMssgWizard wizard = new ServerCreateMObjectMAtomicTypeMAtomicTypeLSTMssgWizard("Exemplar erstellen");
+                        wizard.setFirstArgument((MAtomicTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("Namensschema zuordnen ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAssignNameSchemeMAtomicTypeNameSchemeMssgWizard wizard = new ServerAssignNameSchemeMAtomicTypeNameSchemeMssgWizard("Namensschema zuordnen");
                         wizard.setFirstArgument((MAtomicTypeView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -1162,7 +1225,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeLink");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeLink" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeLink" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeLink((LinkView)selected);
                                 getConnection().setEagerRefresh();
@@ -1231,7 +1294,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Publish");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Publish" + Wizard.ConfirmQuestionMark, "Best?tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Publish" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().finishModeling((CompUnitTypeView)selected);
                                 getConnection().setEagerRefresh();
@@ -1775,6 +1838,55 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private CompUnitView firstArgument; 
 	
 		public void setFirstArgument(CompUnitView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateNameSchemeNameSchemeManagerStringStringMssgWizard extends Wizard {
+
+		protected ServerCreateNameSchemeNameSchemeManagerStringStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateNameSchemeNameSchemeManagerStringStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createNameScheme(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("schemeName", this));
+			getParametersPanel().add(new StringSelectionPanel("regExp", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private NameSchemeManagerView firstArgument; 
+	
+		public void setFirstArgument(NameSchemeManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -2474,57 +2586,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard extends Wizard {
-
-		protected ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createAssociation(firstArgument, (MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									((StringSelectionPanel)getParametersPanel().getComponent(2)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private AssociationManagerView firstArgument; 
-	
-		public void setFirstArgument(AssociationManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
 	class ServerCreateSumTypeMTypeLSTMssgWizard extends Wizard {
 
 		protected ServerCreateSumTypeMTypeLSTMssgWizard(String operationName){
@@ -2609,6 +2670,57 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private HierarchyView firstArgument; 
 	
 		public void setFirstArgument(HierarchyView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard extends Wizard {
+
+		protected ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createAssociation(firstArgument, (MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AssociationManagerView firstArgument; 
+	
+		public void setFirstArgument(AssociationManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -3092,20 +3204,20 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateUnitUnitTypeStringMssgWizard extends Wizard {
+	class ServerAssignNameSchemeMAtomicTypeNameSchemeMssgWizard extends Wizard {
 
-		protected ServerCreateUnitUnitTypeStringMssgWizard(String operationName){
+		protected ServerAssignNameSchemeMAtomicTypeNameSchemeMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateUnitUnitTypeStringMssgWizard.help";
+			this.helpFileName = "ServerAssignNameSchemeMAtomicTypeNameSchemeMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createUnit(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().assignNameScheme(firstArgument, (NameSchemeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -3122,24 +3234,24 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("scheme", "view.NameSchemeView", new ListRoot(((NameSchemeManagerView)((ServerView)getConnection().getServerView()).getNameSchemeManager()).getSchemes()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private UnitTypeView firstArgument; 
+		private MAtomicTypeView firstArgument; 
 	
-		public void setFirstArgument(UnitTypeView firstArgument){
+		public void setFirstArgument(MAtomicTypeView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
-			try{
-				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
-				selectionPanel.preset(firstArgument.getName());
-				if (!selectionPanel.check()) selectionPanel.preset("");
-			}catch(ModelException me){
-				 handleException(me);
-			}
 			this.check();
 		}
 		
@@ -3191,6 +3303,60 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
 				selectionPanel.preset((Anything)firstArgument.getDefaultUnit());
 				if (!selectionPanel.check()) selectionPanel.preset((Anything)null);
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateUnitUnitTypeStringMssgWizard extends Wizard {
+
+		protected ServerCreateUnitUnitTypeStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateUnitUnitTypeStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createUnit(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private UnitTypeView firstArgument; 
+	
+		public void setFirstArgument(UnitTypeView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
+				selectionPanel.preset(firstArgument.getName());
+				if (!selectionPanel.check()) selectionPanel.preset("");
 			}catch(ModelException me){
 				 handleException(me);
 			}
@@ -3302,6 +3468,53 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
+	class ServerCreateAspectAspectManagerStringMssgWizard extends Wizard {
+
+		protected ServerCreateAspectAspectManagerStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateAspectAspectManagerStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createAspect(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AspectManagerView firstArgument; 
+	
+		public void setFirstArgument(AspectManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard extends Wizard {
 
 		protected ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard(String operationName){
@@ -3350,53 +3563,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private CompUnitTypeView firstArgument; 
 	
 		public void setFirstArgument(CompUnitTypeView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateAspectAspectManagerStringMssgWizard extends Wizard {
-
-		protected ServerCreateAspectAspectManagerStringMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateAspectAspectManagerStringMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createAspect(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private AspectManagerView firstArgument; 
-	
-		public void setFirstArgument(AspectManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -3602,46 +3768,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateNameSchemeStringStringMssgWizard extends Wizard {
-
-		protected ServerCreateNameSchemeStringStringMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateNameSchemeStringStringMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createNameScheme(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("schemeName", this));
-			getParametersPanel().add(new StringSelectionPanel("regExp", this));		
-		}	
-		protected void handleDependencies(int i) {
 		}
 		
 		
@@ -3906,9 +4032,9 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 	}
 
 	/* Menu and wizard section end */
-	
+
 	private void addNotGeneratedItems(JPopupMenu result, ViewRoot selected) {
 		// TODO Add items if you have not generated service calls!!!
 	}
-	
+
 }

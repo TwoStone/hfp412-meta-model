@@ -46,7 +46,7 @@ import persistence.TDObserver;
 public class OperationManager extends PersistentObject implements PersistentOperationManager{
     
     private static PersistentOperationManager theOperationManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentOperationManager getTheOperationManager() throws PersistenceException{
         if (theOperationManager == null || reset$For$Test){
@@ -124,7 +124,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     
     static public long getTypeId() {
-        return 120;
+        return 121;
     }
     
     public long getClassId() {

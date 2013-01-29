@@ -9,6 +9,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException, E;
     public R handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException, E;
     public R handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException, E;
+    public R handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException, E;
     public R handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException, E;
     public R handleRemoveUnitTypeCommand(PersistentRemoveUnitTypeCommand removeUnitTypeCommand) throws PersistenceException, E;
     public R handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException, E;
@@ -20,7 +21,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleServer(PersistentServer server) throws PersistenceException, E;
     public R handleNameScheme(PersistentNameScheme nameScheme) throws PersistenceException, E;
     public R handleAssignNameCommand(PersistentAssignNameCommand assignNameCommand) throws PersistenceException, E;
-    public R handleCreateInstanceCommand(PersistentCreateInstanceCommand createInstanceCommand) throws PersistenceException, E;
     public R handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException, E;
     public R handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException, E;
     public R handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException, E;
@@ -33,7 +33,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException, E;
     public R handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException, E;
     public R handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException, E;
-    public R handleNameSchemeInstaceManager(PersistentNameSchemeInstaceManager nameSchemeInstaceManager) throws PersistenceException, E;
     public R handleFunction(PersistentFunction function) throws PersistenceException, E;
     public R handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException, E;
     public R handleRemoveOperationCommand(PersistentRemoveOperationCommand removeOperationCommand) throws PersistenceException, E;
@@ -68,7 +67,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleAddAssociationCommand(PersistentAddAssociationCommand addAssociationCommand) throws PersistenceException, E;
     public R handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException, E;
     public R handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException, E;
-    public R handleAssignNameSchemeCommand(PersistentAssignNameSchemeCommand assignNameSchemeCommand) throws PersistenceException, E;
     public R handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException, E;
     public R handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException, E;
     public R handleRemoveUnitCommand(PersistentRemoveUnitCommand removeUnitCommand) throws PersistenceException, E;

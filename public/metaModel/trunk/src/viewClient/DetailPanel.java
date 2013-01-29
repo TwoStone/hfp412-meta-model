@@ -754,9 +754,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMessage(view.MessageView object){
         result = new MessageDefaultDetailPanel(handler, object);
     }
-    public void handleNameSchemeInstaceManager(view.NameSchemeInstaceManagerView object){
-        result = new NameSchemeInstaceManagerDefaultDetailPanel(handler, object);
-    }
     public void handleFunction(view.FunctionView object){
         result = new FunctionDefaultDetailPanel(handler, object);
     }
@@ -911,7 +908,6 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Server$$accountManager = "Server$$accountManager";
     protected static final String Server$$objectManager = "Server$$objectManager";
     protected static final String Server$$nameSchemeManager = "Server$$nameSchemeManager";
-    protected static final String Server$$nameSchemeInstanceManager = "Server$$nameSchemeInstanceManager";
     protected static final String Server$$associationManager = "Server$$associationManager";
     protected static final String Server$$operationManager = "Server$$operationManager";
     protected static final String Server$$messageManager = "Server$$messageManager";
@@ -1237,6 +1233,7 @@ class AccountTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MObject$$types = "MObject$$types";
+    protected static final String MObject$$possibleNames = "MObject$$possibleNames";
     protected static final String MObject$$names = "MObject$$names";
     
     protected MObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1300,20 +1297,6 @@ class MessageDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MessageView getAnything(){
         return (view.MessageView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class NameSchemeInstaceManagerDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected NameSchemeInstaceManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.NameSchemeInstaceManagerView getAnything(){
-        return (view.NameSchemeInstaceManagerView)this.anything;
     }
 }
 
@@ -1508,6 +1491,7 @@ class QuantityManagerDefaultDetailPanel extends DefaultDetailPanel{
 class NameSchemeManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String NameSchemeManager$$schemes = "NameSchemeManager$$schemes";
+    protected static final String NameSchemeManager$$names = "NameSchemeManager$$names";
     
     protected NameSchemeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

@@ -9,6 +9,7 @@ public interface AnythingReturnVisitor<R> extends AbsOperationReturnVisitor<R> ,
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     public R handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
     public R handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException;
+    public R handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException;
     public R handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;
     public R handleRemoveUnitTypeCommand(PersistentRemoveUnitTypeCommand removeUnitTypeCommand) throws PersistenceException;
     public R handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException;
@@ -20,7 +21,6 @@ public interface AnythingReturnVisitor<R> extends AbsOperationReturnVisitor<R> ,
     public R handleServer(PersistentServer server) throws PersistenceException;
     public R handleNameScheme(PersistentNameScheme nameScheme) throws PersistenceException;
     public R handleAssignNameCommand(PersistentAssignNameCommand assignNameCommand) throws PersistenceException;
-    public R handleCreateInstanceCommand(PersistentCreateInstanceCommand createInstanceCommand) throws PersistenceException;
     public R handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException;
     public R handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException;
     public R handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException;
@@ -33,7 +33,6 @@ public interface AnythingReturnVisitor<R> extends AbsOperationReturnVisitor<R> ,
     public R handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException;
     public R handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException;
     public R handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException;
-    public R handleNameSchemeInstaceManager(PersistentNameSchemeInstaceManager nameSchemeInstaceManager) throws PersistenceException;
     public R handleFunction(PersistentFunction function) throws PersistenceException;
     public R handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
     public R handleRemoveOperationCommand(PersistentRemoveOperationCommand removeOperationCommand) throws PersistenceException;
@@ -68,7 +67,6 @@ public interface AnythingReturnVisitor<R> extends AbsOperationReturnVisitor<R> ,
     public R handleAddAssociationCommand(PersistentAddAssociationCommand addAssociationCommand) throws PersistenceException;
     public R handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException;
     public R handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException;
-    public R handleAssignNameSchemeCommand(PersistentAssignNameSchemeCommand assignNameSchemeCommand) throws PersistenceException;
     public R handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException;
     public R handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     public R handleRemoveUnitCommand(PersistentRemoveUnitCommand removeUnitCommand) throws PersistenceException;

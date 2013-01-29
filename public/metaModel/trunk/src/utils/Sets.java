@@ -2,6 +2,7 @@ package utils;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import persistence.PersistenceException;
@@ -44,4 +45,12 @@ public final class Sets {
 		}
 		return result;
 	}
+
+	public static <T> void addAll(Set<T> set, Iterator<? extends T> iterator) {
+		while (iterator.hasNext()) {
+			T current = iterator.next();
+			set.add(current);
+		}
+	}
+
 }

@@ -66,11 +66,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
         this.handleCommonDate(finishModelingCommand);
     }
-    public void handleCreateInstanceCommand(PersistentCreateInstanceCommand createInstanceCommand) throws PersistenceException{
-        this.handleCommonDate(createInstanceCommand);
-    }
     public void handleRemoveLinkCommand(PersistentRemoveLinkCommand removeLinkCommand) throws PersistenceException{
         this.handleCommonDate(removeLinkCommand);
+    }
+    public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
+        this.handleCommonDate(assignTypeCommand);
     }
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
         this.handleCommonDate(createMObjectCommand);
@@ -183,9 +183,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateSumTypeCommand(PersistentCreateSumTypeCommand createSumTypeCommand) throws PersistenceException{
         this.handleCommonDate(createSumTypeCommand);
     }
-    public void handleAssignNameSchemeCommand(PersistentAssignNameSchemeCommand assignNameSchemeCommand) throws PersistenceException{
-        this.handleCommonDate(assignNameSchemeCommand);
-    }
     public void handleCreateOperationCommand(PersistentCreateOperationCommand createOperationCommand) throws PersistenceException{
         this.handleCommonDate(createOperationCommand);
     }
@@ -270,8 +267,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
         this.handleMType(mEmptyProductType);
     }
-    public abstract void handleNameSchemeInstaceManager(PersistentNameSchemeInstaceManager nameSchemeInstaceManager) throws PersistenceException;
-    
     public abstract void handleFunction(PersistentFunction function) throws PersistenceException;
     
     public abstract void handleAbsUnit(PersistentAbsUnit absUnit) throws PersistenceException;
