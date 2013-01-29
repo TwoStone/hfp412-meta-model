@@ -51,7 +51,7 @@ import constants.ExceptionConstants;
 public class UnitTypeManager extends PersistentObject implements PersistentUnitTypeManager{
     
     private static PersistentUnitTypeManager theUnitTypeManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentUnitTypeManager getTheUnitTypeManager() throws PersistenceException{
         if (theUnitTypeManager == null || reset$For$Test){
@@ -128,7 +128,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     
     static public long getTypeId() {
-        return 169;
+        return 171;
     }
     
     public long getClassId() {

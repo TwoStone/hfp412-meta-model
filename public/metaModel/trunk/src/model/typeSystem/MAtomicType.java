@@ -131,7 +131,7 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     }
     
     static public long getTypeId() {
-        return 112;
+        return 113;
     }
     
     public long getClassId() {
@@ -140,7 +140,7 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 112) ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+        if (this.getClassId() == 113) ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
             .newMAtomicType(name,this.getId());
         super.store();
         if(this.getSingletonType() != null){

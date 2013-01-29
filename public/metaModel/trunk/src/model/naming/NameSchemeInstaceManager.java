@@ -13,7 +13,7 @@ import persistence.*;
 public class NameSchemeInstaceManager extends PersistentObject implements PersistentNameSchemeInstaceManager{
     
     private static PersistentNameSchemeInstaceManager theNameSchemeInstaceManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentNameSchemeInstaceManager getTheNameSchemeInstaceManager() throws PersistenceException{
         if (theNameSchemeInstaceManager == null || reset$For$Test){
@@ -81,7 +81,7 @@ public class NameSchemeInstaceManager extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 247;
+        return 250;
     }
     
     public long getClassId() {

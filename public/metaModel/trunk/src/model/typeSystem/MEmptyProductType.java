@@ -38,7 +38,7 @@ import persistence.TDObserver;
 public class MEmptyProductType extends model.typeSystem.MAbstractProductType implements PersistentMEmptyProductType{
     
     private static PersistentMEmptyProductType theMEmptyProductType = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMEmptyProductType getTheMEmptyProductType() throws PersistenceException{
         if (theMEmptyProductType == null || reset$For$Test){
@@ -105,7 +105,7 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
     }
     
     static public long getTypeId() {
-        return 239;
+        return 238;
     }
     
     public long getClassId() {

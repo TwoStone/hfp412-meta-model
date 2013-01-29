@@ -59,7 +59,7 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 153;
+        return 155;
     }
     
     public long getClassId() {
@@ -68,7 +68,7 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 153) ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade
+        if (this.getClassId() == 155) ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade
             .newCreateAccountCommand(name,this.getId());
         super.store();
         if(this.getType() != null){

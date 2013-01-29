@@ -104,7 +104,7 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
     }
     
     static public long getTypeId() {
-        return 243;
+        return 244;
     }
     
     public long getClassId() {
@@ -113,7 +113,7 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 243) ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade
+        if (this.getClassId() == 244) ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade
             .newNameScheme(regExpPattern,"",this.getId());
         super.store();
         if(!this.equals(this.getThis())){

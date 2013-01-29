@@ -41,22 +41,24 @@ public class CreateQuantityCommand extends PersistentObject implements Persisten
     protected common.Fraction amount;
     protected Invoker invoker;
     protected PersistentQuantityManager commandReceiver;
+    protected PersistentQuantity commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateQuantityCommand(PersistentAbsUnit unit,common.Fraction amount,Invoker invoker,PersistentQuantityManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateQuantityCommand(PersistentAbsUnit unit,common.Fraction amount,Invoker invoker,PersistentQuantityManager commandReceiver,PersistentQuantity commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.unit = unit;
         this.amount = amount;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
     static public long getTypeId() {
-        return 129;
+        return 131;
     }
     
     public long getClassId() {
@@ -65,7 +67,7 @@ public class CreateQuantityCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 129) ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade
+        if (this.getClassId() == 131) ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade
             .newCreateQuantityCommand(amount,this.getId());
         super.store();
         if(this.getUnit() != null){
@@ -79,6 +81,10 @@ public class CreateQuantityCommand extends PersistentObject implements Persisten
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -134,6 +140,20 @@ public class CreateQuantityCommand extends PersistentObject implements Persisten
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public PersistentQuantity getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(PersistentQuantity newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentQuantity)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -218,18 +238,15 @@ public class CreateQuantityCommand extends PersistentObject implements Persisten
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + (this.getUnit() == null ? 0 : 1)
-            + (this.getCommandReceiver() == null ? 0 : 1));
+            + (this.getCommandReceiver() == null ? 0 : 1)
+            + (this.getCommandResult() == null ? 0 : 1));
     }
     
     
     public void execute() 
 				throws PersistenceException{
-        try{
-			this.getCommandReceiver().createQuantity(this.getUnit(), this.getAmount());
-		}
-		catch(model.NotFinalizedException e){
-			this.commandException = e;
-		}
+        this.setCommandResult(this.getCommandReceiver().createQuantity(this.getUnit(), this.getAmount()));
+		
     }
     public void checkException() 
 				throws UserException, PersistenceException{

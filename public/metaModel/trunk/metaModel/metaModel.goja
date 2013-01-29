@@ -297,7 +297,6 @@ part quantity {
 	class Conversion {
 		// from und to sind Oracle-Schluesselwoerter.
 		prior one-to-one (myConversion) Unit source;
-		// prior UnitType type; ?berfl?ssig, kann ?ber Unit gegangen werden
 		prior Function myFunction;
 
 		Quantity convert(Fraction amount);
@@ -307,7 +306,6 @@ part quantity {
 	class Function {
 		prior Fraction factor;
 		prior Fraction constant;
-		//Wie muss eine Function aussehen? --> y=a*x+b	
 		Fraction execute(Fraction amount);
 		Fraction executeInverse(Fraction amount);
 	}
@@ -336,7 +334,7 @@ part quantity {
 
 	singleton QuantityManager {
 		AbsQuantity ** quantities;
-		active void createQuantity(AbsUnit unit, Fraction amount) throws NotFinalizedException;
+		active Quantity createQuantity(AbsUnit unit, Fraction amount);
 	}
 
 	singleton ConversionManager {

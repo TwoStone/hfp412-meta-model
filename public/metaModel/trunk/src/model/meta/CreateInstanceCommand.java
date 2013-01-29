@@ -59,7 +59,7 @@ public class CreateInstanceCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 245;
+        return 246;
     }
     
     public long getClassId() {
@@ -68,7 +68,7 @@ public class CreateInstanceCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 245) ConnectionHandler.getTheConnectionHandler().theCreateInstanceCommandFacade
+        if (this.getClassId() == 246) ConnectionHandler.getTheConnectionHandler().theCreateInstanceCommandFacade
             .newCreateInstanceCommand(name,this.getId());
         super.store();
         if(this.getScheme() != null){

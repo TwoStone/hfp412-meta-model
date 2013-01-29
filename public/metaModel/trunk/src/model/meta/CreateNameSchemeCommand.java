@@ -57,7 +57,7 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     }
     
     static public long getTypeId() {
-        return 248;
+        return 251;
     }
     
     public long getClassId() {
@@ -66,7 +66,7 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 248) ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade
+        if (this.getClassId() == 251) ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade
             .newCreateNameSchemeCommand(regExpPattern,this.getId());
         super.store();
         if(this.getInvoker() != null){

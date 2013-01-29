@@ -54,7 +54,7 @@ public class FinishModelingCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 179;
+        return 181;
     }
     
     public long getClassId() {
@@ -63,7 +63,7 @@ public class FinishModelingCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 179) ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade
+        if (this.getClassId() == 181) ConnectionHandler.getTheConnectionHandler().theFinishModelingCommandFacade
             .newFinishModelingCommand(this.getId());
         super.store();
         if(this.getCompUnitType() != null){

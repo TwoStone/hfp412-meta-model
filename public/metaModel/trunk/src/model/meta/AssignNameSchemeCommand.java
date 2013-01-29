@@ -56,7 +56,7 @@ public class AssignNameSchemeCommand extends PersistentObject implements Persist
     }
     
     static public long getTypeId() {
-        return 251;
+        return 254;
     }
     
     public long getClassId() {
@@ -65,7 +65,7 @@ public class AssignNameSchemeCommand extends PersistentObject implements Persist
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 251) ConnectionHandler.getTheConnectionHandler().theAssignNameSchemeCommandFacade
+        if (this.getClassId() == 254) ConnectionHandler.getTheConnectionHandler().theAssignNameSchemeCommandFacade
             .newAssignNameSchemeCommand(this.getId());
         super.store();
         if(this.getType() != null){

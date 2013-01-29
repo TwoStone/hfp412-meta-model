@@ -364,7 +364,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	}
 
 	static public long getTypeId() {
-		return -111;
+		return -112;
 	}
 
 	@Override
@@ -376,7 +376,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	public void store() throws PersistenceException {
 		if (!this.isDelayed$Persistence())
 			return;
-		if (this.getClassId() == -111)
+		if (this.getClassId() == -112)
 			ConnectionHandler.getTheConnectionHandler().theServerFacade.newServer(password, user, hackCount, hackDelay,
 					this.getId());
 		super.store();
@@ -560,7 +560,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void addConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant)
 			throws PersistenceException {
-		// TODO: implement method: addConversion
+		getThis().getConversionManager().createConversion(unit, factor, constant, getThis());
 
 	}
 
