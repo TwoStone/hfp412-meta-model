@@ -38,6 +38,7 @@ import persistence.PersistentProxi;
 import persistence.PersistentRemoveFpCommand;
 import persistence.PersistentRemoveFpFromOpCommand;
 import persistence.PersistentRemoveOperationCommand;
+import persistence.Predcate;
 import persistence.TDObserver;
 
 /* Additional import section end */
@@ -265,8 +266,8 @@ public class OperationManager extends PersistentObject implements PersistentOper
 	@Override
 	public void createConstant(final String name, final PersistentMType target) throws model.DoubleDefinitionException,
 			PersistenceException {
-		// TODO: implement method: createConstant
-
+		PersistentMEmptySumType theMEmptySumType = MEmptySumType.getTheMEmptySumType();
+		getThis().createOperation(theMEmptySumType, target, name, new FormalParameterSearchList());
 	}
 
 	@Override
@@ -284,25 +285,8 @@ public class OperationManager extends PersistentObject implements PersistentOper
 	public void createOperation(final PersistentMType source, final PersistentMType target, final String name,
 			final FormalParameterSearchList fp) throws model.DoubleDefinitionException, PersistenceException {
 
-		// DDE Pruefen
-		Iterator<PersistentAbsOperation> iterator = Operation.getAbsOperationByName(name).iterator();
-		while (iterator.hasNext()) {
-			iterator.next().accept(new AbsOperationReturnExceptionVisitor<AbsOperation, DoubleDefinitionException>() {
-
-				@Override
-				public AbsOperation handleOperation(PersistentOperation operation) throws PersistenceException,
-						DoubleDefinitionException {
-					throw new DoubleDefinitionException(
-							"Die Namen der Operationen sind eindeutig! Bitte waehlen Sie einen anderen Namen.");
-				}
-
-				@Override
-				public AbsOperation handleAssociation(PersistentAssociation association) throws PersistenceException,
-						DoubleDefinitionException {
-					return null;
-				}
-			});
-		}
+		// 1. DDE Pruefen
+		checkOperationDoubleDefinition(name);
 
 		// 2. Operation erstellen
 		PersistentOperation createOperation = Operation.createOperation(name, source, target);
@@ -357,14 +341,15 @@ public class OperationManager extends PersistentObject implements PersistentOper
 
 	@Override
 	public OperationSearchList getConstants() throws PersistenceException {
-		// TODO: implement method: getConstants
-		// try {
-		// throw new java.lang.UnsupportedOperationException("Method \"getConstants\" not implemented yet.");
-		// } catch (java.lang.UnsupportedOperationException uoe) {
-		// uoe.printStackTrace();
-		// throw uoe;
-		// }
-		return new OperationSearchList();
+		// Konstanten sind wie statische Operationen ohne Parameter
+		return new OperationSearchList(getThis().getStaticOperations().findAll(new Predcate<PersistentOperation>() {
+
+			@Override
+			public boolean test(PersistentOperation argument) throws PersistenceException {
+				return argument.getParameters().getLength() <= 0;
+			}
+
+		}));
 	}
 
 	@Override
@@ -381,14 +366,15 @@ public class OperationManager extends PersistentObject implements PersistentOper
 
 	@Override
 	public OperationSearchList getStaticOperations() throws PersistenceException {
-		// TODO: implement method: getStaticOperations
-		// try{
-		// throw new java.lang.UnsupportedOperationException("Method \"getStaticOperations\" not implemented yet.");
-		// } catch (java.lang.UnsupportedOperationException uoe){
-		// uoe.printStackTrace();
-		// throw uoe;
-		// }
-		return new OperationSearchList();
+
+		return new OperationSearchList(getThis().getOperations().findAll(new Predcate<PersistentOperation>() {
+
+			@Override
+			public boolean test(PersistentOperation argument) throws PersistenceException {
+				return argument.isStatic().toBoolean();
+			}
+
+		}));
 	}
 
 	@Override
@@ -415,14 +401,12 @@ public class OperationManager extends PersistentObject implements PersistentOper
 
 	@Override
 	public void initializeOnInstantiation() throws PersistenceException {
-		// TODO: implement method: initializeOnInstantiation
-
 	}
 
 	@Override
 	public void initializeOnCreation() throws PersistenceException {
-		// TODO: implement method: initializeOnCreation
-
+		getStaticOperations();
+		getConstants();
 	}
 
 	@Override
@@ -517,6 +501,27 @@ public class OperationManager extends PersistentObject implements PersistentOper
 	}
 
 	/* Start of protected part that is not overridden by persistence generator */
+
+	private void checkOperationDoubleDefinition(String name) throws DoubleDefinitionException, PersistenceException {
+		Iterator<PersistentAbsOperation> iterator = Operation.getAbsOperationByName(name).iterator();
+		while (iterator.hasNext()) {
+			iterator.next().accept(new AbsOperationReturnExceptionVisitor<AbsOperation, DoubleDefinitionException>() {
+
+				@Override
+				public AbsOperation handleOperation(PersistentOperation operation) throws PersistenceException,
+						DoubleDefinitionException {
+					throw new DoubleDefinitionException(
+							"Die Namen der Operationen sind eindeutig! Bitte waehlen Sie einen anderen Namen.");
+				}
+
+				@Override
+				public AbsOperation handleAssociation(PersistentAssociation association) throws PersistenceException,
+						DoubleDefinitionException {
+					return null;
+				}
+			});
+		}
+	}
 
 	/* End of protected part that is not overridden by persistence generator */
 

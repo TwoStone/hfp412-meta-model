@@ -3,6 +3,8 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Iterator;
 
 import model.CycleException;
@@ -26,7 +28,7 @@ import test.util.AbstractTest;
 
 public class OperationManagerTest extends AbstractTest {
 
-	PersistentOperationManager manager;
+	private final PersistentOperationManager manager;
 
 	public OperationManagerTest() throws CycleException, PersistenceException {
 		super();
@@ -34,7 +36,7 @@ public class OperationManagerTest extends AbstractTest {
 	}
 
 	@Before
-	public void cleanUp() throws PersistenceException {
+	public void cleanUp() throws PersistenceException, SQLException, IOException {
 		Iterator<PersistentOperation> iterator = this.manager.getOperations().iterator();
 		// FIXME: Indizierte Felder lassen sich so nicht loeschen...
 		while (iterator.hasNext()) {
@@ -63,8 +65,18 @@ public class OperationManagerTest extends AbstractTest {
 	}
 
 	@Test
+	public void listShouldContainOperationAfterInvocationOfCreateOperation() throws DoubleDefinitionException,
+			PersistenceException {
+		String name = "einName";
+		manager.createOperation(mat2, mat3, name, manager.getFormalParameters().getList());
+		if (Operation.getAbsOperationByName(name).getLength() <= 0) {
+			fail("Operation wurde offenbar nicht erstellt!");
+		}
+	}
+
+	@Test
 	public void sourceOfStaticOperationHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException {
-		String name = "test02";
+		String name = "test04";
 		// 1. Erstellen
 		manager.createStaticOp(name, mat2, manager.getFormalParameters().getList());
 
@@ -87,9 +99,35 @@ public class OperationManagerTest extends AbstractTest {
 		});
 	}
 
+	/* Eigentlich unnoetig aber kost ja nischt! */
 	@Test
-	public void sourceOfVoidOperationHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException {
-		String name = "test04";
+	public void sourceOfConstantHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException {
+		String name = "test0X";
+		// 1. Erstellen
+		manager.createConstant(name, mat2);
+
+		if (Operation.getAbsOperationByName(name).getLength() <= 0) {
+			fail("Static Operation wurde offenbar nicht erstellt!");
+		}
+		assertEqualsWithNameAndVisitor(name, new AbsOperationVisitor() {
+
+			@Override
+			public void handleOperation(PersistentOperation operation) throws PersistenceException {
+
+				assertEquals(MEmptySumType.getTheMEmptySumType(), operation.getSource());
+			}
+
+			@Override
+			public void handleAssociation(PersistentAssociation association) throws PersistenceException {
+				// Wenn eine Operation genauso heisst wie eine Association ist das
+				// erstmal nicht relevant.
+			}
+		});
+	}
+
+	@Test
+	public void targetOfVoidOperationHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException {
+		String name = "test05";
 		manager.createVoidOperation(mat1, name, manager.getFormalParameters().getList());
 
 		if (Operation.getAbsOperationByName(name).getLength() <= 0) {
@@ -112,7 +150,7 @@ public class OperationManagerTest extends AbstractTest {
 	}
 
 	/**
-	 * Iteriert durch alle gleichnamigen AbstractOperations (also Operations und Associations) und wendet auf jedes
+	 * Iteriert durch alle gleichnamigen AbstractOperations (also Operations oder Associations) und wendet auf jedes
 	 * Element den uebergebenen Visitor an.
 	 * 
 	 * @param name

@@ -6,32 +6,28 @@ import modelServer.ServerReporter;
 public class EmptyServerReporter implements ServerReporter {
 
 	private static EmptyServerReporter theInstance;
-	
-	private EmptyServerReporter() {}
+
+	private EmptyServerReporter() {
+	}
 
 	public static EmptyServerReporter getTheInstance() {
-		if(theInstance != null) {
+		if (theInstance != null) {
 			theInstance = new EmptyServerReporter();
 		}
-		
+
 		return theInstance;
 	}
-	
+
 	@Override
 	public void reportNewConnection(RemoteServerMaster server) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void reportCancelledConnection(RemoteServerMaster server) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void reportCurrentCacheSize(int size) {
-		// TODO Auto-generated method stub
 
 	}
 
