@@ -1,10 +1,24 @@
-
 package model.abstractOperation;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
-
+import model.visitor.AbsOperationExceptionVisitor;
+import model.visitor.AbsOperationReturnExceptionVisitor;
+import model.visitor.AbsOperationReturnVisitor;
+import model.visitor.AbsOperationVisitor;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.AssociationProxi;
+import persistence.Association_HierarchiesProxi;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentAbsOperation;
+import persistence.PersistentAssociation;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMType;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -151,14 +165,14 @@ public class Association extends model.abstractOperation.AbsOperation implements
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAssociation)This);
@@ -170,22 +184,16 @@ public class Association extends model.abstractOperation.AbsOperation implements
     }
     public PersistentMBoolean isObservation() 
 				throws PersistenceException{
-        //TODO: implement method: isObservation
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"isObservation\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		return this.getTarget().isSingleton();
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

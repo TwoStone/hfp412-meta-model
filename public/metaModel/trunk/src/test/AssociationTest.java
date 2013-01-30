@@ -44,5 +44,12 @@ public class AssociationTest extends AbstractTest {
 	@Test
 	public void isObservation() throws PersistenceException, DoubleDefinitionException {
 		assertEquals(mFalse, Association.createAssociation("", mat1, mat4).isObservation());
+		assertEquals(mFalse, Association.createAssociation("", mat1, mptMultiple2And4).isObservation());
+		assertEquals(mFalse, Association.createAssociation("", mat1, mptSingle1).isObservation());
+		assertEquals(mFalse, Association.createAssociation("", mat1, mstMultiple2And4).isObservation());
+		assertEquals(mFalse, Association.createAssociation("", mat1, mstSingle1).isObservation());
+		assertEquals(mTrue, Association.createAssociation("", mat1, mptEmpty).isObservation());
+		assertEquals(mTrue, Association.createAssociation("", mat1, mstEmpty).isObservation());
+		// TODO CompTypes testen
 	}
 }
