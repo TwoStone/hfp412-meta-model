@@ -47,256 +47,196 @@ import utils.Lists;
 
 /* Additional import section end */
 
-public class MProductType extends model.typeSystem.MAbstractProductType implements PersistentMProductType {
-
-	public static PersistentMProductType createMProductType() throws PersistenceException {
-		return createMProductType(false);
-	}
-
-	public static PersistentMProductType createMProductType(boolean delayed$Persistence) throws PersistenceException {
-		PersistentMProductType result = null;
-		if (delayed$Persistence) {
-			result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade.newDelayedMProductType();
-			result.setDelayed$Persistence(true);
-		} else {
-			result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade.newMProductType(-1);
-		}
-		java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
-		result.initialize(result, final$$Fields);
-		result.initializeOnCreation();
-		return result;
-	}
-
-	public static PersistentMProductType createMProductType(boolean delayed$Persistence, PersistentMProductType This)
-			throws PersistenceException {
-		PersistentMProductType result = null;
-		if (delayed$Persistence) {
-			result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade.newDelayedMProductType();
-			result.setDelayed$Persistence(true);
-		} else {
-			result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade.newMProductType(-1);
-		}
-		java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
-		result.initialize(This, final$$Fields);
-		result.initializeOnCreation();
-		return result;
-	}
-
-	@Override
-	public java.util.Hashtable<String, Object> toHashtable(java.util.Hashtable<String, Object> allResults, int depth,
-			int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-		java.util.Hashtable<String, Object> result = null;
-		if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth) {
-			result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-			String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-			if (leaf && !allResults.contains(uniqueKey))
-				allResults.put(uniqueKey, result);
-		}
-		return result;
-	}
-
-	@Override
-	public MProductType provideCopy() throws PersistenceException {
-		MProductType result = this;
-		result = new MProductType(this.This, this.getId());
-		result.containedTypes = this.containedTypes.copy(result);
-		this.copyingPrivateUserAttributes(result);
-		return result;
-	}
-
-	@Override
-	public boolean hasEssentialFields() throws PersistenceException {
-		return false;
-	}
-
-	public MProductType(PersistentMType This, long id) throws persistence.PersistenceException {
-		/* Shall not be used by clients for object construction! Use static create operation instead! */
-		super(This, id);
-	}
-
-	static public long getTypeId() {
-		return 115;
-	}
-
-	@Override
-	public long getClassId() {
-		return getTypeId();
-	}
-
-	@Override
-	public void store() throws PersistenceException {
-		if (!this.isDelayed$Persistence())
-			return;
-		if (this.getClassId() == 115)
-			ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade.newMProductType(this.getId());
-		super.store();
-
-	}
-
-	@Override
-	public PersistentMProductType getThis() throws PersistenceException {
-		if (this.This == null) {
-			PersistentMProductType result = new MProductTypeProxi(this.getId());
-			result.getTheObject();
-			return result;
-		}
-		return (PersistentMProductType) this.This;
-	}
-
-	@Override
-	public void accept(MAbstractProductTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <R> R accept(MAbstractProductTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(MAbstractProductTypeExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(MAbstractProductTypeReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMProductType(this);
-	}
-
-	@Override
-	public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <R> R accept(MComplexTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException,
-			E {
-		visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMProductType(this);
-	}
-
-	@Override
-	public void accept(MTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <R> R accept(MTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-		visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMProductType(this);
-	}
-
-	@Override
-	public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-		visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMProductType(this);
-	}
-
-	@Override
-	public void accept(AnythingVisitor visitor) throws PersistenceException {
-		visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <R> R accept(AnythingReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-		visitor.handleMProductType(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMProductType(this);
-	}
-
-	@Override
-	public int getLeafInfo() throws PersistenceException {
-		return (int) (0 + this.getContainedTypes().getLength());
-	}
-
-	@Override
-	public void initializeOnInstantiation() throws PersistenceException {
+public class MProductType extends model.typeSystem.MAbstractProductType implements PersistentMProductType{
+    
+    
+    public static PersistentMProductType createMProductType() throws PersistenceException{
+        return createMProductType(false);
+    }
+    
+    public static PersistentMProductType createMProductType(boolean delayed$Persistence) throws PersistenceException {
+        PersistentMProductType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+                .newDelayedMProductType();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+                .newMProductType(-1);
+        }
+        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        result.initialize(result, final$$Fields);
+        result.initializeOnCreation();
+        return result;
+    }
+    
+    public static PersistentMProductType createMProductType(boolean delayed$Persistence,PersistentMProductType This) throws PersistenceException {
+        PersistentMProductType result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+                .newDelayedMProductType();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+                .newMProductType(-1);
+        }
+        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        result.initialize(This, final$$Fields);
+        result.initializeOnCreation();
+        return result;
+    }
+    
+    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    java.util.Hashtable<String,Object> result = null;
+        if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+            if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
+        }
+        return result;
+    }
+    
+    public MProductType provideCopy() throws PersistenceException{
+        MProductType result = this;
+        result = new MProductType(this.This, 
+                                  this.getId());
+        result.containedTypes = this.containedTypes.copy(result);
+        this.copyingPrivateUserAttributes(result);
+        return result;
+    }
+    
+    public boolean hasEssentialFields() throws PersistenceException{
+        return false;
+    }
+    
+    public MProductType(PersistentMType This,long id) throws persistence.PersistenceException {
+        /* Shall not be used by clients for object construction! Use static create operation instead! */
+        super((PersistentMType)This,id);        
+    }
+    
+    static public long getTypeId() {
+        return 115;
+    }
+    
+    public long getClassId() {
+        return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 115) ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+            .newMProductType(this.getId());
+        super.store();
+        
+    }
+    
+    public PersistentMProductType getThis() throws PersistenceException {
+        if(this.This == null){
+            PersistentMProductType result = new MProductTypeProxi(this.getId());
+            result.getTheObject();
+            return result;
+        }return (PersistentMProductType)this.This;
+    }
+    
+    public void accept(MAbstractProductTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMProductType(this);
+    }
+    public <R> R accept(MAbstractProductTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMProductType(this);
+    }
+    public <E extends UserException>  void accept(MAbstractProductTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMProductType(this);
+    }
+    public <R, E extends UserException> R accept(MAbstractProductTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMProductType(this);
+    }
+    public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMProductType(this);
+    }
+    public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMProductType(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMProductType(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMProductType(this);
+    }
+    public void accept(MTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMProductType(this);
+    }
+    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMProductType(this);
+    }
+    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMProductType(this);
+    }
+    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMProductType(this);
+    }
+    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleMProductType(this);
+    }
+    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMProductType(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMProductType(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMProductType(this);
+    }
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
+        visitor.handleMProductType(this);
+    }
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMProductType(this);
+    }
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMProductType(this);
+    }
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMProductType(this);
+    }
+    public int getLeafInfo() throws PersistenceException{
+        return (int) (0 
+            + this.getContainedTypes().getLength());
+    }
+    
+    
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
 		// TODO: implement method: initializeOnInstantiation
 
 	}
-
-	@Override
-	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
 		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
-
-	@Override
-	public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) throws PersistenceException {
-		if (getThis().equals(part))
-			return true;
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
 		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
-		while (iterator0.hasNext())
-			if (((MComplexTypeHierarchyHIERARCHY) iterator0.next()).containsMComplexTypeHierarchy(part))
-				return true;
+		while(iterator0.hasNext())
+			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
-	}
-
-	@Override
-	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields)
-			throws PersistenceException {
-		this.setThis((PersistentMProductType) This);
-		if (this.equals(This)) {
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMProductType)This);
+		if(this.equals(This)){
 		}
-	}
-
-	@Override
-	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
+    }
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
 		if (other instanceof PersistentMProductType) {
 			return allChildrenAreStructuralEquivalent((PersistentMComplexType) other);
 		}
 		return MFalse.getTheMFalse();
 	}
-
-	@Override
-	public PersistentMBoolean isLessOrEqual(final PersistentMType other) throws PersistenceException {
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
 		// TODO: implement method: isLessOrEqual
 		try {
 			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
@@ -305,30 +245,24 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
 			throw uoe;
 		}
 	}
-
-	@Override
-	public <T> T strategyMComplexTypeHierarchy(final T parameter,
-			final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) throws PersistenceException {
-		T result$$containedTypes$$MProductType = strategy
-				.initialize$$MProductType$$containedTypes(getThis(), parameter);
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$containedTypes$$MProductType = strategy.initialize$$MProductType$$containedTypes(getThis(), parameter);
 		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
-		while (iterator$$.hasNext()) {
-			PersistentMType current$$Field = (PersistentMType) iterator$$.next();
+		while (iterator$$.hasNext()){
+			PersistentMType current$$Field = (PersistentMType)iterator$$.next();
 			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MProductType, strategy);
-			result$$containedTypes$$MProductType = strategy.consolidate$$MProductType$$containedTypes(getThis(),
-					result$$containedTypes$$MProductType, current$$);
+			result$$containedTypes$$MProductType = strategy.consolidate$$MProductType$$containedTypes(getThis(), result$$containedTypes$$MProductType, current$$);
 		}
-		return strategy.finalize$$MProductType(getThis(), parameter, result$$containedTypes$$MProductType);
-	}
-
-	@Override
-	public void initializeOnCreation() throws PersistenceException {
+		return strategy.finalize$$MProductType(getThis(), parameter,result$$containedTypes$$MProductType);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
 
 	}
-
-	@Override
-	public PersistentMBoolean isSingleton() throws PersistenceException {
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
 		Iterator<PersistentMType> i = getThis().getContainedTypes().iterator();
 
 		while (i.hasNext()) {
@@ -339,9 +273,8 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
 
 		return MTrue.getTheMTrue();
 	}
-
-	@Override
-	public PersistentMSumType fetchDisjunctiveNormalform() throws PersistenceException {
+    public PersistentMAbstractSumType fetchDisjunctiveNormalform() 
+				throws PersistenceException{
 		final PersistentMSumType sumType = MSumType.createMSumType(true);
 		final List<PersistentMAbstractSumType> dnfsOfChildren = Lists.newArrayList();
 		this.getThis().getContainedTypes().applyToAll(new Procdure<PersistentMType>() {
@@ -366,9 +299,8 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
 
 		return sumType;
 	}
-
-	@Override
-	public PersistentMBoolean isAbstract() throws PersistenceException {
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
 		Iterator<PersistentMType> i = getThis().getContainedTypes().iterator();
 
 		while (i.hasNext()) {
@@ -381,7 +313,7 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
 
 	}
 
-	/* Start of protected part that is not overridden by persistence generator */
+    /* Start of protected part that is not overridden by persistence generator */
 
 	private List<PersistentMProductType> createProducts(List<PersistentMAbstractSumType> dnfs)
 			throws PersistenceException, CycleException {
@@ -479,5 +411,5 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
 	}
 
 	/* End of protected part that is not overridden by persistence generator */
-
+    
 }
