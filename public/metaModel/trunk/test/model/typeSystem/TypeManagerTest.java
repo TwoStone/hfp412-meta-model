@@ -1,10 +1,10 @@
 package model.typeSystem;
 
-import static org.junit.Assert.assertEquals;
 import model.ConsistencyException;
 import model.basic.MFalse;
 import model.basic.MTrue;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -81,7 +81,7 @@ public class TypeManagerTest extends TestingBase {
 		subTypeUnderRoot = typeMan
 				.createAtomicSubType(rootType, "SubType1", MTrue.getTheMTrue(), MFalse.getTheMFalse());
 
-		assertEquals(rootType.getAspect(), subTypeUnderRoot.getAspect());
+		Assert.assertEquals(rootType.getAspect(), subTypeUnderRoot.getAspect());
 	}
 
 	@Test(expected = ConsistencyException.class)
@@ -95,7 +95,7 @@ public class TypeManagerTest extends TestingBase {
 		subTypeUnderSubType = typeMan.createAtomicSubType(subTypeUnderRoot, "SubType2", MTrue.getTheMTrue(),
 				MFalse.getTheMFalse());
 
-		assertEquals(rootType.getAspect(), subTypeUnderSubType.getAspect());
+		Assert.assertEquals(rootType.getAspect(), subTypeUnderSubType.getAspect());
 	}
 
 	@Test
@@ -103,7 +103,7 @@ public class TypeManagerTest extends TestingBase {
 		subType2UnderRoot = typeMan.createAtomicSubType(rootType, "SubType3", MTrue.getTheMTrue(),
 				MFalse.getTheMFalse());
 
-		assertEquals(rootType.getAspect(), subType2UnderRoot.getAspect());
+		Assert.assertEquals(rootType.getAspect(), subType2UnderRoot.getAspect());
 	}
 
 	@Test

@@ -123,8 +123,9 @@ part typeSystem {
 		abstract MBoolean isLessOrEqual(MType other);
 		abstract MBoolean isSingleton();
 		abstract MBoolean isAbstract();
-		abstract MBoolean isStructuralEquivalant(MType other);  	/*		
-			MSumType fetchDisjunctiveNormalform();
+		abstract MBoolean isStructuralEquivalant(MType other);  			
+		abstract MAbstractSumType fetchDisjunctiveNormalform();
+/*
 			MAssociation** fetchAssociations();
 			MBoolean allObjectsOfTypeAreSingleton();
 

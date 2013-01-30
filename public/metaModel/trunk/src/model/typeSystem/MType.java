@@ -1,7 +1,14 @@
 
 package model.typeSystem;
 
-import persistence.*;
+import persistence.AbsOperationSearchList;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */

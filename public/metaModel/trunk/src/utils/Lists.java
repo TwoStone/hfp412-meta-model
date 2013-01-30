@@ -46,6 +46,13 @@ public final class Lists {
 	}
 
 	/**
+	 * Erstellt eine neue {@link ArrayList} aus der übergebenen {@link Collection}.
+	 */
+	public static <T> ArrayList<T> newArrayList(Collection<? extends T> collection) {
+		return new ArrayList<T>(collection);
+	}
+
+	/**
 	 * Transformiert die Liste elementweise in dem die übergebene {@link FunctionWithResult Funktion} auf jedem Element
 	 * angewendet wird.
 	 */
