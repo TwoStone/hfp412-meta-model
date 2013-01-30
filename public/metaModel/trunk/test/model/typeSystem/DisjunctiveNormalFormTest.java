@@ -153,4 +153,20 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 		assertEquals(expected, sum.fetchDisjunctiveNormalform());
 		Assert.assertTrue(sum.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
+
+	@Test
+	public void testSumOf2Sums() throws PersistenceException, CycleException {
+		PersistentMAtomicType typeA = atomicType("A", aspect("Aspect1"));
+		PersistentMAtomicType typeB = atomicType("B", aspect("Aspect2"));
+
+		PersistentMAtomicType typeC = atomicType("C", aspect("Aspect3"));
+		PersistentMAtomicType typeD = atomicType("D", aspect("Aspect4"));
+
+		PersistentMSumType sum = sum(sum(typeA, typeB), sum(typeC, typeD));
+
+		PersistentMSumType expected = sum(product(typeA), product(typeB), product(typeC), product(typeD));
+
+		assertEquals(expected, sum.fetchDisjunctiveNormalform());
+		Assert.assertTrue(sum.fetchDisjunctiveNormalform().isDelayed$Persistence());
+	}
 }
