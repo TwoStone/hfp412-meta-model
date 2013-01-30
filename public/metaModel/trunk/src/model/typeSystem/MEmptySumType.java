@@ -2,6 +2,7 @@ package model.typeSystem;
 
 import model.UserException;
 import model.basic.MBoolean;
+import model.basic.MTrue;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -240,23 +241,11 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
-		// TODO: implement method: isSingleton
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isSingleton\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return MTrue.getTheMTrue();
 	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
-		// TODO: implement method: isAbstract
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isAbstract\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return MTrue.getTheMTrue();
 	}
     public String fetchName() 
 				throws PersistenceException{

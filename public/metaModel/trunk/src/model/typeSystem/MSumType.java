@@ -2,6 +2,7 @@ package model.typeSystem;
 
 import model.UserException;
 import model.basic.MFalse;
+import model.basic.MTrue;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -248,23 +249,19 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
 	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
-		// TODO: implement method: isSingleton
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isSingleton\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+		if (getThis().getContainedTypes().getLength() == 1) {
+			return getThis().getContainedTypes().iterator().next().isSingleton();
 		}
+
+		return MFalse.getTheMFalse();
 	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
-		// TODO: implement method: isAbstract
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isAbstract\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+		if (getThis().getContainedTypes().getLength() == 1) {
+			return getThis().getContainedTypes().iterator().next().isAbstract();
 		}
+
+		return MTrue.getTheMTrue();
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

@@ -1,7 +1,10 @@
 package model.typeSystem;
 
+import java.util.Iterator;
+
 import model.UserException;
 import model.basic.MFalse;
+import model.basic.MTrue;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -252,23 +255,28 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
 	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
-		// TODO: implement method: isSingleton
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isSingleton\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+		Iterator<PersistentMType> i = getThis().getContainedTypes().iterator();
+
+		while (i.hasNext()) {
+			if (!i.next().isSingleton().toBoolean()) {
+				return MFalse.getTheMFalse();
+			}
 		}
+
+		return MTrue.getTheMTrue();
 	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
-		// TODO: implement method: isAbstract
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isAbstract\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+		Iterator<PersistentMType> i = getThis().getContainedTypes().iterator();
+
+		while (i.hasNext()) {
+			if (i.next().isAbstract().toBoolean()) {
+				return MTrue.getTheMTrue();
+			}
 		}
+
+		return MFalse.getTheMFalse();
+
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

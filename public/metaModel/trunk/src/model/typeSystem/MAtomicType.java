@@ -6,8 +6,43 @@ import model.UserException;
 import model.basic.MBoolean;
 import model.basic.MFalse;
 import model.basic.MTrue;
-import model.visitor.*;
-import persistence.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MAtomicTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MAtomicTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MAtomicTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MAtomicTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MTypeExceptionVisitor;
+import model.visitor.MTypeReturnExceptionVisitor;
+import model.visitor.MTypeReturnVisitor;
+import model.visitor.MTypeVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MAtomicTypeHierarchyHIERARCHY;
+import persistence.MAtomicTypeHierarchyHIERARCHYStrategy;
+import persistence.MAtomicTypeProxi;
+import persistence.MAtomicTypeSearchList;
+import persistence.MComplexTypeHierarchyHIERARCHY;
+import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
+import persistence.NameSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentMAspect;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
+import persistence.PersistentMType;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -406,8 +441,9 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     }
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().getSingletonType().toBoolean()
-				&& !getThis().hasConcreteSubType().toBoolean());
+		return getSingletonType();
+		// return MBoolean.createFromBoolean(getThis().getSingletonType().toBoolean()
+		// && !getThis().hasConcreteSubType().toBoolean());
 	}
     public String singletonTypeAsString() 
 				throws PersistenceException{
