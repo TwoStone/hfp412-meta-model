@@ -293,6 +293,29 @@ public class OperationManagerTest extends AbstractTest {
 		manager.removeFp(param);
 	}
 
+	@Test(expected = ConsistencyException.class)
+	public void removingFormalParameterFromOperationWithoutTheseParam() throws PersistenceException,
+			DoubleDefinitionException, ConsistencyException {
+		// TODO: Das muss doch besser gehen!? Erst anlegen und dann den angelegten mit etwas vergleichen...
+
+		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
+		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "y");
+
+		FormalParameterSearchList searchList = new FormalParameterSearchList();
+		searchList.add(param);
+
+		final String name = "IrgendeinerXXX";
+		manager.createOperation(mat3, mat4, name, searchList);
+		PersistentOperation findFirst = manager.getOperations().findFirst(new Predcate<PersistentOperation>() {
+
+			@Override
+			public boolean test(PersistentOperation argument) throws PersistenceException {
+				return argument.getName().equals(name);
+			}
+		});
+		manager.removeFpFromOp(findFirst, param2);
+	}
+
 	@Test
 	public void removingFormalParameterIsNotAllowedIfActualParameterExists() throws PersistenceException {
 		fail("Noch nicht testbar da Objekte erstellt werden muessen");

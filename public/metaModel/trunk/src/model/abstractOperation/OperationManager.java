@@ -578,13 +578,26 @@ public class OperationManager extends PersistentObject implements PersistentOper
 					"Zu dieser Operation existieren Exemplare! Formalparameter kann nicht entfernt werden");
 		}
 
-		op.getParameters().removeFirstSuccess(new Predcate<PersistentFormalParameter>() {
-
-			@Override
-			public boolean test(PersistentFormalParameter argument) throws PersistenceException {
-				return fp.equals(argument);
+		Iterator<PersistentFormalParameter> iterator = op.getParameters().iterator();
+		boolean deleted = false;
+		while (iterator.hasNext()) {
+			if (iterator.next().equals(fp)) {
+				iterator.remove();
+				deleted = true;
 			}
-		});
+		}
+
+		if (!deleted) {
+			// Wurde offenbar keiner gefunden
+			throw new ConsistencyException("Formalparameter befindet sich nicht in der Parameterliste!");
+		}
+		// op.getParameters().removeFirstSuccess(new Predcate<PersistentFormalParameter>() {
+		//
+		// @Override
+		// public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+		// return fp.equals(argument);
+		// }
+		// });
 	}
 
 	/* Start of protected part that is not overridden by persistence generator */
