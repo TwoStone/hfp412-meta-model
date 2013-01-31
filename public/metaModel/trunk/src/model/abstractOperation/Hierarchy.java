@@ -96,7 +96,7 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
     }
     
     static public long getTypeId() {
-        return 165;
+        return 163;
     }
     
     public long getClassId() {
@@ -105,7 +105,7 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 165) ConnectionHandler.getTheConnectionHandler().theHierarchyFacade
+        if (this.getClassId() == 163) ConnectionHandler.getTheConnectionHandler().theHierarchyFacade
             .newHierarchy(name,this.getId());
         super.store();
         if(!this.equals(this.getThis())){

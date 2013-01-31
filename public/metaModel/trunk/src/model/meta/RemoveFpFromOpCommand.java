@@ -56,7 +56,7 @@ public class RemoveFpFromOpCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 198;
+        return 197;
     }
     
     public long getClassId() {
@@ -65,7 +65,7 @@ public class RemoveFpFromOpCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 198) ConnectionHandler.getTheConnectionHandler().theRemoveFpFromOpCommandFacade
+        if (this.getClassId() == 197) ConnectionHandler.getTheConnectionHandler().theRemoveFpFromOpCommandFacade
             .newRemoveFpFromOpCommand(this.getId());
         super.store();
         if(this.getOp() != null){
@@ -236,8 +236,12 @@ public class RemoveFpFromOpCommand extends PersistentObject implements Persisten
     
     public void execute() 
 				throws PersistenceException{
-        this.getCommandReceiver().removeFpFromOp(this.getOp(), this.getFp());
-		
+        try{
+			this.getCommandReceiver().removeFpFromOp(this.getOp(), this.getFp());
+		}
+		catch(model.ConsistencyException e){
+			this.commandException = e;
+		}
     }
     public void checkException() 
 				throws UserException, PersistenceException{

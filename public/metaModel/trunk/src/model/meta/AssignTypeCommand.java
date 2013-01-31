@@ -58,7 +58,7 @@ public class AssignTypeCommand extends PersistentObject implements PersistentAss
     }
     
     static public long getTypeId() {
-        return 275;
+        return 263;
     }
     
     public long getClassId() {
@@ -67,7 +67,7 @@ public class AssignTypeCommand extends PersistentObject implements PersistentAss
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 275) ConnectionHandler.getTheConnectionHandler().theAssignTypeCommandFacade
+        if (this.getClassId() == 263) ConnectionHandler.getTheConnectionHandler().theAssignTypeCommandFacade
             .newAssignTypeCommand(this.getId());
         super.store();
         if(this.getScheme() != null){

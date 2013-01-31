@@ -58,7 +58,7 @@ public class ReplaceTypeCommand extends PersistentObject implements PersistentRe
     }
     
     static public long getTypeId() {
-        return 241;
+        return 250;
     }
     
     public long getClassId() {
@@ -67,7 +67,7 @@ public class ReplaceTypeCommand extends PersistentObject implements PersistentRe
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 241) ConnectionHandler.getTheConnectionHandler().theReplaceTypeCommandFacade
+        if (this.getClassId() == 250) ConnectionHandler.getTheConnectionHandler().theReplaceTypeCommandFacade
             .newReplaceTypeCommand(this.getId());
         super.store();
         if(this.getObject() != null){

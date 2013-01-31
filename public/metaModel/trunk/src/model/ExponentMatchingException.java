@@ -29,7 +29,7 @@ public class ExponentMatchingException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -228;
+        return -225;
     }
     
     public long getClassId() {

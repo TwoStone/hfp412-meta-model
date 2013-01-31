@@ -28,7 +28,7 @@ server Server {
 
 	/** Object **/
 	void createMObject@@Exemplar_erstellen(MAtomicType type {typeManager;types}, MAtomicType** otherTypes {typeManager;types});	
-	void addType@@Typen_hinzufügen(MObject object, MAtomicType newType {typeManager;types});
+	void addType@@Typen_hinzuf?gen(MObject object, MAtomicType newType {typeManager;types});
 	void removeType@@Typen_entfernen(MObject object, MAtomicType oldType {;object;types});
 	void replaceType@@Typen_ersetzen(MObject object, MAtomicType oldType {;object;types}, MAtomicType newType {;oldType;aspect;types});
 
@@ -390,16 +390,16 @@ active void createOperation(MType source, MType target, String name, FormalParam
 active void createVoidOperation(MType source, String name, FormalParameter** fp) throws DoubleDefinitionException;
 active void createFp(String name, MType ofType) throws DoubleDefinitionException;
 
-active void addFp(Operation op, FormalParameter fp) throws ConsistencyException;
-active void addMultipleFp(Operation op, FormalParameter** fp);
-active void removeFpFromOp(Operation op, FormalParameter fp);
+active void addFp(Operation op, FormalParameter fp) throws DoubleDefinitionException;
+active void addMultipleFp(Operation op, FormalParameter** fp) throws DoubleDefinitionException;
+active void removeFpFromOp(Operation op, FormalParameter fp) throws ConsistencyException;
 active void removeFp(FormalParameter fp) throws ConsistencyException;
 active void removeOperation(Operation op) throws ConsistencyException;
 }
 
 class FormalParameter {
     prior MType ofType;
-    indexed prior String name;
+    indexed prior String name;	
 }
 
 abstract class AbsOperation@@AbstractOperation {
@@ -457,7 +457,7 @@ class Message extends MessageOrLink {
 }
 
 class ActualParameter {
-    prior FormalParameter type;
+    prior symmetric FormalParameter type;
     prior InstanceObject value;
 }
 

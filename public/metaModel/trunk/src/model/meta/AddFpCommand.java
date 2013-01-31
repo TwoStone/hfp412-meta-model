@@ -56,7 +56,7 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
     }
     
     static public long getTypeId() {
-        return 167;
+        return 165;
     }
     
     public long getClassId() {
@@ -65,7 +65,7 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 167) ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade
+        if (this.getClassId() == 165) ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade
             .newAddFpCommand(this.getId());
         super.store();
         if(this.getOp() != null){
@@ -239,7 +239,7 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
         try{
 			this.getCommandReceiver().addFp(this.getOp(), this.getFp());
 		}
-		catch(model.ConsistencyException e){
+		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
 		}
     }

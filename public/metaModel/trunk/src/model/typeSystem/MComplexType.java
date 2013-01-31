@@ -42,7 +42,7 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
     }
     
     static public long getTypeId() {
-        return 103;
+        return 102;
     }
     
     public long getClassId() {

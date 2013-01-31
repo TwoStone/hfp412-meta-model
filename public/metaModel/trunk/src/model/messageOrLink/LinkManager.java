@@ -11,7 +11,7 @@ import model.visitor.*;
 public class LinkManager extends PersistentObject implements PersistentLinkManager{
     
     private static PersistentLinkManager theLinkManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentLinkManager getTheLinkManager() throws PersistenceException{
         if (theLinkManager == null || reset$For$Test){
@@ -83,7 +83,7 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
     }
     
     static public long getTypeId() {
-        return 188;
+        return 186;
     }
     
     public long getClassId() {
