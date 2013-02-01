@@ -1,0 +1,7 @@
+
+package model.visitor;
+
+public interface CommandVisitor extends AssociationManagerCommandVisitor,AccountTypeManagerCommandVisitor,TypeManagerCommandVisitor,AspectManagerCommandVisitor,MessageManagerCommandVisitor,MeasurementTypeManagerCommandVisitor,NameSchemeManagerCommandVisitor,QuantityManagerCommandVisitor,AccountManagerCommandVisitor,ObjectManagerCommandVisitor,UnitTypeManagerCommandVisitor,LinkManagerCommandVisitor,OperationManagerCommandVisitor{
+    
+    
+}
