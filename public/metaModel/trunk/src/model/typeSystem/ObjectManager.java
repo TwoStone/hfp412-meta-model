@@ -13,7 +13,7 @@ import persistence.*;
 public class ObjectManager extends PersistentObject implements PersistentObjectManager{
     
     private static PersistentObjectManager theObjectManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentObjectManager getTheObjectManager() throws PersistenceException{
         if (theObjectManager == null || reset$For$Test){
@@ -85,7 +85,7 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     }
     
     static public long getTypeId() {
-        return 237;
+        return 200;
     }
     
     public long getClassId() {

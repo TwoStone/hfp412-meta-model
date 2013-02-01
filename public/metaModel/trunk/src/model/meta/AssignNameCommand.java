@@ -59,7 +59,7 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
     }
     
     static public long getTypeId() {
-        return 244;
+        return 245;
     }
     
     public long getClassId() {
@@ -68,7 +68,7 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 244) ConnectionHandler.getTheConnectionHandler().theAssignNameCommandFacade
+        if (this.getClassId() == 245) ConnectionHandler.getTheConnectionHandler().theAssignNameCommandFacade
             .newAssignNameCommand(value,this.getId());
         super.store();
         if(this.getObject() != null){
