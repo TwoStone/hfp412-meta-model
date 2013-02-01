@@ -180,6 +180,7 @@ part typeSystem {
 	}
 	class MDisjuncitveNF@@DNF extends MNonEmptySumType {
 		MAtomicTypeProduct** addends hierarchy MComplexTypeHierarchy;
+		MDisjuncitveNF transientMultiply(MDisjuncitveNF other);
 	}
 
 	/* ** Produkttypen ** */
@@ -196,6 +197,7 @@ part typeSystem {
 	}
 	class MAtomicTypeProduct##MAtomicProd@@AtomicTypeProduct extends MNonEmptyProductType {
 		MAtomicType** factors hierarchy MComplexTypeHierarchy;
+		MAtomicTypeProduct transientMultiply(MAtomicTypeProduct other);
 	}	
 
 
