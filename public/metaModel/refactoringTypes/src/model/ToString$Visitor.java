@@ -4,7 +4,61 @@ import java.util.Iterator;
 
 import model.visitor.MBooleanReturnVisitor;
 import model.visitor.MBooleanVisitor;
-import persistence.*;
+import persistence.Anything;
+import persistence.PersistenceException;
+import persistence.PersistentAccount;
+import persistence.PersistentAccountManager;
+import persistence.PersistentAccountTypeManager;
+import persistence.PersistentActualParameter;
+import persistence.PersistentAspectManager;
+import persistence.PersistentAssociation;
+import persistence.PersistentAssociationManager;
+import persistence.PersistentCompUnit;
+import persistence.PersistentCompUnitType;
+import persistence.PersistentCompoundQuantity;
+import persistence.PersistentConversion;
+import persistence.PersistentFormalParameter;
+import persistence.PersistentFractionManager;
+import persistence.PersistentFunction;
+import persistence.PersistentFunctionManager;
+import persistence.PersistentHierarchy;
+import persistence.PersistentInstanceObject;
+import persistence.PersistentLink;
+import persistence.PersistentLinkManager;
+import persistence.PersistentMAccountType;
+import persistence.PersistentMAspect;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMAtomicTypeProduct;
+import persistence.PersistentMDisjuncitveNF;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMFalse;
+import persistence.PersistentMMeasurementType;
+import persistence.PersistentMObject;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
+import persistence.PersistentMTrue;
+import persistence.PersistentMeasurement;
+import persistence.PersistentMeasurementTypeManager;
+import persistence.PersistentMessage;
+import persistence.PersistentMessageManager;
+import persistence.PersistentName;
+import persistence.PersistentNameInstance;
+import persistence.PersistentNameScheme;
+import persistence.PersistentNameSchemeInstance;
+import persistence.PersistentNameSchemeManager;
+import persistence.PersistentObjectManager;
+import persistence.PersistentOperation;
+import persistence.PersistentOperationManager;
+import persistence.PersistentQuantity;
+import persistence.PersistentQuantityManager;
+import persistence.PersistentReference;
+import persistence.PersistentReferenceType;
+import persistence.PersistentServer;
+import persistence.PersistentTypeManager;
+import persistence.PersistentUnit;
+import persistence.PersistentUnitType;
+import persistence.PersistentUnitTypeManager;
 import utils.Strings;
 
 public class ToString$Visitor extends model.visitor.ToString$Visitor {
@@ -386,6 +440,18 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException {
+		result = "[ATP] " + mAtomicTypeProduct.fetchName();
+
+	}
+
+	@Override
+	public void handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException {
+		result = "[DNF] " + mDisjuncitveNF.fetchName();
 
 	}
 }

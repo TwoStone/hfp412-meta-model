@@ -104,7 +104,7 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
     }
     
     static public long getTypeId() {
-        return 182;
+        return 184;
     }
     
     public long getClassId() {
@@ -113,7 +113,7 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 182) ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
+        if (this.getClassId() == 184) ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
             .newUnitType(name,this.getId());
         super.store();
         if(this.getDefaultUnit() != null){
@@ -182,9 +182,9 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentUnitType)This);

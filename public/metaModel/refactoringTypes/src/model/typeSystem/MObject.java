@@ -104,7 +104,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
     }
     
     static public long getTypeId() {
-        return 236;
+        return 130;
     }
     
     public long getClassId() {
@@ -113,7 +113,7 @@ public class MObject extends PersistentObject implements PersistentMObject{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 236) ConnectionHandler.getTheConnectionHandler().theMObjectFacade
+        if (this.getClassId() == 130) ConnectionHandler.getTheConnectionHandler().theMObjectFacade
             .newMObject(this.getId());
         super.store();
         this.getTypes().store();
@@ -203,7 +203,9 @@ public class MObject extends PersistentObject implements PersistentMObject{
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public PersistentMSumType getSumType() 
 				throws PersistenceException{
 		final PersistentMSumType newSumType = MSumType.createMSumType(true);
@@ -230,52 +232,22 @@ public class MObject extends PersistentObject implements PersistentMObject{
     }
     public void replaceType(final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
-		if (this.getAspects().contains(newType.getAspect()) && !oldType.getAspect().equals(newType.getAspect())) {
-			throw new ConsistencyException(String.format(
-					"Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s", newType
-							.getAspect().getName()));
-		}
-		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
-
-			@Override
-			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-				return argument.equals(oldType);
-			}
-		});
-
-		this.getThis().getTypes().add(newType);
-	}
+        //TODO: implement method: replaceType
+        
+    }
     public void addType(final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
-		if (newType.isAbstract().toBoolean()) {
-			throw new ConsistencyException("Objekte d??rfen nur in konkreten Typen klassifiziert werden!");
-		}
-
-		if (this.getAspects().contains(newType.getAspect())) {
-			throw new ConsistencyException(String.format(
-					"Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s", newType
-							.getAspect().getName()));
-		}
-		this.getThis().getTypes().add(newType);
-	}
+        //TODO: implement method: addType
+        
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
     public void removeType(final PersistentMAtomicType oldType) 
 				throws model.ConsistencyException, PersistenceException{
-		if (this.getThis().getTypes().getLength() <= 1) {
-			throw new ConsistencyException(
-					"Das Objekt muss in mindestens einem Typen klassifiziert! F??gen sie einen weiteren Typen hinzu bevor Sie diesen entfernen!");
-		}
-		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
-
-			@Override
-			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-				return argument.equals(oldType);
-			}
-		});
-
-	}
+        //TODO: implement method: removeType
+        
+    }
     public NameInstanceSearchList getNames() 
 				throws PersistenceException{
         NameInstanceSearchList result = null;

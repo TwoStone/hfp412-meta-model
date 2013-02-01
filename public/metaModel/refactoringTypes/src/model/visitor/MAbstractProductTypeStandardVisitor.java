@@ -11,5 +11,8 @@ public abstract class MAbstractProductTypeStandardVisitor implements MAbstractPr
     public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
         this.standardHandling(mEmptyProductType);
     }
+    public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException{
+        this.standardHandling(mAtomicTypeProduct);
+    }
     protected abstract void standardHandling(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException;
 }

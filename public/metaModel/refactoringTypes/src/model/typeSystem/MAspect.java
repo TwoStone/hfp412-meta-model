@@ -106,7 +106,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     }
     
     static public long getTypeId() {
-        return 140;
+        return 142;
     }
     
     public long getClassId() {
@@ -115,7 +115,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 140) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
+        if (this.getClassId() == 142) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
             .newMAspect(name,this.getId());
         super.store();
         if(!this.equals(this.getThis())){
@@ -185,7 +185,9 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public MAtomicTypeSearchList getTypes() 
 				throws PersistenceException{
         MAtomicTypeSearchList result = null;

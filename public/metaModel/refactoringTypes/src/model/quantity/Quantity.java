@@ -109,7 +109,7 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     }
     
     static public long getTypeId() {
-        return 192;
+        return 194;
     }
     
     public long getClassId() {
@@ -118,7 +118,7 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 192) ConnectionHandler.getTheConnectionHandler().theQuantityFacade
+        if (this.getClassId() == 194) ConnectionHandler.getTheConnectionHandler().theQuantityFacade
             .newQuantity(amount,this.getId());
         super.store();
         if(this.getUnit() != null){
@@ -194,9 +194,9 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentQuantity)This);

@@ -13,7 +13,7 @@ import persistence.*;
 public class NameSchemeManager extends PersistentObject implements PersistentNameSchemeManager{
     
     private static PersistentNameSchemeManager theNameSchemeManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentNameSchemeManager getTheNameSchemeManager() throws PersistenceException{
         if (theNameSchemeManager == null || reset$For$Test){
@@ -89,7 +89,7 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     
     static public long getTypeId() {
-        return 249;
+        return 252;
     }
     
     public long getClassId() {
@@ -158,16 +158,22 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     public PersistentNameScheme createNameScheme(final String name, final String regExpPattern) 
 				throws PersistenceException{
-		PersistentNameScheme nameScheme = NameScheme.createNameScheme(regExpPattern, name);
-		this.getThis().getSchemes().add(nameScheme);
-		return nameScheme;
-	}
+        //TODO: implement method: createNameScheme
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"createNameScheme\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentNameSchemeManager)This);
@@ -186,27 +192,9 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     public void assignName(final PersistentMObject object, final PersistentName name, final String value) 
 				throws model.PatternNotMatchException, model.ConsistencyException, PersistenceException{
-		SearchListRoot<PersistentMAtomicType> fittingTypes = object.getTypes().findAll(
-				new Predcate<PersistentMAtomicType>() {
-
-					@Override
-					public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-						return argument.isLessOrEqual(name.getFromType()).toBoolean();
-					}
-				});
-
-		if (!fittingTypes.iterator().hasNext()) {
-			throw new model.ConsistencyException("Das Objekt kann nicht in diesem Schema benannt werden!");
-		}
-
-		if (!name.getNameScheme().match(value).toBoolean()) {
-			throw new PatternNotMatchException("Der angegebene Name entspricht nicht dem Schema!");
-		}
-
-		PersistentNameSchemeInstance nameSchemeInstance = NameSchemeInstance.createNameSchemeInstance(value,
-				name.getNameScheme());
-		NameInstance.createNameInstance(name, object, nameSchemeInstance);
-	}
+        //TODO: implement method: assignName
+        
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -222,11 +210,14 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     public PersistentName assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type) 
 				throws PersistenceException{
-		PersistentName name = Name.createName(type, scheme);
-		this.getNames().add(name);
-
-		return name;
-	}
+        //TODO: implement method: assignType
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"assignType\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 

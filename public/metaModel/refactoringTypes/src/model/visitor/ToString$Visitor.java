@@ -11,6 +11,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleNameScheme(PersistentNameScheme nameScheme) throws PersistenceException;
     public abstract void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException;
     public abstract void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException;
+    public abstract void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException;
     public abstract void handleMeasurement(PersistentMeasurement measurement) throws PersistenceException;
     public abstract void handleMProductType(PersistentMProductType mProductType) throws PersistenceException;
     public abstract void handleAssociation(PersistentAssociation association) throws PersistenceException;
@@ -41,8 +42,9 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException;
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     public abstract void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
-    public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
     public abstract void handleReference(PersistentReference reference) throws PersistenceException;
+    public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
+    public abstract void handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException;
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     public abstract void handleAccount(PersistentAccount account) throws PersistenceException;
     public abstract void handleUnitType(PersistentUnitType unitType) throws PersistenceException;

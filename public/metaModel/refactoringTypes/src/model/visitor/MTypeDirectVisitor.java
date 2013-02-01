@@ -9,6 +9,9 @@ public abstract class MTypeDirectVisitor implements MTypeVisitor {
     
     public abstract void handleMComplexType(PersistentMComplexType mComplexType) throws PersistenceException;
     
+    public void handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException{
+        this.handleMComplexType(mDisjuncitveNF);
+    }
     public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException{
         this.handleMComplexType(mProductType);
     }
@@ -20,6 +23,9 @@ public abstract class MTypeDirectVisitor implements MTypeVisitor {
     }
     public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
         this.handleMComplexType(mEmptyProductType);
+    }
+    public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException{
+        this.handleMComplexType(mAtomicTypeProduct);
     }
     
 }

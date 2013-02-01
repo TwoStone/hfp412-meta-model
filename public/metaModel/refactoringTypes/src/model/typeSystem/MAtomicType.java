@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import model.CycleException;
 import model.UserException;
-import model.basic.MBoolean;
 import model.basic.MFalse;
 import model.basic.MTrue;
 import model.visitor.AnythingExceptionVisitor;
@@ -37,9 +36,9 @@ import persistence.PersistenceException;
 import persistence.PersistentMAbstractSumType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
+import persistence.PersistentMAtomicTypeProduct;
 import persistence.PersistentMBoolean;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMEmptySumType;
+import persistence.PersistentMDisjuncitveNF;
 import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
 import persistence.PersistentMType;
@@ -168,7 +167,7 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     }
     
     static public long getTypeId() {
-        return 112;
+        return 113;
     }
     
     public long getClassId() {
@@ -177,7 +176,7 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 112) ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+        if (this.getClassId() == 113) ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
             .newMAtomicType(name,this.getId());
         super.store();
         if(this.getSingletonType() != null){
@@ -356,42 +355,23 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 	}
     public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
 				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().equals(other));
+		// TODO: implement method: isStructuralEquivalant
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
-
-			@Override
-			public Boolean handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public Boolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public Boolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public Boolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
-				return mAtomicType.containsMAtomicTypeHierarchy(getThis());
-			}
-
-			@Override
-			public Boolean handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType)
-					throws PersistenceException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		}));
+		// TODO: implement method: isLessOrEqual
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -411,6 +391,16 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		}
 		return MFalse.getTheMFalse();
 	}
+    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
+				throws PersistenceException{
+
+		PersistentMSumType sum = MSumType.createMSumType(true);
+		PersistentMProductType product = MProductType.createMProductType(true);
+		product.getContainedTypes().add(this.getThis());
+		sum.getContainedTypes().add(product);
+
+		return sum;
+	}
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException{
         MAtomicTypeSearchList result = null;
@@ -426,6 +416,8 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
 	}
     public String abstractTypeAsString() 
 				throws PersistenceException{
@@ -441,19 +433,18 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 			this.setAspect((PersistentMAspect)final$$Fields.get("aspect"));
 		}
     }
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform() 
+    public PersistentMDisjuncitveNF fetchDisjunctiveNormalform() 
 				throws PersistenceException{
-
-		PersistentMSumType sum = MSumType.createMSumType(true);
-		PersistentMProductType product = MProductType.createMProductType(true);
+		PersistentMAtomicTypeProduct ap = MAtomicTypeProduct.createMAtomicTypeProduct(true);
+		PersistentMDisjuncitveNF result = MDisjuncitveNF.createMDisjuncitveNF(true);
 		try {
-			product.getContainedTypes().add(this.getThis());
-			sum.getContainedTypes().add(product);
+			ap.getFactors().add(getThis());
+			result.getAddends().add(ap);
 		} catch (CycleException e) {
-			// when this exception is throw at this place, we are close to Armageddon!
+			// TODO Schrott exception bauen
+			e.printStackTrace();
 		}
-
-		return sum;
+		return result;
 	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{

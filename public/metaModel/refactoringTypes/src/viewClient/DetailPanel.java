@@ -712,6 +712,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleCompUnitType(view.CompUnitTypeView object){
         result = new CompUnitTypeDefaultDetailPanel(handler, object);
     }
+    public void handleMAtomicTypeProduct(view.MAtomicTypeProductView object){
+        result = new MAtomicTypeProductDefaultDetailPanel(handler, object);
+    }
     public void handleMProductType(view.MProductTypeView object){
         result = new MProductTypeDefaultDetailPanel(handler, object);
     }
@@ -810,6 +813,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleReference(view.ReferenceView object){
         result = new ReferenceDefaultDetailPanel(handler, object);
+    }
+    public void handleMDisjuncitveNF(view.MDisjuncitveNFView object){
+        result = new MDisjuncitveNFDefaultDetailPanel(handler, object);
     }
     public void handleReferenceType(view.ReferenceTypeView object){
         result = new ReferenceTypeDefaultDetailPanel(handler, object);
@@ -1030,9 +1036,27 @@ class CompUnitTypeDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MAtomicTypeProductDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MAtomicTypeProduct$$factors = "MAtomicTypeProduct$$factors";
+    
+    protected MAtomicTypeProductDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MAtomicTypeProductView getAnything(){
+        return (view.MAtomicTypeProductView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class MProductTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MProductType$$factors = "MProductType$$factors";
     
     protected MProductTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1410,6 +1434,7 @@ class AccountManagerDefaultDetailPanel extends DefaultDetailPanel{
 class MSumTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MSumType$$addends = "MSumType$$addends";
     
     protected MSumTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1666,6 +1691,23 @@ class ReferenceDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ReferenceView getAnything(){
         return (view.ReferenceView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MDisjuncitveNFDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MDisjuncitveNF$$addends = "MDisjuncitveNF$$addends";
+    
+    protected MDisjuncitveNFDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MDisjuncitveNFView getAnything(){
+        return (view.MDisjuncitveNFView)this.anything;
     }
 }
 

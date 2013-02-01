@@ -9,7 +9,7 @@ interface MSumTypeDOWNMssgsVisitor  {
 }
 
 
-interface MSumTypeUPMssgsVisitor extends MAbstractSumTypeUPMssgsVisitor {
+interface MSumTypeUPMssgsVisitor extends MNonEmptySumTypeUPMssgsVisitor {
 
     
 }

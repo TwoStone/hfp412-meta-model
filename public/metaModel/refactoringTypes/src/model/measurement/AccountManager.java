@@ -24,7 +24,7 @@ import persistence.TDObserver;
 public class AccountManager extends PersistentObject implements PersistentAccountManager{
     
     private static PersistentAccountManager theAccountManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentAccountManager getTheAccountManager() throws PersistenceException{
         if (theAccountManager == null || reset$For$Test){
@@ -96,7 +96,7 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     }
     
     static public long getTypeId() {
-        return 141;
+        return 143;
     }
     
     public long getClassId() {
@@ -157,8 +157,9 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAccountManager)This);
@@ -171,8 +172,9 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
 	}
     public void createAccount(final String name, final PersistentMAccountType type, final PersistentInstanceObject object) 
 				throws PersistenceException{
-		this.getThis().getAccounts().add(Account.createAccount(object, type));
-	}
+        //TODO: implement method: createAccount
+        
+    }
     public void createAccount(final String name, final PersistentMAccountType type, final PersistentInstanceObject object, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());

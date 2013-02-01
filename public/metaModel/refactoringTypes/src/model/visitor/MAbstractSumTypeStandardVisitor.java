@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class MAbstractSumTypeStandardVisitor implements MAbstractSumTypeVisitor {
     
+    public void handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException{
+        this.standardHandling(mDisjuncitveNF);
+    }
     public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException{
         this.standardHandling(mEmptySumType);
     }

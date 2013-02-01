@@ -5,4 +5,4 @@ public interface MAbstractSumTypeMssgs {
 }
 
 interface MAbstractSumTypeDOWNMssgs extends MComplexTypeDOWNMssgs, MAbstractSumTypeMssgs{}
-interface MAbstractSumTypeUPMssgs extends MEmptySumTypeUPMssgs, MSumTypeUPMssgs, MAbstractSumTypeMssgs{}
+interface MAbstractSumTypeUPMssgs extends MEmptySumTypeUPMssgs, MNonEmptySumTypeUPMssgs, MAbstractSumTypeMssgs{}

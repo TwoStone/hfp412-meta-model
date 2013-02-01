@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class MComplexTypeHierarchyHIERARCHYStandardVisitor implements MComplexTypeHierarchyHIERARCHYVisitor {
     
+    public void handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException{
+        this.standardHandling(mDisjuncitveNF);
+    }
     public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException{
         this.standardHandling(mProductType);
     }
@@ -19,6 +22,9 @@ public abstract class MComplexTypeHierarchyHIERARCHYStandardVisitor implements M
     }
     public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
         this.standardHandling(mEmptyProductType);
+    }
+    public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException{
+        this.standardHandling(mAtomicTypeProduct);
     }
     protected abstract void standardHandling(MComplexTypeHierarchyHIERARCHY mComplexTypeHierarchyHIERARCHY) throws PersistenceException;
 }

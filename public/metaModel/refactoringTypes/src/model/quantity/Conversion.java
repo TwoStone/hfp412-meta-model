@@ -125,7 +125,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
     }
     
     static public long getTypeId() {
-        return 177;
+        return 179;
     }
     
     public long getClassId() {
@@ -134,7 +134,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 177) ConnectionHandler.getTheConnectionHandler().theConversionFacade
+        if (this.getClassId() == 179) ConnectionHandler.getTheConnectionHandler().theConversionFacade
             .newConversion(this.getId());
         super.store();
         if(this.getSource() != null){
@@ -223,11 +223,14 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     public PersistentQuantity convert(final common.Fraction amount) 
 				throws PersistenceException{
-		Fraction convertedAmount = this.getThis().getMyFunction().execute(amount);
-		return QuantityManager.getTheQuantityManager().createQuantity(
-				((PersistentUnitType) this.getThis().getSource().getType()).getDefaultUnit(), convertedAmount);
-
-	}
+        //TODO: implement method: convert
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"convert\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		// implement method: initializeOnInstantiation
@@ -235,9 +238,9 @@ public class Conversion extends PersistentObject implements PersistentConversion
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentConversion)This);
@@ -248,9 +251,14 @@ public class Conversion extends PersistentObject implements PersistentConversion
     }
     public PersistentQuantity convertInverse(final common.Fraction amount) 
 				throws PersistenceException{
-		Fraction convertedAmount = this.getThis().getMyFunction().executeInverse(amount);
-		return QuantityManager.getTheQuantityManager().createQuantity(this.getThis().getSource(), convertedAmount);
-	}
+        //TODO: implement method: convertInverse
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"convertInverse\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// implement method: initializeOnCreation

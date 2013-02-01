@@ -43,7 +43,7 @@ public abstract class MBoolean extends PersistentObject implements PersistentMBo
     }
     
     static public long getTypeId() {
-        return 132;
+        return 134;
     }
     
     public long getClassId() {
@@ -86,9 +86,9 @@ public abstract class MBoolean extends PersistentObject implements PersistentMBo
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMBoolean)This);

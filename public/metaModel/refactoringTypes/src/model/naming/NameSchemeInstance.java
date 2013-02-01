@@ -104,7 +104,7 @@ public class NameSchemeInstance extends PersistentObject implements PersistentNa
     }
     
     static public long getTypeId() {
-        return 241;
+        return 243;
     }
     
     public long getClassId() {
@@ -113,7 +113,7 @@ public class NameSchemeInstance extends PersistentObject implements PersistentNa
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 241) ConnectionHandler.getTheConnectionHandler().theNameSchemeInstanceFacade
+        if (this.getClassId() == 243) ConnectionHandler.getTheConnectionHandler().theNameSchemeInstanceFacade
             .newNameSchemeInstance(name,this.getId());
         super.store();
         if(this.getType() != null){

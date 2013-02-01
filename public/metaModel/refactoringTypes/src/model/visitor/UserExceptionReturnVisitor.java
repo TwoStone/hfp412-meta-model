@@ -12,6 +12,7 @@ public interface UserExceptionReturnVisitor<R> {
     public R handlePatternNotMatchException(model.PatternNotMatchException patternNotMatchException) throws PersistenceException;
     public R handleAlreadyFinalizedException(model.AlreadyFinalizedException alreadyFinalizedException) throws PersistenceException;
     public R handleNotAvailableException(model.NotAvailableException notAvailableException) throws PersistenceException;
+    public R handleEmptyTypeException(model.EmptyTypeException emptyTypeException) throws PersistenceException;
     public R handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException;
     public R handleNotFinalizedException(model.NotFinalizedException notFinalizedException) throws PersistenceException;
     public R handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException;

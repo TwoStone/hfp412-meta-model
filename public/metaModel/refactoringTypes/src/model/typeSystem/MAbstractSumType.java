@@ -33,7 +33,7 @@ public abstract class MAbstractSumType extends model.typeSystem.MComplexType imp
     }
     
     static public long getTypeId() {
-        return 103;
+        return 104;
     }
     
     public long getClassId() {
@@ -57,9 +57,9 @@ public abstract class MAbstractSumType extends model.typeSystem.MComplexType imp
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMAbstractSumType)This);

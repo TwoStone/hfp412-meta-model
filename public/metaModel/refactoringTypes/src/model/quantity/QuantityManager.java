@@ -24,7 +24,7 @@ import persistence.TDObserver;
 public class QuantityManager extends PersistentObject implements PersistentQuantityManager{
     
     private static PersistentQuantityManager theQuantityManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentQuantityManager getTheQuantityManager() throws PersistenceException{
         if (theQuantityManager == null || reset$For$Test){
@@ -96,7 +96,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     }
     
     static public long getTypeId() {
-        return 148;
+        return 150;
     }
     
     public long getClassId() {
@@ -167,16 +167,19 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public PersistentQuantity createQuantity(final PersistentAbsUnit unit, final common.Fraction amount) 
 				throws PersistenceException{
-		// TODO: amount in FractionManager suchen oder neu erstellen.
-		PersistentQuantity newQuantity = Quantity.createQuantity(amount, unit);
-		getThis().getQuantities().add(newQuantity);
-		return newQuantity;
-	}
+        //TODO: implement method: createQuantity
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"createQuantity\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentQuantityManager)This);

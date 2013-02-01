@@ -124,7 +124,7 @@ public class NameInstance extends PersistentObject implements PersistentNameInst
     }
     
     static public long getTypeId() {
-        return 246;
+        return 248;
     }
     
     public long getClassId() {
@@ -133,7 +133,7 @@ public class NameInstance extends PersistentObject implements PersistentNameInst
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 246) ConnectionHandler.getTheConnectionHandler().theNameInstanceFacade
+        if (this.getClassId() == 248) ConnectionHandler.getTheConnectionHandler().theNameInstanceFacade
             .newNameInstance(this.getId());
         super.store();
         if(this.getType() != null){
