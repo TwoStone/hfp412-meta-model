@@ -64,14 +64,10 @@ public abstract class MNonEmptyProductType extends model.typeSystem.MAbstractPro
 
 	@Override
 	public void initializeOnInstantiation() throws PersistenceException {
-		// TODO: implement method: initializeOnInstantiation
-
 	}
 
 	@Override
 	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
 
 	@Override
@@ -84,8 +80,6 @@ public abstract class MNonEmptyProductType extends model.typeSystem.MAbstractPro
 
 	@Override
 	public void initializeOnCreation() throws PersistenceException {
-		// TODO: implement method: initializeOnCreation
-
 	}
 
 	@Override
@@ -111,17 +105,6 @@ public abstract class MNonEmptyProductType extends model.typeSystem.MAbstractPro
 		}
 		return MFalse.getTheMFalse();
 
-	}
-
-	@Override
-	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
-		// TODO: implement method: isStructuralEquivalant
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
 	}
 
 	/* Start of protected part that is not overridden by persistence generator */

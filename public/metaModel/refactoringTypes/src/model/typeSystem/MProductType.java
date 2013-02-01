@@ -41,6 +41,7 @@ import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentMAbstractSumType;
 import persistence.PersistentMAtomicType;
+import persistence.PersistentMAtomicTypeProduct;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMDisjuncitveNF;
 import persistence.PersistentMProductType;
@@ -297,14 +298,10 @@ public class MProductType extends model.typeSystem.MNonEmptyProductType implemen
 
 	@Override
 	public void initializeOnInstantiation() throws PersistenceException {
-		// TODO: implement method: initializeOnInstantiation
-
 	}
 
 	@Override
 	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
 
 	@Override
@@ -342,31 +339,39 @@ public class MProductType extends model.typeSystem.MNonEmptyProductType implemen
 
 	@Override
 	public PersistentMBoolean isLessOrEqual(final PersistentMType other) throws PersistenceException {
-		// TODO: implement method: isLessOrEqual
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
 	}
 
 	@Override
 	public void initializeOnCreation() throws PersistenceException {
-		// TODO: implement method: initializeOnCreation
-
 	}
 
 	@Override
 	public PersistentMDisjuncitveNF fetchDisjunctiveNormalform() throws PersistenceException {
 		// TODO: implement method: fetchDisjunctiveNormalform
+		final PersistentMDisjuncitveNF resultingDnf = MDisjuncitveNF.createMDisjuncitveNF(true);
+		final List<PersistentMDisjuncitveNF> dnfsOfChildren = Lists.newArrayList();
+
+		getThis().getFactors().applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				dnfsOfChildren.add(argument.fetchDisjunctiveNormalform());
+			}
+		});
+
 		try {
-			throw new java.lang.UnsupportedOperationException(
-					"Method \"fetchDisjunctiveNormalform\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+			List<PersistentMAtomicTypeProduct> products = createAtomicTypeProducts(dnfsOfChildren);
+			for (PersistentMAtomicTypeProduct summand : products) {
+				resultingDnf.getAddends().add(summand);
+			}
+		} catch (CycleException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		return resultingDnf;
+
 	}
 
 	@Override
@@ -532,6 +537,31 @@ public class MProductType extends model.typeSystem.MNonEmptyProductType implemen
 		});
 		return atomicTypes;
 	}
+	/*
+	 * private List<PersistentMAtomicTypeProduct> createAtomicTypeProducts(List<PersistentMDisjuncitveNF> dnfs) {
+	 * List<PersistentMAtomicTypeProduct> products = Lists.newArrayList();
+	 * 
+	 * for (PersistentMDisjuncitveNF currentDnf : dnfs) { List<PersistentMAtomicTypeProduct> atomicTypepProductsInDnf =
+	 * fetchAtomicTypeProducts(currentDnf);
+	 * 
+	 * if (products.isEmpty()) { products.addAll(atomicTypepProductsInDnf); } else { products =
+	 * multiplyAtomicTypeProducts(products, atomicTypepProductsInDnf); } }
+	 * 
+	 * return products; }
+	 */
+	/*
+	 * private List<PersistentMAtomicTypeProduct> multiplyAtomicTypeProducts(List<PersistentMAtomicTypeProduct>
+	 * products, List<PersistentMAtomicTypeProduct> atomicTypepProductsInDnf) {
+	 * 
+	 * // TODO Auto-generated method stub return null; }
+	 * 
+	 * private List<PersistentMAtomicTypeProduct> fetchAtomicTypeProducts(PersistentMDisjuncitveNF currentDnf) throws
+	 * PersistenceException { final List<PersistentMAtomicTypeProduct> result = Lists.newArrayList();
+	 * currentDnf.getAddends().applyToAll(new Procdure<PersistentMAtomicTypeProduct>() {
+	 * 
+	 * @Override public void doItTo(PersistentMAtomicTypeProduct argument) throws PersistenceException {
+	 * result.add(argument); } }); return result; }
+	 */
 
 	/* End of protected part that is not overridden by persistence generator */
 

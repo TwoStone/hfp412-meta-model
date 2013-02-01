@@ -1,6 +1,9 @@
 package model.typeSystem;
 
+import java.util.Iterator;
+
 import model.UserException;
+import model.basic.MBoolean;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -34,9 +37,14 @@ import persistence.MDisjuncitveNF_AddendsProxi;
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMAtomicType;
 import persistence.PersistentMAtomicTypeProduct;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMDisjuncitveNF;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
 import persistence.PersistentMType;
 import persistence.Procdure;
 import persistence.TDObserver;
@@ -288,14 +296,10 @@ public class MDisjuncitveNF extends model.typeSystem.MNonEmptySumType implements
 
 	@Override
 	public void initializeOnInstantiation() throws PersistenceException {
-		// TODO: implement method: initializeOnInstantiation
-
 	}
 
 	@Override
 	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
 
 	@Override
@@ -318,17 +322,6 @@ public class MDisjuncitveNF extends model.typeSystem.MNonEmptySumType implements
 	}
 
 	@Override
-	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
-		// TODO: implement method: isStructuralEquivalant
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
-
-	@Override
 	public <T> T strategyMComplexTypeHierarchy(final T parameter,
 			final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) throws PersistenceException {
 		T result$$addends$$MDisjuncitveNF = strategy.initialize$$MDisjuncitveNF$$addends(getThis(), parameter);
@@ -344,31 +337,71 @@ public class MDisjuncitveNF extends model.typeSystem.MNonEmptySumType implements
 
 	@Override
 	public PersistentMBoolean isLessOrEqual(final PersistentMType other) throws PersistenceException {
-		// TODO: implement method: isLessOrEqual
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
+
+			@Override
+			public Boolean handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
+				return false;
+			}
+
+			@Override
+			public Boolean handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException {
+				Iterator<PersistentMAtomicTypeProduct> myAddendsI = getThis().getAddends().iterator();
+				while (myAddendsI.hasNext()) {
+					if (!myAddendsI.next().isLessOrEqual(mDisjuncitveNF).toBoolean()) {
+						return false;
+					}
+				}
+				return true;
+			}
+
+			@Override
+			public Boolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+				return getThis().isLessOrEqual(mSumType.fetchDisjunctiveNormalform()).toBoolean();
+			}
+
+			@Override
+			public Boolean handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) {
+				return false;
+			}
+
+			@Override
+			public Boolean handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct)
+					throws PersistenceException {
+				Iterator<PersistentMAtomicTypeProduct> myAddendsI = getThis().getAddends().iterator();
+				while (myAddendsI.hasNext()) {
+					if (!myAddendsI.next().isLessOrEqual(mAtomicTypeProduct).toBoolean()) {
+						return false;
+					}
+				}
+				return true;
+			}
+
+			@Override
+			public Boolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+				return getThis().isLessOrEqual(mProductType.fetchDisjunctiveNormalform()).toBoolean();
+			}
+
+			@Override
+			public Boolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+				Iterator<PersistentMAtomicTypeProduct> myAddendsI = getThis().getAddends().iterator();
+				while (myAddendsI.hasNext()) {
+					if (!myAddendsI.next().isLessOrEqual(mAtomicType).toBoolean()) {
+						return false;
+					}
+				}
+				return true;
+			}
+		}));
 	}
 
 	@Override
 	public void initializeOnCreation() throws PersistenceException {
-		// TODO: implement method: initializeOnCreation
-
 	}
 
 	@Override
 	public PersistentMDisjuncitveNF fetchDisjunctiveNormalform() throws PersistenceException {
-		// TODO: implement method: fetchDisjunctiveNormalform
-		try {
-			throw new java.lang.UnsupportedOperationException(
-					"Method \"fetchDisjunctiveNormalform\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return getThis();
 	}
 
 	@Override

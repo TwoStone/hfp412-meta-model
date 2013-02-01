@@ -35,6 +35,7 @@ import persistence.MSumType_AddendsProxi;
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMAtomicTypeProduct;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMDisjuncitveNF;
 import persistence.PersistentMSumType;
@@ -293,8 +294,6 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 
 	@Override
 	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
 
 	@Override
@@ -332,31 +331,39 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 
 	@Override
 	public PersistentMBoolean isLessOrEqual(final PersistentMType other) throws PersistenceException {
-		// TODO: implement method: isLessOrEqual
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
 	}
 
 	@Override
 	public void initializeOnCreation() throws PersistenceException {
-		// TODO: implement method: initializeOnCreation
-
 	}
 
 	@Override
 	public PersistentMDisjuncitveNF fetchDisjunctiveNormalform() throws PersistenceException {
-		// TODO: implement method: fetchDisjunctiveNormalform
+		final PersistentMDisjuncitveNF result = MDisjuncitveNF.createMDisjuncitveNF(true);
 		try {
-			throw new java.lang.UnsupportedOperationException(
-					"Method \"fetchDisjunctiveNormalform\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+			getThis().getAddends().applyToAllException(new ProcdureException<PersistentMType, CycleException>() {
+
+				@Override
+				public void doItTo(PersistentMType argument) throws PersistenceException, CycleException {
+					PersistentMDisjuncitveNF dnf = argument.fetchDisjunctiveNormalform();
+					dnf.getAddends().applyToAllException(
+							new ProcdureException<PersistentMAtomicTypeProduct, CycleException>() {
+
+								@Override
+								public void doItTo(PersistentMAtomicTypeProduct argument) throws PersistenceException,
+										CycleException {
+									result.getAddends().add(argument);
+								}
+
+							});
+				}
+			});
+		} catch (CycleException e) {
+			// TODO Exception behandeln. Was m??ssen wir dann hier eigentlich machen?
+			e.printStackTrace();
 		}
+		return result;
 	}
 
 	@Override
