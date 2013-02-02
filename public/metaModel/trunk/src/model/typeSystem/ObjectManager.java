@@ -218,6 +218,16 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
 				throws model.ConsistencyException, PersistenceException{
 		object.addType(newType);
 	}
+    public MObjectSearchList fetchObjectsWithTypeLE(final PersistentMType type) 
+				throws PersistenceException{
+        //TODO: implement method: fetchObjectsWithTypeLE
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"fetchObjectsWithTypeLE\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void addType(final PersistentMObject object, final PersistentMAtomicType newType, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
