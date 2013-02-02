@@ -290,8 +290,7 @@ public class MObject extends PersistentObject implements PersistentMObject {
 				try {
 					result.getFactors().add(argument);
 				} catch (CycleException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					// TODO ShouldNotHappen
 				}
 			}
 		});
