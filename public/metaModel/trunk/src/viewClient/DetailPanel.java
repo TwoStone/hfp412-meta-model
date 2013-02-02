@@ -1258,7 +1258,7 @@ class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MObject$$types = "MObject$$types";
     protected static final String MObject$$possibleNames = "MObject$$possibleNames";
-    protected static final String MObject$$sumType = "MObject$$sumType";
+    protected static final String MObject$$productType = "MObject$$productType";
     protected static final String MObject$$names = "MObject$$names";
     
     protected MObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

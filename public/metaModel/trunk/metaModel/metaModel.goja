@@ -206,11 +206,13 @@ part typeSystem {
 		MAtomicType ** types;
 		
 		derived Name ** possibleNames;
-		derived MSumType sumType;
+		derived MAtomicTypeProduct productType;
 
 		void addType(MAtomicType newType) throws ConsistencyException;
 		void removeType(MAtomicType oldType) throws ConsistencyException;
 		void replaceType(MAtomicType oldType, MAtomicType newType) throws ConsistencyException; 
+
+
 	}
 
 	/*** MANAGER ***/
