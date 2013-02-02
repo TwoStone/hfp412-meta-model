@@ -2,8 +2,7 @@ package model.typeSystem;
 
 import model.ConsistencyException;
 
-import org.junit.After;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import persistence.PersistenceException;
@@ -12,11 +11,11 @@ import util.TestingBase;
 
 public class AspectManagerTest extends TestingBase {
 
-	private static PersistentAspectManager aspectMan;
+	private PersistentAspectManager aspectMan;
 
-	@BeforeClass
-	public static void inits() throws PersistenceException {
-		aspectMan = AspectManager.getTheAspectManager();
+	@Before
+	public void inits() throws PersistenceException {
+		aspectMan = getManager(AspectManager.class);
 	}
 
 	@Test
@@ -27,10 +26,7 @@ public class AspectManagerTest extends TestingBase {
 	@Test(expected = ConsistencyException.class)
 	public void createAspect_test02() throws ConsistencyException, PersistenceException {
 		aspectMan.createAspect("AspektABC");
+		aspectMan.createAspect("AspektABC");
 	}
 
-	@After
-	public void tearDown() {
-		AspectManager.reset$For$Test = true;
-	}
 }

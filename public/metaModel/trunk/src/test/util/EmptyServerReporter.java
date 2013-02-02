@@ -11,7 +11,7 @@ public class EmptyServerReporter implements ServerReporter {
 	}
 
 	public static EmptyServerReporter getTheInstance() {
-		if (theInstance != null) {
+		if (theInstance == null) {
 			theInstance = new EmptyServerReporter();
 		}
 

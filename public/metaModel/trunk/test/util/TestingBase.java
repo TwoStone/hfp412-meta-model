@@ -1,8 +1,9 @@
 package util;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.SQLException;
 import java.util.Set;
 
 import junit.framework.Assert;
@@ -18,15 +19,17 @@ import modelServer.ConnectionServer;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 
 import persistence.*;
+import test.util.EmptyServerReporter;
 import utils.Sets;
 
 public abstract class TestingBase {
 
-	protected static PersistentMFalse mFalse;
-	protected static PersistentMTrue mTrue;
+	protected PersistentMFalse mFalse;
+	protected PersistentMTrue mTrue;
 
 	private final Set<Class<?>> manager = Sets.newHashSet();
 
@@ -42,10 +45,8 @@ public abstract class TestingBase {
 		 * TODO Vielleicht hier den EmptyReporter verwenden, was auch immer der tut! Standardmäßig wird NoReporter
 		 * gesetzt.
 		 */
-		ConnectionServer.startTheConnectionServer(null);
-
-		mFalse = MFalse.getTheMFalse();
-		mTrue = MTrue.getTheMTrue();
+		ConnectionServer.startTheConnectionServer(EmptyServerReporter.getTheInstance());
+		Cache.setReporter(EmptyServerReporter.getTheInstance());
 	}
 
 	@AfterClass
@@ -55,9 +56,18 @@ public abstract class TestingBase {
 		ConnectionServer.stopTheConnectionServer();
 	}
 
+	@Before
+	public void setup() throws PersistenceException, SQLException, IOException {
+		Cache.getTheCache().reset$For$Test();
+		MTrue.reset$For$Test = true;
+		MFalse.reset$For$Test = true;
+		mFalse = MFalse.getTheMFalse();
+		mTrue = MTrue.getTheMTrue();
+	}
+
 	protected static PersistentMAtomicType atomicType(String name, PersistentMAspect aspect)
 			throws PersistenceException {
-		return MAtomicType.createMAtomicType(name, mFalse, mFalse, aspect);
+		return MAtomicType.createMAtomicType(name, MFalse.getTheMFalse(), MFalse.getTheMFalse(), aspect);
 	}
 
 	protected static PersistentMAtomicType atomicType(String string, PersistentMAspect aspect,
@@ -111,23 +121,30 @@ public abstract class TestingBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <T> T getManager(Class<? extends T> managerClazz) throws NoSuchMethodException, SecurityException,
-			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	protected <T> T getManager(Class<? extends T> managerClazz) {
 		String methodName = String.format("getThe%s", managerClazz.getSimpleName());
-		Method method = managerClazz.getMethod(methodName);
-		if (method == null) {
-			throw new RuntimeException(
-					String.format("The desired class %s is not a singleton!", managerClazz.getName()));
-		}
+		Method method;
+		try {
+			method = managerClazz.getMethod(methodName);
 
-		T manager = (T) method.invoke(null);
-		this.manager.add(managerClazz);
-		return manager;
+			if (method == null) {
+				throw new RuntimeException(String.format("The desired class %s is not a singleton!",
+						managerClazz.getName()));
+			}
+
+			T manager = (T) method.invoke(null);
+			this.manager.add(managerClazz);
+			return manager;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@After
-	public void tearDown() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
-			SecurityException {
+	public void cleanUpManagerAndCache() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
+			SecurityException, PersistenceException, SQLException, IOException {
+		Cache.getTheCache().reset$For$Test();
+
 		for (Class<?> managerClazz : manager) {
 			Field field = managerClazz.getField("reset$For$Test");
 			field.set(null, true);
