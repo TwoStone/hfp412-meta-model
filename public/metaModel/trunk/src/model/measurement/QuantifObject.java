@@ -1,7 +1,15 @@
 
 package model.measurement;
 
-import persistence.*;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentInstanceObject;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentQuantifObject;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -49,7 +57,7 @@ public abstract class QuantifObject extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 122;
+        return 121;
     }
     
     public long getClassId() {

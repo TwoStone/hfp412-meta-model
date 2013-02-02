@@ -1,9 +1,26 @@
 
 package model.messageOrLink;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.LinkManagerProxi;
+import persistence.LinkManager_LinksProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAssociation;
+import persistence.PersistentCreateLinkCommand;
+import persistence.PersistentInstanceObject;
+import persistence.PersistentLink;
+import persistence.PersistentLinkManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentRemoveLinkCommand;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -11,7 +28,7 @@ import model.visitor.*;
 public class LinkManager extends PersistentObject implements PersistentLinkManager{
     
     private static PersistentLinkManager theLinkManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentLinkManager getTheLinkManager() throws PersistenceException{
         if (theLinkManager == null || reset$For$Test){
@@ -83,7 +100,7 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
     }
     
     static public long getTypeId() {
-        return 188;
+        return 186;
     }
     
     public long getClassId() {

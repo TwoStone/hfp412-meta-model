@@ -1,9 +1,24 @@
 
 package model.measurement;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.MeasurementTypeManagerProxi;
+import persistence.MeasurementTypeManager_MeasurementTypesProxi;
+import persistence.PersistenceException;
+import persistence.PersistentCreateMeasurementTypeCommand;
+import persistence.PersistentMType;
+import persistence.PersistentMeasurementTypeManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentUnitType;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -11,7 +26,7 @@ import model.visitor.*;
 public class MeasurementTypeManager extends PersistentObject implements PersistentMeasurementTypeManager{
     
     private static PersistentMeasurementTypeManager theMeasurementTypeManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMeasurementTypeManager getTheMeasurementTypeManager() throws PersistenceException{
         if (theMeasurementTypeManager == null || reset$For$Test){
@@ -83,7 +98,7 @@ public class MeasurementTypeManager extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 186;
+        return 184;
     }
     
     public long getClassId() {

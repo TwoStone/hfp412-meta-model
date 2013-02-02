@@ -1,7 +1,10 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMSumType;
 
 public abstract class MAbstractSumTypeStandardVisitor implements MAbstractSumTypeVisitor {
     

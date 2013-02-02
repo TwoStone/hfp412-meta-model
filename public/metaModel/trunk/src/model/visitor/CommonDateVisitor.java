@@ -1,7 +1,57 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAddAssociationCommand;
+import persistence.PersistentAddFpCommand;
+import persistence.PersistentAddMultipleFpCommand;
+import persistence.PersistentAddReferenceCommand;
+import persistence.PersistentAddReferenceTypeCommand;
+import persistence.PersistentAddTypeCommand;
+import persistence.PersistentAssignNameCommand;
+import persistence.PersistentAssignTypeCommand;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateAccountCommand;
+import persistence.PersistentCreateAccountTypeCommand;
+import persistence.PersistentCreateAspectCommand;
+import persistence.PersistentCreateAssociationCommand;
+import persistence.PersistentCreateAtomicRootTypeCommand;
+import persistence.PersistentCreateAtomicSubTypeCommand;
+import persistence.PersistentCreateCompUnitCommand;
+import persistence.PersistentCreateCompUnitTypeCommand;
+import persistence.PersistentCreateConstCommand;
+import persistence.PersistentCreateConstantCommand;
+import persistence.PersistentCreateFpCommand;
+import persistence.PersistentCreateHierarchyCommand;
+import persistence.PersistentCreateLinkCommand;
+import persistence.PersistentCreateMObjectCommand;
+import persistence.PersistentCreateMeasurementTypeCommand;
+import persistence.PersistentCreateMessageCommand;
+import persistence.PersistentCreateNameSchemeCommand;
+import persistence.PersistentCreateOperationCommand;
+import persistence.PersistentCreateProductTypeCommand;
+import persistence.PersistentCreateQuantityCommand;
+import persistence.PersistentCreateStaticMessageCommand;
+import persistence.PersistentCreateStaticOpCommand;
+import persistence.PersistentCreateSumTypeCommand;
+import persistence.PersistentCreateUnitCommand;
+import persistence.PersistentCreateUnitTypeCommand;
+import persistence.PersistentCreateVoidMessageCommand;
+import persistence.PersistentCreateVoidOperationCommand;
+import persistence.PersistentFinishModelingCommand;
+import persistence.PersistentRemoveAssoFrmHierCommand;
+import persistence.PersistentRemoveAssociationCommand;
+import persistence.PersistentRemoveFpCommand;
+import persistence.PersistentRemoveFpFromOpCommand;
+import persistence.PersistentRemoveLinkCommand;
+import persistence.PersistentRemoveMessageCommand;
+import persistence.PersistentRemoveOperationCommand;
+import persistence.PersistentRemoveTypeCommand;
+import persistence.PersistentRemoveUnitCommand;
+import persistence.PersistentRemoveUnitTypeCommand;
+import persistence.PersistentReplaceTypeCommand;
+import persistence.PersistentSetConversionCommand;
+import persistence.PersistentSetDefaultUnitCommand;
 
 public interface CommonDateVisitor {
     

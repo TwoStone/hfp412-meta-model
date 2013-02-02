@@ -185,7 +185,7 @@ part typeSystem {
 	
 	/* Objekte */
 	class MObject {
-		MAtomicType ** types;
+		symmetric MAtomicType ** types;
 		
 		derived Name ** possibleNames;
 		derived MSumType sumType;
@@ -193,6 +193,11 @@ part typeSystem {
 		void addType(MAtomicType newType) throws ConsistencyException;
 		void removeType(MAtomicType oldType) throws ConsistencyException;
 		void replaceType(MAtomicType oldType, MAtomicType newType) throws ConsistencyException; 
+
+		/**
+		* Ermittelt alle Targets die von diesem Object aus moeglich sind.
+		**/
+		MObject** determinePossibleLinkTargets();
 	}
 
 	/*** MANAGER ***/

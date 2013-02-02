@@ -7,14 +7,38 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.*;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.MTypeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentCreateAtomicRootTypeCommand;
+import persistence.PersistentCreateAtomicSubTypeCommand;
+import persistence.PersistentCreateProductTypeCommand;
+import persistence.PersistentCreateSumTypeCommand;
+import persistence.PersistentMAbstractProductType;
+import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMAspect;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentTypeManager;
+import persistence.Predcate;
+import persistence.ProcdureException;
+import persistence.TDObserver;
+import persistence.TypeManagerProxi;
+import persistence.TypeManager_TypesProxi;
 
 /* Additional import section end */
 
 public class TypeManager extends PersistentObject implements PersistentTypeManager{
     
     private static PersistentTypeManager theTypeManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentTypeManager getTheTypeManager() throws PersistenceException{
         if (theTypeManager == null || reset$For$Test){
@@ -86,7 +110,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     
     static public long getTypeId() {
-        return 169;
+        return 167;
     }
     
     public long getClassId() {

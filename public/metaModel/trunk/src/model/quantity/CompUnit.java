@@ -3,6 +3,8 @@ package model.quantity;
 
 import model.AlreadyFinalizedException;
 import model.UserException;
+import model.basic.MFalse;
+import model.basic.MTrue;
 import model.visitor.AbsUnitExceptionVisitor;
 import model.visitor.AbsUnitReturnExceptionVisitor;
 import model.visitor.AbsUnitReturnVisitor;
@@ -11,7 +13,6 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import model.visitor.MBooleanExceptionVisitor;
 import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.CompUnitProxi;
@@ -22,11 +23,8 @@ import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentCompUnit;
 import persistence.PersistentMBoolean;
-import persistence.PersistentMFalse;
-import persistence.PersistentMTrue;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
-import model.basic.*;
 
 /* Additional import section end */
 
@@ -119,7 +117,7 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
     }
     
     static public long getTypeId() {
-        return 145;
+        return 143;
     }
     
     public long getClassId() {
@@ -128,7 +126,7 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 145) ConnectionHandler.getTheConnectionHandler().theCompUnitFacade
+        if (this.getClassId() == 143) ConnectionHandler.getTheConnectionHandler().theCompUnitFacade
             .newCompUnit(name,this.getId());
         super.store();
         this.getRefs().store();

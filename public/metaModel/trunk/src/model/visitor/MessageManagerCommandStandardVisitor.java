@@ -1,7 +1,13 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.MessageManagerCommand;
+import persistence.PersistenceException;
+import persistence.PersistentCreateConstCommand;
+import persistence.PersistentCreateMessageCommand;
+import persistence.PersistentCreateStaticMessageCommand;
+import persistence.PersistentCreateVoidMessageCommand;
+import persistence.PersistentRemoveMessageCommand;
 
 public abstract class MessageManagerCommandStandardVisitor implements MessageManagerCommandVisitor {
     

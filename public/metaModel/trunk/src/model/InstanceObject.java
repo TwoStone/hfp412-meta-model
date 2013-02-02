@@ -1,8 +1,21 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.InstanceObjectProxi;
+import persistence.PersistenceException;
+import persistence.PersistentInstanceObject;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.QuantifObjectSearchList;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -95,7 +108,7 @@ public class InstanceObject extends PersistentObject implements PersistentInstan
     }
     
     static public long getTypeId() {
-        return 132;
+        return 130;
     }
     
     public long getClassId() {
@@ -104,7 +117,7 @@ public class InstanceObject extends PersistentObject implements PersistentInstan
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 132) ConnectionHandler.getTheConnectionHandler().theInstanceObjectFacade
+        if (this.getClassId() == 130) ConnectionHandler.getTheConnectionHandler().theInstanceObjectFacade
             .newInstanceObject(this.getId());
         super.store();
         if(this.getType() != null){

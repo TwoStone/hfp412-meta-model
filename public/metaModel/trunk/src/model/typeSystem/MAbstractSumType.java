@@ -33,7 +33,7 @@ public abstract class MAbstractSumType extends model.typeSystem.MComplexType imp
     }
     
     static public long getTypeId() {
-        return 104;
+        return 103;
     }
     
     public long getClassId() {

@@ -1,9 +1,32 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.NameSchemeManagerCommandExceptionVisitor;
+import model.visitor.NameSchemeManagerCommandReturnExceptionVisitor;
+import model.visitor.NameSchemeManagerCommandReturnVisitor;
+import model.visitor.NameSchemeManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateNameSchemeCommand;
+import persistence.PersistentNameScheme;
+import persistence.PersistentNameSchemeManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -60,7 +83,7 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     }
     
     static public long getTypeId() {
-        return 251;
+        return 248;
     }
     
     public long getClassId() {
@@ -69,7 +92,7 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 251) ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade
+        if (this.getClassId() == 248) ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade
             .newCreateNameSchemeCommand(name,regExpPattern,this.getId());
         super.store();
         if(this.getInvoker() != null){

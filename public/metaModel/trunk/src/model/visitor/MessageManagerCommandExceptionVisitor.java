@@ -1,7 +1,12 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentCreateConstCommand;
+import persistence.PersistentCreateMessageCommand;
+import persistence.PersistentCreateStaticMessageCommand;
+import persistence.PersistentCreateVoidMessageCommand;
+import persistence.PersistentRemoveMessageCommand;
 
 public interface MessageManagerCommandExceptionVisitor<E extends UserException> {
     

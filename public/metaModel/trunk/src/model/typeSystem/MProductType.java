@@ -115,7 +115,7 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
     }
     
     static public long getTypeId() {
-        return 115;
+        return 114;
     }
     
     public long getClassId() {
@@ -124,7 +124,7 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 115) ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+        if (this.getClassId() == 114) ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
             .newMProductType(this.getId());
         super.store();
         

@@ -1,9 +1,27 @@
 
 package model.messageOrLink;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MessageOrLinkExceptionVisitor;
+import model.visitor.MessageOrLinkReturnExceptionVisitor;
+import model.visitor.MessageOrLinkReturnVisitor;
+import model.visitor.MessageOrLinkVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MessageProxi;
+import persistence.Message_ActualParametersProxi;
+import persistence.PersistenceException;
+import persistence.PersistentInstanceObject;
+import persistence.PersistentMessage;
+import persistence.PersistentMessageOrLink;
+import persistence.PersistentOperation;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -99,7 +117,7 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
     }
     
     static public long getTypeId() {
-        return 135;
+        return 133;
     }
     
     public long getClassId() {
@@ -108,7 +126,7 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 135) ConnectionHandler.getTheConnectionHandler().theMessageFacade
+        if (this.getClassId() == 133) ConnectionHandler.getTheConnectionHandler().theMessageFacade
             .newMessage(this.getId());
         super.store();
         if(this.getType() != null){

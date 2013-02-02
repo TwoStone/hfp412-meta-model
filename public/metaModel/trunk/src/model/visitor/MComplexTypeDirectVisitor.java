@@ -1,7 +1,13 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMAbstractProductType;
+import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
 
 public abstract class MComplexTypeDirectVisitor implements MComplexTypeVisitor {
     

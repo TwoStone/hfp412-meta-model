@@ -3,6 +3,8 @@
  */
 package test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import model.CycleException;
 import model.quantity.Conversion;
 import model.quantity.Function;
@@ -20,9 +22,6 @@ import persistence.PersistentUnitType;
 import test.util.AbstractTest;
 
 import common.Fraction;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Steffi

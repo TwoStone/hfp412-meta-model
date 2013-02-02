@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMSumType;
 
 public interface MAbstractSumTypeReturnVisitor<R> {
     

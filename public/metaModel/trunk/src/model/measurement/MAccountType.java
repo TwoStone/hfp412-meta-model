@@ -1,9 +1,31 @@
 
 package model.measurement;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MAccountTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MAccountTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MAccountTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MAccountTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MQuantiObjectTypeExceptionVisitor;
+import model.visitor.MQuantiObjectTypeReturnExceptionVisitor;
+import model.visitor.MQuantiObjectTypeReturnVisitor;
+import model.visitor.MQuantiObjectTypeVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MAccountTypeHierarchyHIERARCHY;
+import persistence.MAccountTypeHierarchyHIERARCHYStrategy;
+import persistence.MAccountTypeProxi;
+import persistence.MAccountType_SubAccountTypesProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAbsUnitType;
+import persistence.PersistentMAccountType;
+import persistence.PersistentMQuantiObjectType;
+import persistence.PersistentMType;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -85,7 +107,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     }
     
     static public long getTypeId() {
-        return 166;
+        return 164;
     }
     
     public long getClassId() {
@@ -94,7 +116,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 166) ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
+        if (this.getClassId() == 164) ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
             .newMAccountType(this.getId());
         super.store();
         this.getSubAccountTypes().store();

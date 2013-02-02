@@ -1,8 +1,9 @@
 
 package model.quantity;
 
-import model.basic.*;
 import model.UserException;
+import model.basic.MFalse;
+import model.basic.MTrue;
 import model.visitor.AbsUnitTypeExceptionVisitor;
 import model.visitor.AbsUnitTypeReturnExceptionVisitor;
 import model.visitor.AbsUnitTypeReturnVisitor;
@@ -17,7 +18,6 @@ import persistence.CompUnitTypeProxi;
 import persistence.CompUnitType_RefsProxi;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
-import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentMBoolean;
@@ -113,7 +113,7 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
     }
     
     static public long getTypeId() {
-        return 114;
+        return 113;
     }
     
     public long getClassId() {
@@ -122,7 +122,7 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 114) ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
+        if (this.getClassId() == 113) ConnectionHandler.getTheConnectionHandler().theCompUnitTypeFacade
             .newCompUnitType(name,this.getId());
         super.store();
         this.getRefs().store();

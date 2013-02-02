@@ -1,9 +1,23 @@
 
 package model.abstractOperation;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.ActualParameterSearchList;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.FormalParameterProxi;
+import persistence.FormalParameterSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentFormalParameter;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -109,7 +123,7 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     }
     
     static public long getTypeId() {
-        return 119;
+        return 118;
     }
     
     public long getClassId() {
@@ -118,7 +132,7 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 119) ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade
+        if (this.getClassId() == 118) ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade
             .newFormalParameter(name,this.getId());
         super.store();
         if(this.getOfType() != null){

@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.TypeManagerCommandExceptionVisitor;
+import model.visitor.TypeManagerCommandReturnExceptionVisitor;
+import model.visitor.TypeManagerCommandReturnVisitor;
+import model.visitor.TypeManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.CreateProductTypeCommand_FactorsProxi;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateProductTypeCommand;
+import persistence.PersistentMAbstractProductType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentTypeManager;
 
 
 /* Additional import section end */
@@ -56,7 +80,7 @@ public class CreateProductTypeCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 152;
+        return 150;
     }
     
     public long getClassId() {
@@ -65,7 +89,7 @@ public class CreateProductTypeCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 152) ConnectionHandler.getTheConnectionHandler().theCreateProductTypeCommandFacade
+        if (this.getClassId() == 150) ConnectionHandler.getTheConnectionHandler().theCreateProductTypeCommandFacade
             .newCreateProductTypeCommand(this.getId());
         super.store();
         this.getFactors().store();

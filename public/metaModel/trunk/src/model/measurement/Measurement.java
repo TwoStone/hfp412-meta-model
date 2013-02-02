@@ -1,9 +1,27 @@
 
 package model.measurement;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.QuantifObjectExceptionVisitor;
+import model.visitor.QuantifObjectReturnExceptionVisitor;
+import model.visitor.QuantifObjectReturnVisitor;
+import model.visitor.QuantifObjectVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MeasurementProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAbsQuantity;
+import persistence.PersistentInstanceObject;
+import persistence.PersistentMMeasurementType;
+import persistence.PersistentMeasurement;
+import persistence.PersistentProxi;
+import persistence.PersistentQuantifObject;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -106,7 +124,7 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     }
     
     static public long getTypeId() {
-        return 116;
+        return 115;
     }
     
     public long getClassId() {
@@ -115,7 +133,7 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 116) ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
+        if (this.getClassId() == 115) ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
             .newMeasurement(this.getId());
         super.store();
         if(this.getType() != null){

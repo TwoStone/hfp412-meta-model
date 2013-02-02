@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.OperationManagerCommandExceptionVisitor;
+import model.visitor.OperationManagerCommandReturnExceptionVisitor;
+import model.visitor.OperationManagerCommandReturnVisitor;
+import model.visitor.OperationManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAddFpCommand;
+import persistence.PersistentCommonDate;
+import persistence.PersistentFormalParameter;
+import persistence.PersistentObject;
+import persistence.PersistentOperation;
+import persistence.PersistentOperationManager;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -56,7 +80,7 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
     }
     
     static public long getTypeId() {
-        return 167;
+        return 165;
     }
     
     public long getClassId() {
@@ -65,7 +89,7 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 167) ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade
+        if (this.getClassId() == 165) ConnectionHandler.getTheConnectionHandler().theAddFpCommandFacade
             .newAddFpCommand(this.getId());
         super.store();
         if(this.getOp() != null){

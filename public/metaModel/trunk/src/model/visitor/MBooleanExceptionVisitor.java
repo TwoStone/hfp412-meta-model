@@ -1,7 +1,9 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMFalse;
+import persistence.PersistentMTrue;
 
 public interface MBooleanExceptionVisitor<E extends UserException> {
     

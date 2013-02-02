@@ -1,9 +1,21 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.Command;
+import persistence.CommandCoordinatorProxi;
+import persistence.CommandCoordinator_ExecuterProxi;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentCommandCoordinator;
+import persistence.PersistentCommandExecuter;
+import persistence.PersistentObject;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -11,7 +23,7 @@ import model.visitor.*;
 public class CommandCoordinator extends PersistentObject implements PersistentCommandCoordinator{
     
     private static PersistentCommandCoordinator theCommandCoordinator = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentCommandCoordinator getTheCommandCoordinator() throws PersistenceException{
         if (theCommandCoordinator == null || reset$For$Test){
@@ -71,7 +83,7 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
     }
     
     static public long getTypeId() {
-        return -128;
+        return -127;
     }
     
     public long getClassId() {

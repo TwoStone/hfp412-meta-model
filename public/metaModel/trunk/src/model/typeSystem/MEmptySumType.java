@@ -40,7 +40,7 @@ import persistence.TDObserver;
 public class MEmptySumType extends model.typeSystem.MAbstractSumType implements PersistentMEmptySumType{
     
     private static PersistentMEmptySumType theMEmptySumType = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMEmptySumType getTheMEmptySumType() throws PersistenceException{
         if (theMEmptySumType == null || reset$For$Test){
@@ -107,7 +107,7 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
     }
     
     static public long getTypeId() {
-        return 187;
+        return 185;
     }
     
     public long getClassId() {

@@ -1,9 +1,20 @@
 
 package model.quantity;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.FunctionManagerProxi;
+import persistence.FunctionManager_FunctionsProxi;
+import persistence.PersistenceException;
+import persistence.PersistentFunctionManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -11,7 +22,7 @@ import model.visitor.*;
 public class FunctionManager extends PersistentObject implements PersistentFunctionManager{
     
     private static PersistentFunctionManager theFunctionManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentFunctionManager getTheFunctionManager() throws PersistenceException{
         if (theFunctionManager == null || reset$For$Test){
@@ -83,7 +94,7 @@ public class FunctionManager extends PersistentObject implements PersistentFunct
     }
     
     static public long getTypeId() {
-        return 271;
+        return 262;
     }
     
     public long getClassId() {

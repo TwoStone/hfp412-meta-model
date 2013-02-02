@@ -1,7 +1,10 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMAbstractProductType;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMProductType;
 
 public abstract class MAbstractProductTypeStandardVisitor implements MAbstractProductTypeVisitor {
     

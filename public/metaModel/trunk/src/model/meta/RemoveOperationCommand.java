@@ -1,9 +1,32 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.OperationManagerCommandExceptionVisitor;
+import model.visitor.OperationManagerCommandReturnExceptionVisitor;
+import model.visitor.OperationManagerCommandReturnVisitor;
+import model.visitor.OperationManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentObject;
+import persistence.PersistentOperation;
+import persistence.PersistentOperationManager;
+import persistence.PersistentProxi;
+import persistence.PersistentRemoveOperationCommand;
 
 
 /* Additional import section end */
@@ -54,7 +77,7 @@ public class RemoveOperationCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 139;
+        return 137;
     }
     
     public long getClassId() {
@@ -63,7 +86,7 @@ public class RemoveOperationCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 139) ConnectionHandler.getTheConnectionHandler().theRemoveOperationCommandFacade
+        if (this.getClassId() == 137) ConnectionHandler.getTheConnectionHandler().theRemoveOperationCommandFacade
             .newRemoveOperationCommand(this.getId());
         super.store();
         if(this.getOp() != null){

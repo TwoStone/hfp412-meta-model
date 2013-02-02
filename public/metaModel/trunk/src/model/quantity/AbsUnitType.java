@@ -2,11 +2,9 @@
 package model.quantity;
 
 import persistence.AbsUnitTypeSearchList;
-import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
-import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
@@ -55,7 +53,7 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 151;
+        return 149;
     }
     
     public long getClassId() {

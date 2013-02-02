@@ -1,8 +1,12 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.visitor.UserExceptionExceptionVisitor;
+import model.visitor.UserExceptionReturnExceptionVisitor;
+import model.visitor.UserExceptionReturnVisitor;
+import model.visitor.UserExceptionVisitor;
+import persistence.PersistenceException;
+import persistence.TDObserver;
 
 
 
@@ -30,7 +34,7 @@ public class CycleException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -231;
+        return -228;
     }
     
     public long getClassId() {

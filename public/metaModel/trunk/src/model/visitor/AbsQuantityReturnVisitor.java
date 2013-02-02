@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentCompoundQuantity;
+import persistence.PersistentQuantity;
 
 public interface AbsQuantityReturnVisitor<R> {
     

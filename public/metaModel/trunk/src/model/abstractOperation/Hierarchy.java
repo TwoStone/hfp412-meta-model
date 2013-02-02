@@ -1,9 +1,21 @@
 
 package model.abstractOperation;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.AssociationSearchList;
+import persistence.ConnectionHandler;
+import persistence.HierarchyProxi;
+import persistence.HierarchySearchList;
+import persistence.PersistenceException;
+import persistence.PersistentHierarchy;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -96,7 +108,7 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
     }
     
     static public long getTypeId() {
-        return 165;
+        return 163;
     }
     
     public long getClassId() {
@@ -105,7 +117,7 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 165) ConnectionHandler.getTheConnectionHandler().theHierarchyFacade
+        if (this.getClassId() == 163) ConnectionHandler.getTheConnectionHandler().theHierarchyFacade
             .newHierarchy(name,this.getId());
         super.store();
         if(!this.equals(this.getThis())){

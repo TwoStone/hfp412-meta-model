@@ -1,9 +1,32 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.AspectManagerCommandExceptionVisitor;
+import model.visitor.AspectManagerCommandReturnExceptionVisitor;
+import model.visitor.AspectManagerCommandReturnVisitor;
+import model.visitor.AspectManagerCommandVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAspectManager;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateAspectCommand;
+import persistence.PersistentMAspect;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */

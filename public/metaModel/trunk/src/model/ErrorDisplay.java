@@ -1,8 +1,18 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.ErrorDisplayProxi;
+import persistence.PersistenceException;
+import persistence.PersistentErrorDisplay;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -85,7 +95,7 @@ public class ErrorDisplay extends PersistentObject implements PersistentErrorDis
     }
     
     static public long getTypeId() {
-        return -123;
+        return -122;
     }
     
     public long getClassId() {
@@ -94,7 +104,7 @@ public class ErrorDisplay extends PersistentObject implements PersistentErrorDis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == -123) ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade
+        if (this.getClassId() == -122) ConnectionHandler.getTheConnectionHandler().theErrorDisplayFacade
             .newErrorDisplay(this.getId());
         super.store();
         

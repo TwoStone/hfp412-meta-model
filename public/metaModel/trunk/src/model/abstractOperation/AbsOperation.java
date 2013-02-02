@@ -1,7 +1,17 @@
 
 package model.abstractOperation;
 
-import persistence.*;
+import persistence.AbsOperationSearchList;
+import persistence.AbsOperation_ParametersProxi;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentAbsOperation;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -71,7 +81,7 @@ public abstract class AbsOperation extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 107;
+        return 106;
     }
     
     public long getClassId() {

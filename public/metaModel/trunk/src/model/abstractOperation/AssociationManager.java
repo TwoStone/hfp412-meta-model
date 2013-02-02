@@ -1,9 +1,30 @@
 
 package model.abstractOperation;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.AssociationManagerProxi;
+import persistence.AssociationManager_AssociationsProxi;
+import persistence.AssociationManager_HierarchiesProxi;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAddAssociationCommand;
+import persistence.PersistentAssociation;
+import persistence.PersistentAssociationManager;
+import persistence.PersistentCreateAssociationCommand;
+import persistence.PersistentCreateHierarchyCommand;
+import persistence.PersistentHierarchy;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentRemoveAssoFrmHierCommand;
+import persistence.PersistentRemoveAssociationCommand;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -11,7 +32,7 @@ import model.visitor.*;
 public class AssociationManager extends PersistentObject implements PersistentAssociationManager{
     
     private static PersistentAssociationManager theAssociationManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentAssociationManager getTheAssociationManager() throws PersistenceException{
         if (theAssociationManager == null || reset$For$Test){
@@ -87,7 +108,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     
     static public long getTypeId() {
-        return 154;
+        return 152;
     }
     
     public long getClassId() {

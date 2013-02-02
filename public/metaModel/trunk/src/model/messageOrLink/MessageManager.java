@@ -1,9 +1,31 @@
 
 package model.messageOrLink;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.ActualParameterSearchList;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.MessageManagerProxi;
+import persistence.MessageManager_MessagesProxi;
+import persistence.PersistenceException;
+import persistence.PersistentActualParameter;
+import persistence.PersistentCreateConstCommand;
+import persistence.PersistentCreateMessageCommand;
+import persistence.PersistentCreateStaticMessageCommand;
+import persistence.PersistentCreateVoidMessageCommand;
+import persistence.PersistentInstanceObject;
+import persistence.PersistentMessage;
+import persistence.PersistentMessageManager;
+import persistence.PersistentObject;
+import persistence.PersistentOperation;
+import persistence.PersistentProxi;
+import persistence.PersistentRemoveMessageCommand;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -11,7 +33,7 @@ import model.visitor.*;
 public class MessageManager extends PersistentObject implements PersistentMessageManager{
     
     private static PersistentMessageManager theMessageManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMessageManager getTheMessageManager() throws PersistenceException{
         if (theMessageManager == null || reset$For$Test){
@@ -83,7 +105,7 @@ public class MessageManager extends PersistentObject implements PersistentMessag
     }
     
     static public long getTypeId() {
-        return 170;
+        return 168;
     }
     
     public long getClassId() {

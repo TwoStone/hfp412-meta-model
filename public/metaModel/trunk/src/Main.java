@@ -1,19 +1,32 @@
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRootPane;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextField;
+import javax.swing.JToolBar;
+import javax.swing.UIManager;
 
-import modelServer.ConnectionServer;
 import model.DBConnectionConstants;
-import persistence.PersistenceException;
-import modelServer.ServerReporter;
+import modelServer.ConnectionServer;
 import modelServer.RemoteServerMaster;
-
-import persistence.*;
+import modelServer.ServerReporter;
+import persistence.Cache;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import view.ModelException;
+import viewClient.ClientReporter;
 import viewClient.ConnectionMaster;
 import viewClient.MainView;
-import viewClient.ClientReporter;
-import view.ModelException;
 import viewClient.ServerConnection;
 
 @SuppressWarnings("serial")

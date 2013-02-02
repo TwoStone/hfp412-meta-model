@@ -1,13 +1,15 @@
 package viewClient;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-import view.*;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import view.ModelException;
+import view.ServerView;
+import view.UserException;
 
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ExceptionAndEventHandler{

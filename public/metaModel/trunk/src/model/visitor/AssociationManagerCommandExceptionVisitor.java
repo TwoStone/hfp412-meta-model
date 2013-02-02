@@ -1,7 +1,12 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAddAssociationCommand;
+import persistence.PersistentCreateAssociationCommand;
+import persistence.PersistentCreateHierarchyCommand;
+import persistence.PersistentRemoveAssoFrmHierCommand;
+import persistence.PersistentRemoveAssociationCommand;
 
 public interface AssociationManagerCommandExceptionVisitor<E extends UserException> {
     

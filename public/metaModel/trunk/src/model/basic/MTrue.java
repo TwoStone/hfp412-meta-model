@@ -1,9 +1,22 @@
 
 package model.basic;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MBooleanExceptionVisitor;
+import model.visitor.MBooleanReturnExceptionVisitor;
+import model.visitor.MBooleanReturnVisitor;
+import model.visitor.MBooleanVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MTrueProxi;
+import persistence.PersistenceException;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMTrue;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -11,7 +24,7 @@ import model.visitor.*;
 public class MTrue extends model.basic.MBoolean implements PersistentMTrue{
     
     private static PersistentMTrue theMTrue = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMTrue getTheMTrue() throws PersistenceException{
         if (theMTrue == null || reset$For$Test){
@@ -77,7 +90,7 @@ public class MTrue extends model.basic.MBoolean implements PersistentMTrue{
     }
     
     static public long getTypeId() {
-        return 192;
+        return 190;
     }
     
     public long getClassId() {

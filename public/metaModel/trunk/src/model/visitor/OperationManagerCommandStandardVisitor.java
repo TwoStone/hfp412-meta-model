@@ -1,7 +1,18 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.OperationManagerCommand;
+import persistence.PersistenceException;
+import persistence.PersistentAddFpCommand;
+import persistence.PersistentAddMultipleFpCommand;
+import persistence.PersistentCreateConstantCommand;
+import persistence.PersistentCreateFpCommand;
+import persistence.PersistentCreateOperationCommand;
+import persistence.PersistentCreateStaticOpCommand;
+import persistence.PersistentCreateVoidOperationCommand;
+import persistence.PersistentRemoveFpCommand;
+import persistence.PersistentRemoveFpFromOpCommand;
+import persistence.PersistentRemoveOperationCommand;
 
 public abstract class OperationManagerCommandStandardVisitor implements OperationManagerCommandVisitor {
     

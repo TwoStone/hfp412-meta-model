@@ -6,10 +6,12 @@ import java.util.Iterator;
 
 import javax.crypto.SecretKey;
 
+import model.Server;
+import persistence.PersistenceException;
 import persistence.PersistentProxi;
-
-import model.*;
-import persistence.*;
+import persistence.PersistentRoot;
+import persistence.PersistentServer;
+import persistence.Remote;
 
 
 public class ConnectionServer extends RemoteServerMaster {
@@ -35,7 +37,7 @@ public class ConnectionServer extends RemoteServerMaster {
 	}
 	public RemoteServerMaster createRemoteServer(String connectionName, String userName, long objectId, long classId){
 		try {
-			if(classId == -112)return new RemoteServer(connectionName, userName, (PersistentServer)PersistentProxi.createProxi(objectId, classId));
+			if(classId == -111)return new RemoteServer(connectionName, userName, (PersistentServer)PersistentProxi.createProxi(objectId, classId));
 			
 		}catch(PersistenceException pe){
 			return null;
@@ -89,7 +91,7 @@ public class ConnectionServer extends RemoteServerMaster {
 		}
 	}
 	public synchronized Hashtable<String,Object> fork(String user, String oldConnection, String objectId, String classId){
-		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der üblichen Stelle laden!",0));
+		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der ?blichen Stelle laden!",0));
 	}
 	public synchronized Hashtable<String,Object> fork(String user, String oldConnection, String objectId, String classId, java.util.Date date){
 		if (this.connections.size() >= this.maximalNumberOfConnections) 
@@ -127,7 +129,7 @@ public class ConnectionServer extends RemoteServerMaster {
 	}
 	
 	public synchronized Hashtable<String,Object> connect(String user, String password, boolean createUserIfNotPresent, byte[] keyBytes){
-		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der üblichen Stelle laden!",0));
+		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der ?blichen Stelle laden!",0));
 	}
 	
 	public synchronized Hashtable<String,Object> connect(String user, String password, boolean createUserIfNotPresent, byte[] keyBytes, java.util.Date date, int version){
@@ -136,7 +138,7 @@ public class ConnectionServer extends RemoteServerMaster {
 		if (date.before(earliest) || date.after(latest))
 			return createExceptionResult(new PersistenceException("Bitte Systemzeit einstellen: Ihre Zeit: " + date.toString() + ". Unsere Zeit: " + new java.util.Date().toString(),0));
 		if (this.connections.size() >= this.maximalNumberOfConnections)
-			return createExceptionResult(new PersistenceException("!Maximale Anzahl der Verbindungen überschritten! Später nochmals versuchen!",0));
+			return createExceptionResult(new PersistenceException("!Maximale Anzahl der Verbindungen ?berschritten! Sp?ter nochmals versuchen!",0));
 		if (version < common.RPCConstantsAndServices.CurrentVersion)
 			return createExceptionResult(new PersistenceException(common.RPCConstantsAndServices.VersionErrorText,0));
 		Iterator<PersistentServer> serverIterator;

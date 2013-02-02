@@ -1,7 +1,13 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
+import persistence.PersistentMType;
 
 public abstract class MTypeStandardVisitor implements MTypeVisitor {
     

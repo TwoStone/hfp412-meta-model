@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.AccountTypeManagerCommand;
+import persistence.PersistenceException;
+import persistence.PersistentCreateAccountTypeCommand;
 
 public abstract class AccountTypeManagerCommandStandardVisitor implements AccountTypeManagerCommandVisitor {
     

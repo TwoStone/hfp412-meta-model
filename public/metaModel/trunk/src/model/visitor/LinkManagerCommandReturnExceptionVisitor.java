@@ -1,7 +1,9 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentCreateLinkCommand;
+import persistence.PersistentRemoveLinkCommand;
 
 public interface LinkManagerCommandReturnExceptionVisitor<R, E extends UserException> {
     

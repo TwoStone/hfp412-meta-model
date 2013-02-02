@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.UnitTypeManagerCommandExceptionVisitor;
+import model.visitor.UnitTypeManagerCommandReturnExceptionVisitor;
+import model.visitor.UnitTypeManagerCommandReturnVisitor;
+import model.visitor.UnitTypeManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAddReferenceCommand;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCompUnit;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentUnit;
+import persistence.PersistentUnitTypeManager;
 
 
 /* Additional import section end */
@@ -58,7 +82,7 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
     }
     
     static public long getTypeId() {
-        return 268;
+        return 259;
     }
     
     public long getClassId() {
@@ -67,7 +91,7 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 268) ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade
+        if (this.getClassId() == 259) ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade
             .newAddReferenceCommand(exponent,this.getId());
         super.store();
         if(this.getCompUnit() != null){

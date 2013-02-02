@@ -1,8 +1,12 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.visitor.UserExceptionExceptionVisitor;
+import model.visitor.UserExceptionReturnExceptionVisitor;
+import model.visitor.UserExceptionReturnVisitor;
+import model.visitor.UserExceptionVisitor;
+import persistence.PersistenceException;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -30,7 +34,7 @@ public abstract class UserException extends Exception{
     }
     
     static public long getTypeId() {
-        return -232;
+        return -229;
     }
     
     public long getClassId() {

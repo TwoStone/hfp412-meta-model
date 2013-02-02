@@ -1,7 +1,10 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAbsOperation;
+import persistence.PersistentAssociation;
+import persistence.PersistentOperation;
 
 public abstract class AbsOperationStandardVisitor implements AbsOperationVisitor {
     

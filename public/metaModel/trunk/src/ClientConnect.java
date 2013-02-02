@@ -1,19 +1,18 @@
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.UIManager;
 
 import view.ModelException;

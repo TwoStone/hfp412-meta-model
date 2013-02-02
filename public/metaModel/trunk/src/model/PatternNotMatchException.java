@@ -1,8 +1,12 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.visitor.UserExceptionExceptionVisitor;
+import model.visitor.UserExceptionReturnExceptionVisitor;
+import model.visitor.UserExceptionReturnVisitor;
+import model.visitor.UserExceptionVisitor;
+import persistence.PersistenceException;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -29,7 +33,7 @@ public class PatternNotMatchException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -266;
+        return -255;
     }
     
     public long getClassId() {

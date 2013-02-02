@@ -6,14 +6,34 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.*;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.NameSchemeManagerProxi;
+import persistence.NameSchemeManager_NamesProxi;
+import persistence.NameSchemeManager_SchemesProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAssignNameCommand;
+import persistence.PersistentAssignTypeCommand;
+import persistence.PersistentCreateNameSchemeCommand;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMObject;
+import persistence.PersistentName;
+import persistence.PersistentNameScheme;
+import persistence.PersistentNameSchemeInstance;
+import persistence.PersistentNameSchemeManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.Predcate;
+import persistence.SearchListRoot;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
 public class NameSchemeManager extends PersistentObject implements PersistentNameSchemeManager{
     
     private static PersistentNameSchemeManager theNameSchemeManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentNameSchemeManager getTheNameSchemeManager() throws PersistenceException{
         if (theNameSchemeManager == null || reset$For$Test){
@@ -89,7 +109,7 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     
     static public long getTypeId() {
-        return 252;
+        return 249;
     }
     
     public long getClassId() {

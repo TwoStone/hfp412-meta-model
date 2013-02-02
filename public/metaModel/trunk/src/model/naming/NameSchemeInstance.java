@@ -1,9 +1,21 @@
 
 package model.naming;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.NameSchemeInstanceProxi;
+import persistence.PersistenceException;
+import persistence.PersistentNameScheme;
+import persistence.PersistentNameSchemeInstance;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -104,7 +116,7 @@ public class NameSchemeInstance extends PersistentObject implements PersistentNa
     }
     
     static public long getTypeId() {
-        return 243;
+        return 241;
     }
     
     public long getClassId() {
@@ -113,7 +125,7 @@ public class NameSchemeInstance extends PersistentObject implements PersistentNa
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 243) ConnectionHandler.getTheConnectionHandler().theNameSchemeInstanceFacade
+        if (this.getClassId() == 241) ConnectionHandler.getTheConnectionHandler().theNameSchemeInstanceFacade
             .newNameSchemeInstance(name,this.getId());
         super.store();
         if(this.getType() != null){

@@ -1,9 +1,9 @@
 package model;
 
-import common.IconResourceManager;
-
 import persistence.Anything;
 import persistence.PersistenceException;
+
+import common.IconResourceManager;
 
 public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 

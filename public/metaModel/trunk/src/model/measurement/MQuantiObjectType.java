@@ -1,7 +1,16 @@
 
 package model.measurement;
 
-import persistence.*;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentAbsUnitType;
+import persistence.PersistentMQuantiObjectType;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -60,7 +69,7 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
     }
     
     static public long getTypeId() {
-        return 127;
+        return 126;
     }
     
     public long getClassId() {

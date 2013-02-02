@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.AccountHierarchyHIERARCHY;
+import persistence.PersistenceException;
+import persistence.PersistentAccount;
 
 public abstract class AccountHierarchyHIERARCHYStandardVisitor implements AccountHierarchyHIERARCHYVisitor {
     

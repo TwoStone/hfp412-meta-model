@@ -1,7 +1,13 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.MComplexTypeHierarchyHIERARCHY;
+import persistence.PersistenceException;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
 
 public abstract class MComplexTypeHierarchyHIERARCHYStandardVisitor implements MComplexTypeHierarchyHIERARCHYVisitor {
     

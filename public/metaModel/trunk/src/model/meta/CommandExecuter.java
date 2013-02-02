@@ -1,9 +1,23 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.DBConnectionConstants;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.Command;
+import persistence.CommandExecuter_CommandsProxi;
+import persistence.CommitConnectionHandler;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentCommandExecuter;
+import persistence.PersistentCommonDate;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -74,7 +88,7 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
     }
     
     static public long getTypeId() {
-        return -193;
+        return -191;
     }
     
     public long getClassId() {
@@ -83,7 +97,7 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == -193) ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
+        if (this.getClassId() == -191) ConnectionHandler.getTheConnectionHandler().theCommandExecuterFacade
             .newCommandExecuter(this.getId());
         super.store();
         this.getCommands().store();

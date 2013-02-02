@@ -1,9 +1,34 @@
 
 package model.measurement;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AccountHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.AccountHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.AccountHierarchyHIERARCHYReturnVisitor;
+import model.visitor.AccountHierarchyHIERARCHYVisitor;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.QuantifObjectExceptionVisitor;
+import model.visitor.QuantifObjectReturnExceptionVisitor;
+import model.visitor.QuantifObjectReturnVisitor;
+import model.visitor.QuantifObjectVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.AccountHierarchyHIERARCHY;
+import persistence.AccountHierarchyHIERARCHYStrategy;
+import persistence.AccountProxi;
+import persistence.Account_EntriesProxi;
+import persistence.Account_SubAccountsProxi;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentAccount;
+import persistence.PersistentInstanceObject;
+import persistence.PersistentMAccountType;
+import persistence.PersistentProxi;
+import persistence.PersistentQuantifObject;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -100,7 +125,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 183;
+        return 181;
     }
     
     public long getClassId() {
@@ -109,7 +134,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 183) ConnectionHandler.getTheConnectionHandler().theAccountFacade
+        if (this.getClassId() == 181) ConnectionHandler.getTheConnectionHandler().theAccountFacade
             .newAccount(this.getId());
         super.store();
         if(this.getType() != null){
