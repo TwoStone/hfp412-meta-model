@@ -132,6 +132,8 @@ public abstract class TestingBase {
 			Field field = managerClazz.getField("reset$For$Test");
 			field.set(null, true);
 		}
+
+		manager.clear();
 	}
 
 }
