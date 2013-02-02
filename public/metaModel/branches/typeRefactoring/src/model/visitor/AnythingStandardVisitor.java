@@ -251,9 +251,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleConversion(PersistentConversion conversion) throws PersistenceException{
         this.standardHandling(conversion);
     }
-    public void handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException{
-        this.standardHandling(mDisjuncitveNF);
-    }
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
         this.standardHandling(finishModelingCommand);
     }
@@ -268,6 +265,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException{
         this.standardHandling(mFalse);
+    }
+    public void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException{
+        this.standardHandling(mDisjunctiveNF);
     }
     public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException{
         this.standardHandling(measurementTypeManager);

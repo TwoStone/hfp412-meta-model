@@ -5,4 +5,4 @@ public interface MNonEmptySumTypeMssgs {
 }
 
 interface MNonEmptySumTypeDOWNMssgs extends MAbstractSumTypeDOWNMssgs, MNonEmptySumTypeMssgs{}
-interface MNonEmptySumTypeUPMssgs extends MDisjuncitveNFUPMssgs, MSumTypeUPMssgs, MNonEmptySumTypeMssgs{}
+interface MNonEmptySumTypeUPMssgs extends MDisjunctiveNFUPMssgs, MSumTypeUPMssgs, MNonEmptySumTypeMssgs{}

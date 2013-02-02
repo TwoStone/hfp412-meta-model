@@ -44,11 +44,11 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     public abstract void handleReference(PersistentReference reference) throws PersistenceException;
     public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
-    public abstract void handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException;
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     public abstract void handleAccount(PersistentAccount account) throws PersistenceException;
     public abstract void handleUnitType(PersistentUnitType unitType) throws PersistenceException;
     public abstract void handleMFalse(PersistentMFalse mFalse) throws PersistenceException;
+    public abstract void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException;
     public abstract void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException;
     public abstract void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException;
     public abstract void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;

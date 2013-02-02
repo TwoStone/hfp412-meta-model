@@ -1,7 +1,10 @@
 package model.typeSystem;
 
+import java.util.Iterator;
+
 import model.CycleException;
 import model.UserException;
+import model.basic.MBoolean;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -30,35 +33,39 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MComplexTypeHierarchyHIERARCHY;
 import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
-import persistence.MSumTypeProxi;
-import persistence.MSumType_AddendsProxi;
+import persistence.MDisjunctiveNFProxi;
+import persistence.MDisjunctiveNF_AddendsProxi;
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMAtomicType;
 import persistence.PersistentMAtomicTypeProduct;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMDisjunctiveNF;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
 import persistence.PersistentMType;
 import persistence.Procdure;
-import persistence.ProcdureException;
 import persistence.TDObserver;
 
 /* Additional import section end */
 
-public class MSumType extends model.typeSystem.MNonEmptySumType implements PersistentMSumType {
+public class MDisjunctiveNF extends model.typeSystem.MNonEmptySumType implements PersistentMDisjunctiveNF {
 
-	public static PersistentMSumType createMSumType() throws PersistenceException {
-		return createMSumType(false);
+	public static PersistentMDisjunctiveNF createMDisjunctiveNF() throws PersistenceException {
+		return createMDisjunctiveNF(false);
 	}
 
-	public static PersistentMSumType createMSumType(boolean delayed$Persistence) throws PersistenceException {
-		PersistentMSumType result = null;
+	public static PersistentMDisjunctiveNF createMDisjunctiveNF(boolean delayed$Persistence)
+			throws PersistenceException {
+		PersistentMDisjunctiveNF result = null;
 		if (delayed$Persistence) {
-			result = ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade.newDelayedMSumType();
+			result = ConnectionHandler.getTheConnectionHandler().theMDisjunctiveNFFacade.newDelayedMDisjunctiveNF();
 			result.setDelayed$Persistence(true);
 		} else {
-			result = ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade.newMSumType(-1);
+			result = ConnectionHandler.getTheConnectionHandler().theMDisjunctiveNFFacade.newMDisjunctiveNF(-1);
 		}
 		java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
 		result.initialize(result, final$$Fields);
@@ -66,14 +73,14 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 		return result;
 	}
 
-	public static PersistentMSumType createMSumType(boolean delayed$Persistence, PersistentMSumType This)
-			throws PersistenceException {
-		PersistentMSumType result = null;
+	public static PersistentMDisjunctiveNF createMDisjunctiveNF(boolean delayed$Persistence,
+			PersistentMDisjunctiveNF This) throws PersistenceException {
+		PersistentMDisjunctiveNF result = null;
 		if (delayed$Persistence) {
-			result = ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade.newDelayedMSumType();
+			result = ConnectionHandler.getTheConnectionHandler().theMDisjunctiveNFFacade.newDelayedMDisjunctiveNF();
 			result.setDelayed$Persistence(true);
 		} else {
-			result = ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade.newMSumType(-1);
+			result = ConnectionHandler.getTheConnectionHandler().theMDisjunctiveNFFacade.newMDisjunctiveNF(-1);
 		}
 		java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
 		result.initialize(This, final$$Fields);
@@ -97,9 +104,9 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 	}
 
 	@Override
-	public MSumType provideCopy() throws PersistenceException {
-		MSumType result = this;
-		result = new MSumType(this.This, this.getId());
+	public MDisjunctiveNF provideCopy() throws PersistenceException {
+		MDisjunctiveNF result = this;
+		result = new MDisjunctiveNF(this.This, this.getId());
 		result.addends = this.addends.copy(result);
 		this.copyingPrivateUserAttributes(result);
 		return result;
@@ -110,16 +117,16 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 		return false;
 	}
 
-	protected MSumType_AddendsProxi addends;
+	protected MDisjunctiveNF_AddendsProxi addends;
 
-	public MSumType(PersistentMType This, long id) throws persistence.PersistenceException {
+	public MDisjunctiveNF(PersistentMType This, long id) throws persistence.PersistenceException {
 		/* Shall not be used by clients for object construction! Use static create operation instead! */
 		super(This, id);
-		this.addends = new MSumType_AddendsProxi(this);
+		this.addends = new MDisjunctiveNF_AddendsProxi(this);
 	}
 
 	static public long getTypeId() {
-		return 144;
+		return 277;
 	}
 
 	@Override
@@ -131,156 +138,156 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 	public void store() throws PersistenceException {
 		if (!this.isDelayed$Persistence())
 			return;
-		if (this.getClassId() == 144)
-			ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade.newMSumType(this.getId());
+		if (this.getClassId() == 277)
+			ConnectionHandler.getTheConnectionHandler().theMDisjunctiveNFFacade.newMDisjunctiveNF(this.getId());
 		super.store();
 		this.getAddends().store();
 
 	}
 
 	@Override
-	public MSumType_AddendsProxi getAddends() throws PersistenceException {
+	public MDisjunctiveNF_AddendsProxi getAddends() throws PersistenceException {
 		return this.addends;
 	}
 
 	@Override
-	public PersistentMSumType getThis() throws PersistenceException {
+	public PersistentMDisjunctiveNF getThis() throws PersistenceException {
 		if (this.This == null) {
-			PersistentMSumType result = new MSumTypeProxi(this.getId());
+			PersistentMDisjunctiveNF result = new MDisjunctiveNFProxi(this.getId());
 			result.getTheObject();
 			return result;
 		}
-		return (PersistentMSumType) this.This;
+		return (PersistentMDisjunctiveNF) this.This;
 	}
 
 	@Override
 	public void accept(MNonEmptySumTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R> R accept(MNonEmptySumTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <E extends UserException> void accept(MNonEmptySumTypeExceptionVisitor<E> visitor)
 			throws PersistenceException, E {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R, E extends UserException> R accept(MNonEmptySumTypeReturnExceptionVisitor<R, E> visitor)
 			throws PersistenceException, E {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public void accept(MAbstractSumTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R> R accept(MAbstractSumTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <E extends UserException> void accept(MAbstractSumTypeExceptionVisitor<E> visitor)
 			throws PersistenceException, E {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R, E extends UserException> R accept(MAbstractSumTypeReturnExceptionVisitor<R, E> visitor)
 			throws PersistenceException, E {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R> R accept(MComplexTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <E extends UserException> void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException,
 			E {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E> visitor)
 			throws PersistenceException, E {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public void accept(MTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R> R accept(MTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <E extends UserException> void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E> visitor)
 			throws PersistenceException, E {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <E extends UserException> void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor)
 			throws PersistenceException, E {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E> visitor)
 			throws PersistenceException, E {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public void accept(AnythingVisitor visitor) throws PersistenceException {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R> R accept(AnythingReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <E extends UserException> void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-		visitor.handleMSumType(this);
+		visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
 	public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E> visitor)
 			throws PersistenceException, E {
-		return visitor.handleMSumType(this);
+		return visitor.handleMDisjunctiveNF(this);
 	}
 
 	@Override
@@ -290,6 +297,32 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 
 	@Override
 	public void initializeOnInstantiation() throws PersistenceException {
+	}
+
+	@Override
+	public PersistentMDisjunctiveNF transientMultiply(final PersistentMDisjunctiveNF other) throws PersistenceException {
+		final PersistentMDisjunctiveNF result = MDisjunctiveNF.createMDisjunctiveNF(true);
+		getThis().getAddends().applyToAll(new Procdure<PersistentMAtomicTypeProduct>() {
+
+			@Override
+			public void doItTo(PersistentMAtomicTypeProduct argument) throws PersistenceException {
+				final PersistentMAtomicTypeProduct firstFactor = argument;
+				other.getAddends().applyToAll(new Procdure<PersistentMAtomicTypeProduct>() {
+
+					@Override
+					public void doItTo(PersistentMAtomicTypeProduct argument) throws PersistenceException {
+						try {
+							result.getAddends().add(firstFactor.transientMultiply(argument));
+						} catch (CycleException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+
+			}
+		});
+		return result;
 	}
 
 	@Override
@@ -310,7 +343,7 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 	@Override
 	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields)
 			throws PersistenceException {
-		this.setThis((PersistentMSumType) This);
+		this.setThis((PersistentMDisjunctiveNF) This);
 		if (this.equals(This)) {
 		}
 	}
@@ -318,20 +351,75 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 	@Override
 	public <T> T strategyMComplexTypeHierarchy(final T parameter,
 			final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) throws PersistenceException {
-		T result$$addends$$MSumType = strategy.initialize$$MSumType$$addends(getThis(), parameter);
+		T result$$addends$$MDisjunctiveNF = strategy.initialize$$MDisjunctiveNF$$addends(getThis(), parameter);
 		java.util.Iterator iterator$$ = getThis().getAddends().iterator();
 		while (iterator$$.hasNext()) {
-			PersistentMType current$$Field = (PersistentMType) iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$addends$$MSumType, strategy);
-			result$$addends$$MSumType = strategy.consolidate$$MSumType$$addends(getThis(), result$$addends$$MSumType,
-					current$$);
+			PersistentMAtomicTypeProduct current$$Field = (PersistentMAtomicTypeProduct) iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$addends$$MDisjunctiveNF, strategy);
+			result$$addends$$MDisjunctiveNF = strategy.consolidate$$MDisjunctiveNF$$addends(getThis(),
+					result$$addends$$MDisjunctiveNF, current$$);
 		}
-		return strategy.finalize$$MSumType(getThis(), parameter, result$$addends$$MSumType);
+		return strategy.finalize$$MDisjunctiveNF(getThis(), parameter, result$$addends$$MDisjunctiveNF);
 	}
 
 	@Override
 	public PersistentMBoolean isLessOrEqual(final PersistentMType other) throws PersistenceException {
-		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
+		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
+
+			@Override
+			public Boolean handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
+				return false;
+			}
+
+			@Override
+			public Boolean handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException {
+				Iterator<PersistentMAtomicTypeProduct> myAddendsI = getThis().getAddends().iterator();
+				while (myAddendsI.hasNext()) {
+					if (!myAddendsI.next().isLessOrEqual(mDisjunctiveNF).toBoolean()) {
+						return false;
+					}
+				}
+				return true;
+			}
+
+			@Override
+			public Boolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+				return getThis().isLessOrEqual(mSumType.fetchDisjunctiveNormalform()).toBoolean();
+			}
+
+			@Override
+			public Boolean handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) {
+				return false;
+			}
+
+			@Override
+			public Boolean handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct)
+					throws PersistenceException {
+				Iterator<PersistentMAtomicTypeProduct> myAddendsI = getThis().getAddends().iterator();
+				while (myAddendsI.hasNext()) {
+					if (!myAddendsI.next().isLessOrEqual(mAtomicTypeProduct).toBoolean()) {
+						return false;
+					}
+				}
+				return true;
+			}
+
+			@Override
+			public Boolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+				return getThis().isLessOrEqual(mProductType.fetchDisjunctiveNormalform()).toBoolean();
+			}
+
+			@Override
+			public Boolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+				Iterator<PersistentMAtomicTypeProduct> myAddendsI = getThis().getAddends().iterator();
+				while (myAddendsI.hasNext()) {
+					if (!myAddendsI.next().isLessOrEqual(mAtomicType).toBoolean()) {
+						return false;
+					}
+				}
+				return true;
+			}
+		}));
 	}
 
 	@Override
@@ -340,69 +428,28 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 
 	@Override
 	public PersistentMDisjunctiveNF fetchDisjunctiveNormalform() throws PersistenceException {
-		final PersistentMDisjunctiveNF result = MDisjunctiveNF.createMDisjunctiveNF(true);
-		try {
-			getThis().getAddends().applyToAllException(new ProcdureException<PersistentMType, CycleException>() {
-
-				@Override
-				public void doItTo(PersistentMType argument) throws PersistenceException, CycleException {
-					PersistentMDisjunctiveNF dnf = argument.fetchDisjunctiveNormalform();
-					dnf.getAddends().applyToAllException(
-							new ProcdureException<PersistentMAtomicTypeProduct, CycleException>() {
-
-								@Override
-								public void doItTo(PersistentMAtomicTypeProduct argument) throws PersistenceException,
-										CycleException {
-									result.getAddends().add(argument);
-								}
-
-							});
-				}
-			});
-		} catch (CycleException e) {
-			// TODO Exception behandeln. Was m??ssen wir dann hier eigentlich machen?
-			e.printStackTrace();
-		}
-		return result;
+		return getThis();
 	}
 
 	@Override
 	public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() throws PersistenceException {
-		final PersistentMSumType sumType = MSumType.createMSumType(true);
-
+		// TODO: implement method: fetchDisjunctiveNormalform
 		try {
-			this.getThis().getContainedTypes()
-					.applyToAllException(new ProcdureException<PersistentMType, CycleException>() {
-
-						@Override
-						public void doItTo(PersistentMType argument) throws PersistenceException, CycleException {
-							PersistentMAbstractSumType dnf = argument.fetchDisjunctiveNormalform();
-							dnf.getContainedTypes().applyToAllException(
-									new ProcdureException<PersistentMType, CycleException>() {
-
-										@Override
-										public void doItTo(PersistentMType product) throws PersistenceException,
-												CycleException {
-											sumType.getContainedTypes().add(product);
-										}
-									});
-						}
-					});
-		} catch (CycleException e) {
-			// TODO Exception behandeln. Was m??ssen wir dann hier eigentlich machen?
-			e.printStackTrace();
+			throw new java.lang.UnsupportedOperationException(
+					"Method \"fetchDisjunctiveNormalform\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
 		}
-
-		return sumType;
 	}
 
 	@Override
 	public MTypeSearchList getContainedTypes() throws PersistenceException {
 		final MTypeSearchList result = new MTypeSearchList();
-		getThis().getAddends().applyToAll(new Procdure<PersistentMType>() {
+		getThis().getAddends().applyToAll(new Procdure<PersistentMAtomicTypeProduct>() {
 
 			@Override
-			public void doItTo(PersistentMType argument) throws PersistenceException {
+			public void doItTo(PersistentMAtomicTypeProduct argument) throws PersistenceException {
 				result.add(argument);
 			}
 		});

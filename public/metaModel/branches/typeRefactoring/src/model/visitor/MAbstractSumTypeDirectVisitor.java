@@ -9,11 +9,11 @@ public abstract class MAbstractSumTypeDirectVisitor implements MAbstractSumTypeV
     
     public abstract void handleMNonEmptySumType(PersistentMNonEmptySumType mNonEmptySumType) throws PersistenceException;
     
-    public void handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException{
-        this.handleMNonEmptySumType(mDisjuncitveNF);
-    }
     public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
         this.handleMNonEmptySumType(mSumType);
+    }
+    public void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException{
+        this.handleMNonEmptySumType(mDisjunctiveNF);
     }
     
 }

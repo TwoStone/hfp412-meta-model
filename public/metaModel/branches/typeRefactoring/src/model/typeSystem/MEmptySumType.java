@@ -32,7 +32,7 @@ import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentMAbstractSumType;
 import persistence.PersistentMBoolean;
-import persistence.PersistentMDisjuncitveNF;
+import persistence.PersistentMDisjunctiveNF;
 import persistence.PersistentMEmptySumType;
 import persistence.PersistentMType;
 import persistence.TDObserver;
@@ -221,7 +221,7 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public PersistentMDisjuncitveNF fetchDisjunctiveNormalform() 
+    public PersistentMDisjunctiveNF fetchDisjunctiveNormalform() 
 				throws PersistenceException{
 		// TODO: implement method: fetchDisjunctiveNormalform
 		try {

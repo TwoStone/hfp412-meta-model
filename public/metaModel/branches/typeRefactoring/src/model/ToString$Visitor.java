@@ -29,7 +29,7 @@ import persistence.PersistentMAccountType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMAtomicTypeProduct;
-import persistence.PersistentMDisjuncitveNF;
+import persistence.PersistentMDisjunctiveNF;
 import persistence.PersistentMEmptyProductType;
 import persistence.PersistentMEmptySumType;
 import persistence.PersistentMFalse;
@@ -450,7 +450,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException {
+	public void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjuncitveNF) throws PersistenceException {
 		result = "[DNF] " + mDisjuncitveNF.fetchName();
 
 	}

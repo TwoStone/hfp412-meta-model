@@ -125,7 +125,7 @@ part typeSystem {
 		abstract MBoolean isAbstract();
 		abstract MBoolean isStructuralEquivalant(MType other);  			
 		abstract MAbstractSumType fetchDisjunctiveNormalform_old();
-		abstract MDisjuncitveNF fetchDisjunctiveNormalform();
+		abstract MDisjunctiveNF fetchDisjunctiveNormalform();
 /*
 			MAssociation** fetchAssociations();
 			MBoolean allObjectsOfTypeAreSingleton();
@@ -178,9 +178,9 @@ part typeSystem {
 	class MSumType@@SumType extends MNonEmptySumType {
 		MType** addends hierarchy MComplexTypeHierarchy;
 	}
-	class MDisjuncitveNF@@DNF extends MNonEmptySumType {
+	class MDisjunctiveNF@@DNF extends MNonEmptySumType {
 		MAtomicTypeProduct** addends hierarchy MComplexTypeHierarchy;
-		MDisjuncitveNF transientMultiply(MDisjuncitveNF other);
+		MDisjunctiveNF transientMultiply(MDisjunctiveNF other);
 	}
 
 	/* ** Produkttypen ** */

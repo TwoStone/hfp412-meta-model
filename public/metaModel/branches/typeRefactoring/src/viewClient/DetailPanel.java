@@ -814,9 +814,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleReference(view.ReferenceView object){
         result = new ReferenceDefaultDetailPanel(handler, object);
     }
-    public void handleMDisjuncitveNF(view.MDisjuncitveNFView object){
-        result = new MDisjuncitveNFDefaultDetailPanel(handler, object);
-    }
     public void handleReferenceType(view.ReferenceTypeView object){
         result = new ReferenceTypeDefaultDetailPanel(handler, object);
     }
@@ -828,6 +825,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleMFalse(view.MFalseView object){
         result = new MFalseDefaultDetailPanel(handler, object);
+    }
+    public void handleMDisjunctiveNF(view.MDisjunctiveNFView object){
+        result = new MDisjunctiveNFDefaultDetailPanel(handler, object);
     }
     public void handleMeasurementTypeManager(view.MeasurementTypeManagerView object){
         result = new MeasurementTypeManagerDefaultDetailPanel(handler, object);
@@ -1695,23 +1695,6 @@ class ReferenceDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class MDisjuncitveNFDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
-    protected static final String MDisjuncitveNF$$addends = "MDisjuncitveNF$$addends";
-    
-    protected MDisjuncitveNFDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.MDisjuncitveNFView getAnything(){
-        return (view.MDisjuncitveNFView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
 class ReferenceTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ReferenceType$$exponent = "ReferenceType$$exponent";
@@ -1788,6 +1771,23 @@ class MFalseDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MFalseView getAnything(){
         return (view.MFalseView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MDisjunctiveNFDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MDisjunctiveNF$$addends = "MDisjunctiveNF$$addends";
+    
+    protected MDisjunctiveNFDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MDisjunctiveNFView getAnything(){
+        return (view.MDisjunctiveNFView)this.anything;
     }
 }
 

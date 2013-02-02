@@ -250,9 +250,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleMType(PersistentMType mType) throws PersistenceException;
     
-    public void handleMDisjuncitveNF(PersistentMDisjuncitveNF mDisjuncitveNF) throws PersistenceException{
-        this.handleMType(mDisjuncitveNF);
-    }
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
         this.handleMType(mAtomicType);
     }
@@ -267,6 +264,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
         this.handleMType(mEmptyProductType);
+    }
+    public void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException{
+        this.handleMType(mDisjunctiveNF);
     }
     public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException{
         this.handleMType(mAtomicTypeProduct);
