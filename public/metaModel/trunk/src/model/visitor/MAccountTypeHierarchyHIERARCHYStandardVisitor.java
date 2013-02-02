@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.MAccountTypeHierarchyHIERARCHY;
-import persistence.PersistenceException;
-import persistence.PersistentMAccountType;
+import persistence.*;
 
 public abstract class MAccountTypeHierarchyHIERARCHYStandardVisitor implements MAccountTypeHierarchyHIERARCHYVisitor {
     

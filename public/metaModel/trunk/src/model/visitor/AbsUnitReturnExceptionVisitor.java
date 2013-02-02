@@ -1,9 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentCompUnit;
-import persistence.PersistentUnit;
+import persistence.*;
 
 public interface AbsUnitReturnExceptionVisitor<R, E extends UserException> {
     

@@ -1,8 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentCreateMeasurementTypeCommand;
+import persistence.*;
 
 public interface MeasurementTypeManagerCommandExceptionVisitor<E extends UserException> {
     

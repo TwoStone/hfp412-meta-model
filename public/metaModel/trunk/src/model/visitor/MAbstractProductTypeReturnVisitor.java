@@ -1,13 +1,10 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMProductType;
+import persistence.*;
 
-public interface MAbstractProductTypeReturnVisitor<R> {
+public interface MAbstractProductTypeReturnVisitor<R> extends MNonEmptyProductTypeReturnVisitor<R> {
     
-    public R handleMProductType(PersistentMProductType mProductType) throws PersistenceException;
     public R handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException;
     
 }

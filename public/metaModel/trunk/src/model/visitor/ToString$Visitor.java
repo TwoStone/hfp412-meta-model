@@ -1,58 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentAccount;
-import persistence.PersistentAccountManager;
-import persistence.PersistentAccountTypeManager;
-import persistence.PersistentActualParameter;
-import persistence.PersistentAspectManager;
-import persistence.PersistentAssociation;
-import persistence.PersistentAssociationManager;
-import persistence.PersistentCompUnit;
-import persistence.PersistentCompUnitType;
-import persistence.PersistentCompoundQuantity;
-import persistence.PersistentConversion;
-import persistence.PersistentFormalParameter;
-import persistence.PersistentFractionManager;
-import persistence.PersistentFunction;
-import persistence.PersistentFunctionManager;
-import persistence.PersistentHierarchy;
-import persistence.PersistentInstanceObject;
-import persistence.PersistentLink;
-import persistence.PersistentLinkManager;
-import persistence.PersistentMAccountType;
-import persistence.PersistentMAspect;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMEmptySumType;
-import persistence.PersistentMFalse;
-import persistence.PersistentMMeasurementType;
-import persistence.PersistentMObject;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
-import persistence.PersistentMTrue;
-import persistence.PersistentMeasurement;
-import persistence.PersistentMeasurementTypeManager;
-import persistence.PersistentMessage;
-import persistence.PersistentMessageManager;
-import persistence.PersistentName;
-import persistence.PersistentNameInstance;
-import persistence.PersistentNameScheme;
-import persistence.PersistentNameSchemeInstance;
-import persistence.PersistentNameSchemeManager;
-import persistence.PersistentObjectManager;
-import persistence.PersistentOperation;
-import persistence.PersistentOperationManager;
-import persistence.PersistentQuantity;
-import persistence.PersistentQuantityManager;
-import persistence.PersistentReference;
-import persistence.PersistentReferenceType;
-import persistence.PersistentServer;
-import persistence.PersistentTypeManager;
-import persistence.PersistentUnit;
-import persistence.PersistentUnitType;
-import persistence.PersistentUnitTypeManager;
+import persistence.*;
 
 public abstract class ToString$Visitor extends AnythingStandardVisitor{
     
@@ -62,6 +11,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleNameScheme(PersistentNameScheme nameScheme) throws PersistenceException;
     public abstract void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException;
     public abstract void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException;
+    public abstract void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException;
     public abstract void handleMeasurement(PersistentMeasurement measurement) throws PersistenceException;
     public abstract void handleMProductType(PersistentMProductType mProductType) throws PersistenceException;
     public abstract void handleAssociation(PersistentAssociation association) throws PersistenceException;
@@ -92,12 +42,13 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException;
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     public abstract void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
-    public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
     public abstract void handleReference(PersistentReference reference) throws PersistenceException;
+    public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     public abstract void handleAccount(PersistentAccount account) throws PersistenceException;
     public abstract void handleUnitType(PersistentUnitType unitType) throws PersistenceException;
     public abstract void handleMFalse(PersistentMFalse mFalse) throws PersistenceException;
+    public abstract void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException;
     public abstract void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException;
     public abstract void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException;
     public abstract void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;

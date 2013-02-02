@@ -7,47 +7,13 @@ import model.CycleException;
 import model.UserException;
 import model.basic.MFalse;
 import model.basic.MTrue;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.MAbstractProductTypeExceptionVisitor;
-import model.visitor.MAbstractProductTypeReturnExceptionVisitor;
-import model.visitor.MAbstractProductTypeReturnVisitor;
-import model.visitor.MAbstractProductTypeVisitor;
-import model.visitor.MComplexTypeExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
-import model.visitor.MComplexTypeReturnExceptionVisitor;
-import model.visitor.MComplexTypeReturnVisitor;
-import model.visitor.MComplexTypeVisitor;
-import model.visitor.MTypeExceptionVisitor;
-import model.visitor.MTypeReturnExceptionVisitor;
-import model.visitor.MTypeReturnVisitor;
-import model.visitor.MTypeVisitor;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.MComplexTypeHierarchyHIERARCHY;
-import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
-import persistence.MProductTypeProxi;
-import persistence.PersistenceException;
-import persistence.PersistentMAbstractSumType;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMComplexType;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
-import persistence.PersistentMType;
-import persistence.Procdure;
-import persistence.ProcdureException;
-import persistence.TDObserver;
+import model.visitor.*;
+import persistence.*;
 import utils.Lists;
 
 /* Additional import section end */
 
-public class MProductType extends model.typeSystem.MAbstractProductType implements PersistentMProductType{
+public class MProductType extends model.typeSystem.MNonEmptyProductType implements PersistentMProductType{
     
     
     public static PersistentMProductType createMProductType() throws PersistenceException{
@@ -90,6 +56,7 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("factors", this.getFactors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -100,7 +67,7 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
         MProductType result = this;
         result = new MProductType(this.This, 
                                   this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
+        result.factors = this.factors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -108,14 +75,16 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
+    protected MProductType_FactorsProxi factors;
     
     public MProductType(PersistentMType This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMType)This,id);        
+        super((PersistentMType)This,id);
+        this.factors = new MProductType_FactorsProxi(this);        
     }
     
     static public long getTypeId() {
-        return 114;
+        return 115;
     }
     
     public long getClassId() {
@@ -124,12 +93,16 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 114) ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
+        if (this.getClassId() == 115) ConnectionHandler.getTheConnectionHandler().theMProductTypeFacade
             .newMProductType(this.getId());
         super.store();
+        this.getFactors().store();
         
     }
     
+    public MProductType_FactorsProxi getFactors() throws PersistenceException {
+        return this.factors;
+    }
     public PersistentMProductType getThis() throws PersistenceException {
         if(this.This == null){
             PersistentMProductType result = new MProductTypeProxi(this.getId());
@@ -138,6 +111,18 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
         }return (PersistentMProductType)this.This;
     }
     
+    public void accept(MNonEmptyProductTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMProductType(this);
+    }
+    public <R> R accept(MNonEmptyProductTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMProductType(this);
+    }
+    public <E extends UserException>  void accept(MNonEmptyProductTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMProductType(this);
+    }
+    public <R, E extends UserException> R accept(MNonEmptyProductTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMProductType(this);
+    }
     public void accept(MAbstractProductTypeVisitor visitor) throws PersistenceException {
         visitor.handleMProductType(this);
     }
@@ -200,24 +185,21 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + this.getContainedTypes().getLength());
+            + this.getContainedTypes().getLength()
+            + this.getFactors().getLength());
     }
     
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
-		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
+		java.util.Iterator iterator0 = getThis().getFactors().iterator();
 		while(iterator0.hasNext())
 			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
@@ -228,40 +210,50 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
 		if(this.equals(This)){
 		}
     }
-    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
-				throws PersistenceException{
-		if (other instanceof PersistentMProductType) {
-			return allChildrenAreStructuralEquivalent((PersistentMComplexType) other);
-		}
-		return MFalse.getTheMFalse();
-	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        T result$$containedTypes$$MProductType = strategy.initialize$$MProductType$$containedTypes(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
+        T result$$factors$$MProductType = strategy.initialize$$MProductType$$factors(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getFactors().iterator();
 		while (iterator$$.hasNext()){
 			PersistentMType current$$Field = (PersistentMType)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MProductType, strategy);
-			result$$containedTypes$$MProductType = strategy.consolidate$$MProductType$$containedTypes(getThis(), result$$containedTypes$$MProductType, current$$);
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$factors$$MProductType, strategy);
+			result$$factors$$MProductType = strategy.consolidate$$MProductType$$factors(getThis(), result$$factors$$MProductType, current$$);
 		}
-		return strategy.finalize$$MProductType(getThis(), parameter,result$$containedTypes$$MProductType);
+		return strategy.finalize$$MProductType(getThis(), parameter,result$$factors$$MProductType);
     }
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-		// TODO: implement method: isLessOrEqual
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
+	}
+    public PersistentMDisjunctiveNF fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDisjunctiveNormalform
+		PersistentMDisjunctiveNF resultingDnf = MDisjunctiveNF.createMDisjunctiveNF(true);
+		final List<PersistentMDisjunctiveNF> dnfsOfChildren = Lists.newArrayList();
+
+		getThis().getFactors().applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				dnfsOfChildren.add(argument.fetchDisjunctiveNormalform());
+			}
+		});
+
+		Iterator<PersistentMDisjunctiveNF> dnfI = dnfsOfChildren.iterator();
+
+		if (dnfI.hasNext()) {
+			resultingDnf = dnfI.next();
+		}
+		while (dnfI.hasNext()) {
+			resultingDnf = resultingDnf.transientMultiply(dnfI.next());
+		}
+		return resultingDnf;
 
 	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform() 
+    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
 				throws PersistenceException{
 		final PersistentMSumType sumType = MSumType.createMSumType(true);
 		final List<PersistentMAbstractSumType> dnfsOfChildren = Lists.newArrayList();
@@ -287,6 +279,18 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
 
 		return sumType;
 	}
+    public MTypeSearchList getContainedTypes() 
+				throws PersistenceException{
+		final MTypeSearchList result = new MTypeSearchList();
+		getThis().getFactors().applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				result.add(argument);
+			}
+		});
+		return result;
+	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
 		Iterator<PersistentMType> i = getThis().getContainedTypes().iterator();
@@ -302,7 +306,6 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
 		Iterator<PersistentMType> i = getThis().getContainedTypes().iterator();
-
 		while (i.hasNext()) {
 			if (i.next().isAbstract().toBoolean()) {
 				return MTrue.getTheMTrue();
@@ -409,6 +412,31 @@ public class MProductType extends model.typeSystem.MAbstractProductType implemen
 		});
 		return atomicTypes;
 	}
+	/*
+	 * private List<PersistentMAtomicTypeProduct> createAtomicTypeProducts(List<PersistentMDisjuncitveNF> dnfs) {
+	 * List<PersistentMAtomicTypeProduct> products = Lists.newArrayList();
+	 * 
+	 * for (PersistentMDisjuncitveNF currentDnf : dnfs) { List<PersistentMAtomicTypeProduct> atomicTypepProductsInDnf =
+	 * fetchAtomicTypeProducts(currentDnf);
+	 * 
+	 * if (products.isEmpty()) { products.addAll(atomicTypepProductsInDnf); } else { products =
+	 * multiplyAtomicTypeProducts(products, atomicTypepProductsInDnf); } }
+	 * 
+	 * return products; }
+	 */
+	/*
+	 * private List<PersistentMAtomicTypeProduct> multiplyAtomicTypeProducts(List<PersistentMAtomicTypeProduct>
+	 * products, List<PersistentMAtomicTypeProduct> atomicTypepProductsInDnf) {
+	 * 
+	 * // TODO Auto-generated method stub return null; }
+	 * 
+	 * private List<PersistentMAtomicTypeProduct> fetchAtomicTypeProducts(PersistentMDisjuncitveNF currentDnf) throws
+	 * PersistenceException { final List<PersistentMAtomicTypeProduct> result = Lists.newArrayList();
+	 * currentDnf.getAddends().applyToAll(new Procdure<PersistentMAtomicTypeProduct>() {
+	 * 
+	 * @Override public void doItTo(PersistentMAtomicTypeProduct argument) throws PersistenceException {
+	 * result.add(argument); } }); return result; }
+	 */
 
 	/* End of protected part that is not overridden by persistence generator */
     

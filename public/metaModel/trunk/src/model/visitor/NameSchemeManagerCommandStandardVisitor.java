@@ -1,11 +1,7 @@
 
 package model.visitor;
 
-import persistence.NameSchemeManagerCommand;
-import persistence.PersistenceException;
-import persistence.PersistentAssignNameCommand;
-import persistence.PersistentAssignTypeCommand;
-import persistence.PersistentCreateNameSchemeCommand;
+import persistence.*;
 
 public abstract class NameSchemeManagerCommandStandardVisitor implements NameSchemeManagerCommandVisitor {
     

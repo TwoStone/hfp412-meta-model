@@ -6,25 +6,14 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.Anything;
-import persistence.AspectManagerProxi;
-import persistence.AspectManager_AspectsProxi;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentAspectManager;
-import persistence.PersistentCreateAspectCommand;
-import persistence.PersistentMAspect;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
-import persistence.TDObserver;
+import persistence.*;
 
 /* Additional import section end */
 
 public class AspectManager extends PersistentObject implements PersistentAspectManager{
     
     private static PersistentAspectManager theAspectManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentAspectManager getTheAspectManager() throws PersistenceException{
         if (theAspectManager == null || reset$For$Test){
@@ -96,7 +85,7 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     }
     
     static public long getTypeId() {
-        return 136;
+        return 138;
     }
     
     public long getClassId() {

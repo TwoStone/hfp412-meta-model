@@ -1,8 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentCreateQuantityCommand;
+import persistence.*;
 
 public interface QuantityManagerCommandReturnVisitor<R> {
     

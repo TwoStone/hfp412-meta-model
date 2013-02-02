@@ -3,44 +3,15 @@ package model.typeSystem;
 import model.UserException;
 import model.basic.MBoolean;
 import model.basic.MTrue;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.MAbstractSumTypeExceptionVisitor;
-import model.visitor.MAbstractSumTypeReturnExceptionVisitor;
-import model.visitor.MAbstractSumTypeReturnVisitor;
-import model.visitor.MAbstractSumTypeVisitor;
-import model.visitor.MComplexTypeExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
-import model.visitor.MComplexTypeReturnExceptionVisitor;
-import model.visitor.MComplexTypeReturnVisitor;
-import model.visitor.MComplexTypeVisitor;
-import model.visitor.MTypeExceptionVisitor;
-import model.visitor.MTypeReturnExceptionVisitor;
-import model.visitor.MTypeReturnVisitor;
-import model.visitor.MTypeVisitor;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.MComplexTypeHierarchyHIERARCHY;
-import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
-import persistence.MEmptySumTypeProxi;
-import persistence.PersistenceException;
-import persistence.PersistentMAbstractSumType;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMEmptySumType;
-import persistence.PersistentMType;
-import persistence.TDObserver;
+import model.visitor.*;
+import persistence.*;
 
 /* Additional import section end */
 
 public class MEmptySumType extends model.typeSystem.MAbstractSumType implements PersistentMEmptySumType{
     
     private static PersistentMEmptySumType theMEmptySumType = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMEmptySumType getTheMEmptySumType() throws PersistenceException{
         if (theMEmptySumType == null || reset$For$Test){
@@ -92,7 +63,6 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
         MEmptySumType result = this;
         result = new MEmptySumType(this.This, 
                                    this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -107,7 +77,7 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
     }
     
     static public long getTypeId() {
-        return 185;
+        return 187;
     }
     
     public long getClassId() {
@@ -201,9 +171,6 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
-		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
-		while(iterator0.hasNext())
-			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
@@ -212,41 +179,35 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 		if(this.equals(This)){
 		}
     }
-    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
-				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().equals(other));
-	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        T result$$containedTypes$$MEmptySumType = strategy.initialize$$MEmptySumType$$containedTypes(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
-		while (iterator$$.hasNext()){
-			PersistentMType current$$Field = (PersistentMType)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MEmptySumType, strategy);
-			result$$containedTypes$$MEmptySumType = strategy.consolidate$$MEmptySumType$$containedTypes(getThis(), result$$containedTypes$$MEmptySumType, current$$);
-		}
-		return strategy.finalize$$MEmptySumType(getThis(), parameter,result$$containedTypes$$MEmptySumType);
+        return strategy.finalize$$MEmptySumType(getThis(), parameter);
     }
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-		// TODO: implement method: isLessOrEqual
+		return MBoolean.createFromBoolean(getThis().equals(other));
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public PersistentMDisjunctiveNF fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDisjunctiveNormalform
 		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+			throw new java.lang.UnsupportedOperationException(
+					"Method \"fetchDisjunctiveNormalform\" not implemented yet.");
 		} catch (java.lang.UnsupportedOperationException uoe) {
 			uoe.printStackTrace();
 			throw uoe;
 		}
 	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform() 
-				throws PersistenceException{
-		return this.getThis();
-	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
 		return MTrue.getTheMTrue();
+	}
+    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
+				throws PersistenceException{
+		return this.getThis();
 	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
@@ -255,6 +216,10 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
     public String fetchName() 
 				throws PersistenceException{
 		return "[Empty Sum]";
+	}
+    public MTypeSearchList getContainedTypes() 
+				throws PersistenceException{
+		return new MTypeSearchList();
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

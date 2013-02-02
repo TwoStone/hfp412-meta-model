@@ -6,31 +6,14 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.MAtomicTypeSearchList;
-import persistence.ObjectManagerProxi;
-import persistence.ObjectManager_ObjectsProxi;
-import persistence.PersistenceException;
-import persistence.PersistentAddTypeCommand;
-import persistence.PersistentCreateMObjectCommand;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMObject;
-import persistence.PersistentObject;
-import persistence.PersistentObjectManager;
-import persistence.PersistentProxi;
-import persistence.PersistentRemoveTypeCommand;
-import persistence.PersistentReplaceTypeCommand;
-import persistence.ProcdureException;
-import persistence.TDObserver;
+import persistence.*;
 
 /* Additional import section end */
 
 public class ObjectManager extends PersistentObject implements PersistentObjectManager{
     
     private static PersistentObjectManager theObjectManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentObjectManager getTheObjectManager() throws PersistenceException{
         if (theObjectManager == null || reset$For$Test){
@@ -102,7 +85,7 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     }
     
     static public long getTypeId() {
-        return 237;
+        return 200;
     }
     
     public long getClassId() {

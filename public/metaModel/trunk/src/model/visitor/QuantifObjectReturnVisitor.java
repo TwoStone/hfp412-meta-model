@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentAccount;
-import persistence.PersistentMeasurement;
+import persistence.*;
 
 public interface QuantifObjectReturnVisitor<R> {
     

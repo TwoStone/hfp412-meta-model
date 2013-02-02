@@ -124,7 +124,7 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     }
     
     static public long getTypeId() {
-        return 115;
+        return 116;
     }
     
     public long getClassId() {
@@ -133,7 +133,7 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 115) ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
+        if (this.getClassId() == 116) ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
             .newMeasurement(this.getId());
         super.store();
         if(this.getType() != null){

@@ -1,8 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentMAtomicType;
+import persistence.*;
 
 public interface MTypeExceptionVisitor<E extends UserException> extends MComplexTypeExceptionVisitor<E>{
     

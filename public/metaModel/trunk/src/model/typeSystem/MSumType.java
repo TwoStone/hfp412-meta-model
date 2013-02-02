@@ -2,45 +2,12 @@ package model.typeSystem;
 
 import model.CycleException;
 import model.UserException;
-import model.basic.MFalse;
-import model.basic.MTrue;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.MAbstractSumTypeExceptionVisitor;
-import model.visitor.MAbstractSumTypeReturnExceptionVisitor;
-import model.visitor.MAbstractSumTypeReturnVisitor;
-import model.visitor.MAbstractSumTypeVisitor;
-import model.visitor.MComplexTypeExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
-import model.visitor.MComplexTypeReturnExceptionVisitor;
-import model.visitor.MComplexTypeReturnVisitor;
-import model.visitor.MComplexTypeVisitor;
-import model.visitor.MTypeExceptionVisitor;
-import model.visitor.MTypeReturnExceptionVisitor;
-import model.visitor.MTypeReturnVisitor;
-import model.visitor.MTypeVisitor;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.MComplexTypeHierarchyHIERARCHY;
-import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
-import persistence.MSumTypeProxi;
-import persistence.PersistenceException;
-import persistence.PersistentMAbstractSumType;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMComplexType;
-import persistence.PersistentMSumType;
-import persistence.PersistentMType;
-import persistence.ProcdureException;
-import persistence.TDObserver;
+import model.visitor.*;
+import persistence.*;
 
 /* Additional import section end */
 
-public class MSumType extends model.typeSystem.MAbstractSumType implements PersistentMSumType{
+public class MSumType extends model.typeSystem.MNonEmptySumType implements PersistentMSumType{
     
     
     public static PersistentMSumType createMSumType() throws PersistenceException{
@@ -83,6 +50,7 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("addends", this.getAddends().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -93,7 +61,7 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
         MSumType result = this;
         result = new MSumType(this.This, 
                               this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
+        result.addends = this.addends.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -101,14 +69,16 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
+    protected MSumType_AddendsProxi addends;
     
     public MSumType(PersistentMType This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMType)This,id);        
+        super((PersistentMType)This,id);
+        this.addends = new MSumType_AddendsProxi(this);        
     }
     
     static public long getTypeId() {
-        return 142;
+        return 144;
     }
     
     public long getClassId() {
@@ -117,12 +87,16 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 142) ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
+        if (this.getClassId() == 144) ConnectionHandler.getTheConnectionHandler().theMSumTypeFacade
             .newMSumType(this.getId());
         super.store();
+        this.getAddends().store();
         
     }
     
+    public MSumType_AddendsProxi getAddends() throws PersistenceException {
+        return this.addends;
+    }
     public PersistentMSumType getThis() throws PersistenceException {
         if(this.This == null){
             PersistentMSumType result = new MSumTypeProxi(this.getId());
@@ -131,6 +105,18 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
         }return (PersistentMSumType)this.This;
     }
     
+    public void accept(MNonEmptySumTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMSumType(this);
+    }
+    public <R> R accept(MNonEmptySumTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMSumType(this);
+    }
+    public <E extends UserException>  void accept(MNonEmptySumTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMSumType(this);
+    }
+    public <R, E extends UserException> R accept(MNonEmptySumTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMSumType(this);
+    }
     public void accept(MAbstractSumTypeVisitor visitor) throws PersistenceException {
         visitor.handleMSumType(this);
     }
@@ -193,7 +179,8 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + this.getContainedTypes().getLength());
+            + this.getContainedTypes().getLength()
+            + this.getAddends().getLength());
     }
     
     
@@ -206,7 +193,7 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
-		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
+		java.util.Iterator iterator0 = getThis().getAddends().iterator();
 		while(iterator0.hasNext())
 			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
@@ -217,40 +204,52 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
 		if(this.equals(This)){
 		}
     }
-    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
-				throws PersistenceException{
-		if (other instanceof PersistentMSumType) {
-			return allChildrenAreStructuralEquivalent((PersistentMComplexType) other);
-		}
-		return MFalse.getTheMFalse();
-	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        T result$$containedTypes$$MSumType = strategy.initialize$$MSumType$$containedTypes(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
+        T result$$addends$$MSumType = strategy.initialize$$MSumType$$addends(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getAddends().iterator();
 		while (iterator$$.hasNext()){
 			PersistentMType current$$Field = (PersistentMType)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MSumType, strategy);
-			result$$containedTypes$$MSumType = strategy.consolidate$$MSumType$$containedTypes(getThis(), result$$containedTypes$$MSumType, current$$);
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$addends$$MSumType, strategy);
+			result$$addends$$MSumType = strategy.consolidate$$MSumType$$addends(getThis(), result$$addends$$MSumType, current$$);
 		}
-		return strategy.finalize$$MSumType(getThis(), parameter,result$$containedTypes$$MSumType);
+		return strategy.finalize$$MSumType(getThis(), parameter,result$$addends$$MSumType);
     }
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-		// TODO: implement method: isLessOrEqual
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
-
 	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform() 
+    public PersistentMDisjunctiveNF fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+		final PersistentMDisjunctiveNF result = MDisjunctiveNF.createMDisjunctiveNF(true);
+		try {
+			getThis().getAddends().applyToAllException(new ProcdureException<PersistentMType, CycleException>() {
+
+				@Override
+				public void doItTo(PersistentMType argument) throws PersistenceException, CycleException {
+					PersistentMDisjunctiveNF dnf = argument.fetchDisjunctiveNormalform();
+					dnf.getAddends().applyToAllException(
+							new ProcdureException<PersistentMAtomicTypeProduct, CycleException>() {
+
+								@Override
+								public void doItTo(PersistentMAtomicTypeProduct argument) throws PersistenceException,
+										CycleException {
+									result.getAddends().add(argument);
+								}
+
+							});
+				}
+			});
+		} catch (CycleException e) {
+			// TODO Exception behandeln. Was m??ssen wir dann hier eigentlich machen?
+			e.printStackTrace();
+		}
+		return result;
+	}
+    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
 				throws PersistenceException{
 		final PersistentMSumType sumType = MSumType.createMSumType(true);
 
@@ -279,21 +278,17 @@ public class MSumType extends model.typeSystem.MAbstractSumType implements Persi
 
 		return sumType;
 	}
-    public PersistentMBoolean isSingleton() 
+    public MTypeSearchList getContainedTypes() 
 				throws PersistenceException{
-		if (getThis().getContainedTypes().getLength() == 1) {
-			return getThis().getContainedTypes().iterator().next().isSingleton();
-		}
+		final MTypeSearchList result = new MTypeSearchList();
+		getThis().getAddends().applyToAll(new Procdure<PersistentMType>() {
 
-		return MFalse.getTheMFalse();
-	}
-    public PersistentMBoolean isAbstract() 
-				throws PersistenceException{
-		if (getThis().getContainedTypes().getLength() == 1) {
-			return getThis().getContainedTypes().iterator().next().isAbstract();
-		}
-
-		return MTrue.getTheMTrue();
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				result.add(argument);
+			}
+		});
+		return result;
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

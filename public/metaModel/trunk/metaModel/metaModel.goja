@@ -124,7 +124,8 @@ part typeSystem {
 		abstract MBoolean isSingleton();
 		abstract MBoolean isAbstract();
 		abstract MBoolean isStructuralEquivalant(MType other);  			
-		abstract MAbstractSumType fetchDisjunctiveNormalform();
+		abstract MAbstractSumType fetchDisjunctiveNormalform_old();
+		abstract MDisjunctiveNF fetchDisjunctiveNormalform();
 /*
 			MAssociation** fetchAssociations();
 			MBoolean allObjectsOfTypeAreSingleton();
@@ -159,7 +160,8 @@ part typeSystem {
 	
 	/* Komplexe Typen*/
 	abstract class MComplexType@@ComplexType extends MType {
-		MType** containedTypes hierarchy MComplexTypeHierarchy;
+		derived MType** containedTypes;
+		// MType** containedTypes hierarchy MComplexTypeHierarchy;
 		abstract String fetchTypeLinkOperator();
 	}
 	
@@ -169,8 +171,16 @@ part typeSystem {
 	
 	singleton MEmptySumType@@EmptySumType extends MAbstractSumType {
 	}
+	abstract class MNonEmptySumType extends MAbstractSumType {
+	}
+
 	
-	class MSumType@@SumType extends MAbstractSumType {
+	class MSumType@@SumType extends MNonEmptySumType {
+		MType** addends hierarchy MComplexTypeHierarchy;
+	}
+	class MDisjunctiveNF@@DNF extends MNonEmptySumType {
+		MAtomicTypeProduct** addends hierarchy MComplexTypeHierarchy;
+		MDisjunctiveNF transientMultiply(MDisjunctiveNF other);
 	}
 
 	/* ** Produkttypen ** */
@@ -179,13 +189,21 @@ part typeSystem {
 
 	singleton MEmptyProductType##MEmptProd@@EmptyProductType extends MAbstractProductType{
 	}
-	
-	class MProductType@@ProductType extends MAbstractProductType {
+		
+	abstract class MNonEmptyProductType##NEProdT extends MAbstractProductType {}
+
+	class MProductType@@ProductType extends MNonEmptyProductType {
+		MType** factors hierarchy MComplexTypeHierarchy;
 	}
-	
+	class MAtomicTypeProduct##MAtomicProd@@AtomicTypeProduct extends MNonEmptyProductType {
+		MAtomicType** factors hierarchy MComplexTypeHierarchy;
+		MAtomicTypeProduct transientMultiply(MAtomicTypeProduct other);
+	}	
+
+
 	/* Objekte */
 	class MObject {
-		symmetric MAtomicType ** types;
+		MAtomicType ** types;
 		
 		derived Name ** possibleNames;
 		derived MSumType sumType;
@@ -193,11 +211,6 @@ part typeSystem {
 		void addType(MAtomicType newType) throws ConsistencyException;
 		void removeType(MAtomicType oldType) throws ConsistencyException;
 		void replaceType(MAtomicType oldType, MAtomicType newType) throws ConsistencyException; 
-
-		/**
-		* Ermittelt alle Targets die von diesem Object aus moeglich sind.
-		**/
-		MObject** determinePossibleLinkTargets();
 	}
 
 	/*** MANAGER ***/
@@ -577,7 +590,7 @@ exception PatternNotMatchException{}
 exception DoubleDefinitionException{}
 exception ConsistencyException{}
 exception WrongSubTypeAspectException{}
-
+exception EmptyTypeException{}
 exception NotAvailableException{}
 
 exception AlreadyFinalizedException{}

@@ -1,8 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentCreateMeasurementTypeCommand;
+import persistence.*;
 
 public interface MeasurementTypeManagerCommandReturnVisitor<R> {
     

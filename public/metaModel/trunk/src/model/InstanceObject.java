@@ -108,7 +108,7 @@ public class InstanceObject extends PersistentObject implements PersistentInstan
     }
     
     static public long getTypeId() {
-        return 130;
+        return 132;
     }
     
     public long getClassId() {
@@ -117,7 +117,7 @@ public class InstanceObject extends PersistentObject implements PersistentInstan
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 130) ConnectionHandler.getTheConnectionHandler().theInstanceObjectFacade
+        if (this.getClassId() == 132) ConnectionHandler.getTheConnectionHandler().theInstanceObjectFacade
             .newInstanceObject(this.getId());
         super.store();
         if(this.getType() != null){

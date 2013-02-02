@@ -1,49 +1,17 @@
 package model.typeSystem;
 
-import model.CycleException;
 import model.UserException;
-import model.basic.MBoolean;
 import model.basic.MFalse;
 import model.basic.MTrue;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.MAbstractProductTypeExceptionVisitor;
-import model.visitor.MAbstractProductTypeReturnExceptionVisitor;
-import model.visitor.MAbstractProductTypeReturnVisitor;
-import model.visitor.MAbstractProductTypeVisitor;
-import model.visitor.MComplexTypeExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
-import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
-import model.visitor.MComplexTypeReturnExceptionVisitor;
-import model.visitor.MComplexTypeReturnVisitor;
-import model.visitor.MComplexTypeVisitor;
-import model.visitor.MTypeExceptionVisitor;
-import model.visitor.MTypeReturnExceptionVisitor;
-import model.visitor.MTypeReturnVisitor;
-import model.visitor.MTypeVisitor;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.MComplexTypeHierarchyHIERARCHY;
-import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
-import persistence.MEmptyProductTypeProxi;
-import persistence.PersistenceException;
-import persistence.PersistentMAbstractSumType;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMSumType;
-import persistence.PersistentMType;
-import persistence.TDObserver;
+import model.visitor.*;
+import persistence.*;
 
 /* Additional import section end */
 
 public class MEmptyProductType extends model.typeSystem.MAbstractProductType implements PersistentMEmptyProductType{
     
     private static PersistentMEmptyProductType theMEmptyProductType = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMEmptyProductType getTheMEmptyProductType() throws PersistenceException{
         if (theMEmptyProductType == null || reset$For$Test){
@@ -95,7 +63,6 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
         MEmptyProductType result = this;
         result = new MEmptyProductType(this.This, 
                                        this.getId());
-        result.containedTypes = this.containedTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -110,7 +77,7 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
     }
     
     static public long getTypeId() {
-        return 239;
+        return 238;
     }
     
     public long getClassId() {
@@ -204,9 +171,6 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
-		java.util.Iterator iterator0 = getThis().getContainedTypes().iterator();
-		while(iterator0.hasNext())
-			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
@@ -215,48 +179,43 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
 		if(this.equals(This)){
 		}
     }
-    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
-				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().equals(other));
-	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        T result$$containedTypes$$MEmptyProductType = strategy.initialize$$MEmptyProductType$$containedTypes(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getContainedTypes().iterator();
-		while (iterator$$.hasNext()){
-			PersistentMType current$$Field = (PersistentMType)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$containedTypes$$MEmptyProductType, strategy);
-			result$$containedTypes$$MEmptyProductType = strategy.consolidate$$MEmptyProductType$$containedTypes(getThis(), result$$containedTypes$$MEmptyProductType, current$$);
-		}
-		return strategy.finalize$$MEmptyProductType(getThis(), parameter,result$$containedTypes$$MEmptyProductType);
+        return strategy.finalize$$MEmptyProductType(getThis(), parameter);
     }
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-		// TODO: implement method: isLessOrEqual
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return MTrue.getTheMTrue();
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform() 
+    public PersistentMDisjunctiveNF fetchDisjunctiveNormalform() 
 				throws PersistenceException{
-		PersistentMSumType sumType = MSumType.createMSumType(true);
-		try {
-			sumType.getContainedTypes().add(this.getThis());
-		} catch (CycleException e) {
-			// This will hopefully never happen! When this happens run and pray!
-		}
-
-		return sumType;
+		return MDisjunctiveNF.createMDisjunctiveNF(); // TODO
 	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
 		return MTrue.getTheMTrue();
+	}
+    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDisjunctiveNormalform_old
+		try {
+			throw new java.lang.UnsupportedOperationException(
+					"Method \"fetchDisjunctiveNormalform_old\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+
+		/*
+		 * PersistentMSumType sumType = MSumType.createMSumType(true); try {
+		 * sumType.getContainedTypes().add(this.getThis()); } catch (CycleException e) { // This will hopefully never
+		 * happen! When this happens run and pray! }
+		 * 
+		 * return sumType;
+		 */
 	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
@@ -265,6 +224,10 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
     public String fetchName() 
 				throws PersistenceException{
 		return "[Empty Product]";
+	}
+    public MTypeSearchList getContainedTypes() 
+				throws PersistenceException{
+		return new MTypeSearchList();
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

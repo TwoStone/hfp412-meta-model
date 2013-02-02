@@ -248,8 +248,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException;
     
-    public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
-    
     public abstract void handleMType(PersistentMType mType) throws PersistenceException;
     
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
@@ -267,6 +265,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
         this.handleMType(mEmptyProductType);
     }
+    public void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException{
+        this.handleMType(mDisjunctiveNF);
+    }
+    public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException{
+        this.handleMType(mAtomicTypeProduct);
+    }
+    public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
+    
     public abstract void handleFunction(PersistentFunction function) throws PersistenceException;
     
     public abstract void handleAbsUnit(PersistentAbsUnit absUnit) throws PersistenceException;

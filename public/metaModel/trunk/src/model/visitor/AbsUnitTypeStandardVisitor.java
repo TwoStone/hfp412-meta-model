@@ -1,10 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentAbsUnitType;
-import persistence.PersistentCompUnitType;
-import persistence.PersistentUnitType;
+import persistence.*;
 
 public abstract class AbsUnitTypeStandardVisitor implements AbsUnitTypeVisitor {
     

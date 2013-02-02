@@ -1,8 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentServer;
+import persistence.*;
 
 public interface InvokerReturnVisitor<R> {
     

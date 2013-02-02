@@ -1,5 +1,8 @@
 package model.typeSystem;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import model.ConsistencyException;
 import model.CycleException;
 import model.UserException;
@@ -7,38 +10,15 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.MTypeSearchList;
-import persistence.PersistenceException;
-import persistence.PersistentCreateAtomicRootTypeCommand;
-import persistence.PersistentCreateAtomicSubTypeCommand;
-import persistence.PersistentCreateProductTypeCommand;
-import persistence.PersistentCreateSumTypeCommand;
-import persistence.PersistentMAbstractProductType;
-import persistence.PersistentMAbstractSumType;
-import persistence.PersistentMAspect;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
-import persistence.PersistentMType;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
-import persistence.PersistentTypeManager;
-import persistence.Predcate;
-import persistence.ProcdureException;
-import persistence.TDObserver;
-import persistence.TypeManagerProxi;
-import persistence.TypeManager_TypesProxi;
+import model.visitor.MTypeVisitor;
+import persistence.*;
 
 /* Additional import section end */
 
 public class TypeManager extends PersistentObject implements PersistentTypeManager{
     
     private static PersistentTypeManager theTypeManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentTypeManager getTheTypeManager() throws PersistenceException{
         if (theTypeManager == null || reset$For$Test){
@@ -110,7 +90,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     
     static public long getTypeId() {
-        return 167;
+        return 169;
     }
     
     public long getClassId() {
@@ -167,33 +147,49 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     
     public PersistentMAbstractSumType createSumType(final MTypeSearchList addends) 
 				throws model.ConsistencyException, PersistenceException{
-		final PersistentMSumType transientResult = MSumType.createMSumType(true);
+		if (addends.getLength() == 0) {
+			return MEmptySumType.getTheMEmptySumType();
+		}
+		PersistentMNonEmptySumType result;
+		ArrayList<PersistentMAtomicTypeProduct> filteredAtomicProducts = TypeManager.filterAtomicProducts(addends);
 
-		try {
-			addends.applyToAllException(new ProcdureException<PersistentMType, CycleException>() {
+		if (filteredAtomicProducts.size() == addends.getLength()) {
+			PersistentMDisjunctiveNF resultMDisjunctiveNF = MDisjunctiveNF.createMDisjunctiveNF(true);
+			Iterator<PersistentMAtomicTypeProduct> iterator = filteredAtomicProducts.iterator();
+			while (iterator.hasNext()) {
+				try {
+					resultMDisjunctiveNF.getAddends().add(iterator.next());
+				} catch (CycleException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			result = resultMDisjunctiveNF;
+		} else {
+			final PersistentMSumType resultMSumType = MSumType.createMSumType(true);
+			addends.applyToAll(new Procdure<PersistentMType>() {
 
 				@Override
-				public void doItTo(PersistentMType argument) throws PersistenceException, CycleException {
-					transientResult.getContainedTypes().add(argument);
+				public void doItTo(PersistentMType argument) throws PersistenceException {
+					try {
+						resultMSumType.getAddends().add(argument);
+					} catch (CycleException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
-		} catch (CycleException e) {
-			throw new ConsistencyException("Cycle: " + e.getMessage());
+			result = resultMSumType;
 		}
 
-		PersistentMType existingTypeOrNull = getThis().getTypes().findFirst(new Predcate<PersistentMType>() {
-
-			@Override
-			public boolean test(PersistentMType argument) throws PersistenceException {
-				return argument.isStructuralEquivalant(transientResult).toBoolean();
-			}
-		});
-
-		if (existingTypeOrNull == null) {
-			getThis().getTypes().add(transientResult);
-			return transientResult;
+		PersistentMType equalContainedType = getStructuralEquivalentType(result);
+		if (equalContainedType == null) {
+			getThis().getTypes().add(result);
+			return result;
+		} else {
+			return (PersistentMAbstractSumType) equalContainedType;
 		}
-		return (PersistentMSumType) existingTypeOrNull;
+
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -255,34 +251,47 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     public PersistentMAbstractProductType createProductType(final MTypeSearchList factors) 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: Faktoren nur aus getrennten Aspekten
-		final PersistentMProductType transientResult = MProductType.createMProductType(true);
-
-		try {
-			factors.applyToAllException(new ProcdureException<PersistentMType, CycleException>() {
+		if (factors.getLength() == 0) {
+			return MEmptyProductType.getTheMEmptyProductType();
+		}
+		PersistentMNonEmptyProductType result;
+		ArrayList<PersistentMAtomicType> filteredAtomicTypes = TypeManager.filterAtomicTypes(factors);
+		if (filteredAtomicTypes.size() == factors.getLength()) {
+			PersistentMAtomicTypeProduct resultMAtomicTypeProduct = MAtomicTypeProduct.createMAtomicTypeProduct(true);
+			Iterator<PersistentMAtomicType> iterator = filteredAtomicTypes.iterator();
+			while (iterator.hasNext()) {
+				try {
+					resultMAtomicTypeProduct.getFactors().add(iterator.next());
+				} catch (CycleException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			result = resultMAtomicTypeProduct;
+		} else {
+			final PersistentMProductType resultMProductType = MProductType.createMProductType(true);
+			factors.applyToAll(new Procdure<PersistentMType>() {
 
 				@Override
-				public void doItTo(PersistentMType argument) throws PersistenceException, CycleException {
-					transientResult.getContainedTypes().add(argument);
+				public void doItTo(PersistentMType argument) throws PersistenceException {
+					try {
+						resultMProductType.getFactors().add(argument);
+					} catch (CycleException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
-		} catch (CycleException e) {
-			throw new ConsistencyException("Cycle: " + e.getMessage());
+			result = resultMProductType;
+		}
+		PersistentMType equalContainedType = getStructuralEquivalentType(result);
+		if (equalContainedType == null) {
+			getThis().getTypes().add(result);
+			return result;
+		} else {
+			return (PersistentMAbstractProductType) equalContainedType;
 		}
 
-		PersistentMType existingTypeOrNull = getThis().getTypes().findFirst(new Predcate<PersistentMType>() {
-
-			@Override
-			public boolean test(PersistentMType argument) throws PersistenceException {
-				return argument.isStructuralEquivalant(transientResult).toBoolean();
-			}
-		});
-
-		if (existingTypeOrNull == null) {
-			getThis().getTypes().add(transientResult);
-			return transientResult;
-		}
-		return (PersistentMProductType) existingTypeOrNull;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -292,6 +301,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
 
 		// TODO Hier m??sste man noch ??berpr??fen, ob der SuperType abstrakt ist, wenn nicht -> Exception!
+		// TODO NEIN!!!!
 		PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType,
 				superType.getAspect(), true);
 		try {
@@ -325,6 +335,108 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 					+ " is already existing.");
 		}
 	}
+
+	private static ArrayList<PersistentMAtomicTypeProduct> filterAtomicProducts(MTypeSearchList list)
+			throws PersistenceException {
+		final ArrayList<PersistentMAtomicTypeProduct> result = new ArrayList<PersistentMAtomicTypeProduct>();
+		list.applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				argument.accept(new MTypeVisitor() {
+
+					@Override
+					public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+					}
+
+					@Override
+					public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct)
+							throws PersistenceException {
+						result.add(mAtomicTypeProduct);
+					}
+
+					@Override
+					public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType)
+							throws PersistenceException {
+					}
+
+					@Override
+					public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+					}
+
+					@Override
+					public void handleMDisjunctiveNF(PersistentMDisjunctiveNF MDisjunctiveNF)
+							throws PersistenceException {
+					}
+
+					@Override
+					public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
+					}
+
+					@Override
+					public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+					}
+				});
+			}
+		});
+		return result;
+	}
+
+	private static ArrayList<PersistentMAtomicType> filterAtomicTypes(MTypeSearchList list) throws PersistenceException {
+		final ArrayList<PersistentMAtomicType> result = new ArrayList<PersistentMAtomicType>();
+		list.applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				argument.accept(new MTypeVisitor() {
+
+					@Override
+					public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+					}
+
+					@Override
+					public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct)
+							throws PersistenceException {
+					}
+
+					@Override
+					public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType)
+							throws PersistenceException {
+					}
+
+					@Override
+					public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
+					}
+
+					@Override
+					public void handleMDisjunctiveNF(PersistentMDisjunctiveNF MDisjunctiveNF)
+							throws PersistenceException {
+					}
+
+					@Override
+					public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
+					}
+
+					@Override
+					public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+						result.add(mAtomicType);
+					}
+				});
+			}
+		});
+		return result;
+	}
+
+	private PersistentMType getStructuralEquivalentType(final PersistentMType search) throws PersistenceException {
+		return getThis().getTypes().findFirst(new Predcate<PersistentMType>() {
+
+			@Override
+			public boolean test(PersistentMType argument) throws PersistenceException {
+				return search.isStructuralEquivalant(argument).toBoolean();
+			}
+		});
+	}
+
 	/* End of protected part that is not overridden by persistence generator */
     
 }

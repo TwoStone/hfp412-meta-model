@@ -1,8 +1,10 @@
 package model.typeSystem;
 
+import model.basic.MFalse;
 import persistence.Anything;
 import persistence.PersistenceException;
 import persistence.PersistentMAbstractProductType;
+import persistence.PersistentMBoolean;
 import persistence.PersistentMType;
 import persistence.TDObserver;
 
@@ -33,7 +35,7 @@ public abstract class MAbstractProductType extends model.typeSystem.MComplexType
     }
     
     static public long getTypeId() {
-        return 134;
+        return 136;
     }
     
     public long getClassId() {
@@ -52,13 +54,9 @@ public abstract class MAbstractProductType extends model.typeSystem.MComplexType
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -68,8 +66,13 @@ public abstract class MAbstractProductType extends model.typeSystem.MComplexType
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
-
+	}
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
+		if (other instanceof PersistentMAbstractProductType) {
+			return allChildrenAreStructuralEquivalent((PersistentMAbstractProductType) other);
+		}
+		return MFalse.getTheMFalse();
 	}
     public String fetchTypeLinkOperator() 
 				throws PersistenceException{

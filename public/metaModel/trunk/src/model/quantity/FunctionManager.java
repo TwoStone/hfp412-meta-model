@@ -22,7 +22,7 @@ import persistence.TDObserver;
 public class FunctionManager extends PersistentObject implements PersistentFunctionManager{
     
     private static PersistentFunctionManager theFunctionManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentFunctionManager getTheFunctionManager() throws PersistenceException{
         if (theFunctionManager == null || reset$For$Test){
@@ -94,7 +94,7 @@ public class FunctionManager extends PersistentObject implements PersistentFunct
     }
     
     static public long getTypeId() {
-        return 262;
+        return 271;
     }
     
     public long getClassId() {

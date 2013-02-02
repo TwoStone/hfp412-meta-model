@@ -56,6 +56,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException{
         this.standardHandling(compUnitType);
     }
+    public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException{
+        this.standardHandling(mAtomicTypeProduct);
+    }
     public void handleMeasurement(PersistentMeasurement measurement) throws PersistenceException{
         this.standardHandling(measurement);
     }
@@ -242,11 +245,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleRemoveUnitCommand(PersistentRemoveUnitCommand removeUnitCommand) throws PersistenceException{
         this.standardHandling(removeUnitCommand);
     }
-    public void handleConversion(PersistentConversion conversion) throws PersistenceException{
-        this.standardHandling(conversion);
-    }
     public void handleReference(PersistentReference reference) throws PersistenceException{
         this.standardHandling(reference);
+    }
+    public void handleConversion(PersistentConversion conversion) throws PersistenceException{
+        this.standardHandling(conversion);
     }
     public void handleFinishModelingCommand(PersistentFinishModelingCommand finishModelingCommand) throws PersistenceException{
         this.standardHandling(finishModelingCommand);
@@ -262,6 +265,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException{
         this.standardHandling(mFalse);
+    }
+    public void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException{
+        this.standardHandling(mDisjunctiveNF);
     }
     public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException{
         this.standardHandling(measurementTypeManager);

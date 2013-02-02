@@ -1,11 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentAddTypeCommand;
-import persistence.PersistentCreateMObjectCommand;
-import persistence.PersistentRemoveTypeCommand;
-import persistence.PersistentReplaceTypeCommand;
+import persistence.*;
 
 public interface ObjectManagerCommandExceptionVisitor<E extends UserException> {
     

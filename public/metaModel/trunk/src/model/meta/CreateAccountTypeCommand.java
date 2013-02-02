@@ -83,7 +83,7 @@ public class CreateAccountTypeCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 145;
+        return 147;
     }
     
     public long getClassId() {
@@ -92,7 +92,7 @@ public class CreateAccountTypeCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 145) ConnectionHandler.getTheConnectionHandler().theCreateAccountTypeCommandFacade
+        if (this.getClassId() == 147) ConnectionHandler.getTheConnectionHandler().theCreateAccountTypeCommandFacade
             .newCreateAccountTypeCommand(name,this.getId());
         super.store();
         if(this.getType() != null){

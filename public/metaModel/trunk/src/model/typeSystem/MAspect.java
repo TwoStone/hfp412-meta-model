@@ -5,16 +5,7 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.MAspectProxi;
-import persistence.MAspectSearchList;
-import persistence.MAtomicTypeSearchList;
-import persistence.PersistenceException;
-import persistence.PersistentMAspect;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
-import persistence.TDObserver;
+import persistence.*;
 
 /* Additional import section end */
 
@@ -106,7 +97,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     }
     
     static public long getTypeId() {
-        return 140;
+        return 142;
     }
     
     public long getClassId() {
@@ -115,7 +106,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 140) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
+        if (this.getClassId() == 142) ConnectionHandler.getTheConnectionHandler().theMAspectFacade
             .newMAspect(name,this.getId());
         super.store();
         if(!this.equals(this.getThis())){

@@ -14,16 +14,7 @@ import modelServer.ConnectionServer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import persistence.ConnectionHandler;
-import persistence.PersistenceException;
-import persistence.PersistentMAspect;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMFalse;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
-import persistence.PersistentMTrue;
-import persistence.PersistentMType;
+import persistence.*;
 
 public abstract class TestingBase {
 
@@ -60,6 +51,14 @@ public abstract class TestingBase {
 		return MAtomicType.createMAtomicType(name, mFalse, mFalse, aspect);
 	}
 
+	protected static PersistentMAtomicType atomicType(String string, PersistentMAspect aspect,
+			PersistentMAtomicType superType) throws PersistenceException, CycleException {
+		PersistentMAtomicType atomicType = atomicType(string, aspect);
+		atomicType.setSuperType(superType);
+
+		return atomicType;
+	}
+
 	protected static PersistentMAspect aspect(String name) throws PersistenceException {
 		return MAspect.createMAspect(name);
 	}
@@ -68,7 +67,7 @@ public abstract class TestingBase {
 		PersistentMSumType sumType = MSumType.createMSumType();
 
 		for (PersistentMType persistentMType : mTypes) {
-			sumType.getContainedTypes().add(persistentMType);
+			sumType.getAddends().add(persistentMType);
 		}
 
 		return sumType;
@@ -79,7 +78,7 @@ public abstract class TestingBase {
 		PersistentMProductType product = MProductType.createMProductType();
 
 		for (PersistentMType persistentMType : mTypes) {
-			product.getContainedTypes().add(persistentMType);
+			product.getFactors().add(persistentMType);
 		}
 
 		return product;

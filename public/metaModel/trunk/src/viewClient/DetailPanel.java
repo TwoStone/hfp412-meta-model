@@ -23,6 +23,7 @@ import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 
 import rGType.CharacterType;
+
 import view.Anything;
 import view.ModelException;
 import expressions.RegularExpression;
@@ -711,6 +712,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleCompUnitType(view.CompUnitTypeView object){
         result = new CompUnitTypeDefaultDetailPanel(handler, object);
     }
+    public void handleMAtomicTypeProduct(view.MAtomicTypeProductView object){
+        result = new MAtomicTypeProductDefaultDetailPanel(handler, object);
+    }
     public void handleMProductType(view.MProductTypeView object){
         result = new MProductTypeDefaultDetailPanel(handler, object);
     }
@@ -821,6 +825,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleMFalse(view.MFalseView object){
         result = new MFalseDefaultDetailPanel(handler, object);
+    }
+    public void handleMDisjunctiveNF(view.MDisjunctiveNFView object){
+        result = new MDisjunctiveNFDefaultDetailPanel(handler, object);
     }
     public void handleMeasurementTypeManager(view.MeasurementTypeManagerView object){
         result = new MeasurementTypeManagerDefaultDetailPanel(handler, object);
@@ -1029,9 +1036,27 @@ class CompUnitTypeDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MAtomicTypeProductDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MAtomicTypeProduct$$factors = "MAtomicTypeProduct$$factors";
+    
+    protected MAtomicTypeProductDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MAtomicTypeProductView getAnything(){
+        return (view.MAtomicTypeProductView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class MProductTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MProductType$$factors = "MProductType$$factors";
     
     protected MProductTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1409,6 +1434,7 @@ class AccountManagerDefaultDetailPanel extends DefaultDetailPanel{
 class MSumTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MSumType$$addends = "MSumType$$addends";
     
     protected MSumTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1745,6 +1771,23 @@ class MFalseDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MFalseView getAnything(){
         return (view.MFalseView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MDisjunctiveNFDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MDisjunctiveNF$$addends = "MDisjunctiveNF$$addends";
+    
+    protected MDisjunctiveNFDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MDisjunctiveNFView getAnything(){
+        return (view.MDisjunctiveNFView)this.anything;
     }
 }
 

@@ -71,7 +71,7 @@ public class CommonDate extends PersistentObject implements PersistentCommonDate
     }
     
     static public long getTypeId() {
-        return 160;
+        return 162;
     }
     
     public long getClassId() {
@@ -80,7 +80,7 @@ public class CommonDate extends PersistentObject implements PersistentCommonDate
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 160) ConnectionHandler.getTheConnectionHandler().theCommonDateFacade
+        if (this.getClassId() == 162) ConnectionHandler.getTheConnectionHandler().theCommonDateFacade
             .newCommonDate(createDate,commitDate,this.getId());
         super.store();
         

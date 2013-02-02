@@ -80,7 +80,7 @@ public class CreateSumTypeCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 196;
+        return 197;
     }
     
     public long getClassId() {
@@ -89,7 +89,7 @@ public class CreateSumTypeCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 196) ConnectionHandler.getTheConnectionHandler().theCreateSumTypeCommandFacade
+        if (this.getClassId() == 197) ConnectionHandler.getTheConnectionHandler().theCreateSumTypeCommandFacade
             .newCreateSumTypeCommand(this.getId());
         super.store();
         this.getAddends().store();

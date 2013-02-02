@@ -1,12 +1,7 @@
 
 package model.visitor;
 
-import persistence.ObjectManagerCommand;
-import persistence.PersistenceException;
-import persistence.PersistentAddTypeCommand;
-import persistence.PersistentCreateMObjectCommand;
-import persistence.PersistentRemoveTypeCommand;
-import persistence.PersistentReplaceTypeCommand;
+import persistence.*;
 
 public abstract class ObjectManagerCommandStandardVisitor implements ObjectManagerCommandVisitor {
     

@@ -2,6 +2,7 @@ package model.typeSystem;
 
 import model.ConsistencyException;
 
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -28,4 +29,8 @@ public class AspectManagerTest extends TestingBase {
 		aspectMan.createAspect("AspektABC");
 	}
 
+	@After
+	public void tearDown() {
+		AspectManager.reset$For$Test = true;
+	}
 }

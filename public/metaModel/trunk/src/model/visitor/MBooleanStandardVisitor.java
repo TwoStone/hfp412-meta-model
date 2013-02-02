@@ -1,10 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMFalse;
-import persistence.PersistentMTrue;
+import persistence.*;
 
 public abstract class MBooleanStandardVisitor implements MBooleanVisitor {
     

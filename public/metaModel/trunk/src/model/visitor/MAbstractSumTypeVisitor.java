@@ -1,13 +1,10 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMEmptySumType;
-import persistence.PersistentMSumType;
+import persistence.*;
 
-public interface MAbstractSumTypeVisitor {
+public interface MAbstractSumTypeVisitor extends MNonEmptySumTypeVisitor{
     
     public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException;
-    public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException;
     
 }

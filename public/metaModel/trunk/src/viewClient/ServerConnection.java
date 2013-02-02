@@ -1,47 +1,12 @@
 package viewClient;
 
-import java.io.IOException;
+import view.*;
 import java.net.MalformedURLException;
+
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
-
 import org.apache.xmlrpc.XmlRpcException;
-
-import view.AbsQuantityView;
-import view.AbsUnitTypeView;
-import view.AbsUnitView;
-import view.AccountManagerView;
-import view.AccountTypeManagerView;
-import view.ActualParameterView;
-import view.AspectManagerView;
-import view.AssociationManagerView;
-import view.AssociationView;
-import view.CompUnitTypeView;
-import view.CompUnitView;
-import view.FormalParameterView;
-import view.HierarchyView;
-import view.InstanceObjectView;
-import view.LinkManagerView;
-import view.LinkView;
-import view.MAccountTypeView;
-import view.MAspectView;
-import view.MAtomicTypeView;
-import view.MObjectView;
-import view.MTypeView;
-import view.MeasurementTypeManagerView;
-import view.MessageManagerView;
-import view.MessageView;
-import view.ModelException;
-import view.NameSchemeManagerView;
-import view.NameSchemeView;
-import view.NameView;
-import view.OperationManagerView;
-import view.OperationView;
-import view.QuantityManagerView;
-import view.ServerView;
-import view.UnitTypeManagerView;
-import view.UnitTypeView;
-import view.UnitView;
 
 public class ServerConnection extends ConnectionMaster {
 

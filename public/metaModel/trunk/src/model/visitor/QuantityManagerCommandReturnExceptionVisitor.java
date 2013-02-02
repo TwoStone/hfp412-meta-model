@@ -1,8 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentCreateQuantityCommand;
+import persistence.*;
 
 public interface QuantityManagerCommandReturnExceptionVisitor<R, E extends UserException> {
     

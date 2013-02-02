@@ -1,10 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMAbstractProductType;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMProductType;
+import persistence.*;
 
 public abstract class MAbstractProductTypeStandardVisitor implements MAbstractProductTypeVisitor {
     
@@ -13,6 +10,9 @@ public abstract class MAbstractProductTypeStandardVisitor implements MAbstractPr
     }
     public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
         this.standardHandling(mEmptyProductType);
+    }
+    public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException{
+        this.standardHandling(mAtomicTypeProduct);
     }
     protected abstract void standardHandling(PersistentMAbstractProductType mAbstractProductType) throws PersistenceException;
 }

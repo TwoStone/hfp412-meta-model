@@ -123,7 +123,7 @@ public class ActualParameter extends PersistentObject implements PersistentActua
     }
     
     static public long getTypeId() {
-        return 194;
+        return 196;
     }
     
     public long getClassId() {
@@ -132,7 +132,7 @@ public class ActualParameter extends PersistentObject implements PersistentActua
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 194) ConnectionHandler.getTheConnectionHandler().theActualParameterFacade
+        if (this.getClassId() == 196) ConnectionHandler.getTheConnectionHandler().theActualParameterFacade
             .newActualParameter(this.getId());
         super.store();
         if(this.getType() != null){

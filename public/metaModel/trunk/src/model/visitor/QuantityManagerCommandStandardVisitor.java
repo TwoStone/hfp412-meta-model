@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentCreateQuantityCommand;
-import persistence.QuantityManagerCommand;
+import persistence.*;
 
 public abstract class QuantityManagerCommandStandardVisitor implements QuantityManagerCommandVisitor {
     

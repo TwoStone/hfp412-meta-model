@@ -5,4 +5,4 @@ public interface MAbstractProductTypeMssgs {
 }
 
 interface MAbstractProductTypeDOWNMssgs extends MComplexTypeDOWNMssgs, MAbstractProductTypeMssgs{}
-interface MAbstractProductTypeUPMssgs extends MProductTypeUPMssgs, MEmptyProductTypeUPMssgs, MAbstractProductTypeMssgs{}
+interface MAbstractProductTypeUPMssgs extends MNonEmptyProductTypeUPMssgs, MEmptyProductTypeUPMssgs, MAbstractProductTypeMssgs{}

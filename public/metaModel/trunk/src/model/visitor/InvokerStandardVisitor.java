@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentServer;
+import persistence.*;
 
 public abstract class InvokerStandardVisitor implements InvokerVisitor {
     

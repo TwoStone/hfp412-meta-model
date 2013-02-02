@@ -1,10 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMAbstractSumType;
-import persistence.PersistentMEmptySumType;
-import persistence.PersistentMSumType;
+import persistence.*;
 
 public abstract class MAbstractSumTypeStandardVisitor implements MAbstractSumTypeVisitor {
     
@@ -13,6 +10,9 @@ public abstract class MAbstractSumTypeStandardVisitor implements MAbstractSumTyp
     }
     public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException{
         this.standardHandling(mSumType);
+    }
+    public void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException{
+        this.standardHandling(mDisjunctiveNF);
     }
     protected abstract void standardHandling(PersistentMAbstractSumType mAbstractSumType) throws PersistenceException;
 }

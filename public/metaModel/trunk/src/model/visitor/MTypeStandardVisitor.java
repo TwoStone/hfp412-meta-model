@@ -1,13 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMEmptySumType;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
-import persistence.PersistentMType;
+import persistence.*;
 
 public abstract class MTypeStandardVisitor implements MTypeVisitor {
     
@@ -25,6 +19,12 @@ public abstract class MTypeStandardVisitor implements MTypeVisitor {
     }
     public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) throws PersistenceException{
         this.standardHandling(mEmptyProductType);
+    }
+    public void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException{
+        this.standardHandling(mDisjunctiveNF);
+    }
+    public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException{
+        this.standardHandling(mAtomicTypeProduct);
     }
     protected abstract void standardHandling(PersistentMType mType) throws PersistenceException;
 }

@@ -1,7 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
+import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
@@ -25,6 +25,9 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     }
     public void handleAlreadyFinalizedException(model.AlreadyFinalizedException alreadyFinalizedException) throws PersistenceException{
         this.standardHandling(alreadyFinalizedException);
+    }
+    public void handleEmptyTypeException(model.EmptyTypeException emptyTypeException) throws PersistenceException{
+        this.standardHandling(emptyTypeException);
     }
     public void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException{
         this.standardHandling(doubleDefinitionException);

@@ -1,6 +1,7 @@
 package model.typeSystem;
 
 import model.ConsistencyException;
+import model.CycleException;
 import model.basic.MFalse;
 import model.basic.MTrue;
 
@@ -14,6 +15,8 @@ import persistence.PersistentMAbstractProductType;
 import persistence.PersistentMAbstractSumType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
 import persistence.PersistentTypeManager;
 import util.TestingBase;
 
@@ -63,12 +66,6 @@ public class TypeManagerTest extends TestingBase {
 	@Test
 	public void createAtomicRootType_test04() throws ConsistencyException, PersistenceException {
 		rootType2 = typeMan.createAtomicRootType(asp1, "RootType2", MTrue.getTheMTrue(), MFalse.getTheMFalse());
-	}
-
-	@Test(expected = ConsistencyException.class)
-	public void createAtomicRootType_test05() throws ConsistencyException, PersistenceException {
-		// TODO TEST: Can a singleton be abstract?
-		typeMan.createAtomicRootType(asp1, "RootType?", MTrue.getTheMTrue(), MFalse.getTheMFalse());
 	}
 
 	@Test
@@ -160,14 +157,17 @@ public class TypeManagerTest extends TestingBase {
 		typeMan.createSumType(addens);
 	}
 
-	@Test(expected = ConsistencyException.class)
-	public void createSumType_test06() throws ConsistencyException, PersistenceException {
+	@Test
+	public void createSumType_test06() throws ConsistencyException, PersistenceException, CycleException {
 		// TODO Test: SumTypes shouldn't have duplicate addens elements...
 		MTypeSearchList addens = new MTypeSearchList();
 		addens.add(sumtype1);
 		addens.add(sumtype1);
 
-		typeMan.createSumType(addens);
+		PersistentMAbstractSumType sumType = typeMan.createSumType(addens);
+		PersistentMSumType expected = sum(sumtype1);
+
+		assertEquals(expected, sumType);
 	}
 
 	@Test
@@ -213,23 +213,43 @@ public class TypeManagerTest extends TestingBase {
 
 	}
 
-	@Test(expected = ConsistencyException.class)
-	public void createProductType_test05() throws ConsistencyException, PersistenceException {
+	@Test
+	public void createProductType_test05() throws ConsistencyException, PersistenceException, CycleException {
 		// TODO Test: ProductTypes shouldn't have duplicate factors elements...
 		MTypeSearchList factors = new MTypeSearchList();
 		factors.add(t3);
 		factors.add(t3);
 
 		prodtype2 = typeMan.createProductType(factors);
+		PersistentMProductType expected = product(t3);
+
+		assertEquals(expected, prodtype2);
+
 	}
 
 	@Test(expected = ConsistencyException.class)
 	public void createProductType_test06() throws ConsistencyException, PersistenceException {
-		// TODO Test: ProductTypes factors has to be from different aspects (WHY?)
 		MTypeSearchList factors = new MTypeSearchList();
 		factors.add(subType2UnderRoot);
 		factors.add(subTypeUnderRoot);
 
 		typeMan.createProductType(factors);
 	}
+
+	@Test
+	public void createProductType_test07() throws PersistenceException, CycleException, ConsistencyException {
+		PersistentMAspect aspect = aspect("A");
+		PersistentMAtomicType typeA = atomicType("typeA", aspect);
+		PersistentMAtomicType typeB = atomicType("typeB", aspect, typeA);
+
+		MTypeSearchList factors = new MTypeSearchList();
+		factors.add(typeA);
+		factors.add(typeB);
+
+		PersistentMProductType expected = product(typeB);
+		PersistentMAbstractProductType actual = typeMan.createProductType(factors);
+
+		assertEquals(expected, actual);
+	}
+
 }

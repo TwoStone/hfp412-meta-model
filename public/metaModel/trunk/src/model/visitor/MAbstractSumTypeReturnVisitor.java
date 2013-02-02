@@ -1,13 +1,10 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMEmptySumType;
-import persistence.PersistentMSumType;
+import persistence.*;
 
-public interface MAbstractSumTypeReturnVisitor<R> {
+public interface MAbstractSumTypeReturnVisitor<R> extends MNonEmptySumTypeReturnVisitor<R> {
     
     public R handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException;
-    public R handleMSumType(PersistentMSumType mSumType) throws PersistenceException;
     
 }

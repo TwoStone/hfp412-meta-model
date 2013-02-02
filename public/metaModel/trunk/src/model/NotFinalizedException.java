@@ -33,7 +33,7 @@ public class NotFinalizedException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -233;
+        return -236;
     }
     
     public long getClassId() {

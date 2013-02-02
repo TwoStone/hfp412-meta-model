@@ -80,7 +80,7 @@ public class RemoveAssoFrmHierCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 110;
+        return 111;
     }
     
     public long getClassId() {
@@ -89,7 +89,7 @@ public class RemoveAssoFrmHierCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 110) ConnectionHandler.getTheConnectionHandler().theRemoveAssoFrmHierCommandFacade
+        if (this.getClassId() == 111) ConnectionHandler.getTheConnectionHandler().theRemoveAssoFrmHierCommandFacade
             .newRemoveAssoFrmHierCommand(this.getId());
         super.store();
         if(this.getH() != null){
