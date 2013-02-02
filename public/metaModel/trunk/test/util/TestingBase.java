@@ -1,5 +1,10 @@
 package util;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Set;
+
 import junit.framework.Assert;
 import model.CycleException;
 import model.DBConnectionConstants;
@@ -11,15 +16,19 @@ import model.typeSystem.MProductType;
 import model.typeSystem.MSumType;
 import modelServer.ConnectionServer;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import persistence.*;
+import utils.Sets;
 
 public abstract class TestingBase {
 
 	protected static PersistentMFalse mFalse;
 	protected static PersistentMTrue mTrue;
+
+	private final Set<Class<?>> manager = Sets.newHashSet();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -88,9 +97,41 @@ public abstract class TestingBase {
 		Assert.assertTrue(message, persistentMBoolean.toBoolean());
 	}
 
+	protected static void assertTrue(PersistentMBoolean value) throws PersistenceException {
+		Assert.assertTrue(value.toBoolean());
+	}
+
+	protected static void assertFalse(PersistentMBoolean value) throws PersistenceException {
+		Assert.assertFalse(value.toBoolean());
+	}
+
 	protected static void assertEquals(PersistentMType expected, PersistentMType actual) throws PersistenceException {
 		assertTrue(expected.isStructuralEquivalant(actual),
 				String.format("Expected %s but was %s", expected.fetchName(), actual.fetchName()));
+	}
+
+	@SuppressWarnings("unchecked")
+	protected <T> T getManager(Class<? extends T> managerClazz) throws NoSuchMethodException, SecurityException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		String methodName = String.format("getThe%s", managerClazz.getSimpleName());
+		Method method = managerClazz.getMethod(methodName);
+		if (method == null) {
+			throw new RuntimeException(
+					String.format("The desired class %s is not a singleton!", managerClazz.getName()));
+		}
+
+		T manager = (T) method.invoke(null);
+		this.manager.add(managerClazz);
+		return manager;
+	}
+
+	@After
+	public void tearDown() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
+			SecurityException {
+		for (Class<?> managerClazz : manager) {
+			Field field = managerClazz.getField("reset$For$Test");
+			field.set(null, true);
+		}
 	}
 
 }
