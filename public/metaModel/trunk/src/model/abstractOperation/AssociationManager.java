@@ -167,6 +167,11 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        //TODO: implement method: initializeOnInstantiation
+        
+    }
     public void createAssociation(final PersistentMType source, final PersistentMType target, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
         //TODO: implement method: createAssociation
@@ -181,11 +186,6 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{

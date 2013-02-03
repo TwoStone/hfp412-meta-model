@@ -179,20 +179,16 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 		if(this.equals(This)){
 		}
     }
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
-				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().equals(other));
-	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return strategy.finalize$$MEmptySumType(getThis(), parameter);
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+		return MBoolean.createFromBoolean(getThis().equals(other));
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-	}
-    public PersistentMBoolean isSingleton() 
-				throws PersistenceException{
-		return MTrue.getTheMTrue();
 	}
     public PersistentMDisjunctiveNF fetchDisjunctiveNormalform() 
 				throws PersistenceException{
@@ -204,6 +200,10 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 			uoe.printStackTrace();
 			throw uoe;
 		}
+	}
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
+		return MTrue.getTheMTrue();
 	}
     public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
 				throws PersistenceException{

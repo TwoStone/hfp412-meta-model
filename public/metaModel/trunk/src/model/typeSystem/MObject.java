@@ -171,6 +171,12 @@ public class MObject extends PersistentObject implements PersistentMObject{
     }
     
     
+    public PersistentMAtomicTypeProduct getProductType(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentMAtomicTypeProduct result = getThis().getProductType();
+		observer.updateTransientDerived(getThis(), "productType", result);
+		return result;
+    }
     public NameSearchList getPossibleNames() 
 				throws PersistenceException{
 		final NameSearchList list = new NameSearchList();
@@ -186,10 +192,10 @@ public class MObject extends PersistentObject implements PersistentMObject{
 		return list;
 
 	}
-    public PersistentMAtomicTypeProduct getProductType(final TDObserver observer) 
+    public NameSearchList getPossibleNames(final TDObserver observer) 
 				throws PersistenceException{
-        PersistentMAtomicTypeProduct result = getThis().getProductType();
-		observer.updateTransientDerived(getThis(), "productType", result);
+        NameSearchList result = getThis().getPossibleNames();
+		observer.updateTransientDerived(getThis(), "possibleNames", result);
 		return result;
     }
     public QuantifObjectSearchList inverseGetObject() 
@@ -202,50 +208,6 @@ public class MObject extends PersistentObject implements PersistentMObject{
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
-    public void addType(final PersistentMAtomicType newType) 
-				throws model.ConsistencyException, PersistenceException{
-		if (newType.isAbstract().toBoolean()) {
-			throw new ConsistencyException("Objekte d??rfen nur in konkreten Typen klassifiziert werden!");
-		}
-
-		if (this.getAspects().contains(newType.getAspect())) {
-			throw new ConsistencyException(String.format(
-					"Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s", newType
-							.getAspect().getName()));
-		}
-		this.getThis().getTypes().add(newType);
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public void removeType(final PersistentMAtomicType oldType) 
-				throws model.ConsistencyException, PersistenceException{
-		if (this.getThis().getTypes().getLength() <= 1) {
-			throw new ConsistencyException(
-					"Das Objekt muss in mindestens einem Typen klassifiziert! F??gen sie einen weiteren Typen hinzu bevor Sie diesen entfernen!");
-		}
-		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
-
-			@Override
-			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-				return argument.equals(oldType);
-			}
-		});
-
-	}
-    public NameInstanceSearchList getNames() 
-				throws PersistenceException{
-        NameInstanceSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameInstanceFacade
-							.inverseGetFromObject(this.getId(), this.getClassId());
-		return result;
-    }
-    public NameSearchList getPossibleNames(final TDObserver observer) 
-				throws PersistenceException{
-        NameSearchList result = getThis().getPossibleNames();
-		observer.updateTransientDerived(getThis(), "possibleNames", result);
-		return result;
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
@@ -272,6 +234,22 @@ public class MObject extends PersistentObject implements PersistentMObject{
 		if(this.equals(This)){
 		}
     }
+    public void addType(final PersistentMAtomicType newType) 
+				throws model.ConsistencyException, PersistenceException{
+		if (newType.isAbstract().toBoolean()) {
+			throw new ConsistencyException("Objekte d??rfen nur in konkreten Typen klassifiziert werden!");
+		}
+
+		if (this.getAspects().contains(newType.getAspect())) {
+			throw new ConsistencyException(String.format(
+					"Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s", newType
+							.getAspect().getName()));
+		}
+		this.getThis().getTypes().add(newType);
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
     public PersistentMAtomicTypeProduct getProductType() 
 				throws PersistenceException{
 		final PersistentMAtomicTypeProduct result = MAtomicTypeProduct.createMAtomicTypeProduct();
@@ -288,6 +266,28 @@ public class MObject extends PersistentObject implements PersistentMObject{
 		});
 		return result;
 	}
+    public void removeType(final PersistentMAtomicType oldType) 
+				throws model.ConsistencyException, PersistenceException{
+		if (this.getThis().getTypes().getLength() <= 1) {
+			throw new ConsistencyException(
+					"Das Objekt muss in mindestens einem Typen klassifiziert! F??gen sie einen weiteren Typen hinzu bevor Sie diesen entfernen!");
+		}
+		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
+
+			@Override
+			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
+				return argument.equals(oldType);
+			}
+		});
+
+	}
+    public NameInstanceSearchList getNames() 
+				throws PersistenceException{
+        NameInstanceSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameInstanceFacade
+							.inverseGetFromObject(this.getId(), this.getClassId());
+		return result;
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 	private Set<PersistentMAspect> getAspects() throws PersistenceException {

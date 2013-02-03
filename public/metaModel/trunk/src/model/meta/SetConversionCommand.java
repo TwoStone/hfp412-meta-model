@@ -256,8 +256,12 @@ public class SetConversionCommand extends PersistentObject implements Persistent
     
     public void execute() 
 				throws PersistenceException{
-        this.getCommandReceiver().setConversion(this.getUnit(), this.getFactor(), this.getConstant());
-		
+        try{
+			this.getCommandReceiver().setConversion(this.getUnit(), this.getFactor(), this.getConstant());
+		}
+		catch(model.ConsistencyException e){
+			this.commandException = e;
+		}
     }
     public void checkException() 
 				throws UserException, PersistenceException{

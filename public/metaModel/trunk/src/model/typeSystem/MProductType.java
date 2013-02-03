@@ -210,10 +210,6 @@ public class MProductType extends model.typeSystem.MNonEmptyProductType implemen
 		if(this.equals(This)){
 		}
     }
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
-				throws PersistenceException{
-		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
-	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$factors$$MProductType = strategy.initialize$$MProductType$$factors(getThis(), parameter);
@@ -225,6 +221,10 @@ public class MProductType extends model.typeSystem.MNonEmptyProductType implemen
 		}
 		return strategy.finalize$$MProductType(getThis(), parameter,result$$factors$$MProductType);
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}

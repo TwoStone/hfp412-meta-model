@@ -179,24 +179,24 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
 		if(this.equals(This)){
 		}
     }
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
-				throws PersistenceException{
-		return MTrue.getTheMTrue();
-	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return strategy.finalize$$MEmptyProductType(getThis(), parameter);
     }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public PersistentMBoolean isSingleton() 
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
 		return MTrue.getTheMTrue();
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
 	}
     public PersistentMDisjunctiveNF fetchDisjunctiveNormalform() 
 				throws PersistenceException{
 		return MDisjunctiveNF.createMDisjunctiveNF(); // TODO
+	}
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
+		return MTrue.getTheMTrue();
 	}
     public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
 				throws PersistenceException{

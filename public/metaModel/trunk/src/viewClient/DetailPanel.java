@@ -1609,7 +1609,6 @@ class MessageManagerDefaultDetailPanel extends DefaultDetailPanel{
 class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String UnitTypeManager$$unitTypes = "UnitTypeManager$$unitTypes";
-    protected static final String UnitTypeManager$$atomicUnitTypes = "UnitTypeManager$$atomicUnitTypes";
     protected static final String UnitTypeManager$$units = "UnitTypeManager$$units";
     
     protected UnitTypeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

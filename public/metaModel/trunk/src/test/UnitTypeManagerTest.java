@@ -3,10 +3,6 @@
  */
 package test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import model.AlreadyFinalizedException;
 import model.ConsistencyException;
 import model.CycleException;
@@ -25,6 +21,10 @@ import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
 import test.util.AbstractTest;
 import constants.ExceptionConstants;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Testet den UnitTypeManager
@@ -44,7 +44,7 @@ public class UnitTypeManagerTest extends AbstractTest {
 
 		try {
 
-			PersistentUnitTypeManager typeManager = UnitTypeManager.getTheUnitTypeManager();
+			PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
 			String name = "Temperatur";
 			long currentLength = typeManager.getUnitTypes().getLength();
 			try {
@@ -73,7 +73,7 @@ public class UnitTypeManagerTest extends AbstractTest {
 	@Test
 	public void testCreateUnit() {
 		try {
-			PersistentUnitTypeManager typeManager = UnitTypeManager.getTheUnitTypeManager();
+			PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
 			String unitTypeName = "Laenge";
 			try {
 				typeManager.createUnitType(unitTypeName);
@@ -118,7 +118,7 @@ public class UnitTypeManagerTest extends AbstractTest {
 	@Test
 	public void testCreateCompoundUnitType() {
 		try {
-			PersistentUnitTypeManager utm = UnitTypeManager.getTheUnitTypeManager();
+			PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
 			String name = "Hello, I'm a complex Type!";
 			try {
 				utm.createCompUnitType(name);
@@ -139,7 +139,7 @@ public class UnitTypeManagerTest extends AbstractTest {
 	@Test
 	public void testCreateCompoundUnitTypeSpeedExample() {
 		try {
-			PersistentUnitTypeManager utm = UnitTypeManager.getTheUnitTypeManager();
+			PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
 			String nameOfLength = "Length";
 			String nameOfTime = "Time";
 			String nameOfSpeed = "Speed";
@@ -179,7 +179,7 @@ public class UnitTypeManagerTest extends AbstractTest {
 	@Test
 	public void testCreateCompoundUnitIfNotFinal() {
 		try {
-			PersistentUnitTypeManager utm = UnitTypeManager.getTheUnitTypeManager();
+			PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
 			String name = "Hello, I'm a complex Type!";
 			String nameU = "Hello, I'm a complex Unit!";
 			try {
@@ -205,7 +205,7 @@ public class UnitTypeManagerTest extends AbstractTest {
 	@Test
 	public void testCreateCompoundUnitIfFinal() {
 		try {
-			PersistentUnitTypeManager utm = UnitTypeManager.getTheUnitTypeManager();
+			PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
 			String name = "Hello, I'm a complex Type!";
 			String nameU = "Hello, I'm a complex Unit!";
 			try {

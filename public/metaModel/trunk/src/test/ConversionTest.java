@@ -3,8 +3,6 @@
  */
 package test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import model.ConsistencyException;
 import model.CycleException;
 import model.quantity.Conversion;
@@ -24,18 +22,24 @@ import test.util.AbstractTest;
 
 import common.Fraction;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * @author Steffi
  * 
  */
 public class ConversionTest extends AbstractTest {
-	private final PersistentUnitType type;
-	private final PersistentUnit unit;
-	private final PersistentUnit defaultUnit;
-	private final PersistentFunction function;
+	private PersistentUnitType type;
+	private PersistentUnit unit;
+	private PersistentUnit defaultUnit;
+	private PersistentFunction function;
 
 	public ConversionTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
+	}
+
+	private void initObjects() throws Exception {
 		type = UnitType.createUnitType("TestType");
 		unit = Unit.createUnit(type, "TestUnit");
 		defaultUnit = Unit.createUnit(type, "TestDefaultUnit");
@@ -45,6 +49,7 @@ public class ConversionTest extends AbstractTest {
 
 	@Test
 	public void testCreate() throws Exception {
+		this.initObjects();
 		PersistentConversion c = Conversion.createConversion(unit, function);
 		assertNotNull(c);
 	}
@@ -56,6 +61,7 @@ public class ConversionTest extends AbstractTest {
 	 */
 	@Test
 	public void testConvert() throws Exception {
+		this.initObjects();
 		PersistentConversion c = Conversion.createConversion(unit, function);
 		PersistentQuantity convertedAmount = c.convert(Fraction.parse("4"));
 		assertEquals(this.defaultUnit, convertedAmount.getUnit());
@@ -67,6 +73,7 @@ public class ConversionTest extends AbstractTest {
 	 */
 	@Test
 	public void testConvertInverse() throws Exception {
+		this.initObjects();
 		PersistentConversion c = Conversion.createConversion(unit, function);
 		PersistentQuantity convertedAmount = c.convertInverse(Fraction.parse("4"));
 		assertEquals(this.unit, convertedAmount.getUnit());

@@ -314,18 +314,14 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
         if(getThis().equals(part)) return true;
 		return false;
     }
-    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
-				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().equals(other));
-	}
     public String fetchName() 
 				throws PersistenceException{
 		return this.getName();
 	}
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
 				throws PersistenceException{
-        return strategy.finalize$$MAtomicType(getThis(), parameter);
-    }
+		return MBoolean.createFromBoolean(getThis().equals(other));
+	}
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
@@ -379,6 +375,10 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 			}
 		}));
 	}
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return strategy.finalize$$MAtomicType(getThis(), parameter);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}

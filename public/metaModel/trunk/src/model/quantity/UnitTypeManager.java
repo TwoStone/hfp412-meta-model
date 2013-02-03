@@ -3,6 +3,7 @@ package model.quantity;
 import java.util.Iterator;
 
 import model.AlreadyFinalizedException;
+import model.ConsistencyException;
 import model.DoubleDefinitionException;
 import model.NotFinalizedException;
 import model.UserException;
@@ -188,7 +189,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
             + this.getUnitTypes().getLength()
-            + this.getAtomicUnitTypes().getLength()
             + this.getUnits().getLength());
     }
     
@@ -397,13 +397,13 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+
+	}
     public void removeUnit(final PersistentAbsUnit unit) 
 				throws PersistenceException{
 		// TODO: implement method: removeUnit
-
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
 
 	}
     public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant, final Invoker invoker) 
@@ -439,10 +439,13 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
-				throws PersistenceException{
+				throws model.ConsistencyException, PersistenceException{
 
 		// TODO: Conversion ??ndern, wenn schon vorhanden
 		// TODO: Doppelte Functions?
+		if (((PersistentUnitType) unit.getType()).getDefaultUnit() == null) {
+			throw new ConsistencyException(ExceptionConstants.NO_DEFAULT_UNIT);
+		}
 		Conversion.createConversion(unit, Function.createFunction(factor, constant));
 
 	}
