@@ -850,6 +850,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleName(view.NameView object){
         result = new NameDefaultDetailPanel(handler, object);
     }
+    public void handleFractionWrapper(view.FractionWrapperView object){
+        result = new FractionWrapperDefaultDetailPanel(handler, object);
+    }
     public void handleFunctionManager(view.FunctionManagerView object){
         result = new FunctionManagerDefaultDetailPanel(handler, object);
     }
@@ -1642,6 +1645,8 @@ class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class FractionManagerDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String FractionManager$$managedFractions = "FractionManager$$managedFractions";
+    
     protected FractionManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
@@ -1908,6 +1913,29 @@ class NameDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.NameView getAnything(){
         return (view.NameView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class FractionWrapperDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String FractionWrapper$$fraction = "FractionWrapper$$fraction";
+    
+    protected FractionWrapperDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "fraction", this.getAnything().getFraction());
+            this.getScrollablePane().add(panel);
+            this.panels.put(FractionWrapper$$fraction, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.FractionWrapperView getAnything(){
+        return (view.FractionWrapperView)this.anything;
     }
 }
 

@@ -23,7 +23,7 @@ import persistence.TDObserver;
 public class CommandCoordinator extends PersistentObject implements PersistentCommandCoordinator{
     
     private static PersistentCommandCoordinator theCommandCoordinator = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentCommandCoordinator getTheCommandCoordinator() throws PersistenceException{
         if (theCommandCoordinator == null || reset$For$Test){

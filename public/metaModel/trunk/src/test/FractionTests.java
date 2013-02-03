@@ -26,7 +26,7 @@ public class FractionTests extends AbstractTest {
 		Fraction fraction = Fraction.parse("2/10");
 		assertNotNull(fraction);
 	}
-	
+
 	@Test
 	public void testFractionCreateConst() throws Exception {
 		Fraction fraction = new Fraction(BigInteger.valueOf(10), BigInteger.valueOf(2));
@@ -38,7 +38,7 @@ public class FractionTests extends AbstractTest {
 		Fraction bruch1 = Fraction.parse("10/1");
 		assertEquals("10", bruch1.toString());
 	}
-	
+
 	@Test
 	public void testSimple2() throws Exception {
 		Fraction bruch1 = Fraction.parse("10");
@@ -67,7 +67,7 @@ public class FractionTests extends AbstractTest {
 	public void testFractionMul02() throws Throwable {
 		Fraction fraction1 = Fraction.parse("1/2");
 		Fraction fraction2 = Fraction.parse("2/3");
-		
+
 		Fraction result = fraction1.mul(fraction2);
 		assertEquals(Fraction.parse("1/3"), result);
 	}
@@ -84,7 +84,7 @@ public class FractionTests extends AbstractTest {
 	public void testFractionAdd() throws Throwable {
 		Fraction bruch1 = Fraction.parse("10/2");
 		Fraction bruch2 = Fraction.parse("10/3");
-		
+
 		// Funktion add testen
 		Fraction multFraction = bruch1.add(bruch2);
 		assertEquals(Fraction.parse("25/3"), multFraction);
@@ -92,23 +92,21 @@ public class FractionTests extends AbstractTest {
 
 	@Test
 	public void testFractionDivisionByZero() {
-		try{
+		try {
 			Fraction.parse("10/0");
 			fail();
-		}
-		catch (NumberFormatException e){
-			assertEquals(constants.ExceptionConstants.DENOMINATOR_MUST_NOT_BE_ZERO,	e.getMessage());
+		} catch (NumberFormatException e) {
+			assertEquals(constants.ExceptionConstants.DENOMINATOR_MUST_NOT_BE_ZERO, e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testFractionDivisionByZeroConst() {
-		try{
+		try {
 			new Fraction(BigInteger.valueOf(10), BigInteger.valueOf(0));
 			fail();
-		}
-		catch (NumberFormatException e){
-			assertEquals(constants.ExceptionConstants.DENOMINATOR_MUST_NOT_BE_ZERO,	e.getMessage());
+		} catch (NumberFormatException e) {
+			assertEquals(constants.ExceptionConstants.DENOMINATOR_MUST_NOT_BE_ZERO, e.getMessage());
 		}
 	}
 

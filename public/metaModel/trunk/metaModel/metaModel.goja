@@ -339,6 +339,10 @@ part quantity {
 		Fraction executeInverse(Fraction amount);
 	}
 
+	class FractionWrapper {
+		Fraction fraction;
+	}
+
 
 	/*
 	* Manager
@@ -372,7 +376,9 @@ part quantity {
 
 	/*Jeder Bruch nur einmal vorhanden*/
 	singleton FractionManager {
-	//	Fraction ** fractions;
+		FractionWrapper **String** managedFractions;
+		Fraction getFraction(String key) throws NotFoundException;
+		active void addFraction(String key, Fraction newFraction) throws DoubleDefinitionException;
 	}
 
 	singleton FunctionManager {
@@ -597,7 +603,7 @@ exception ConsistencyException{}
 exception WrongSubTypeAspectException{}
 exception EmptyTypeException{}
 exception NotAvailableException{}
-
+exception NotFoundException{}
 exception AlreadyFinalizedException{}
 exception NotFinalizedException{}
 exception ExponentMatchingException{}

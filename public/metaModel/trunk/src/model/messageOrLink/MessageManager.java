@@ -33,7 +33,7 @@ import persistence.TDObserver;
 public class MessageManager extends PersistentObject implements PersistentMessageManager{
     
     private static PersistentMessageManager theMessageManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMessageManager getTheMessageManager() throws PersistenceException{
         if (theMessageManager == null || reset$For$Test){

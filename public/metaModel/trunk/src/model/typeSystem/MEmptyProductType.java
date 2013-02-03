@@ -11,7 +11,7 @@ import persistence.*;
 public class MEmptyProductType extends model.typeSystem.MAbstractProductType implements PersistentMEmptyProductType{
     
     private static PersistentMEmptyProductType theMEmptyProductType = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMEmptyProductType getTheMEmptyProductType() throws PersistenceException{
         if (theMEmptyProductType == null || reset$For$Test){

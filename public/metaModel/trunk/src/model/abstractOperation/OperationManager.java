@@ -47,7 +47,7 @@ import persistence.TDObserver;
 public class OperationManager extends PersistentObject implements PersistentOperationManager{
     
     private static PersistentOperationManager theOperationManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentOperationManager getTheOperationManager() throws PersistenceException{
         if (theOperationManager == null || reset$For$Test){

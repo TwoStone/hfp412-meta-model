@@ -28,7 +28,7 @@ import persistence.TDObserver;
 public class LinkManager extends PersistentObject implements PersistentLinkManager{
     
     private static PersistentLinkManager theLinkManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentLinkManager getTheLinkManager() throws PersistenceException{
         if (theLinkManager == null || reset$For$Test){

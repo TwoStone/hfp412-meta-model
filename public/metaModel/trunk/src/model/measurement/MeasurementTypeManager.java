@@ -26,7 +26,7 @@ import persistence.TDObserver;
 public class MeasurementTypeManager extends PersistentObject implements PersistentMeasurementTypeManager{
     
     private static PersistentMeasurementTypeManager theMeasurementTypeManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMeasurementTypeManager getTheMeasurementTypeManager() throws PersistenceException{
         if (theMeasurementTypeManager == null || reset$For$Test){

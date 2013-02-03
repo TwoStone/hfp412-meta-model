@@ -24,7 +24,7 @@ import persistence.TDObserver;
 public class MTrue extends model.basic.MBoolean implements PersistentMTrue{
     
     private static PersistentMTrue theMTrue = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMTrue getTheMTrue() throws PersistenceException{
         if (theMTrue == null || reset$For$Test){

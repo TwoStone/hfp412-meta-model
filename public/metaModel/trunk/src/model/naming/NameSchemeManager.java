@@ -33,7 +33,7 @@ import persistence.TDObserver;
 public class NameSchemeManager extends PersistentObject implements PersistentNameSchemeManager{
     
     private static PersistentNameSchemeManager theNameSchemeManager = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentNameSchemeManager getTheNameSchemeManager() throws PersistenceException{
         if (theNameSchemeManager == null || reset$For$Test){
