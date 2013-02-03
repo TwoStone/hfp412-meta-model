@@ -212,5 +212,8 @@ public abstract class AbstractTest extends TestingBase {
 		ap3 = ActualParameter.createActualParameter(fp3, mao6);
 
 		apList = new ActualParameterSearchList();
+		apList.add(ap1);
+		apList.add(ap2);
+		apList.add(ap3);
 	}
 }
