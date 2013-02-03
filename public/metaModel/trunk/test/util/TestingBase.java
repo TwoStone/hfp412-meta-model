@@ -103,20 +103,20 @@ public abstract class TestingBase {
 		return product;
 	}
 
-	protected static void assertTrue(PersistentMBoolean persistentMBoolean, String message) throws PersistenceException {
+	protected static void assertMTrue(PersistentMBoolean persistentMBoolean, String message) throws PersistenceException {
 		Assert.assertTrue(message, persistentMBoolean.toBoolean());
 	}
 
-	protected static void assertTrue(PersistentMBoolean value) throws PersistenceException {
+	protected static void assertMTrue(PersistentMBoolean value) throws PersistenceException {
 		Assert.assertTrue(value.toBoolean());
 	}
 
-	protected static void assertFalse(PersistentMBoolean value) throws PersistenceException {
+	protected static void assertMFalse(PersistentMBoolean value) throws PersistenceException {
 		Assert.assertFalse(value.toBoolean());
 	}
 
-	protected static void assertEquals(PersistentMType expected, PersistentMType actual) throws PersistenceException {
-		assertTrue(expected.isStructuralEquivalant(actual),
+	protected static void assertTypeEquals(PersistentMType expected, PersistentMType actual) throws PersistenceException {
+		assertMTrue(expected.isStructuralEquivalant(actual),
 				String.format("Expected %s but was %s", expected.fetchName(), actual.fetchName()));
 	}
 

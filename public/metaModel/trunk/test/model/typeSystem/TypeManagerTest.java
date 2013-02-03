@@ -124,7 +124,7 @@ public class TypeManagerTest extends TestingBase {
 		addens.add(t2);
 		addens.add(t3);
 
-		assertEquals(sumtype1, typeMan.createSumType(addens));
+		assertTypeEquals(sumtype1, typeMan.createSumType(addens));
 	}
 
 	@Test
@@ -144,7 +144,7 @@ public class TypeManagerTest extends TestingBase {
 		// Empty addens list...
 		MTypeSearchList addens = new MTypeSearchList();
 
-		assertEquals(MEmptySumType.getTheMEmptySumType(), typeMan.createSumType(addens));
+		assertTypeEquals(MEmptySumType.getTheMEmptySumType(), typeMan.createSumType(addens));
 
 	}
 
@@ -167,7 +167,7 @@ public class TypeManagerTest extends TestingBase {
 		PersistentMAbstractSumType sumType = typeMan.createSumType(addens);
 		PersistentMSumType expected = sum(sumtype1);
 
-		assertEquals(expected, sumType);
+		assertTypeEquals(expected, sumType);
 	}
 
 	@Test
@@ -189,7 +189,7 @@ public class TypeManagerTest extends TestingBase {
 		factors.add(t2);
 		factors.add(t3);
 
-		assertEquals(prodtype1, typeMan.createProductType(factors));
+		assertTypeEquals(prodtype1, typeMan.createProductType(factors));
 	}
 
 	@Test
@@ -209,7 +209,7 @@ public class TypeManagerTest extends TestingBase {
 		// Empty factors list...
 		MTypeSearchList factors = new MTypeSearchList();
 
-		assertEquals(MEmptyProductType.getTheMEmptyProductType(), typeMan.createProductType(factors));
+		assertTypeEquals(MEmptyProductType.getTheMEmptyProductType(), typeMan.createProductType(factors));
 
 	}
 
@@ -223,7 +223,7 @@ public class TypeManagerTest extends TestingBase {
 		prodtype2 = typeMan.createProductType(factors);
 		PersistentMProductType expected = product(t3);
 
-		assertEquals(expected, prodtype2);
+		assertTypeEquals(expected, prodtype2);
 
 	}
 
@@ -249,7 +249,7 @@ public class TypeManagerTest extends TestingBase {
 		PersistentMProductType expected = product(typeB);
 		PersistentMAbstractProductType actual = typeMan.createProductType(factors);
 
-		assertEquals(expected, actual);
+		assertTypeEquals(expected, actual);
 	}
 
 }

@@ -31,7 +31,7 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 
 		PersistentMSumType expected = sum(product(typeA));
 
-		assertEquals(expected, typeA.fetchDisjunctiveNormalform());
+		assertTypeEquals(expected, typeA.fetchDisjunctiveNormalform());
 		Assert.assertTrue(typeA.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
 
@@ -49,7 +49,7 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 
 		PersistentMSumType expected = sum(theMEmptyProductType);
 
-		assertEquals(expected, theMEmptyProductType.fetchDisjunctiveNormalform());
+		assertTypeEquals(expected, theMEmptyProductType.fetchDisjunctiveNormalform());
 		Assert.assertTrue(theMEmptyProductType.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
 
@@ -61,7 +61,7 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 
 		PersistentMSumType expected = sum(product(typeA, typeB));
 
-		assertEquals(expected, product.fetchDisjunctiveNormalform());
+		assertTypeEquals(expected, product.fetchDisjunctiveNormalform());
 		Assert.assertTrue(product.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
 
@@ -74,7 +74,7 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 
 		PersistentMSumType expected = sum(product(typeA, typeB), product(typeA, typeC));
 
-		assertEquals(expected, product.fetchDisjunctiveNormalform());
+		assertTypeEquals(expected, product.fetchDisjunctiveNormalform());
 		Assert.assertTrue(product.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
 
@@ -89,7 +89,7 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 
 		PersistentMSumType expected = sum(product(typeA, typeB, typeC), product(typeA, typeD));
 
-		assertEquals(expected, product.fetchDisjunctiveNormalform());
+		assertTypeEquals(expected, product.fetchDisjunctiveNormalform());
 		Assert.assertTrue(product.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
 
@@ -106,7 +106,7 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 		PersistentMSumType expected = sum(product(typeA, typeC), product(typeB, typeC), product(typeA, typeD),
 				product(typeB, typeD));
 
-		assertEquals(expected, product.fetchDisjunctiveNormalform());
+		assertTypeEquals(expected, product.fetchDisjunctiveNormalform());
 		Assert.assertTrue(product.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
 
@@ -122,7 +122,7 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 
 		PersistentMSumType expected = sum(product(typeA, typeB, typeC, typeD));
 
-		assertEquals(expected, product.fetchDisjunctiveNormalform());
+		assertTypeEquals(expected, product.fetchDisjunctiveNormalform());
 		Assert.assertTrue(product.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
 
@@ -134,7 +134,7 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 
 		PersistentMSumType expected = sum(product(typeA), product(typeB));
 
-		assertEquals(expected, sum.fetchDisjunctiveNormalform());
+		assertTypeEquals(expected, sum.fetchDisjunctiveNormalform());
 		Assert.assertTrue(sum.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
 
@@ -150,7 +150,7 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 
 		PersistentMSumType expected = sum(product(typeA, typeB), product(typeC, typeD));
 
-		assertEquals(expected, sum.fetchDisjunctiveNormalform());
+		assertTypeEquals(expected, sum.fetchDisjunctiveNormalform());
 		Assert.assertTrue(sum.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
 
@@ -166,7 +166,7 @@ public class DisjunctiveNormalFormTest extends TestingBase {
 
 		PersistentMSumType expected = sum(product(typeA), product(typeB), product(typeC), product(typeD));
 
-		assertEquals(expected, sum.fetchDisjunctiveNormalform());
+		assertTypeEquals(expected, sum.fetchDisjunctiveNormalform());
 		Assert.assertTrue(sum.fetchDisjunctiveNormalform().isDelayed$Persistence());
 	}
 }
