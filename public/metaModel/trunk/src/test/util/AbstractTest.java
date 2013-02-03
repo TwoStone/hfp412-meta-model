@@ -3,9 +3,11 @@ package test.util;
 import model.CycleException;
 import model.DBConnectionConstants;
 import model.InstanceObject;
+import model.abstractOperation.FormalParameter;
 import model.abstractOperation.Operation;
 import model.basic.MFalse;
 import model.basic.MTrue;
+import model.messageOrLink.ActualParameter;
 import model.messageOrLink.Message;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
@@ -20,8 +22,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import persistence.ActualParameterSearchList;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
+import persistence.PersistentActualParameter;
+import persistence.PersistentFormalParameter;
 import persistence.PersistentInstanceObject;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
@@ -80,6 +85,16 @@ public abstract class AbstractTest {
 	protected PersistentMessage voidMessage;
 	protected PersistentMessage constantMessage;
 	protected PersistentMessage staticMessage;
+
+	protected ActualParameterSearchList apList;
+
+	protected PersistentActualParameter ap1;
+	protected PersistentActualParameter ap2;
+	protected PersistentActualParameter ap3;
+
+	protected PersistentFormalParameter fp1;
+	protected PersistentFormalParameter fp2;
+	protected PersistentFormalParameter fp3;
 
 	public AbstractTest() throws CycleException, PersistenceException {
 		this.initHierarchy();
@@ -191,8 +206,19 @@ public abstract class AbstractTest {
 		staticOp = Operation.createOperation("static-Operation", mstEmpty, mat1);
 
 		standardMessage = Message.createMessage(mao1, mao6, standardOp);
-		voidMessage = Message.createMessage(mao1, msoEmpty, standardOp);
-		constantMessage = Message.createMessage(msoEmpty, mao1, standardOp);
-		staticMessage = Message.createMessage(msoEmpty, mao1, standardOp);
+		// TODO
+		// voidMessage = Message.createMessage(mao1, msoEmpty, standardOp);
+		// constantMessage = Message.createMessage(msoEmpty, mao1, standardOp);
+		// staticMessage = Message.createMessage(msoEmpty, mao1, standardOp);
+
+		fp1 = FormalParameter.createFormalParameter(mat1, "formalparameter1");
+		fp2 = FormalParameter.createFormalParameter(mat1, "formalparameter2");
+		fp3 = FormalParameter.createFormalParameter(mat6, "formalparameter3");
+
+		ap1 = ActualParameter.createActualParameter(fp1, mao1);
+		ap2 = ActualParameter.createActualParameter(fp2, mao1);
+		ap3 = ActualParameter.createActualParameter(fp3, mao6);
+
+		apList = new ActualParameterSearchList();
 	}
 }
