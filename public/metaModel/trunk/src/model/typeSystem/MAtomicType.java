@@ -393,16 +393,6 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		}
 		return MFalse.getTheMFalse();
 	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
-				throws PersistenceException{
-
-		PersistentMSumType sum = MSumType.createMSumType(true);
-		PersistentMProductType product = MProductType.createMProductType(true);
-		product.getContainedTypes().add(this.getThis());
-		sum.getContainedTypes().add(product);
-
-		return sum;
-	}
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException{
         MAtomicTypeSearchList result = null;

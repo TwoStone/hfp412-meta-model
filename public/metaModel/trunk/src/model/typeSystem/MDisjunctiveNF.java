@@ -1,12 +1,54 @@
 package model.typeSystem;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import model.CycleException;
 import model.UserException;
 import model.basic.MBoolean;
-import model.visitor.*;
-import persistence.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MAbstractSumTypeExceptionVisitor;
+import model.visitor.MAbstractSumTypeReturnExceptionVisitor;
+import model.visitor.MAbstractSumTypeReturnVisitor;
+import model.visitor.MAbstractSumTypeVisitor;
+import model.visitor.MComplexTypeExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MComplexTypeReturnExceptionVisitor;
+import model.visitor.MComplexTypeReturnVisitor;
+import model.visitor.MComplexTypeVisitor;
+import model.visitor.MNonEmptySumTypeExceptionVisitor;
+import model.visitor.MNonEmptySumTypeReturnExceptionVisitor;
+import model.visitor.MNonEmptySumTypeReturnVisitor;
+import model.visitor.MNonEmptySumTypeVisitor;
+import model.visitor.MTypeExceptionVisitor;
+import model.visitor.MTypeReturnExceptionVisitor;
+import model.visitor.MTypeReturnVisitor;
+import model.visitor.MTypeVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MComplexTypeHierarchyHIERARCHY;
+import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
+import persistence.MDisjunctiveNFProxi;
+import persistence.MDisjunctiveNF_AddendsProxi;
+import persistence.MTypeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMAtomicTypeProduct;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMDisjunctiveNF;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
+import persistence.PersistentMType;
+import persistence.Procdure;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -202,12 +244,7 @@ public class MDisjunctiveNF extends model.typeSystem.MNonEmptySumType implements
 
 					@Override
 					public void doItTo(PersistentMAtomicTypeProduct argument) throws PersistenceException {
-						try {
-							result.getAddends().add(firstFactor.transientMultiply(argument));
-						} catch (CycleException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						MDisjunctiveNF.addAddendNormalize(result, firstFactor.transientMultiply(argument));
 					}
 				});
 
@@ -309,17 +346,6 @@ public class MDisjunctiveNF extends model.typeSystem.MNonEmptySumType implements
 				throws PersistenceException{
 		return getThis();
 	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
-				throws PersistenceException{
-		// TODO: implement method: fetchDisjunctiveNormalform
-		try {
-			throw new java.lang.UnsupportedOperationException(
-					"Method \"fetchDisjunctiveNormalform\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
     public MTypeSearchList getContainedTypes() 
 				throws PersistenceException{
 		final MTypeSearchList result = new MTypeSearchList();
@@ -334,7 +360,40 @@ public class MDisjunctiveNF extends model.typeSystem.MNonEmptySumType implements
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+	public static PersistentMDisjunctiveNF transientCreateDNF(ArrayList<PersistentMAtomicTypeProduct> atomicProducts)
+			throws PersistenceException {
+		PersistentMDisjunctiveNF result = MDisjunctiveNF.createMDisjunctiveNF(true);
+		Iterator<PersistentMAtomicTypeProduct> newAddendI = atomicProducts.iterator();
+		while (newAddendI.hasNext()) {
+			MDisjunctiveNF.addAddendNormalize(result, newAddendI.next());
+		}
+		return result;
+	}
 
+	private static void addAddendNormalize(PersistentMDisjunctiveNF dnf, PersistentMAtomicTypeProduct newAddend)
+			throws PersistenceException {
+		boolean addAddend = true;
+		try {
+			Iterator<PersistentMAtomicTypeProduct> resultAddendI = dnf.getAddends().iterator();
+
+			while (addAddend && resultAddendI.hasNext()) {
+				PersistentMAtomicTypeProduct currentResAddend = resultAddendI.next();
+				if (newAddend.isLessOrEqual(currentResAddend).toBoolean()) {
+					addAddend = false;
+				} else if (currentResAddend.isLessOrEqual(newAddend).toBoolean()) {
+					resultAddendI.remove();
+				}
+			}
+			if (addAddend) {
+
+				dnf.getAddends().add(newAddend);
+
+			}
+		} catch (CycleException e) {
+			// TODO Should not happen
+			e.printStackTrace();
+		}
+	}
 	/* End of protected part that is not overridden by persistence generator */
     
 }

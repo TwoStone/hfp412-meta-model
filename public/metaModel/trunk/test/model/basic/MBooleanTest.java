@@ -1,45 +1,40 @@
 /**
  * 
  */
-package test;
+package model.basic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import model.CycleException;
-import model.basic.MBoolean;
-import model.basic.MFalse;
-import model.basic.MTrue;
 
 import org.junit.Test;
 
 import persistence.PersistenceException;
 import persistence.PersistentMFalse;
 import persistence.PersistentMTrue;
+import util.TestingBase;
 
 /**
  * Testet die Boolean-implementation
- *
+ * 
  */
-public class MBooleanTest {
+public class MBooleanTest extends TestingBase {
 
-	public MBooleanTest() throws CycleException, PersistenceException {
-		super();
-	}
 	/**
-	 * Testet Grundfunktionalitäten von MBoolean 
+	 * Testet Grundfunktionalitï¿½ten von MBoolean
+	 * 
 	 * @throws PersistenceException
 	 */
 	@Test
-	public void testBoolean() throws PersistenceException{
+	public void testBoolean() throws PersistenceException {
 		PersistentMTrue theMTrue = MTrue.getTheMTrue();
 		PersistentMFalse theMFalse = MFalse.getTheMFalse();
-		//Boolean conversion
+		// Boolean conversion
 		assertTrue(theMTrue.toBoolean());
 		assertFalse(theMFalse.toBoolean());
 		assertEquals(theMTrue, MBoolean.createFromBoolean(true));
 		assertEquals(theMFalse, MBoolean.createFromBoolean(false));
-		//Invert
+		// Invert
 		assertEquals(theMFalse, theMTrue.invert());
 		assertEquals(theMTrue, theMFalse.invert());
 	}

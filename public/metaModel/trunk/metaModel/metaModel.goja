@@ -124,7 +124,6 @@ part typeSystem {
 		abstract MBoolean isSingleton();
 		abstract MBoolean isAbstract();
 		abstract MBoolean isStructuralEquivalant(MType other);  			
-		abstract MAbstractSumType fetchDisjunctiveNormalform_old();
 		abstract MDisjunctiveNF fetchDisjunctiveNormalform();
 /*
 			MAssociation** fetchAssociations();
@@ -152,10 +151,7 @@ part typeSystem {
 		no-view symmetric(subTypes) MAtomicType superType hierarchy MAtomicTypeHierarchy;
 		
 		MBoolean hasConcreteSubType();	
-		/*
-			void addSubType(MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
-			MBoolean transitiveHasConcreteSubtype();
-			*/
+			//void addSubType(MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
 	}
 	
 	/* Komplexe Typen*/

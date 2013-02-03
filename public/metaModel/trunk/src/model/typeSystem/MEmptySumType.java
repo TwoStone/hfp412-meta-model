@@ -205,10 +205,6 @@ public class MEmptySumType extends model.typeSystem.MAbstractSumType implements 
 				throws PersistenceException{
 		return MTrue.getTheMTrue();
 	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
-				throws PersistenceException{
-		return this.getThis();
-	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
 		return MTrue.getTheMTrue();

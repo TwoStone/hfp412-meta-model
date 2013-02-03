@@ -1,10 +1,15 @@
 package model.typeSystem;
 
+import java.util.ArrayList;
+
 import model.basic.MFalse;
 import persistence.Anything;
+import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMAtomicTypeProduct;
 import persistence.PersistentMBoolean;
+import persistence.PersistentMNonEmptySumType;
 import persistence.PersistentMType;
 import persistence.TDObserver;
 
@@ -81,6 +86,33 @@ public abstract class MAbstractSumType extends model.typeSystem.MComplexType imp
 
     /* Start of protected part that is not overridden by persistence generator */
 	public static String TYPE_LINK_OPERATOR = "++";
+
+	/**
+	 * Erstellt einen transienten, durchgekürzten Summentyp. Summanden A,B werden paarweise auf A<=B, B<=A geprüft und
+	 * der jeweils Allgemeinere verwendet. Bei leerer liste <tt>addends</tt> wird die leere (persistente) Summe
+	 * zurückgegeben
+	 * 
+	 * @param addends
+	 *            <tt>Summanden</tt>
+	 * @return transienten Summentyp
+	 * @throws PersistenceException
+	 */
+	public static PersistentMAbstractSumType transientCreate(final MTypeSearchList addends) throws PersistenceException {
+
+		if (addends.getLength() == 0) {
+			return MEmptySumType.getTheMEmptySumType();
+		}
+
+		PersistentMNonEmptySumType result;
+		ArrayList<PersistentMAtomicTypeProduct> filteredAtomicProducts = TypeManager.filterAtomicProducts(addends);
+
+		if (filteredAtomicProducts.size() == addends.getLength()) {
+			return MDisjunctiveNF.transientCreateDNF(filteredAtomicProducts);
+		}
+
+		return MSumType.transientCreateMixedSum(addends);
+	}
+
 	/* End of protected part that is not overridden by persistence generator */
     
 }

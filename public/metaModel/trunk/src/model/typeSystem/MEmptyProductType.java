@@ -3,8 +3,38 @@ package model.typeSystem;
 import model.UserException;
 import model.basic.MFalse;
 import model.basic.MTrue;
-import model.visitor.*;
-import persistence.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MAbstractProductTypeExceptionVisitor;
+import model.visitor.MAbstractProductTypeReturnExceptionVisitor;
+import model.visitor.MAbstractProductTypeReturnVisitor;
+import model.visitor.MAbstractProductTypeVisitor;
+import model.visitor.MComplexTypeExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MComplexTypeReturnExceptionVisitor;
+import model.visitor.MComplexTypeReturnVisitor;
+import model.visitor.MComplexTypeVisitor;
+import model.visitor.MTypeExceptionVisitor;
+import model.visitor.MTypeReturnExceptionVisitor;
+import model.visitor.MTypeReturnVisitor;
+import model.visitor.MTypeVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MComplexTypeHierarchyHIERARCHY;
+import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
+import persistence.MEmptyProductTypeProxi;
+import persistence.MTypeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMDisjunctiveNF;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMType;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -197,25 +227,6 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
 		return MTrue.getTheMTrue();
-	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
-				throws PersistenceException{
-		// TODO: implement method: fetchDisjunctiveNormalform_old
-		try {
-			throw new java.lang.UnsupportedOperationException(
-					"Method \"fetchDisjunctiveNormalform_old\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-
-		/*
-		 * PersistentMSumType sumType = MSumType.createMSumType(true); try {
-		 * sumType.getContainedTypes().add(this.getThis()); } catch (CycleException e) { // This will hopefully never
-		 * happen! When this happens run and pray! }
-		 * 
-		 * return sumType;
-		 */
 	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{

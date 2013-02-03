@@ -1,12 +1,54 @@
 package model.typeSystem;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import model.CycleException;
 import model.UserException;
 import model.basic.MBoolean;
-import model.visitor.*;
-import persistence.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MAbstractProductTypeExceptionVisitor;
+import model.visitor.MAbstractProductTypeReturnExceptionVisitor;
+import model.visitor.MAbstractProductTypeReturnVisitor;
+import model.visitor.MAbstractProductTypeVisitor;
+import model.visitor.MComplexTypeExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MComplexTypeReturnExceptionVisitor;
+import model.visitor.MComplexTypeReturnVisitor;
+import model.visitor.MComplexTypeVisitor;
+import model.visitor.MNonEmptyProductTypeExceptionVisitor;
+import model.visitor.MNonEmptyProductTypeReturnExceptionVisitor;
+import model.visitor.MNonEmptyProductTypeReturnVisitor;
+import model.visitor.MNonEmptyProductTypeVisitor;
+import model.visitor.MTypeExceptionVisitor;
+import model.visitor.MTypeReturnExceptionVisitor;
+import model.visitor.MTypeReturnVisitor;
+import model.visitor.MTypeVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MAtomicTypeProductProxi;
+import persistence.MAtomicTypeProduct_FactorsProxi;
+import persistence.MComplexTypeHierarchyHIERARCHY;
+import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
+import persistence.MTypeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMAtomicTypeProduct;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMDisjunctiveNF;
+import persistence.PersistentMEmptyProductType;
+import persistence.PersistentMEmptySumType;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
+import persistence.PersistentMType;
+import persistence.Procdure;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -294,17 +336,6 @@ public class MAtomicTypeProduct extends model.typeSystem.MNonEmptyProductType im
 		}
 		return result;
 	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
-				throws PersistenceException{
-		// TODO: implement method: fetchDisjunctiveNormalform
-		try {
-			throw new java.lang.UnsupportedOperationException(
-					"Method \"fetchDisjunctiveNormalform\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
     public PersistentMAtomicTypeProduct transientMultiply(final PersistentMAtomicTypeProduct other) 
 				throws PersistenceException{
 		final PersistentMAtomicTypeProduct result = MAtomicTypeProduct.createMAtomicTypeProduct(true);
@@ -348,7 +379,37 @@ public class MAtomicTypeProduct extends model.typeSystem.MNonEmptyProductType im
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+	public static PersistentMAtomicTypeProduct transientCreateATP(ArrayList<PersistentMAtomicType> factors)
+			throws PersistenceException {
+		PersistentMAtomicTypeProduct result = MAtomicTypeProduct.createMAtomicTypeProduct(true);
+		Iterator<PersistentMAtomicType> iterator = factors.iterator();
+		while (iterator.hasNext()) {
+			try {
+				MAtomicTypeProduct.addFactorNormalized(result, iterator.next());
+			} catch (CycleException e) {
+				// TODO Should not happen
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 
+	private static void addFactorNormalized(PersistentMAtomicTypeProduct atp, PersistentMAtomicType newFactor)
+			throws PersistenceException, CycleException {
+		boolean addFactor = true;
+		Iterator<PersistentMAtomicType> resultI = atp.getFactors().iterator();
+		while (addFactor && resultI.hasNext()) {
+			PersistentMAtomicType currentResFactor = resultI.next();
+			if (currentResFactor.isLessOrEqual(newFactor).toBoolean()) {
+				addFactor = false;
+			} else if (newFactor.isLessOrEqual(currentResFactor).toBoolean()) {
+				resultI.remove();
+			}
+		}
+		if (addFactor) {
+			atp.getFactors().add(newFactor);
+		}
+	}
 	/* End of protected part that is not overridden by persistence generator */
     
 }

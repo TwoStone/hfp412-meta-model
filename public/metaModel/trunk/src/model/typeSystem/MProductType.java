@@ -7,8 +7,47 @@ import model.CycleException;
 import model.UserException;
 import model.basic.MFalse;
 import model.basic.MTrue;
-import model.visitor.*;
-import persistence.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MAbstractProductTypeExceptionVisitor;
+import model.visitor.MAbstractProductTypeReturnExceptionVisitor;
+import model.visitor.MAbstractProductTypeReturnVisitor;
+import model.visitor.MAbstractProductTypeVisitor;
+import model.visitor.MComplexTypeExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MComplexTypeReturnExceptionVisitor;
+import model.visitor.MComplexTypeReturnVisitor;
+import model.visitor.MComplexTypeVisitor;
+import model.visitor.MNonEmptyProductTypeExceptionVisitor;
+import model.visitor.MNonEmptyProductTypeReturnExceptionVisitor;
+import model.visitor.MNonEmptyProductTypeReturnVisitor;
+import model.visitor.MNonEmptyProductTypeVisitor;
+import model.visitor.MTypeExceptionVisitor;
+import model.visitor.MTypeReturnExceptionVisitor;
+import model.visitor.MTypeReturnVisitor;
+import model.visitor.MTypeVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MComplexTypeHierarchyHIERARCHY;
+import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
+import persistence.MProductTypeProxi;
+import persistence.MProductType_FactorsProxi;
+import persistence.MTypeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMDisjunctiveNF;
+import persistence.PersistentMProductType;
+import persistence.PersistentMType;
+import persistence.Procdure;
+import persistence.ProcdureException;
+import persistence.TDObserver;
 import utils.Lists;
 
 /* Additional import section end */
@@ -253,32 +292,6 @@ public class MProductType extends model.typeSystem.MNonEmptyProductType implemen
 		return resultingDnf;
 
 	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
-				throws PersistenceException{
-		final PersistentMSumType sumType = MSumType.createMSumType(true);
-		final List<PersistentMAbstractSumType> dnfsOfChildren = Lists.newArrayList();
-		this.getThis().getContainedTypes().applyToAll(new Procdure<PersistentMType>() {
-
-			@Override
-			public void doItTo(PersistentMType argument) throws PersistenceException {
-				PersistentMAbstractSumType dnf = argument.fetchDisjunctiveNormalform();
-				dnfsOfChildren.add(dnf);
-			}
-		});
-
-		try {
-			List<PersistentMProductType> products = createProducts(dnfsOfChildren);
-			for (PersistentMProductType summands : products) {
-
-				sumType.getContainedTypes().add(summands);
-			}
-		} catch (CycleException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return sumType;
-	}
     public MTypeSearchList getContainedTypes() 
 				throws PersistenceException{
 		final MTypeSearchList result = new MTypeSearchList();
@@ -412,6 +425,7 @@ public class MProductType extends model.typeSystem.MNonEmptyProductType implemen
 		});
 		return atomicTypes;
 	}
+
 	/*
 	 * private List<PersistentMAtomicTypeProduct> createAtomicTypeProducts(List<PersistentMDisjuncitveNF> dnfs) {
 	 * List<PersistentMAtomicTypeProduct> products = Lists.newArrayList();
@@ -438,6 +452,37 @@ public class MProductType extends model.typeSystem.MNonEmptyProductType implemen
 	 * result.add(argument); } }); return result; }
 	 */
 
+	public static PersistentMProductType transientCreateMixedProduct(MTypeSearchList factors)
+			throws PersistenceException {
+		PersistentMProductType result = MProductType.createMProductType(true);
+		Iterator<PersistentMType> iterator = factors.iterator();
+		while (iterator.hasNext()) {
+			try {
+				MProductType.addFactorNormalized(result, iterator.next());
+			} catch (CycleException e) {
+				// TODO Should not happen
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	private static void addFactorNormalized(PersistentMProductType mixedProduct, PersistentMType newFactor)
+			throws PersistenceException, CycleException {
+		boolean addFactor = true;
+		Iterator<PersistentMType> resultI = mixedProduct.getFactors().iterator();
+		while (addFactor && resultI.hasNext()) {
+			PersistentMType currentResFactor = resultI.next();
+			if (currentResFactor.isLessOrEqual(newFactor).toBoolean()) {
+				addFactor = false;
+			} else if (newFactor.isLessOrEqual(currentResFactor).toBoolean()) {
+				resultI.remove();
+			}
+		}
+		if (addFactor) {
+			mixedProduct.getFactors().add(newFactor);
+		}
+	}
 	/* End of protected part that is not overridden by persistence generator */
     
 }

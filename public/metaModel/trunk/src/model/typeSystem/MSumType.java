@@ -1,9 +1,49 @@
 package model.typeSystem;
 
+import java.util.Iterator;
+
 import model.CycleException;
 import model.UserException;
-import model.visitor.*;
-import persistence.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MAbstractSumTypeExceptionVisitor;
+import model.visitor.MAbstractSumTypeReturnExceptionVisitor;
+import model.visitor.MAbstractSumTypeReturnVisitor;
+import model.visitor.MAbstractSumTypeVisitor;
+import model.visitor.MComplexTypeExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MComplexTypeReturnExceptionVisitor;
+import model.visitor.MComplexTypeReturnVisitor;
+import model.visitor.MComplexTypeVisitor;
+import model.visitor.MNonEmptySumTypeExceptionVisitor;
+import model.visitor.MNonEmptySumTypeReturnExceptionVisitor;
+import model.visitor.MNonEmptySumTypeReturnVisitor;
+import model.visitor.MNonEmptySumTypeVisitor;
+import model.visitor.MTypeExceptionVisitor;
+import model.visitor.MTypeReturnExceptionVisitor;
+import model.visitor.MTypeReturnVisitor;
+import model.visitor.MTypeVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MComplexTypeHierarchyHIERARCHY;
+import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
+import persistence.MSumTypeProxi;
+import persistence.MSumType_AddendsProxi;
+import persistence.MTypeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentMAtomicTypeProduct;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMDisjunctiveNF;
+import persistence.PersistentMSumType;
+import persistence.PersistentMType;
+import persistence.Procdure;
+import persistence.ProcdureException;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -249,35 +289,6 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 		}
 		return result;
 	}
-    public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
-				throws PersistenceException{
-		final PersistentMSumType sumType = MSumType.createMSumType(true);
-
-		try {
-			this.getThis().getContainedTypes()
-					.applyToAllException(new ProcdureException<PersistentMType, CycleException>() {
-
-						@Override
-						public void doItTo(PersistentMType argument) throws PersistenceException, CycleException {
-							PersistentMAbstractSumType dnf = argument.fetchDisjunctiveNormalform();
-							dnf.getContainedTypes().applyToAllException(
-									new ProcdureException<PersistentMType, CycleException>() {
-
-										@Override
-										public void doItTo(PersistentMType product) throws PersistenceException,
-												CycleException {
-											sumType.getContainedTypes().add(product);
-										}
-									});
-						}
-					});
-		} catch (CycleException e) {
-			// TODO Exception behandeln. Was m??ssen wir dann hier eigentlich machen?
-			e.printStackTrace();
-		}
-
-		return sumType;
-	}
     public MTypeSearchList getContainedTypes() 
 				throws PersistenceException{
 		final MTypeSearchList result = new MTypeSearchList();
@@ -292,6 +303,42 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+	public static PersistentMSumType transientCreateMixedSum(MTypeSearchList addends) throws PersistenceException {
+		final PersistentMSumType result = MSumType.createMSumType(true);
+		addends.applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				try {
+					MSumType.addAddendNormalize(result, argument);
+				} catch (CycleException e) {
+					// TODO Should not happen
+					e.printStackTrace();
+				}
+			}
+		});
+		return result;
+	}
+
+	private static void addAddendNormalize(PersistentMSumType mixedSum, PersistentMType newAddend)
+			throws PersistenceException, CycleException {
+		boolean addAddend = true;
+
+		Iterator<PersistentMType> resultAddendI = mixedSum.getAddends().iterator();
+
+		while (addAddend && resultAddendI.hasNext()) {
+			PersistentMType currentResAddend = resultAddendI.next();
+			if (newAddend.isLessOrEqual(currentResAddend).toBoolean()) {
+				addAddend = false;
+			} else if (currentResAddend.isLessOrEqual(newAddend).toBoolean()) {
+				resultAddendI.remove();
+			}
+		}
+		if (addAddend) {
+			mixedSum.getAddends().add(newAddend);
+		}
+
+	}
 
 	/* End of protected part that is not overridden by persistence generator */
     
