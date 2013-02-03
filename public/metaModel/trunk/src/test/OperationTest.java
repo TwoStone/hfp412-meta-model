@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Iterator;
 
+import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
 import model.abstractOperation.Operation;
@@ -21,7 +22,7 @@ import test.util.AbstractTest;
 public class OperationTest extends AbstractTest {
 	private final PersistentOperationManager manager;
 
-	public OperationTest() throws CycleException, PersistenceException {
+	public OperationTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
 		this.manager = OperationManager.getTheOperationManager();
 	}

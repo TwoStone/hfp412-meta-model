@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+import model.ConsistencyException;
 import model.CycleException;
 import model.quantity.Function;
 
@@ -14,12 +15,11 @@ import test.util.AbstractTest;
 
 import common.Fraction;
 
-public class FunctionTests  extends AbstractTest {
+public class FunctionTests extends AbstractTest {
 
-	public FunctionTests() throws CycleException, PersistenceException {
+	public FunctionTests() throws CycleException, PersistenceException, ConsistencyException {
 		super();
 	}
-
 
 	@Test
 	public void testFunctionCreate() throws Exception {

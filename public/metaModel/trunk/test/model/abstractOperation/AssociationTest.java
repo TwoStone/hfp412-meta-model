@@ -1,13 +1,12 @@
-package test;
+package model.abstractOperation;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.Iterator;
 
+import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
-import model.abstractOperation.Association;
-import model.abstractOperation.AssociationManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +20,7 @@ import test.util.AbstractTest;
 public class AssociationTest extends AbstractTest {
 	private final PersistentAssociationManager manager;
 
-	public AssociationTest() throws CycleException, PersistenceException {
+	public AssociationTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
 		this.manager = AssociationManager.getTheAssociationManager();
 	}

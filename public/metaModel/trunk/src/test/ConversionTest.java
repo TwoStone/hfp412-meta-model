@@ -5,6 +5,7 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import model.ConsistencyException;
 import model.CycleException;
 import model.quantity.Conversion;
 import model.quantity.Function;
@@ -33,7 +34,7 @@ public class ConversionTest extends AbstractTest {
 	private final PersistentUnit defaultUnit;
 	private final PersistentFunction function;
 
-	public ConversionTest() throws CycleException, PersistenceException {
+	public ConversionTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
 		type = UnitType.createUnitType("TestType");
 		unit = Unit.createUnit(type, "TestUnit");

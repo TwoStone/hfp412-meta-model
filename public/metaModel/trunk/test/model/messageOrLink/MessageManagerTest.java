@@ -1,10 +1,9 @@
-package test;
+package model.messageOrLink;
 
 import static org.junit.Assert.assertEquals;
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
-import model.messageOrLink.MessageManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +18,7 @@ import test.util.AbstractTest;
 public class MessageManagerTest extends AbstractTest {
 	private final PersistentMessageManager manager;
 
-	public MessageManagerTest() throws CycleException, PersistenceException {
+	public MessageManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
 		this.manager = MessageManager.getTheMessageManager();
 	}

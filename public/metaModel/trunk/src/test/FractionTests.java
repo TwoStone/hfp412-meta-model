@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
 
+import model.ConsistencyException;
 import model.CycleException;
 
 import org.junit.Test;
@@ -17,7 +18,7 @@ import common.Fraction;
 
 public class FractionTests extends AbstractTest {
 
-	public FractionTests() throws CycleException, PersistenceException {
+	public FractionTests() throws CycleException, PersistenceException, ConsistencyException {
 		super();
 	}
 

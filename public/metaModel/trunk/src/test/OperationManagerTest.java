@@ -37,7 +37,7 @@ public class OperationManagerTest extends AbstractTest {
 
 	private final PersistentOperationManager manager;
 
-	public OperationManagerTest() throws CycleException, PersistenceException {
+	public OperationManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
 		this.manager = OperationManager.getTheOperationManager();
 	}

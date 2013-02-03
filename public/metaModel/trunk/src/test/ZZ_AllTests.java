@@ -1,5 +1,9 @@
 package test;
 
+import model.abstractOperation.AssociationManagerTest;
+import model.abstractOperation.AssociationTest;
+import model.messageOrLink.MessageManagerTest;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;

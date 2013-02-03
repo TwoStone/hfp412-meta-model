@@ -37,8 +37,9 @@ import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
 import persistence.PersistentMessage;
 import persistence.PersistentOperation;
+import util.TestingBase;
 
-public abstract class AbstractTest {
+public abstract class AbstractTest extends TestingBase {
 
 	protected PersistentMBoolean mTrue;
 	protected PersistentMBoolean mFalse;
@@ -97,7 +98,8 @@ public abstract class AbstractTest {
 	protected PersistentFormalParameter fp2;
 	protected PersistentFormalParameter fp3;
 
-	public AbstractTest() throws CycleException, PersistenceException {
+	public AbstractTest() throws CycleException, PersistenceException, ConsistencyException {
+		this.initHierarchy();
 	}
 
 	@BeforeClass
@@ -112,7 +114,6 @@ public abstract class AbstractTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.initHierarchy();
 	}
 
 	@After
@@ -200,8 +201,9 @@ public abstract class AbstractTest {
 		mao1.addType(mat1);
 		mao6 = MObject.createMObject();
 		mao6.addType(mat6);
+
 		// TODO: Exemplar von emptySumType
-		// msoEmpty = MObject.createMObject(mstEmpty);
+		// msoEmpty = InstanceObject.createInstanceObject(mstEmpty);
 
 		standardOp = Operation.createOperation("Standardoperation", mat1, mat6);
 		voidOp = Operation.createOperation("void-Operation", mat1, mstEmpty);

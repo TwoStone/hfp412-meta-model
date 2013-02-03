@@ -8,6 +8,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import model.AlreadyFinalizedException;
+import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
 import model.NotFinalizedException;
@@ -31,7 +32,7 @@ import constants.ExceptionConstants;
  */
 public class UnitTypeManagerTest extends AbstractTest {
 
-	public UnitTypeManagerTest() throws CycleException, PersistenceException {
+	public UnitTypeManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
 	}
 
