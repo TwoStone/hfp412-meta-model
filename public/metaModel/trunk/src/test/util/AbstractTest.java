@@ -2,8 +2,11 @@ package test.util;
 
 import model.CycleException;
 import model.DBConnectionConstants;
+import model.InstanceObject;
+import model.abstractOperation.Operation;
 import model.basic.MFalse;
 import model.basic.MTrue;
+import model.messageOrLink.Message;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
 import model.typeSystem.MEmptyProductType;
@@ -19,12 +22,15 @@ import org.junit.BeforeClass;
 
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
+import persistence.PersistentInstanceObject;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMEmptyProductType;
 import persistence.PersistentMEmptySumType;
 import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
+import persistence.PersistentMessage;
+import persistence.PersistentOperation;
 
 public abstract class AbstractTest {
 
@@ -60,6 +66,20 @@ public abstract class AbstractTest {
 	protected PersistentMSumType mstMultiple4And5;
 	protected PersistentMSumType mstMultiple5And6;
 	protected PersistentMSumType mstMultiple2And4And5;
+
+	protected PersistentInstanceObject mao1;
+	protected PersistentInstanceObject mao6;
+	protected PersistentInstanceObject msoEmpty;
+
+	protected PersistentOperation standardOp;
+	protected PersistentOperation voidOp;
+	protected PersistentOperation constantOp;
+	protected PersistentOperation staticOp;
+
+	protected PersistentMessage standardMessage;
+	protected PersistentMessage voidMessage;
+	protected PersistentMessage constantMessage;
+	protected PersistentMessage staticMessage;
 
 	public AbstractTest() throws CycleException, PersistenceException {
 		this.initHierarchy();
@@ -159,5 +179,20 @@ public abstract class AbstractTest {
 		mstMultiple2And4And5.getContainedTypes().add(mat2);
 		mstMultiple2And4And5.getContainedTypes().add(mat4);
 		mstMultiple2And4And5.getContainedTypes().add(mat5);
+
+		mao1 = InstanceObject.createInstanceObject(mat1);
+		mao6 = InstanceObject.createInstanceObject(mat6);
+		// TODO: Exemplar von emptySumType
+		// msoEmpty = InstanceObject.createInstanceObject(mstEmpty);
+
+		standardOp = Operation.createOperation("Standardoperation", mat1, mat6);
+		voidOp = Operation.createOperation("void-Operation", mat1, mstEmpty);
+		constantOp = Operation.createOperation("Konstante", mstEmpty, mat1);
+		staticOp = Operation.createOperation("static-Operation", mstEmpty, mat1);
+
+		standardMessage = Message.createMessage(mao1, mao6, standardOp);
+		voidMessage = Message.createMessage(mao1, msoEmpty, standardOp);
+		constantMessage = Message.createMessage(msoEmpty, mao1, standardOp);
+		staticMessage = Message.createMessage(msoEmpty, mao1, standardOp);
 	}
 }
