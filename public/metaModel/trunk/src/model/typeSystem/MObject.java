@@ -171,18 +171,6 @@ public class MObject extends PersistentObject implements PersistentMObject{
     }
     
     
-    public PersistentMAtomicTypeProduct getProductType(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentMAtomicTypeProduct result = getThis().getProductType();
-		observer.updateTransientDerived(getThis(), "productType", result);
-		return result;
-    }
-    public NameSearchList getPossibleNames(final TDObserver observer) 
-				throws PersistenceException{
-        NameSearchList result = getThis().getPossibleNames();
-		observer.updateTransientDerived(getThis(), "possibleNames", result);
-		return result;
-    }
     public NameSearchList getPossibleNames() 
 				throws PersistenceException{
 		final NameSearchList list = new NameSearchList();
@@ -198,34 +186,21 @@ public class MObject extends PersistentObject implements PersistentMObject{
 		return list;
 
 	}
+    public PersistentMAtomicTypeProduct getProductType(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentMAtomicTypeProduct result = getThis().getProductType();
+		observer.updateTransientDerived(getThis(), "productType", result);
+		return result;
+    }
+    public QuantifObjectSearchList inverseGetObject() 
+				throws PersistenceException{
+        QuantifObjectSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade
+							.inverseGetObject(this.getId(), this.getClassId());
+		return result;
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentMObject)This);
-		if(this.equals(This)){
-		}
-    }
-    public void replaceType(final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
-				throws model.ConsistencyException, PersistenceException{
-		if (this.getAspects().contains(newType.getAspect()) && !oldType.getAspect().equals(newType.getAspect())) {
-			throw new ConsistencyException(String.format(
-					"Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s", newType
-							.getAspect().getName()));
-		}
-		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
-
-			@Override
-			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-				return argument.equals(oldType);
-			}
-		});
-
-		this.getThis().getTypes().add(newType);
 	}
     public void addType(final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
@@ -242,22 +217,6 @@ public class MObject extends PersistentObject implements PersistentMObject{
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-	}
-    public PersistentMAtomicTypeProduct getProductType() 
-				throws PersistenceException{
-		final PersistentMAtomicTypeProduct result = MAtomicTypeProduct.createMAtomicTypeProduct();
-		getThis().getTypes().applyToAll(new Procdure<PersistentMAtomicType>() {
-
-			@Override
-			public void doItTo(PersistentMAtomicType argument) throws PersistenceException {
-				try {
-					result.getFactors().add(argument);
-				} catch (CycleException e) {
-					// TODO ShouldNotHappen
-				}
-			}
-		});
-		return result;
 	}
     public void removeType(final PersistentMAtomicType oldType) 
 				throws model.ConsistencyException, PersistenceException{
@@ -281,6 +240,54 @@ public class MObject extends PersistentObject implements PersistentMObject{
 							.inverseGetFromObject(this.getId(), this.getClassId());
 		return result;
     }
+    public NameSearchList getPossibleNames(final TDObserver observer) 
+				throws PersistenceException{
+        NameSearchList result = getThis().getPossibleNames();
+		observer.updateTransientDerived(getThis(), "possibleNames", result);
+		return result;
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public void replaceType(final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
+				throws model.ConsistencyException, PersistenceException{
+		if (this.getAspects().contains(newType.getAspect()) && !oldType.getAspect().equals(newType.getAspect())) {
+			throw new ConsistencyException(String.format(
+					"Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s", newType
+							.getAspect().getName()));
+		}
+		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
+
+			@Override
+			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
+				return argument.equals(oldType);
+			}
+		});
+
+		this.getThis().getTypes().add(newType);
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMObject)This);
+		if(this.equals(This)){
+		}
+    }
+    public PersistentMAtomicTypeProduct getProductType() 
+				throws PersistenceException{
+		final PersistentMAtomicTypeProduct result = MAtomicTypeProduct.createMAtomicTypeProduct();
+		getThis().getTypes().applyToAll(new Procdure<PersistentMAtomicType>() {
+
+			@Override
+			public void doItTo(PersistentMAtomicType argument) throws PersistenceException {
+				try {
+					result.getFactors().add(argument);
+				} catch (CycleException e) {
+					// TODO ShouldNotHappen
+				}
+			}
+		});
+		return result;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 	private Set<PersistentMAspect> getAspects() throws PersistenceException {

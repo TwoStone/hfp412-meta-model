@@ -207,17 +207,6 @@ public class MAtomicTypeProduct extends model.typeSystem.MNonEmptyProductType im
 		if(this.equals(This)){
 		}
     }
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        T result$$factors$$MAtomicTypeProduct = strategy.initialize$$MAtomicTypeProduct$$factors(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getFactors().iterator();
-		while (iterator$$.hasNext()){
-			PersistentMAtomicType current$$Field = (PersistentMAtomicType)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$factors$$MAtomicTypeProduct, strategy);
-			result$$factors$$MAtomicTypeProduct = strategy.consolidate$$MAtomicTypeProduct$$factors(getThis(), result$$factors$$MAtomicTypeProduct, current$$);
-		}
-		return strategy.finalize$$MAtomicTypeProduct(getThis(), parameter,result$$factors$$MAtomicTypeProduct);
-    }
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
@@ -280,6 +269,17 @@ public class MAtomicTypeProduct extends model.typeSystem.MNonEmptyProductType im
 			}
 		}));
 	}
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$factors$$MAtomicTypeProduct = strategy.initialize$$MAtomicTypeProduct$$factors(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getFactors().iterator();
+		while (iterator$$.hasNext()){
+			PersistentMAtomicType current$$Field = (PersistentMAtomicType)iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$factors$$MAtomicTypeProduct, strategy);
+			result$$factors$$MAtomicTypeProduct = strategy.consolidate$$MAtomicTypeProduct$$factors(getThis(), result$$factors$$MAtomicTypeProduct, current$$);
+		}
+		return strategy.finalize$$MAtomicTypeProduct(getThis(), parameter,result$$factors$$MAtomicTypeProduct);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}

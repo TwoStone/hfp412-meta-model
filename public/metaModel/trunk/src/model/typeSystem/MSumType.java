@@ -204,6 +204,10 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 		if(this.equals(This)){
 		}
     }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
+	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$addends$$MSumType = strategy.initialize$$MSumType$$addends(getThis(), parameter);
@@ -215,10 +219,6 @@ public class MSumType extends model.typeSystem.MNonEmptySumType implements Persi
 		}
 		return strategy.finalize$$MSumType(getThis(), parameter,result$$addends$$MSumType);
     }
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
-				throws PersistenceException{
-		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}

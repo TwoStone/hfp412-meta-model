@@ -16,7 +16,7 @@ import persistence.ConnectionHandler;
 import persistence.MeasurementProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentMMeasurementType;
 import persistence.PersistentMeasurement;
 import persistence.PersistentProxi;
@@ -29,11 +29,11 @@ import persistence.TDObserver;
 public class Measurement extends model.measurement.QuantifObject implements PersistentMeasurement{
     
     
-    public static PersistentMeasurement createMeasurement(PersistentInstanceObject object,PersistentMMeasurementType type,PersistentAbsQuantity quantity) throws PersistenceException{
+    public static PersistentMeasurement createMeasurement(PersistentMObject object,PersistentMMeasurementType type,PersistentAbsQuantity quantity) throws PersistenceException{
         return createMeasurement(object,type,quantity,false);
     }
     
-    public static PersistentMeasurement createMeasurement(PersistentInstanceObject object,PersistentMMeasurementType type,PersistentAbsQuantity quantity,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMeasurement createMeasurement(PersistentMObject object,PersistentMMeasurementType type,PersistentAbsQuantity quantity,boolean delayed$Persistence) throws PersistenceException {
         PersistentMeasurement result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
@@ -52,7 +52,7 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
         return result;
     }
     
-    public static PersistentMeasurement createMeasurement(PersistentInstanceObject object,PersistentMMeasurementType type,PersistentAbsQuantity quantity,boolean delayed$Persistence,PersistentMeasurement This) throws PersistenceException {
+    public static PersistentMeasurement createMeasurement(PersistentMObject object,PersistentMMeasurementType type,PersistentAbsQuantity quantity,boolean delayed$Persistence,PersistentMeasurement This) throws PersistenceException {
         PersistentMeasurement result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
@@ -116,9 +116,9 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     protected PersistentMMeasurementType type;
     protected PersistentAbsQuantity quantity;
     
-    public Measurement(PersistentInstanceObject object,PersistentQuantifObject This,PersistentMMeasurementType type,PersistentAbsQuantity quantity,long id) throws persistence.PersistenceException {
+    public Measurement(PersistentMObject object,PersistentQuantifObject This,PersistentMMeasurementType type,PersistentAbsQuantity quantity,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentInstanceObject)object,(PersistentQuantifObject)This,id);
+        super((PersistentMObject)object,(PersistentQuantifObject)This,id);
         this.type = type;
         this.quantity = quantity;        
     }
@@ -229,7 +229,7 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 				throws PersistenceException{
         this.setThis((PersistentMeasurement)This);
 		if(this.equals(This)){
-			this.setObject((PersistentInstanceObject)final$$Fields.get("object"));
+			this.setObject((PersistentMObject)final$$Fields.get("object"));
 			this.setType((PersistentMMeasurementType)final$$Fields.get("type"));
 			this.setQuantity((PersistentAbsQuantity)final$$Fields.get("quantity"));
 		}

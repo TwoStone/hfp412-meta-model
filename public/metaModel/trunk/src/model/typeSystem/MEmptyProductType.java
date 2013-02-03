@@ -11,7 +11,7 @@ import persistence.*;
 public class MEmptyProductType extends model.typeSystem.MAbstractProductType implements PersistentMEmptyProductType{
     
     private static PersistentMEmptyProductType theMEmptyProductType = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMEmptyProductType getTheMEmptyProductType() throws PersistenceException{
         if (theMEmptyProductType == null || reset$For$Test){
@@ -179,24 +179,24 @@ public class MEmptyProductType extends model.typeSystem.MAbstractProductType imp
 		if(this.equals(This)){
 		}
     }
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return strategy.finalize$$MEmptyProductType(getThis(), parameter);
-    }
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
 		return MTrue.getTheMTrue();
 	}
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return strategy.finalize$$MEmptyProductType(getThis(), parameter);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
-	}
-    public PersistentMDisjunctiveNF fetchDisjunctiveNormalform() 
-				throws PersistenceException{
-		return MDisjunctiveNF.createMDisjunctiveNF(); // TODO
 	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
 		return MTrue.getTheMTrue();
+	}
+    public PersistentMDisjunctiveNF fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+		return MDisjunctiveNF.createMDisjunctiveNF(); // TODO
 	}
     public PersistentMAbstractSumType fetchDisjunctiveNormalform_old() 
 				throws PersistenceException{

@@ -16,7 +16,7 @@ import persistence.ConnectionHandler;
 import persistence.MessageProxi;
 import persistence.Message_ActualParametersProxi;
 import persistence.PersistenceException;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentMessage;
 import persistence.PersistentMessageOrLink;
 import persistence.PersistentOperation;
@@ -29,11 +29,11 @@ import persistence.TDObserver;
 public class Message extends model.messageOrLink.MessageOrLink implements PersistentMessage{
     
     
-    public static PersistentMessage createMessage(PersistentInstanceObject source,PersistentInstanceObject target,PersistentOperation type) throws PersistenceException{
+    public static PersistentMessage createMessage(PersistentMObject source,PersistentMObject target,PersistentOperation type) throws PersistenceException{
         return createMessage(source,target,type,false);
     }
     
-    public static PersistentMessage createMessage(PersistentInstanceObject source,PersistentInstanceObject target,PersistentOperation type,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMessage createMessage(PersistentMObject source,PersistentMObject target,PersistentOperation type,boolean delayed$Persistence) throws PersistenceException {
         PersistentMessage result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMessageFacade
@@ -52,7 +52,7 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
         return result;
     }
     
-    public static PersistentMessage createMessage(PersistentInstanceObject source,PersistentInstanceObject target,PersistentOperation type,boolean delayed$Persistence,PersistentMessage This) throws PersistenceException {
+    public static PersistentMessage createMessage(PersistentMObject source,PersistentMObject target,PersistentOperation type,boolean delayed$Persistence,PersistentMessage This) throws PersistenceException {
         PersistentMessage result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMessageFacade
@@ -109,9 +109,9 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
     protected PersistentOperation type;
     protected Message_ActualParametersProxi actualParameters;
     
-    public Message(PersistentInstanceObject source,PersistentInstanceObject target,PersistentMessageOrLink This,PersistentOperation type,long id) throws persistence.PersistenceException {
+    public Message(PersistentMObject source,PersistentMObject target,PersistentMessageOrLink This,PersistentOperation type,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentInstanceObject)source,(PersistentInstanceObject)target,(PersistentMessageOrLink)This,id);
+        super((PersistentMObject)source,(PersistentMObject)target,(PersistentMessageOrLink)This,id);
         this.type = type;
         this.actualParameters = new Message_ActualParametersProxi(this);        
     }
@@ -209,8 +209,8 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
 				throws PersistenceException{
         this.setThis((PersistentMessage)This);
 		if(this.equals(This)){
-			this.setSource((PersistentInstanceObject)final$$Fields.get("source"));
-			this.setTarget((PersistentInstanceObject)final$$Fields.get("target"));
+			this.setSource((PersistentMObject)final$$Fields.get("source"));
+			this.setTarget((PersistentMObject)final$$Fields.get("target"));
 			this.setType((PersistentOperation)final$$Fields.get("type"));
 		}
     }

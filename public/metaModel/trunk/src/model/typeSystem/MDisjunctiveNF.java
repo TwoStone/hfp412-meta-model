@@ -232,17 +232,6 @@ public class MDisjunctiveNF extends model.typeSystem.MNonEmptySumType implements
 		if(this.equals(This)){
 		}
     }
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        T result$$addends$$MDisjunctiveNF = strategy.initialize$$MDisjunctiveNF$$addends(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getAddends().iterator();
-		while (iterator$$.hasNext()){
-			PersistentMAtomicTypeProduct current$$Field = (PersistentMAtomicTypeProduct)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$addends$$MDisjunctiveNF, strategy);
-			result$$addends$$MDisjunctiveNF = strategy.consolidate$$MDisjunctiveNF$$addends(getThis(), result$$addends$$MDisjunctiveNF, current$$);
-		}
-		return strategy.finalize$$MDisjunctiveNF(getThis(), parameter,result$$addends$$MDisjunctiveNF);
-    }
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
@@ -302,6 +291,17 @@ public class MDisjunctiveNF extends model.typeSystem.MNonEmptySumType implements
 			}
 		}));
 	}
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$addends$$MDisjunctiveNF = strategy.initialize$$MDisjunctiveNF$$addends(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getAddends().iterator();
+		while (iterator$$.hasNext()){
+			PersistentMAtomicTypeProduct current$$Field = (PersistentMAtomicTypeProduct)iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$addends$$MDisjunctiveNF, strategy);
+			result$$addends$$MDisjunctiveNF = strategy.consolidate$$MDisjunctiveNF$$addends(getThis(), result$$addends$$MDisjunctiveNF, current$$);
+		}
+		return strategy.finalize$$MDisjunctiveNF(getThis(), parameter,result$$addends$$MDisjunctiveNF);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}

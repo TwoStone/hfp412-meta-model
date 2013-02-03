@@ -56,7 +56,7 @@ import constants.ExceptionConstants;
 public class UnitTypeManager extends PersistentObject implements PersistentUnitTypeManager{
     
     private static PersistentUnitTypeManager theUnitTypeManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentUnitTypeManager getTheUnitTypeManager() throws PersistenceException{
         if (theUnitTypeManager == null || reset$For$Test){
@@ -397,13 +397,13 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-
-	}
     public void removeUnit(final PersistentAbsUnit unit) 
 				throws PersistenceException{
 		// TODO: implement method: removeUnit
+
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
 
 	}
     public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant, final Invoker invoker) 

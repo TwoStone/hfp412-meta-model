@@ -748,9 +748,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMObject(view.MObjectView object){
         result = new MObjectDefaultDetailPanel(handler, object);
     }
-    public void handleInstanceObject(view.InstanceObjectView object){
-        result = new InstanceObjectDefaultDetailPanel(handler, object);
-    }
     public void handleNameInstance(view.NameInstanceView object){
         result = new NameInstanceDefaultDetailPanel(handler, object);
     }
@@ -1272,22 +1269,6 @@ class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MObjectView getAnything(){
         return (view.MObjectView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class InstanceObjectDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String InstanceObject$$type = "InstanceObject$$type";
-    
-    protected InstanceObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.InstanceObjectView getAnything(){
-        return (view.InstanceObjectView)this.anything;
     }
 }
 

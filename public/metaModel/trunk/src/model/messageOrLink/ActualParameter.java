@@ -13,7 +13,7 @@ import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentActualParameter;
 import persistence.PersistentFormalParameter;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
@@ -29,11 +29,11 @@ public class ActualParameter extends PersistentObject implements PersistentActua
         return (PersistentActualParameter)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentActualParameter createActualParameter(PersistentFormalParameter type,PersistentInstanceObject value) throws PersistenceException{
+    public static PersistentActualParameter createActualParameter(PersistentFormalParameter type,PersistentMObject value) throws PersistenceException{
         return createActualParameter(type,value,false);
     }
     
-    public static PersistentActualParameter createActualParameter(PersistentFormalParameter type,PersistentInstanceObject value,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentActualParameter createActualParameter(PersistentFormalParameter type,PersistentMObject value,boolean delayed$Persistence) throws PersistenceException {
         PersistentActualParameter result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theActualParameterFacade
@@ -51,7 +51,7 @@ public class ActualParameter extends PersistentObject implements PersistentActua
         return result;
     }
     
-    public static PersistentActualParameter createActualParameter(PersistentFormalParameter type,PersistentInstanceObject value,boolean delayed$Persistence,PersistentActualParameter This) throws PersistenceException {
+    public static PersistentActualParameter createActualParameter(PersistentFormalParameter type,PersistentMObject value,boolean delayed$Persistence,PersistentActualParameter This) throws PersistenceException {
         PersistentActualParameter result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theActualParameterFacade
@@ -111,10 +111,10 @@ public class ActualParameter extends PersistentObject implements PersistentActua
         return false;
     }
     protected PersistentFormalParameter type;
-    protected PersistentInstanceObject value;
+    protected PersistentMObject value;
     protected PersistentActualParameter This;
     
-    public ActualParameter(PersistentFormalParameter type,PersistentInstanceObject value,PersistentActualParameter This,long id) throws persistence.PersistenceException {
+    public ActualParameter(PersistentFormalParameter type,PersistentMObject value,PersistentActualParameter This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.type = type;
@@ -164,15 +164,15 @@ public class ActualParameter extends PersistentObject implements PersistentActua
             ConnectionHandler.getTheConnectionHandler().theActualParameterFacade.typeSet(this.getId(), newValue);
         }
     }
-    public PersistentInstanceObject getValue() throws PersistenceException {
+    public PersistentMObject getValue() throws PersistenceException {
         return this.value;
     }
-    public void setValue(PersistentInstanceObject newValue) throws PersistenceException {
+    public void setValue(PersistentMObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.value)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.value = (PersistentInstanceObject)PersistentProxi.createProxi(objectId, classId);
+        this.value = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theActualParameterFacade.valueSet(this.getId(), newValue);
@@ -235,7 +235,7 @@ public class ActualParameter extends PersistentObject implements PersistentActua
         this.setThis((PersistentActualParameter)This);
 		if(this.equals(This)){
 			this.setType((PersistentFormalParameter)final$$Fields.get("type"));
-			this.setValue((PersistentInstanceObject)final$$Fields.get("value"));
+			this.setValue((PersistentMObject)final$$Fields.get("value"));
 		}
     }
     public void initializeOnCreation() 

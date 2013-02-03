@@ -5,7 +5,7 @@ import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentMessageOrLink;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
@@ -55,11 +55,11 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentInstanceObject source;
-    protected PersistentInstanceObject target;
+    protected PersistentMObject source;
+    protected PersistentMObject target;
     protected PersistentMessageOrLink This;
     
-    public MessageOrLink(PersistentInstanceObject source,PersistentInstanceObject target,PersistentMessageOrLink This,long id) throws persistence.PersistenceException {
+    public MessageOrLink(PersistentMObject source,PersistentMObject target,PersistentMessageOrLink This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.source = source;
@@ -93,29 +93,29 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
         
     }
     
-    public PersistentInstanceObject getSource() throws PersistenceException {
+    public PersistentMObject getSource() throws PersistenceException {
         return this.source;
     }
-    public void setSource(PersistentInstanceObject newValue) throws PersistenceException {
+    public void setSource(PersistentMObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.source)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.source = (PersistentInstanceObject)PersistentProxi.createProxi(objectId, classId);
+        this.source = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade.sourceSet(this.getId(), newValue);
         }
     }
-    public PersistentInstanceObject getTarget() throws PersistenceException {
+    public PersistentMObject getTarget() throws PersistenceException {
         return this.target;
     }
-    public void setTarget(PersistentInstanceObject newValue) throws PersistenceException {
+    public void setTarget(PersistentMObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.target)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.target = (PersistentInstanceObject)PersistentProxi.createProxi(objectId, classId);
+        this.target = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade.targetSet(this.getId(), newValue);
@@ -154,8 +154,8 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
 				throws PersistenceException{
         this.setThis((PersistentMessageOrLink)This);
 		if(this.equals(This)){
-			this.setSource((PersistentInstanceObject)final$$Fields.get("source"));
-			this.setTarget((PersistentInstanceObject)final$$Fields.get("target"));
+			this.setSource((PersistentMObject)final$$Fields.get("source"));
+			this.setTarget((PersistentMObject)final$$Fields.get("target"));
 		}
     }
     public void initializeOnCreation() 

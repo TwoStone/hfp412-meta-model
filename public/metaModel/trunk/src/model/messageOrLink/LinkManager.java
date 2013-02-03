@@ -14,7 +14,7 @@ import persistence.LinkManager_LinksProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAssociation;
 import persistence.PersistentCreateLinkCommand;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentLink;
 import persistence.PersistentLinkManager;
 import persistence.PersistentObject;
@@ -28,7 +28,7 @@ import persistence.TDObserver;
 public class LinkManager extends PersistentObject implements PersistentLinkManager{
     
     private static PersistentLinkManager theLinkManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentLinkManager getTheLinkManager() throws PersistenceException{
         if (theLinkManager == null || reset$For$Test){
@@ -155,6 +155,11 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
     }
     
     
+    public void createLink(final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target) 
+				throws PersistenceException{
+        //TODO: implement method: createLink
+        
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnInstantiation
@@ -180,10 +185,16 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void createLink(final PersistentAssociation type, final PersistentInstanceObject source, final PersistentInstanceObject target) 
+    public void createLink(final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target, final Invoker invoker) 
 				throws PersistenceException{
-        //TODO: implement method: createLink
-        
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateLinkCommand command = model.meta.CreateLinkCommand.createCreateLinkCommand(now, now);
+		command.setType(type);
+		command.setSource(source);
+		command.setTarget(target);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -194,17 +205,6 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 				throws PersistenceException{
         //TODO: implement method: removeLink
         
-    }
-    public void createLink(final PersistentAssociation type, final PersistentInstanceObject source, final PersistentInstanceObject target, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateLinkCommand command = model.meta.CreateLinkCommand.createCreateLinkCommand(now, now);
-		command.setType(type);
-		command.setSource(source);
-		command.setTarget(target);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
 
     /* Start of protected part that is not overridden by persistence generator */

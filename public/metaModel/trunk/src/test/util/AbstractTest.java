@@ -1,8 +1,8 @@
 package test.util;
 
+import model.ConsistencyException;
 import model.CycleException;
 import model.DBConnectionConstants;
-import model.InstanceObject;
 import model.abstractOperation.FormalParameter;
 import model.abstractOperation.Operation;
 import model.basic.MFalse;
@@ -13,6 +13,7 @@ import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
 import model.typeSystem.MEmptyProductType;
 import model.typeSystem.MEmptySumType;
+import model.typeSystem.MObject;
 import model.typeSystem.MProductType;
 import model.typeSystem.MSumType;
 import modelServer.ConnectionServer;
@@ -27,11 +28,11 @@ import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentActualParameter;
 import persistence.PersistentFormalParameter;
-import persistence.PersistentInstanceObject;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMEmptyProductType;
 import persistence.PersistentMEmptySumType;
+import persistence.PersistentMObject;
 import persistence.PersistentMProductType;
 import persistence.PersistentMSumType;
 import persistence.PersistentMessage;
@@ -72,9 +73,9 @@ public abstract class AbstractTest {
 	protected PersistentMSumType mstMultiple5And6;
 	protected PersistentMSumType mstMultiple2And4And5;
 
-	protected PersistentInstanceObject mao1;
-	protected PersistentInstanceObject mao6;
-	protected PersistentInstanceObject msoEmpty;
+	protected PersistentMObject mao1;
+	protected PersistentMObject mao6;
+	protected PersistentMObject msoEmpty;
 
 	protected PersistentOperation standardOp;
 	protected PersistentOperation voidOp;
@@ -97,7 +98,6 @@ public abstract class AbstractTest {
 	protected PersistentFormalParameter fp3;
 
 	public AbstractTest() throws CycleException, PersistenceException {
-		this.initHierarchy();
 	}
 
 	@BeforeClass
@@ -112,6 +112,7 @@ public abstract class AbstractTest {
 
 	@Before
 	public void setUp() throws Exception {
+		this.initHierarchy();
 	}
 
 	@After
@@ -123,7 +124,7 @@ public abstract class AbstractTest {
 		ConnectionServer.stopTheConnectionServer();
 	}
 
-	private void initHierarchy() throws CycleException, PersistenceException {
+	private void initHierarchy() throws CycleException, PersistenceException, ConsistencyException {
 		// Boolean
 		mTrue = MTrue.getTheMTrue();
 		mFalse = MFalse.getTheMFalse();
@@ -195,10 +196,12 @@ public abstract class AbstractTest {
 		mstMultiple2And4And5.getContainedTypes().add(mat4);
 		mstMultiple2And4And5.getContainedTypes().add(mat5);
 
-		mao1 = InstanceObject.createInstanceObject(mat1);
-		mao6 = InstanceObject.createInstanceObject(mat6);
+		mao1 = MObject.createMObject();
+		mao1.addType(mat1);
+		mao6 = MObject.createMObject();
+		mao6.addType(mat6);
 		// TODO: Exemplar von emptySumType
-		// msoEmpty = InstanceObject.createInstanceObject(mstEmpty);
+		// msoEmpty = MObject.createMObject(mstEmpty);
 
 		standardOp = Operation.createOperation("Standardoperation", mat1, mat6);
 		voidOp = Operation.createOperation("void-Operation", mat1, mstEmpty);

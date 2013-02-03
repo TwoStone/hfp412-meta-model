@@ -64,19 +64,19 @@ server Server {
 	void removeOperation(Operation op);
 
 	/** Messages **/
-	void createMessage(MessageManager manager, Operation type, InstanceObject source, InstanceObject target, ActualParameter** ap);
-	void createMessage(InstanceObject source, Operation type, InstanceObject target, ActualParameter** ap);
+	void createMessage(MessageManager manager, Operation type, MObject source, MObject target, ActualParameter** ap);
+	void createMessage(MObject source, Operation type, MObject target, ActualParameter** ap);
 
-	void createVoidMessage(MessageManager manager, Operation type, InstanceObject source, ActualParameter** ap);
-	void createVoidMessage(InstanceObject source, Operation type, ActualParameter** ap);
+	void createVoidMessage(MessageManager manager, Operation type, MObject source, ActualParameter** ap);
+	void createVoidMessage(MObject source, Operation type, ActualParameter** ap);
 
-	void createConst@@createConstant(MessageManager manager, Operation type, String name, InstanceObject target);
-	void createStaticMessage(MessageManager manager, Operation type, String name, InstanceObject target, ActualParameter** ap);
+	void createConst@@createConstant(MessageManager manager, Operation type, String name, MObject target);
+	void createStaticMessage(MessageManager manager, Operation type, String name, MObject target, ActualParameter** ap);
 	void removeMessage(Message m);
 
 	/** Links **/
-	void createLink(LinkManager link, Association type, InstanceObject source, InstanceObject target);
-	void createLink(InstanceObject source, Association type, InstanceObject target);
+	void createLink(LinkManager link, Association type, MObject source, MObject target);
+	void createLink(MObject source, Association type, MObject target);
 	void removeLink(Link link);
 
 	
@@ -103,7 +103,7 @@ server Server {
 	/** Measurement/Account **/
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
 	void createAccountType@@Kontotyp_anlegen(AccountTypeManager accountTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
-	void createAccount@@Konto_anlegen(AccountManager accountManager, String name, MAccountType type {accountTypeManager;accountTypes}, InstanceObject object);
+	void createAccount@@Konto_anlegen(AccountManager accountManager, String name, MAccountType type {accountTypeManager;accountTypes}, MObject object);
 
 
  	/** Naming **/
@@ -386,12 +386,6 @@ part quantity {
 	}
 }
 
-
-/* Deprecated */
-class InstanceObject {
-	prior MAtomicType type;
-}
-
 part abstractOperation {
 
 /*** MANAGER ***/
@@ -460,23 +454,23 @@ part messageOrLink {
 singleton MessageManager{
 Message** messages;
 
-active void createMessage(Operation type, InstanceObject source, InstanceObject target, ActualParameter** ap) throws DoubleDefinitionException, ConsistencyException;
-active void createVoidMessage(Operation type, InstanceObject source, ActualParameter** ap) throws DoubleDefinitionException, ConsistencyException;
-active void createConst(Operation type, String name, InstanceObject target) throws DoubleDefinitionException, ConsistencyException;
-active void createStaticMessage(Operation type, String name, InstanceObject target, ActualParameter** ap) throws DoubleDefinitionException, ConsistencyException;
+active void createMessage(Operation type, MObject source, MObject target, ActualParameter** ap) throws DoubleDefinitionException, ConsistencyException;
+active void createVoidMessage(Operation type, MObject source, ActualParameter** ap) throws DoubleDefinitionException, ConsistencyException;
+active void createConst(Operation type, String name, MObject target) throws DoubleDefinitionException, ConsistencyException;
+active void createStaticMessage(Operation type, String name, MObject target, ActualParameter** ap) throws DoubleDefinitionException, ConsistencyException;
 active void removeMessage(Message m);
 }
 
 singleton LinkManager {
 Link** links;
 
-active void createLink(Association type, InstanceObject source, InstanceObject target);
+active void createLink(Association type, MObject source, MObject target);
 active void removeLink(Link link);
 }
 
 abstract class MessageOrLink {
-    prior InstanceObject source;
-    prior InstanceObject target;
+    prior MObject source;
+    prior MObject target;
 }
 
 // TODO: Was ist mit statische Methoden und Methoden die void zurueck geben sollen? Source/Target 0..1? Eventuell noch mal spezialisieren
@@ -487,7 +481,7 @@ class Message extends MessageOrLink {
 
 class ActualParameter {
     prior symmetric FormalParameter type;
-    prior InstanceObject value;
+    prior MObject value;
 }
 
 class Link extends MessageOrLink {
@@ -519,7 +513,7 @@ singleton AccountTypeManager {
 
 singleton AccountManager {
 	Account** accounts;
-	active void createAccount(String name, MAccountType type, InstanceObject object);
+	active void createAccount(String name, MAccountType type, MObject object);
 }
 
 abstract class MQuantiObjectType@@QuantifiedObjectType {
@@ -537,7 +531,7 @@ class MAccountType@@AccountType extends MQuantiObjectType {
 
 
 abstract class QuantifObject@@QuantifiedObject {
-	symmetric prior InstanceObject object;
+	symmetric prior MObject object;
 	// TODO: aggregate(s:AggregationStrategy) : Quantity
 }
 

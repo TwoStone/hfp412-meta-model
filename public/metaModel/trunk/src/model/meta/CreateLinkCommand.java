@@ -24,7 +24,7 @@ import persistence.PersistenceException;
 import persistence.PersistentAssociation;
 import persistence.PersistentCommonDate;
 import persistence.PersistentCreateLinkCommand;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentLinkManager;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
@@ -62,15 +62,15 @@ public class CreateLinkCommand extends PersistentObject implements PersistentCre
         return true;
     }
     protected PersistentAssociation type;
-    protected PersistentInstanceObject source;
-    protected PersistentInstanceObject target;
+    protected PersistentMObject source;
+    protected PersistentMObject target;
     protected Invoker invoker;
     protected PersistentLinkManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateLinkCommand(PersistentAssociation type,PersistentInstanceObject source,PersistentInstanceObject target,Invoker invoker,PersistentLinkManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateLinkCommand(PersistentAssociation type,PersistentMObject source,PersistentMObject target,Invoker invoker,PersistentLinkManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.type = type;
@@ -135,29 +135,29 @@ public class CreateLinkCommand extends PersistentObject implements PersistentCre
             ConnectionHandler.getTheConnectionHandler().theCreateLinkCommandFacade.typeSet(this.getId(), newValue);
         }
     }
-    public PersistentInstanceObject getSource() throws PersistenceException {
+    public PersistentMObject getSource() throws PersistenceException {
         return this.source;
     }
-    public void setSource(PersistentInstanceObject newValue) throws PersistenceException {
+    public void setSource(PersistentMObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.source)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.source = (PersistentInstanceObject)PersistentProxi.createProxi(objectId, classId);
+        this.source = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateLinkCommandFacade.sourceSet(this.getId(), newValue);
         }
     }
-    public PersistentInstanceObject getTarget() throws PersistenceException {
+    public PersistentMObject getTarget() throws PersistenceException {
         return this.target;
     }
-    public void setTarget(PersistentInstanceObject newValue) throws PersistenceException {
+    public void setTarget(PersistentMObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.target)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.target = (PersistentInstanceObject)PersistentProxi.createProxi(objectId, classId);
+        this.target = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateLinkCommandFacade.targetSet(this.getId(), newValue);

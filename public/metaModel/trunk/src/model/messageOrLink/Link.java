@@ -16,7 +16,7 @@ import persistence.ConnectionHandler;
 import persistence.LinkProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAssociation;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentLink;
 import persistence.PersistentMessageOrLink;
 import persistence.PersistentProxi;
@@ -28,11 +28,11 @@ import persistence.TDObserver;
 public class Link extends model.messageOrLink.MessageOrLink implements PersistentLink{
     
     
-    public static PersistentLink createLink(PersistentInstanceObject source,PersistentInstanceObject target,PersistentAssociation type) throws PersistenceException{
+    public static PersistentLink createLink(PersistentMObject source,PersistentMObject target,PersistentAssociation type) throws PersistenceException{
         return createLink(source,target,type,false);
     }
     
-    public static PersistentLink createLink(PersistentInstanceObject source,PersistentInstanceObject target,PersistentAssociation type,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentLink createLink(PersistentMObject source,PersistentMObject target,PersistentAssociation type,boolean delayed$Persistence) throws PersistenceException {
         PersistentLink result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theLinkFacade
@@ -51,7 +51,7 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
         return result;
     }
     
-    public static PersistentLink createLink(PersistentInstanceObject source,PersistentInstanceObject target,PersistentAssociation type,boolean delayed$Persistence,PersistentLink This) throws PersistenceException {
+    public static PersistentLink createLink(PersistentMObject source,PersistentMObject target,PersistentAssociation type,boolean delayed$Persistence,PersistentLink This) throws PersistenceException {
         PersistentLink result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theLinkFacade
@@ -105,9 +105,9 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
     }
     protected PersistentAssociation type;
     
-    public Link(PersistentInstanceObject source,PersistentInstanceObject target,PersistentMessageOrLink This,PersistentAssociation type,long id) throws persistence.PersistenceException {
+    public Link(PersistentMObject source,PersistentMObject target,PersistentMessageOrLink This,PersistentAssociation type,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentInstanceObject)source,(PersistentInstanceObject)target,(PersistentMessageOrLink)This,id);
+        super((PersistentMObject)source,(PersistentMObject)target,(PersistentMessageOrLink)This,id);
         this.type = type;        
     }
     
@@ -199,8 +199,8 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
 				throws PersistenceException{
         this.setThis((PersistentLink)This);
 		if(this.equals(This)){
-			this.setSource((PersistentInstanceObject)final$$Fields.get("source"));
-			this.setTarget((PersistentInstanceObject)final$$Fields.get("target"));
+			this.setSource((PersistentMObject)final$$Fields.get("source"));
+			this.setTarget((PersistentMObject)final$$Fields.get("target"));
 			this.setType((PersistentAssociation)final$$Fields.get("type"));
 		}
     }

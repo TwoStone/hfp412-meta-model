@@ -24,7 +24,7 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentAccount;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentMAccountType;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantifObject;
@@ -36,11 +36,11 @@ import persistence.TDObserver;
 public class Account extends model.measurement.QuantifObject implements PersistentAccount{
     
     
-    public static PersistentAccount createAccount(PersistentInstanceObject object,PersistentMAccountType type) throws PersistenceException{
+    public static PersistentAccount createAccount(PersistentMObject object,PersistentMAccountType type) throws PersistenceException{
         return createAccount(object,type,false);
     }
     
-    public static PersistentAccount createAccount(PersistentInstanceObject object,PersistentMAccountType type,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentAccount createAccount(PersistentMObject object,PersistentMAccountType type,boolean delayed$Persistence) throws PersistenceException {
         PersistentAccount result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
@@ -58,7 +58,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
         return result;
     }
     
-    public static PersistentAccount createAccount(PersistentInstanceObject object,PersistentMAccountType type,boolean delayed$Persistence,PersistentAccount This) throws PersistenceException {
+    public static PersistentAccount createAccount(PersistentMObject object,PersistentMAccountType type,boolean delayed$Persistence,PersistentAccount This) throws PersistenceException {
         PersistentAccount result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
@@ -116,9 +116,9 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     protected Account_SubAccountsProxi subAccounts;
     protected Account_EntriesProxi entries;
     
-    public Account(PersistentInstanceObject object,PersistentQuantifObject This,PersistentMAccountType type,long id) throws persistence.PersistenceException {
+    public Account(PersistentMObject object,PersistentQuantifObject This,PersistentMAccountType type,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentInstanceObject)object,(PersistentQuantifObject)This,id);
+        super((PersistentMObject)object,(PersistentQuantifObject)This,id);
         this.type = type;
         this.subAccounts = new Account_SubAccountsProxi(this);
         this.entries = new Account_EntriesProxi(this);        
@@ -252,7 +252,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 				throws PersistenceException{
         this.setThis((PersistentAccount)This);
 		if(this.equals(This)){
-			this.setObject((PersistentInstanceObject)final$$Fields.get("object"));
+			this.setObject((PersistentMObject)final$$Fields.get("object"));
 			this.setType((PersistentMAccountType)final$$Fields.get("type"));
 		}
     }

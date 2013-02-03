@@ -23,7 +23,6 @@ import persistence.PersistentFractionWrapper;
 import persistence.PersistentFunction;
 import persistence.PersistentFunctionManager;
 import persistence.PersistentHierarchy;
-import persistence.PersistentInstanceObject;
 import persistence.PersistentLink;
 import persistence.PersistentLinkManager;
 import persistence.PersistentMAccountType;
@@ -314,12 +313,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException {
 		result = formalParameter.getName();
-	}
-
-	@Override
-	public void handleInstanceObject(PersistentInstanceObject instanceObject) throws PersistenceException {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

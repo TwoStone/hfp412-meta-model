@@ -24,7 +24,7 @@ import persistence.Invoker;
 import persistence.PersistenceException;
 import persistence.PersistentCommonDate;
 import persistence.PersistentCreateMessageCommand;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentMessageManager;
 import persistence.PersistentObject;
 import persistence.PersistentOperation;
@@ -63,8 +63,8 @@ public class CreateMessageCommand extends PersistentObject implements Persistent
         return true;
     }
     protected PersistentOperation type;
-    protected PersistentInstanceObject source;
-    protected PersistentInstanceObject target;
+    protected PersistentMObject source;
+    protected PersistentMObject target;
     protected CreateMessageCommand_ApProxi ap;
     protected Invoker invoker;
     protected PersistentMessageManager commandReceiver;
@@ -72,7 +72,7 @@ public class CreateMessageCommand extends PersistentObject implements Persistent
     
     private model.UserException commandException = null;
     
-    public CreateMessageCommand(PersistentOperation type,PersistentInstanceObject source,PersistentInstanceObject target,Invoker invoker,PersistentMessageManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateMessageCommand(PersistentOperation type,PersistentMObject source,PersistentMObject target,Invoker invoker,PersistentMessageManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.type = type;
@@ -139,29 +139,29 @@ public class CreateMessageCommand extends PersistentObject implements Persistent
             ConnectionHandler.getTheConnectionHandler().theCreateMessageCommandFacade.typeSet(this.getId(), newValue);
         }
     }
-    public PersistentInstanceObject getSource() throws PersistenceException {
+    public PersistentMObject getSource() throws PersistenceException {
         return this.source;
     }
-    public void setSource(PersistentInstanceObject newValue) throws PersistenceException {
+    public void setSource(PersistentMObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.source)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.source = (PersistentInstanceObject)PersistentProxi.createProxi(objectId, classId);
+        this.source = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateMessageCommandFacade.sourceSet(this.getId(), newValue);
         }
     }
-    public PersistentInstanceObject getTarget() throws PersistenceException {
+    public PersistentMObject getTarget() throws PersistenceException {
         return this.target;
     }
-    public void setTarget(PersistentInstanceObject newValue) throws PersistenceException {
+    public void setTarget(PersistentMObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.target)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.target = (PersistentInstanceObject)PersistentProxi.createProxi(objectId, classId);
+        this.target = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateMessageCommandFacade.targetSet(this.getId(), newValue);

@@ -18,7 +18,7 @@ import persistence.PersistentCreateConstCommand;
 import persistence.PersistentCreateMessageCommand;
 import persistence.PersistentCreateStaticMessageCommand;
 import persistence.PersistentCreateVoidMessageCommand;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentMessage;
 import persistence.PersistentMessageManager;
 import persistence.PersistentObject;
@@ -33,7 +33,7 @@ import persistence.TDObserver;
 public class MessageManager extends PersistentObject implements PersistentMessageManager{
     
     private static PersistentMessageManager theMessageManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentMessageManager getTheMessageManager() throws PersistenceException{
         if (theMessageManager == null || reset$For$Test){
@@ -160,9 +160,19 @@ public class MessageManager extends PersistentObject implements PersistentMessag
     }
     
     
+    public void createConst(final PersistentOperation type, final String name, final PersistentMObject target) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
+        //TODO: implement method: createConst
+        
+    }
     public void removeMessage(final PersistentMessage m) 
 				throws PersistenceException{
         //TODO: implement method: removeMessage
+        
+    }
+    public void createMessage(final PersistentOperation type, final PersistentMObject source, final PersistentMObject target, final ActualParameterSearchList ap) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
+        //TODO: implement method: createMessage
         
     }
     public void initializeOnInstantiation() 
@@ -170,19 +180,28 @@ public class MessageManager extends PersistentObject implements PersistentMessag
         //TODO: implement method: initializeOnInstantiation
         
     }
-    public void createMessage(final PersistentOperation type, final PersistentInstanceObject source, final PersistentInstanceObject target, final ActualParameterSearchList ap) 
-				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-        //TODO: implement method: createMessage
-        
-    }
-    public void createVoidMessage(final PersistentOperation type, final PersistentInstanceObject source, final ActualParameterSearchList ap) 
-				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-        //TODO: implement method: createVoidMessage
-        
+    public void createStaticMessage(final PersistentOperation type, final String name, final PersistentMObject target, final ActualParameterSearchList ap, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateStaticMessageCommand command = model.meta.CreateStaticMessageCommand.createCreateStaticMessageCommand(name, now, now);
+		command.setType(type);
+		command.setTarget(target);
+		java.util.Iterator<PersistentActualParameter> apIterator = ap.iterator();
+		while(apIterator.hasNext()){
+			command.getAp().add(apIterator.next());
+		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
+        
+    }
+    public void createStaticMessage(final PersistentOperation type, final String name, final PersistentMObject target, final ActualParameterSearchList ap) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
+        //TODO: implement method: createStaticMessage
         
     }
     public void removeMessage(final PersistentMessage m, final Invoker invoker) 
@@ -194,7 +213,42 @@ public class MessageManager extends PersistentObject implements PersistentMessag
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void createMessage(final PersistentOperation type, final PersistentInstanceObject source, final PersistentInstanceObject target, final ActualParameterSearchList ap, final Invoker invoker) 
+    public void createConst(final PersistentOperation type, final String name, final PersistentMObject target, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateConstCommand command = model.meta.CreateConstCommand.createCreateConstCommand(name, now, now);
+		command.setType(type);
+		command.setTarget(target);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
+    public void createVoidMessage(final PersistentOperation type, final PersistentMObject source, final ActualParameterSearchList ap, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateVoidMessageCommand command = model.meta.CreateVoidMessageCommand.createCreateVoidMessageCommand(now, now);
+		command.setType(type);
+		command.setSource(source);
+		java.util.Iterator<PersistentActualParameter> apIterator = ap.iterator();
+		while(apIterator.hasNext()){
+			command.getAp().add(apIterator.next());
+		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMessageManager)This);
+		if(this.equals(This)){
+		}
+    }
+    public void createMessage(final PersistentOperation type, final PersistentMObject source, final PersistentMObject target, final ActualParameterSearchList ap, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentCreateMessageCommand command = model.meta.CreateMessageCommand.createCreateMessageCommand(now, now);
@@ -209,64 +263,10 @@ public class MessageManager extends PersistentObject implements PersistentMessag
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void createStaticMessage(final PersistentOperation type, final String name, final PersistentInstanceObject target, final ActualParameterSearchList ap, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateStaticMessageCommand command = model.meta.CreateStaticMessageCommand.createCreateStaticMessageCommand(name, now, now);
-		command.setType(type);
-		command.setTarget(target);
-		java.util.Iterator<PersistentActualParameter> apIterator = ap.iterator();
-		while(apIterator.hasNext()){
-			command.getAp().add(apIterator.next());
-		}
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void createVoidMessage(final PersistentOperation type, final PersistentInstanceObject source, final ActualParameterSearchList ap, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateVoidMessageCommand command = model.meta.CreateVoidMessageCommand.createCreateVoidMessageCommand(now, now);
-		command.setType(type);
-		command.setSource(source);
-		java.util.Iterator<PersistentActualParameter> apIterator = ap.iterator();
-		while(apIterator.hasNext()){
-			command.getAp().add(apIterator.next());
-		}
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
-    public void createStaticMessage(final PersistentOperation type, final String name, final PersistentInstanceObject target, final ActualParameterSearchList ap) 
+    public void createVoidMessage(final PersistentOperation type, final PersistentMObject source, final ActualParameterSearchList ap) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-        //TODO: implement method: createStaticMessage
+        //TODO: implement method: createVoidMessage
         
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentMessageManager)This);
-		if(this.equals(This)){
-		}
-    }
-    public void createConst(final PersistentOperation type, final String name, final PersistentInstanceObject target) 
-				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-        //TODO: implement method: createConst
-        
-    }
-    public void createConst(final PersistentOperation type, final String name, final PersistentInstanceObject target, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateConstCommand command = model.meta.CreateConstCommand.createCreateConstCommand(name, now, now);
-		command.setType(type);
-		command.setTarget(target);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
 
     /* Start of protected part that is not overridden by persistence generator */

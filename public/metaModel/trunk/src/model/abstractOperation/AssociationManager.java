@@ -32,7 +32,7 @@ import persistence.TDObserver;
 public class AssociationManager extends PersistentObject implements PersistentAssociationManager{
     
     private static PersistentAssociationManager theAssociationManager = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static PersistentAssociationManager getTheAssociationManager() throws PersistenceException{
         if (theAssociationManager == null || reset$For$Test){
@@ -167,11 +167,6 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
     public void createAssociation(final PersistentMType source, final PersistentMType target, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
         //TODO: implement method: createAssociation
@@ -186,6 +181,11 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        //TODO: implement method: initializeOnInstantiation
+        
     }
     public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{

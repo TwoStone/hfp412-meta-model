@@ -24,7 +24,7 @@ import persistence.PersistenceException;
 import persistence.PersistentAccountManager;
 import persistence.PersistentCommonDate;
 import persistence.PersistentCreateAccountCommand;
-import persistence.PersistentInstanceObject;
+import persistence.PersistentMObject;
 import persistence.PersistentMAccountType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
@@ -64,14 +64,14 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
     }
     protected String name;
     protected PersistentMAccountType type;
-    protected PersistentInstanceObject object;
+    protected PersistentMObject object;
     protected Invoker invoker;
     protected PersistentAccountManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateAccountCommand(String name,PersistentMAccountType type,PersistentInstanceObject object,Invoker invoker,PersistentAccountManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateAccountCommand(String name,PersistentMAccountType type,PersistentMObject object,Invoker invoker,PersistentAccountManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
@@ -140,15 +140,15 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
             ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade.typeSet(this.getId(), newValue);
         }
     }
-    public PersistentInstanceObject getObject() throws PersistenceException {
+    public PersistentMObject getObject() throws PersistenceException {
         return this.object;
     }
-    public void setObject(PersistentInstanceObject newValue) throws PersistenceException {
+    public void setObject(PersistentMObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.object)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.object = (PersistentInstanceObject)PersistentProxi.createProxi(objectId, classId);
+        this.object = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade.objectSet(this.getId(), newValue);

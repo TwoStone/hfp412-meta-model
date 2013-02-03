@@ -25,7 +25,7 @@ import view.CompUnitTypeView;
 import view.CompUnitView;
 import view.FormalParameterView;
 import view.HierarchyView;
-import view.InstanceObjectView;
+import view.MObjectView;
 import view.LinkManagerView;
 import view.LinkView;
 import view.MAccountTypeView;
@@ -550,6 +550,23 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
+            if (selected instanceof QuantityManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Create quantity ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateQuantityQuantityManagerAbsUnitFractionMssgWizard wizard = new ServerCreateQuantityQuantityManagerAbsUnitFractionMssgWizard("Create quantity");
+                        wizard.setFirstArgument((QuantityManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             if (selected instanceof FormalParameterView){
                 item = new javax.swing.JMenuItem();
                 item.setText("removeFormalParameter");
@@ -563,23 +580,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                                 handleException(me);
                             }
                         }
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof QuantityManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("Create quantity ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateQuantityQuantityManagerAbsUnitFractionMssgWizard wizard = new ServerCreateQuantityQuantityManagerAbsUnitFractionMssgWizard("Create quantity");
-                        wizard.setFirstArgument((QuantityManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
                     }
                     
                 });
@@ -917,31 +917,12 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     
                 });
                 result.add(item);
-            }
-            if (selected instanceof LinkManagerView){
                 item = new javax.swing.JMenuItem();
                 item.setText("createLink ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard wizard = new ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard("createLink");
-                        wizard.setFirstArgument((LinkManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof InstanceObjectView){
-                item = new javax.swing.JMenuItem();
-                item.setText("createLink ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateLinkInstanceObjectAssociationInstanceObjectMssgWizard wizard = new ServerCreateLinkInstanceObjectAssociationInstanceObjectMssgWizard("createLink");
-                        wizard.setFirstArgument((InstanceObjectView)selected);
+                        ServerCreateLinkMObjectAssociationMObjectMssgWizard wizard = new ServerCreateLinkMObjectAssociationMObjectMssgWizard("createLink");
+                        wizard.setFirstArgument((MObjectView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -955,8 +936,8 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("createMessage ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateMessageInstanceObjectOperationInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateMessageInstanceObjectOperationInstanceObjectActualParameterLSTMssgWizard("createMessage");
-                        wizard.setFirstArgument((InstanceObjectView)selected);
+                        ServerCreateMessageMObjectOperationMObjectActualParameterLSTMssgWizard wizard = new ServerCreateMessageMObjectOperationMObjectActualParameterLSTMssgWizard("createMessage");
+                        wizard.setFirstArgument((MObjectView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -970,8 +951,25 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("createVoidMessage ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateVoidMessageInstanceObjectOperationActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageInstanceObjectOperationActualParameterLSTMssgWizard("createVoidMessage");
-                        wizard.setFirstArgument((InstanceObjectView)selected);
+                        ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard("createVoidMessage");
+                        wizard.setFirstArgument((MObjectView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof LinkManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createLink ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateLinkLinkManagerAssociationMObjectMObjectMssgWizard wizard = new ServerCreateLinkLinkManagerAssociationMObjectMObjectMssgWizard("createLink");
+                        wizard.setFirstArgument((LinkManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -1019,7 +1017,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("createConstant ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard wizard = new ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard("createConstant");
+                        ServerCreateConstMessageManagerOperationStringMObjectMssgWizard wizard = new ServerCreateConstMessageManagerOperationStringMObjectMssgWizard("createConstant");
                         wizard.setFirstArgument((MessageManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -1034,7 +1032,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("createMessage ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard("createMessage");
+                        ServerCreateMessageMessageManagerOperationMObjectMObjectActualParameterLSTMssgWizard wizard = new ServerCreateMessageMessageManagerOperationMObjectMObjectActualParameterLSTMssgWizard("createMessage");
                         wizard.setFirstArgument((MessageManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -1049,7 +1047,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("createStaticMessage ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard("createStaticMessage");
+                        ServerCreateStaticMessageMessageManagerOperationStringMObjectActualParameterLSTMssgWizard wizard = new ServerCreateStaticMessageMessageManagerOperationStringMObjectActualParameterLSTMssgWizard("createStaticMessage");
                         wizard.setFirstArgument((MessageManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -1064,7 +1062,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("createVoidMessage ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard("createVoidMessage");
+                        ServerCreateVoidMessageMessageManagerOperationMObjectActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageMessageManagerOperationMObjectActualParameterLSTMssgWizard("createVoidMessage");
                         wizard.setFirstArgument((MessageManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -1297,7 +1295,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Konto anlegen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAccountAccountManagerStringMAccountTypeInstanceObjectMssgWizard wizard = new ServerCreateAccountAccountManagerStringMAccountTypeInstanceObjectMssgWizard("Konto anlegen");
+                        ServerCreateAccountAccountManagerStringMAccountTypeMObjectMssgWizard wizard = new ServerCreateAccountAccountManagerStringMAccountTypeMObjectMssgWizard("Konto anlegen");
                         wizard.setFirstArgument((AccountManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -1531,59 +1529,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard extends Wizard {
-
-		protected ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateMessageMessageManagerOperationInstanceObjectInstanceObjectActualParameterLSTMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult(),
-									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(3)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("source", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private MessageManagerView firstArgument; 
-	
-		public void setFirstArgument(MessageManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
 	class ServerMulAbsQuantityAbsQuantityMssgWizard extends Wizard {
 
 		protected ServerMulAbsQuantityAbsQuantityMssgWizard(String operationName){
@@ -1635,6 +1580,57 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
+	class ServerCreateLinkLinkManagerAssociationMObjectMObjectMssgWizard extends Wizard {
+
+		protected ServerCreateLinkLinkManagerAssociationMObjectMObjectMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateLinkLinkManagerAssociationMObjectMObjectMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createLink(firstArgument, (AssociationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.AssociationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MObjectView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private LinkManagerView firstArgument; 
+	
+		public void setFirstArgument(LinkManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerAddFpOperationFormalParameterMssgWizard extends Wizard {
 
 		protected ServerAddFpOperationFormalParameterMssgWizard(String operationName){
@@ -1674,55 +1670,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private OperationView firstArgument; 
 	
 		public void setFirstArgument(OperationView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateVoidMessageInstanceObjectOperationActualParameterLSTMssgWizard extends Wizard {
-
-		protected ServerCreateVoidMessageInstanceObjectOperationActualParameterLSTMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateVoidMessageInstanceObjectOperationActualParameterLSTMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createVoidMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(1)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private InstanceObjectView firstArgument; 
-	
-		public void setFirstArgument(InstanceObjectView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -1986,22 +1933,23 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateMessageInstanceObjectOperationInstanceObjectActualParameterLSTMssgWizard extends Wizard {
+	class ServerCreateStaticMessageMessageManagerOperationStringMObjectActualParameterLSTMssgWizard extends Wizard {
 
-		protected ServerCreateMessageInstanceObjectOperationInstanceObjectActualParameterLSTMssgWizard(String operationName){
+		protected ServerCreateStaticMessageMessageManagerOperationStringMObjectActualParameterLSTMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateMessageInstanceObjectOperationInstanceObjectActualParameterLSTMssgWizard.help";
+			this.helpFileName = "ServerCreateStaticMessageMessageManagerOperationStringMObjectActualParameterLSTMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().createStaticMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult(),
+									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(3)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -2019,16 +1967,17 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 		protected void addParameters(){
 			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MObjectView", (ViewRoot)getConnection().getServerView(), this));
 			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private InstanceObjectView firstArgument; 
+		private MessageManagerView firstArgument; 
 	
-		public void setFirstArgument(InstanceObjectView firstArgument){
+		public void setFirstArgument(MessageManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -2272,115 +2221,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard extends Wizard {
-
-		protected ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateVoidMessageMessageManagerOperationInstanceObjectActualParameterLSTMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createVoidMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("source", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private MessageManagerView firstArgument; 
-	
-		public void setFirstArgument(MessageManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateAccountAccountManagerStringMAccountTypeInstanceObjectMssgWizard extends Wizard {
-
-		protected ServerCreateAccountAccountManagerStringMAccountTypeInstanceObjectMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateAccountAccountManagerStringMAccountTypeInstanceObjectMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createAccount(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MAccountTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));
-			try{
-				getParametersPanel().add(new ObjectSelectionPanel("type", "view.MAccountTypeView", new ListRoot(((AccountTypeManagerView)((ServerView)getConnection().getServerView()).getAccountTypeManager()).getAccountTypes()), this));
-			}catch(ModelException me){;
-				 handleException(me);
-				 setVisible(false);
-				 dispose();
-				 return;
-			 }
-			getParametersPanel().add(new ObjectSelectionPanel("object", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private AccountManagerView firstArgument; 
-	
-		public void setFirstArgument(AccountManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
 	class ServerAddAssociationHierarchyAssociationMssgWizard extends Wizard {
 
 		protected ServerAddAssociationHierarchyAssociationMssgWizard(String operationName){
@@ -2420,6 +2260,59 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private HierarchyView firstArgument; 
 	
 		public void setFirstArgument(HierarchyView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateMessageMessageManagerOperationMObjectMObjectActualParameterLSTMssgWizard extends Wizard {
+
+		protected ServerCreateMessageMessageManagerOperationMObjectMObjectActualParameterLSTMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateMessageMessageManagerOperationMObjectMObjectActualParameterLSTMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult(),
+									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(3)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MessageManagerView firstArgument; 
+	
+		public void setFirstArgument(MessageManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -2517,6 +2410,55 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			 }		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class ServerCreateLinkMObjectAssociationMObjectMssgWizard extends Wizard {
+
+		protected ServerCreateLinkMObjectAssociationMObjectMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateLinkMObjectAssociationMObjectMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createLink(firstArgument, (AssociationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.AssociationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MObjectView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MObjectView firstArgument; 
+	
+		public void setFirstArgument(MObjectView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
 		}
 		
 		
@@ -2623,6 +2565,57 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
+	class ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard extends Wizard {
+
+		protected ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createAssociation(firstArgument, (MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AssociationManagerView firstArgument; 
+	
+		public void setFirstArgument(AssociationManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerCreateSumTypeMTypeLSTMssgWizard extends Wizard {
 
 		protected ServerCreateSumTypeMTypeLSTMssgWizard(String operationName){
@@ -2707,57 +2700,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private HierarchyView firstArgument; 
 	
 		public void setFirstArgument(HierarchyView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard extends Wizard {
-
-		protected ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createAssociation(firstArgument, (MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									((StringSelectionPanel)getParametersPanel().getComponent(2)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private AssociationManagerView firstArgument; 
-	
-		public void setFirstArgument(AssociationManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -3078,23 +3020,22 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard extends Wizard {
+	class ServerCreateMessageMObjectOperationMObjectActualParameterLSTMssgWizard extends Wizard {
 
-		protected ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard(String operationName){
+		protected ServerCreateMessageMObjectOperationMObjectActualParameterLSTMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateStaticMessageMessageManagerOperationStringInstanceObjectActualParameterLSTMssgWizard.help";
+			this.helpFileName = "ServerCreateMessageMObjectOperationMObjectActualParameterLSTMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createStaticMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult(),
-									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(3)).getResult());
+				getConnection().createMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -3112,17 +3053,16 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 		protected void addParameters(){
 			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new StringSelectionPanel("name", this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MObjectView", (ViewRoot)getConnection().getServerView(), this));
 			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private MessageManagerView firstArgument; 
+		private MObjectView firstArgument; 
 	
-		public void setFirstArgument(MessageManagerView firstArgument){
+		public void setFirstArgument(MObjectView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -3608,21 +3548,21 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateLinkInstanceObjectAssociationInstanceObjectMssgWizard extends Wizard {
+	class ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard extends Wizard {
 
-		protected ServerCreateLinkInstanceObjectAssociationInstanceObjectMssgWizard(String operationName){
+		protected ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateLinkInstanceObjectAssociationInstanceObjectMssgWizard.help";
+			this.helpFileName = "ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createLink(firstArgument, (AssociationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult());
+				getConnection().createVoidMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(1)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -3639,16 +3579,125 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.AssociationView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));		
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
 		
 		
-		private InstanceObjectView firstArgument; 
+		private MObjectView firstArgument; 
 	
-		public void setFirstArgument(InstanceObjectView firstArgument){
+		public void setFirstArgument(MObjectView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateAccountAccountManagerStringMAccountTypeMObjectMssgWizard extends Wizard {
+
+		protected ServerCreateAccountAccountManagerStringMAccountTypeMObjectMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateAccountAccountManagerStringMAccountTypeMObjectMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createAccount(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MAccountTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("type", "view.MAccountTypeView", new ListRoot(((AccountTypeManagerView)((ServerView)getConnection().getServerView()).getAccountTypeManager()).getAccountTypes()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }
+			getParametersPanel().add(new ObjectSelectionPanel("object", "view.MObjectView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AccountManagerView firstArgument; 
+	
+		public void setFirstArgument(AccountManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateVoidMessageMessageManagerOperationMObjectActualParameterLSTMssgWizard extends Wizard {
+
+		protected ServerCreateVoidMessageMessageManagerOperationMObjectActualParameterLSTMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateVoidMessageMessageManagerOperationMObjectActualParameterLSTMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createVoidMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MObjectView", (ViewRoot)getConnection().getServerView(), this));
+			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MessageManagerView firstArgument; 
+	
+		public void setFirstArgument(MessageManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -3810,14 +3859,14 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard extends Wizard {
+	class ServerCreateConstMessageManagerOperationStringMObjectMssgWizard extends Wizard {
 
-		protected ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard(String operationName){
+		protected ServerCreateConstMessageManagerOperationStringMObjectMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateConstMessageManagerOperationStringInstanceObjectMssgWizard.help";
+			this.helpFileName = "ServerCreateConstMessageManagerOperationStringMObjectMssgWizard.help";
 			super.initialize();			
 		}
 				
@@ -3825,7 +3874,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			try {
 				getConnection().createConst(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
 									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
+									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -3844,7 +3893,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		protected void addParameters(){
 			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot)getConnection().getServerView(), this));
 			getParametersPanel().add(new StringSelectionPanel("name", this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));		
+			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MObjectView", (ViewRoot)getConnection().getServerView(), this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -4009,57 +4058,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private NameSchemeView firstArgument; 
 	
 		public void setFirstArgument(NameSchemeView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard extends Wizard {
-
-		protected ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateLinkLinkManagerAssociationInstanceObjectInstanceObjectMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createLink(firstArgument, (AssociationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(InstanceObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.AssociationView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("source", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.InstanceObjectView", (ViewRoot)getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private LinkManagerView firstArgument; 
-	
-		public void setFirstArgument(LinkManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();

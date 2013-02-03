@@ -49,25 +49,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createMessage(String managerProxiString, String typeProxiString, String sourceProxiString, String targetProxiString, java.util.Vector<String> apTrnsprt){
-        try {
-            PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
-            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentInstanceObject source = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
-            PersistentInstanceObject target = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
-            ActualParameterSearchList ap = new ActualParameterSearchList();
-			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
-			while (apItrtr.hasNext()){
-				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
-				ap.add(currentProxi);
-			}
-            ((PersistentServer)this.server).createMessage(manager, type, source, target, ap);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     @SuppressWarnings("unchecked")
     public synchronized java.util.Hashtable<?,?> mul(String factor1ProxiString, String factor2ProxiString){
         try {
@@ -80,28 +61,24 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> addFp(String opProxiString, String fpProxiString){
+    public synchronized java.util.Hashtable<?,?> createLink(String linkProxiString, String typeProxiString, String sourceProxiString, String targetProxiString){
         try {
-            PersistentOperation op = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(opProxiString));
-            PersistentFormalParameter fp = (PersistentFormalParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(fpProxiString));
-            ((PersistentServer)this.server).addFp(op, fp);
+            PersistentLinkManager link = (PersistentLinkManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(linkProxiString));
+            PersistentAssociation type = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            PersistentMObject source = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
+            PersistentMObject target = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
+            ((PersistentServer)this.server).createLink(link, type, source, target);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createVoidMessage(String sourceProxiString, String typeProxiString, java.util.Vector<String> apTrnsprt){
+    public synchronized java.util.Hashtable<?,?> addFp(String opProxiString, String fpProxiString){
         try {
-            PersistentInstanceObject source = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
-            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            ActualParameterSearchList ap = new ActualParameterSearchList();
-			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
-			while (apItrtr.hasNext()){
-				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
-				ap.add(currentProxi);
-			}
-            ((PersistentServer)this.server).createVoidMessage(source, type, ap);
+            PersistentOperation op = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(opProxiString));
+            PersistentFormalParameter fp = (PersistentFormalParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(fpProxiString));
+            ((PersistentServer)this.server).addFp(op, fp);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -162,18 +139,18 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createMessage(String sourceProxiString, String typeProxiString, String targetProxiString, java.util.Vector<String> apTrnsprt){
+    public synchronized java.util.Hashtable<?,?> createStaticMessage(String managerProxiString, String typeProxiString, String name, String targetProxiString, java.util.Vector<String> apTrnsprt){
         try {
-            PersistentInstanceObject source = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
+            PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
             PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentInstanceObject target = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
+            PersistentMObject target = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
             ActualParameterSearchList ap = new ActualParameterSearchList();
 			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
 			while (apItrtr.hasNext()){
 				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
 				ap.add(currentProxi);
 			}
-            ((PersistentServer)this.server).createMessage(source, type, target, ap);
+            ((PersistentServer)this.server).createStaticMessage(manager, type, name, target, ap);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -226,36 +203,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createVoidMessage(String managerProxiString, String typeProxiString, String sourceProxiString, java.util.Vector<String> apTrnsprt){
-        try {
-            PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
-            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentInstanceObject source = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
-            ActualParameterSearchList ap = new ActualParameterSearchList();
-			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
-			while (apItrtr.hasNext()){
-				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
-				ap.add(currentProxi);
-			}
-            ((PersistentServer)this.server).createVoidMessage(manager, type, source, ap);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> createAccount(String accountManagerProxiString, String name, String typeProxiString, String objectProxiString){
-        try {
-            PersistentAccountManager accountManager = (PersistentAccountManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(accountManagerProxiString));
-            PersistentMAccountType type = (PersistentMAccountType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentInstanceObject object = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(objectProxiString));
-            ((PersistentServer)this.server).createAccount(accountManager, name, type, object);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> removeUnitType(String typeProxiString){
         try {
             PersistentAbsUnitType type = (PersistentAbsUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
@@ -281,6 +228,25 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentHierarchy h = (PersistentHierarchy)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(hProxiString));
             PersistentAssociation a = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aProxiString));
             ((PersistentServer)this.server).addAssociation(h, a);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createMessage(String managerProxiString, String typeProxiString, String sourceProxiString, String targetProxiString, java.util.Vector<String> apTrnsprt){
+        try {
+            PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
+            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            PersistentMObject source = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
+            PersistentMObject target = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
+            ActualParameterSearchList ap = new ActualParameterSearchList();
+			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
+			while (apItrtr.hasNext()){
+				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
+				ap.add(currentProxi);
+			}
+            ((PersistentServer)this.server).createMessage(manager, type, source, target, ap);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -323,6 +289,18 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> createLink(String sourceProxiString, String typeProxiString, String targetProxiString){
+        try {
+            PersistentMObject source = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
+            PersistentAssociation type = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            PersistentMObject target = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
+            ((PersistentServer)this.server).createLink(source, type, target);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> addType(String objectProxiString, String newTypeProxiString){
         try {
             PersistentMObject object = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(objectProxiString));
@@ -355,6 +333,18 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> createAssociation(String managerProxiString, String sourceProxiString, String targetProxiString, String name){
+        try {
+            PersistentAssociationManager manager = (PersistentAssociationManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
+            PersistentMType source = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
+            PersistentMType target = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
+            ((PersistentServer)this.server).createAssociation(manager, source, target, name);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> createSumType(java.util.Vector<String> containeesTrnsprt){
         try {
             MTypeSearchList containees = new MTypeSearchList();
@@ -375,18 +365,6 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentHierarchy h = (PersistentHierarchy)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(hProxiString));
             PersistentAssociation a = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aProxiString));
             ((PersistentServer)this.server).removeFromHierarchy(h, a);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> createAssociation(String managerProxiString, String sourceProxiString, String targetProxiString, String name){
-        try {
-            PersistentAssociationManager manager = (PersistentAssociationManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
-            PersistentMType source = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
-            PersistentMType target = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
-            ((PersistentServer)this.server).createAssociation(manager, source, target, name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -487,18 +465,18 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createStaticMessage(String managerProxiString, String typeProxiString, String name, String targetProxiString, java.util.Vector<String> apTrnsprt){
+    public synchronized java.util.Hashtable<?,?> createMessage(String sourceProxiString, String typeProxiString, String targetProxiString, java.util.Vector<String> apTrnsprt){
         try {
-            PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
+            PersistentMObject source = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
             PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentInstanceObject target = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
+            PersistentMObject target = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
             ActualParameterSearchList ap = new ActualParameterSearchList();
 			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
 			while (apItrtr.hasNext()){
 				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
 				ap.add(currentProxi);
 			}
-            ((PersistentServer)this.server).createStaticMessage(manager, type, name, target, ap);
+            ((PersistentServer)this.server).createMessage(source, type, target, ap);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -628,12 +606,47 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createLink(String sourceProxiString, String typeProxiString, String targetProxiString){
+    public synchronized java.util.Hashtable<?,?> createVoidMessage(String sourceProxiString, String typeProxiString, java.util.Vector<String> apTrnsprt){
         try {
-            PersistentInstanceObject source = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
-            PersistentAssociation type = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentInstanceObject target = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
-            ((PersistentServer)this.server).createLink(source, type, target);
+            PersistentMObject source = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
+            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            ActualParameterSearchList ap = new ActualParameterSearchList();
+			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
+			while (apItrtr.hasNext()){
+				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
+				ap.add(currentProxi);
+			}
+            ((PersistentServer)this.server).createVoidMessage(source, type, ap);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createAccount(String accountManagerProxiString, String name, String typeProxiString, String objectProxiString){
+        try {
+            PersistentAccountManager accountManager = (PersistentAccountManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(accountManagerProxiString));
+            PersistentMAccountType type = (PersistentMAccountType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            PersistentMObject object = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(objectProxiString));
+            ((PersistentServer)this.server).createAccount(accountManager, name, type, object);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createVoidMessage(String managerProxiString, String typeProxiString, String sourceProxiString, java.util.Vector<String> apTrnsprt){
+        try {
+            PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
+            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            PersistentMObject source = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
+            ActualParameterSearchList ap = new ActualParameterSearchList();
+			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
+			while (apItrtr.hasNext()){
+				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
+				ap.add(currentProxi);
+			}
+            ((PersistentServer)this.server).createVoidMessage(manager, type, source, ap);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -701,7 +714,7 @@ public  class RemoteServer extends RemoteServerMaster {
         try {
             PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
             PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentInstanceObject target = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
+            PersistentMObject target = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
             ((PersistentServer)this.server).createConst(manager, type, name, target);
             return createOKResult();
         }catch(PersistenceException pe){
@@ -737,19 +750,6 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentNameScheme scheme = (PersistentNameScheme)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(schemeProxiString));
             PersistentMAtomicType type = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
             ((PersistentServer)this.server).assignType(scheme, type);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> createLink(String linkProxiString, String typeProxiString, String sourceProxiString, String targetProxiString){
-        try {
-            PersistentLinkManager link = (PersistentLinkManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(linkProxiString));
-            PersistentAssociation type = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentInstanceObject source = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
-            PersistentInstanceObject target = (PersistentInstanceObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
-            ((PersistentServer)this.server).createLink(link, type, source, target);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
