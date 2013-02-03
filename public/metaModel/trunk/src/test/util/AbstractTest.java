@@ -1,8 +1,10 @@
 package test.util;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import model.ConsistencyException;
 import model.CycleException;
-import model.DBConnectionConstants;
 import model.abstractOperation.FormalParameter;
 import model.abstractOperation.Operation;
 import model.basic.MFalse;
@@ -16,15 +18,10 @@ import model.typeSystem.MEmptySumType;
 import model.typeSystem.MObject;
 import model.typeSystem.MProductType;
 import model.typeSystem.MSumType;
-import modelServer.ConnectionServer;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 
 import persistence.ActualParameterSearchList;
-import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentActualParameter;
 import persistence.PersistentFormalParameter;
@@ -99,33 +96,23 @@ public abstract class AbstractTest extends TestingBase {
 	protected PersistentFormalParameter fp3;
 
 	public AbstractTest() throws CycleException, PersistenceException, ConsistencyException {
-		this.initHierarchy();
+		super();
 	}
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		DBConnectionConstants.Password = new char[2];
-		ConnectionHandler connection = ConnectionHandler.getTheConnectionHandler();
-		connection.connect(DBConnectionConstants.DataBaseName, DBConnectionConstants.SchemaName,
-				DBConnectionConstants.UserName, DBConnectionConstants.Password, true);
-		ConnectionHandler.initializeMapsForMappedFields();
-		ConnectionServer.startTheConnectionServer(EmptyServerReporter.getTheInstance());
-	}
-
+	@Override
 	@Before
-	public void setUp() throws Exception {
+	public void setup() throws PersistenceException, SQLException, IOException {
+		super.setup();
+		try {
+			this.init();
+		} catch (CycleException e) {
+			e.printStackTrace();
+		} catch (ConsistencyException e) {
+			e.printStackTrace();
+		}
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		ConnectionServer.stopTheConnectionServer();
-	}
-
-	private void initHierarchy() throws CycleException, PersistenceException, ConsistencyException {
+	private void init() throws CycleException, PersistenceException, ConsistencyException {
 		// Boolean
 		mTrue = MTrue.getTheMTrue();
 		mFalse = MFalse.getTheMFalse();

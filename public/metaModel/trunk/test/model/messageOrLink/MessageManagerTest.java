@@ -16,92 +16,91 @@ import persistence.Predcate;
 import test.util.AbstractTest;
 
 public class MessageManagerTest extends AbstractTest {
-	private final PersistentMessageManager manager;
-
 	public MessageManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
-		this.manager = MessageManager.getTheMessageManager();
 	}
 
+	private PersistentMessageManager messMan;
+
 	@Before
-	public void cleanUp() throws PersistenceException {
-		// TODO: Manager leeren
+	public void inits() throws PersistenceException {
+		this.messMan = getManager(MessageManager.class);
 	}
 
 	@Test
 	public void removeStandardMessage() throws PersistenceException, DoubleDefinitionException {
-		manager.getMessages().add(standardMessage);
-		assertEquals(1, manager.getMessages().getLength());
-		manager.removeMessage(standardMessage);
-		assertEquals(0, manager.getMessages().getLength());
+		messMan.getMessages().add(standardMessage);
+		assertEquals(1, messMan.getMessages().getLength());
+		messMan.removeMessage(standardMessage);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void removeVoidMessage() throws PersistenceException, DoubleDefinitionException {
-		manager.getMessages().add(voidMessage);
-		assertEquals(1, manager.getMessages().getLength());
-		manager.removeMessage(voidMessage);
-		assertEquals(0, manager.getMessages().getLength());
+		messMan.getMessages().add(voidMessage);
+		assertEquals(1, messMan.getMessages().getLength());
+		messMan.removeMessage(voidMessage);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void removeConstantMessage() throws PersistenceException, DoubleDefinitionException {
-		manager.getMessages().add(constantMessage);
-		assertEquals(1, manager.getMessages().getLength());
-		manager.removeMessage(constantMessage);
-		assertEquals(0, manager.getMessages().getLength());
+		messMan.getMessages().add(constantMessage);
+		assertEquals(1, messMan.getMessages().getLength());
+		messMan.removeMessage(constantMessage);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void removeStaticMessage() throws PersistenceException, DoubleDefinitionException {
-		manager.getMessages().add(staticMessage);
-		assertEquals(1, manager.getMessages().getLength());
-		manager.removeMessage(staticMessage);
-		assertEquals(0, manager.getMessages().getLength());
+		messMan.getMessages().add(staticMessage);
+		assertEquals(1, messMan.getMessages().getLength());
+		messMan.removeMessage(staticMessage);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void createStandardMessageSuccess() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createMessage(standardOp, mao1, mao6, ap);
-		assertEquals(1, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createMessage(standardOp, mao1, mao6, ap);
+		assertEquals(1, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void createVoidMessageSuccess() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createVoidMessage(voidOp, mao1, ap);
-		assertEquals(1, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createVoidMessage(voidOp, mao1, ap);
+		assertEquals(1, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void createConstantMessageSuccess() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createConst(constantOp, "constantOperation", mao1);
-		assertEquals(1, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createConst(constantOp, "constantOperation", mao1);
+		assertEquals(1, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void createStaticMessageSuccess() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createStaticMessage(staticOp, "staticOperation", mao1, ap);
-		assertEquals(1, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createStaticMessage(staticOp, "staticOperation", mao1, ap);
+		assertEquals(1, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void createStandardMessageWithAPSuccess() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createMessage(standardOp, mao1, mao6, apList);
-		assertEquals(1, manager.getMessages().getLength());
-		assertEquals(3, manager.getMessages().findFirst(new Predcate<PersistentMessage>() {
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createMessage(standardOp, mao1, mao6, apList);
+		assertEquals(1, messMan.getMessages().getLength());
+		assertEquals(3, messMan.getMessages().findFirst(new Predcate<PersistentMessage>() {
 			@Override
 			public boolean test(PersistentMessage argument) throws PersistenceException {
 				return true;
@@ -112,10 +111,10 @@ public class MessageManagerTest extends AbstractTest {
 	@Test
 	public void createVoidMessageWithAPSuccess() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createVoidMessage(voidOp, mao1, apList);
-		assertEquals(1, manager.getMessages().getLength());
-		assertEquals(3, manager.getMessages().findFirst(new Predcate<PersistentMessage>() {
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createVoidMessage(voidOp, mao1, apList);
+		assertEquals(1, messMan.getMessages().getLength());
+		assertEquals(3, messMan.getMessages().findFirst(new Predcate<PersistentMessage>() {
 			@Override
 			public boolean test(PersistentMessage argument) throws PersistenceException {
 				return true;
@@ -126,10 +125,10 @@ public class MessageManagerTest extends AbstractTest {
 	@Test
 	public void createStaticMessageWithAPSuccess() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createStaticMessage(staticOp, "staticOperation", mao1, apList);
-		assertEquals(1, manager.getMessages().getLength());
-		assertEquals(3, manager.getMessages().findFirst(new Predcate<PersistentMessage>() {
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createStaticMessage(staticOp, "staticOperation", mao1, apList);
+		assertEquals(1, messMan.getMessages().getLength());
+		assertEquals(3, messMan.getMessages().findFirst(new Predcate<PersistentMessage>() {
 			@Override
 			public boolean test(PersistentMessage argument) throws PersistenceException {
 				return true;
@@ -141,122 +140,122 @@ public class MessageManagerTest extends AbstractTest {
 	public void createStandardMessageFailureWrongSource() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createMessage(standardOp, mao6, mao6, ap);
-		assertEquals(0, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createMessage(standardOp, mao6, mao6, ap);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
 	public void createStandardMessageFailureWrongTarget() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createMessage(standardOp, mao1, mao1, ap);
-		assertEquals(0, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createMessage(standardOp, mao1, mao1, ap);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
 	public void createVoidMessageFailureWrongSource() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createVoidMessage(voidOp, mao6, ap);
-		assertEquals(0, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createVoidMessage(voidOp, mao6, ap);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
 	public void createConstantFailureWrongTarget() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createConst(constantOp, "constantOperation", mao6);
-		assertEquals(0, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createConst(constantOp, "constantOperation", mao6);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
 	public void createStaticMessageFailureWrongTarget() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createStaticMessage(staticOp, "staticOperation", mao6, ap);
-		assertEquals(0, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createStaticMessage(staticOp, "staticOperation", mao6, ap);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
 	public void createStandardMessageFailureWrongType() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createMessage(voidOp, mao6, mao1, ap);
-		assertEquals(0, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createMessage(voidOp, mao6, mao1, ap);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
 	public void createVoidMessageFailureWrongType() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createVoidMessage(standardOp, mao6, ap);
-		assertEquals(0, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createVoidMessage(standardOp, mao6, ap);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
 	public void createConstantFailureWrongType() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createConst(standardOp, "constantOperation", mao6);
-		assertEquals(0, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createConst(standardOp, "constantOperation", mao6);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
 	public void createStaticMessageFailureWrongType() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createStaticMessage(standardOp, "staticOperation", mao6, ap);
-		assertEquals(0, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createStaticMessage(standardOp, "staticOperation", mao6, ap);
+		assertEquals(0, messMan.getMessages().getLength());
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
 	public void createStandardMessageFailureDDE() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createMessage(standardOp, mao1, mao6, ap);
-		assertEquals(1, manager.getMessages().getLength());
-		manager.createMessage(standardOp, mao1, mao6, ap);
-		assertEquals(1, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createMessage(standardOp, mao1, mao6, ap);
+		assertEquals(1, messMan.getMessages().getLength());
+		messMan.createMessage(standardOp, mao1, mao6, ap);
+		assertEquals(1, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void createVoidMessageFailureDDE() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createVoidMessage(voidOp, mao1, ap);
-		assertEquals(1, manager.getMessages().getLength());
-		manager.createVoidMessage(voidOp, mao1, ap);
-		assertEquals(1, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createVoidMessage(voidOp, mao1, ap);
+		assertEquals(1, messMan.getMessages().getLength());
+		messMan.createVoidMessage(voidOp, mao1, ap);
+		assertEquals(1, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void createConstantMessageFailureDDE() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createConst(constantOp, "constantOperation", mao1);
-		assertEquals(1, manager.getMessages().getLength());
-		manager.createConst(constantOp, "constantOperation", mao1);
-		assertEquals(1, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createConst(constantOp, "constantOperation", mao1);
+		assertEquals(1, messMan.getMessages().getLength());
+		messMan.createConst(constantOp, "constantOperation", mao1);
+		assertEquals(1, messMan.getMessages().getLength());
 	}
 
 	@Test
 	public void createStaticMessageFailureDDE() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
 		ActualParameterSearchList ap = new ActualParameterSearchList();
-		assertEquals(0, manager.getMessages().getLength());
-		manager.createStaticMessage(staticOp, "staticOperation", mao1, ap);
-		assertEquals(1, manager.getMessages().getLength());
-		manager.createStaticMessage(staticOp, "staticOperation", mao1, ap);
-		assertEquals(1, manager.getMessages().getLength());
+		assertEquals(0, messMan.getMessages().getLength());
+		messMan.createStaticMessage(staticOp, "staticOperation", mao1, ap);
+		assertEquals(1, messMan.getMessages().getLength());
+		messMan.createStaticMessage(staticOp, "staticOperation", mao1, ap);
+		assertEquals(1, messMan.getMessages().getLength());
 	}
 }
