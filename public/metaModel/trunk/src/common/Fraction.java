@@ -108,7 +108,15 @@ public class Fraction {
 	}
 
 	public Fraction div(Fraction divisor) throws Throwable {
-		Fraction inverseDivisor = divisor.invert();
-		return this.mul(inverseDivisor);
+		return this.mul(divisor.invert());
+	}
+
+	public Fraction sub(Fraction minuend) throws Throwable {
+		// TODO: implement logic...
+		// e1/d1 - e2/d2 = (e1*d2 - e2*d1) / d1*d2 und finalize
+		Fraction result = new Fraction(this.getEnumerator().multiply(minuend.getDenominator())
+				.subtract(minuend.getEnumerator().multiply(this.getDenominator())), this.getDenominator().multiply(
+				minuend.getDenominator()));
+		return result;
 	}
 }

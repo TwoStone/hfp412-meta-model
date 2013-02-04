@@ -128,4 +128,34 @@ public class FractionTests extends AbstractTest {
 		Fraction result = frac1.div(frac2);
 		assertEquals(Fraction.parse("3/1"), result);
 	}
+
+	@Test
+	public void testFractionSub_1() throws Throwable {
+		Fraction frac1 = Fraction.parse("25/3");
+		Fraction frac2 = Fraction.parse("10/2");
+
+		// Funktion add testen
+		Fraction result = frac1.sub(frac2);
+		assertEquals(Fraction.parse("10/3"), result);
+	}
+
+	@Test
+	public void testFractionSub_2() throws Throwable {
+		Fraction frac1 = Fraction.parse("2/1");
+		Fraction frac2 = Fraction.parse("1/1");
+
+		// Funktion add testen
+		Fraction result = frac1.sub(frac2);
+		assertEquals(Fraction.parse("1/1"), result);
+	}
+
+	@Test
+	public void testFractionSub_3() throws Throwable {
+		Fraction frac1 = Fraction.parse("3/4");
+		Fraction frac2 = Fraction.parse("7/8");
+
+		// Funktion add testen
+		Fraction result = frac1.sub(frac2);
+		assertEquals(Fraction.parse("-1/8"), result);
+	}
 }
