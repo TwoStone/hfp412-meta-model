@@ -111,4 +111,21 @@ public class FractionTests extends AbstractTest {
 		}
 	}
 
+	@Test
+	public void testFractionDivision_1() throws Throwable {
+		Fraction frac1 = Fraction.parse("6/1");
+		Fraction frac2 = Fraction.parse("2/1");
+
+		Fraction result = frac1.div(frac2);
+		assertEquals(Fraction.parse("3/1"), result);
+	}
+
+	@Test
+	public void testFractionDivision_2() throws Throwable {
+		Fraction frac1 = Fraction.parse("3/2");
+		Fraction frac2 = Fraction.parse("1/2");
+
+		Fraction result = frac1.div(frac2);
+		assertEquals(Fraction.parse("3/1"), result);
+	}
 }
