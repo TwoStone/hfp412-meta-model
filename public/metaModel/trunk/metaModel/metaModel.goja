@@ -95,10 +95,10 @@ server Server {
 	void setDefaultUnit(UnitType type, Unit defaultUnit);
 
 	/** computing **/
-	AbsQuantity add(AbsQuantity summand1, AbsQuantity summand2);
-	AbsQuantity sub(AbsQuantity minuend, AbsQuantity subtrahend);
-	AbsQuantity mul(AbsQuantity factor1, AbsQuantity factor2);
-	AbsQuantity div(AbsQuantity dividend, AbsQuantity divisor);
+	AbsQuantity add(AbsQuantity summand1, AbsQuantity summand2) throws NotComputableException;
+	AbsQuantity sub(AbsQuantity minuend, AbsQuantity subtrahend) throws NotComputableException;
+	AbsQuantity mul(AbsQuantity factor1, AbsQuantity factor2) throws NotComputableException;
+	AbsQuantity div(AbsQuantity dividend, AbsQuantity divisor) throws NotComputableException;
 
 	/** Measurement/Account **/
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
@@ -262,10 +262,10 @@ part quantity {
 
 	abstract class AbsQuantity {
 	
-		AbsQuantity add(AbsQuantity summand);
-		AbsQuantity sub(AbsQuantity subtrahend);
-		AbsQuantity mul(AbsQuantity factor);
-		AbsQuantity div(AbsQuantity divisor);
+		AbsQuantity add(AbsQuantity summand) throws NotComputableException;
+		AbsQuantity sub(AbsQuantity subtrahend) throws NotComputableException;
+		AbsQuantity mul(AbsQuantity factor) throws NotComputableException;
+		AbsQuantity div(AbsQuantity divisor) throws NotComputableException;
 	}
 
 	class Quantity extends AbsQuantity {
@@ -597,5 +597,6 @@ exception NotFoundException{}
 exception AlreadyFinalizedException{}
 exception NotFinalizedException{}
 exception ExponentMatchingException{}
+exception NotComputableException{}
 
 }

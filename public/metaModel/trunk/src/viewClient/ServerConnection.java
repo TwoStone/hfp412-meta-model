@@ -344,7 +344,7 @@ public class ServerConnection extends ConnectionMaster {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized AbsQuantityView mul(AbsQuantityView factor1, AbsQuantityView factor2) throws ModelException{
+    public synchronized AbsQuantityView mul(AbsQuantityView factor1, AbsQuantityView factor2) throws ModelException, NotComputableException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)factor1).createProxiInformation());
@@ -353,6 +353,8 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
             }else{
                 java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
@@ -590,7 +592,7 @@ public class ServerConnection extends ConnectionMaster {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized AbsQuantityView add(AbsQuantityView summand1, AbsQuantityView summand2) throws ModelException{
+    public synchronized AbsQuantityView add(AbsQuantityView summand1, AbsQuantityView summand2) throws ModelException, NotComputableException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)summand1).createProxiInformation());
@@ -599,6 +601,8 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
             }else{
                 java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
@@ -832,7 +836,7 @@ public class ServerConnection extends ConnectionMaster {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized AbsQuantityView div(AbsQuantityView dividend, AbsQuantityView divisor) throws ModelException{
+    public synchronized AbsQuantityView div(AbsQuantityView dividend, AbsQuantityView divisor) throws ModelException, NotComputableException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)dividend).createProxiInformation());
@@ -841,6 +845,8 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
             }else{
                 java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
@@ -1209,7 +1215,7 @@ public class ServerConnection extends ConnectionMaster {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized AbsQuantityView sub(AbsQuantityView minuend, AbsQuantityView subtrahend) throws ModelException{
+    public synchronized AbsQuantityView sub(AbsQuantityView minuend, AbsQuantityView subtrahend) throws ModelException, NotComputableException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)minuend).createProxiInformation());
@@ -1218,6 +1224,8 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
             }else{
                 java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);

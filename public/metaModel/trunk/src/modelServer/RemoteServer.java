@@ -2,7 +2,7 @@
 package modelServer;
 
 
-
+import model.*;
 import persistence.*;
 
 public  class RemoteServer extends RemoteServerMaster {
@@ -218,6 +218,8 @@ public  class RemoteServer extends RemoteServerMaster {
             return createOKResult(result, 1, this);
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
+        }catch(model.NotComputableException e0){
+            return createExceptionResult(e0, this);
         }
     }
     
@@ -354,6 +356,8 @@ public  class RemoteServer extends RemoteServerMaster {
             return createOKResult(result, 1, this);
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
+        }catch(model.NotComputableException e0){
+            return createExceptionResult(e0, this);
         }
     }
     
@@ -488,6 +492,8 @@ public  class RemoteServer extends RemoteServerMaster {
             return createOKResult(result, 1, this);
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
+        }catch(model.NotComputableException e0){
+            return createExceptionResult(e0, this);
         }
     }
     
@@ -709,6 +715,8 @@ public  class RemoteServer extends RemoteServerMaster {
             return createOKResult(result, 1, this);
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
+        }catch(model.NotComputableException e0){
+            return createExceptionResult(e0, this);
         }
     }
     
