@@ -847,6 +847,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleName(view.NameView object){
         result = new NameDefaultDetailPanel(handler, object);
     }
+    public void handleMSingletonObject(view.MSingletonObjectView object){
+        result = new MSingletonObjectDefaultDetailPanel(handler, object);
+    }
     public void handleFractionWrapper(view.FractionWrapperView object){
         result = new FractionWrapperDefaultDetailPanel(handler, object);
     }
@@ -943,6 +946,7 @@ class NameSchemeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String NameScheme$$regExpPattern = "NameScheme$$regExpPattern";
     protected static final String NameScheme$$name = "NameScheme$$name";
+    protected static final String NameScheme$$isIterable = "NameScheme$$isIterable";
     protected static final String NameScheme$$names = "NameScheme$$names";
     
     protected NameSchemeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1256,9 +1260,9 @@ class AccountTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String AbstractObject$$possibleNames = "AbstractObject$$possibleNames";
+    protected static final String AbstractObject$$productType = "AbstractObject$$productType";
     protected static final String MObject$$types = "MObject$$types";
-    protected static final String MObject$$possibleNames = "MObject$$possibleNames";
-    protected static final String MObject$$productType = "MObject$$productType";
     protected static final String MObject$$names = "MObject$$names";
     
     protected MObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1893,6 +1897,24 @@ class NameDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.NameView getAnything(){
         return (view.NameView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MSingletonObjectDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AbstractObject$$possibleNames = "AbstractObject$$possibleNames";
+    protected static final String AbstractObject$$productType = "AbstractObject$$productType";
+    protected static final String MSingletonObject$$type = "MSingletonObject$$type";
+    
+    protected MSingletonObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MSingletonObjectView getAnything(){
+        return (view.MSingletonObjectView)this.anything;
     }
 }
 

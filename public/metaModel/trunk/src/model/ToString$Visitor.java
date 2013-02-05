@@ -36,6 +36,7 @@ import persistence.PersistentMFalse;
 import persistence.PersistentMMeasurementType;
 import persistence.PersistentMObject;
 import persistence.PersistentMProductType;
+import persistence.PersistentMSingletonObject;
 import persistence.PersistentMSumType;
 import persistence.PersistentMTrue;
 import persistence.PersistentMeasurement;
@@ -450,6 +451,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException {
+		// TODO StringRepräsentation von Singletons
 
 	}
 }

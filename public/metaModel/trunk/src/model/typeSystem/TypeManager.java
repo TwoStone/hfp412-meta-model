@@ -9,7 +9,7 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import model.visitor.MTypeVisitor;
+import model.visitor.MTypeStandardVisitor;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
@@ -25,13 +25,8 @@ import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMAtomicTypeProduct;
 import persistence.PersistentMBoolean;
-import persistence.PersistentMDisjunctiveNF;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMEmptySumType;
 import persistence.PersistentMNonEmptyProductType;
 import persistence.PersistentMNonEmptySumType;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
@@ -41,6 +36,7 @@ import persistence.Procdure;
 import persistence.TDObserver;
 import persistence.TypeManagerProxi;
 import persistence.TypeManager_TypesProxi;
+import utils.Iterables;
 
 /* Additional import section end */
 
@@ -258,6 +254,8 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     public PersistentMAbstractProductType createProductType(final MTypeSearchList factors) 
 				throws model.ConsistencyException, PersistenceException{
 
+		checkOnlyNonSingletonFactors(factors);
+
 		if (factors.getLength() == 0) {
 			return MEmptyProductType.getTheMEmptyProductType();
 		}
@@ -285,8 +283,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 				throws model.ConsistencyException, PersistenceException{
 		checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
 
-		// TODO Hier m??sste man noch ??berpr??fen, ob der SuperType abstrakt ist, wenn nicht -> Exception!
-		// TODO NEIN!!!!
 		PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType,
 				superType.getAspect(), true);
 		try {
@@ -328,10 +324,10 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 
 			@Override
 			public void doItTo(PersistentMType argument) throws PersistenceException {
-				argument.accept(new MTypeVisitor() {
+				argument.accept(new MTypeStandardVisitor() {
 
 					@Override
-					public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
+					protected void standardHandling(PersistentMType mType) throws PersistenceException {
 					}
 
 					@Override
@@ -340,27 +336,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 						result.add(mAtomicTypeProduct);
 					}
 
-					@Override
-					public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType)
-							throws PersistenceException {
-					}
-
-					@Override
-					public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
-					}
-
-					@Override
-					public void handleMDisjunctiveNF(PersistentMDisjunctiveNF MDisjunctiveNF)
-							throws PersistenceException {
-					}
-
-					@Override
-					public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
-					}
-
-					@Override
-					public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
-					}
 				});
 			}
 		});
@@ -373,33 +348,10 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 
 			@Override
 			public void doItTo(PersistentMType argument) throws PersistenceException {
-				argument.accept(new MTypeVisitor() {
+				argument.accept(new MTypeStandardVisitor() {
 
 					@Override
-					public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
-					}
-
-					@Override
-					public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct)
-							throws PersistenceException {
-					}
-
-					@Override
-					public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType)
-							throws PersistenceException {
-					}
-
-					@Override
-					public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
-					}
-
-					@Override
-					public void handleMDisjunctiveNF(PersistentMDisjunctiveNF MDisjunctiveNF)
-							throws PersistenceException {
-					}
-
-					@Override
-					public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
+					protected void standardHandling(PersistentMType mType) throws PersistenceException {
 					}
 
 					@Override
@@ -420,6 +372,15 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 				return search.isStructuralEquivalant(argument).toBoolean();
 			}
 		});
+	}
+
+	private void checkOnlyNonSingletonFactors(MTypeSearchList factors) throws ConsistencyException,
+			PersistenceException {
+		for (PersistentMType type : Iterables.wrap(factors)) {
+			if (type.isSingleton().toBoolean()) {
+				throw new ConsistencyException("Die Produktbildung von Singletons ist nicht erlaubt!");
+			}
+		}
 	}
 
 	/* End of protected part that is not overridden by persistence generator */

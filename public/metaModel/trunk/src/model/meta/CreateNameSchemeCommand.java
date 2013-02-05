@@ -1,32 +1,9 @@
 
 package model.meta;
 
-import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.CommandExceptionVisitor;
-import model.visitor.CommandReturnExceptionVisitor;
-import model.visitor.CommandReturnVisitor;
-import model.visitor.CommandVisitor;
-import model.visitor.CommonDateExceptionVisitor;
-import model.visitor.CommonDateReturnExceptionVisitor;
-import model.visitor.CommonDateReturnVisitor;
-import model.visitor.CommonDateVisitor;
-import model.visitor.NameSchemeManagerCommandExceptionVisitor;
-import model.visitor.NameSchemeManagerCommandReturnExceptionVisitor;
-import model.visitor.NameSchemeManagerCommandReturnVisitor;
-import model.visitor.NameSchemeManagerCommandVisitor;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentCommonDate;
-import persistence.PersistentCreateNameSchemeCommand;
-import persistence.PersistentNameScheme;
-import persistence.PersistentNameSchemeManager;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -64,6 +41,7 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     }
     protected String name;
     protected String regExpPattern;
+    protected PersistentMBoolean isIterable;
     protected Invoker invoker;
     protected PersistentNameSchemeManager commandReceiver;
     protected PersistentNameScheme commandResult;
@@ -71,11 +49,12 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     
     private model.UserException commandException = null;
     
-    public CreateNameSchemeCommand(String name,String regExpPattern,Invoker invoker,PersistentNameSchemeManager commandReceiver,PersistentNameScheme commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateNameSchemeCommand(String name,String regExpPattern,PersistentMBoolean isIterable,Invoker invoker,PersistentNameSchemeManager commandReceiver,PersistentNameScheme commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.regExpPattern = regExpPattern;
+        this.isIterable = isIterable;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.commandResult = commandResult;
@@ -95,6 +74,10 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
         if (this.getClassId() == 251) ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade
             .newCreateNameSchemeCommand(name,regExpPattern,this.getId());
         super.store();
+        if(this.getIsIterable() != null){
+            this.getIsIterable().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade.isIterableSet(this.getId(), getIsIterable());
+        }
         if(this.getInvoker() != null){
             this.getInvoker().store();
             ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade.invokerSet(this.getId(), getInvoker());
@@ -129,6 +112,20 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade.regExpPatternSet(this.getId(), newValue);
         this.regExpPattern = newValue;
+    }
+    public PersistentMBoolean getIsIterable() throws PersistenceException {
+        return this.isIterable;
+    }
+    public void setIsIterable(PersistentMBoolean newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.isIterable)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.isIterable = (PersistentMBoolean)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateNameSchemeCommandFacade.isIterableSet(this.getId(), newValue);
+        }
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -253,6 +250,7 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
+            + (this.getIsIterable() == null ? 0 : 1)
             + (this.getCommandReceiver() == null ? 0 : 1)
             + (this.getCommandResult() == null ? 0 : 1));
     }
@@ -260,7 +258,7 @@ public class CreateNameSchemeCommand extends PersistentObject implements Persist
     
     public void execute() 
 				throws PersistenceException{
-        this.setCommandResult(this.getCommandReceiver().createNameScheme(this.getName(), this.getRegExpPattern()));
+        this.setCommandResult(this.getCommandReceiver().createNameScheme(this.getName(), this.getRegExpPattern(), this.getIsIterable()));
 		
     }
     public void checkException() 

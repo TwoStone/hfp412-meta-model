@@ -9,7 +9,7 @@ interface MObjectDOWNMssgsVisitor  {
 }
 
 
-interface MObjectUPMssgsVisitor  {
+interface MObjectUPMssgsVisitor extends AbstractObjectUPMssgsVisitor {
 
     
 }

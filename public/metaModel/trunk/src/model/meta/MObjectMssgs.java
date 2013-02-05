@@ -4,5 +4,5 @@ public interface MObjectMssgs {
     void accept(MObjectMssgsVisitor visitor) throws persistence.PersistenceException;
 }
 
-interface MObjectDOWNMssgs extends Mssgs, MObjectMssgs{}
+interface MObjectDOWNMssgs extends AbstractObjectDOWNMssgs, MObjectMssgs{}
 interface MObjectUPMssgs extends Mssgs, MObjectMssgs{}

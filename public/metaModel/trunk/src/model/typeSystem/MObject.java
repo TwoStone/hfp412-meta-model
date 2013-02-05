@@ -5,23 +5,38 @@ import java.util.Set;
 import model.ConsistencyException;
 import model.CycleException;
 import model.UserException;
+import model.visitor.AbstractObjectExceptionVisitor;
+import model.visitor.AbstractObjectReturnExceptionVisitor;
+import model.visitor.AbstractObjectReturnVisitor;
+import model.visitor.AbstractObjectVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.*;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MObjectProxi;
+import persistence.MObject_TypesProxi;
+import persistence.NameInstanceSearchList;
+import persistence.NameSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentAbstractObject;
+import persistence.PersistentMAspect;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMAtomicTypeProduct;
+import persistence.PersistentMObject;
+import persistence.Predcate;
+import persistence.Procdure;
+import persistence.QuantifObjectSearchList;
+import persistence.TDObserver;
 import utils.Lists;
 import utils.Sets;
 
 /* Additional import section end */
 
-public class MObject extends PersistentObject implements PersistentMObject{
+public class MObject extends model.typeSystem.AbstractObject implements PersistentMObject{
     
-    /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentMObject getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theMObjectFacade.getClass(objectId);
-        return (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
-    }
     
     public static PersistentMObject createMObject() throws PersistenceException{
         return createMObject(false);
@@ -64,16 +79,6 @@ public class MObject extends PersistentObject implements PersistentMObject{
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("types", this.getTypes().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
-            result.put("possibleNames", this.getPossibleNames(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
-            AbstractPersistentRoot productType = (AbstractPersistentRoot)this.getProductType(tdObserver);
-            if (productType != null) {
-                result.put("productType", productType.createProxiInformation(false));
-                if(depth > 1) {
-                    productType.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && productType.hasEssentialFields())productType.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             result.put("names", this.getNames().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
@@ -94,13 +99,11 @@ public class MObject extends PersistentObject implements PersistentMObject{
         return false;
     }
     protected MObject_TypesProxi types;
-    protected PersistentMObject This;
     
-    public MObject(PersistentMObject This,long id) throws persistence.PersistenceException {
+    public MObject(PersistentAbstractObject This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super(id);
-        this.types = new MObject_TypesProxi(this);
-        if (This != null && !(this.equals(This))) this.This = This;        
+        super((PersistentAbstractObject)This,id);
+        this.types = new MObject_TypesProxi(this);        
     }
     
     static public long getTypeId() {
@@ -117,30 +120,11 @@ public class MObject extends PersistentObject implements PersistentMObject{
             .newMObject(this.getId());
         super.store();
         this.getTypes().store();
-        if(!this.equals(this.getThis())){
-            this.getThis().store();
-            ConnectionHandler.getTheConnectionHandler().theMObjectFacade.ThisSet(this.getId(), getThis());
-        }
         
     }
     
     public MObject_TypesProxi getTypes() throws PersistenceException {
         return this.types;
-    }
-    protected void setThis(PersistentMObject newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if (newValue.equals(this)){
-            this.This = null;
-            return;
-        }
-        if(newValue.equals(this.This)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.This = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theMObjectFacade.ThisSet(this.getId(), newValue);
-        }
     }
     public PersistentMObject getThis() throws PersistenceException {
         if(this.This == null){
@@ -150,6 +134,18 @@ public class MObject extends PersistentObject implements PersistentMObject{
         }return (PersistentMObject)this.This;
     }
     
+    public void accept(AbstractObjectVisitor visitor) throws PersistenceException {
+        visitor.handleMObject(this);
+    }
+    public <R> R accept(AbstractObjectReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMObject(this);
+    }
+    public <E extends UserException>  void accept(AbstractObjectExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMObject(this);
+    }
+    public <R, E extends UserException> R accept(AbstractObjectReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMObject(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleMObject(this);
     }
@@ -164,40 +160,16 @@ public class MObject extends PersistentObject implements PersistentMObject{
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + this.getTypes().getLength()
             + this.getPossibleNames().getLength()
             + (this.getProductType() == null ? 0 : 1)
+            + this.getTypes().getLength()
             + this.getNames().getLength());
     }
     
     
-    public PersistentMAtomicTypeProduct getProductType(final TDObserver observer) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
-        PersistentMAtomicTypeProduct result = getThis().getProductType();
-		observer.updateTransientDerived(getThis(), "productType", result);
-		return result;
-    }
-    public NameSearchList getPossibleNames() 
-				throws PersistenceException{
-		final NameSearchList list = new NameSearchList();
-
-		this.getThis().getTypes().applyToAll(new Procdure<PersistentMAtomicType>() {
-
-			@Override
-			public void doItTo(PersistentMAtomicType argument) throws PersistenceException {
-				list.add(argument.getPossibleNames());
-			}
-		});
-
-		return list;
-
 	}
-    public NameSearchList getPossibleNames(final TDObserver observer) 
-				throws PersistenceException{
-        NameSearchList result = getThis().getPossibleNames();
-		observer.updateTransientDerived(getThis(), "possibleNames", result);
-		return result;
-    }
     public QuantifObjectSearchList inverseGetObject() 
 				throws PersistenceException{
         QuantifObjectSearchList result = null;
@@ -205,12 +177,15 @@ public class MObject extends PersistentObject implements PersistentMObject{
 							.inverseGetObject(this.getId(), this.getClassId());
 		return result;
     }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMObject)This);
+		if(this.equals(This)){
+		}
+    }
     public void replaceType(final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
 		if (this.getAspects().contains(newType.getAspect()) && !oldType.getAspect().equals(newType.getAspect())) {
@@ -228,16 +203,14 @@ public class MObject extends PersistentObject implements PersistentMObject{
 
 		this.getThis().getTypes().add(newType);
 	}
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentMObject)This);
-		if(this.equals(This)){
-		}
-    }
     public void addType(final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
 		if (newType.isAbstract().toBoolean()) {
-			throw new ConsistencyException("Objekte d??rfen nur in konkreten Typen klassifiziert werden!");
+			throw new ConsistencyException("Objekte dürfen nur in konkreten Typen klassifiziert werden!");
+		}
+
+		if (newType.isSingleton().toBoolean()) {
+			throw new ConsistencyException("Objekte dürfen nur in nicht-singleton Typen klassifiziert werden!");
 		}
 
 		if (this.getAspects().contains(newType.getAspect())) {
@@ -249,22 +222,6 @@ public class MObject extends PersistentObject implements PersistentMObject{
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-	}
-    public PersistentMAtomicTypeProduct getProductType() 
-				throws PersistenceException{
-		final PersistentMAtomicTypeProduct result = MAtomicTypeProduct.createMAtomicTypeProduct();
-		getThis().getTypes().applyToAll(new Procdure<PersistentMAtomicType>() {
-
-			@Override
-			public void doItTo(PersistentMAtomicType argument) throws PersistenceException {
-				try {
-					result.getFactors().add(argument);
-				} catch (CycleException e) {
-					// TODO ShouldNotHappen
-				}
-			}
-		});
-		return result;
 	}
     public void removeType(final PersistentMAtomicType oldType) 
 				throws model.ConsistencyException, PersistenceException{
@@ -288,6 +245,36 @@ public class MObject extends PersistentObject implements PersistentMObject{
 							.inverseGetFromObject(this.getId(), this.getClassId());
 		return result;
     }
+    public NameSearchList getPossibleNames() 
+				throws PersistenceException{
+		final NameSearchList list = new NameSearchList();
+
+		this.getThis().getTypes().applyToAll(new Procdure<PersistentMAtomicType>() {
+
+			@Override
+			public void doItTo(PersistentMAtomicType argument) throws PersistenceException {
+				list.add(argument.getPossibleNames());
+			}
+		});
+
+		return list;
+	}
+    public PersistentMAtomicTypeProduct getProductType() 
+				throws PersistenceException{
+		final PersistentMAtomicTypeProduct result = MAtomicTypeProduct.createMAtomicTypeProduct();
+		getThis().getTypes().applyToAll(new Procdure<PersistentMAtomicType>() {
+
+			@Override
+			public void doItTo(PersistentMAtomicType argument) throws PersistenceException {
+				try {
+					result.getFactors().add(argument);
+				} catch (CycleException e) {
+					// TODO ShouldNotHappen
+				}
+			}
+		});
+		return result;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 	private Set<PersistentMAspect> getAspects() throws PersistenceException {

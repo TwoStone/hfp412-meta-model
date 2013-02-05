@@ -107,7 +107,7 @@ server Server {
 
 
  	/** Naming **/
-	void createNameScheme@@Namensschema_erstellen(NameSchemeManager manager, String schemeName, String regExp);
+	void createNameScheme@@Namensschema_erstellen(NameSchemeManager manager, String schemeName, String regExp, MBooleanSUBTYPEName isIterable);
 	void assignType@@Typen_zuordnen(NameScheme scheme, MAtomicType type);
 	void assignNameScheme@@Namensschema_zuordnen(MAtomicType type, NameScheme scheme {nameSchemeManager;schemes});
 	void assignName@@Benennen(MObject object, Name scheme {;object;types}, String name);
@@ -196,19 +196,23 @@ part typeSystem {
 		MAtomicTypeProduct transientMultiply(MAtomicTypeProduct other);
 	}	
 
-
-	/* Objekte */
-	class MObject {
-		MAtomicType ** types;
-		
+	abstract class AbstractObject##AbsObj {
 		derived Name ** possibleNames;
 		derived MAtomicTypeProduct productType;
+	}
 
+	/* Objekte */
+	class MObject extends AbstractObject {
+		MAtomicType ** types;
+		
+		
 		void addType(MAtomicType newType) throws ConsistencyException;
 		void removeType(MAtomicType oldType) throws ConsistencyException;
 		void replaceType(MAtomicType oldType, MAtomicType newType) throws ConsistencyException; 
+	}
 
-
+	class MSingletonObject##SngltnObj extends AbstractObject {
+		prior final MAtomicType type;
 	}
 
 	/*** MANAGER ***/
@@ -562,7 +566,8 @@ part naming {
 
 	class NameScheme {
 		prior String regExpPattern;
-		prior indexed String name;
+		prior indexed String name;	
+		prior MBoolean isIterable;
 
 		MBoolean match(String name);
 	}
@@ -579,7 +584,7 @@ part naming {
 		Name ** names@@Zuordnungen;
 		
 		active Name assignType(NameScheme scheme, MAtomicType type);
-		active NameScheme createNameScheme(String name, String regExpPattern);
+		active NameScheme createNameScheme(String name, String regExpPattern, MBoolean isIterable);
 		active void assignName(MObject object, Name name, String value) throws PatternNotMatchException, ConsistencyException;
 	}
 

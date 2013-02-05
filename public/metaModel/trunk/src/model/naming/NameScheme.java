@@ -8,6 +8,7 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.NameSchemeInstanceSearchList;
@@ -30,11 +31,11 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
         return (PersistentNameScheme)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentNameScheme createNameScheme(String regExpPattern,String name) throws PersistenceException{
-        return createNameScheme(regExpPattern,name,false);
+    public static PersistentNameScheme createNameScheme(String regExpPattern,String name,PersistentMBoolean isIterable) throws PersistenceException{
+        return createNameScheme(regExpPattern,name,isIterable,false);
     }
     
-    public static PersistentNameScheme createNameScheme(String regExpPattern,String name,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentNameScheme createNameScheme(String regExpPattern,String name,PersistentMBoolean isIterable,boolean delayed$Persistence) throws PersistenceException {
         if (regExpPattern == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentNameScheme result = null;
@@ -49,12 +50,13 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("regExpPattern", regExpPattern);
         final$$Fields.put("name", name);
+        final$$Fields.put("isIterable", isIterable);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentNameScheme createNameScheme(String regExpPattern,String name,boolean delayed$Persistence,PersistentNameScheme This) throws PersistenceException {
+    public static PersistentNameScheme createNameScheme(String regExpPattern,String name,PersistentMBoolean isIterable,boolean delayed$Persistence,PersistentNameScheme This) throws PersistenceException {
         if (regExpPattern == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentNameScheme result = null;
@@ -69,6 +71,7 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("regExpPattern", regExpPattern);
         final$$Fields.put("name", name);
+        final$$Fields.put("isIterable", isIterable);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -80,6 +83,15 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("regExpPattern", this.getRegExpPattern());
             result.put("name", this.getName());
+            AbstractPersistentRoot isIterable = (AbstractPersistentRoot)this.getIsIterable();
+            if (isIterable != null) {
+                result.put("isIterable", isIterable.createProxiInformation(false));
+                if(depth > 1) {
+                    isIterable.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && isIterable.hasEssentialFields())isIterable.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             result.put("names", this.getNames().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
@@ -96,6 +108,7 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
         NameScheme result = this;
         result = new NameScheme(this.regExpPattern, 
                                 this.name, 
+                                this.isIterable, 
                                 this.This, 
                                 this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -107,13 +120,15 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
     }
     protected String regExpPattern;
     protected String name;
+    protected PersistentMBoolean isIterable;
     protected PersistentNameScheme This;
     
-    public NameScheme(String regExpPattern,String name,PersistentNameScheme This,long id) throws persistence.PersistenceException {
+    public NameScheme(String regExpPattern,String name,PersistentMBoolean isIterable,PersistentNameScheme This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.regExpPattern = regExpPattern;
         this.name = name;
+        this.isIterable = isIterable;
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -130,6 +145,10 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
         if (this.getClassId() == 244) ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade
             .newNameScheme(regExpPattern,name,this.getId());
         super.store();
+        if(this.getIsIterable() != null){
+            this.getIsIterable().store();
+            ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade.isIterableSet(this.getId(), getIsIterable());
+        }
         if(!this.equals(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade.ThisSet(this.getId(), getThis());
@@ -152,6 +171,20 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
+    }
+    public PersistentMBoolean getIsIterable() throws PersistenceException {
+        return this.isIterable;
+    }
+    public void setIsIterable(PersistentMBoolean newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.isIterable)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.isIterable = (PersistentMBoolean)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theNameSchemeFacade.isIterableSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentNameScheme newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -190,6 +223,7 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
+            + (this.getIsIterable() == null ? 0 : 1)
             + this.getNames().getLength());
     }
     
@@ -206,6 +240,7 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
 		if(this.equals(This)){
 			this.setRegExpPattern((String)final$$Fields.get("regExpPattern"));
 			this.setName((String)final$$Fields.get("name"));
+			this.setIsIterable((PersistentMBoolean)final$$Fields.get("isIterable"));
 		}
     }
     public void initializeOnCreation() 

@@ -140,15 +140,6 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     }
     
     
-    public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType) 
-				throws model.ConsistencyException, PersistenceException{
-		object.removeType(oldType);
-	}
-    public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
-				throws model.ConsistencyException, PersistenceException{
-		object.replaceType(oldType, newType);
-
-	}
     public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -161,6 +152,41 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+	}
+    public void createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateMObjectCommand command = model.meta.CreateMObjectCommand.createCreateMObjectCommand(now, now);
+		command.setType(type);
+		java.util.Iterator<PersistentMAtomicType> otherTypesIterator = otherTypes.iterator();
+		while(otherTypesIterator.hasNext()){
+			command.getOtherTypes().add(otherTypesIterator.next());
+		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public MObjectSearchList fetchObjectsWithTypeLE(final PersistentMType type) 
+				throws PersistenceException{
+		return new MObjectSearchList(getThis().getObjects().findAll(new Predcate<PersistentMObject>() {
+
+			@Override
+			public boolean test(PersistentMObject argument) throws PersistenceException {
+				return argument.getProductType().isLessOrEqual(type).toBoolean();
+			}
+		}));
+	}
+    public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType) 
+				throws model.ConsistencyException, PersistenceException{
+		object.removeType(oldType);
+	}
+    public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
+				throws model.ConsistencyException, PersistenceException{
+		object.replaceType(oldType, newType);
+
 	}
     public PersistentMObject createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes) 
 				throws model.ConsistencyException, PersistenceException{
@@ -198,35 +224,9 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
 		if(this.equals(This)){
 		}
     }
-    public void createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateMObjectCommand command = model.meta.CreateMObjectCommand.createCreateMObjectCommand(now, now);
-		command.setType(type);
-		java.util.Iterator<PersistentMAtomicType> otherTypesIterator = otherTypes.iterator();
-		while(otherTypesIterator.hasNext()){
-			command.getOtherTypes().add(otherTypesIterator.next());
-		}
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
     public void addType(final PersistentMObject object, final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
 		object.addType(newType);
-	}
-    public MObjectSearchList fetchObjectsWithTypeLE(final PersistentMType type) 
-				throws PersistenceException{
-		return new MObjectSearchList(getThis().getObjects().findAll(new Predcate<PersistentMObject>() {
-
-			@Override
-			public boolean test(PersistentMObject argument) throws PersistenceException {
-				return argument.getProductType().isLessOrEqual(type).toBoolean();
-			}
-		}));
 	}
     public void addType(final PersistentMObject object, final PersistentMAtomicType newType, final Invoker invoker) 
 				throws PersistenceException{

@@ -1,5 +1,6 @@
 package model.naming;
 
+import model.ConsistencyException;
 import model.PatternNotMatchException;
 import model.UserException;
 import model.visitor.AnythingExceptionVisitor;
@@ -17,8 +18,10 @@ import persistence.PersistentAssignNameCommand;
 import persistence.PersistentAssignTypeCommand;
 import persistence.PersistentCreateNameSchemeCommand;
 import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
 import persistence.PersistentMObject;
 import persistence.PersistentName;
+import persistence.PersistentNameInstance;
 import persistence.PersistentNameScheme;
 import persistence.PersistentNameSchemeInstance;
 import persistence.PersistentNameSchemeManager;
@@ -168,20 +171,15 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     
     
-    public void createNameScheme(final String name, final String regExpPattern, final Invoker invoker) 
+    public void createNameScheme(final String name, final String regExpPattern, final PersistentMBoolean isIterable, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentCreateNameSchemeCommand command = model.meta.CreateNameSchemeCommand.createCreateNameSchemeCommand(name, regExpPattern, now, now);
+		command.setIsIterable(isIterable);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public PersistentNameScheme createNameScheme(final String name, final String regExpPattern) 
-				throws PersistenceException{
-		PersistentNameScheme nameScheme = NameScheme.createNameScheme(regExpPattern, name);
-		this.getThis().getSchemes().add(nameScheme);
-		return nameScheme;
-	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
@@ -206,22 +204,9 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     public void assignName(final PersistentMObject object, final PersistentName name, final String value) 
 				throws model.PatternNotMatchException, model.ConsistencyException, PersistenceException{
-		SearchListRoot<PersistentMAtomicType> fittingTypes = object.getTypes().findAll(
-				new Predcate<PersistentMAtomicType>() {
-
-					@Override
-					public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-						return argument.isLessOrEqual(name.getFromType()).toBoolean();
-					}
-				});
-
-		if (!fittingTypes.iterator().hasNext()) {
-			throw new model.ConsistencyException("Das Objekt kann nicht in diesem Schema benannt werden!");
-		}
-
-		if (!name.getNameScheme().match(value).toBoolean()) {
-			throw new PatternNotMatchException("Der angegebene Name entspricht nicht dem Schema!");
-		}
+		checkTypeIsAssignable(object, name);
+		checkNameSchemeIsNotPresent(object, name);
+		checkNameIsValid(name, value);
 
 		PersistentNameSchemeInstance nameSchemeInstance = NameSchemeInstance.createNameSchemeInstance(value,
 				name.getNameScheme());
@@ -240,6 +225,12 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public PersistentNameScheme createNameScheme(final String name, final String regExpPattern, final PersistentMBoolean isIterable) 
+				throws PersistenceException{
+		PersistentNameScheme nameScheme = NameScheme.createNameScheme(regExpPattern, name, isIterable);
+		this.getThis().getSchemes().add(nameScheme);
+		return nameScheme;
+	}
     public PersistentName assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type) 
 				throws PersistenceException{
 		PersistentName name = Name.createName(type, scheme);
@@ -249,6 +240,42 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+	private static void checkTypeIsAssignable(final PersistentMObject object, final PersistentName name)
+			throws PersistenceException, ConsistencyException {
+		SearchListRoot<PersistentMAtomicType> fittingTypes = object.getTypes().findAll(
+				new Predcate<PersistentMAtomicType>() {
+
+					@Override
+					public boolean test(PersistentMAtomicType argument) throws PersistenceException {
+						return argument.isLessOrEqual(name.getFromType()).toBoolean();
+					}
+				});
+
+		if (!fittingTypes.iterator().hasNext()) {
+			throw new model.ConsistencyException("Das Objekt kann nicht in diesem Schema benannt werden!");
+		}
+	}
+
+	private static void checkNameSchemeIsNotPresent(final PersistentMObject object, final PersistentName name)
+			throws PersistenceException, ConsistencyException {
+		PersistentNameInstance nameWithScheme = object.getNames().findFirst(new Predcate<PersistentNameInstance>() {
+
+			@Override
+			public boolean test(PersistentNameInstance argument) throws PersistenceException {
+				return argument.getType().equals(name);
+			}
+		});
+		if (nameWithScheme != null) {
+			throw new ConsistencyException("Das Objekt hat bereits einen Namen in dem Schema!");
+		}
+	}
+
+	private static void checkNameIsValid(final PersistentName name, final String value) throws PersistenceException,
+			PatternNotMatchException {
+		if (!name.getNameScheme().match(value).toBoolean()) {
+			throw new PatternNotMatchException("Der angegebene Name entspricht nicht dem Schema!");
+		}
+	}
 
 	/* End of protected part that is not overridden by persistence generator */
     
