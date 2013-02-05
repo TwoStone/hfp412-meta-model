@@ -16,10 +16,13 @@ import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnit;
+import persistence.PersistentCompoundQuantity;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantity;
 import persistence.QuantityProxi;
 import persistence.TDObserver;
+
+import common.Fraction;
 
 /* Additional import section end */
 
@@ -274,9 +277,42 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 	@Override
 	public PersistentAbsQuantity add(PersistentAbsQuantity summand) throws NotComputableException, PersistenceException {
 		// TODO Auto-generated method stub
-		return null;
-	}
 
+		// type differentiation
+		Boolean isCompound = summand.accept(new AbsQuantityReturnVisitor<Boolean>() {
+			@Override
+			public Boolean handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity)
+					throws PersistenceException {
+				return true;
+			}
+
+			@Override
+			public Boolean handleQuantity(PersistentQuantity quantity) throws PersistenceException {
+				return false;
+			}
+		});
+
+		if (!isCompound) {
+			// TODO: add when summand is atomar
+			// save cast;-)
+			PersistentQuantity summandCast = (PersistentQuantity) summand;
+			Fraction sum = Fraction.parse("0/1");
+			// check unit
+			if (getThis().getUnit().equals(summandCast.getUnit()))
+				// sum can be computed
+				try {
+					sum = getThis().getAmount().add(summandCast.getAmount());
+					QuantityManager.getTheQuantityManager().createQuantity(getThis().getUnit(), sum);
+				} catch (Throwable e) {
+					throw new NotComputableException(e.getMessage());
+				}
+		} else {
+			// TODO: add when summand is compound
+			return null;
+		}
+		return null;
+
+	}
 	/* Start of protected part that is not overridden by persistence generator */
 
 	/* End of protected part that is not overridden by persistence generator */
