@@ -49,16 +49,16 @@ server Server {
 	void removeFromHierarchy(Hierarchy h, Association a);
 
 	/** Operations **/
-	void createConstant(OperationManager operationManager, String name, MType target);
-	void createStaticOp(OperationManager operationManager, String name, MType target, FormalParameter** fp);
-	void createOperation(OperationManager operationManager, MType source, MType target, String name, FormalParameter** fp);
-	void createOperation(MType source, MType target, String name, FormalParameter** fp);
+	void createConstant(OperationManager operationManager, String name, MType target {typeManager;types});
+	void createStaticOp(OperationManager operationManager, String name, MType target {typeManager;types}, FormalParameter** fp {operationManager;formalParameters});
+	void createOperation(OperationManager operationManager, MType source {typeManager;types}, MType target {typeManager;types}, String name, FormalParameter** fp {operationManager;formalParameters});
+	void createOperation(MType source {typeManager;types}, MType target {typeManager;types}, String name, FormalParameter** fp {operationManager;formalParameters});
 
-	void createVoidOperation(OperationManager operationManager, MType source, String name, FormalParameter** fp);
-	void createVoidOperation(MType source, String name, FormalParameter** fp);
- 	void createFp@@createFormalParameter(OperationManager operationManager, String name, MType ofType);
+	void createVoidOperation(OperationManager operationManager, MType source {typeManager;types}, String name, FormalParameter** fp);
+	void createVoidOperation(MType source, String name, FormalParameter** fp {operationManager;formalParameters});
+ 	void createFp@@createFormalParameter(OperationManager operationManager, String name, MType ofType {typeManager;types});
 
-	void addFp@@addFormalParameter(Operation op, FormalParameter fp);
+	void addFp@@addFormalParameter(Operation op, FormalParameter fp {operationManager;formalParameters});
 	void removeFpFromOp@@removeFormalParameter(Operation operation, FormalParameter fp); 
 	void removeFp@@removeFormalParameter(FormalParameter fp);
 	void removeOperation(Operation op);

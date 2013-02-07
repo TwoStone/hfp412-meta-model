@@ -1,4 +1,4 @@
-package test;
+package abstractOperation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -16,17 +16,20 @@ import model.NotAvailableException;
 import model.abstractOperation.FormalParameter;
 import model.abstractOperation.Operation;
 import model.abstractOperation.OperationManager;
+import model.messageOrLink.MessageManager;
 import model.typeSystem.MEmptySumType;
 import model.visitor.AbsOperationVisitor;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import persistence.ActualParameterSearchList;
 import persistence.FormalParameterSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsOperation;
 import persistence.PersistentAssociation;
 import persistence.PersistentFormalParameter;
+import persistence.PersistentMessageManager;
 import persistence.PersistentOperation;
 import persistence.PersistentOperationManager;
 import persistence.Predcate;
@@ -35,26 +38,17 @@ import test.util.AbstractTest;
 
 public class OperationManagerTest extends AbstractTest {
 
-	private final PersistentOperationManager manager;
+	private PersistentOperationManager manager;
+	private PersistentMessageManager messageManager;
 
 	public OperationManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
-		this.manager = OperationManager.getTheOperationManager();
 	}
 
 	@Before
 	public void cleanUp() throws PersistenceException, SQLException, IOException {
-		Iterator<PersistentOperation> iterator = this.manager.getOperations().iterator();
-		// FIXME: Indizierte Felder lassen sich so nicht loeschen...
-		while (iterator.hasNext()) {
-			this.manager.getOperations().removeFirstSuccess(new Predcate<PersistentOperation>() {
-
-				@Override
-				public boolean test(PersistentOperation argument) throws PersistenceException {
-					return true;
-				}
-			});
-		}
+		this.manager = getManager(OperationManager.class);
+		this.messageManager = getManager(MessageManager.class);
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
@@ -170,11 +164,14 @@ public class OperationManagerTest extends AbstractTest {
 		assertNull(found);
 	}
 
-	@Test
-	public void removingOperationIsNotAllowedIfMessagesExists() throws PersistenceException {
+	@Test(expected = ConsistencyException.class)
+	public void removingOperationIsNotAllowedIfMessagesExists() throws PersistenceException, DoubleDefinitionException,
+			ConsistencyException {
 		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
-		// TODO: Messages loeschen oder Exception schmeissen?
-		fail("Noch nicht testbar da Objekte erstellt werden muessen");
+
+		messageManager.createMessage(createOperation, mao1, mao6, new ActualParameterSearchList());
+
+		this.manager.removeOperation(createOperation);
 	}
 
 	@Test
@@ -296,7 +293,7 @@ public class OperationManagerTest extends AbstractTest {
 	@Test(expected = ConsistencyException.class)
 	public void removingFormalParameterFromOperationWithoutTheseParam() throws PersistenceException,
 			DoubleDefinitionException, ConsistencyException {
-		// TODO: Das muss doch besser gehen!? Erst anlegen und dann den angelegten mit etwas vergleichen...
+		// TODO: Das muss doch besser gehen!? Erst anlegen und dann den Angelegten mit etwas vergleichen...
 
 		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
 		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "y");
@@ -306,6 +303,7 @@ public class OperationManagerTest extends AbstractTest {
 
 		final String name = "IrgendeinerXXX";
 		manager.createOperation(mat3, mat4, name, searchList);
+
 		PersistentOperation findFirst = manager.getOperations().findFirst(new Predcate<PersistentOperation>() {
 
 			@Override
@@ -317,8 +315,10 @@ public class OperationManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void removingFormalParameterIsNotAllowedIfActualParameterExists() throws PersistenceException {
-		fail("Noch nicht testbar da Objekte erstellt werden muessen");
+	public void removingFormalParameterIsNotAllowedIfActualParameterExists() throws PersistenceException,
+			DoubleDefinitionException {
+		this.manager.createFp("Parameter 1", mat1);
+		fail("Actualparameter noch nicht anlegbar");
 	}
 
 	/**

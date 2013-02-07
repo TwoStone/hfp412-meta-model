@@ -300,7 +300,20 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleOperation(PersistentOperation operation) throws PersistenceException {
-		result = operation.getName();
+		StringBuilder parameterListe = new StringBuilder();
+		Iterator<PersistentFormalParameter> iterator = operation.getParameters().iterator();
+		PersistentFormalParameter current = null;
+		int count = 0;
+		while (iterator.hasNext()) {
+			if (count == 0) {
+				parameterListe.append(", ");
+			}
+			current = iterator.next();
+			parameterListe.append(current.getName() + " : " + current.getOfType().toString());
+			count++;
+		}
+
+		result = operation.getName() + "(" + parameterListe.toString() + ") : " + operation.getTarget().toString();
 	}
 
 	@Override

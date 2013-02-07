@@ -1,9 +1,6 @@
-package test;
+package abstractOperation;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.Iterator;
-
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
@@ -14,32 +11,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import persistence.PersistenceException;
-import persistence.PersistentOperation;
 import persistence.PersistentOperationManager;
-import persistence.Predcate;
 import test.util.AbstractTest;
 
 public class OperationTest extends AbstractTest {
-	private final PersistentOperationManager manager;
+	private PersistentOperationManager manager;
 
 	public OperationTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
-		this.manager = OperationManager.getTheOperationManager();
 	}
 
 	@Before
 	public void cleanUp() throws PersistenceException {
-		Iterator<PersistentOperation> iterator = this.manager.getOperations().iterator();
-		// TODO: Wie zur Hoelle leert man hier die Liste!?
-		while (iterator.hasNext()) {
-			manager.getOperations().removeFirstSuccess(new Predcate<PersistentOperation>() {
-
-				@Override
-				public boolean test(PersistentOperation argument) throws PersistenceException {
-					return true;
-				}
-			});
-		}
+		this.manager = OperationManager.getTheOperationManager();
 	}
 
 	@Test
