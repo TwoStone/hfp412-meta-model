@@ -13,6 +13,7 @@ import persistence.PersistentActualParameter;
 import persistence.PersistentAspectManager;
 import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
+import persistence.PersistentAvgStrategy;
 import persistence.PersistentCompUnit;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentCompoundQuantity;
@@ -39,10 +40,12 @@ import persistence.PersistentMProductType;
 import persistence.PersistentMSingletonObject;
 import persistence.PersistentMSumType;
 import persistence.PersistentMTrue;
+import persistence.PersistentMaxStrategy;
 import persistence.PersistentMeasurement;
 import persistence.PersistentMeasurementTypeManager;
 import persistence.PersistentMessage;
 import persistence.PersistentMessageManager;
+import persistence.PersistentMinStrategy;
 import persistence.PersistentName;
 import persistence.PersistentNameInstance;
 import persistence.PersistentNameScheme;
@@ -56,6 +59,7 @@ import persistence.PersistentQuantityManager;
 import persistence.PersistentReference;
 import persistence.PersistentReferenceType;
 import persistence.PersistentServer;
+import persistence.PersistentSumStrategy;
 import persistence.PersistentTypeManager;
 import persistence.PersistentUnit;
 import persistence.PersistentUnitType;
@@ -457,6 +461,30 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException {
 		// TODO StringRepräsentation von Singletons
+
+	}
+
+	@Override
+	public void handleMinStrategy(PersistentMinStrategy minStrategy) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleSumStrategy(PersistentSumStrategy sumStrategy) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleMaxStrategy(PersistentMaxStrategy maxStrategy) throws PersistenceException {
+		// TODO Auto-generated method stub
 
 	}
 }

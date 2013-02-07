@@ -103,7 +103,9 @@ server Server {
 	/** Measurement/Account **/
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
 	void createAccountType@@Kontotyp_anlegen(AccountTypeManager accountTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
+	void addSubAccountType@@Kontotyp_unterordnen(MAccountType parent, MAccountType child) throws CycleException;
 	void createAccount@@Konto_anlegen(AccountManager accountManager, String name, MAccountType type {accountTypeManager;accountTypes}, MObject object);
+	void addSubAccount@@Konto_unterordnen(Account parent, Account child) throws CycleException;
 
 
  	/** Naming **/
@@ -527,12 +529,13 @@ class MMeasurementType@@MeasurementType extends MQuantiObjectType {
 hierarchy MAccountTypeHierarchy##MAccTypeHie;
 class MAccountType@@AccountType extends MQuantiObjectType {
 	MAccountType** subAccountTypes hierarchy MAccountTypeHierarchy;
+	active void addSubAccountType##addSbAccTyp(MAccountType accountType) throws CycleException;
 }
 
 
 abstract class QuantifObject@@QuantifiedObject {
 	symmetric prior MObject object;
-	// TODO: aggregate(s:AggregationStrategy) : Quantity
+	active Quantity aggregate(AggregationStrategy strategy);
 }
 
 class Measurement extends QuantifObject {
@@ -546,10 +549,19 @@ class Account extends QuantifObject {
 	prior MAccountType type;
 	Account** subAccounts hierarchy AccountHierarchy;
 	Measurement** entries;
+	active void addSubAccount(Account account) throws CycleException;
 }
 
+interface AggregationStrategy##AggrStrtgy {
+	active Quantity compose(Quantity first, Quantity second) throws NotComputableException;
 }
 
+class MinStrategy implements AggregationStrategy {}
+class MaxStrategy implements AggregationStrategy {}
+class AvgStrategy implements AggregationStrategy {}
+class SumStrategy implements AggregationStrategy {}
+
+}
 
 part naming {
 	class Name {

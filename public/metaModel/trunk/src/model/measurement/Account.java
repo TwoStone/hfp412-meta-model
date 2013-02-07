@@ -1,4 +1,3 @@
-
 package model.measurement;
 
 import model.UserException;
@@ -20,16 +19,19 @@ import persistence.AccountHierarchyHIERARCHYStrategy;
 import persistence.AccountProxi;
 import persistence.Account_EntriesProxi;
 import persistence.Account_SubAccountsProxi;
+import persistence.AggregationStrategy;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.Invoker;
 import persistence.PersistenceException;
 import persistence.PersistentAccount;
-import persistence.PersistentMObject;
+import persistence.PersistentAddSubAccountCommand;
 import persistence.PersistentMAccountType;
+import persistence.PersistentMObject;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantifObject;
+import persistence.PersistentQuantity;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -227,16 +229,21 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 			if(((AccountHierarchyHIERARCHY)iterator0.next()).containsAccountHierarchy(part)) return true; 
 		return false;
     }
+    public void addSubAccount(final PersistentAccount account) 
+				throws model.CycleException, PersistenceException{
+		this.getThis().getSubAccounts().add(account);
+
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public <T> T strategyAccountHierarchy(final T parameter, final AccountHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$subAccounts$$Account = strategy.initialize$$Account$$subAccounts(getThis(), parameter);
@@ -248,6 +255,15 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 		}
 		return strategy.finalize$$Account(getThis(), parameter,result$$subAccounts$$Account);
     }
+    public void addSubAccount(final PersistentAccount account, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddSubAccountCommand command = model.meta.AddSubAccountCommand.createAddSubAccountCommand(now, now);
+		command.setAccount(account);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAccount)This);
@@ -258,12 +274,17 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
+    public PersistentQuantity aggregate(final AggregationStrategy strategy) 
+				throws PersistenceException{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

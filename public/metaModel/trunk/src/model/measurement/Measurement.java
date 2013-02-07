@@ -1,4 +1,3 @@
-
 package model.measurement;
 
 import model.UserException;
@@ -11,18 +10,20 @@ import model.visitor.QuantifObjectReturnExceptionVisitor;
 import model.visitor.QuantifObjectReturnVisitor;
 import model.visitor.QuantifObjectVisitor;
 import persistence.AbstractPersistentRoot;
+import persistence.AggregationStrategy;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.Invoker;
 import persistence.MeasurementProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
-import persistence.PersistentMObject;
 import persistence.PersistentMMeasurementType;
+import persistence.PersistentMObject;
 import persistence.PersistentMeasurement;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantifObject;
+import persistence.PersistentQuantity;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -217,14 +218,14 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMeasurement)This);
@@ -236,12 +237,17 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
+    public PersistentQuantity aggregate(final AggregationStrategy strategy) 
+				throws PersistenceException{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

@@ -1,4 +1,3 @@
-
 package model.measurement;
 
 import model.UserException;
@@ -16,17 +15,18 @@ import model.visitor.MQuantiObjectTypeReturnVisitor;
 import model.visitor.MQuantiObjectTypeVisitor;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.Invoker;
 import persistence.MAccountTypeHierarchyHIERARCHY;
 import persistence.MAccountTypeHierarchyHIERARCHYStrategy;
 import persistence.MAccountTypeProxi;
 import persistence.MAccountType_SubAccountTypesProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbsUnitType;
+import persistence.PersistentAddSubAccountTypeCommand;
 import persistence.PersistentMAccountType;
 import persistence.PersistentMQuantiObjectType;
 import persistence.PersistentMType;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -178,16 +178,25 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     }
     
     
+    public void addSubAccountType(final PersistentMAccountType accountType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddSubAccountTypeCommand command = model.meta.AddSubAccountTypeCommand.createAddSubAccountTypeCommand(now, now);
+		command.setAccountType(accountType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public boolean containsMAccountTypeHierarchy(final MAccountTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -217,12 +226,16 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
+    public void addSubAccountType(final PersistentMAccountType accountType) 
+				throws model.CycleException, PersistenceException{
+		this.getThis().getSubAccountTypes().add(accountType);
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

@@ -694,6 +694,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 	public DetailPanelFactory(ExceptionAndEventHandler handler) {
 		this.handler = handler;
 	}
+    public void handleMinStrategy(view.MinStrategyView object){
+        result = new MinStrategyDefaultDetailPanel(handler, object);
+    }
     public void handleNameSchemeInstance(view.NameSchemeInstanceView object){
         result = new NameSchemeInstanceDefaultDetailPanel(handler, object);
     }
@@ -787,6 +790,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleAssociationManager(view.AssociationManagerView object){
         result = new AssociationManagerDefaultDetailPanel(handler, object);
     }
+    public void handleAvgStrategy(view.AvgStrategyView object){
+        result = new AvgStrategyDefaultDetailPanel(handler, object);
+    }
     public void handleHierarchy(view.HierarchyView object){
         result = new HierarchyDefaultDetailPanel(handler, object);
     }
@@ -798,6 +804,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleMessageManager(view.MessageManagerView object){
         result = new MessageManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleSumStrategy(view.SumStrategyView object){
+        result = new SumStrategyDefaultDetailPanel(handler, object);
     }
     public void handleUnitTypeManager(view.UnitTypeManagerView object){
         result = new UnitTypeManagerDefaultDetailPanel(handler, object);
@@ -813,6 +822,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleReferenceType(view.ReferenceTypeView object){
         result = new ReferenceTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleMaxStrategy(view.MaxStrategyView object){
+        result = new MaxStrategyDefaultDetailPanel(handler, object);
     }
     public void handleAccount(view.AccountView object){
         result = new AccountDefaultDetailPanel(handler, object);
@@ -863,6 +875,20 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 }
 
 
+
+@SuppressWarnings("serial")
+class MinStrategyDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected MinStrategyDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MinStrategyView getAnything(){
+        return (view.MinStrategyView)this.anything;
+    }
+}
 
 @SuppressWarnings("serial")
 class NameSchemeInstanceDefaultDetailPanel extends DefaultDetailPanel{
@@ -1536,6 +1562,20 @@ class AssociationManagerDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class AvgStrategyDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected AvgStrategyDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.AvgStrategyView getAnything(){
+        return (view.AvgStrategyView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class HierarchyDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Hierarchy$$name = "Hierarchy$$name";
@@ -1606,6 +1646,20 @@ class MessageManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MessageManagerView getAnything(){
         return (view.MessageManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class SumStrategyDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected SumStrategyDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.SumStrategyView getAnything(){
+        return (view.SumStrategyView)this.anything;
     }
 }
 
@@ -1703,6 +1757,20 @@ class ReferenceTypeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ReferenceTypeView getAnything(){
         return (view.ReferenceTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MaxStrategyDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected MaxStrategyDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MaxStrategyView getAnything(){
+        return (view.MaxStrategyView)this.anything;
     }
 }
 
