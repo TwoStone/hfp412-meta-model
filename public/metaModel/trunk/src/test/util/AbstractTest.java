@@ -72,8 +72,11 @@ public abstract class AbstractTest extends TestingBase {
 	protected PersistentMSumType mstMultiple2And4And5;
 
 	protected PersistentMObject mao1;
+	protected PersistentMObject mao4;
+	protected PersistentMObject mao5;
 	protected PersistentMObject mao6;
 	protected PersistentMObject msoEmpty;
+	protected PersistentMObject mpo4And5;
 
 	protected PersistentOperation standardOp;
 	protected PersistentOperation voidOp;
@@ -186,8 +189,16 @@ public abstract class AbstractTest extends TestingBase {
 
 		mao1 = MObject.createMObject();
 		mao1.addType(mat1);
+		mao4 = MObject.createMObject();
+		mao4.addType(mat4);
+		mao5 = MObject.createMObject();
+		mao5.addType(mat5);
 		mao6 = MObject.createMObject();
 		mao6.addType(mat6);
+
+		mpo4And5 = MObject.createMObject();
+		mpo4And5.addType(mat4);
+		mpo4And5.addType(mat5);
 
 		// TODO: Exemplar von emptySumType
 		// msoEmpty = InstanceObject.createInstanceObject(mstEmpty);

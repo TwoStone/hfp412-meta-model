@@ -466,7 +466,7 @@ active void removeMessage(Message m);
 singleton LinkManager {
 Link** links;
 
-active void createLink(Association type, MObject source, MObject target);
+active void createLink(Association type, MObject source, MObject target) throws ConsistencyException, CycleException;
 active void removeLink(Link link);
 }
 

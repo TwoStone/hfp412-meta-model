@@ -281,8 +281,15 @@ public class CreateLinkCommand extends PersistentObject implements PersistentCre
     
     public void execute() 
 				throws PersistenceException{
-        this.getCommandReceiver().createLink(this.getType(), this.getSource(), this.getTarget());
-		
+        try{
+			this.getCommandReceiver().createLink(this.getType(), this.getSource(), this.getTarget());
+		}
+		catch(model.ConsistencyException e){
+			this.commandException = e;
+		}
+		catch(model.CycleException e){
+			this.commandException = e;
+		}
     }
     public void checkException() 
 				throws UserException, PersistenceException{
