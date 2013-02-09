@@ -2,7 +2,6 @@ package model.messageOrLink;
 
 import model.ConsistencyException;
 import model.UserException;
-import model.typeSystem.ObjectManager;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -203,7 +202,7 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 
 			@Override
 			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-				return ObjectManager.getTheObjectManager().fetchObjectsWithTypeLE(argument).equals(source);
+				return argument.equals(type.getSource());
 			}
 
 		}) == null) {
@@ -215,7 +214,7 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 
 			@Override
 			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-				return ObjectManager.getTheObjectManager().fetchObjectsWithTypeLE(argument).equals(target);
+				return argument.equals(type.getTarget());
 			}
 
 		}) == null) {
