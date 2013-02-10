@@ -770,8 +770,7 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) throws PersistenceException {
-		// TODO: implement method: addAssociation
-
+		getThis().getAssociationManager().addAssociation(h, a, getThis());
 	}
 
 	@Override

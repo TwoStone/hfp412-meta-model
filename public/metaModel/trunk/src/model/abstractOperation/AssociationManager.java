@@ -1,5 +1,6 @@
 package model.abstractOperation;
 
+import model.CycleException;
 import model.UserException;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
@@ -226,15 +227,12 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 
 	@Override
 	public void initializeOnInstantiation() throws PersistenceException {
-		// TODO: implement method: initializeOnInstantiation
-
 	}
 
 	@Override
 	public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a)
 			throws model.DoubleDefinitionException, model.CycleException, PersistenceException {
-		// TODO: implement method: addAssociation
-
+		a.getHierarchies().add(h);
 	}
 
 	@Override
@@ -251,8 +249,6 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 
 	@Override
 	public void initializeOnCreation() throws PersistenceException {
-		// TODO: implement method: initializeOnCreation
-
 	}
 
 	@Override
@@ -290,8 +286,6 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 
 	@Override
 	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
 
 	@Override
@@ -329,7 +323,12 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	public void createHierarchy(final PersistentAssociation a, final String name)
 			throws model.DoubleDefinitionException, PersistenceException {
 		PersistentHierarchy h = Hierarchy.createHierarchy(name);
-		a.getHierarchies().add(h);
+		try {
+			getThis().addAssociation(h, a);
+		} catch (CycleException e) {
+			// TODO Eigentlich haben wir hier gar keine Cycle! Thimo nochmal fragen...
+			e.printStackTrace();
+		}
 		getThis().getHierarchies().add(h);
 	}
 
