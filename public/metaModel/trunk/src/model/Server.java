@@ -459,8 +459,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void createHierarchy(final PersistentAssociationManager manager, final PersistentAssociation a, final String name) 
 				throws PersistenceException{
-		// TODO: implement method: createHierarchy
-
+		getThis().getAssociationManager().createHierarchy(a, name, getThis());
 	}
     public PersistentNameSchemeManager getNameSchemeManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -541,8 +540,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createLink(final PersistentLinkManager link, final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target) 
 				throws PersistenceException{
-		// TODO: implement method: createLink
-
+		getThis().getLinkManager().createLink(type, source, target, getThis());
 	}
     public PersistentFractionManager getFractionManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -556,8 +554,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy) 
 				throws PersistenceException{
-		// TODO: implement method: addToHierarchy
-
+		getThis().getAssociationManager().addAssociation(theHierarchy, association, getThis());
 	}
     public PersistentMeasurementTypeManager getMeasurementTypeManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -581,8 +578,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createStaticMessage(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentMObject target, final ActualParameterSearchList ap) 
 				throws PersistenceException{
-		// TODO: implement method: createStaticMessage
-
+		getThis().getMessageManager().createStaticMessage(type, name, target, ap, getThis());
 	}
     public PersistentAccountManager getAccountManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -639,8 +635,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentMObject source, final PersistentMObject target, final ActualParameterSearchList ap) 
 				throws PersistenceException{
-		// TODO: implement method: createMessage
-
+		getThis().getMessageManager().createMessage(type, source, target, ap, getThis());
 	}
     public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
 				throws PersistenceException{
@@ -660,16 +655,14 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void removeLink(final PersistentLink link) 
 				throws PersistenceException{
-		// TODO: implement method: removeLink
-
+		getThis().getLinkManager().removeLink(link, getThis());
 	}
     public void disconnected() 
 				throws PersistenceException{
 	}
     public void createLink(final PersistentMObject source, final PersistentAssociation type, final PersistentMObject target) 
 				throws PersistenceException{
-		// TODO: implement method: createLink
-
+		getThis().getLinkManager().createLink(type, source, target, getThis());
 	}
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -719,13 +712,11 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void removeMessage(final PersistentMessage m) 
 				throws PersistenceException{
-		// TODO: implement method: removeMessage
-
+		getThis().getMessageManager().removeMessage(m, getThis());
 	}
     public void createAssociation(final PersistentAssociationManager manager, final PersistentMType source, final PersistentMType target, final String name) 
 				throws PersistenceException{
-		// TODO: implement method: createAssociation
-
+		getThis().getAssociationManager().createAssociation(source, target, name, getThis());
 	}
     public void createSumType(final MTypeSearchList containees) 
 				throws PersistenceException{
@@ -782,8 +773,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createMessage(final PersistentMObject source, final PersistentOperation type, final PersistentMObject target, final ActualParameterSearchList ap) 
 				throws PersistenceException{
-		// TODO: implement method: createMessage
-
+		getThis().getMessageManager().createMessage(type, source, target, ap, getThis());
 	}
     public PersistentMessageManager getMessageManager(final TDObserver observer) 
 				throws PersistenceException{
@@ -847,8 +837,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void removeAssociation(final PersistentAssociation a) 
 				throws PersistenceException{
-		// TODO: implement method: removeAssociation
-
+		getThis().getAssociationManager().removeAssociation(a, getThis());
 	}
     public void removeFp(final PersistentFormalParameter fp) 
 				throws PersistenceException{
@@ -921,8 +910,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createVoidMessage(final PersistentMObject source, final PersistentOperation type, final ActualParameterSearchList ap) 
 				throws PersistenceException{
-		// TODO: implement method: createVoidMessage
-
+		getThis().getMessageManager().createVoidMessage(type, source, ap, getThis());
 	}
     public PersistentMeasurementTypeManager getMeasurementTypeManager() 
 				throws PersistenceException{
@@ -944,8 +932,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createVoidMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentMObject source, final ActualParameterSearchList ap) 
 				throws PersistenceException{
-		// TODO: implement method: createVoidMessage
-
+		getThis().getMessageManager().createVoidMessage(type, source, ap, getThis());
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{

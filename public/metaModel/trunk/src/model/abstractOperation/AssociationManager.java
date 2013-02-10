@@ -172,8 +172,9 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	}
     public void createAssociation(final PersistentMType source, final PersistentMType target, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		// TODO: implement method: createAssociation
-
+		// TODO: DDE
+		PersistentAssociation a = Association.createAssociation(name, source, target);
+		getThis().getAssociations().add(a);
 	}
     public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a, final Invoker invoker) 
 				throws PersistenceException{
@@ -214,8 +215,12 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     public void removeAssociation(final PersistentAssociation a) 
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
-		// TODO: implement method: removeAssociation
-
+		getThis().getAssociations().removeFirstSuccess(new Predcate<PersistentAssociation>() {
+			@Override
+			public boolean test(PersistentAssociation argument) throws PersistenceException {
+				return a.equals(argument);
+			}
+		});
 	}
     public void createAssociation(final PersistentMType source, final PersistentMType target, final String name, final Invoker invoker) 
 				throws PersistenceException{
