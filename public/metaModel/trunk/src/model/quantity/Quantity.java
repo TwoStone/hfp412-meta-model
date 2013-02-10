@@ -231,10 +231,55 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 	}
     public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
 				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
 
-		// type differentiation
-		Boolean isCompound = summand.accept(new AbsQuantityReturnVisitor<Boolean>() {
+		if (!this.isArgumentCompound(summand)) {
+			// summand instanceof Quantity
+			PersistentQuantity summandCast = (PersistentQuantity) summand;
+			if (this.hasSameUnitAs(summandCast))
+				return this.simpleAdd(summandCast);
+
+			if (!this.hasSameUnitTypeAs(summandCast))
+				throw new NotComputableException("Addition / Subtraktion nur mit gleichem Typ möglich!");
+
+			return this.complexAdd(summandCast);
+
+		} else {
+			PersistentCompoundQuantity summandCast = (PersistentCompoundQuantity) summand;
+			return summandCast.add(getThis());
+		}
+	}
+
+    /* Start of protected part that is not overridden by persistence generator */
+	private PersistentQuantity simpleAdd(PersistentQuantity summand) throws PersistenceException,
+			NotComputableException {
+		try {
+			Fraction sum = getThis().getAmount().add(summand.getAmount());
+			PersistentQuantity resultSimple = QuantityManager.getTheQuantityManager().createQuantity(
+					getThis().getUnit(), sum);
+			return resultSimple;
+		} catch (Throwable e) {
+			throw new NotComputableException(e.getMessage());
+		}
+	}
+
+	private boolean hasSameUnitAs(PersistentQuantity summandCast) throws PersistenceException {
+		return getThis().getUnit().equals(summandCast.getUnit());
+	}
+
+	private boolean hasSameUnitTypeAs(PersistentQuantity summandCast) throws PersistenceException {
+		return getThis().getUnit().getType().equals(summandCast.getUnit().getType());
+	}
+
+	private PersistentAbsQuantity complexAdd(PersistentQuantity summandCast) throws PersistenceException {
+		PersistentCompoundQuantity newCompoundQuantity = CompoundQuantity.createCompoundQuantity();
+		newCompoundQuantity.getParts().add(getThis());
+		newCompoundQuantity.getParts().add(summandCast);
+		QuantityManager.getTheQuantityManager().getQuantities().add(newCompoundQuantity);
+		return newCompoundQuantity;
+	}
+
+	private boolean isArgumentCompound(PersistentAbsQuantity summand) throws PersistenceException {
+		return summand.accept(new AbsQuantityReturnVisitor<Boolean>() {
 			@Override
 			public Boolean handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity)
 					throws PersistenceException {
@@ -246,30 +291,7 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 				return false;
 			}
 		});
-
-		if (!isCompound) {
-			// TODO: add when summand is atomar
-			// save cast;-)
-			PersistentQuantity summandCast = (PersistentQuantity) summand;
-			Fraction sum = Fraction.parse("0/1");
-			// check unit
-			if (getThis().getUnit().equals(summandCast.getUnit()))
-				// sum can be computed
-				try {
-					sum = getThis().getAmount().add(summandCast.getAmount());
-					QuantityManager.getTheQuantityManager().createQuantity(getThis().getUnit(), sum);
-				} catch (Throwable e) {
-					throw new NotComputableException(e.getMessage());
-				}
-		} else {
-			// TODO: add when summand is compound
-			return null;
-		}
-		return null;
-
 	}
-
-    /* Start of protected part that is not overridden by persistence generator */
 
 	/* End of protected part that is not overridden by persistence generator */
     
