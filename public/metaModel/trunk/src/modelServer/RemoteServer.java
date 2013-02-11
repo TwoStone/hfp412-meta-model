@@ -109,18 +109,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> addReference(String compUnitProxiString, String unitProxiString, String exponentAsString){
-        try {
-            PersistentCompUnit compUnit = (PersistentCompUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(compUnitProxiString));
-            PersistentUnit unit = (PersistentUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
-            long exponent = new Long(exponentAsString).longValue();
-            ((PersistentServer)this.server).addReference(compUnit, unit, exponent);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> createCompUnit(String compUnitTypeProxiString, String name){
         try {
             PersistentCompUnitType compUnitType = (PersistentCompUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(compUnitTypeProxiString));
@@ -510,6 +498,18 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> addReference(String unitProxiString, String name, String referenceUnitProxiString, String exponentAsString){
+        try {
+            PersistentAbsUnit unit = (PersistentAbsUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
+            PersistentUnit referenceUnit = (PersistentUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(referenceUnitProxiString));
+            long exponent = new Long(exponentAsString).longValue();
+            ((PersistentServer)this.server).addReference(unit, name, referenceUnit, exponent);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> removeFp(String fpProxiString){
         try {
             PersistentFormalParameter fp = (PersistentFormalParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(fpProxiString));
@@ -616,18 +616,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> addReferenceType(String compUnitTypeProxiString, String unitTypeProxiString, String exponentAsString){
-        try {
-            PersistentCompUnitType compUnitType = (PersistentCompUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(compUnitTypeProxiString));
-            PersistentUnitType unitType = (PersistentUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitTypeProxiString));
-            long exponent = new Long(exponentAsString).longValue();
-            ((PersistentServer)this.server).addReferenceType(compUnitType, unitType, exponent);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> createAspect(String aspectManagerProxiString, String name){
         try {
             PersistentAspectManager aspectManager = (PersistentAspectManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aspectManagerProxiString));
@@ -726,6 +714,18 @@ public  class RemoteServer extends RemoteServerMaster {
 				fp.add(currentProxi);
 			}
             ((PersistentServer)this.server).createOperation(operationManager, source, target, name, fp);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> addReferenceType(String unitTypeProxiString, String name, String referenceUnitTypeProxiString, String exponentAsString){
+        try {
+            PersistentAbsUnitType unitType = (PersistentAbsUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitTypeProxiString));
+            PersistentUnitType referenceUnitType = (PersistentUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(referenceUnitTypeProxiString));
+            long exponent = new Long(exponentAsString).longValue();
+            ((PersistentServer)this.server).addReferenceType(unitType, name, referenceUnitType, exponent);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

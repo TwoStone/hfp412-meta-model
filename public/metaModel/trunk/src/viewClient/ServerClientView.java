@@ -534,24 +534,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof AbsUnitTypeView){
-                item = new javax.swing.JMenuItem();
-                item.setText("removeUnitType");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeUnitType" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
-                            try {
-                                getConnection().removeUnitType((AbsUnitTypeView)selected);
-                                getConnection().setEagerRefresh();
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
-                    }
-                    
-                });
-                result.add(item);
-            }
             if (selected instanceof FormalParameterView){
                 item = new javax.swing.JMenuItem();
                 item.setText("removeFormalParameter");
@@ -582,6 +564,39 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                         wizard.pack();
                         wizard.setLocationRelativeTo(getNavigationPanel());
                         wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof AbsUnitTypeView){
+                item = new javax.swing.JMenuItem();
+                item.setText("addReferenceType ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAddReferenceTypeAbsUnitTypeStringUnitTypeIntegerMssgWizard wizard = new ServerAddReferenceTypeAbsUnitTypeStringUnitTypeIntegerMssgWizard("addReferenceType");
+                        wizard.setFirstArgument((AbsUnitTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("removeUnitType");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeUnitType" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().removeUnitType((AbsUnitTypeView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
                     }
                     
                 });
@@ -875,6 +890,23 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
+            if (selected instanceof LinkManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createLink ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateLinkLinkManagerAssociationMObjectMObjectMssgWizard wizard = new ServerCreateLinkLinkManagerAssociationMObjectMObjectMssgWizard("createLink");
+                        wizard.setFirstArgument((LinkManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             if (selected instanceof MObjectView){
                 item = new javax.swing.JMenuItem();
                 item.setText("Benennen ... ");
@@ -972,23 +1004,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     public void actionPerformed(java.awt.event.ActionEvent e) {
                         ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard("createVoidMessage");
                         wizard.setFirstArgument((MObjectView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof LinkManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("createLink ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateLinkLinkManagerAssociationMObjectMObjectMssgWizard wizard = new ServerCreateLinkLinkManagerAssociationMObjectMObjectMssgWizard("createLink");
-                        wizard.setFirstArgument((LinkManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -1194,6 +1209,21 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
             }
             if (selected instanceof AbsUnitView){
                 item = new javax.swing.JMenuItem();
+                item.setText("addReference ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAddReferenceAbsUnitStringUnitIntegerMssgWizard wizard = new ServerAddReferenceAbsUnitStringUnitIntegerMssgWizard("addReference");
+                        wizard.setFirstArgument((AbsUnitView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
                 item.setText("removeUnit");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -1343,39 +1373,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof CompUnitView){
-                item = new javax.swing.JMenuItem();
-                item.setText("addReference ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddReferenceCompUnitUnitIntegerMssgWizard wizard = new ServerAddReferenceCompUnitUnitIntegerMssgWizard("addReference");
-                        wizard.setFirstArgument((CompUnitView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
             if (selected instanceof CompUnitTypeView){
-                item = new javax.swing.JMenuItem();
-                item.setText("addReferenceType ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard wizard = new ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard("addReferenceType");
-                        wizard.setFirstArgument((CompUnitTypeView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
                 item = new javax.swing.JMenuItem();
                 item.setText("createCompUnit ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
@@ -1803,62 +1801,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private OperationManagerView firstArgument; 
 	
 		public void setFirstArgument(OperationManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerAddReferenceCompUnitUnitIntegerMssgWizard extends Wizard {
-
-		protected ServerAddReferenceCompUnitUnitIntegerMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerAddReferenceCompUnitUnitIntegerMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().addReference(firstArgument, (UnitView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									((IntegerSelectionPanel)getParametersPanel().getComponent(1)).getResult().longValue());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			try{
-				getParametersPanel().add(new ObjectSelectionPanel("unit", "view.UnitView", new ListRoot(((UnitTypeManagerView)((ServerView)getConnection().getServerView()).getUnitTypeManager()).getUnits()), this));
-			}catch(ModelException me){;
-				 handleException(me);
-				 setVisible(false);
-				 dispose();
-				 return;
-			 }
-			getParametersPanel().add(new IntegerSelectionPanel("exponent", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private CompUnitView firstArgument; 
-	
-		public void setFirstArgument(CompUnitView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -3198,6 +3140,71 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
+	class ServerAddReferenceAbsUnitStringUnitIntegerMssgWizard extends Wizard {
+
+		protected ServerAddReferenceAbsUnitStringUnitIntegerMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddReferenceAbsUnitStringUnitIntegerMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().addReference(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(UnitView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									((IntegerSelectionPanel)getParametersPanel().getComponent(2)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("referenceUnit", "view.UnitView", new ListRoot(((UnitTypeManagerView)((ServerView)getConnection().getServerView()).getUnitTypeManager()).getUnits()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }
+			getParametersPanel().add(new IntegerSelectionPanel("exponent", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AbsUnitView firstArgument; 
+	
+		public void setFirstArgument(AbsUnitView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
+				selectionPanel.preset(firstArgument.getName());
+				if (!selectionPanel.check()) selectionPanel.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerRemoveTypeMObjectMAtomicTypeMssgWizard extends Wizard {
 
 		protected ServerRemoveTypeMObjectMAtomicTypeMssgWizard(String operationName){
@@ -3625,62 +3632,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard extends Wizard {
-
-		protected ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerAddReferenceTypeCompUnitTypeUnitTypeIntegerMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().addReferenceType(firstArgument, (UnitTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									((IntegerSelectionPanel)getParametersPanel().getComponent(1)).getResult().longValue());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			try{
-				getParametersPanel().add(new ObjectSelectionPanel("unitType", "view.UnitTypeView", new ListRoot(((UnitTypeManagerView)((ServerView)getConnection().getServerView()).getUnitTypeManager()).getAtomicUnitTypes()), this));
-			}catch(ModelException me){;
-				 handleException(me);
-				 setVisible(false);
-				 dispose();
-				 return;
-			 }
-			getParametersPanel().add(new IntegerSelectionPanel("exponent", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private CompUnitTypeView firstArgument; 
-	
-		public void setFirstArgument(CompUnitTypeView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
 	class ServerCreateAspectAspectManagerStringMssgWizard extends Wizard {
 
 		protected ServerCreateAspectAspectManagerStringMssgWizard(String operationName){
@@ -4068,6 +4019,71 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		public void setFirstArgument(OperationManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerAddReferenceTypeAbsUnitTypeStringUnitTypeIntegerMssgWizard extends Wizard {
+
+		protected ServerAddReferenceTypeAbsUnitTypeStringUnitTypeIntegerMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddReferenceTypeAbsUnitTypeStringUnitTypeIntegerMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().addReferenceType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+									(UnitTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
+									((IntegerSelectionPanel)getParametersPanel().getComponent(2)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("referenceUnitType", "view.UnitTypeView", new ListRoot(((UnitTypeManagerView)((ServerView)getConnection().getServerView()).getUnitTypeManager()).getAtomicUnitTypes()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }
+			getParametersPanel().add(new IntegerSelectionPanel("exponent", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AbsUnitTypeView firstArgument; 
+	
+		public void setFirstArgument(AbsUnitTypeView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
+				selectionPanel.preset(firstArgument.getName());
+				if (!selectionPanel.check()) selectionPanel.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
 			this.check();
 		}
 		

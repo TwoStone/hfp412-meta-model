@@ -1,4 +1,3 @@
-
 package model.meta;
 
 import model.UserException;
@@ -21,14 +20,13 @@ import model.visitor.UnitTypeManagerCommandVisitor;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
 import persistence.PersistenceException;
+import persistence.PersistentAbsUnit;
 import persistence.PersistentAddReferenceCommand;
 import persistence.PersistentCommonDate;
-import persistence.PersistentCompUnit;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentUnit;
 import persistence.PersistentUnitTypeManager;
-
 
 /* Additional import section end */
 
@@ -40,19 +38,20 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
         return (PersistentAddReferenceCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentAddReferenceCommand createAddReferenceCommand(long exponent,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createAddReferenceCommand(exponent,createDate,commitDate,false);
+    public static PersistentAddReferenceCommand createAddReferenceCommand(String name,long exponent,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createAddReferenceCommand(name,exponent,createDate,commitDate,false);
     }
     
-    public static PersistentAddReferenceCommand createAddReferenceCommand(long exponent,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentAddReferenceCommand createAddReferenceCommand(String name,long exponent,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentAddReferenceCommand result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade
-                .newDelayedAddReferenceCommand(exponent);
+                .newDelayedAddReferenceCommand(name,exponent);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade
-                .newAddReferenceCommand(exponent,-1);
+                .newAddReferenceCommand(name,exponent,-1);
         }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -61,8 +60,9 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected PersistentCompUnit compUnit;
-    protected PersistentUnit unit;
+    protected String name;
+    protected PersistentAbsUnit unit;
+    protected PersistentUnit referenceUnit;
     protected long exponent;
     protected Invoker invoker;
     protected PersistentUnitTypeManager commandReceiver;
@@ -70,11 +70,12 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
     
     private model.UserException commandException = null;
     
-    public AddReferenceCommand(PersistentCompUnit compUnit,PersistentUnit unit,long exponent,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public AddReferenceCommand(String name,PersistentAbsUnit unit,PersistentUnit referenceUnit,long exponent,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.compUnit = compUnit;
+        this.name = name;
         this.unit = unit;
+        this.referenceUnit = referenceUnit;
         this.exponent = exponent;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
@@ -92,15 +93,15 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 268) ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade
-            .newAddReferenceCommand(exponent,this.getId());
+            .newAddReferenceCommand(name,exponent,this.getId());
         super.store();
-        if(this.getCompUnit() != null){
-            this.getCompUnit().store();
-            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.compUnitSet(this.getId(), getCompUnit());
-        }
         if(this.getUnit() != null){
             this.getUnit().store();
             ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.unitSet(this.getId(), getUnit());
+        }
+        if(this.getReferenceUnit() != null){
+            this.getReferenceUnit().store();
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.referenceUnitSet(this.getId(), getReferenceUnit());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -117,32 +118,40 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
         
     }
     
-    public PersistentCompUnit getCompUnit() throws PersistenceException {
-        return this.compUnit;
+    public String getName() throws PersistenceException {
+        return this.name;
     }
-    public void setCompUnit(PersistentCompUnit newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.compUnit)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.compUnit = (PersistentCompUnit)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.compUnitSet(this.getId(), newValue);
-        }
+    public void setName(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
     }
-    public PersistentUnit getUnit() throws PersistenceException {
+    public PersistentAbsUnit getUnit() throws PersistenceException {
         return this.unit;
     }
-    public void setUnit(PersistentUnit newValue) throws PersistenceException {
+    public void setUnit(PersistentAbsUnit newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.unit)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.unit = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
+        this.unit = (PersistentAbsUnit)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.unitSet(this.getId(), newValue);
+        }
+    }
+    public PersistentUnit getReferenceUnit() throws PersistenceException {
+        return this.referenceUnit;
+    }
+    public void setReferenceUnit(PersistentUnit newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.referenceUnit)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.referenceUnit = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.referenceUnitSet(this.getId(), newValue);
         }
     }
     public long getExponent() throws PersistenceException {
@@ -261,8 +270,8 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + (this.getCompUnit() == null ? 0 : 1)
             + (this.getUnit() == null ? 0 : 1)
+            + (this.getReferenceUnit() == null ? 0 : 1)
             + (this.getCommandReceiver() == null ? 0 : 1));
     }
     
@@ -270,7 +279,7 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().addReference(this.getCompUnit(), this.getUnit(), this.getExponent());
+			this.getCommandReceiver().addReference(this.getName(), this.getUnit(), this.getReferenceUnit(), this.getExponent());
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
@@ -294,7 +303,7 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
     }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

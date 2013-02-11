@@ -149,8 +149,8 @@ public class UnitTypeManagerTest extends AbstractTest {
 				PersistentCompUnitType speed = (PersistentCompUnitType) AbsUnitType.getAbsUnitTypeByName(nameOfSpeed)
 						.iterator().next();
 				// assertFalse(this.isTrue(speed.isFinal()));
-				utm.addReferenceType(speed, length, 1);
-				utm.addReferenceType(speed, time, -1);
+				utm.addReferenceType(nameOfSpeed, speed, length, 1);
+				utm.addReferenceType(nameOfSpeed, speed, time, -1);
 				// assertFalse(this.isTrue(speed.isFinal()));
 				// speed.finishModeling();sertTrue(this.isTrue(speed.isFinal()));
 
