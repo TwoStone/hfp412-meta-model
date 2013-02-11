@@ -2,7 +2,6 @@ package model;
 
 import java.util.Iterator;
 
-import model.visitor.MBooleanReturnVisitor;
 import model.visitor.MBooleanVisitor;
 import persistence.Anything;
 import persistence.PersistenceException;
@@ -241,20 +240,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException {
-		String state = compUnitType.isFinal().accept(new MBooleanReturnVisitor<String>() {
-
-			@Override
-			public String handleMFalse(PersistentMFalse booleanFalse) throws PersistenceException {
-				return " (draft)";
-			}
-
-			@Override
-			public String handleMTrue(PersistentMTrue booleanTrue) throws PersistenceException {
-				return "";
-			}
-
-		});
-		this.result = compUnitType.getName() + state;
+		this.result = compUnitType.getName();
 
 	}
 

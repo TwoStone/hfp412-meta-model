@@ -866,14 +866,14 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		this.getThis().getNameSchemeManager().assignType(scheme, type, this.getThis());
 	}
-    public void createUnit(final PersistentUnitType type, final String name) 
-				throws PersistenceException{
-		getThis().getUnitTypeManager().createUnit(name, type, getThis());
-
-	}
     public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit defaultUnit) 
 				throws PersistenceException{
 		getThis().getUnitTypeManager().setDefaultUnit(type, defaultUnit, getThis());
+
+	}
+    public void createUnit(final PersistentUnitType type, final String name) 
+				throws PersistenceException{
+		getThis().getUnitTypeManager().createUnit(name, type, getThis());
 
 	}
     public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final String singletonType, final String abstractType) 
@@ -950,10 +950,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
 				throws PersistenceException{
 		getThis().getUnitTypeManager().setConversion(unit, factor, constant, getThis());
-	}
-    public void finishModeling(final PersistentCompUnitType compUnitType) 
-				throws PersistenceException{
-		getThis().getUnitTypeManager().finishModeling(compUnitType, getThis());
 	}
     public void createOperation(final PersistentOperationManager operationManager, final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
 				throws PersistenceException{

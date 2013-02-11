@@ -1362,22 +1362,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
             }
             if (selected instanceof CompUnitTypeView){
                 item = new javax.swing.JMenuItem();
-                item.setText("Publish");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Publish" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
-                            try {
-                                getConnection().finishModeling((CompUnitTypeView)selected);
-                                getConnection().setEagerRefresh();
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
                 item.setText("addReferenceType ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -3378,60 +3362,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateUnitUnitTypeStringMssgWizard extends Wizard {
-
-		protected ServerCreateUnitUnitTypeStringMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateUnitUnitTypeStringMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createUnit(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new StringSelectionPanel("name", this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private UnitTypeView firstArgument; 
-	
-		public void setFirstArgument(UnitTypeView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			try{
-				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
-				selectionPanel.preset(firstArgument.getName());
-				if (!selectionPanel.check()) selectionPanel.preset("");
-			}catch(ModelException me){
-				 handleException(me);
-			}
-			this.check();
-		}
-		
-		
-	}
-
 	class ServerSetDefaultUnitUnitTypeUnitMssgWizard extends Wizard {
 
 		protected ServerSetDefaultUnitUnitTypeUnitMssgWizard(String operationName){
@@ -3477,6 +3407,60 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
 				selectionPanel.preset((Anything)firstArgument.getDefaultUnit());
 				if (!selectionPanel.check()) selectionPanel.preset((Anything)null);
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateUnitUnitTypeStringMssgWizard extends Wizard {
+
+		protected ServerCreateUnitUnitTypeStringMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateUnitUnitTypeStringMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createUnit(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private UnitTypeView firstArgument; 
+	
+		public void setFirstArgument(UnitTypeView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
+				selectionPanel.preset(firstArgument.getName());
+				if (!selectionPanel.check()) selectionPanel.preset("");
 			}catch(ModelException me){
 				 handleException(me);
 			}

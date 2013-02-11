@@ -2,17 +2,14 @@ package model.quantity;
 
 import java.util.Iterator;
 
-import model.AlreadyFinalizedException;
 import model.ConsistencyException;
 import model.DoubleDefinitionException;
-import model.NotFinalizedException;
 import model.UserException;
 import model.visitor.AbsUnitTypeVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import model.visitor.MBooleanExceptionVisitor;
 import persistence.AbsUnitSearchList;
 import persistence.AbsUnitTypeSearchList;
 import persistence.Anything;
@@ -29,9 +26,6 @@ import persistence.PersistentCreateCompUnitCommand;
 import persistence.PersistentCreateCompUnitTypeCommand;
 import persistence.PersistentCreateUnitCommand;
 import persistence.PersistentCreateUnitTypeCommand;
-import persistence.PersistentFinishModelingCommand;
-import persistence.PersistentMFalse;
-import persistence.PersistentMTrue;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentReference;
@@ -245,24 +239,8 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		return result;
     }
     public void addReferenceType(final PersistentCompUnitType compUnitType, final PersistentUnitType unitType, final long exponent) 
-				throws model.DoubleDefinitionException, model.AlreadyFinalizedException, PersistenceException{
-		// ---> isFinal-Attribut pr?fen
-		compUnitType.isFinal().accept(new MBooleanExceptionVisitor<AlreadyFinalizedException>() {
-
-			@Override
-			public void handleMFalse(PersistentMFalse booleanFalse) throws PersistenceException,
-					AlreadyFinalizedException {
-			}
-
-			@Override
-			public void handleMTrue(PersistentMTrue booleanTrue) throws PersistenceException, AlreadyFinalizedException {
-				throw new AlreadyFinalizedException(constants.ExceptionConstants.ALREADY_FINAL_CUT);
-
-			}
-
-		});
-		// <--- isFinal-Attribut pr?fen
-
+				throws model.DoubleDefinitionException, PersistenceException{
+		// TODO: Namen übergeben für neuen CompUnitType?
 		// ---> Dublette pr?fen
 		PersistentReferenceType duplicate = compUnitType.getRefs().findFirst(new Predcate<PersistentReferenceType>() {
 
@@ -279,13 +257,15 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 					+ duplicate.toString());
 		// <--- Dublette pr?fen
 
+		// TODO: CompoundUnitType mit diesen Referenzen schon vorhanden?
+
 		PersistentReferenceType newRefType = ReferenceType.createReferenceType();
 		newRefType.setRef(unitType);
 		newRefType.setExponent(exponent);
 		compUnitType.getRefs().add(newRefType);
 	}
     public void createCompUnit(final String name, final PersistentCompUnitType type) 
-				throws model.DoubleDefinitionException, model.NotFinalizedException, PersistenceException{
+				throws model.DoubleDefinitionException, PersistenceException{
 
 		// DoubleDefinition: Namensgleichheit.
 		if (AbsUnitType.getAbsUnitTypeByName(name).iterator().hasNext())
@@ -293,26 +273,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 
 		// DoubleDefinition: Gleiche Auspr?gung (Typengleichheit).
 		// TODO: Double Definition bei gleicher Auspr --> etwas komplexer^^
-
-		// Falls CompUnitType noch im draft-Status: blocken.
-
-		if (!type.isFinal().toBoolean()) {
-			throw new NotFinalizedException(ExceptionConstants.NOT_FINAL);
-		}
-		/*
-		 * type.isFinal().accept(new MBooleanExceptionVisitor<NotFinalizedException>() {
-		 * 
-		 * @Override public void handleMFalse(PersistentMFalse booleanFalse) throws PersistenceException,
-		 * NotFinalizedException { throw new NotFinalizedException(ExceptionConstants.NOT_FINAL); }
-		 * 
-		 * @Override public void handleMTrue(PersistentMTrue booleanTrue) throws PersistenceException,
-		 * NotFinalizedException { // TODO Auto-generated method stub
-		 * 
-		 * }
-		 * 
-		 * 
-		 * });
-		 */
 
 		Iterator<PersistentReferenceType> it = type.getRefs().iterator();
 		PersistentCompUnit newCompUnit = CompUnit.createCompUnit(type, name);
@@ -355,15 +315,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void createCompUnitType(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-		AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
-		if (old.iterator().hasNext()) {
-			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
-		}
-		this.getThis().getUnitTypes().add(CompUnitType.createCompUnitType(name));
-
-	}
     public void removeUnit(final PersistentAbsUnit unit, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -373,9 +324,19 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void createCompUnitType(final String name) 
+				throws model.DoubleDefinitionException, PersistenceException{
+		// TODO: nur mit addReferenceType erstellen? Sonst entstehen leere CompUnitTypes
+		AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
+		}
+		this.getThis().getUnitTypes().add(CompUnitType.createCompUnitType(name));
+
+	}
     public void removeUnitType(final PersistentAbsUnitType type) 
 				throws PersistenceException{
-		// TODO: implement method: removeUnitType
+		// TODO: implement method: removeUnitType; schon vorhandene Units zu diesem Typ mit löschen!
 
 	}
     public void createUnit(final String name, final PersistentUnitType type, final Invoker invoker) 
@@ -397,13 +358,13 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-
-	}
     public void removeUnit(final PersistentAbsUnit unit) 
 				throws PersistenceException{
 		// TODO: implement method: removeUnit
+
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
 
 	}
     public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant, final Invoker invoker) 
@@ -429,15 +390,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 				throws PersistenceException{
 
 	}
-    public void finishModeling(final PersistentCompUnitType compUnitType, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentFinishModelingCommand command = model.meta.FinishModelingCommand.createFinishModelingCommand(now, now);
-		command.setCompUnitType(compUnitType);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
 				throws model.ConsistencyException, PersistenceException{
 
@@ -448,31 +400,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		}
 		Conversion.createConversion(unit, Function.createFunction(factor, constant));
 
-	}
-    public void finishModeling(final PersistentCompUnitType compUnitType) 
-				throws model.AlreadyFinalizedException, PersistenceException{
-
-		if (compUnitType.isFinal().toBoolean()) {
-			throw new AlreadyFinalizedException(constants.ExceptionConstants.ALREADY_FINAL_CUT);
-		}
-		// TODO loeschen
-		/*
-		 * compUnitType.isFinal().accept(new MBooleanExceptionVisitor<AlreadyFinalizedException>() {
-		 * 
-		 * @Override public void handleMFalse(PersistentMFalse booleanFalse) throws PersistenceException,
-		 * AlreadyFinalizedException {}
-		 * 
-		 * @Override public void handleMTrue(PersistentMTrue booleanTrue) throws PersistenceException,
-		 * AlreadyFinalizedException { throw new AlreadyFinalizedException(
-		 * constants.ExceptionConstants.ALREADY_FINAL_CUT); }
-		 * 
-		 * @Override public void handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException,
-		 * AlreadyFinalizedException { // TODO Auto-generated method stub
-		 * 
-		 * } });
-		 */
-
-		compUnitType.finishModeling();
 	}
     public void removeUnitType(final PersistentAbsUnitType type, final Invoker invoker) 
 				throws PersistenceException{

@@ -275,9 +275,6 @@ public class AddReferenceTypeCommand extends PersistentObject implements Persist
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
 		}
-		catch(model.AlreadyFinalizedException e){
-			this.commandException = e;
-		}
     }
     public void checkException() 
 				throws UserException, PersistenceException{

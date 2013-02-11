@@ -3,12 +3,9 @@
  */
 package test;
 
-import model.AlreadyFinalizedException;
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
-import model.NotFinalizedException;
-import model.basic.MTrue;
 import model.quantity.AbsUnitType;
 import model.quantity.UnitTypeManager;
 
@@ -16,13 +13,11 @@ import org.junit.Test;
 
 import persistence.PersistenceException;
 import persistence.PersistentCompUnitType;
-import persistence.PersistentMBoolean;
 import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
 import test.util.AbstractTest;
 import constants.ExceptionConstants;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -126,7 +121,7 @@ public class UnitTypeManagerTest extends AbstractTest {
 						.next();
 				assertEquals(name, cut.getName());
 				assertTrue(cut.getRefs().getLength() == 0);
-				assertFalse(this.isTrue(cut.isFinal()));
+				// assertFalse(this.isTrue(cut.isFinal()));
 			} catch (DoubleDefinitionException e) {
 				fail("Es sollte keine DoubleDefinitionException geben.");
 			}
@@ -153,16 +148,11 @@ public class UnitTypeManagerTest extends AbstractTest {
 						.next();
 				PersistentCompUnitType speed = (PersistentCompUnitType) AbsUnitType.getAbsUnitTypeByName(nameOfSpeed)
 						.iterator().next();
-				assertFalse(this.isTrue(speed.isFinal()));
-				try {
-					utm.addReferenceType(speed, length, 1);
-					utm.addReferenceType(speed, time, -1);
-					assertFalse(this.isTrue(speed.isFinal()));
-					speed.finishModeling();
-				} catch (AlreadyFinalizedException e) {
-					fail("AlreadyFinalizedException vor finalize()-Aufruf!");
-				}
-				assertTrue(this.isTrue(speed.isFinal()));
+				// assertFalse(this.isTrue(speed.isFinal()));
+				utm.addReferenceType(speed, length, 1);
+				utm.addReferenceType(speed, time, -1);
+				// assertFalse(this.isTrue(speed.isFinal()));
+				// speed.finishModeling();sertTrue(this.isTrue(speed.isFinal()));
 
 			} catch (DoubleDefinitionException e) {
 				fail("Es sollte keine DoubleDefinitionException geben.");
@@ -174,10 +164,10 @@ public class UnitTypeManagerTest extends AbstractTest {
 	}
 
 	/**
-	 * Testet das Erstellen eines nicht finalen CompoundUnitTypes. Eine CompoundUnit darf nicht erstellt werden k�nnen.
+	 * Testet das Erstellen eines CompoundUnitTypes. Eine CompoundUnit darf erstellt werden k�nnen.
 	 */
 	@Test
-	public void testCreateCompoundUnitIfNotFinal() {
+	public void testCreateCompoundUnit() {
 		try {
 			PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
 			String name = "Hello, I'm a complex Type!";
@@ -186,54 +176,15 @@ public class UnitTypeManagerTest extends AbstractTest {
 				utm.createCompUnitType(name);
 				PersistentCompUnitType cut = (PersistentCompUnitType) AbsUnitType.getAbsUnitTypeByName(name).iterator()
 						.next();
+				// cut.setIsFinal(MTrue.getTheMTrue());
 				utm.createCompUnit(nameU, cut);
-				fail("Es darf keine CompundUnit erzeugt werden d�rfe, wenn Type nicht final.");
 			} catch (DoubleDefinitionException e) {
 
-			} catch (NotFinalizedException e) {
-				assertEquals(constants.ExceptionConstants.NOT_FINAL, e.getMessage());
 			}
 
 		} catch (PersistenceException e) {
 			fail("Exception: " + e.getMessage());
 		}
-	}
-
-	/**
-	 * Testet das Erstellen eines finalen CompoundUnitTypes. Eine CompoundUnit darf erstellt werden k�nnen.
-	 */
-	@Test
-	public void testCreateCompoundUnitIfFinal() {
-		try {
-			PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
-			String name = "Hello, I'm a complex Type!";
-			String nameU = "Hello, I'm a complex Unit!";
-			try {
-				utm.createCompUnitType(name);
-				PersistentCompUnitType cut = (PersistentCompUnitType) AbsUnitType.getAbsUnitTypeByName(name).iterator()
-						.next();
-				cut.setIsFinal(MTrue.getTheMTrue());
-				utm.createCompUnit(nameU, cut);
-			} catch (DoubleDefinitionException e) {
-
-			} catch (NotFinalizedException e) {
-				fail("CUT ist final, darf also nicht auftreten.");
-			}
-
-		} catch (PersistenceException e) {
-			fail("Exception: " + e.getMessage());
-		}
-	}
-
-	/**
-	 * Macht aus BooleanValue ein Java-Boolean (Visitor Aufruf ausgelagert);-) weil Instanceof ist uncool ... !!!!! kann
-	 * weg!!!!!
-	 * 
-	 * @throws PersistenceException
-	 * 
-	 */
-	private boolean isTrue(PersistentMBoolean bool) throws PersistenceException {
-		return bool.toBoolean();
 	}
 
 }
