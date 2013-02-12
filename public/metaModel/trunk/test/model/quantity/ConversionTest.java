@@ -1,7 +1,7 @@
 /**
  * 
  */
-package test;
+package model.quantity;
 
 import model.ConsistencyException;
 import model.CycleException;

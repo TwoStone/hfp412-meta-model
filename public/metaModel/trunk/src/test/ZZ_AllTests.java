@@ -3,6 +3,9 @@ package test;
 import model.abstractOperation.AssociationManagerTest;
 import model.abstractOperation.AssociationTest;
 import model.messageOrLink.MessageManagerTest;
+import model.quantity.ConversionTest;
+import model.quantity.FunctionTests;
+import model.quantity.UnitTypeManagerTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
