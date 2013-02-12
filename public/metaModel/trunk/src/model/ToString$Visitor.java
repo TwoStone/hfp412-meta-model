@@ -65,6 +65,8 @@ import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
 import utils.Strings;
 
+import common.Fraction;
+
 public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	private static final boolean DEBUG_MODE_ON = true;
@@ -229,8 +231,13 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleConversion(PersistentConversion conversion) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		PersistentUnit defaultUnit = ((PersistentUnitType) conversion.getSource().getType()).getDefaultUnit();
+		if (defaultUnit == null)
+			return;
+		Fraction m = conversion.getMyFunction().getFactor();
+		Fraction b = conversion.getMyFunction().getConstant();
+		this.result = "1" + defaultUnit.getName() + " = (" + m + " + " + b + ") g";
+		// TODO Wenn sich die Default-Unit ändert?!
 	}
 
 	@Override
