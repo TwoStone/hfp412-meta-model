@@ -236,7 +236,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			return;
 		Fraction m = conversion.getMyFunction().getFactor();
 		Fraction b = conversion.getMyFunction().getConstant();
-		this.result = "1" + defaultUnit.getName() + " = (" + m + " + " + b + ") g";
+		this.result = "1" + defaultUnit.getName() + " = (" + m + " + " + b + ") " + conversion.getSource().getName();
 		// TODO Wenn sich die Default-Unit ändert?!
 	}
 

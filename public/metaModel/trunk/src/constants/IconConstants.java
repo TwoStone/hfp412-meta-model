@@ -2,7 +2,6 @@ package constants;
 
 public class IconConstants {
 
-	
 	// tree icons
 	public static final String ICON_BULLET_BALL_GLASS_BLUE = "bullet_ball_glass_blue.png";
 	public static final String ICON_BULLET_BALL_GLASS_GREEN = "bullet_ball_glass_green.png";
@@ -15,6 +14,7 @@ public class IconConstants {
 	public static final String ICON_CUBES_BLUE = "cubes_blue.png";
 	public static final String ICON_BOOKS = "books.png";
 	public static final String ICON_BUG_RED = "bug_red.png";
+	public static final String ICON_NAV_REFRESH_BLUE = "nav_refresh_blue.png";
 	public static final String ICON_SCALES = "scales.png";
 	public static final String ICON_SHELF = "shelf.png";
 	public static final String ICON_SHOPPINGBASKET_FULL = "shoppingbasket_full.png";
@@ -25,12 +25,11 @@ public class IconConstants {
 	public static final String ICON_INDEX = "index.png";
 	public static final String ICON_GRAPH_EDGE_DIRECTED = "graph_edge_directed.png";
 	public static final String ICON_COOKIES = "cookies.png";
-	
+
 	public static final String ICON_LARGE_CUBES = "large/cubes.png";
 	public static final String ICON_LARGE_PIE_CHART = "large/pie-chart.png";
 	public static final String ICON_LARGE_INDEX = "large/index.png";
 	public static final String ICON_LARGE_GRAPH_EDGE_DIRECTED = "large/graph_edge_directed.png";
 	public static final String ICON_LARGE_COOKIES = "large/cookies.png";
-	
-	
+
 }

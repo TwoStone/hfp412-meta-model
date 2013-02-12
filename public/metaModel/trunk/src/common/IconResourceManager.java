@@ -10,6 +10,7 @@ import persistence.AspectManagerProxi;
 import persistence.AssociationManagerProxi;
 import persistence.CompUnitProxi;
 import persistence.CompUnitTypeProxi;
+import persistence.ConversionProxi;
 import persistence.FractionManagerProxi;
 import persistence.QuantityManagerProxi;
 import persistence.ReferenceTypeProxi;
@@ -40,6 +41,7 @@ public class IconResourceManager {
 		this.getIconPaths().put(this.getClassImageId(FractionManagerProxi.class), IconConstants.ICON_PIE_CHART);
 		this.getIconPaths().put(this.getClassImageId(CompUnitProxi.class), IconConstants.ICON_CUBES_BLUE);
 		this.getIconPaths().put(this.getClassImageId(CompUnitTypeProxi.class), IconConstants.ICON_CUBE_MOLECULE);
+		this.getIconPaths().put(this.getClassImageId(ConversionProxi.class), IconConstants.ICON_NAV_REFRESH_BLUE);
 		this.getIconPaths().put(this.getClassImageId(UnitTypeProxi.class), IconConstants.ICON_BULLET_BALL_RED);
 		this.getIconPaths().put(this.getClassImageId(ReferenceTypeProxi.class), IconConstants.ICON_BULLET_BALL_RED);
 		this.getIconPaths().put(this.getClassImageId(UnitProxi.class), IconConstants.ICON_CUBE_BLUE);
