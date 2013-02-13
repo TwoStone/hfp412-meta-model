@@ -1,11 +1,14 @@
 package model.quantity;
 
+import java.util.HashMap;
+
 import model.NotComputableException;
 import model.UserException;
 import model.visitor.AbsQuantityExceptionVisitor;
 import model.visitor.AbsQuantityReturnExceptionVisitor;
 import model.visitor.AbsQuantityReturnVisitor;
 import model.visitor.AbsQuantityVisitor;
+import model.visitor.AbsUnitTypeReturnVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -16,9 +19,13 @@ import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnit;
+import persistence.PersistentAbsUnitType;
+import persistence.PersistentCompUnitType;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantity;
+import persistence.PersistentReferenceType;
+import persistence.PersistentUnitType;
 import persistence.QuantityProxi;
 import persistence.TDObserver;
 
@@ -221,8 +228,33 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 	}
     public PersistentAbsQuantity mul(final PersistentAbsQuantity factor) 
 				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
+		if (!this.isArgumentCompound(factor)) {
+			PersistentQuantity factorCast = (PersistentQuantity) factor;
+			PersistentAbsQuantity result = null;
+			// Errechne Konfiguration von getThis()
+			java.util.Map<PersistentUnitType, Integer> myConfiguration = new HashMap<PersistentUnitType, Integer>();
+			if (this.isUnitTypeCompound(getThis().getUnit().getType())) {
+				PersistentUnitType unitTypeCast = (PersistentUnitType) getThis().getUnit().getType();
+				myConfiguration.put(unitTypeCast, 1);
+			} else {
+				PersistentCompUnitType unitTypeCast = (PersistentCompUnitType) getThis().getUnit().getType();
+				java.util.Iterator<PersistentReferenceType> iterator = unitTypeCast.getRefs().iterator();
+				while (iterator.hasNext()) {
+					PersistentReferenceType current = iterator.next();
+					myConfiguration.put(current.getRef(), (int) current.getExponent());
+				}
+			}
+			// TODO: Errechne Konfiguration von factorCast.
+			java.util.Map<PersistentUnitType, Integer> factorConfiguration = new HashMap<PersistentUnitType, Integer>();
+
+			// TODO: Errechne Ziel-Konfiguration
+			java.util.Map<PersistentUnitType, Integer> targetConfiguration = new HashMap<PersistentUnitType, Integer>();
+
+			return result;
+		} else {
+			PersistentCompoundQuantity factorCast = (PersistentCompoundQuantity) factor;
+			return factorCast.mul(getThis());
+		}
 	}
     public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
 				throws model.NotComputableException, PersistenceException{
@@ -288,6 +320,21 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 
 			@Override
 			public Boolean handleQuantity(PersistentQuantity quantity) throws PersistenceException {
+				return false;
+			}
+		});
+	}
+
+	private boolean isUnitTypeCompound(PersistentAbsUnitType unitType) throws PersistenceException {
+		return unitType.accept(new AbsUnitTypeReturnVisitor<Boolean>() {
+
+			@Override
+			public Boolean handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException {
+				return true;
+			}
+
+			@Override
+			public Boolean handleUnitType(PersistentUnitType unitType) throws PersistenceException {
 				return false;
 			}
 		});
