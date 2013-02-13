@@ -124,7 +124,7 @@ public class TypeManagerTest extends TestingBase {
 		addens.add(t2);
 		addens.add(t3);
 
-		assertTypeEquals(sumtype1, typeMan.createSumType(addens));
+		assertTypeStructureEquals(sumtype1, typeMan.createSumType(addens));
 	}
 
 	@Test
@@ -144,7 +144,7 @@ public class TypeManagerTest extends TestingBase {
 		// Empty addens list...
 		MTypeSearchList addens = new MTypeSearchList();
 
-		assertTypeEquals(MEmptySumType.getTheMEmptySumType(), typeMan.createSumType(addens));
+		assertTypeStructureEquals(MEmptySumType.getTheMEmptySumType(), typeMan.createSumType(addens));
 
 	}
 
@@ -167,7 +167,7 @@ public class TypeManagerTest extends TestingBase {
 		PersistentMAbstractSumType sumType = typeMan.createSumType(addens);
 		PersistentMSumType expected = sum(sumtype1);
 
-		assertTypeEquals(expected, sumType);
+		assertTypeStructureEquals(expected, sumType);
 	}
 
 	@Test
@@ -189,7 +189,7 @@ public class TypeManagerTest extends TestingBase {
 		factors.add(t2);
 		factors.add(t3);
 
-		assertTypeEquals(prodtype1, typeMan.createProductType(factors));
+		assertTypeStructureEquals(prodtype1, typeMan.createProductType(factors));
 	}
 
 	@Test
@@ -209,7 +209,7 @@ public class TypeManagerTest extends TestingBase {
 		// Empty factors list...
 		MTypeSearchList factors = new MTypeSearchList();
 
-		assertTypeEquals(MEmptyProductType.getTheMEmptyProductType(), typeMan.createProductType(factors));
+		assertTypeStructureEquals(MEmptyProductType.getTheMEmptyProductType(), typeMan.createProductType(factors));
 
 	}
 
@@ -223,7 +223,7 @@ public class TypeManagerTest extends TestingBase {
 		prodtype2 = typeMan.createProductType(factors);
 		PersistentMProductType expected = product(t3);
 
-		assertTypeEquals(expected, prodtype2);
+		assertTypeStructureEquals(expected, prodtype2);
 
 	}
 
@@ -249,7 +249,7 @@ public class TypeManagerTest extends TestingBase {
 		PersistentMProductType expected = product(typeB);
 		PersistentMAbstractProductType actual = typeMan.createProductType(factors);
 
-		assertTypeEquals(expected, actual);
+		assertTypeStructureEquals(expected, actual);
 	}
 
 }

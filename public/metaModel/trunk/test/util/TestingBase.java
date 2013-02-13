@@ -22,7 +22,17 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import persistence.*;
+import persistence.Cache;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentMAspect;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMFalse;
+import persistence.PersistentMProductType;
+import persistence.PersistentMSumType;
+import persistence.PersistentMTrue;
+import persistence.PersistentMType;
 import test.util.EmptyServerReporter;
 import utils.Sets;
 
@@ -103,7 +113,8 @@ public abstract class TestingBase {
 		return product;
 	}
 
-	protected static void assertMTrue(PersistentMBoolean persistentMBoolean, String message) throws PersistenceException {
+	protected static void assertMTrue(PersistentMBoolean persistentMBoolean, String message)
+			throws PersistenceException {
 		Assert.assertTrue(message, persistentMBoolean.toBoolean());
 	}
 
@@ -115,9 +126,16 @@ public abstract class TestingBase {
 		Assert.assertFalse(value.toBoolean());
 	}
 
-	protected static void assertTypeEquals(PersistentMType expected, PersistentMType actual) throws PersistenceException {
+	protected static void assertTypeStructureEquals(PersistentMType expected, PersistentMType actual)
+			throws PersistenceException {
 		assertMTrue(expected.isStructuralEquivalant(actual),
 				String.format("Expected %s but was %s", expected.fetchName(), actual.fetchName()));
+	}
+
+	protected static void assertTypeSemanticEquals(PersistentMType expected, PersistentMType actual)
+			throws PersistenceException {
+		Assert.assertTrue(expected.isLessOrEqual(actual).toBoolean() && actual.isLessOrEqual(expected).toBoolean());
+
 	}
 
 	@SuppressWarnings("unchecked")
