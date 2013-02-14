@@ -13,8 +13,8 @@ import model.basic.MFalse;
 import model.basic.MTrue;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
-import model.typeSystem.MProductType;
-import model.typeSystem.MSumType;
+import model.typeSystem.MMixedConjunction;
+import model.typeSystem.MMixedTypeDisjunction;
 import modelServer.ConnectionServer;
 
 import org.junit.After;
@@ -29,8 +29,8 @@ import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMFalse;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
+import persistence.PersistentMMixedConjunction;
+import persistence.PersistentMMixedTypeDisjunction;
 import persistence.PersistentMTrue;
 import persistence.PersistentMType;
 import test.util.EmptyServerReporter;
@@ -92,25 +92,26 @@ public abstract class TestingBase {
 		return MAspect.createMAspect(name);
 	}
 
-	protected static PersistentMSumType sum(PersistentMType... mTypes) throws PersistenceException, CycleException {
-		PersistentMSumType sumType = MSumType.createMSumType();
+	protected static PersistentMMixedTypeDisjunction sum(PersistentMType... mTypes) throws PersistenceException,
+			CycleException {
+		PersistentMMixedTypeDisjunction disjuntion = MMixedTypeDisjunction.createMMixedTypeDisjunction();
 
 		for (PersistentMType persistentMType : mTypes) {
-			sumType.getAddends().add(persistentMType);
+			disjuntion.getAddends().add(persistentMType);
 		}
 
-		return sumType;
+		return disjuntion;
 	}
 
-	protected static PersistentMProductType product(PersistentMType... mTypes) throws PersistenceException,
+	protected static PersistentMMixedConjunction product(PersistentMType... mTypes) throws PersistenceException,
 			CycleException {
-		PersistentMProductType product = MProductType.createMProductType();
+		PersistentMMixedConjunction conj = MMixedConjunction.createMMixedConjunction();
 
 		for (PersistentMType persistentMType : mTypes) {
-			product.getFactors().add(persistentMType);
+			conj.getFactors().add(persistentMType);
 		}
 
-		return product;
+		return conj;
 	}
 
 	protected static void assertMTrue(PersistentMBoolean persistentMBoolean, String message)

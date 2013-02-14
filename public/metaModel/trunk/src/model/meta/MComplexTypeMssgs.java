@@ -5,4 +5,4 @@ public interface MComplexTypeMssgs {
 }
 
 interface MComplexTypeDOWNMssgs extends MTypeDOWNMssgs, MComplexTypeMssgs{}
-interface MComplexTypeUPMssgs extends MAbstractSumTypeUPMssgs, MAbstractProductTypeUPMssgs, MComplexTypeMssgs{}
+interface MComplexTypeUPMssgs extends MAbstractTypeDisjunctionUPMssgs, MAbstractTypeConjunctionUPMssgs, MComplexTypeMssgs{}

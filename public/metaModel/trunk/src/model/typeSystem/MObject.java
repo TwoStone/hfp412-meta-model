@@ -259,22 +259,6 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 
 		return list;
 	}
-    public PersistentMAtomicTypeProduct getProductType() 
-				throws PersistenceException{
-		final PersistentMAtomicTypeProduct result = MAtomicTypeProduct.createMAtomicTypeProduct();
-		getThis().getTypes().applyToAll(new Procdure<PersistentMAtomicType>() {
-
-			@Override
-			public void doItTo(PersistentMAtomicType argument) throws PersistenceException {
-				try {
-					result.getFactors().add(argument);
-				} catch (CycleException e) {
-					// TODO ShouldNotHappen
-				}
-			}
-		});
-		return result;
-	}
 
     /* Start of protected part that is not overridden by persistence generator */
 	private Set<PersistentMAspect> getAspects() throws PersistenceException {

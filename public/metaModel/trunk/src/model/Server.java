@@ -641,7 +641,8 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createProductType(final MTypeSearchList containees) 
 				throws PersistenceException{
-		getThis().getTypeManager().createProductType(containees, getThis());
+		// getThis().getTypeManager().createProductType(containees, getThis());
+		// TODO
 	}
     public void createConstant(final PersistentOperationManager operationManager, final String name, final PersistentMType target) 
 				throws PersistenceException{
@@ -714,7 +715,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createSumType(final MTypeSearchList containees) 
 				throws PersistenceException{
-		getThis().getTypeManager().createSumType(containees, getThis());
+		// TODO getThis().getTypeManager().createSumType(containees, getThis());
 	}
     public void removeFromHierarchy(final PersistentHierarchy h, final PersistentAssociation a) 
 				throws PersistenceException{
@@ -820,9 +821,9 @@ public class Server extends PersistentObject implements PersistentServer{
 			addends.add(a);
 			addends.add(b);
 
-			getThis().getTypeManager().createSumType(addends);
+			// TODO getThis().getTypeManager().createSumType(addends);
 			// TODO TEST Das sollte jetzt eigentlich nicht gehen!
-			getThis().getTypeManager().createProductType(addends);
+			// TODO getThis().getTypeManager().createProductType(addends);
 
 		} catch (ConsistencyException e) {
 			System.err.println("Fehler bei der Initialisierung des Servers!");

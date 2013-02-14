@@ -5,7 +5,7 @@ import java.util.Iterator;
 import model.ConsistencyException;
 import model.DoubleDefinitionException;
 import model.UserException;
-import model.typeSystem.MEmptySumType;
+import model.typeSystem.MEmptyTypeDisjunction;
 import model.visitor.AbsOperationReturnExceptionVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
@@ -30,7 +30,7 @@ import persistence.PersistentCreateOperationCommand;
 import persistence.PersistentCreateStaticOpCommand;
 import persistence.PersistentCreateVoidOperationCommand;
 import persistence.PersistentFormalParameter;
-import persistence.PersistentMEmptySumType;
+import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentOperation;
@@ -217,8 +217,8 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     public void createConstant(final String name, final PersistentMType target) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		PersistentMEmptySumType theMEmptySumType = MEmptySumType.getTheMEmptySumType();
-		getThis().createOperation(theMEmptySumType, target, name, new FormalParameterSearchList());
+		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
+		getThis().createOperation(theMEmptyTypeDisjunction, target, name, new FormalParameterSearchList());
 	}
     public void createFp(final String name, final PersistentMType ofType, final Invoker invoker) 
 				throws PersistenceException{
@@ -243,8 +243,8 @@ public class OperationManager extends PersistentObject implements PersistentOper
     public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
 
-		PersistentMEmptySumType theMEmptySumType = MEmptySumType.getTheMEmptySumType();
-		getThis().createOperation(source, theMEmptySumType, name, fp);
+		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
+		getThis().createOperation(source, theMEmptyTypeDisjunction, name, fp);
 	}
     public void removeFp(final PersistentFormalParameter fp, final Invoker invoker) 
 				throws PersistenceException{
@@ -273,8 +273,8 @@ public class OperationManager extends PersistentObject implements PersistentOper
     public void createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
 
-		PersistentMEmptySumType theMEmptySumType = MEmptySumType.getTheMEmptySumType();
-		getThis().createOperation(theMEmptySumType, target, name, fp);
+		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
+		getThis().createOperation(theMEmptyTypeDisjunction, target, name, fp);
 	}
     public OperationSearchList getConstants() 
 				throws PersistenceException{

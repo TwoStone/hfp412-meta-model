@@ -28,16 +28,16 @@ import persistence.PersistentLinkManager;
 import persistence.PersistentMAccountType;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMAtomicTypeProduct;
-import persistence.PersistentMDisjunctiveNF;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMEmptySumType;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMFalse;
 import persistence.PersistentMMeasurementType;
+import persistence.PersistentMMixedConjunction;
+import persistence.PersistentMMixedTypeDisjunction;
+import persistence.PersistentMNonEmptyAtomicTypeConjunction;
+import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
 import persistence.PersistentMObject;
-import persistence.PersistentMProductType;
 import persistence.PersistentMSingletonObject;
-import persistence.PersistentMSumType;
 import persistence.PersistentMTrue;
 import persistence.PersistentMaxStrategy;
 import persistence.PersistentMeasurement;
@@ -129,17 +129,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
 		result = mAtomicType.fetchName();
-	}
-
-	@Override
-	public void handleMProductType(PersistentMProductType mProductType) throws PersistenceException {
-		result = mProductType.fetchName();
-
-	}
-
-	@Override
-	public void handleMSumType(PersistentMSumType mSumType) throws PersistenceException {
-		result = mSumType.fetchName();
 	}
 
 	@Override
@@ -267,16 +256,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleFunction(PersistentFunction function) throws PersistenceException {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void handleMEmptyProductType(PersistentMEmptyProductType mEmptyProduct) throws PersistenceException {
-		result = "[Empty Product]";
-	}
-
-	@Override
-	public void handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws PersistenceException {
-		result = "[Empty Sum]";
 	}
 
 	@Override
@@ -449,16 +428,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws PersistenceException {
-		result = mAtomicTypeProduct.fetchName();
-	}
-
-	@Override
-	public void handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjunctiveNF) throws PersistenceException {
-		result = mDisjunctiveNF.fetchName();
-	}
-
-	@Override
 	public void handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException {
 		// TODO Auto-generated method stub
 
@@ -492,5 +461,40 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleMaxStrategy(PersistentMaxStrategy maxStrategy) throws PersistenceException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction)
+			throws PersistenceException {
+		result = mEmptyTypeDisjunction.fetchName();
+	}
+
+	@Override
+	public void handleMMixedConjunction(PersistentMMixedConjunction mMixedConjunction) throws PersistenceException {
+		result = mMixedConjunction.fetchName();
+	}
+
+	@Override
+	public void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction)
+			throws PersistenceException {
+		result = mEmptyTypeConjunction.fetchName();
+	}
+
+	@Override
+	public void handleMMixedTypeDisjunction(PersistentMMixedTypeDisjunction mMixedTypeDisjunction)
+			throws PersistenceException {
+		result = mMixedTypeDisjunction.fetchName();
+	}
+
+	@Override
+	public void handleMNonEmptyAtomicTypeConjunction(
+			PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction) throws PersistenceException {
+		result = mNonEmptyAtomicTypeConjunction.fetchName();
+	}
+
+	@Override
+	public void handleMNonEmptyDisjunctiveNormalForm(
+			PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm) throws PersistenceException {
+		result = mNonEmptyDisjunctiveNormalForm.fetchName();
 	}
 }

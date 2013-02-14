@@ -125,7 +125,7 @@ part typeSystem {
 		abstract MBoolean isSingleton();
 		abstract MBoolean isAbstract();
 		abstract MBoolean isStructuralEquivalant(MType other);  			
-		abstract MDisjunctiveNF fetchDisjunctiveNormalform();
+		abstract MDisjunctiveNormalForm fetchDisjunctiveNormalform();
 /*
 			MAssociation** fetchAssociations();
 			MBoolean allObjectsOfTypeAreSingleton();
@@ -161,45 +161,57 @@ part typeSystem {
 		// MType** containedTypes hierarchy MComplexTypeHierarchy;
 		abstract String fetchTypeLinkOperator();
 	}
+
+	/* ODER Typen */
+
+	abstract class MAbstractTypeDisjunction##MAbstrDisj@@AbstractTypeDisjunction extends MComplexType {
+	}
 	
-	/* ++ Summentypen ++ */
-	abstract class MAbstractSumType##MAbstrSum@@AbstractSumType extends MComplexType {
-	}
-	
-	singleton MEmptySumType@@EmptySumType extends MAbstractSumType {
-	}
-	abstract class MNonEmptySumType extends MAbstractSumType {
-	}
-
-	
-	class MSumType@@SumType extends MNonEmptySumType {
-		MType** addends hierarchy MComplexTypeHierarchy;
-	}
-	class MDisjunctiveNF@@DNF extends MNonEmptySumType {
-		MAtomicTypeProduct** addends hierarchy MComplexTypeHierarchy;
-		MDisjunctiveNF transientMultiply(MDisjunctiveNF other);
-	}
-
-	/* ** Produkttypen ** */
-	abstract class MAbstractProductType##MAbstrProd@@AbstractProductType extends MComplexType {
-	}
-
-	singleton MEmptyProductType##MEmptProd@@EmptyProductType extends MAbstractProductType{
-	}
-		
-	abstract class MNonEmptyProductType##NEProdT extends MAbstractProductType {}
-
-	class MProductType@@ProductType extends MNonEmptyProductType {
-		MType** factors hierarchy MComplexTypeHierarchy;
-	}
-	class MAtomicTypeProduct##MAtomicProd@@AtomicTypeProduct extends MNonEmptyProductType {
-		MAtomicType** factors hierarchy MComplexTypeHierarchy;
-		MAtomicTypeProduct transientMultiply(MAtomicTypeProduct other);
+	abstract class  MDisjunctiveNormalForm##DisjNF extends MAbstractTypeDisjunction {
+		abstract MDisjunctiveNormalForm transientMultiply(MDisjunctiveNormalForm other);
 	}	
 
+
+	/* Nothing */	
+	singleton MEmptyTypeDisjunction##ETDisj@@EmptySumType extends MDisjunctiveNormalForm {
+	}
+
+	class MNonEmptyDisjunctiveNormalForm##NEDisjNF extends MDisjunctiveNormalForm {
+  		MAtomicTypeConjunction** addends hierarchy MComplexTypeHierarchy;
+		
+		MNonEmptyDisjunctiveNormalForm transientMultiplyNonEmpty(MNonEmptyDisjunctiveNormalForm other);
+	}
+	
+	class MMixedTypeDisjunction##MxdTpDisj@@MixedTypeDisjunction extends MAbstractTypeDisjunction {
+		MType** addends hierarchy MComplexTypeHierarchy;
+	}
+	
+
+	/* Und Typen */ 
+	
+	abstract class MAbstractTypeConjunction##AbsTpConj extends MComplexType {}
+		
+
+	
+	abstract class MAtomicTypeConjunction##ATConj extends MAbstractTypeConjunction {
+	MAtomicTypeConjunction transientMultiply(MAtomicTypeConjunction other);
+	}
+	
+			/* Anything */
+	singleton MEmptyTypeConjunction##ETpConj@@EmptyTypeConjunction extends MAtomicTypeConjunction {}
+
+	class MNonEmptyAtomicTypeConjunction##NEATConj extends MAtomicTypeConjunction{
+		MAtomicType** factors hierarchy MComplexTypeHierarchy;
+		MNonEmptyAtomicTypeConjunction transientMultiplyNonEmpty(MNonEmptyAtomicTypeConjunction other);
+	}
+
+	class MMixedConjunction extends MAbstractTypeConjunction {
+		MType** factors hierarchy MComplexTypeHierarchy;
+	}
+		
 	abstract class AbstractObject##AbsObj {
 		derived Name ** possibleNames;
-		derived MAtomicTypeProduct productType;
+		derived MAtomicTypeConjunction productType;
 	}
 
 	/* Objekte */
@@ -230,8 +242,8 @@ part typeSystem {
 			throws ConsistencyException;
 		active MAtomicType createAtomicSubType(MAtomicType superType, String name, MBoolean singletonType, MBoolean abstractType) 
 			throws ConsistencyException;
-		active MAbstractSumType createSumType(MType** addends) throws ConsistencyException;
-		active MAbstractProductType createProductType(MType** factors) throws ConsistencyException;
+		active MAbstractTypeDisjunction createTypeDisjunction##crTpDisj(MType** addends) throws ConsistencyException;
+		active MAbstractTypeConjunction createTypeConjunction##crTpConj(MType** factors) throws ConsistencyException;
 		
 
 		

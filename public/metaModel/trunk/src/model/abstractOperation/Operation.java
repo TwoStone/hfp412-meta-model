@@ -1,9 +1,8 @@
 package model.abstractOperation;
 
 import model.UserException;
-import model.basic.MFalse;
-import model.basic.MTrue;
-import model.typeSystem.MEmptyProductType;
+import model.basic.MBoolean;
+import model.typeSystem.MEmptyTypeDisjunction;
 import model.visitor.AbsOperationExceptionVisitor;
 import model.visitor.AbsOperationReturnExceptionVisitor;
 import model.visitor.AbsOperationReturnVisitor;
@@ -159,10 +158,7 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
     
     public PersistentMBoolean isStatic() 
 				throws PersistenceException{
-		if (this.getSource().equals(MEmptyProductType.getTheMEmptyProductType())) {
-			return MTrue.getTheMTrue();
-		}
-		return MFalse.getTheMFalse();
+		return MBoolean.createFromBoolean(this.getSource().equals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction()));
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{

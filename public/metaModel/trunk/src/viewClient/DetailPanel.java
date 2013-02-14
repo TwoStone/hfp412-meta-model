@@ -712,14 +712,11 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMAtomicType(view.MAtomicTypeView object){
         result = new MAtomicTypeDefaultDetailPanel(handler, object);
     }
+    public void handleMEmptyTypeDisjunction(view.MEmptyTypeDisjunctionView object){
+        result = new MEmptyTypeDisjunctionDefaultDetailPanel(handler, object);
+    }
     public void handleCompUnitType(view.CompUnitTypeView object){
         result = new CompUnitTypeDefaultDetailPanel(handler, object);
-    }
-    public void handleMAtomicTypeProduct(view.MAtomicTypeProductView object){
-        result = new MAtomicTypeProductDefaultDetailPanel(handler, object);
-    }
-    public void handleMProductType(view.MProductTypeView object){
-        result = new MProductTypeDefaultDetailPanel(handler, object);
     }
     public void handleMeasurement(view.MeasurementView object){
         result = new MeasurementDefaultDetailPanel(handler, object);
@@ -733,8 +730,8 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleOperationManager(view.OperationManagerView object){
         result = new OperationManagerDefaultDetailPanel(handler, object);
     }
-    public void handleMEmptyProductType(view.MEmptyProductTypeView object){
-        result = new MEmptyProductTypeDefaultDetailPanel(handler, object);
+    public void handleMMixedConjunction(view.MMixedConjunctionView object){
+        result = new MMixedConjunctionDefaultDetailPanel(handler, object);
     }
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
@@ -750,6 +747,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleMObject(view.MObjectView object){
         result = new MObjectDefaultDetailPanel(handler, object);
+    }
+    public void handleMEmptyTypeConjunction(view.MEmptyTypeConjunctionView object){
+        result = new MEmptyTypeConjunctionDefaultDetailPanel(handler, object);
     }
     public void handleNameInstance(view.NameInstanceView object){
         result = new NameInstanceDefaultDetailPanel(handler, object);
@@ -771,9 +771,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleAccountManager(view.AccountManagerView object){
         result = new AccountManagerDefaultDetailPanel(handler, object);
-    }
-    public void handleMSumType(view.MSumTypeView object){
-        result = new MSumTypeDefaultDetailPanel(handler, object);
     }
     public void handleCompUnit(view.CompUnitView object){
         result = new CompUnitDefaultDetailPanel(handler, object);
@@ -799,8 +796,14 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMAccountType(view.MAccountTypeView object){
         result = new MAccountTypeDefaultDetailPanel(handler, object);
     }
+    public void handleMMixedTypeDisjunction(view.MMixedTypeDisjunctionView object){
+        result = new MMixedTypeDisjunctionDefaultDetailPanel(handler, object);
+    }
     public void handleTypeManager(view.TypeManagerView object){
         result = new TypeManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleMNonEmptyAtomicTypeConjunction(view.MNonEmptyAtomicTypeConjunctionView object){
+        result = new MNonEmptyAtomicTypeConjunctionDefaultDetailPanel(handler, object);
     }
     public void handleMessageManager(view.MessageManagerView object){
         result = new MessageManagerDefaultDetailPanel(handler, object);
@@ -810,6 +813,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleUnitTypeManager(view.UnitTypeManagerView object){
         result = new UnitTypeManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleMNonEmptyDisjunctiveNormalForm(view.MNonEmptyDisjunctiveNormalFormView object){
+        result = new MNonEmptyDisjunctiveNormalFormDefaultDetailPanel(handler, object);
     }
     public void handleFractionManager(view.FractionManagerView object){
         result = new FractionManagerDefaultDetailPanel(handler, object);
@@ -835,14 +841,8 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMFalse(view.MFalseView object){
         result = new MFalseDefaultDetailPanel(handler, object);
     }
-    public void handleMDisjunctiveNF(view.MDisjunctiveNFView object){
-        result = new MDisjunctiveNFDefaultDetailPanel(handler, object);
-    }
     public void handleMeasurementTypeManager(view.MeasurementTypeManagerView object){
         result = new MeasurementTypeManagerDefaultDetailPanel(handler, object);
-    }
-    public void handleMEmptySumType(view.MEmptySumTypeView object){
-        result = new MEmptySumTypeDefaultDetailPanel(handler, object);
     }
     public void handleLinkManager(view.LinkManagerView object){
         result = new LinkManagerDefaultDetailPanel(handler, object);
@@ -1042,6 +1042,22 @@ class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MEmptyTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    
+    protected MEmptyTypeDisjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MEmptyTypeDisjunctionView getAnything(){
+        return (view.MEmptyTypeDisjunctionView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class CompUnitTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String AbsUnitType$$name = "AbsUnitType$$name";
@@ -1062,40 +1078,6 @@ class CompUnitTypeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.CompUnitTypeView getAnything(){
         return (view.CompUnitTypeView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class MAtomicTypeProductDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
-    protected static final String MAtomicTypeProduct$$factors = "MAtomicTypeProduct$$factors";
-    
-    protected MAtomicTypeProductDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.MAtomicTypeProductView getAnything(){
-        return (view.MAtomicTypeProductView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class MProductTypeDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
-    protected static final String MProductType$$factors = "MProductType$$factors";
-    
-    protected MProductTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.MProductTypeView getAnything(){
-        return (view.MProductTypeView)this.anything;
     }
 }
 
@@ -1188,18 +1170,19 @@ class OperationManagerDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class MEmptyProductTypeDefaultDetailPanel extends DefaultDetailPanel{
+class MMixedConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MMixedConjunction$$factors = "MMixedConjunction$$factors";
     
-    protected MEmptyProductTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected MMixedConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
         
     }
-    protected view.MEmptyProductTypeView getAnything(){
-        return (view.MEmptyProductTypeView)this.anything;
+    protected view.MMixedConjunctionView getAnything(){
+        return (view.MMixedConjunctionView)this.anything;
     }
 }
 
@@ -1299,6 +1282,22 @@ class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MObjectView getAnything(){
         return (view.MObjectView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MEmptyTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    
+    protected MEmptyTypeConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MEmptyTypeConjunctionView getAnything(){
+        return (view.MEmptyTypeConjunctionView)this.anything;
     }
 }
 
@@ -1441,23 +1440,6 @@ class AccountManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.AccountManagerView getAnything(){
         return (view.AccountManagerView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class MSumTypeDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
-    protected static final String MSumType$$addends = "MSumType$$addends";
-    
-    protected MSumTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.MSumTypeView getAnything(){
-        return (view.MSumTypeView)this.anything;
     }
 }
 
@@ -1618,6 +1600,23 @@ class MAccountTypeDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MMixedTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MMixedTypeDisjunction$$addends = "MMixedTypeDisjunction$$addends";
+    
+    protected MMixedTypeDisjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MMixedTypeDisjunctionView getAnything(){
+        return (view.MMixedTypeDisjunctionView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class TypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String TypeManager$$types = "TypeManager$$types";
@@ -1630,6 +1629,23 @@ class TypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.TypeManagerView getAnything(){
         return (view.TypeManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MNonEmptyAtomicTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MNonEmptyAtomicTypeConjunction$$factors = "MNonEmptyAtomicTypeConjunction$$factors";
+    
+    protected MNonEmptyAtomicTypeConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MNonEmptyAtomicTypeConjunctionView getAnything(){
+        return (view.MNonEmptyAtomicTypeConjunctionView)this.anything;
     }
 }
 
@@ -1677,6 +1693,23 @@ class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.UnitTypeManagerView getAnything(){
         return (view.UnitTypeManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MNonEmptyDisjunctiveNormalFormDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MNonEmptyDisjunctiveNormalForm$$addends = "MNonEmptyDisjunctiveNormalForm$$addends";
+    
+    protected MNonEmptyDisjunctiveNormalFormDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MNonEmptyDisjunctiveNormalFormView getAnything(){
+        return (view.MNonEmptyDisjunctiveNormalFormView)this.anything;
     }
 }
 
@@ -1832,23 +1865,6 @@ class MFalseDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
-class MDisjunctiveNFDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
-    protected static final String MDisjunctiveNF$$addends = "MDisjunctiveNF$$addends";
-    
-    protected MDisjunctiveNFDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.MDisjunctiveNFView getAnything(){
-        return (view.MDisjunctiveNFView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
 class MeasurementTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MeasurementTypeManager$$measurementTypes = "MeasurementTypeManager$$measurementTypes";
@@ -1861,22 +1877,6 @@ class MeasurementTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MeasurementTypeManagerView getAnything(){
         return (view.MeasurementTypeManagerView)this.anything;
-    }
-}
-
-@SuppressWarnings("serial")
-class MEmptySumTypeDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
-    
-    protected MEmptySumTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.MEmptySumTypeView getAnything(){
-        return (view.MEmptySumTypeView)this.anything;
     }
 }
 

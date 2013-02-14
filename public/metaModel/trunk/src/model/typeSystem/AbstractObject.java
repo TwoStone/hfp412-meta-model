@@ -7,7 +7,7 @@ import persistence.NameSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbstractObject;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMAtomicTypeProduct;
+import persistence.PersistentMAtomicTypeConjunction;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.Procdure;
@@ -99,9 +99,9 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 		observer.updateTransientDerived(getThis(), "possibleNames", result);
 		return result;
     }
-    public PersistentMAtomicTypeProduct getProductType(final TDObserver observer) 
+    public PersistentMAtomicTypeConjunction getProductType(final TDObserver observer) 
 				throws PersistenceException{
-        PersistentMAtomicTypeProduct result = getThis().getProductType();
+        PersistentMAtomicTypeConjunction result = getThis().getProductType();
 		observer.updateTransientDerived(getThis(), "productType", result);
 		return result;
     }

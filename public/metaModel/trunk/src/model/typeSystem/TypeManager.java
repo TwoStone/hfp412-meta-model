@@ -170,29 +170,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     
     
-    public PersistentMAbstractSumType createSumType(final MTypeSearchList addends) 
-				throws model.ConsistencyException, PersistenceException{
-		if (addends.getLength() == 0) {
-			return MEmptySumType.getTheMEmptySumType();
-		}
-		PersistentMNonEmptySumType result;
-		ArrayList<PersistentMAtomicTypeProduct> filteredAtomicProducts = TypeManager.filterAtomicProducts(addends);
-
-		if (filteredAtomicProducts.size() == addends.getLength()) {
-			result = MDisjunctiveNF.transientCreateDNF(filteredAtomicProducts);
-		} else {
-			result = MSumType.transientCreateMixedSum(addends);
-		}
-
-		PersistentMType equalContainedType = getStructuralEquivalentType(result);
-		if (equalContainedType == null) {
-			getThis().getTypes().add(result);
-			return result;
-		} else {
-			return (PersistentMAbstractSumType) equalContainedType;
-		}
-
-	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
@@ -210,10 +187,26 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public void createSumType(final MTypeSearchList addends, final Invoker invoker) 
+    public PersistentMAbstractTypeConjunction createTypeConjunction(final MTypeSearchList factors) 
+				throws model.ConsistencyException, PersistenceException{
+        //TODO: implement method: createTypeConjunction
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"createTypeConjunction\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentTypeManager)This);
+		if(this.equals(This)){
+		}
+    }
+    public void createTypeDisjunction(final MTypeSearchList addends, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateSumTypeCommand command = model.meta.CreateSumTypeCommand.createCreateSumTypeCommand(now, now);
+		PersistentCreateTypeDisjunctionCommand command = model.meta.CreateTypeDisjunctionCommand.createCreateTypeDisjunctionCommand(now, now);
 		java.util.Iterator<PersistentMType> addendsIterator = addends.iterator();
 		while(addendsIterator.hasNext()){
 			command.getAddends().add(addendsIterator.next());
@@ -221,24 +214,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void createProductType(final MTypeSearchList factors, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateProductTypeCommand command = model.meta.CreateProductTypeCommand.createCreateProductTypeCommand(now, now);
-		java.util.Iterator<PersistentMType> factorsIterator = factors.iterator();
-		while(factorsIterator.hasNext()){
-			command.getFactors().add(factorsIterator.next());
-		}
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentTypeManager)This);
-		if(this.equals(This)){
-		}
     }
     public void createAtomicSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
 				throws PersistenceException{
@@ -251,34 +226,31 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public PersistentMAbstractProductType createProductType(final MTypeSearchList factors) 
-				throws model.ConsistencyException, PersistenceException{
-
-		checkOnlyNonSingletonFactors(factors);
-
-		if (factors.getLength() == 0) {
-			return MEmptyProductType.getTheMEmptyProductType();
+    public void createTypeConjunction(final MTypeSearchList factors, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateTypeConjunctionCommand command = model.meta.CreateTypeConjunctionCommand.createCreateTypeConjunctionCommand(now, now);
+		java.util.Iterator<PersistentMType> factorsIterator = factors.iterator();
+		while(factorsIterator.hasNext()){
+			command.getFactors().add(factorsIterator.next());
 		}
-		PersistentMNonEmptyProductType result;
-		ArrayList<PersistentMAtomicType> filteredAtomicTypes = TypeManager.filterAtomicTypes(factors);
-
-		if (filteredAtomicTypes.size() == factors.getLength()) {
-			result = MAtomicTypeProduct.transientCreateATP(filteredAtomicTypes);
-		} else {
-			result = MProductType.transientCreateMixedProduct(factors);
-		}
-		PersistentMType equalContainedType = getStructuralEquivalentType(result);
-		if (equalContainedType == null) {
-			getThis().getTypes().add(result);
-			return result;
-		} else {
-			return (PersistentMAbstractProductType) equalContainedType;
-		}
-
-	}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
+    public PersistentMAbstractTypeDisjunction createTypeDisjunction(final MTypeSearchList addends) 
+				throws model.ConsistencyException, PersistenceException{
+        //TODO: implement method: createTypeDisjunction
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"createTypeDisjunction\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public PersistentMAtomicType createAtomicSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws model.ConsistencyException, PersistenceException{
 		checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);

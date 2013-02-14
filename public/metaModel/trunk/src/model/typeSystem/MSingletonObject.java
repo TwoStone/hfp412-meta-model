@@ -196,17 +196,6 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public PersistentMAtomicTypeProduct getProductType() 
-				throws PersistenceException{
-		final PersistentMAtomicTypeProduct result = MAtomicTypeProduct.createMAtomicTypeProduct();
-		try {
-			result.getFactors().add(getThis().getType());
-		} catch (CycleException e) {
-			// This will never happen!
-		}
-
-		return result;
-	}
 
     /* Start of protected part that is not overridden by persistence generator */
 
