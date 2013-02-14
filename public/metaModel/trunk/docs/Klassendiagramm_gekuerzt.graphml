@@ -942,10 +942,10 @@ executeInverse(amount: Fraction) : Fraction</y:MethodLabel>
       <data key="d4"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="28.0" width="161.9488779816038" x="558.4416295833082" y="459.8652117387127"/>
+          <y:Geometry height="28.0" width="223.77629409007682" x="511.6142134748352" y="459.8652117387127"/>
           <y:Fill color="#99CCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="219.21728515625" x="-28.6342035873231" y="3.0">NonEmptyAtomicTypeConjunction<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="219.21728515625" x="2.2795044669134086" y="3.0">NonEmptyAtomicTypeConjunction<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -2016,7 +2016,7 @@ also nochmal spezialisieren. <y:LabelModel>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="639.4160685741101" y="439.8652117387127"/>
+            <y:Point x="623.5023605198736" y="439.8652117387127"/>
             <y:Point x="665.2183665833977" y="439.8652117387127"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
