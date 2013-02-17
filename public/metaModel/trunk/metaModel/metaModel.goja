@@ -314,7 +314,7 @@ part quantity {
 	}
 
 	class CompUnitType extends AbsUnitType {
-		ReferenceType ** refs;
+		prior ReferenceType ** refs;
 	}
 
 	class UnitType extends AbsUnitType {
@@ -322,8 +322,8 @@ part quantity {
 	}
 
 	class ReferenceType {
-		Integer exponent;
-		no-view UnitType ref;
+		prior Integer exponent;
+		prior no-view UnitType ref;
 	}
 	class Reference {
 		ReferenceType type;

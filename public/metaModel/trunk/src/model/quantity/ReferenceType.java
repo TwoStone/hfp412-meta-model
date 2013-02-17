@@ -28,37 +28,41 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
         return (PersistentReferenceType)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentReferenceType createReferenceType() throws PersistenceException{
-        return createReferenceType(false);
+    public static PersistentReferenceType createReferenceType(long exponent,PersistentUnitType ref) throws PersistenceException{
+        return createReferenceType(exponent,ref,false);
     }
     
-    public static PersistentReferenceType createReferenceType(boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentReferenceType createReferenceType(long exponent,PersistentUnitType ref,boolean delayed$Persistence) throws PersistenceException {
         PersistentReferenceType result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
-                .newDelayedReferenceType(0);
+                .newDelayedReferenceType(exponent);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
-                .newReferenceType(0,-1);
+                .newReferenceType(exponent,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("exponent", exponent);
+        final$$Fields.put("ref", ref);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentReferenceType createReferenceType(boolean delayed$Persistence,PersistentReferenceType This) throws PersistenceException {
+    public static PersistentReferenceType createReferenceType(long exponent,PersistentUnitType ref,boolean delayed$Persistence,PersistentReferenceType This) throws PersistenceException {
         PersistentReferenceType result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
-                .newDelayedReferenceType(0);
+                .newDelayedReferenceType(exponent);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
-                .newReferenceType(0,-1);
+                .newReferenceType(exponent,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        final$$Fields.put("exponent", exponent);
+        final$$Fields.put("ref", ref);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -120,7 +124,7 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 182) ConnectionHandler.getTheConnectionHandler().theReferenceTypeFacade
-            .newReferenceType(0,this.getId());
+            .newReferenceType(exponent,this.getId());
         super.store();
         if(this.getRef() != null){
             this.getRef().store();
@@ -208,6 +212,8 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
 				throws PersistenceException{
         this.setThis((PersistentReferenceType)This);
 		if(this.equals(This)){
+			this.setExponent((Long)final$$Fields.get("exponent"));
+			this.setRef((PersistentUnitType)final$$Fields.get("ref"));
 		}
     }
     public void initializeOnCreation() 
