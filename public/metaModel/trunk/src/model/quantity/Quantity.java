@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import model.NotComputableException;
+import model.NotFoundException;
 import model.UserException;
 import model.visitor.AbsQuantityExceptionVisitor;
 import model.visitor.AbsQuantityReturnExceptionVisitor;
@@ -268,8 +269,22 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 	@Override
 	public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) throws model.NotComputableException,
 			PersistenceException {
-		// TODO Auto-generated method stub
-		return null;
+
+		if (!this.isArgumentCompound(subtrahend)) {
+			// summand instanceof Quantity
+			PersistentQuantity subtrahendCast = (PersistentQuantity) subtrahend;
+			if (this.hasSameUnitAs(subtrahendCast))
+				return this.simpleSub(subtrahendCast);
+
+			if (!this.hasSameUnitTypeAs(subtrahendCast))
+				throw new NotComputableException("Addition / Subtraktion nur mit gleichem Typ möglich!");
+
+			return this.complexSub(subtrahendCast);
+
+		} else {
+			PersistentCompoundQuantity subtrahendCast = (PersistentCompoundQuantity) subtrahend;
+			return subtrahendCast.sub(getThis());
+		}
 	}
 
 	@Override
@@ -282,22 +297,22 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 			java.util.Map<PersistentUnitType, Integer> myConfiguration = this.fetchUnitConfiguration(getThis()
 					.getUnit().getType());
 
-			// TODO: Errechne Konfiguration von factorCast.
+			// Errechne Konfiguration von factorCast.
 			java.util.Map<PersistentUnitType, Integer> factorConfiguration = this.fetchUnitConfiguration(factorCast
 					.getUnit().getType());
 
-			// TODO: Errechne Ziel-Konfiguration
+			// Errechne Ziel-Konfiguration
 			java.util.Map<PersistentUnitType, Integer> targetConfiguration = this.calculateTargetConfiguration(
 					myConfiguration, factorConfiguration);
 
-			// TODO: Finde UnitType, der mit Zielkonfiguration übereinstimmt.
+			// Finde UnitType, der mit Zielkonfiguration übereinstimmt.
 			PersistentAbsUnitType targetType = this.searchTargetUnitType(targetConfiguration);
 
 			if (targetType == null) {
 				throw new NotComputableException("Es gibt keinen UnitType, der der Ergebniskonfiguration entspricht");
 			}
 
-			// TODO: Finde Unit, die dem targetType entspricht.
+			// Finde Unit, die dem targetType entspricht.
 			PersistentAbsUnit targetUnit = this.searchTargetUnit(targetType);
 			try {
 				Fraction product = getThis().getAmount().mul(factorCast.getAmount());
@@ -354,6 +369,20 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 		}
 	}
 
+	private PersistentAbsQuantity simpleSub(PersistentQuantity minuend) throws PersistenceException,
+			NotComputableException {
+		Fraction difference;
+		try {
+			difference = getThis().getAmount().sub(minuend.getAmount());
+			PersistentQuantity resultSimple = QuantityManager.getTheQuantityManager().createQuantity(
+					getThis().getUnit(), difference);
+			return resultSimple;
+		} catch (Throwable e) {
+			throw new NotComputableException(e.getMessage());
+		}
+
+	}
+
 	private boolean hasSameUnitAs(PersistentQuantity summandCast) throws PersistenceException {
 		return getThis().getUnit().equals(summandCast.getUnit());
 	}
@@ -366,6 +395,27 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 		PersistentCompoundQuantity newCompoundQuantity = CompoundQuantity.createCompoundQuantity();
 		newCompoundQuantity.getParts().add(getThis());
 		newCompoundQuantity.getParts().add(summandCast);
+		QuantityManager.getTheQuantityManager().getQuantities().add(newCompoundQuantity);
+		return newCompoundQuantity;
+	}
+
+	private PersistentAbsQuantity complexSub(PersistentQuantity minuend) throws PersistenceException {
+		PersistentCompoundQuantity newCompoundQuantity = CompoundQuantity.createCompoundQuantity();
+		newCompoundQuantity.getParts().add(getThis());
+		// minuend muss mit -1 vorher multipliziert werden!
+		String fractionSearchString = "-" + minuend.getAmount().toString();
+		try {
+			FractionManager.getTheFractionManager().getFraction(fractionSearchString);
+		} catch (NotFoundException e) {
+			try {
+				// TODO: evtl globale Konstante "-1" einführen?
+				Fraction f = minuend.getAmount().mul(Fraction.parse("-1/1"));
+				FractionManager.getTheFractionManager().addFraction(f.toString(), f);
+				PersistentQuantity q = QuantityManager.getTheQuantityManager().createQuantity(minuend.getUnit(), f);
+				newCompoundQuantity.getParts().add(q);
+			} catch (Throwable e1) {
+			}
+		}
 		QuantityManager.getTheQuantityManager().getQuantities().add(newCompoundQuantity);
 		return newCompoundQuantity;
 	}
@@ -460,7 +510,6 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 
 	private PersistentAbsUnitType searchTargetUnitType(final Map<PersistentUnitType, Integer> targetConfiguration)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
 		PersistentAbsUnitType result = null;
 		if (targetConfiguration.size() == 1 & targetConfiguration.containsValue(1)) {
 			// Ergebnistyp ist atomar
