@@ -119,6 +119,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> convert(String quantityProxiString, String unitProxiString){
+        try {
+            PersistentQuantity quantity = (PersistentQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(quantityProxiString));
+            PersistentAbsUnit unit = (PersistentAbsUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
+            ((PersistentServer)this.server).convert(quantity, unit);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> createStaticMessage(String managerProxiString, String typeProxiString, String name, String targetProxiString, java.util.Vector<String> apTrnsprt){
         try {
             PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
@@ -482,6 +493,16 @@ public  class RemoteServer extends RemoteServerMaster {
 				ap.add(currentProxi);
 			}
             ((PersistentServer)this.server).createMessage(source, type, target, ap);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> convertToDefault(String quantityProxiString){
+        try {
+            PersistentQuantity quantity = (PersistentQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(quantityProxiString));
+            ((PersistentServer)this.server).convertToDefault(quantity);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

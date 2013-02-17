@@ -619,23 +619,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof NameSchemeManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("Namensschema erstellen ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateNameSchemeNameSchemeManagerStringStringMBooleanSUBTYPENameMssgWizard wizard = new ServerCreateNameSchemeNameSchemeManagerStringStringMBooleanSUBTYPENameMssgWizard("Namensschema erstellen");
-                        wizard.setFirstArgument((NameSchemeManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
             if (selected instanceof OperationManagerView){
                 item = new javax.swing.JMenuItem();
                 item.setText("createConstant ... ");
@@ -703,6 +686,23 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     public void actionPerformed(java.awt.event.ActionEvent e) {
                         ServerCreateVoidOperationOperationManagerMTypeStringFormalParameterLSTMssgWizard wizard = new ServerCreateVoidOperationOperationManagerMTypeStringFormalParameterLSTMssgWizard("createVoidOperation");
                         wizard.setFirstArgument((OperationManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof NameSchemeManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Namensschema erstellen ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateNameSchemeNameSchemeManagerStringStringMBooleanSUBTYPENameMssgWizard wizard = new ServerCreateNameSchemeNameSchemeManagerStringStringMBooleanSUBTYPENameMssgWizard("Namensschema erstellen");
+                        wizard.setFirstArgument((NameSchemeManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -1053,6 +1053,39 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     public void actionPerformed(java.awt.event.ActionEvent e) {
                         ServerAddSubAccountTypeMAccountTypeMAccountTypeMssgWizard wizard = new ServerAddSubAccountTypeMAccountTypeMAccountTypeMssgWizard("Kontotyp unterordnen");
                         wizard.setFirstArgument((MAccountTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof QuantityView){
+                item = new javax.swing.JMenuItem();
+                item.setText("convertToDefault");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "convertToDefault" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().convertToDefault((QuantityView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("convert ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerConvertQuantityAbsUnitMssgWizard wizard = new ServerConvertQuantityAbsUnitMssgWizard("convert");
+                        wizard.setFirstArgument((QuantityView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -1854,6 +1887,60 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
 				selectionPanel.preset(firstArgument.getName());
 				if (!selectionPanel.check()) selectionPanel.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerConvertQuantityAbsUnitMssgWizard extends Wizard {
+
+		protected ServerConvertQuantityAbsUnitMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerConvertQuantityAbsUnitMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().convert(firstArgument, (AbsUnitView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("unit", "view.AbsUnitView", (ViewRoot)getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private QuantityView firstArgument; 
+	
+		public void setFirstArgument(QuantityView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				SelectionPanel selectionPanel = (SelectionPanel)getParametersPanel().getComponent(0);
+				selectionPanel.preset((Anything)firstArgument.getUnit());
+				if (!selectionPanel.check()) selectionPanel.preset((Anything)null);
 			}catch(ModelException me){
 				 handleException(me);
 			}

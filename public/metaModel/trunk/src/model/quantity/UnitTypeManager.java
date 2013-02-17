@@ -5,6 +5,7 @@ import java.util.Iterator;
 import model.ConsistencyException;
 import model.DoubleDefinitionException;
 import model.UserException;
+import model.visitor.AbsUnitTypeReturnExceptionVisitor;
 import model.visitor.AbsUnitTypeVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
@@ -229,9 +230,9 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public void addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: addReference
-        
-    }
+		// TODO: implement method: addReference
+
+	}
     public void createCompUnit(final String name, final PersistentCompUnitType type, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -395,6 +396,32 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public void addReferenceType(final String name, final PersistentAbsUnitType unitType, final PersistentUnitType referenceUnitType, final long exponent) 
 				throws model.DoubleDefinitionException, PersistenceException{
+		// Name schon vorhanden?
+		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION);
+		}
+		// Unterscheidung ob UnitType oder CompUnitType
+		unitType.accept(new AbsUnitTypeReturnExceptionVisitor<CompUnitType, DoubleDefinitionException>() {
+
+			@Override
+			public model.quantity.CompUnitType handleCompUnitType(PersistentCompUnitType compUnitType)
+					throws PersistenceException, DoubleDefinitionException {
+				// TODO
+				return null;
+			}
+
+			@Override
+			public model.quantity.CompUnitType handleUnitType(PersistentUnitType unitType) throws PersistenceException,
+					DoubleDefinitionException {
+				// referenceUnitType und unitType gleich?
+				if (referenceUnitType.equals(unitType)) {
+
+				}
+				return null;
+			}
+		});
+
 		// // ---> Dublette pr?fen
 		// PersistentReferenceType duplicate = compUnitType.getRefs().findFirst(new Predcate<PersistentReferenceType>()
 		// {
@@ -422,7 +449,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
 
 		if (old.iterator().hasNext()) {
 			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION);
@@ -441,6 +468,17 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
 
     /* Start of protected part that is not overridden by persistence generator */
+
+	/**
+	 * Testet ob ein CompoundUnitType mit den übergebenen ReferenceTypes schon vorhanden ist.
+	 * 
+	 * @param referenceTypes
+	 * @return
+	 */
+	private boolean existsCompUnitTypeWithReferenceTypes(PersistentReferenceType... referenceTypes) {
+		// TODO!
+		return false;
+	}
 
 	/* End of protected part that is not overridden by persistence generator */
     

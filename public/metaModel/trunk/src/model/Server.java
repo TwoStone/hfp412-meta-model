@@ -570,6 +570,11 @@ public class Server extends PersistentObject implements PersistentServer{
 		// TODO: implement method: createCompUnit
 
 	}
+    public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) 
+				throws PersistenceException{
+        //TODO: implement method: convert
+        
+    }
     public void createStaticMessage(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentMObject target, final ActualParameterSearchList ap) 
 				throws PersistenceException{
 		getThis().getMessageManager().createStaticMessage(type, name, target, ap, getThis());
@@ -697,13 +702,13 @@ public class Server extends PersistentObject implements PersistentServer{
 		observer.updateTransientDerived(getThis(), "operationManager", result);
 		return result;
     }
-    public PersistentAccountTypeManager getAccountTypeManager() 
-				throws PersistenceException{
-		return model.measurement.AccountTypeManager.getTheAccountTypeManager();
-	}
     public PersistentTypeManager getTypeManager() 
 				throws PersistenceException{
 		return TypeManager.getTheTypeManager();
+	}
+    public PersistentAccountTypeManager getAccountTypeManager() 
+				throws PersistenceException{
+		return model.measurement.AccountTypeManager.getTheAccountTypeManager();
 	}
     public void removeMessage(final PersistentMessage m) 
 				throws PersistenceException{
@@ -766,15 +771,20 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		return model.messageOrLink.MessageManager.getTheMessageManager();
 	}
-    public void createMessage(final PersistentMObject source, final PersistentOperation type, final PersistentMObject target, final ActualParameterSearchList ap) 
-				throws PersistenceException{
-		getThis().getMessageManager().createMessage(type, source, target, ap, getThis());
-	}
     public PersistentMessageManager getMessageManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentMessageManager result = getThis().getMessageManager();
 		observer.updateTransientDerived(getThis(), "messageManager", result);
 		return result;
+    }
+    public void createMessage(final PersistentMObject source, final PersistentOperation type, final PersistentMObject target, final ActualParameterSearchList ap) 
+				throws PersistenceException{
+		getThis().getMessageManager().createMessage(type, source, target, ap, getThis());
+	}
+    public void convertToDefault(final PersistentQuantity quantity) 
+				throws PersistenceException{
+        //TODO: implement method: convertToDefault
+        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

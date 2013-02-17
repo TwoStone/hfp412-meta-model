@@ -92,6 +92,8 @@ server Server {
 	void createQuantity@@Create_quantity(QuantityManager manager, AbsUnit unit, Fraction f);
 	void setConversion(Unit unit, Fraction factor, Fraction constant);
 	void setDefaultUnit(UnitType type, Unit defaultUnit);
+	void convertToDefault(Quantity quantity);
+	void convert(Quantity quantity, AbsUnit unit);
 
 	/** computing **/
 	AbsQuantity add(AbsQuantity summand1, AbsQuantity summand2) throws NotComputableException;
@@ -378,6 +380,8 @@ part quantity {
 	singleton QuantityManager {
 		AbsQuantity ** quantities;
 		active Quantity createQuantity(AbsUnit unit, Fraction amount);
+		active void convertToDefault(Quantity quantity);
+		active void convert(Quantity quantity, AbsUnit unit);
 	}
 
 	/*Jeder Bruch nur einmal vorhanden*/
