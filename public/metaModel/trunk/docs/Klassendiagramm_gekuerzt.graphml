@@ -757,7 +757,7 @@ convertInverse(amount: Fraction) : Quantity</y:MethodLabel>
     <node id="n35">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="48.0" width="68.310546875" x="-537.2760706624605" y="463.0076235894823"/>
+          <y:Geometry height="48.0" width="68.310546875" x="-553.0493180585531" y="635.3877428191929"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="48.103515625" modelName="custom" textColor="#333333" visible="true" width="54.68359375" x="6.8134765625" y="-0.0517578125">Modell
@@ -1079,7 +1079,7 @@ executeInverse(amount: Fraction) : Fraction</y:MethodLabel>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="white_delta"/>
-          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="six_pos" modelPosition="ttail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="4.0" x="273.87194227345003" y="-20.157033538914618">
+          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="six_pos" modelPosition="ttail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="4.0" x="-120.94834837366926" y="0.017114757128325664">
             <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="0.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
           </y:EdgeLabel>
           <y:BendStyle smoothed="false"/>
@@ -1239,12 +1239,10 @@ executeInverse(amount: Fraction) : Fraction</y:MethodLabel>
     <edge id="e13" source="n17" target="n9">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="-46.540487381704224" sy="-14.029224073951696" tx="17.960862187047496" ty="0.0">
-            <y:Point x="2359.470446361649" y="917.4668619103314"/>
-          </y:Path>
+          <y:Path sx="-46.540487381704224" sy="-14.029224073951696" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="six_pos" modelPosition="tail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="26.681640625" x="18.03904987727401" y="-265.63360238022597">type<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="0.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="six_pos" modelPosition="tail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="26.681640625" x="1.0987720242947034" y="-265.63360238022597">type<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="0.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
           </y:EdgeLabel>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
@@ -1904,14 +1902,13 @@ also nochmal spezialisieren. <y:LabelModel>
     <edge id="e50" source="n38" target="n0">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="52.936964329430396" sy="-10.69263302550928" tx="0.0" ty="-14.0">
-            <y:Point x="-426.11235372912273" y="679.3877428191929"/>
-            <y:Point x="693.7413108547369" y="679.3877428191929"/>
-            <y:Point x="693.7413108547369" y="689.3877428191929"/>
+          <y:Path sx="52.936964329430396" sy="-10.69263302550928" tx="-54.49635034262951" ty="-14.006019661809546">
+            <y:Point x="-426.11235372912273" y="674.3877428191929"/>
+            <y:Point x="914.5036496573705" y="674.3877428191929"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="six_pos" modelPosition="thead" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="32.6875" x="1087.1661765773931" y="-16.35713022768209">value<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="0.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="six_pos" modelPosition="ttail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="32.6875" x="1342.6160153800267" y="-21.39509409486959">value<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="0.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
           </y:EdgeLabel>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
@@ -1967,7 +1964,6 @@ also nochmal spezialisieren. <y:LabelModel>
     </edge>
     <edge id="e54" source="n45" target="n4">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="14.015624999999972">
@@ -1982,7 +1978,6 @@ also nochmal spezialisieren. <y:LabelModel>
     </edge>
     <edge id="e55" source="n13" target="n47">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-6.926377543859644" sy="0.0" tx="0.0" ty="0.0">
@@ -1997,7 +1992,6 @@ also nochmal spezialisieren. <y:LabelModel>
     </edge>
     <edge id="e56" source="n40" target="n46">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -2012,7 +2006,6 @@ also nochmal spezialisieren. <y:LabelModel>
     </edge>
     <edge id="e57" source="n43" target="n46">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -2027,7 +2020,6 @@ also nochmal spezialisieren. <y:LabelModel>
     </edge>
     <edge id="e58" source="n39" target="n47">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="14.015625">
@@ -2042,7 +2034,6 @@ also nochmal spezialisieren. <y:LabelModel>
     </edge>
     <edge id="e59" source="n14" target="n45">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -2057,7 +2048,6 @@ also nochmal spezialisieren. <y:LabelModel>
     </edge>
     <edge id="e60" source="n47" target="n45">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -2072,7 +2062,6 @@ also nochmal spezialisieren. <y:LabelModel>
     </edge>
     <edge id="e61" source="n44" target="n8">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-51.42823009364088" sy="-9.0" tx="0.0" ty="0.0">
@@ -2087,7 +2076,6 @@ also nochmal spezialisieren. <y:LabelModel>
     </edge>
     <edge id="e62" source="n46" target="n8">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
