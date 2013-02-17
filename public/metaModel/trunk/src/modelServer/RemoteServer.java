@@ -29,6 +29,21 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> createEntry(String accountProxiString, String objectProxiString, String measurementTypeProxiString, String quantityProxiString){
+        try {
+            PersistentAccount account = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(accountProxiString));
+            PersistentMObject object = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(objectProxiString));
+            PersistentMMeasurementType measurementType = (PersistentMMeasurementType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(measurementTypeProxiString));
+            PersistentQuantity quantity = (PersistentQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(quantityProxiString));
+            ((PersistentServer)this.server).createEntry(account, object, measurementType, quantity);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.ConsistencyException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> createHierarchy(String aProxiString, String name){
         try {
             PersistentAssociation a = (PersistentAssociation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aProxiString));

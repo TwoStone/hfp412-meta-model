@@ -79,7 +79,6 @@ server Server {
 	void createLink(MObject source, Association type, MObject target);
 	void removeLink(Link link);
 
-	
 	/** Quantity/Unit **/
 	void createUnitType@@Create_unit_type(UnitTypeManager manager, String name);
 	void createCompUnitType@@Create_compound_unit_type(UnitTypeManager manager, String name);
@@ -107,6 +106,7 @@ server Server {
 	void addSubAccountType@@Kontotyp_unterordnen(MAccountType parent, MAccountType child) throws CycleException;
 	void createAccount@@Konto_anlegen(AccountManager accountManager, String name, MAccountType type {accountTypeManager;accountTypes}, MObject object);
 	void addSubAccount@@Konto_unterordnen(Account parent, Account child) throws CycleException;
+	void createEntry@@Eintrag_anlegen(Account account, MObject object{objectManager;objects}, MMeasurementType measurementType{measurementTypeManager;measurementTypes}, Quantity quantity{quantityManager;quantities}) throws ConsistencyException;
 
 
  	/** Naming **/
@@ -314,7 +314,7 @@ part quantity {
 	}
 
 	class CompUnitType extends AbsUnitType {
-		prior ReferenceType ** refs;
+	 ReferenceType ** refs;
 	}
 
 	class UnitType extends AbsUnitType {
@@ -534,16 +534,16 @@ abstract class MQuantiObjectType@@QuantifiedObjectType {
 class MMeasurementType@@MeasurementType extends MQuantiObjectType {
 }
 
-hierarchy MAccountTypeHierarchy##MAccTypeHie;
+
 class MAccountType@@AccountType extends MQuantiObjectType {
 	MAccountType** subAccountTypes hierarchy MAccountTypeHierarchy;
 	active void addSubAccountType##addSbAccTyp(MAccountType accountType) throws CycleException;
 }
-
+hierarchy MAccountTypeHierarchy##MAccTypeHie;
 
 abstract class QuantifObject@@QuantifiedObject {
 	symmetric prior MObject object;
-	active Quantity aggregate(AggregationStrategy strategy);
+	active AbsQuantity aggregate(AggregationStrategy strategy);
 }
 
 class Measurement extends QuantifObject {
@@ -552,16 +552,17 @@ class Measurement extends QuantifObject {
 	prior AbsQuantity quantity;
 }
 
-hierarchy AccountHierarchy##AccountHie;
 class Account extends QuantifObject {
 	prior MAccountType type;
 	Account** subAccounts hierarchy AccountHierarchy;
 	Measurement** entries;
 	active void addSubAccount(Account account) throws CycleException;
+	active void addEntry(Measurement measurement) throws ConsistencyException;
 }
+hierarchy AccountHierarchy##AccountHie;
 
 interface AggregationStrategy##AggrStrtgy {
-	active Quantity compose(Quantity first, Quantity second) throws NotComputableException;
+	AbsQuantity aggregateMeasurements##aggrtMsmnt(Measurement** measurements);
 }
 
 class MinStrategy implements AggregationStrategy {}

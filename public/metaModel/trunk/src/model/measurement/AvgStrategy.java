@@ -1,10 +1,25 @@
-
 package model.measurement;
 
-import persistence.*;
+import model.NotComputableException;
 import model.UserException;
-import model.visitor.*;
-
+import model.visitor.AggregationStrategyExceptionVisitor;
+import model.visitor.AggregationStrategyReturnExceptionVisitor;
+import model.visitor.AggregationStrategyReturnVisitor;
+import model.visitor.AggregationStrategyVisitor;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.AvgStrategyProxi;
+import persistence.ConnectionHandler;
+import persistence.MeasurementSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentAbsQuantity;
+import persistence.PersistentAvgStrategy;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -153,25 +168,25 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     }
     
     
-    public PersistentQuantity compose(final PersistentQuantity first, final PersistentQuantity second) 
-				throws model.NotComputableException, PersistenceException{
-        //TODO: implement method: compose
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
+    public PersistentAbsQuantity aggregateMeasurements(final MeasurementSearchList measurements) 
+				throws PersistenceException{
+        //TODO: implement method: aggregateMeasurements
         try{
-            throw new java.lang.UnsupportedOperationException("Method \"compose\" not implemented yet.");
+            throw new java.lang.UnsupportedOperationException("Method \"aggregateMeasurements\" not implemented yet.");
         } catch (java.lang.UnsupportedOperationException uoe){
             uoe.printStackTrace();
             throw uoe;
         }
-    }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -181,22 +196,12 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
-    public void compose(final PersistentQuantity first, final PersistentQuantity second, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentComposeCommand command = model.meta.ComposeCommand.createComposeCommand(now, now);
-		command.setFirst(first);
-		command.setSecond(second);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

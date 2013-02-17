@@ -1,5 +1,6 @@
 package model.measurement;
 
+import model.ConsistencyException;
 import model.UserException;
 import model.visitor.AccountHierarchyHIERARCHYExceptionVisitor;
 import model.visitor.AccountHierarchyHIERARCHYReturnExceptionVisitor;
@@ -24,14 +25,17 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
 import persistence.PersistenceException;
+import persistence.PersistentAbsQuantity;
 import persistence.PersistentAccount;
+import persistence.PersistentAddEntryCommand;
 import persistence.PersistentAddSubAccountCommand;
 import persistence.PersistentMAccountType;
 import persistence.PersistentMObject;
+import persistence.PersistentMeasurement;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantifObject;
-import persistence.PersistentQuantity;
 import persistence.TDObserver;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -221,6 +225,13 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     }
     
     
+    public void addEntry(final PersistentMeasurement measurement) 
+				throws model.ConsistencyException, PersistenceException{
+		if (!measurement.getType().getUnitType().equals(this.getThis().getType().getUnitType())) {
+			throw new ConsistencyException(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_ACCOUNT);
+		}
+		this.getThis().getEntries().add(measurement);
+	}
     public boolean containsAccountHierarchy(final AccountHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -277,9 +288,19 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 		// TODO: implement method: initializeOnCreation
 
 	}
-    public PersistentQuantity aggregate(final AggregationStrategy strategy) 
+    public void addEntry(final PersistentMeasurement measurement, final Invoker invoker) 
 				throws PersistenceException{
-		// TODO Auto-generated method stub
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddEntryCommand command = model.meta.AddEntryCommand.createAddEntryCommand(now, now);
+		command.setMeasurement(measurement);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
+				throws PersistenceException{
+		strategy.aggregateMeasurements(this.getThis().getEntries().getList());
+
 		return null;
 	}
 

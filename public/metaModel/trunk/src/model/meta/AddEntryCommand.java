@@ -8,27 +8,27 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class AggregateCommand extends PersistentObject implements PersistentAggregateCommand{
+public class AddEntryCommand extends PersistentObject implements PersistentAddEntryCommand{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentAggregateCommand getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.getClass(objectId);
-        return (PersistentAggregateCommand)PersistentProxi.createProxi(objectId, classId);
+    public static PersistentAddEntryCommand getById(long objectId) throws PersistenceException{
+        long classId = ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade.getClass(objectId);
+        return (PersistentAddEntryCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentAggregateCommand createAggregateCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createAggregateCommand(createDate,commitDate,false);
+    public static PersistentAddEntryCommand createAddEntryCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createAddEntryCommand(createDate,commitDate,false);
     }
     
-    public static PersistentAggregateCommand createAggregateCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
-        PersistentAggregateCommand result = null;
+    public static PersistentAddEntryCommand createAddEntryCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        PersistentAddEntryCommand result = null;
         if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade
-                .newDelayedAggregateCommand();
+            result = ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade
+                .newDelayedAddEntryCommand();
             result.setDelayed$Persistence(true);
         }else{
-            result = ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade
-                .newAggregateCommand(-1);
+            result = ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade
+                .newAddEntryCommand(-1);
         }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -37,26 +37,24 @@ public class AggregateCommand extends PersistentObject implements PersistentAggr
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected AggregationStrategy strategy;
+    protected PersistentMeasurement measurement;
     protected Invoker invoker;
-    protected PersistentQuantifObject commandReceiver;
-    protected PersistentAbsQuantity commandResult;
+    protected PersistentAccount commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public AggregateCommand(AggregationStrategy strategy,Invoker invoker,PersistentQuantifObject commandReceiver,PersistentAbsQuantity commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public AddEntryCommand(PersistentMeasurement measurement,Invoker invoker,PersistentAccount commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.strategy = strategy;
+        this.measurement = measurement;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
-        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
     static public long getTypeId() {
-        return 300;
+        return 321;
     }
     
     public long getClassId() {
@@ -65,44 +63,40 @@ public class AggregateCommand extends PersistentObject implements PersistentAggr
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 300) ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade
-            .newAggregateCommand(this.getId());
+        if (this.getClassId() == 321) ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade
+            .newAddEntryCommand(this.getId());
         super.store();
-        if(this.getStrategy() != null){
-            this.getStrategy().store();
-            ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.strategySet(this.getId(), getStrategy());
+        if(this.getMeasurement() != null){
+            this.getMeasurement().store();
+            ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade.measurementSet(this.getId(), getMeasurement());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
-            ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.invokerSet(this.getId(), getInvoker());
+            ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade.invokerSet(this.getId(), getInvoker());
         }
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
-            ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
-        }
-        if(this.getCommandResult() != null){
-            this.getCommandResult().store();
-            ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.commandResultSet(this.getId(), getCommandResult());
+            ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
-            ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
+            ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
         }
         
     }
     
-    public AggregationStrategy getStrategy() throws PersistenceException {
-        return this.strategy;
+    public PersistentMeasurement getMeasurement() throws PersistenceException {
+        return this.measurement;
     }
-    public void setStrategy(AggregationStrategy newValue) throws PersistenceException {
+    public void setMeasurement(PersistentMeasurement newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.strategy)) return;
+        if(newValue.equals(this.measurement)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.strategy = (AggregationStrategy)PersistentProxi.createProxi(objectId, classId);
+        this.measurement = (PersistentMeasurement)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.strategySet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade.measurementSet(this.getId(), newValue);
         }
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -116,35 +110,21 @@ public class AggregateCommand extends PersistentObject implements PersistentAggr
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.invokerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public PersistentQuantifObject getCommandReceiver() throws PersistenceException {
+    public PersistentAccount getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(PersistentQuantifObject newValue) throws PersistenceException {
+    public void setCommandReceiver(PersistentAccount newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentQuantifObject)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentAccount)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.commandReceiverSet(this.getId(), newValue);
-        }
-    }
-    public PersistentAbsQuantity getCommandResult() throws PersistenceException {
-        return this.commandResult;
-    }
-    public void setCommandResult(PersistentAbsQuantity newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.commandResult)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.commandResult = (PersistentAbsQuantity)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.commandResultSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -158,7 +138,7 @@ public class AggregateCommand extends PersistentObject implements PersistentAggr
         this.myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade.myCommonDateSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade.myCommonDateSet(this.getId(), newValue);
         }
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
@@ -179,65 +159,68 @@ public class AggregateCommand extends PersistentObject implements PersistentAggr
     }
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException {
-        visitor.handleAggregateCommand(this);
+        visitor.handleAddEntryCommand(this);
     }
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAggregateCommand(this);
+         return visitor.handleAddEntryCommand(this);
     }
     public <E extends UserException>  void accept(CommonDateExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAggregateCommand(this);
+         visitor.handleAddEntryCommand(this);
     }
     public <R, E extends UserException> R accept(CommonDateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAggregateCommand(this);
+         return visitor.handleAddEntryCommand(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleAggregateCommand(this);
+        visitor.handleAddEntryCommand(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAggregateCommand(this);
+         return visitor.handleAddEntryCommand(this);
     }
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAggregateCommand(this);
+         visitor.handleAddEntryCommand(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAggregateCommand(this);
+         return visitor.handleAddEntryCommand(this);
     }
     public void accept(CommandVisitor visitor) throws PersistenceException {
-        visitor.handleAggregateCommand(this);
+        visitor.handleAddEntryCommand(this);
     }
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAggregateCommand(this);
+         return visitor.handleAddEntryCommand(this);
     }
     public <E extends UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAggregateCommand(this);
+         visitor.handleAddEntryCommand(this);
     }
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAggregateCommand(this);
+         return visitor.handleAddEntryCommand(this);
     }
-    public void accept(QuantifObjectCommandVisitor visitor) throws PersistenceException {
-        visitor.handleAggregateCommand(this);
+    public void accept(AccountCommandVisitor visitor) throws PersistenceException {
+        visitor.handleAddEntryCommand(this);
     }
-    public <R> R accept(QuantifObjectCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAggregateCommand(this);
+    public <R> R accept(AccountCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAddEntryCommand(this);
     }
-    public <E extends UserException>  void accept(QuantifObjectCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAggregateCommand(this);
+    public <E extends UserException>  void accept(AccountCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAddEntryCommand(this);
     }
-    public <R, E extends UserException> R accept(QuantifObjectCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAggregateCommand(this);
+    public <R, E extends UserException> R accept(AccountCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAddEntryCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return (int) (0 
-            + (this.getStrategy() == null ? 0 : 1)
-            + (this.getCommandReceiver() == null ? 0 : 1)
-            + (this.getCommandResult() == null ? 0 : 1));
+            + (this.getMeasurement() == null ? 0 : 1)
+            + (this.getCommandReceiver() == null ? 0 : 1));
     }
     
     
     public void execute() 
 				throws PersistenceException{
-        this.setCommandResult(this.getCommandReceiver().aggregate(this.getStrategy()));
-		
+        try{
+			this.getCommandReceiver().addEntry(this.getMeasurement());
+		}
+		catch(model.ConsistencyException e){
+			this.commandException = e;
+		}
     }
     public void checkException() 
 				throws UserException, PersistenceException{

@@ -6,10 +6,11 @@ public final class ExceptionConstants {
 
 	public static final String DOUBLE_UNIT_TYPE_DEFINITION = "UnitType mit diesem Namen schon vorhanden: ";
 	public static final String DOUBLE_UNIT_DEFINITION = "Unit mit diesem Namen schon vorhanden: ";
-
 	public static final String DOUBLE_COMP_UNIT_TYPE = "Es existiert schon ein Unit Type mit Referenzen auf: ";
-
 	public static final String DOUBLE_REFERENCETYPE_DEFINITION = "Es existiert bereits eine Referenz auf: ";
+
+	public static final String UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_ACCOUNT = "UnitType des Measurements passt nicht zum UnitType des Accounts.";
+	public static final String UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY = "UnitType des Measurements passt nicht zum UnitType der Quantity.";
 
 	public static final String ALREADY_FINAL_CUT = "Dieser UnitTyp ist bereits final!";
 

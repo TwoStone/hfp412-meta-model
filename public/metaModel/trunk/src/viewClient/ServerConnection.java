@@ -38,6 +38,29 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
+    public synchronized void createEntry(AccountView account, MObjectView object, MMeasurementTypeView measurementType, QuantityView quantity) throws ModelException, ConsistencyException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)account).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)object).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)measurementType).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)quantity).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createEntry", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
+                    throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
     public synchronized void createHierarchy(AssociationView a, String name) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();

@@ -11,12 +11,11 @@ import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
 import persistence.Anything;
 import persistence.ConnectionHandler;
-import persistence.Invoker;
+import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
-import persistence.PersistentComposeCommand;
+import persistence.PersistentAbsQuantity;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
-import persistence.PersistentQuantity;
 import persistence.PersistentSumStrategy;
 import persistence.SumStrategyProxi;
 import persistence.TDObserver;
@@ -168,10 +167,6 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
     }
     
     
-    public PersistentQuantity compose(final PersistentQuantity first, final PersistentQuantity second) 
-				throws model.NotComputableException, PersistenceException{
-		return (PersistentQuantity) first.add(second);
-	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnInstantiation
@@ -182,6 +177,16 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
 		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
+    public PersistentAbsQuantity aggregateMeasurements(final MeasurementSearchList measurements) 
+				throws PersistenceException{
+        //TODO: implement method: aggregateMeasurements
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"aggregateMeasurements\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentSumStrategy)This);
@@ -193,16 +198,6 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
 		// TODO: implement method: initializeOnCreation
 
 	}
-    public void compose(final PersistentQuantity first, final PersistentQuantity second, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentComposeCommand command = model.meta.ComposeCommand.createComposeCommand(now, now);
-		command.setFirst(first);
-		command.setSecond(second);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
 
     /* Start of protected part that is not overridden by persistence generator */
 

@@ -1,6 +1,7 @@
 package model.measurement;
 
 import model.UserException;
+import model.visitor.AbsQuantityReturnVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -13,17 +14,20 @@ import persistence.AbstractPersistentRoot;
 import persistence.AggregationStrategy;
 import persistence.Anything;
 import persistence.ConnectionHandler;
-import persistence.Invoker;
 import persistence.MeasurementProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
+import persistence.PersistentAbsUnitType;
+import persistence.PersistentCompoundQuantity;
 import persistence.PersistentMMeasurementType;
 import persistence.PersistentMObject;
 import persistence.PersistentMeasurement;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantifObject;
 import persistence.PersistentQuantity;
+import persistence.Predcate;
 import persistence.TDObserver;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -237,13 +241,33 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
+		// Prüfen, ob m aus Measurement : m.quantity.unit.type = m.type.unitType
+		final PersistentAbsUnitType unitType = this.getThis().getQuantity()
+				.accept(new AbsQuantityReturnVisitor<PersistentAbsUnitType>() {
+					@Override
+					public PersistentAbsUnitType handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity)
+							throws PersistenceException {
+						return compoundQuantity.getParts().findFirst(new Predcate<PersistentQuantity>() {
+							@Override
+							public boolean test(PersistentQuantity argument) throws PersistenceException {
+								return true;
+							}
+						}).getUnit().getType();
+					}
 
+					@Override
+					public PersistentAbsUnitType handleQuantity(PersistentQuantity quantity)
+							throws PersistenceException {
+						return quantity.getUnit().getType();
+					}
+				});
+		if (!this.getThis().getType().getUnitType().equals(unitType)) {
+			throw new Error(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY);
+		}
 	}
-    public PersistentQuantity aggregate(final AggregationStrategy strategy) 
+    public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
 				throws PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
+		return this.getThis().getQuantity();
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
