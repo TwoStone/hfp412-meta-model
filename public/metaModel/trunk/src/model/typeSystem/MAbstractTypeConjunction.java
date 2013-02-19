@@ -160,8 +160,8 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 
 	@Override
 	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
-		if (other instanceof MAbstractTypeConjunction) {
-			MAbstractTypeConjunction conjOther = (MAbstractTypeConjunction) other;
+		if (other instanceof PersistentMAbstractTypeConjunction) {
+			PersistentMAbstractTypeConjunction conjOther = (PersistentMAbstractTypeConjunction) other;
 			Iterator<PersistentMType> iteratorThis = getThis().getContainedTypes().iterator();
 			Iterator<PersistentMType> iteratorOther = conjOther.getContainedTypes().iterator();
 			while (iteratorThis.hasNext()) {

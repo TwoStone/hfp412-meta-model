@@ -147,8 +147,8 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 
 	@Override
 	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
-		if (other instanceof MAbstractTypeDisjunction) {
-			MAbstractTypeDisjunction disjOther = (MAbstractTypeDisjunction) other;
+		if (other instanceof PersistentMAbstractTypeDisjunction) {
+			PersistentMAbstractTypeDisjunction disjOther = (PersistentMAbstractTypeDisjunction) other;
 			Iterator<PersistentMType> iteratorThis = getThis().getContainedTypes().iterator();
 			Iterator<PersistentMType> iteratorOther = disjOther.getContainedTypes().iterator();
 			while (iteratorThis.hasNext()) {
