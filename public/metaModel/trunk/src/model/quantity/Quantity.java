@@ -11,7 +11,7 @@ import model.visitor.AbsQuantityExceptionVisitor;
 import model.visitor.AbsQuantityReturnExceptionVisitor;
 import model.visitor.AbsQuantityReturnVisitor;
 import model.visitor.AbsQuantityVisitor;
-import model.visitor.AbsUnitTypeReturnVisitor;
+import model.visitor.AbsUnitReturnVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -22,14 +22,12 @@ import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnit;
-import persistence.PersistentAbsUnitType;
-import persistence.PersistentCompUnitType;
+import persistence.PersistentCompUnit;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantity;
-import persistence.PersistentReferenceType;
-import persistence.PersistentUnitType;
-import persistence.Predcate;
+import persistence.PersistentReference;
+import persistence.PersistentUnit;
 import persistence.QuantityProxi;
 import persistence.TDObserver;
 
@@ -291,40 +289,17 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 	public PersistentAbsQuantity mul(final PersistentAbsQuantity factor) throws model.NotComputableException,
 			PersistenceException {
 		if (!this.isArgumentCompound(factor)) {
-			PersistentQuantity factorCast = (PersistentQuantity) factor;
-			PersistentAbsQuantity result = null;
-			// Errechne Konfiguration von getThis()
-			java.util.Map<PersistentUnitType, Integer> myConfiguration = this.fetchUnitConfiguration(getThis()
-					.getUnit().getType());
+			final PersistentQuantity factorAsQuantity = (PersistentQuantity) factor;
+			final PersistentAbsUnit myUnit = getThis().getUnit();
+			final PersistentAbsUnit factorUnit = factorAsQuantity.getUnit();
 
-			// Errechne Konfiguration von factorCast.
-			java.util.Map<PersistentUnitType, Integer> factorConfiguration = this.fetchUnitConfiguration(factorCast
-					.getUnit().getType());
+			final PersistentAbsUnit targetUnit = this.computeTargetUnit(myUnit, factorUnit);
 
-			// Errechne Ziel-Konfiguration
-			java.util.Map<PersistentUnitType, Integer> targetConfiguration = this.calculateTargetConfiguration(
-					myConfiguration, factorConfiguration);
-
-			// Finde UnitType, der mit Zielkonfiguration übereinstimmt.
-			PersistentAbsUnitType targetType = this.searchTargetUnitType(targetConfiguration);
-
-			if (targetType == null) {
-				throw new NotComputableException("Es gibt keinen UnitType, der der Ergebniskonfiguration entspricht");
-			}
-
-			// Finde Unit, die dem targetType entspricht.
-			PersistentAbsUnit targetUnit = this.searchTargetUnit(targetType);
-			try {
-				Fraction product = getThis().getAmount().mul(factorCast.getAmount());
-				result = QuantityManager.getTheQuantityManager().createQuantity(targetUnit, product);
-				return result;
-			} catch (Throwable e) {
-				throw new NotComputableException(e.getMessage());
-			}
-
+			// TODO: specify return value
+			return null;
 		} else {
-			PersistentCompoundQuantity factorCast = (PersistentCompoundQuantity) factor;
-			return factorCast.mul(getThis());
+			PersistentCompoundQuantity factorAsCompoundQuantity = (PersistentCompoundQuantity) factor;
+			return factorAsCompoundQuantity.mul(getThis());
 		}
 	}
 
@@ -357,6 +332,49 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 	}
 
 	/* Start of protected part that is not overridden by persistence generator */
+
+	private PersistentAbsUnit computeTargetUnit(PersistentAbsUnit myUnit, PersistentAbsUnit factorUnit)
+			throws PersistenceException {
+		Map<PersistentUnit, Integer> myReferences = computeReferences(myUnit);
+		Map<PersistentUnit, Integer> factorReferences = computeReferences(factorUnit);
+		Map<PersistentUnit, Integer> aggregatedReferences = aggregateReferences(myReferences, factorReferences);
+		// TODO: search for Unit
+		return null;
+
+	}
+
+	private Map<PersistentUnit, Integer> aggregateReferences(Map<PersistentUnit, Integer> myReferences,
+			Map<PersistentUnit, Integer> factorReferences) {
+		Map<PersistentUnit, Integer> result = new HashMap<PersistentUnit, Integer>();
+		// TODO: implement logic.
+		return result;
+	}
+
+	private Map<PersistentUnit, Integer> computeReferences(PersistentAbsUnit unit) throws PersistenceException {
+		return unit.accept(new AbsUnitReturnVisitor<Map<PersistentUnit, Integer>>() {
+
+			@Override
+			public Map<PersistentUnit, Integer> handleUnit(PersistentUnit unit) throws PersistenceException {
+				Map<PersistentUnit, Integer> result = new HashMap<PersistentUnit, Integer>();
+				result.put(unit, 1);
+				return result;
+			}
+
+			@Override
+			public Map<PersistentUnit, Integer> handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException {
+				Map<PersistentUnit, Integer> result = new HashMap<PersistentUnit, Integer>();
+
+				Iterator<PersistentReference> i = compUnit.getRefs().iterator();
+				while (i.hasNext()) {
+					PersistentReference current = i.next();
+					result.put(current.getRef(), (int) current.getExponent());
+				}
+
+				return result;
+			}
+		});
+	}
+
 	private PersistentQuantity simpleAdd(PersistentQuantity summand) throws PersistenceException,
 			NotComputableException {
 		try {
@@ -433,161 +451,6 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 				return false;
 			}
 		});
-	}
-
-	private boolean isUnitTypeCompound(PersistentAbsUnitType unitType) throws PersistenceException {
-		return unitType.accept(new AbsUnitTypeReturnVisitor<Boolean>() {
-
-			@Override
-			public Boolean handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException {
-				return true;
-			}
-
-			@Override
-			public Boolean handleUnitType(PersistentUnitType unitType) throws PersistenceException {
-				return false;
-			}
-		});
-	}
-
-	private Map<PersistentUnitType, Integer> fetchUnitConfiguration(PersistentAbsUnitType unitType)
-			throws PersistenceException {
-		return unitType.accept(new AbsUnitTypeReturnVisitor<Map<PersistentUnitType, Integer>>() {
-
-			@Override
-			public Map<PersistentUnitType, Integer> handleCompUnitType(PersistentCompUnitType compUnitType)
-					throws PersistenceException {
-				Map<PersistentUnitType, Integer> result = new HashMap<PersistentUnitType, Integer>();
-				java.util.Iterator<PersistentReferenceType> iterator = compUnitType.getRefs().iterator();
-				while (iterator.hasNext()) {
-					PersistentReferenceType current = iterator.next();
-					result.put(current.getRef(), (int) current.getExponent());
-				}
-				return result;
-			}
-
-			@Override
-			public Map<PersistentUnitType, Integer> handleUnitType(PersistentUnitType unitType)
-					throws PersistenceException {
-				Map<PersistentUnitType, Integer> result = new HashMap<PersistentUnitType, Integer>();
-				result.put(unitType, 1);
-				return result;
-			}
-		});
-	}
-
-	private Map<PersistentUnitType, Integer> calculateTargetConfiguration(
-			Map<PersistentUnitType, Integer> myConfiguration, Map<PersistentUnitType, Integer> factorConfiguration) {
-		Map<PersistentUnitType, Integer> result = new HashMap<PersistentUnitType, Integer>();
-		Iterator<PersistentUnitType> i = myConfiguration.keySet().iterator();
-
-		while (i.hasNext()) {
-			PersistentUnitType current = i.next();
-			this.calculateTargetConfigurationEntry(myConfiguration, factorConfiguration, current, result);
-		}
-
-		i = factorConfiguration.keySet().iterator();
-		while (i.hasNext()) {
-			PersistentUnitType current = i.next();
-			this.calculateTargetConfigurationEntry(factorConfiguration, myConfiguration, current, result);
-		}
-
-		return result;
-	}
-
-	private void calculateTargetConfigurationEntry(Map<PersistentUnitType, Integer> currentConfiguration,
-			Map<PersistentUnitType, Integer> factorConfiguration, PersistentUnitType currentType,
-			Map<PersistentUnitType, Integer> result) {
-		if (result.get(currentType) != null)
-			return;
-		if (factorConfiguration.get(currentType) == null) {
-			result.put(currentType, currentConfiguration.get(currentType));
-			return;
-		} else {
-			result.put(currentType, currentConfiguration.get(currentType) + factorConfiguration.get(currentType));
-		}
-	}
-
-	private PersistentAbsUnitType searchTargetUnitType(final Map<PersistentUnitType, Integer> targetConfiguration)
-			throws PersistenceException {
-		PersistentAbsUnitType result = null;
-		if (targetConfiguration.size() == 1 & targetConfiguration.containsValue(1)) {
-			// Ergebnistyp ist atomar
-			result = UnitTypeManager.getTheUnitTypeManager().getAtomicUnitTypes()
-					.findFirst(new Predcate<PersistentUnitType>() {
-
-						@Override
-						public boolean test(PersistentUnitType argument) throws PersistenceException {
-							boolean result = false;
-							if (argument.equals(targetConfiguration.keySet().iterator().next())) {
-								result = true;
-							}
-							return result;
-						}
-					});
-		} else {
-			result = UnitTypeManager.getTheUnitTypeManager().getUnitTypes()
-					.findFirst(new Predcate<PersistentAbsUnitType>() {
-
-						@Override
-						public boolean test(PersistentAbsUnitType argument) throws PersistenceException {
-							boolean result = false;
-							Iterator<PersistentUnitType> i = targetConfiguration.keySet().iterator();
-							while (i.hasNext()) {
-								PersistentUnitType current = i.next();
-								if (!this.doTest(argument, current))
-									break;
-							}
-
-							if (result == true
-									& !(((PersistentCompUnitType) argument).getRefs().getList().getLength() != targetConfiguration
-											.size()))
-								result = false;
-
-							return result;
-						}
-
-						private boolean doTest(PersistentAbsUnitType argument, PersistentUnitType current) {
-
-							return false;
-						}
-					});
-
-		}
-
-		return result;
-
-	}
-
-	private PersistentAbsUnit searchTargetUnit(final PersistentAbsUnitType targetType) throws PersistenceException {
-		Boolean isComp = targetType.accept(new AbsUnitTypeReturnVisitor<Boolean>() {
-
-			@Override
-			public Boolean handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException {
-				return true;
-			}
-
-			@Override
-			public Boolean handleUnitType(PersistentUnitType unitType) throws PersistenceException {
-				return false;
-			}
-		});
-		if (!isComp & (((PersistentUnitType) targetType).getDefaultUnit() != null)) {
-			return ((PersistentUnitType) targetType).getDefaultUnit();
-		} else {
-			// nimm den erstbesten
-			// TODO: klären, ob AbsUnitType auch eine DefaultUnit benötigt.
-			return UnitTypeManager.getTheUnitTypeManager().getUnits().findFirst(new Predcate<PersistentAbsUnit>() {
-
-				@Override
-				public boolean test(PersistentAbsUnit argument) throws PersistenceException {
-					boolean result = false;
-					if (argument.getType().equals(targetType))
-						result = true;
-					return result;
-				}
-			});
-		}
 	}
 
 	/* End of protected part that is not overridden by persistence generator */
