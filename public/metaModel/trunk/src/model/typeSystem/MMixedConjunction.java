@@ -311,13 +311,7 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
 
 	@Override
 	public PersistentMBoolean isLessOrEqual(final PersistentMType other) throws PersistenceException {
-		// TODO: implement method: isLessOrEqual
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
 	}
 
 	@Override
