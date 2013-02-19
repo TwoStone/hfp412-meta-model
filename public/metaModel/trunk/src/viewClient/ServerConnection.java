@@ -38,6 +38,30 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
+    public synchronized void createTypeDisjunction(java.util.Vector<MTypeView> containees) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            java.util.Vector<String> containeesTrnsprt = new java.util.Vector<String>();
+            java.util.Iterator<MTypeView> containeesItrtr = containees.iterator();
+            while (containeesItrtr.hasNext()){ 
+                MTypeView current = containeesItrtr.next();
+                containeesTrnsprt.add(((view.objects.ViewProxi)current).createProxiInformation());
+            }
+            parameters.add(containeesTrnsprt);
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createTypeDisjunction", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
     public synchronized void createEntry(AccountView account, MObjectView object, MMeasurementTypeView measurementType, QuantityView quantity) throws ModelException, ConsistencyException{
         try {
             Vector<Object> parameters = new Vector<Object>();
@@ -492,30 +516,6 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createProductType(java.util.Vector<MTypeView> containees) throws ModelException{
-        try {
-            Vector<Object> parameters = new Vector<Object>();
-            java.util.Vector<String> containeesTrnsprt = new java.util.Vector<String>();
-            java.util.Iterator<MTypeView> containeesItrtr = containees.iterator();
-            while (containeesItrtr.hasNext()){ 
-                MTypeView current = containeesItrtr.next();
-                containeesTrnsprt.add(((view.objects.ViewProxi)current).createProxiInformation());
-            }
-            parameters.add(containeesTrnsprt);
-            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createProductType", parameters);
-            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
-                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
-                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
-            }
-        }catch(IOException ioe){
-            throw new ModelException(ioe.getMessage(),0);
-        }catch(XmlRpcException xre){
-            throw new ModelException(xre.getMessage(),0);
-        }
-        
-    }
-    
     public synchronized void removeLink(LinkView link) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
@@ -652,30 +652,6 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createSumType(java.util.Vector<MTypeView> containees) throws ModelException{
-        try {
-            Vector<Object> parameters = new Vector<Object>();
-            java.util.Vector<String> containeesTrnsprt = new java.util.Vector<String>();
-            java.util.Iterator<MTypeView> containeesItrtr = containees.iterator();
-            while (containeesItrtr.hasNext()){ 
-                MTypeView current = containeesItrtr.next();
-                containeesTrnsprt.add(((view.objects.ViewProxi)current).createProxiInformation());
-            }
-            parameters.add(containeesTrnsprt);
-            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createSumType", parameters);
-            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
-                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
-                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
-            }
-        }catch(IOException ioe){
-            throw new ModelException(ioe.getMessage(),0);
-        }catch(XmlRpcException xre){
-            throw new ModelException(xre.getMessage(),0);
-        }
-        
-    }
-    
     public synchronized void removeFromHierarchy(HierarchyView h, AssociationView a) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
@@ -709,6 +685,30 @@ public class ServerConnection extends ConnectionMaster {
             }
             parameters.add(fpTrnsprt);
             Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createVoidOperation", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized void createTypeConjunction(java.util.Vector<MTypeView> containees) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            java.util.Vector<String> containeesTrnsprt = new java.util.Vector<String>();
+            java.util.Iterator<MTypeView> containeesItrtr = containees.iterator();
+            while (containeesItrtr.hasNext()){ 
+                MTypeView current = containeesItrtr.next();
+                containeesTrnsprt.add(((view.objects.ViewProxi)current).createProxiInformation());
+            }
+            parameters.add(containeesTrnsprt);
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createTypeConjunction", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());

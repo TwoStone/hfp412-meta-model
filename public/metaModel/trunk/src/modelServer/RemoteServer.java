@@ -29,6 +29,21 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> createTypeDisjunction(java.util.Vector<String> containeesTrnsprt){
+        try {
+            MTypeSearchList containees = new MTypeSearchList();
+			java.util.Iterator<String> containeesItrtr = containeesTrnsprt.iterator();
+			while (containeesItrtr.hasNext()){
+				PersistentMType currentProxi = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(containeesItrtr.next()));
+				containees.add(currentProxi);
+			}
+            ((PersistentServer)this.server).createTypeDisjunction(containees);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> createEntry(String accountProxiString, String objectProxiString, String measurementTypeProxiString, String quantityProxiString){
         try {
             PersistentAccount account = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(accountProxiString));
@@ -285,21 +300,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createProductType(java.util.Vector<String> containeesTrnsprt){
-        try {
-            MTypeSearchList containees = new MTypeSearchList();
-			java.util.Iterator<String> containeesItrtr = containeesTrnsprt.iterator();
-			while (containeesItrtr.hasNext()){
-				PersistentMType currentProxi = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(containeesItrtr.next()));
-				containees.add(currentProxi);
-			}
-            ((PersistentServer)this.server).createProductType(containees);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> removeLink(String linkProxiString){
         try {
             PersistentLink link = (PersistentLink)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(linkProxiString));
@@ -376,21 +376,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createSumType(java.util.Vector<String> containeesTrnsprt){
-        try {
-            MTypeSearchList containees = new MTypeSearchList();
-			java.util.Iterator<String> containeesItrtr = containeesTrnsprt.iterator();
-			while (containeesItrtr.hasNext()){
-				PersistentMType currentProxi = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(containeesItrtr.next()));
-				containees.add(currentProxi);
-			}
-            ((PersistentServer)this.server).createSumType(containees);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> removeFromHierarchy(String hProxiString, String aProxiString){
         try {
             PersistentHierarchy h = (PersistentHierarchy)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(hProxiString));
@@ -413,6 +398,21 @@ public  class RemoteServer extends RemoteServerMaster {
 				fp.add(currentProxi);
 			}
             ((PersistentServer)this.server).createVoidOperation(operationManager, source, name, fp);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createTypeConjunction(java.util.Vector<String> containeesTrnsprt){
+        try {
+            MTypeSearchList containees = new MTypeSearchList();
+			java.util.Iterator<String> containeesItrtr = containeesTrnsprt.iterator();
+			while (containeesItrtr.hasNext()){
+				PersistentMType currentProxi = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(containeesItrtr.next()));
+				containees.add(currentProxi);
+			}
+            ((PersistentServer)this.server).createTypeConjunction(containees);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

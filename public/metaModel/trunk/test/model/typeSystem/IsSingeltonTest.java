@@ -7,8 +7,8 @@ import org.junit.Test;
 import persistence.PersistenceException;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
+import persistence.PersistentMMixedConjunction;
+import persistence.PersistentMMixedTypeDisjunction;
 import util.TestingBase;
 
 public class IsSingeltonTest extends TestingBase {
@@ -33,14 +33,14 @@ public class IsSingeltonTest extends TestingBase {
 
 	@Test
 	public void onEmtpyProduct() throws PersistenceException {
-
-		org.junit.Assert.assertEquals(mTrue, MEmptyProductType.getTheMEmptyProductType().isSingleton());
+		// Anything Singleton?
+		org.junit.Assert.assertEquals(mTrue, MEmptyTypeConjunction.getTheMEmptyTypeConjunction().isSingleton());
 	}
 
 	@Test
 	public void onEmtpySum() throws PersistenceException {
-
-		org.junit.Assert.assertEquals(mTrue, MEmptySumType.getTheMEmptySumType().isSingleton());
+		// Wirklich? Löwe hatte doch was anderes gesagt, oder?
+		org.junit.Assert.assertEquals(mTrue, MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction().isSingleton());
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mTrue, mFalse, a2);
 
-		PersistentMProductType prod = product(t1, t2);
+		PersistentMMixedConjunction prod = product(t1, t2);
 
 		org.junit.Assert.assertEquals(mTrue, prod.isSingleton());
 	}
@@ -64,7 +64,7 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mFalse, mFalse, a2);
 
-		PersistentMProductType prod = product(t1, t2);
+		PersistentMMixedConjunction prod = product(t1, t2);
 
 		org.junit.Assert.assertEquals(mFalse, prod.isSingleton());
 	}
@@ -79,8 +79,8 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mFalse, a2);
 
-		PersistentMProductType prod = product(t1, t2);
-		PersistentMProductType prod1 = product(t3, t4, prod);
+		PersistentMMixedConjunction prod = product(t1, t2);
+		PersistentMMixedConjunction prod1 = product(t3, t4, prod);
 
 		org.junit.Assert.assertEquals(mTrue, prod1.isSingleton());
 	}
@@ -95,8 +95,8 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mFalse, mFalse, a2);
 
-		PersistentMProductType prod = product(t1, t2);
-		PersistentMProductType prod1 = product(t3, t4, prod);
+		PersistentMMixedConjunction prod = product(t1, t2);
+		PersistentMMixedConjunction prod1 = product(t3, t4, prod);
 
 		org.junit.Assert.assertEquals(mFalse, prod1.isSingleton());
 	}
@@ -111,10 +111,10 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2);
 
-		PersistentMProductType prod = product(t1, t2);
-		PersistentMProductType prod1 = product(t3, t4, prod, sum1);
+		PersistentMMixedConjunction prod = product(t1, t2);
+		PersistentMMixedConjunction prod1 = product(t3, t4, prod, sum1);
 
 		org.junit.Assert.assertEquals(mTrue, prod1.isSingleton());
 	}
@@ -129,10 +129,10 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2, t4);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2, t4);
 
-		PersistentMProductType prod = product(t1, t2);
-		PersistentMProductType prod1 = product(t3, t4, prod, sum1);
+		PersistentMMixedConjunction prod = product(t1, t2);
+		PersistentMMixedConjunction prod1 = product(t3, t4, prod, sum1);
 
 		org.junit.Assert.assertEquals(mFalse, prod1.isSingleton());
 	}
@@ -145,7 +145,7 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mTrue, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2);
 
 		org.junit.Assert.assertEquals(mTrue, sum1.isSingleton());
 	}
@@ -158,7 +158,7 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mFalse, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2);
 
 		org.junit.Assert.assertEquals(mFalse, sum1.isSingleton());
 	}
@@ -171,7 +171,7 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mFalse, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2, t1);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2, t1);
 
 		org.junit.Assert.assertEquals(mFalse, sum1.isSingleton());
 	}
@@ -184,7 +184,7 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mTrue, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2, t1);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2, t1);
 
 		org.junit.Assert.assertEquals(mFalse, sum1.isSingleton());
 	}
@@ -199,8 +199,8 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2);
-		PersistentMSumType sum2 = sum(t2, sum1);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2);
+		PersistentMMixedTypeDisjunction sum2 = sum(t2, sum1);
 
 		org.junit.Assert.assertEquals(mFalse, sum2.isSingleton());
 	}
@@ -215,8 +215,8 @@ public class IsSingeltonTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mFalse, a2);
 
-		PersistentMProductType prod1 = product(t3, t4);
-		PersistentMSumType sum1 = sum(t2, prod1);
+		PersistentMMixedConjunction prod1 = product(t3, t4);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2, prod1);
 
 		org.junit.Assert.assertEquals(mFalse, sum1.isSingleton());
 	}

@@ -7,8 +7,8 @@ import org.junit.Test;
 import persistence.PersistenceException;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
+import persistence.PersistentMMixedConjunction;
+import persistence.PersistentMMixedTypeDisjunction;
 import util.TestingBase;
 
 public class IsAbstractTest extends TestingBase {
@@ -33,14 +33,14 @@ public class IsAbstractTest extends TestingBase {
 
 	@Test
 	public void onEmtpyProduct() throws PersistenceException {
-
-		org.junit.Assert.assertEquals(mFalse, MEmptyProductType.getTheMEmptyProductType().isAbstract());
+		// TODO Wirklich? Anything ist nicht abstrakt?
+		org.junit.Assert.assertEquals(mFalse, MEmptyTypeConjunction.getTheMEmptyTypeConjunction().isAbstract());
 	}
 
 	@Test
 	public void onEmtpySum() throws PersistenceException {
 
-		org.junit.Assert.assertEquals(mTrue, MEmptySumType.getTheMEmptySumType().isAbstract());
+		org.junit.Assert.assertEquals(mTrue, MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction().isAbstract());
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mTrue, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mTrue, mFalse, a2);
 
-		PersistentMProductType prod = product(t1, t2);
+		PersistentMMixedConjunction prod = product(t1, t2);
 
 		org.junit.Assert.assertEquals(mTrue, prod.isAbstract());
 	}
@@ -64,7 +64,7 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mFalse, mFalse, a2);
 
-		PersistentMProductType prod = product(t1, t2);
+		PersistentMMixedConjunction prod = product(t1, t2);
 
 		org.junit.Assert.assertEquals(mFalse, prod.isAbstract());
 	}
@@ -79,8 +79,8 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mTrue, a2);
 
-		PersistentMProductType prod = product(t1, t2);
-		PersistentMProductType prod1 = product(t3, t4, prod);
+		PersistentMMixedConjunction prod = product(t1, t2);
+		PersistentMMixedConjunction prod1 = product(t3, t4, prod);
 
 		org.junit.Assert.assertEquals(mTrue, prod1.isAbstract());
 	}
@@ -95,8 +95,8 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mFalse, mFalse, a2);
 
-		PersistentMProductType prod = product(t1, t2);
-		PersistentMProductType prod1 = product(t3, t4, prod);
+		PersistentMMixedConjunction prod = product(t1, t2);
+		PersistentMMixedConjunction prod1 = product(t3, t4, prod);
 
 		org.junit.Assert.assertEquals(mFalse, prod1.isAbstract());
 	}
@@ -111,10 +111,10 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2);
 
-		PersistentMProductType prod = product(t1);
-		PersistentMProductType prod1 = product(t3, t4, prod, sum1);
+		PersistentMMixedConjunction prod = product(t1);
+		PersistentMMixedConjunction prod1 = product(t3, t4, prod, sum1);
 
 		org.junit.Assert.assertEquals(mTrue, prod1.isAbstract());
 	}
@@ -129,10 +129,10 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2);
 
-		PersistentMProductType prod = product(t1, t2);
-		PersistentMProductType prod1 = product(t3, t4, prod, sum1);
+		PersistentMMixedConjunction prod = product(t1, t2);
+		PersistentMMixedConjunction prod1 = product(t3, t4, prod, sum1);
 
 		org.junit.Assert.assertEquals(mFalse, prod1.isAbstract());
 	}
@@ -147,10 +147,10 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2, t4);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2, t4);
 
-		PersistentMProductType prod = product(t1, t2);
-		PersistentMProductType prod1 = product(t3, t4, prod, sum1);
+		PersistentMMixedConjunction prod = product(t1, t2);
+		PersistentMMixedConjunction prod1 = product(t3, t4, prod, sum1);
 
 		org.junit.Assert.assertEquals(mTrue, prod1.isAbstract());
 	}
@@ -163,7 +163,7 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mTrue, mTrue, a2);
 
-		PersistentMSumType sum1 = sum(t2);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2);
 
 		org.junit.Assert.assertEquals(mTrue, sum1.isAbstract());
 	}
@@ -176,7 +176,7 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mFalse, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2);
 
 		org.junit.Assert.assertEquals(mFalse, sum1.isAbstract());
 	}
@@ -189,7 +189,7 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mFalse, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2, t1);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2, t1);
 
 		org.junit.Assert.assertEquals(mTrue, sum1.isAbstract());
 	}
@@ -202,7 +202,7 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t1 = MAtomicType.createMAtomicType("T1", mTrue, mFalse, a1);
 		PersistentMAtomicType t2 = MAtomicType.createMAtomicType("T2", mTrue, mFalse, a2);
 
-		PersistentMSumType sum1 = sum(t2, t1);
+		PersistentMMixedTypeDisjunction sum1 = sum(t2, t1);
 
 		org.junit.Assert.assertEquals(mTrue, sum1.isAbstract());
 	}
@@ -217,8 +217,8 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mFalse, a2);
 
-		PersistentMProductType prod1 = product(t3, t4);
-		PersistentMSumType sum1 = sum(prod1);
+		PersistentMMixedConjunction prod1 = product(t3, t4);
+		PersistentMMixedTypeDisjunction sum1 = sum(prod1);
 
 		org.junit.Assert.assertEquals(mFalse, sum1.isAbstract());
 	}
@@ -233,8 +233,8 @@ public class IsAbstractTest extends TestingBase {
 		PersistentMAtomicType t3 = MAtomicType.createMAtomicType("T3", mTrue, mFalse, a1);
 		PersistentMAtomicType t4 = MAtomicType.createMAtomicType("T4", mTrue, mTrue, a2);
 
-		PersistentMProductType prod1 = product(t3, t4);
-		PersistentMSumType sum1 = sum(prod1);
+		PersistentMMixedConjunction prod1 = product(t3, t4);
+		PersistentMMixedTypeDisjunction sum1 = sum(prod1);
 
 		org.junit.Assert.assertEquals(mTrue, sum1.isAbstract());
 	}
