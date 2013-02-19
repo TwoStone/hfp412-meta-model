@@ -539,7 +539,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createHierarchy(final PersistentAssociationManager manager, final PersistentAssociation a,
 			final String name) throws PersistenceException {
-		// TODO: implement method: createHierarchy
+		manager.createHierarchy(a, name, getThis());
 
 	}
 
@@ -561,7 +561,6 @@ public class Server extends PersistentObject implements PersistentServer {
 			final PersistentMMeasurementType measurementType, final PersistentQuantity quantity)
 			throws model.ConsistencyException, PersistenceException {
 		// TODO: implement method: createEntry
-
 	}
 
 	@Override
@@ -583,7 +582,7 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void createHierarchy(final PersistentAssociation a, final String name) throws PersistenceException {
-		// TODO: implement method: createHierarchy
+		getThis().getAssociationManager().createHierarchy(a, name, getThis());
 
 	}
 
@@ -632,26 +631,19 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createCompUnitType(final PersistentUnitTypeManager manager, final String name)
 			throws PersistenceException {
-		// TODO: implement method: createCompUnitType
-
+		manager.createCompUnitType(name, getThis());
 	}
 
 	@Override
 	public PersistentAbsQuantity mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2)
 			throws model.NotComputableException, PersistenceException {
-		// TODO: implement method: mul
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"mul\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return factor1.mul(factor2);
 	}
 
 	@Override
 	public void createLink(final PersistentLinkManager link, final PersistentAssociation type,
 			final PersistentMObject source, final PersistentMObject target) throws PersistenceException {
-		// TODO: implement method: createLink
+		link.createLink(type, source, target, getThis());
 
 	}
 
@@ -664,7 +656,7 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) throws PersistenceException {
-		// TODO: implement method: addFp
+		getOperationManager().addFp(op, fp, getThis());
 
 	}
 
@@ -679,28 +671,25 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy)
 			throws PersistenceException {
-		// TODO: implement method: addToHierarchy
-
+		getAssociationManager().addAssociation(theHierarchy, association, getThis());
 	}
 
 	@Override
 	public void createFp(final PersistentOperationManager operationManager, final String name,
 			final PersistentMType ofType) throws PersistenceException {
-		// TODO: implement method: createFp
-
+		operationManager.createFp(name, ofType, getThis());
 	}
 
 	@Override
 	public void createCompUnit(final PersistentCompUnitType compUnitType, final String name)
 			throws PersistenceException {
-		// TODO: implement method: createCompUnit
+		getUnitTypeManager().createCompUnit(name, compUnitType, getThis());
 
 	}
 
 	@Override
 	public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) throws PersistenceException {
-		// TODO: implement method: convert
-
+		getQuantityManager().convert(quantity, unit, getThis());
 	}
 
 	@Override
@@ -793,8 +782,7 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) throws PersistenceException {
-		// TODO: implement method: addAssociation
-
+		getThis().getAssociationManager().addAssociation(h, a, getThis());
 	}
 
 	@Override
@@ -805,8 +793,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createConstant(final PersistentOperationManager operationManager, final String name,
 			final PersistentMType target) throws PersistenceException {
-		// TODO: implement method: createConstant
-
+		operationManager.createConstant(name, target, getThis());
 	}
 
 	@Override
@@ -852,7 +839,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void addType(final PersistentMObject object, final PersistentMAtomicType newType)
 			throws PersistenceException {
-		// TODO: implement method: addType
+		getObjectManager().addType(object, newType, getThis());
 
 	}
 
@@ -896,22 +883,19 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createAssociation(final PersistentAssociationManager manager, final PersistentMType source,
 			final PersistentMType target, final String name) throws PersistenceException {
-		// TODO: implement method: createAssociation
-
+		manager.createAssociation(source, target, name, getThis());
 	}
 
 	@Override
 	public void removeFromHierarchy(final PersistentHierarchy h, final PersistentAssociation a)
 			throws PersistenceException {
-		// TODO: implement method: removeFromHierarchy
-
+		getAssociationManager().removeAssoFrmHier(h, a, getThis());
 	}
 
 	@Override
 	public void createVoidOperation(final PersistentOperationManager operationManager, final PersistentMType source,
 			final String name, final FormalParameterSearchList fp) throws PersistenceException {
-		// TODO: implement method: createVoidOperation
-
+		getOperationManager().createVoidOperation(source, name, fp, getThis());
 	}
 
 	@Override
@@ -922,8 +906,6 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void connected(final String user) throws PersistenceException {
-		// TODO: implement method: connected
-
 	}
 
 	@Override
@@ -947,34 +929,28 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
 
 	@Override
 	public void createUnitType(final PersistentUnitTypeManager manager, final String name) throws PersistenceException {
-		// TODO: implement method: createUnitType
-
+		getUnitTypeManager().createUnitType(name, getThis());
 	}
 
 	@Override
 	public void createAccountType(final PersistentAccountTypeManager accountTypeManager, final String name,
 			final PersistentMType type, final PersistentUnitType unitType) throws PersistenceException {
-		// TODO: implement method: createAccountType
-
+		getAccountTypeManager().createAccountType(name, type, unitType, getThis());
 	}
 
 	@Override
 	public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit,
 			final common.Fraction f) throws PersistenceException {
-		// TODO: implement method: createQuantity
-
+		getQuantityManager().createQuantity(unit, f, getThis());
 	}
 
 	@Override
 	public void removeUnit(final PersistentAbsUnit unit) throws PersistenceException {
-		// TODO: implement method: removeUnit
-
+		getUnitTypeManager().removeUnit(unit, getThis());
 	}
 
 	@Override
@@ -998,7 +974,7 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void convertToDefault(final PersistentQuantity quantity) throws PersistenceException {
-		// TODO: implement method: convertToDefault
+		getQuantityManager().convertToDefault(quantity, getThis());
 
 	}
 
@@ -1066,7 +1042,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void addReference(final PersistentAbsUnit unit, final String name, final PersistentUnit referenceUnit,
 			final long exponent) throws PersistenceException {
-		// TODO: implement method: addReference
+		getUnitTypeManager().addReference(name, unit, referenceUnit, exponent, getThis());
 
 	}
 
@@ -1105,21 +1081,20 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void assignNameScheme(final PersistentMAtomicType type, final PersistentNameScheme scheme)
 			throws PersistenceException {
-		// TODO: implement method: assignNameScheme
+		getNameSchemeManager().assignType(scheme, type, getThis());
 
 	}
 
 	@Override
 	public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit defaultUnit)
 			throws PersistenceException {
-		// TODO: implement method: setDefaultUnit
+		getUnitTypeManager().setDefaultUnit(type, defaultUnit, getThis());
 
 	}
 
 	@Override
 	public void createUnit(final PersistentUnitType type, final String name) throws PersistenceException {
-		// TODO: implement method: createUnit
-
+		getUnitTypeManager().createUnit(name, type, getThis());
 	}
 
 	@Override
@@ -1140,13 +1115,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2)
 			throws model.NotComputableException, PersistenceException {
-		// TODO: implement method: add
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"add\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return summand1.add(summand2);
 	}
 
 	@Override
@@ -1182,8 +1151,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createAccount(final PersistentAccountManager accountManager, final String name,
 			final PersistentMAccountType type, final PersistentMObject object) throws PersistenceException {
-		// TODO: implement method: createAccount
-
+		accountManager.createAccount(name, type, object, getThis());
 	}
 
 	@Override
@@ -1241,15 +1209,14 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void addReferenceType(final PersistentAbsUnitType unitType, final String name,
 			final PersistentUnitType referenceUnitType, final long exponent) throws PersistenceException {
-		// TODO: implement method: addReferenceType
+		getUnitTypeManager().addReferenceType(name, unitType, referenceUnitType, exponent, getThis());
 
 	}
 
 	@Override
 	public void createConst(final PersistentMessageManager manager, final PersistentOperation type, final String name,
 			final PersistentMObject target) throws PersistenceException {
-		// TODO: implement method: createConst
-
+		getMessageManager().createConst(type, name, target, getThis());
 	}
 
 	@Override
@@ -1274,14 +1241,14 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void assignName(final PersistentMObject object, final PersistentName scheme, final String name)
 			throws PersistenceException {
-		// TODO: implement method: assignName
+		getNameSchemeManager().assignName(object, scheme, name, getThis());
 
 	}
 
 	@Override
 	public void assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type)
 			throws PersistenceException {
-		// TODO: implement method: assignType
+		getNameSchemeManager().assignType(scheme, type, getThis());
 
 	}
 
