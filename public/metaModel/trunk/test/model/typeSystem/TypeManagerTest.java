@@ -11,12 +11,10 @@ import org.junit.Test;
 
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
-import persistence.PersistentMAbstractProductType;
-import persistence.PersistentMAbstractSumType;
+import persistence.PersistentMAbstractTypeConjunction;
+import persistence.PersistentMAbstractTypeDisjunction;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
 import persistence.PersistentTypeManager;
 import util.TestingBase;
 
@@ -36,21 +34,23 @@ public class TypeManagerTest extends TestingBase {
 	private static PersistentMAtomicType subTypeUnderSubType;
 	private static PersistentMAtomicType subType2UnderRoot;
 
-	private static PersistentMAbstractSumType sumtype1;
-	private static PersistentMAbstractSumType sumtype2;
+	private static PersistentMAbstractTypeDisjunction sumtype1;
+	private static PersistentMAbstractTypeDisjunction sumtype2;
 
-	private static PersistentMAbstractProductType prodtype1;
-	private static PersistentMAbstractProductType prodtype2;
+	private static PersistentMAbstractTypeConjunction prodtype1;
+	private static PersistentMAbstractTypeConjunction prodtype2;
 
 	@BeforeClass
 	public static void inits() throws Exception {
 		typeMan = TypeManager.getTheTypeManager();
-		asp1 = AspectManager.getTheAspectManager().createAspect("ABC");
+		asp1 = AspectManager.getTheAspectManager().createAspect("ABCDEFGHIJ");
 	}
 
 	@Test
 	public void createAtomicRootType_test01() throws ConsistencyException, PersistenceException {
+		System.out.println(asp1);
 		rootType = typeMan.createAtomicRootType(asp1, "RootType", MFalse.getTheMFalse(), MTrue.getTheMTrue());
+
 	}
 
 	@Test(expected = ConsistencyException.class)
@@ -104,7 +104,7 @@ public class TypeManagerTest extends TestingBase {
 	}
 
 	@Test
-	public void createSumType_test01() throws ConsistencyException, PersistenceException {
+	public void createTypeDisjunction_test01() throws ConsistencyException, PersistenceException {
 		t2 = typeMan.createAtomicRootType(asp1, "t2", MFalse.getTheMFalse(), MFalse.getTheMFalse());
 		t3 = typeMan.createAtomicRootType(asp1, "t3", MFalse.getTheMFalse(), MFalse.getTheMFalse());
 
@@ -113,131 +113,133 @@ public class TypeManagerTest extends TestingBase {
 		addens.add(t2);
 		addens.add(t3);
 
-		sumtype1 = typeMan.createSumType(addens);
+		sumtype1 = typeMan.createTypeDisjunction(addens);
 
 	}
 
 	@Test
-	public void createSumType_test02() throws ConsistencyException, PersistenceException {
+	public void createTypeDisjunction_test02() throws ConsistencyException, PersistenceException {
 		MTypeSearchList addens = new MTypeSearchList();
 		addens.add(subTypeUnderRoot);
 		addens.add(t2);
 		addens.add(t3);
 
-		assertTypeStructureEquals(sumtype1, typeMan.createSumType(addens));
+		assertTypeStructureEquals(sumtype1, typeMan.createTypeDisjunction(addens));
 	}
 
 	@Test
-	public void createSumType_test03() throws ConsistencyException, PersistenceException {
-		// Different Order to createSumType_test02...
+	public void createTypeDisjunction_test03() throws ConsistencyException, PersistenceException {
+		// Different Order to createTypeDisjunction_test02...
 		MTypeSearchList addens = new MTypeSearchList();
 		addens.add(subTypeUnderRoot);
 		addens.add(t3);
 		addens.add(t2);
 
-		sumtype2 = typeMan.createSumType(addens);
+		sumtype2 = typeMan.createTypeDisjunction(addens);
 	}
 
 	@Test
-	public void createSumType_test04() throws ConsistencyException, PersistenceException {
+	public void createTypeDisjunction_test04() throws ConsistencyException, PersistenceException {
 		// TODO Test: SumType createation with empty addens should return the EmptySum Instance...
 		// Empty addens list...
 		MTypeSearchList addens = new MTypeSearchList();
 
-		assertTypeStructureEquals(MEmptySumType.getTheMEmptySumType(), typeMan.createSumType(addens));
+		assertTypeStructureEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(),
+				typeMan.createTypeDisjunction(addens));
 
 	}
 
 	@Test
-	public void createSumType_test05() throws ConsistencyException, PersistenceException {
+	public void createTypeDisjunction_test05() throws ConsistencyException, PersistenceException {
 		MTypeSearchList addens = new MTypeSearchList();
 		addens.add(sumtype1);
 		addens.add(sumtype2);
 
-		typeMan.createSumType(addens);
+		typeMan.createTypeDisjunction(addens);
 	}
 
 	@Test
-	public void createSumType_test06() throws ConsistencyException, PersistenceException, CycleException {
+	public void createTypeDisjunction_test06() throws ConsistencyException, PersistenceException, CycleException {
 		// TODO Test: SumTypes shouldn't have duplicate addens elements...
 		MTypeSearchList addens = new MTypeSearchList();
 		addens.add(sumtype1);
 		addens.add(sumtype1);
 
-		PersistentMAbstractSumType sumType = typeMan.createSumType(addens);
-		PersistentMSumType expected = sum(sumtype1);
+		PersistentMAbstractTypeDisjunction sumType = typeMan.createTypeDisjunction(addens);
+		PersistentMAbstractTypeDisjunction expected = sum(sumtype1);
 
 		assertTypeStructureEquals(expected, sumType);
 	}
 
 	@Test
-	public void createProductType_test01() throws ConsistencyException, PersistenceException {
+	public void createTypeConjunction_test01() throws ConsistencyException, PersistenceException {
 
 		MTypeSearchList factors = new MTypeSearchList();
 		factors.add(subTypeUnderRoot);
 		factors.add(t2);
 		factors.add(t3);
 
-		prodtype1 = typeMan.createProductType(factors);
+		prodtype1 = typeMan.createTypeConjunction(factors);
 
 	}
 
 	@Test
-	public void createProductType_test02() throws ConsistencyException, PersistenceException {
+	public void createTypeConjunction_test02() throws ConsistencyException, PersistenceException {
 		MTypeSearchList factors = new MTypeSearchList();
 		factors.add(subTypeUnderRoot);
 		factors.add(t2);
 		factors.add(t3);
 
-		assertTypeStructureEquals(prodtype1, typeMan.createProductType(factors));
+		assertTypeStructureEquals(prodtype1, typeMan.createTypeConjunction(factors));
 	}
 
 	@Test
-	public void createProductType_test03() throws ConsistencyException, PersistenceException {
-		// Different Order to createSumType_test02...
+	public void createTypeConjunction_test03() throws ConsistencyException, PersistenceException {
+		// Different Order to createTypeDisjunction_test02...
 		MTypeSearchList factors = new MTypeSearchList();
 		factors.add(subTypeUnderRoot);
 		factors.add(t3);
 		factors.add(t2);
 
-		prodtype2 = typeMan.createProductType(factors);
+		prodtype2 = typeMan.createTypeConjunction(factors);
 	}
 
 	@Test
-	public void createProductType_test04() throws ConsistencyException, PersistenceException {
+	public void createTypeConjunction_test04() throws ConsistencyException, PersistenceException {
 		// TODO Test: ProductType createation with empty factors should return the EmptyProduct Instance...
 		// Empty factors list...
 		MTypeSearchList factors = new MTypeSearchList();
 
-		assertTypeStructureEquals(MEmptyProductType.getTheMEmptyProductType(), typeMan.createProductType(factors));
+		assertTypeStructureEquals(MEmptyTypeConjunction.getTheMEmptyTypeConjunction(),
+				typeMan.createTypeConjunction(factors));
 
 	}
 
 	@Test
-	public void createProductType_test05() throws ConsistencyException, PersistenceException, CycleException {
+	public void createTypeConjunction_test05() throws ConsistencyException, PersistenceException, CycleException {
 		// TODO Test: ProductTypes shouldn't have duplicate factors elements...
 		MTypeSearchList factors = new MTypeSearchList();
 		factors.add(t3);
 		factors.add(t3);
 
-		prodtype2 = typeMan.createProductType(factors);
-		PersistentMProductType expected = product(t3);
+		prodtype2 = typeMan.createTypeConjunction(factors);
+		PersistentMAbstractTypeConjunction expected = product(t3);
 
 		assertTypeStructureEquals(expected, prodtype2);
 
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void createProductType_test06() throws ConsistencyException, PersistenceException {
+	public void createTypeConjunction_test06() throws ConsistencyException, PersistenceException {
 		MTypeSearchList factors = new MTypeSearchList();
 		factors.add(subType2UnderRoot);
 		factors.add(subTypeUnderRoot);
 
-		typeMan.createProductType(factors);
+		typeMan.createTypeConjunction(factors);
 	}
 
 	@Test
-	public void createProductType_test07() throws PersistenceException, CycleException, ConsistencyException {
+	public void createTypeConjunction_test07() throws PersistenceException, CycleException, ConsistencyException {
 		PersistentMAspect aspect = aspect("A");
 		PersistentMAtomicType typeA = atomicType("typeA", aspect);
 		PersistentMAtomicType typeB = atomicType("typeB", aspect, typeA);
@@ -246,8 +248,8 @@ public class TypeManagerTest extends TestingBase {
 		factors.add(typeA);
 		factors.add(typeB);
 
-		PersistentMProductType expected = product(typeB);
-		PersistentMAbstractProductType actual = typeMan.createProductType(factors);
+		PersistentMAbstractTypeConjunction expected = product(typeB);
+		PersistentMAbstractTypeConjunction actual = typeMan.createTypeConjunction(factors);
 
 		assertTypeStructureEquals(expected, actual);
 	}
