@@ -202,7 +202,7 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
 				throws PersistenceException{
 		MAtomicTypeSearchList sl = new MAtomicTypeSearchList();
 		sl.add(getThis().getType());
-		return MNonEmptyAtomicTypeConjunction.transientCreate(sl);
+		return MNonEmptyAtomicTypeConjunction.transientCreateNETypeConj(sl);
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

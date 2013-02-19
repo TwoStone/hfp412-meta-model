@@ -266,7 +266,7 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 
 	@Override
 	public PersistentMNonEmptyAtomicTypeConjunction getProductType() throws PersistenceException {
-		return MNonEmptyAtomicTypeConjunction.transientCreate(getThis().getTypes());
+		return MNonEmptyAtomicTypeConjunction.transientCreateNETypeConj(getThis().getTypes().getList());
 	}
 
 	/* Start of protected part that is not overridden by persistence generator */

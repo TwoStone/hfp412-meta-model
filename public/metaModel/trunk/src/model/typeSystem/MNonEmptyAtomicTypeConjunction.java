@@ -31,6 +31,7 @@ import model.visitor.MTypeReturnVisitor;
 import model.visitor.MTypeVisitor;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.MAtomicTypeSearchList;
 import persistence.MComplexTypeHierarchyHIERARCHY;
 import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
 import persistence.MNonEmptyAtomicTypeConjunctionProxi;
@@ -360,17 +361,6 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 	}
 
 	@Override
-	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
-		// TODO: implement method: isStructuralEquivalant
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
-
-	@Override
 	public <T> T strategyMComplexTypeHierarchy(final T parameter,
 			final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) throws PersistenceException {
 		T result$$factors$$MNonEmptyAtomicTypeConjunction = strategy
@@ -462,7 +452,7 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 
 	@Override
 	public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() throws PersistenceException {
-		return MNonEmptyDisjunctiveNormalForm.transientCreateFromAtomicTypeConjunction(getThis());
+		return MNonEmptyDisjunctiveNormalForm.transientCreateDNFFromAtomicTypeConjunction(getThis());
 	}
 
 	/* Start of protected part that is not overridden by persistence generator */
@@ -491,7 +481,7 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 		});
 	}
 
-	public static PersistentMNonEmptyAtomicTypeConjunction transientCreate(SearchListRoot<PersistentMAtomicType> sl)
+	public static PersistentMNonEmptyAtomicTypeConjunction transientCreateNETypeConj(MAtomicTypeSearchList sl)
 			throws PersistenceException {
 		final PersistentMNonEmptyAtomicTypeConjunction result = MNonEmptyAtomicTypeConjunction
 				.createMNonEmptyAtomicTypeConjunction(true);

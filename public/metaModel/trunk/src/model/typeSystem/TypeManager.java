@@ -1,7 +1,5 @@
 package model.typeSystem;
 
-import java.util.ArrayList;
-
 import model.ConsistencyException;
 import model.CycleException;
 import model.UserException;
@@ -9,7 +7,6 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import model.visitor.MTypeStandardVisitor;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
@@ -29,7 +26,6 @@ import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentTypeManager;
 import persistence.Predcate;
-import persistence.Procdure;
 import persistence.TDObserver;
 import persistence.TypeManagerProxi;
 import persistence.TypeManager_TypesProxi;
@@ -228,18 +224,13 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 	@Override
 	public PersistentMAbstractTypeConjunction createTypeConjunction(final MTypeSearchList factors)
 			throws model.ConsistencyException, PersistenceException {
-		final PersistentMAbstractTypeConjunction result = MAbstractTypeConjunction.transientCreate(factors);
+		final PersistentMAbstractTypeConjunction result = MAbstractTypeConjunction.transientCreateAbstractTypeConj(factors);
 
 		if (result.equals(MEmptyTypeConjunction.getTheMEmptyTypeConjunction())) {
 			return MEmptyTypeConjunction.getTheMEmptyTypeConjunction();
 		}
 
-		PersistentMType containedEqualType = getThis().getTypes().findFirst(new Predcate<PersistentMType>() {
-			@Override
-			public boolean test(PersistentMType argument) throws PersistenceException {
-				return argument.isStructuralEquivalant(result).toBoolean();
-			}
-		});
+		PersistentMType containedEqualType = getStructuralEquivalentType(result);
 
 		if (containedEqualType == null) {
 			getThis().getTypes().add(result);
@@ -307,13 +298,22 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 	@Override
 	public PersistentMAbstractTypeDisjunction createTypeDisjunction(final MTypeSearchList addends)
 			throws model.ConsistencyException, PersistenceException {
-		// TODO: implement method: createTypeDisjunction
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"createTypeDisjunction\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+
+		final PersistentMAbstractTypeDisjunction result = MAbstractTypeDisjunction.transientCreateAbstrTypeDisj(addends);
+
+		if (result.equals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction())) {
+			return MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
 		}
+
+		PersistentMType containedEqualType = getStructuralEquivalentType(result);
+
+		if (containedEqualType == null) {
+			getThis().getTypes().add(result);
+			return result;
+		}
+
+		return (PersistentMAbstractTypeDisjunction) containedEqualType;
+
 	}
 
 	@Override
@@ -359,52 +359,33 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		}
 	}
 
-	static ArrayList<PersistentMAtomicTypeProduct> filterAtomicProducts(MTypeSearchList list)
-			throws PersistenceException {
-		final ArrayList<PersistentMAtomicTypeProduct> result = new ArrayList<PersistentMAtomicTypeProduct>();
-		list.applyToAll(new Procdure<PersistentMType>() {
-
-			@Override
-			public void doItTo(PersistentMType argument) throws PersistenceException {
-				argument.accept(new MTypeStandardVisitor() {
-
-					@Override
-					protected void standardHandling(PersistentMType mType) throws PersistenceException {
-					}
-
-					@Override
-					public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct)
-							throws PersistenceException {
-						result.add(mAtomicTypeProduct);
-					}
-
-				});
-			}
-		});
-		return result;
-	}
-
-	private static ArrayList<PersistentMAtomicType> filterAtomicTypes(MTypeSearchList list) throws PersistenceException {
-		final ArrayList<PersistentMAtomicType> result = new ArrayList<PersistentMAtomicType>();
-		list.applyToAll(new Procdure<PersistentMType>() {
-
-			@Override
-			public void doItTo(PersistentMType argument) throws PersistenceException {
-				argument.accept(new MTypeStandardVisitor() {
-
-					@Override
-					protected void standardHandling(PersistentMType mType) throws PersistenceException {
-					}
-
-					@Override
-					public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
-						result.add(mAtomicType);
-					}
-				});
-			}
-		});
-		return result;
-	}
+	/*
+	 * static ArrayList<PersistentMAtomicTypeProduct> filterAtomicProducts(MTypeSearchList list) throws
+	 * PersistenceException { final ArrayList<PersistentMAtomicTypeProduct> result = new
+	 * ArrayList<PersistentMAtomicTypeProduct>(); list.applyToAll(new Procdure<PersistentMType>() {
+	 * 
+	 * @Override public void doItTo(PersistentMType argument) throws PersistenceException { argument.accept(new
+	 * MTypeStandardVisitor() {
+	 * 
+	 * @Override protected void standardHandling(PersistentMType mType) throws PersistenceException { }
+	 * 
+	 * @Override public void handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws
+	 * PersistenceException { result.add(mAtomicTypeProduct); }
+	 * 
+	 * }); } }); return result; }
+	 * 
+	 * private static ArrayList<PersistentMAtomicType> filterAtomicTypes(MTypeSearchList list) throws
+	 * PersistenceException { final ArrayList<PersistentMAtomicType> result = new ArrayList<PersistentMAtomicType>();
+	 * list.applyToAll(new Procdure<PersistentMType>() {
+	 * 
+	 * @Override public void doItTo(PersistentMType argument) throws PersistenceException { argument.accept(new
+	 * MTypeStandardVisitor() {
+	 * 
+	 * @Override protected void standardHandling(PersistentMType mType) throws PersistenceException { }
+	 * 
+	 * @Override public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+	 * result.add(mAtomicType); } }); } }); return result; }
+	 */
 
 	private PersistentMType getStructuralEquivalentType(final PersistentMType search) throws PersistenceException {
 		return getThis().getTypes().findFirst(new Predcate<PersistentMType>() {

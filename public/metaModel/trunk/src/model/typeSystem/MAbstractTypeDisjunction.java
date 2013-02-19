@@ -1,16 +1,29 @@
 package model.typeSystem;
 
 import java.util.Iterator;
+import java.util.List;
 
+import model.basic.MBoolean;
 import model.basic.MFalse;
 import model.basic.MTrue;
+import model.visitor.MTypeStandardVisitor;
 import persistence.Anything;
+import persistence.MAtomicTypeSearchList;
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentMAbstractTypeDisjunction;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMAtomicTypeConjunction;
 import persistence.PersistentMBoolean;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMEmptyTypeDisjunction;
+import persistence.PersistentMMixedTypeDisjunction;
+import persistence.PersistentMNonEmptyAtomicTypeConjunction;
+import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
 import persistence.PersistentMType;
+import persistence.Procdure;
 import persistence.TDObserver;
+import utils.Lists;
 import utils.SearchLists;
 import utils.TruePredcate;
 
@@ -132,8 +145,161 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 		return MTrue.getTheMTrue();
 	}
 
+	@Override
+	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
+		if (other instanceof MAbstractTypeDisjunction) {
+			MAbstractTypeDisjunction disjOther = (MAbstractTypeDisjunction) other;
+			Iterator<PersistentMType> iteratorThis = getThis().getContainedTypes().iterator();
+			Iterator<PersistentMType> iteratorOther = disjOther.getContainedTypes().iterator();
+			while (iteratorThis.hasNext()) {
+				if (iteratorOther.hasNext()) {
+					if (!iteratorThis.next().isStructuralEquivalant(iteratorOther.next()).toBoolean()) {
+						return MFalse.getTheMFalse();
+					}
+				} else {
+					return MFalse.getTheMFalse();
+				}
+			}
+			return MBoolean.createFromBoolean(!iteratorOther.hasNext());
+		}
+
+		return MFalse.getTheMFalse();
+	}
+
 	/* Start of protected part that is not overridden by persistence generator */
 	public static String TYPE_LINK_OP = "++";
+
+	public static PersistentMAbstractTypeDisjunction transientCreateAbstrTypeDisj(MTypeSearchList addends)
+			throws PersistenceException {
+		MTypeSearchList normalizedTypeList = MAbstractTypeDisjunction.normalizeTypeList(addends);
+
+		if (normalizedTypeList.getLength() == 0) {
+			return MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
+		}
+
+		List<PersistentMAtomicTypeConjunction> atomicTypeConjunctions = MAbstractTypeDisjunction
+				.filterAtomicTypeConjunctions(normalizedTypeList);
+
+		if (atomicTypeConjunctions.size() == normalizedTypeList.getLength()) {
+			return MNonEmptyDisjunctiveNormalForm.transientCreateNEDNF(atomicTypeConjunctions);
+		}
+
+		return MMixedTypeDisjunction.transientCreateMixedTypeDisj(normalizedTypeList);
+	}
+
+	private static MTypeSearchList normalizeTypeList(MTypeSearchList types) throws PersistenceException {
+		final MTypeSearchList result = new MTypeSearchList();
+		types.applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				argument.accept(new MTypeStandardVisitor() {
+
+					@Override
+					protected void standardHandling(PersistentMType mType) throws PersistenceException {
+						MAbstractTypeDisjunction.addNormalizedToTypeList(result, mType);
+					}
+
+					@Override
+					public void handleMNonEmptyDisjunctiveNormalForm(
+							PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm)
+							throws PersistenceException {
+						mNonEmptyDisjunctiveNormalForm.getAddends().applyToAll(
+								new Procdure<PersistentMAtomicTypeConjunction>() {
+
+									@Override
+									public void doItTo(PersistentMAtomicTypeConjunction argument)
+											throws PersistenceException {
+										MAbstractTypeDisjunction.addNormalizedToTypeList(result, argument);
+
+									}
+								});
+
+					}
+
+					@Override
+					public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction)
+							throws PersistenceException {
+						// NEUTRAL ELEMENT
+					}
+
+					@Override
+					public void handleMMixedTypeDisjunction(PersistentMMixedTypeDisjunction mMixedTypeDisjunction)
+							throws PersistenceException {
+						mMixedTypeDisjunction.getAddends().applyToAll(new Procdure<PersistentMType>() {
+
+							@Override
+							public void doItTo(PersistentMType argument) throws PersistenceException {
+								MAbstractTypeDisjunction.addNormalizedToTypeList(result, argument);
+							}
+						});
+
+					}
+				});
+			}
+		});
+		return result;
+	}
+
+	private static void addNormalizedToTypeList(MTypeSearchList container, PersistentMType addend)
+			throws PersistenceException {
+		boolean addType = true;
+		Iterator<PersistentMType> iterator = container.iterator();
+		while (iterator.hasNext() && addType) {
+			PersistentMType currentListType = iterator.next();
+			if (addend.isLessOrEqual(currentListType).toBoolean()) {
+				addType = false;
+			} else if (currentListType.isLessOrEqual(addend).toBoolean()) {
+				iterator.remove();
+			}
+		}
+		if (addType) {
+			container.add(addend);
+		}
+	}
+
+	private static List<PersistentMAtomicTypeConjunction> filterAtomicTypeConjunctions(MTypeSearchList typeList)
+			throws PersistenceException {
+		final List<PersistentMAtomicTypeConjunction> result = Lists.newArrayList();
+
+		typeList.applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				argument.accept(new MTypeStandardVisitor() {
+
+					@Override
+					public void handleMNonEmptyAtomicTypeConjunction(
+							PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction)
+							throws PersistenceException {
+						result.add(mNonEmptyAtomicTypeConjunction);
+
+					}
+
+					@Override
+					public void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction)
+							throws PersistenceException {
+						result.add(mEmptyTypeConjunction);
+
+					}
+
+					@Override
+					public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+						MAtomicTypeSearchList sl = new MAtomicTypeSearchList();
+						sl.add(mAtomicType);
+						result.add(MNonEmptyAtomicTypeConjunction.transientCreateNETypeConj(sl));
+
+					}
+
+					@Override
+					protected void standardHandling(PersistentMType mType) throws PersistenceException {
+						// Do not add
+					}
+				});
+			}
+		});
+		return result;
+	}
 	/* End of protected part that is not overridden by persistence generator */
 
 }

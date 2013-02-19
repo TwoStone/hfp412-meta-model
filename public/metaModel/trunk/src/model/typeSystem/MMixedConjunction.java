@@ -273,7 +273,6 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
 
 	@Override
 	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
 
@@ -293,17 +292,6 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
 			throws PersistenceException {
 		this.setThis((PersistentMMixedConjunction) This);
 		if (this.equals(This)) {
-		}
-	}
-
-	@Override
-	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
-		// TODO: implement method: isStructuralEquivalant
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
 		}
 	}
 
@@ -367,7 +355,7 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
 		return getThis().getFactors();
 	}
 
-	public static PersistentMMixedConjunction transientCreate(MTypeSearchList containedTypes)
+	public static PersistentMMixedConjunction transientCreateMixedTypeConj(MTypeSearchList containedTypes)
 			throws PersistenceException {
 		final PersistentMMixedConjunction result = MMixedConjunction.createMMixedConjunction(true);
 

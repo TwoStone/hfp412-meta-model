@@ -141,7 +141,7 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 	/* Start of protected part that is not overridden by persistence generator */
 	public static String TYPE_LINK_OP = "**";
 
-	public static PersistentMAbstractTypeConjunction transientCreate(MTypeSearchList factors)
+	public static PersistentMAbstractTypeConjunction transientCreateAbstractTypeConj(MTypeSearchList factors)
 			throws PersistenceException, ConsistencyException {
 		MTypeSearchList normalizedTypeList = MAbstractTypeConjunction.normalizeTypeList(factors);
 
@@ -153,9 +153,30 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 
 		MAtomicTypeSearchList atomicTypes = MAbstractTypeConjunction.filterAtomicTypes(normalizedTypeList);
 		if (atomicTypes.getLength() == normalizedTypeList.getLength()) {
-			return MNonEmptyAtomicTypeConjunction.transientCreate(atomicTypes);
+			return MNonEmptyAtomicTypeConjunction.transientCreateNETypeConj(atomicTypes);
 		}
-		return MMixedConjunction.transientCreate(normalizedTypeList);
+		return MMixedConjunction.transientCreateMixedTypeConj(normalizedTypeList);
+	}
+
+	@Override
+	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
+		if (other instanceof MAbstractTypeConjunction) {
+			MAbstractTypeConjunction conjOther = (MAbstractTypeConjunction) other;
+			Iterator<PersistentMType> iteratorThis = getThis().getContainedTypes().iterator();
+			Iterator<PersistentMType> iteratorOther = conjOther.getContainedTypes().iterator();
+			while (iteratorThis.hasNext()) {
+				if (iteratorOther.hasNext()) {
+					if (!iteratorThis.next().isStructuralEquivalant(iteratorOther.next()).toBoolean()) {
+						return MFalse.getTheMFalse();
+					}
+				} else {
+					return MFalse.getTheMFalse();
+				}
+			}
+			return MBoolean.createFromBoolean(!iteratorOther.hasNext());
+		}
+
+		return MFalse.getTheMFalse();
 	}
 
 	/**
