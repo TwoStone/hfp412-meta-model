@@ -1220,7 +1220,6 @@ public class Server extends PersistentObject implements PersistentServer {
 	public void assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type)
 			throws PersistenceException {
 		getNameSchemeManager().assignType(scheme, type, getThis());
-
 	}
 
 	/* Start of protected part that is not overridden by persistence generator */
