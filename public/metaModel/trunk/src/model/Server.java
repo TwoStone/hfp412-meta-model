@@ -710,8 +710,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType,
 			final PersistentMAtomicType newType) throws PersistenceException {
-		// TODO: implement method: replaceType
-
+		getObjectManager().replaceType(object, oldType, newType, getThis());
 	}
 
 	@Override
@@ -732,33 +731,24 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public PersistentAbsQuantity div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor)
 			throws model.NotComputableException, PersistenceException {
-		// TODO: implement method: div
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"div\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return dividend.div(divisor);
 	}
 
 	@Override
 	public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name,
 			final PersistentMType type, final PersistentUnitType unitType) throws PersistenceException {
-		// TODO: implement method: createMeasurementType
-
+		getMeasurementTypeManager().createMeasurementType(name, type, unitType, getThis());
 	}
 
 	@Override
 	public void removeUnitType(final PersistentAbsUnitType type) throws PersistenceException {
-		// TODO: implement method: removeUnitType
-
+		getUnitTypeManager().removeUnitType(type, getThis());
 	}
 
 	@Override
 	public void addSubAccountType(final PersistentMAccountType parent, final PersistentMAccountType child)
 			throws model.CycleException, PersistenceException {
 		// TODO: implement method: addSubAccountType
-
 	}
 
 	@Override
@@ -768,8 +758,7 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void removeOperation(final PersistentOperation op) throws PersistenceException {
-		// TODO: implement method: removeOperation
-
+		getOperationManager().removeOperation(op, getThis());
 	}
 
 	@Override
@@ -798,8 +787,7 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void removeLink(final PersistentLink link) throws PersistenceException {
-		// TODO: implement method: removeLink
-
+		getLinkManager().removeLink(link, getThis());
 	}
 
 	@Override
@@ -809,8 +797,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createLink(final PersistentMObject source, final PersistentAssociation type,
 			final PersistentMObject target) throws PersistenceException {
-		// TODO: implement method: createLink
-
+		getLinkManager().createLink(type, source, target, getThis());
 	}
 
 	@Override
@@ -846,15 +833,14 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createNameScheme(final PersistentNameSchemeManager manager, final String schemeName,
 			final String regExp, final String isIterable) throws PersistenceException {
-		// TODO: implement method: createNameScheme
-
+		getNameSchemeManager().createNameScheme(schemeName, regExp, MBoolean.createFromFactoryString(isIterable),
+				getThis());
 	}
 
 	@Override
 	public void removeFpFromOp(final PersistentOperation operation, final PersistentFormalParameter fp)
 			throws PersistenceException {
-		// TODO: implement method: removeFpFromOp
-
+		getOperationManager().removeFpFromOp(operation, fp, getThis());
 	}
 
 	@Override
@@ -911,15 +897,13 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createOperation(final PersistentMType source, final PersistentMType target, final String name,
 			final FormalParameterSearchList fp) throws PersistenceException {
-		// TODO: implement method: createOperation
-
+		getOperationManager().createOperation(source, target, name, fp, getThis());
 	}
 
 	@Override
 	public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp)
 			throws PersistenceException {
-		// TODO: implement method: createVoidOperation
-
+		getOperationManager().createVoidOperation(source, name, fp, getThis());
 	}
 
 	@Override
@@ -1035,8 +1019,7 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void removeAssociation(final PersistentAssociation a) throws PersistenceException {
-		// TODO: implement method: removeAssociation
-
+		getAssociationManager().removeAssociation(a, getThis());
 	}
 
 	@Override
@@ -1048,8 +1031,7 @@ public class Server extends PersistentObject implements PersistentServer {
 
 	@Override
 	public void removeFp(final PersistentFormalParameter fp) throws PersistenceException {
-		// TODO: implement method: removeFp
-
+		getOperationManager().removeFp(fp, getThis());
 	}
 
 	@Override
@@ -1062,8 +1044,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType)
 			throws PersistenceException {
-		// TODO: implement method: removeType
-
+		getObjectManager().removeType(object, oldType, getThis());
 	}
 
 	@Override
@@ -1074,8 +1055,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes)
 			throws PersistenceException {
-		// TODO: implement method: createMObject
-
+		getObjectManager().createMObject(type, otherTypes, getThis());
 	}
 
 	@Override
@@ -1187,23 +1167,20 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public void createStaticOp(final PersistentOperationManager operationManager, final String name,
 			final PersistentMType target, final FormalParameterSearchList fp) throws PersistenceException {
-		// TODO: implement method: createStaticOp
-
+		getOperationManager().createStaticOp(name, target, fp, getThis());
 	}
 
 	@Override
 	public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant)
 			throws PersistenceException {
-		// TODO: implement method: setConversion
-
+		getUnitTypeManager().setConversion(unit, factor, constant, getThis());
 	}
 
 	@Override
 	public void createOperation(final PersistentOperationManager operationManager, final PersistentMType source,
 			final PersistentMType target, final String name, final FormalParameterSearchList fp)
 			throws PersistenceException {
-		// TODO: implement method: createOperation
-
+		getOperationManager().createOperation(source, target, name, fp, getThis());
 	}
 
 	@Override
@@ -1229,13 +1206,7 @@ public class Server extends PersistentObject implements PersistentServer {
 	@Override
 	public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend, final PersistentAbsQuantity subtrahend)
 			throws model.NotComputableException, PersistenceException {
-		// TODO: implement method: sub
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"sub\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return minuend.sub(subtrahend);
 	}
 
 	@Override
