@@ -145,16 +145,19 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
 	}
     public PersistentMAspect createAspect(final String name) 
 				throws model.ConsistencyException, PersistenceException{
-		if (MAspect.getMAspectByName(name).getLength() > 0) {
-			throw new ConsistencyException("There already exists an aspect with name " + name);
-		}
-		PersistentMAspect result = MAspect.createMAspect(name);
-		getThis().getAspects().add(result);
-		return result;
-	}
+        //TODO: implement method: createAspect
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"createAspect\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAspectManager)This);

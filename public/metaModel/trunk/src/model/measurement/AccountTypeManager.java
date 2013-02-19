@@ -167,8 +167,9 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAccountTypeManager)This);
@@ -177,8 +178,9 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
     }
     public void createAccountType(final String name, final PersistentMType type, final PersistentUnitType unitType) 
 				throws PersistenceException{
-		this.getThis().getAccountTypes().add(MAccountType.createMAccountType(type, unitType));
-	}
+        //TODO: implement method: createAccountType
+        
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 

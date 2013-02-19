@@ -1,7 +1,6 @@
 package model.typeSystem;
 
 import model.UserException;
-import model.basic.MBoolean;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -214,6 +213,8 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
 	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
@@ -226,13 +227,29 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
 		if(this.equals(This)){
 		}
     }
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
+		// TODO: implement method: isStructuralEquivalant
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return strategy.finalize$$MEmptyTypeConjunction(getThis(), parameter);
     }
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().equals(other));
+		// TODO: implement method: isLessOrEqual
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -244,10 +261,6 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
     public String fetchName() 
 				throws PersistenceException{
 		return "Anything";
-	}
-    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
-				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().equals(other));
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

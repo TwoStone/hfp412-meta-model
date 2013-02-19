@@ -7,7 +7,7 @@ import persistence.NameSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbstractObject;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMAtomicTypeConjunction;
+import persistence.PersistentMNonEmptyAtomicTypeConjunction;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.Procdure;
@@ -99,9 +99,9 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 		observer.updateTransientDerived(getThis(), "possibleNames", result);
 		return result;
     }
-    public PersistentMAtomicTypeConjunction getProductType(final TDObserver observer) 
+    public PersistentMNonEmptyAtomicTypeConjunction getProductType(final TDObserver observer) 
 				throws PersistenceException{
-        PersistentMAtomicTypeConjunction result = getThis().getProductType();
+        PersistentMNonEmptyAtomicTypeConjunction result = getThis().getProductType();
 		observer.updateTransientDerived(getThis(), "productType", result);
 		return result;
     }
@@ -110,7 +110,9 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAbstractObject)This);

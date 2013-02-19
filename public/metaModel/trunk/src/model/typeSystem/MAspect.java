@@ -176,7 +176,9 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public MAtomicTypeSearchList getTypes() 
 				throws PersistenceException{
         MAtomicTypeSearchList result = null;

@@ -228,6 +228,16 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
 		if(this.equals(This)){
 		}
     }
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
+		// TODO: implement method: isStructuralEquivalant
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$addends$$MMixedTypeDisjunction = strategy.initialize$$MMixedTypeDisjunction$$addends(getThis(), parameter);
@@ -241,7 +251,13 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
     }
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
+		// TODO: implement method: isLessOrEqual
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{

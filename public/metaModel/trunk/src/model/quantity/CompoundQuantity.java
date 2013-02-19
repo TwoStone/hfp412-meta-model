@@ -156,9 +156,9 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentCompoundQuantity)This);
@@ -169,26 +169,6 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
 
-	}
-    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-    public PersistentAbsQuantity mul(final PersistentAbsQuantity factor) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-    public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-    public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

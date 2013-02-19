@@ -159,6 +159,7 @@ public class MeasurementTypeManager extends PersistentObject implements Persiste
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+        //TODO: implement method: copyingPrivateUserAttributes
         
     }
     public void createMeasurementType(final String name, final PersistentMType type, final PersistentUnitType unitType, final Invoker invoker) 
@@ -179,7 +180,8 @@ public class MeasurementTypeManager extends PersistentObject implements Persiste
     }
     public void createMeasurementType(final String name, final PersistentMType type, final PersistentUnitType unitType) 
 				throws PersistenceException{
-        this.getThis().getMeasurementTypes().add(MMeasurementType.createMMeasurementType(type, unitType));
+        //TODO: implement method: createMeasurementType
+        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

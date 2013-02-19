@@ -1,8 +1,6 @@
 package model.typeSystem;
 
 import model.UserException;
-import model.basic.MBoolean;
-import model.basic.MTrue;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -214,6 +212,8 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
 	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
@@ -226,13 +226,29 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
 		if(this.equals(This)){
 		}
     }
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
+		// TODO: implement method: isStructuralEquivalant
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return strategy.finalize$$MEmptyTypeDisjunction(getThis(), parameter);
     }
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-		return MTrue.getTheMTrue();
+		// TODO: implement method: isLessOrEqual
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -243,15 +259,17 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
 	}
     public PersistentMDisjunctiveNormalForm transientMultiply(final PersistentMDisjunctiveNormalForm other) 
 				throws PersistenceException{
-		return getThis();
+		// TODO: implement method: transientMultiply
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"transientMultiply\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public String fetchName() 
 				throws PersistenceException{
 		return "Nothing";
-	}
-    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
-				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().equals(other));
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

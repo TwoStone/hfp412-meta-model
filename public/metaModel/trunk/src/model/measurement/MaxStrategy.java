@@ -174,19 +174,19 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public PersistentAbsQuantity aggregateMeasurements(final MeasurementSearchList measurements) 
 				throws PersistenceException{
-		// TODO: implement method: aggregateMeasurements
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"aggregateMeasurements\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
+        //TODO: implement method: aggregateMeasurements
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"aggregateMeasurements\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMaxStrategy)This);

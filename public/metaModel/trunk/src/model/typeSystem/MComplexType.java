@@ -5,11 +5,13 @@ import java.util.Iterator;
 import model.basic.MBoolean;
 import model.basic.MFalse;
 import persistence.Anything;
+import persistence.MAspectSearchList;
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMComplexType;
 import persistence.PersistentMType;
+import persistence.Procdure;
 import persistence.SearchListRoot;
 import persistence.TDObserver;
 import utils.SearchLists;
@@ -64,6 +66,8 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
 	}
     public MTypeSearchList getContainedTypes(final TDObserver observer) 
 				throws PersistenceException{
@@ -99,6 +103,18 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 		builder.append(")");
 
 		return builder.toString();
+	}
+    public MAspectSearchList fetchAspects() 
+				throws PersistenceException{
+		final MAspectSearchList result = new MAspectSearchList();
+		getContainedTypes().applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				result.add(argument.fetchAspects());
+			}
+		});
+		return result;
 	}
     public MTypeSearchList getContainedTypes() 
 				throws PersistenceException{

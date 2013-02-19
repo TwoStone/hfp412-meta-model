@@ -162,9 +162,9 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentCompUnit)This);

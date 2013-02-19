@@ -227,9 +227,9 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMeasurement)This);
@@ -264,10 +264,6 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 		if (!this.getThis().getType().getUnitType().equals(unitType)) {
 			throw new Error(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY);
 		}
-	}
-    public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
-				throws PersistenceException{
-		return this.getThis().getQuantity();
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

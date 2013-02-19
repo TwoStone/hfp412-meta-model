@@ -3,7 +3,6 @@ package model.typeSystem;
 import java.util.Iterator;
 
 import model.UserException;
-import model.basic.MBoolean;
 import model.basic.MFalse;
 import model.basic.MTrue;
 import model.visitor.AnythingExceptionVisitor;
@@ -25,6 +24,7 @@ import model.visitor.MTypeVisitor;
 import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.MAspectSearchList;
 import persistence.MAtomicTypeHierarchyHIERARCHY;
 import persistence.MAtomicTypeHierarchyHIERARCHYStrategy;
 import persistence.MAtomicTypeProxi;
@@ -35,15 +35,8 @@ import persistence.NameSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMAtomicTypeConjunction;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMDisjunctiveNormalForm;
-import persistence.PersistentMEmptyTypeConjunction;
-import persistence.PersistentMEmptyTypeDisjunction;
-import persistence.PersistentMMixedConjunction;
-import persistence.PersistentMMixedTypeDisjunction;
-import persistence.PersistentMNonEmptyAtomicTypeConjunction;
-import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
 import persistence.PersistentMType;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
@@ -358,109 +351,23 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 	}
     public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
 				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().equals(other));
+		// TODO: implement method: isStructuralEquivalant
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
-
-			@Override
-			public Boolean handleMMixedTypeDisjunction(PersistentMMixedTypeDisjunction mMixedTypeDisjunction)
-					throws PersistenceException {
-				Iterator<PersistentMType> iterator = mMixedTypeDisjunction.getAddends().iterator();
-				while (iterator.hasNext()) {
-					if (getThis().isLessOrEqual(iterator.next()).toBoolean()) {
-						return true;
-					}
-				}
-				return false;
-			}
-
-			@Override
-			public Boolean handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction)
-					throws PersistenceException {
-				return false;
-			}
-
-			@Override
-			public Boolean handleMNonEmptyDisjunctiveNormalForm(
-					PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm)
-					throws PersistenceException {
-				Iterator<PersistentMAtomicTypeConjunction> iterator = mNonEmptyDisjunctiveNormalForm.getAddends()
-						.iterator();
-				while (iterator.hasNext()) {
-					if (getThis().isLessOrEqual(iterator.next()).toBoolean()) {
-						return true;
-					}
-				}
-				return false;
-			}
-
-			@Override
-			public Boolean handleMMixedConjunction(PersistentMMixedConjunction mMixedConjunction)
-					throws PersistenceException {
-				Iterator<PersistentMType> iterator = mMixedConjunction.getFactors().iterator();
-				while (iterator.hasNext()) {
-					if (!getThis().isLessOrEqual(iterator.next()).toBoolean()) {
-						return false;
-					}
-				}
-				return true;
-			}
-
-			@Override
-			public Boolean handleMNonEmptyAtomicTypeConjunction(
-					PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction)
-					throws PersistenceException {
-				Iterator<PersistentMAtomicType> iterator = mNonEmptyAtomicTypeConjunction.getFactors().iterator();
-				while (iterator.hasNext()) {
-					if (!getThis().isLessOrEqual(iterator.next()).toBoolean()) {
-						return false;
-					}
-				}
-				return true;
-			}
-
-			@Override
-			public Boolean handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction)
-					throws PersistenceException {
-				return true;
-			}
-
-			@Override
-			public Boolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
-				return getThis().containsMAtomicTypeHierarchy(mAtomicType);
-			}
-		}));
-
-		/*
-		 * return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
-		 * 
-		 * @Override public Boolean handleMEmptySumType(PersistentMEmptySumType mEmptySumType) throws
-		 * PersistenceException { return null; //
-		 * 
-		 * @Override public Boolean handleMDisjunctiveNF(PersistentMDisjunctiveNF mDisjuncitveNF) throws
-		 * PersistenceException { Iterator<PersistentMAtomicTypeProduct> iterator =
-		 * mDisjuncitveNF.getAddends().iterator(); while (iterator.hasNext()) { if
-		 * (getThis().isLessOrEqual(iterator.next()).toBoolean()) { return true; } } return false; }
-		 * 
-		 * @Override public Boolean handleMSumType(PersistentMSumType mSumType) throws PersistenceException { return
-		 * getThis().isLessOrEqual(mSumType.fetchDisjunctiveNormalform()).toBoolean(); }
-		 * 
-		 * @Override public Boolean handleMEmptyProductType(PersistentMEmptyProductType mEmptyProductType) { return
-		 * false; }
-		 * 
-		 * @Override public Boolean handleMAtomicTypeProduct(PersistentMAtomicTypeProduct mAtomicTypeProduct) throws
-		 * PersistenceException { Iterator<PersistentMAtomicType> iterator = mAtomicTypeProduct.getFactors().iterator();
-		 * while (iterator.hasNext()) { if (!getThis().isLessOrEqual(iterator.next()).toBoolean()) { return false; } }
-		 * return true; }
-		 * 
-		 * @Override public Boolean handleMProductType(PersistentMProductType mProductType) throws PersistenceException
-		 * { return getThis().isLessOrEqual(mProductType.fetchDisjunctiveNormalform()).toBoolean(); }
-		 * 
-		 * @Override public Boolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
-		 * return getThis().containsMAtomicTypeHierarchy(mAtomicType); } }));
-		 */
+		// TODO: implement method: isLessOrEqual
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -480,6 +387,12 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		}
 		return MFalse.getTheMFalse();
 	}
+    public MAspectSearchList fetchAspects() 
+				throws PersistenceException{
+		MAspectSearchList result = new MAspectSearchList();
+		result.add(getThis().getAspect());
+		return result;
+	}
     public MAtomicTypeSearchList getSubTypes() 
 				throws PersistenceException{
         MAtomicTypeSearchList result = null;
@@ -495,6 +408,7 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
     public String abstractTypeAsString() 

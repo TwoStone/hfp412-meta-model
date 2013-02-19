@@ -174,9 +174,9 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public PersistentAbsQuantity aggregateMeasurements(final MeasurementSearchList measurements) 
 				throws PersistenceException{
         //TODO: implement method: aggregateMeasurements

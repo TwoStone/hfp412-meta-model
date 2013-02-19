@@ -185,7 +185,9 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentNameSchemeManager)This);
@@ -204,14 +206,9 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     public void assignName(final PersistentMObject object, final PersistentName name, final String value) 
 				throws model.PatternNotMatchException, model.ConsistencyException, PersistenceException{
-		checkTypeIsAssignable(object, name);
-		checkNameSchemeIsNotPresent(object, name);
-		checkNameIsValid(name, value);
-
-		PersistentNameSchemeInstance nameSchemeInstance = NameSchemeInstance.createNameSchemeInstance(value,
-				name.getNameScheme());
-		NameInstance.createNameInstance(name, object, nameSchemeInstance);
-	}
+        //TODO: implement method: assignName
+        
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -227,17 +224,24 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     public PersistentNameScheme createNameScheme(final String name, final String regExpPattern, final PersistentMBoolean isIterable) 
 				throws PersistenceException{
-		PersistentNameScheme nameScheme = NameScheme.createNameScheme(regExpPattern, name, isIterable);
-		this.getThis().getSchemes().add(nameScheme);
-		return nameScheme;
-	}
+        //TODO: implement method: createNameScheme
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"createNameScheme\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public PersistentName assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type) 
 				throws PersistenceException{
-		PersistentName name = Name.createName(type, scheme);
-		this.getNames().add(name);
-
-		return name;
-	}
+        //TODO: implement method: assignType
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"assignType\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 	private static void checkTypeIsAssignable(final PersistentMObject object, final PersistentName name)

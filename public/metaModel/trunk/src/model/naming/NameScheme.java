@@ -233,7 +233,9 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentNameScheme)This);
@@ -248,8 +250,14 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
 	}
     public PersistentMBoolean match(final String name) 
 				throws PersistenceException{
-		return MBoolean.createFromBoolean(Pattern.matches(getThis().getRegExpPattern(), name));
-	}
+        //TODO: implement method: match
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"match\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public NameSchemeInstanceSearchList getNames() 
 				throws PersistenceException{
         NameSchemeInstanceSearchList result = null;

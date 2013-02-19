@@ -172,10 +172,9 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	}
     public void createAssociation(final PersistentMType source, final PersistentMType target, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		// TODO: DDE
-		PersistentAssociation a = Association.createAssociation(name, source, target);
-		getThis().getAssociations().add(a);
-	}
+        //TODO: implement method: createAssociation
+        
+    }
     public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -188,18 +187,14 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
-		a.getHierarchies().add(h);
-	}
+        //TODO: implement method: addAssociation
+        
+    }
     public void removeAssoFrmHier(final PersistentHierarchy h, final PersistentAssociation a) 
 				throws model.NotAvailableException, model.CycleException, PersistenceException{
-		a.getHierarchies().removeFirstSuccess(new Predcate<PersistentHierarchy>() {
-
-			@Override
-			public boolean test(PersistentHierarchy argument) throws PersistenceException {
-				return h.equals(argument);
-			}
-		});
-	}
+        //TODO: implement method: removeAssoFrmHier
+        
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -215,13 +210,9 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     public void removeAssociation(final PersistentAssociation a) 
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
-		getThis().getAssociations().removeFirstSuccess(new Predcate<PersistentAssociation>() {
-			@Override
-			public boolean test(PersistentAssociation argument) throws PersistenceException {
-				return a.equals(argument);
-			}
-		});
-	}
+        //TODO: implement method: removeAssociation
+        
+    }
     public void createAssociation(final PersistentMType source, final PersistentMType target, final String name, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -234,7 +225,9 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void createHierarchy(final PersistentAssociation a, final String name, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -261,15 +254,9 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     public void createHierarchy(final PersistentAssociation a, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		PersistentHierarchy h = Hierarchy.createHierarchy(name);
-		try {
-			getThis().addAssociation(h, a);
-		} catch (CycleException e) {
-			// TODO Eigentlich haben wir hier gar keine Cycle! Thimo nochmal fragen...
-			e.printStackTrace();
-		}
-		getThis().getHierarchies().add(h);
-	}
+        //TODO: implement method: createHierarchy
+        
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 

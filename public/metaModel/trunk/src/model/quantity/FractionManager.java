@@ -154,18 +154,9 @@ public class FractionManager extends PersistentObject implements PersistentFract
     
     public void addFraction(final String key, final common.Fraction newFraction) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		common.Fraction preExisting;
-		try {
-			preExisting = getThis().getFraction(key);
-			if (preExisting != null)
-				throw new DoubleDefinitionException("Fraction object " + key + " is already exists");
-		} catch (NotFoundException e) {
-			PersistentFractionWrapper newFractionWrapper = FractionWrapper.createFractionWrapper();
-			newFractionWrapper.setFraction(newFraction);
-			getThis().getManagedFractions().put(key, newFractionWrapper);
-		}
-
-	}
+        //TODO: implement method: addFraction
+        
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnInstantiation
@@ -173,9 +164,9 @@ public class FractionManager extends PersistentObject implements PersistentFract
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentFractionManager)This);
@@ -189,13 +180,14 @@ public class FractionManager extends PersistentObject implements PersistentFract
 	}
     public common.Fraction getFraction(final String key) 
 				throws model.NotFoundException, PersistenceException{
-
-		PersistentFractionWrapper wrapper = FractionManager.getTheFractionManager().getManagedFractions().get(key);
-		if (wrapper == null)
-			throw new NotFoundException(key + " wasn't found in hashmap");
-		return wrapper.getFraction();
-
-	}
+        //TODO: implement method: getFraction
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"getFraction\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void addFraction(final String key, final common.Fraction newFraction, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());

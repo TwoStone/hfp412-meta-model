@@ -194,9 +194,9 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public boolean containsMAccountTypeHierarchy(final MAccountTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -231,8 +231,9 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 	}
     public void addSubAccountType(final PersistentMAccountType accountType) 
 				throws model.CycleException, PersistenceException{
-		this.getThis().getSubAccountTypes().add(accountType);
-	}
+        //TODO: implement method: addSubAccountType
+        
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 

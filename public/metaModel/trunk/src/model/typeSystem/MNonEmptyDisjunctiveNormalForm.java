@@ -273,6 +273,16 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
 		if(this.equals(This)){
 		}
     }
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
+        //TODO: implement method: isStructuralEquivalant
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"isStructuralEquivalant\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$addends$$MNonEmptyDisjunctiveNormalForm = strategy.initialize$$MNonEmptyDisjunctiveNormalForm$$addends(getThis(), parameter);

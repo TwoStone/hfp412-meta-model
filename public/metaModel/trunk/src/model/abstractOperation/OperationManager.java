@@ -217,9 +217,9 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     public void createConstant(final String name, final PersistentMType target) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
-		getThis().createOperation(theMEmptyTypeDisjunction, target, name, new FormalParameterSearchList());
-	}
+        //TODO: implement method: createConstant
+        
+    }
     public void createFp(final String name, final PersistentMType ofType, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -231,21 +231,14 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     public void createOperation(final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
-
-		// 1. DDE Pruefen
-		checkOperationDoubleDefinition(name);
-
-		// 2. Operation erstellen
-		PersistentOperation createOperation = Operation.createOperation(name, source, target);
-		getThis().getOperations().add(createOperation);
-		getThis().addMultipleFp(createOperation, fp);
-	}
+        //TODO: implement method: createOperation
+        
+    }
     public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
-
-		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
-		getThis().createOperation(source, theMEmptyTypeDisjunction, name, fp);
-	}
+        //TODO: implement method: createVoidOperation
+        
+    }
     public void removeFp(final PersistentFormalParameter fp, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -257,9 +250,9 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void removeFpFromOp(final PersistentOperation op, final PersistentFormalParameter fp, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -272,10 +265,9 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     public void createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
-
-		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
-		getThis().createOperation(theMEmptyTypeDisjunction, target, name, fp);
-	}
+        //TODO: implement method: createStaticOp
+        
+    }
     public OperationSearchList getConstants() 
 				throws PersistenceException{
 		// Konstanten sind wie statische Operationen ohne Parameter
@@ -311,17 +303,9 @@ public class OperationManager extends PersistentObject implements PersistentOper
 	}
     public void removeOperation(final PersistentOperation op) 
 				throws model.ConsistencyException, PersistenceException{
-		if (op.inverseGetType().getLength() > 0) {
-			throw new ConsistencyException("Zu dieser Operationen existieren Messages! Loeschen nicht durchgefuehrt");
-		}
-		getThis().getOperations().removeFirstSuccess(new Predcate<PersistentOperation>() {
-
-			@Override
-			public boolean test(PersistentOperation argument) throws PersistenceException {
-				return op.equals(argument);
-			}
-		});
-	}
+        //TODO: implement method: removeOperation
+        
+    }
     public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -364,60 +348,14 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     public void removeFp(final PersistentFormalParameter fp) 
 				throws model.ConsistencyException, PersistenceException{
-		if (fp.inverseGetType().getLength() > 0) {
-			throw new ConsistencyException(
-					"Zu diesem Formalparameter existieren Exemplare! Kann nicht geloescht werden.");
-		}
-
-		PersistentOperation findFirst = getThis().getOperations().findFirst(new Predcate<PersistentOperation>() {
-
-			@Override
-			public boolean test(PersistentOperation argument) throws PersistenceException {
-
-				PersistentFormalParameter foundParam = argument.getParameters().findFirst(
-						new Predcate<PersistentFormalParameter>() {
-
-							@Override
-							public boolean test(PersistentFormalParameter argument) throws PersistenceException {
-								return argument.equals(fp);
-							}
-						});
-				return foundParam != null;
-			}
-		});
-
-		if (findFirst != null) {
-			throw new ConsistencyException(
-					"Mindestens eine Operation benutzt diesen Formalparameter. Parameter konnte nicht geloescht werden.");
-		}
-
-		getThis().getFormalParameters().removeFirstSuccess(new Predcate<PersistentFormalParameter>() {
-
-			@Override
-			public boolean test(PersistentFormalParameter argument) throws PersistenceException {
-				return argument.equals(fp);
-			}
-		});
-
-	}
+        //TODO: implement method: removeFp
+        
+    }
     public void createFp(final String name, final PersistentMType ofType) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		// TODO: Muessen Nameclashes ueberprueft werden?
-		PersistentFormalParameter findFirst = getThis().getFormalParameters().findFirst(
-				new Predcate<PersistentFormalParameter>() {
-
-					@Override
-					public boolean test(PersistentFormalParameter argument) throws PersistenceException {
-						return argument.getName().equals(name);
-					}
-				});
-
-		if (findFirst != null) {
-			throw new DoubleDefinitionException("Ein Formalparameter mit diesem Namen existiert bereits!");
-		}
-
-		getThis().getFormalParameters().add(FormalParameter.createFormalParameter(ofType, name));
-	}
+        //TODO: implement method: createFp
+        
+    }
     public void addFp(final PersistentOperation op, final PersistentFormalParameter fp, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -430,10 +368,9 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		FormalParameterSearchList list = new FormalParameterSearchList();
-		list.add(fp);
-		getThis().addMultipleFp(op, list);
-	}
+        //TODO: implement method: addFp
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentOperationManager)This);
@@ -455,57 +392,14 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     public void addMultipleFp(final PersistentOperation op, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
-
-		Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
-
-		Iterator<PersistentFormalParameter> otherIterator = null;
-		PersistentFormalParameter otherCurrent = null;
-		PersistentFormalParameter currentFp = null;
-
-		while (fpIterator.hasNext()) {
-			currentFp = fpIterator.next();
-			otherIterator = op.getParameters().iterator();
-
-			while (otherIterator.hasNext()) {
-				otherCurrent = otherIterator.next();
-				if (otherCurrent.getName().equals(currentFp.getName())) {
-
-					throw new DoubleDefinitionException("Ein Parameter mit dem Namen " + otherCurrent
-							+ " existiert schon in der Parameterliste!");
-				}
-			}
-			op.getParameters().add(currentFp);
-		}
-
-	}
+        //TODO: implement method: addMultipleFp
+        
+    }
     public void removeFpFromOp(final PersistentOperation op, final PersistentFormalParameter fp) 
 				throws model.ConsistencyException, PersistenceException{
-		if (op.inverseGetType().getLength() > 0) {
-			throw new ConsistencyException(
-					"Zu dieser Operation existieren Exemplare! Formalparameter kann nicht entfernt werden");
-		}
-
-		Iterator<PersistentFormalParameter> iterator = op.getParameters().iterator();
-		boolean deleted = false;
-		while (iterator.hasNext()) {
-			if (iterator.next().equals(fp)) {
-				iterator.remove();
-				deleted = true;
-			}
-		}
-
-		if (!deleted) {
-			// Wurde offenbar keiner gefunden
-			throw new ConsistencyException("Formalparameter befindet sich nicht in der Parameterliste!");
-		}
-		// op.getParameters().removeFirstSuccess(new Predcate<PersistentFormalParameter>() {
-		//
-		// @Override
-		// public boolean test(PersistentFormalParameter argument) throws PersistenceException {
-		// return fp.equals(argument);
-		// }
-		// });
-	}
+        //TODO: implement method: removeFpFromOp
+        
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 

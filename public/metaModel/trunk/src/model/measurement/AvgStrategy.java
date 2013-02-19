@@ -175,9 +175,9 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public PersistentAbsQuantity aggregateMeasurements(final MeasurementSearchList measurements) 
 				throws PersistenceException{
         //TODO: implement method: aggregateMeasurements

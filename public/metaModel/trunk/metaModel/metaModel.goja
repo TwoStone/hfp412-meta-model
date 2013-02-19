@@ -128,6 +128,7 @@ part typeSystem {
 		abstract MBoolean isAbstract();
 		abstract MBoolean isStructuralEquivalant(MType other);  			
 		abstract MDisjunctiveNormalForm fetchDisjunctiveNormalform();
+		abstract MAspect** fetchAspects();
 /*
 			MAssociation** fetchAssociations();
 			MBoolean allObjectsOfTypeAreSingleton();
@@ -213,14 +214,12 @@ part typeSystem {
 		
 	abstract class AbstractObject##AbsObj {
 		derived Name ** possibleNames;
-		derived MAtomicTypeConjunction productType;
+		derived MNonEmptyAtomicTypeConjunction productType;
 	}
 
 	/* Objekte */
 	class MObject extends AbstractObject {
 		MAtomicType ** types;
-		
-		
 		void addType(MAtomicType newType) throws ConsistencyException;
 		void removeType(MAtomicType oldType) throws ConsistencyException;
 		void replaceType(MAtomicType oldType, MAtomicType newType) throws ConsistencyException; 

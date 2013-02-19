@@ -142,13 +142,14 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     
     public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType) 
 				throws model.ConsistencyException, PersistenceException{
-		object.removeType(oldType);
-	}
+        //TODO: implement method: removeType
+        
+    }
     public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
-		object.replaceType(oldType, newType);
-
-	}
+        //TODO: implement method: replaceType
+        
+    }
     public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -164,23 +165,19 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
 	}
     public PersistentMObject createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes) 
 				throws model.ConsistencyException, PersistenceException{
-
-		final PersistentMObject newObject = MObject.createMObject(true);
-		newObject.addType(type);
-		otherTypes.applyToAllException(new ProcdureException<PersistentMAtomicType, ConsistencyException>() {
-
-			@Override
-			public void doItTo(PersistentMAtomicType argument) throws PersistenceException, ConsistencyException {
-				newObject.addType(argument);
-			}
-		});
-
-		this.getThis().getObjects().add(newObject);
-		return newObject;
-	}
+        //TODO: implement method: createMObject
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"createMObject\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -216,18 +213,19 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
 	}
     public void addType(final PersistentMObject object, final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
-		object.addType(newType);
-	}
+        //TODO: implement method: addType
+        
+    }
     public MObjectSearchList fetchObjectsWithTypeLE(final PersistentMType type) 
 				throws PersistenceException{
-		return new MObjectSearchList(getThis().getObjects().findAll(new Predcate<PersistentMObject>() {
-
-			@Override
-			public boolean test(PersistentMObject argument) throws PersistenceException {
-				return argument.getProductType().isLessOrEqual(type).toBoolean();
-			}
-		}));
-	}
+        //TODO: implement method: fetchObjectsWithTypeLE
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"fetchObjectsWithTypeLE\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void addType(final PersistentMObject object, final PersistentMAtomicType newType, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());

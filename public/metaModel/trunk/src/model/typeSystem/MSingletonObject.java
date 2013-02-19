@@ -1,6 +1,5 @@
 package model.typeSystem;
 
-import model.CycleException;
 import model.UserException;
 import model.visitor.AbstractObjectExceptionVisitor;
 import model.visitor.AbstractObjectReturnExceptionVisitor;
@@ -13,11 +12,12 @@ import model.visitor.AnythingVisitor;
 import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.MAtomicTypeSearchList;
 import persistence.MSingletonObjectProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbstractObject;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMAtomicTypeProduct;
+import persistence.PersistentMNonEmptyAtomicTypeConjunction;
 import persistence.PersistentMSingletonObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
@@ -185,7 +185,9 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMSingletonObject)This);
@@ -195,6 +197,12 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
+	}
+    public PersistentMNonEmptyAtomicTypeConjunction getProductType() 
+				throws PersistenceException{
+		MAtomicTypeSearchList sl = new MAtomicTypeSearchList();
+		sl.add(getThis().getType());
+		return MNonEmptyAtomicTypeConjunction.transientCreate(sl);
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

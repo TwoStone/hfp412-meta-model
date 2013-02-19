@@ -209,9 +209,9 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentQuantity)This);
@@ -224,88 +224,6 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
 
-	}
-    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
-				throws model.NotComputableException, PersistenceException{
-
-		if (!this.isArgumentCompound(subtrahend)) {
-			// summand instanceof Quantity
-			PersistentQuantity subtrahendCast = (PersistentQuantity) subtrahend;
-			if (this.hasSameUnitAs(subtrahendCast))
-				return this.simpleSub(subtrahendCast);
-
-			if (!this.hasSameUnitTypeAs(subtrahendCast))
-				throw new NotComputableException("Addition / Subtraktion nur mit gleichem Typ möglich!");
-
-			return this.complexSub(subtrahendCast);
-
-		} else {
-			PersistentCompoundQuantity subtrahendCast = (PersistentCompoundQuantity) subtrahend;
-			return subtrahendCast.sub(getThis());
-		}
-	}
-    public PersistentAbsQuantity mul(final PersistentAbsQuantity factor) 
-				throws model.NotComputableException, PersistenceException{
-		if (!this.isArgumentCompound(factor)) {
-			PersistentQuantity factorCast = (PersistentQuantity) factor;
-			PersistentAbsQuantity result = null;
-			// Errechne Konfiguration von getThis()
-			java.util.Map<PersistentUnitType, Integer> myConfiguration = this.fetchUnitConfiguration(getThis()
-					.getUnit().getType());
-
-			// Errechne Konfiguration von factorCast.
-			java.util.Map<PersistentUnitType, Integer> factorConfiguration = this.fetchUnitConfiguration(factorCast
-					.getUnit().getType());
-
-			// Errechne Ziel-Konfiguration
-			java.util.Map<PersistentUnitType, Integer> targetConfiguration = this.calculateTargetConfiguration(
-					myConfiguration, factorConfiguration);
-
-			// Finde UnitType, der mit Zielkonfiguration übereinstimmt.
-			PersistentAbsUnitType targetType = this.searchTargetUnitType(targetConfiguration);
-
-			if (targetType == null) {
-				throw new NotComputableException("Es gibt keinen UnitType, der der Ergebniskonfiguration entspricht");
-			}
-
-			// Finde Unit, die dem targetType entspricht.
-			PersistentAbsUnit targetUnit = this.searchTargetUnit(targetType);
-			try {
-				Fraction product = getThis().getAmount().mul(factorCast.getAmount());
-				result = QuantityManager.getTheQuantityManager().createQuantity(targetUnit, product);
-				return result;
-			} catch (Throwable e) {
-				throw new NotComputableException(e.getMessage());
-			}
-
-		} else {
-			PersistentCompoundQuantity factorCast = (PersistentCompoundQuantity) factor;
-			return factorCast.mul(getThis());
-		}
-	}
-    public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-    public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
-				throws model.NotComputableException, PersistenceException{
-
-		if (!this.isArgumentCompound(summand)) {
-			// summand instanceof Quantity
-			PersistentQuantity summandCast = (PersistentQuantity) summand;
-			if (this.hasSameUnitAs(summandCast))
-				return this.simpleAdd(summandCast);
-
-			if (!this.hasSameUnitTypeAs(summandCast))
-				throw new NotComputableException("Addition / Subtraktion nur mit gleichem Typ möglich!");
-
-			return this.complexAdd(summandCast);
-
-		} else {
-			PersistentCompoundQuantity summandCast = (PersistentCompoundQuantity) summand;
-			return summandCast.add(getThis());
-		}
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

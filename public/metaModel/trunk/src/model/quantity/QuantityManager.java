@@ -180,35 +180,19 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public PersistentQuantity createQuantity(final PersistentAbsUnit unit, final common.Fraction amount) 
 				throws PersistenceException{
-		// amount in FractionManager suchen oder neu erstellen.
-		final String fractionStroke = "/";
-		final String enumeratorString = amount.getEnumerator().toString();
-		final String denominatorString = amount.getEnumerator().toString();
-		final String fractionSearchString = enumeratorString + fractionStroke + denominatorString;
-		common.Fraction persistentAmount;
-
-		try {
-			persistentAmount = FractionManager.getTheFractionManager().getFraction(fractionSearchString);
-
-		} catch (NotFoundException e) {
-			persistentAmount = amount;
-			try {
-				FractionManager.getTheFractionManager().addFraction(fractionSearchString, persistentAmount);
-			} catch (DoubleDefinitionException e1) {
-				System.out.println("error while fraction creation");
-			}
-
-		}
-
-		PersistentQuantity newQuantity = Quantity.createQuantity(amount, unit);
-		getThis().getQuantities().add(newQuantity);
-		return newQuantity;
-	}
+        //TODO: implement method: createQuantity
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"createQuantity\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentQuantityManager)This);
@@ -217,9 +201,9 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     }
     public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) 
 				throws PersistenceException{
-		// TODO: implement method: convert
-
-	}
+        //TODO: implement method: convert
+        
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
@@ -227,9 +211,9 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
     public void convertToDefault(final PersistentQuantity quantity) 
 				throws PersistenceException{
-		// TODO: implement method: convertToDefault
-
-	}
+        //TODO: implement method: convertToDefault
+        
+    }
     public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
