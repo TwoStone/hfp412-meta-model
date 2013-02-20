@@ -1,12 +1,8 @@
 package model;
 
 import model.basic.MBoolean;
-import model.basic.MFalse;
-import model.basic.MTrue;
 import model.quantity.FractionManager;
 import model.quantity.QuantityManager;
-import model.quantity.Unit;
-import model.quantity.UnitType;
 import model.quantity.UnitTypeManager;
 import model.typeSystem.AspectManager;
 import model.typeSystem.TypeManager;
@@ -74,8 +70,6 @@ import persistence.ServerProxi;
 import persistence.ServerSearchList;
 import persistence.Server_ErrorsProxi;
 import persistence.TDObserver;
-
-import common.Fraction;
 
 /* Additional import section end */
 
@@ -784,56 +778,44 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-
-		try {
-			final String weightUnitTypeText = "Gewicht";
-			final String kilogramText = "kg";
-
-			getThis().getUnitTypeManager().createUnitType(weightUnitTypeText);
-			getThis().getUnitTypeManager().createUnitType("Währung");
-			getThis().getUnitTypeManager().createUnitType("Strecke");
-			getThis().getUnitTypeManager().createUnitType("Zeit");
-
-			PersistentAbsUnitType weight = UnitType.getAbsUnitTypeByName(weightUnitTypeText).iterator().next();
-			getThis().getUnitTypeManager().createUnit(kilogramText, (PersistentUnitType) weight);
-
-			PersistentAbsUnit kilogram = Unit.getAbsUnitByName(kilogramText).iterator().next();
-			getThis().getQuantityManager().createQuantity(kilogram, Fraction.parse("10/1"));
-			getThis().getQuantityManager().createQuantity(kilogram, Fraction.parse("2/1"));
-
-		} catch (DoubleDefinitionException e1) {
-			System.err.println("Fehler bei der Initialisierung des Servers!");
-		}
-
-		try {
-			PersistentMAspect aspect1 = getThis().getAspectManager().createAspect("Aspekt1");
-			PersistentMAtomicType a = getThis().getTypeManager().createAtomicRootType(aspect1, "A",
-					MFalse.getTheMFalse(), MFalse.getTheMFalse());
-			PersistentMAtomicType b = getThis().getTypeManager().createAtomicRootType(aspect1, "B",
-					MFalse.getTheMFalse(), MFalse.getTheMFalse());
-
-			PersistentMAtomicType c = getThis().getTypeManager().createAtomicSubType(a, "C", MFalse.getTheMFalse(),
-					MFalse.getTheMFalse());
-			PersistentMAspect aspect2 = getThis().getAspectManager().createAspect("Aspekt2");
-
-			PersistentMAspect genderAspect = getThis().getAspectManager().createAspect("Geschlecht");
-
-			getThis().getTypeManager().createAtomicRootType(genderAspect, "maennlich", MTrue.getTheMTrue(),
-					MFalse.getTheMFalse());
-			getThis().getTypeManager().createAtomicRootType(genderAspect, "weiblich", MTrue.getTheMTrue(),
-					MFalse.getTheMFalse());
-
-			MTypeSearchList addends = new MTypeSearchList();
-			addends.add(a);
-			addends.add(b);
-
-			getThis().getTypeManager().createTypeDisjunction(addends);
-			// TODO TEST Das sollte jetzt eigentlich nicht gehen!
-			// TODO getThis().getTypeManager().createProductType(addends);
-
-		} catch (ConsistencyException e) {
-			System.err.println("Fehler bei der Initialisierung des Servers!");
-		}
+		/*
+		 * try { final String weightUnitTypeText = "Gewicht"; final String kilogramText = "kg";
+		 * 
+		 * getThis().getUnitTypeManager().createUnitType(weightUnitTypeText);
+		 * getThis().getUnitTypeManager().createUnitType("Währung");
+		 * getThis().getUnitTypeManager().createUnitType("Strecke");
+		 * getThis().getUnitTypeManager().createUnitType("Zeit");
+		 * 
+		 * PersistentAbsUnitType weight = UnitType.getAbsUnitTypeByName(weightUnitTypeText).iterator().next();
+		 * getThis().getUnitTypeManager().createUnit(kilogramText, (PersistentUnitType) weight);
+		 * 
+		 * PersistentAbsUnit kilogram = Unit.getAbsUnitByName(kilogramText).iterator().next();
+		 * getThis().getQuantityManager().createQuantity(kilogram, Fraction.parse("10/1"));
+		 * getThis().getQuantityManager().createQuantity(kilogram, Fraction.parse("2/1"));
+		 * 
+		 * } catch (DoubleDefinitionException e1) { System.err.println("Fehler bei der Initialisierung des Servers!"); }
+		 * 
+		 * try { PersistentMAspect aspect1 = getThis().getAspectManager().createAspect("Aspekt1"); PersistentMAtomicType
+		 * a = getThis().getTypeManager().createAtomicRootType(aspect1, "A", MFalse.getTheMFalse(),
+		 * MFalse.getTheMFalse()); PersistentMAtomicType b = getThis().getTypeManager().createAtomicRootType(aspect1,
+		 * "B", MFalse.getTheMFalse(), MFalse.getTheMFalse());
+		 * 
+		 * PersistentMAtomicType c = getThis().getTypeManager().createAtomicSubType(a, "C", MFalse.getTheMFalse(),
+		 * MFalse.getTheMFalse()); PersistentMAspect aspect2 = getThis().getAspectManager().createAspect("Aspekt2");
+		 * 
+		 * PersistentMAspect genderAspect = getThis().getAspectManager().createAspect("Geschlecht");
+		 * 
+		 * getThis().getTypeManager().createAtomicRootType(genderAspect, "maennlich", MTrue.getTheMTrue(),
+		 * MFalse.getTheMFalse()); getThis().getTypeManager().createAtomicRootType(genderAspect, "weiblich",
+		 * MTrue.getTheMTrue(), MFalse.getTheMFalse());
+		 * 
+		 * MTypeSearchList addends = new MTypeSearchList(); addends.add(a); addends.add(b);
+		 * 
+		 * getThis().getTypeManager().createTypeDisjunction(addends); // TODO TEST Das sollte jetzt eigentlich nicht
+		 * gehen! // TODO getThis().getTypeManager().createProductType(addends);
+		 * 
+		 * } catch (ConsistencyException e) { System.err.println("Fehler bei der Initialisierung des Servers!"); }
+		 */
 
 	}
     public void removeAssociation(final PersistentAssociation a) 

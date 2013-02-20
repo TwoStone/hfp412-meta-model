@@ -170,6 +170,11 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
 		// TODO: implement method: initializeOnCreation
 
 	}
+    public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub hugo ist da
+		return null;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

@@ -205,8 +205,6 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
 
 	@Override
 	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
 
 	@Override

@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.util.Set;
 
 import junit.framework.Assert;
+import model.ConsistencyException;
 import model.CycleException;
 import model.DBConnectionConstants;
 import model.basic.MFalse;
 import model.basic.MTrue;
+import model.typeSystem.MAbstractTypeConjunction;
+import model.typeSystem.MAbstractTypeDisjunction;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
 import model.typeSystem.MMixedConjunction;
@@ -25,6 +28,8 @@ import org.junit.BeforeClass;
 import persistence.Cache;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
+import persistence.PersistentMAbstractTypeConjunction;
+import persistence.PersistentMAbstractTypeDisjunction;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
@@ -34,6 +39,7 @@ import persistence.PersistentMMixedTypeDisjunction;
 import persistence.PersistentMTrue;
 import persistence.PersistentMType;
 import test.util.EmptyServerReporter;
+import utils.SearchLists;
 import utils.Sets;
 
 public abstract class TestingBase {
@@ -112,6 +118,16 @@ public abstract class TestingBase {
 		}
 
 		return conj;
+	}
+
+	public static PersistentMAbstractTypeDisjunction transNormDisj(PersistentMType... mTypes)
+			throws ConsistencyException, PersistenceException {
+		return MAbstractTypeDisjunction.transientCreateAbstrTypeDisj(SearchLists.createMTypeSearchList(mTypes));
+	}
+
+	public static PersistentMAbstractTypeConjunction transNormConj(PersistentMType... mTypes)
+			throws ConsistencyException, PersistenceException {
+		return MAbstractTypeConjunction.transientCreateAbstractTypeConj(SearchLists.createMTypeSearchList(mTypes));
 	}
 
 	protected static void assertMTrue(PersistentMBoolean persistentMBoolean, String message)

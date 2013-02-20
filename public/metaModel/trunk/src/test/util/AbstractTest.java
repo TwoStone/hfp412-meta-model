@@ -13,11 +13,7 @@ import model.messageOrLink.ActualParameter;
 import model.messageOrLink.Message;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
-import model.typeSystem.MEmptyProductType;
-import model.typeSystem.MEmptySumType;
 import model.typeSystem.MObject;
-import model.typeSystem.MProductType;
-import model.typeSystem.MSumType;
 
 import org.junit.Before;
 
@@ -25,13 +21,13 @@ import persistence.ActualParameterSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentActualParameter;
 import persistence.PersistentFormalParameter;
+import persistence.PersistentMAbstractTypeConjunction;
+import persistence.PersistentMAbstractTypeDisjunction;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
-import persistence.PersistentMEmptyProductType;
-import persistence.PersistentMEmptySumType;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMObject;
-import persistence.PersistentMProductType;
-import persistence.PersistentMSumType;
 import persistence.PersistentMessage;
 import persistence.PersistentOperation;
 import util.TestingBase;
@@ -48,28 +44,28 @@ public abstract class AbstractTest extends TestingBase {
 	protected PersistentMAtomicType mat5;
 	protected PersistentMAtomicType mat6;
 
-	protected PersistentMEmptyProductType mptEmpty;
-	protected PersistentMProductType mptSingle1;
-	protected PersistentMProductType mptSingle2;
-	protected PersistentMProductType mptSingle3;
-	protected PersistentMProductType mptSingle4;
-	protected PersistentMProductType mptSingle5;
-	protected PersistentMProductType mptMultiple2And4;
-	protected PersistentMProductType mptMultiple4And2;
-	protected PersistentMProductType mptMultiple5And6;
-	protected PersistentMProductType mptMultiple4And5;
+	protected PersistentMEmptyTypeConjunction mptEmpty;
+	protected PersistentMAbstractTypeConjunction mptSingle1;
+	protected PersistentMAbstractTypeConjunction mptSingle2;
+	protected PersistentMAbstractTypeConjunction mptSingle3;
+	protected PersistentMAbstractTypeConjunction mptSingle4;
+	protected PersistentMAbstractTypeConjunction mptSingle5;
+	protected PersistentMAbstractTypeConjunction mptMultiple2And4;
+	protected PersistentMAbstractTypeConjunction mptMultiple4And2;
+	protected PersistentMAbstractTypeConjunction mptMultiple5And6;
+	protected PersistentMAbstractTypeConjunction mptMultiple4And5;
 
-	protected PersistentMEmptySumType mstEmpty;
-	protected PersistentMSumType mstSingle1;
-	protected PersistentMSumType mstSingle2;
-	protected PersistentMSumType mstSingle3;
-	protected PersistentMSumType mstSingle4;
-	protected PersistentMSumType mstSingle5;
-	protected PersistentMSumType mstMultiple2And4;
-	protected PersistentMSumType mstMultiple4And2;
-	protected PersistentMSumType mstMultiple4And5;
-	protected PersistentMSumType mstMultiple5And6;
-	protected PersistentMSumType mstMultiple2And4And5;
+	protected PersistentMEmptyTypeDisjunction mstEmpty;
+	protected PersistentMAbstractTypeDisjunction mstSingle1;
+	protected PersistentMAbstractTypeDisjunction mstSingle2;
+	protected PersistentMAbstractTypeDisjunction mstSingle3;
+	protected PersistentMAbstractTypeDisjunction mstSingle4;
+	protected PersistentMAbstractTypeDisjunction mstSingle5;
+	protected PersistentMAbstractTypeDisjunction mstMultiple2And4;
+	protected PersistentMAbstractTypeDisjunction mstMultiple4And2;
+	protected PersistentMAbstractTypeDisjunction mstMultiple4And5;
+	protected PersistentMAbstractTypeDisjunction mstMultiple5And6;
+	protected PersistentMAbstractTypeDisjunction mstMultiple2And4And5;
 
 	protected PersistentMObject mao1;
 	protected PersistentMObject mao4;
@@ -132,60 +128,46 @@ public abstract class AbstractTest extends TestingBase {
 		mat2.setSuperType(mat3);
 
 		// ProductType
-		mptEmpty = MEmptyProductType.getTheMEmptyProductType();
-		mptSingle1 = MProductType.createMProductType();
-		mptSingle2 = MProductType.createMProductType();
-		mptSingle3 = MProductType.createMProductType();
-		mptSingle4 = MProductType.createMProductType();
-		mptSingle5 = MProductType.createMProductType();
-		mptMultiple2And4 = MProductType.createMProductType();
-		mptMultiple4And2 = MProductType.createMProductType();
-		mptMultiple5And6 = MProductType.createMProductType();
-		mptMultiple4And5 = MProductType.createMProductType();
+		/*
+		 * mptEmpty = MEmptyTypeConjunction.getTheMEmptyTypeConjunction(); mptSingle1 =
+		 * MMixedConjunction.createMMixedConjunction(); mptSingle2 = MMixedConjunction.createMMixedConjunction();
+		 * mptSingle3 = MMixedConjunction.createMMixedConjunction(); mptSingle4 =
+		 * MMixedConjunction.createMMixedConjunction(); mptSingle5 = MMixedConjunction.createMMixedConjunction();
+		 * mptMultiple2And4 = MMixedConjunction.createMMixedConjunction(); mptMultiple4And2 =
+		 * MMixedConjunction.createMMixedConjunction(); mptMultiple5And6 = MMixedConjunction.createMMixedConjunction();
+		 * mptMultiple4And5 = MMixedConjunction.createMMixedConjunction();
+		 */
+		mptSingle1 = TestingBase.transNormConj(mat1);
+		mptSingle2 = TestingBase.transNormConj(mat2);
+		mptSingle3 = TestingBase.transNormConj(mat3);
+		mptSingle4 = TestingBase.transNormConj(mat4);
+		mptSingle5 = TestingBase.transNormConj(mat5);
 
-		mptSingle1.getContainedTypes().add(mat1);
-		mptSingle2.getContainedTypes().add(mat2);
-		mptSingle3.getContainedTypes().add(mat3);
-		mptSingle4.getContainedTypes().add(mat4);
-		mptSingle5.getContainedTypes().add(mat5);
-		mptMultiple2And4.getContainedTypes().add(mat2);
-		mptMultiple2And4.getContainedTypes().add(mat4);
-		mptMultiple4And2.getContainedTypes().add(mat4);
-		mptMultiple4And2.getContainedTypes().add(mat2);
-		mptMultiple5And6.getContainedTypes().add(mat5);
-		mptMultiple5And6.getContainedTypes().add(mat6);
-		mptMultiple4And5.getContainedTypes().add(mat4);
-		mptMultiple4And5.getContainedTypes().add(mat5);
+		mptMultiple2And4 = TestingBase.transNormConj(mat2, mat4);
+		mptMultiple4And2 = TestingBase.transNormConj(mat4, mat2);
+		mptMultiple5And6 = TestingBase.transNormConj(mat5, mat6);
+		mptMultiple4And5 = TestingBase.transNormConj(mat4, mat5);
 
 		// SumType
-		mstEmpty = MEmptySumType.getTheMEmptySumType();
-		mstSingle1 = MSumType.createMSumType();
-		mstSingle2 = MSumType.createMSumType();
-		mstSingle3 = MSumType.createMSumType();
-		mstSingle4 = MSumType.createMSumType();
-		mstSingle5 = MSumType.createMSumType();
-		mstMultiple2And4 = MSumType.createMSumType();
-		mstMultiple4And2 = MSumType.createMSumType();
-		mstMultiple4And5 = MSumType.createMSumType();
-		mstMultiple5And6 = MSumType.createMSumType();
-		mstMultiple2And4And5 = MSumType.createMSumType();
+		/*
+		 * mstEmpty = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(); mstSingle1 = MSumType.createMSumType();
+		 * mstSingle2 = MSumType.createMSumType(); mstSingle3 = MSumType.createMSumType(); mstSingle4 =
+		 * MSumType.createMSumType(); mstSingle5 = MSumType.createMSumType(); mstMultiple2And4 =
+		 * MSumType.createMSumType(); mstMultiple4And2 = MSumType.createMSumType(); mstMultiple4And5 =
+		 * MSumType.createMSumType(); mstMultiple5And6 = MSumType.createMSumType(); mstMultiple2And4And5 =
+		 * MSumType.createMSumType();
+		 */
+		mstSingle1 = TestingBase.transNormDisj(mat1);
+		mstSingle2 = TestingBase.transNormDisj(mat2);
+		mstSingle3 = TestingBase.transNormDisj(mat3);
+		mstSingle4 = TestingBase.transNormDisj(mat4);
+		mstSingle5 = TestingBase.transNormDisj(mat5);
 
-		mstSingle1.getContainedTypes().add(mat1);
-		mstSingle2.getContainedTypes().add(mat2);
-		mstSingle3.getContainedTypes().add(mat3);
-		mstSingle4.getContainedTypes().add(mat4);
-		mstSingle5.getContainedTypes().add(mat5);
-		mstMultiple2And4.getContainedTypes().add(mat2);
-		mstMultiple2And4.getContainedTypes().add(mat4);
-		mstMultiple4And2.getContainedTypes().add(mat4);
-		mstMultiple4And2.getContainedTypes().add(mat2);
-		mstMultiple4And5.getContainedTypes().add(mat4);
-		mstMultiple4And5.getContainedTypes().add(mat5);
-		mstMultiple5And6.getContainedTypes().add(mat5);
-		mstMultiple5And6.getContainedTypes().add(mat6);
-		mstMultiple2And4And5.getContainedTypes().add(mat2);
-		mstMultiple2And4And5.getContainedTypes().add(mat4);
-		mstMultiple2And4And5.getContainedTypes().add(mat5);
+		mstMultiple2And4 = TestingBase.transNormDisj(mat2, mat4);
+		mstMultiple4And2 = TestingBase.transNormDisj(mat4, mat2);
+		mstMultiple4And5 = TestingBase.transNormDisj(mat4, mat5);
+		mstMultiple5And6 = TestingBase.transNormDisj(mat5, mat6);
+		mstMultiple2And4And5 = TestingBase.transNormDisj(mat2, mat4, mat5);
 
 		mao1 = MObject.createMObject();
 		mao1.addType(mat1);

@@ -22,4 +22,12 @@ public class SearchLists {
 		return result;
 	}
 
+	public static MTypeSearchList createMTypeSearchList(PersistentMType... types) throws PersistenceException {
+		final MTypeSearchList result = new MTypeSearchList();
+		for (PersistentMType cType : types) {
+			result.add(cType);
+		}
+		return result;
+	}
+
 }
