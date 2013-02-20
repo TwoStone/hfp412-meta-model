@@ -227,9 +227,11 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     
     public void addEntry(final PersistentMeasurement measurement) 
 				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: addEntry
-        
-    }
+		if (!measurement.getType().getUnitType().equals(this.getThis().getType().getUnitType())) {
+			throw new ConsistencyException(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_ACCOUNT);
+		}
+		this.getThis().getEntries().add(measurement);
+	}
     public boolean containsAccountHierarchy(final AccountHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -240,19 +242,14 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     }
     public void addSubAccount(final PersistentAccount account) 
 				throws model.CycleException, PersistenceException{
-        //TODO: implement method: addSubAccount
-        
-    }
+		this.getThis().getSubAccounts().add(account);
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+	}
     public <T> T strategyAccountHierarchy(final T parameter, final AccountHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$subAccounts$$Account = strategy.initialize$$Account$$subAccounts(getThis(), parameter);
@@ -283,8 +280,6 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
-
 	}
     public void addEntry(final PersistentMeasurement measurement, final Invoker invoker) 
 				throws PersistenceException{
@@ -295,6 +290,10 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
+				throws PersistenceException{
+		return strategy.aggregateMeasurements(getThis().getEntries().getList());
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

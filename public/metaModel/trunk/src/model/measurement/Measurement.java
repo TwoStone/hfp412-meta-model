@@ -15,6 +15,7 @@ import persistence.AggregationStrategy;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MeasurementProxi;
+import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnitType;
@@ -222,14 +223,10 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMeasurement)This);
@@ -264,6 +261,12 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 		if (!this.getThis().getType().getUnitType().equals(unitType)) {
 			throw new Error(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY);
 		}
+	}
+    public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
+				throws PersistenceException{
+		MeasurementSearchList measurements = new MeasurementSearchList();
+		measurements.add(getThis());
+		return strategy.aggregateMeasurements(measurements);
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

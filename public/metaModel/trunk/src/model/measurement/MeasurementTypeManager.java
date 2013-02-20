@@ -1,4 +1,3 @@
-
 package model.measurement;
 
 import model.UserException;
@@ -19,7 +18,6 @@ import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentUnitType;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -155,13 +153,11 @@ public class MeasurementTypeManager extends PersistentObject implements Persiste
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        
-    }
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+	}
     public void createMeasurementType(final String name, final PersistentMType type, final PersistentUnitType unitType, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -180,16 +176,15 @@ public class MeasurementTypeManager extends PersistentObject implements Persiste
     }
     public void createMeasurementType(final String name, final PersistentMType type, final PersistentUnitType unitType) 
 				throws PersistenceException{
-        //TODO: implement method: createMeasurementType
-        
-    }
+		this.getThis().getMeasurementTypes().add(MMeasurementType.createMMeasurementType(type, unitType));
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        
-    }
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

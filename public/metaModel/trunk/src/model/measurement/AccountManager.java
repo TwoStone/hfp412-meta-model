@@ -13,8 +13,8 @@ import persistence.Invoker;
 import persistence.PersistenceException;
 import persistence.PersistentAccountManager;
 import persistence.PersistentCreateAccountCommand;
-import persistence.PersistentMObject;
 import persistence.PersistentMAccountType;
+import persistence.PersistentMObject;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
@@ -167,9 +167,7 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAccountManager)This);
@@ -182,9 +180,8 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
 	}
     public void createAccount(final String name, final PersistentMAccountType type, final PersistentMObject object) 
 				throws PersistenceException{
-        //TODO: implement method: createAccount
-        
-    }
+		this.getThis().getAccounts().add(Account.createAccount(object, type));
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 
