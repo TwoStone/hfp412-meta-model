@@ -17,7 +17,7 @@ import model.abstractOperation.FormalParameter;
 import model.abstractOperation.Operation;
 import model.abstractOperation.OperationManager;
 import model.messageOrLink.MessageManager;
-import model.typeSystem.MEmptySumType;
+import model.typeSystem.MEmptyTypeDisjunction;
 import model.visitor.AbsOperationVisitor;
 
 import org.junit.Before;
@@ -86,8 +86,7 @@ public class OperationManagerTest extends AbstractTest {
 
 			@Override
 			public void handleOperation(PersistentOperation operation) throws PersistenceException {
-
-				assertEquals(MEmptySumType.getTheMEmptySumType(), operation.getSource());
+				assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), operation.getSource());
 			}
 
 			@Override
@@ -113,7 +112,7 @@ public class OperationManagerTest extends AbstractTest {
 			@Override
 			public void handleOperation(PersistentOperation operation) throws PersistenceException {
 
-				assertEquals(MEmptySumType.getTheMEmptySumType(), operation.getSource());
+				assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), operation.getSource());
 			}
 
 			@Override
@@ -137,7 +136,7 @@ public class OperationManagerTest extends AbstractTest {
 
 			@Override
 			public void handleOperation(PersistentOperation operation) throws PersistenceException {
-				assertEquals(MEmptySumType.getTheMEmptySumType(), operation.getTarget());
+				assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), operation.getTarget());
 			}
 
 			@Override
