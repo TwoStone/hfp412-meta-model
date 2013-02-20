@@ -1,20 +1,14 @@
+
 package model;
 
-import model.visitor.ConsistencyExceptionExceptionVisitor;
-import model.visitor.ConsistencyExceptionReturnExceptionVisitor;
-import model.visitor.ConsistencyExceptionReturnVisitor;
-import model.visitor.ConsistencyExceptionVisitor;
-import model.visitor.UserExceptionExceptionVisitor;
-import model.visitor.UserExceptionReturnExceptionVisitor;
-import model.visitor.UserExceptionReturnVisitor;
-import model.visitor.UserExceptionVisitor;
-import persistence.PersistenceException;
-import persistence.TDObserver;
+import persistence.*;
+import model.visitor.*;
+
 
 /* Additional import section end */
 
 @SuppressWarnings("serial")
-public class ConsistencyException extends model.UserException{
+public class DeletedException extends model.ConsistencyException{
     
     
     public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
@@ -30,12 +24,12 @@ public class ConsistencyException extends model.UserException{
         return false;
     }
     
-    public ConsistencyException(String message) throws persistence.PersistenceException {
+    public DeletedException(String message) throws persistence.PersistenceException {
         super(message);        
     }
     
     static public long getTypeId() {
-        return -230;
+        return -323;
     }
     
     public long getClassId() {
@@ -44,28 +38,28 @@ public class ConsistencyException extends model.UserException{
     
     
     public void accept(ConsistencyExceptionVisitor visitor) throws PersistenceException {
-        visitor.handleConsistencyException(this);
+        visitor.handleDeletedException(this);
     }
     public <R> R accept(ConsistencyExceptionReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleConsistencyException(this);
+         return visitor.handleDeletedException(this);
     }
     public <E extends UserException>  void accept(ConsistencyExceptionExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleConsistencyException(this);
+         visitor.handleDeletedException(this);
     }
     public <R, E extends UserException> R accept(ConsistencyExceptionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleConsistencyException(this);
+         return visitor.handleDeletedException(this);
     }
     public void accept(UserExceptionVisitor visitor) throws PersistenceException {
-        visitor.handleConsistencyException(this);
+        visitor.handleDeletedException(this);
     }
     public <R> R accept(UserExceptionReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleConsistencyException(this);
+         return visitor.handleDeletedException(this);
     }
     public <E extends UserException>  void accept(UserExceptionExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleConsistencyException(this);
+         visitor.handleDeletedException(this);
     }
     public <R, E extends UserException> R accept(UserExceptionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleConsistencyException(this);
+         return visitor.handleDeletedException(this);
     }
     public int getLeafInfo() throws PersistenceException{
         return 0;
@@ -74,7 +68,7 @@ public class ConsistencyException extends model.UserException{
     
 
     /* Start of protected part that is not overridden by persistence generator */
-
-	/* End of protected part that is not overridden by persistence generator */
+    
+    /* End of protected part that is not overridden by persistence generator */
     
 }

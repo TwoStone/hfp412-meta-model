@@ -778,6 +778,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleOperation(view.OperationView object){
         result = new OperationDefaultDetailPanel(handler, object);
     }
+    public void handleCONCMModelItem(view.CONCMModelItemView object){
+        result = new CONCMModelItemDefaultDetailPanel(handler, object);
+    }
     public void handleQuantityManager(view.QuantityManagerView object){
         result = new QuantityManagerDefaultDetailPanel(handler, object);
     }
@@ -1003,6 +1006,7 @@ class NameSchemeDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MAtomicType$$name = "MAtomicType$$name";
     protected static final String MAtomicType$$singletonType = "MAtomicType$$singletonType";
     protected static final String MAtomicType$$abstractType = "MAtomicType$$abstractType";
@@ -1044,6 +1048,7 @@ class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MEmptyTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     
     protected MEmptyTypeDisjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1172,6 +1177,7 @@ class OperationManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MMixedConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MMixedConjunction$$factors = "MMixedConjunction$$factors";
     
@@ -1288,6 +1294,7 @@ class MObjectDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MEmptyTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     
     protected MEmptyTypeConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1494,6 +1501,22 @@ class OperationDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class CONCMModelItemDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    
+    protected CONCMModelItemDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.CONCMModelItemView getAnything(){
+        return (view.CONCMModelItemView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class QuantityManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String QuantityManager$$quantities = "QuantityManager$$quantities";
@@ -1602,6 +1625,7 @@ class MAccountTypeDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MMixedTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MMixedTypeDisjunction$$addends = "MMixedTypeDisjunction$$addends";
     
@@ -1635,6 +1659,7 @@ class TypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MNonEmptyAtomicTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MNonEmptyAtomicTypeConjunction$$factors = "MNonEmptyAtomicTypeConjunction$$factors";
     
@@ -1699,6 +1724,7 @@ class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MNonEmptyDisjunctiveNormalFormDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MNonEmptyDisjunctiveNormalForm$$addends = "MNonEmptyDisjunctiveNormalForm$$addends";
     

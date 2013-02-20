@@ -116,12 +116,19 @@ server Server {
 	void assignName@@Benennen(MObject object, Name scheme {;object;types}, String name);
 }
 
+abstract class MModelItem {
+	derived MModelItem** dependentItems;
+	// TemplateMethod
+	void delete() throws ConsistencyException;
+	abstract void prepareForDeletion() throws ConsistencyException;
+}
+
 
 
 part typeSystem {
 	
 	/* Abstrakte Typen */
-	abstract class MType@@Type {
+	abstract class MType@@Type covers MModelItem{
 		abstract String fetchName();
 		abstract MBoolean isLessOrEqual(MType other);
 		abstract MBoolean isSingleton();
@@ -615,6 +622,7 @@ part naming {
 exception PatternNotMatchException{}
 exception DoubleDefinitionException{}
 exception ConsistencyException{}
+exception DeletedException extends ConsistencyException {}
 exception WrongSubTypeAspectException{}
 exception EmptyTypeException{}
 exception NotAvailableException{}

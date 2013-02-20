@@ -8,8 +8,10 @@ import persistence.Anything;
 import persistence.MAspectSearchList;
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
+import persistence.PersistentCONCMModelItem;
 import persistence.PersistentMBoolean;
 import persistence.PersistentMComplexType;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMType;
 import persistence.Procdure;
 import persistence.SearchListRoot;
@@ -18,74 +20,91 @@ import utils.SearchLists;
 
 /* Additional import section end */
 
-public abstract class MComplexType extends model.typeSystem.MType implements PersistentMComplexType{
-    
-    
-    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.Hashtable<String,Object> result = null;
-        if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("containedTypes", this.getContainedTypes(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false));
-            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
-        }
-        return result;
-    }
-    
-    public abstract MComplexType provideCopy() throws PersistenceException;
-    
-    public boolean hasEssentialFields() throws PersistenceException{
-        return false;
-    }
-    
-    public MComplexType(PersistentMType This,long id) throws persistence.PersistenceException {
-        /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMType)This,id);        
-    }
-    
-    static public long getTypeId() {
-        return 103;
-    }
-    
-    public long getClassId() {
-        return getTypeId();
-    }
-    
-    public void store() throws PersistenceException {
-        if(!this.isDelayed$Persistence()) return;
-        super.store();
-        
-    }
-    
-    public abstract PersistentMComplexType getThis() throws PersistenceException ;
-    
-    
-    
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
+public abstract class MComplexType extends model.typeSystem.MType implements PersistentMComplexType {
+
+	@Override
+	public java.util.Hashtable<String, Object> toHashtable(java.util.Hashtable<String, Object> allResults, int depth,
+			int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+		java.util.Hashtable<String, Object> result = null;
+		if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth) {
+			result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+			result.put(
+					"containedTypes",
+					this.getContainedTypes(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1),
+							essentialLevel, forGUI, tdObserver, false));
+			String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+			if (leaf && !allResults.contains(uniqueKey))
+				allResults.put(uniqueKey, result);
+		}
+		return result;
 	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
+
+	@Override
+	public abstract MComplexType provideCopy() throws PersistenceException;
+
+	@Override
+	public boolean hasEssentialFields() throws PersistenceException {
+		return true;
+	}
+
+	public MComplexType(PersistentMType This, PersistentMModelItem myCONCMModelItem, long id)
+			throws persistence.PersistenceException {
+		/* Shall not be used by clients for object construction! Use static create operation instead! */
+		super(This, myCONCMModelItem, id);
+	}
+
+	static public long getTypeId() {
+		return 103;
+	}
+
+	@Override
+	public long getClassId() {
+		return getTypeId();
+	}
+
+	@Override
+	public void store() throws PersistenceException {
+		if (!this.isDelayed$Persistence())
+			return;
+		super.store();
 
 	}
-    public MTypeSearchList getContainedTypes(final TDObserver observer) 
-				throws PersistenceException{
-        MTypeSearchList result = getThis().getContainedTypes();
+
+	@Override
+	public abstract PersistentMComplexType getThis() throws PersistenceException;
+
+	@Override
+	public void initializeOnInstantiation() throws PersistenceException {
+	}
+
+	@Override
+	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
+	}
+
+	@Override
+	public MTypeSearchList getContainedTypes(final TDObserver observer) throws PersistenceException {
+		MTypeSearchList result = getThis().getContainedTypes();
 		observer.updateTransientDerived(getThis(), "containedTypes", result);
 		return result;
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentMComplexType)This);
-		if(this.equals(This)){
-		}
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
 	}
-    public String fetchName() 
-				throws PersistenceException{
+
+	@Override
+	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields)
+			throws PersistenceException {
+		this.setThis((PersistentMComplexType) This);
+		if (this.equals(This)) {
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(
+					this.isDelayed$Persistence(), (PersistentMComplexType) This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+		}
+	}
+
+	@Override
+	public void initializeOnCreation() throws PersistenceException {
+	}
+
+	@Override
+	public String fetchName() throws PersistenceException {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append("(");
@@ -104,8 +123,9 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 
 		return builder.toString();
 	}
-    public MAspectSearchList fetchAspects() 
-				throws PersistenceException{
+
+	@Override
+	public MAspectSearchList fetchAspects() throws PersistenceException {
 		final MAspectSearchList result = new MAspectSearchList();
 		getContainedTypes().applyToAll(new Procdure<PersistentMType>() {
 
@@ -116,12 +136,13 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 		});
 		return result;
 	}
-    public MTypeSearchList getContainedTypes() 
-				throws PersistenceException{
+
+	@Override
+	public MTypeSearchList getContainedTypes() throws PersistenceException {
 		return SearchLists.toMTypeSearchList(fetchContainedTypes());
 	}
 
-    /* Start of protected part that is not overridden by persistence generator */
+	/* Start of protected part that is not overridden by persistence generator */
 
 	protected PersistentMBoolean allChildrenAreStructuralEquivalent(final PersistentMComplexType other)
 			throws PersistenceException {
@@ -141,5 +162,5 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 	public abstract SearchListRoot<? extends PersistentMType> fetchContainedTypes() throws PersistenceException;
 
 	/* End of protected part that is not overridden by persistence generator */
-    
+
 }

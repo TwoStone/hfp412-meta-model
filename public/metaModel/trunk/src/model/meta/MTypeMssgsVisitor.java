@@ -9,7 +9,7 @@ interface MTypeDOWNMssgsVisitor extends MComplexTypeDOWNMssgsVisitor, MAtomicTyp
 }
 
 
-interface MTypeUPMssgsVisitor  {
+interface MTypeUPMssgsVisitor extends MModelItemUPMssgsVisitor {
 
     
 }

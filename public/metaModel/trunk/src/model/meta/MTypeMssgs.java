@@ -4,5 +4,5 @@ public interface MTypeMssgs {
     void accept(MTypeMssgsVisitor visitor) throws persistence.PersistenceException;
 }
 
-interface MTypeDOWNMssgs extends Mssgs, MTypeMssgs{}
+interface MTypeDOWNMssgs extends MModelItemDOWNMssgs, MTypeMssgs{}
 interface MTypeUPMssgs extends MComplexTypeUPMssgs, MAtomicTypeUPMssgs, MTypeMssgs{}
