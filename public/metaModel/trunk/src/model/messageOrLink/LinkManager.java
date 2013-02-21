@@ -158,9 +158,34 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
     
     public void createLink(final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target) 
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
-        //TODO: implement method: createLink
-        
-    }
+		// FIXME: Hierarchien!
+
+		// Passt die Source zum AssociationType?
+		if (source.getTypes().findFirst(new Predcate<PersistentMAtomicType>() {
+
+			@Override
+			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
+				return argument.equals(type.getSource());
+			}
+
+		}) == null) {
+			throw new ConsistencyException("Die gewaehlte Source passt nicht zum AssoicationType!");
+		}
+
+		// Ist das Target gemaess Typebene korrekt?
+		if (target.getTypes().findFirst(new Predcate<PersistentMAtomicType>() {
+
+			@Override
+			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
+				return argument.equals(type.getTarget());
+			}
+
+		}) == null) {
+			throw new ConsistencyException("Das gewaehlte Target passt nicht zum AssoicationType!");
+		}
+
+		getThis().getLinks().add(Link.createLink(source, target, type));
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnInstantiation
@@ -168,9 +193,9 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentLinkManager)This);
@@ -204,9 +229,9 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 	}
     public void removeLink(final PersistentLink link) 
 				throws PersistenceException{
-        //TODO: implement method: removeLink
-        
-    }
+		// TODO: implement method: removeLink
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 
