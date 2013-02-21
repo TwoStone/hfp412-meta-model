@@ -7,12 +7,16 @@ import java.util.List;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 
+import persistence.PersistentObject;
 import utils.Lists;
 
+/**
+ * Ein JUnit 4 Testrunner für Tetsfälle für GOJA. Der TestRunner sorgt dafür, dass mit {@link InjectSingleton}
+ * annotierte Felder korrekt belegt werden.
+ */
 public class GOJAUnitTestRunner extends BlockJUnit4ClassRunner {
 
 	private final Class<? extends TestingBase> klass;
-	private TestingBase testObject;
 
 	public GOJAUnitTestRunner(Class<? extends TestingBase> klass) throws InitializationError {
 		super(klass);
@@ -21,7 +25,7 @@ public class GOJAUnitTestRunner extends BlockJUnit4ClassRunner {
 
 	@Override
 	protected Object createTest() throws Exception {
-		testObject = (TestingBase) super.createTest();
+		TestingBase testObject = (TestingBase) super.createTest();
 
 		injectSingletons(testObject);
 
@@ -39,9 +43,9 @@ public class GOJAUnitTestRunner extends BlockJUnit4ClassRunner {
 	private void injectField(TestingBase testObject, Field field) throws IllegalAccessException, NoSuchFieldException {
 		InjectSingleton annotation = field.getAnnotation(InjectSingleton.class);
 		if (annotation != null) {
-			Class<?> singletonClass = annotation.value();
+			Class<? extends PersistentObject> singletonClass = annotation.value();
 			testObject.resetSingleton(singletonClass);
-			Object singleton = testObject.getManager(singletonClass);
+			PersistentObject singleton = testObject.getManager(singletonClass);
 			field.setAccessible(true);
 			field.set(testObject, singleton);
 		}

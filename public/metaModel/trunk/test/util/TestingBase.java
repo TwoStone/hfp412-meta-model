@@ -38,6 +38,7 @@ import persistence.PersistentMMixedConjunction;
 import persistence.PersistentMMixedTypeDisjunction;
 import persistence.PersistentMTrue;
 import persistence.PersistentMType;
+import persistence.PersistentObject;
 import utils.SearchLists;
 import utils.Sets;
 
@@ -50,7 +51,7 @@ public abstract class TestingBase {
 	@InjectSingleton(MTrue.class)
 	protected PersistentMTrue mTrue;
 
-	private final Set<Class<?>> manager = Sets.newHashSet();
+	private final Set<Class<? extends PersistentObject>> manager = Sets.newHashSet();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -151,7 +152,7 @@ public abstract class TestingBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <T> T getManager(Class<? extends T> managerClazz) {
+	protected <T extends PersistentObject> T getManager(Class<? extends T> managerClazz) {
 		String methodName = String.format("getThe%s", managerClazz.getSimpleName());
 		Method method;
 		try {
