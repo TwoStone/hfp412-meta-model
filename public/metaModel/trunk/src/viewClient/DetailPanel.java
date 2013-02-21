@@ -1278,6 +1278,8 @@ class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String AbstractObject$$possibleNames = "AbstractObject$$possibleNames";
     protected static final String AbstractObject$$productType = "AbstractObject$$productType";
     protected static final String MObject$$types = "MObject$$types";
+    protected static final String MObject$$linksFromMe = "MObject$$linksFromMe";
+    protected static final String MObject$$linksToMe = "MObject$$linksToMe";
     protected static final String MObject$$names = "MObject$$names";
     
     protected MObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

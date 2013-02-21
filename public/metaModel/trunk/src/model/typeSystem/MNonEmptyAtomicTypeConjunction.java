@@ -62,282 +62,218 @@ import persistence.TDObserver;
 
 /* Additional import section end */
 
-public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicTypeConjunction implements
-		PersistentMNonEmptyAtomicTypeConjunction {
-
-	public static PersistentMNonEmptyAtomicTypeConjunction createMNonEmptyAtomicTypeConjunction()
-			throws PersistenceException {
-		return createMNonEmptyAtomicTypeConjunction(false);
-	}
-
-	public static PersistentMNonEmptyAtomicTypeConjunction createMNonEmptyAtomicTypeConjunction(
-			boolean delayed$Persistence) throws PersistenceException {
-		PersistentMNonEmptyAtomicTypeConjunction result = null;
-		if (delayed$Persistence) {
-			result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
-					.newDelayedMNonEmptyAtomicTypeConjunction();
-			result.setDelayed$Persistence(true);
-		} else {
-			result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
-					.newMNonEmptyAtomicTypeConjunction(-1);
-		}
-		java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
-		result.initialize(result, final$$Fields);
-		result.initializeOnCreation();
+public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicTypeConjunction implements PersistentMNonEmptyAtomicTypeConjunction{
+    
+    
+    public static PersistentMNonEmptyAtomicTypeConjunction createMNonEmptyAtomicTypeConjunction() throws PersistenceException{
+        return createMNonEmptyAtomicTypeConjunction(false);
+    }
+    
+    public static PersistentMNonEmptyAtomicTypeConjunction createMNonEmptyAtomicTypeConjunction(boolean delayed$Persistence) throws PersistenceException {
+        PersistentMNonEmptyAtomicTypeConjunction result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
+                .newDelayedMNonEmptyAtomicTypeConjunction();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
+                .newMNonEmptyAtomicTypeConjunction(-1);
+        }
+        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        result.initialize(result, final$$Fields);
+        result.initializeOnCreation();
+        return result;
+    }
+    
+    public static PersistentMNonEmptyAtomicTypeConjunction createMNonEmptyAtomicTypeConjunction(boolean delayed$Persistence,PersistentMNonEmptyAtomicTypeConjunction This) throws PersistenceException {
+        PersistentMNonEmptyAtomicTypeConjunction result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
+                .newDelayedMNonEmptyAtomicTypeConjunction();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
+                .newMNonEmptyAtomicTypeConjunction(-1);
+        }
+        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        result.initialize(This, final$$Fields);
+        result.initializeOnCreation();
+        return result;
+    }
+    
+    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    java.util.Hashtable<String,Object> result = null;
+        if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("factors", this.getFactors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
+            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+            if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
+        }
+        return result;
+    }
+    
+    public MNonEmptyAtomicTypeConjunction provideCopy() throws PersistenceException{
+        MNonEmptyAtomicTypeConjunction result = this;
+        result = new MNonEmptyAtomicTypeConjunction(this.This, 
+                                                    this.myCONCMModelItem, 
+                                                    this.getId());
+        result.factors = this.factors.copy(result);
+        this.copyingPrivateUserAttributes(result);
+        return result;
+    }
+    
+    public boolean hasEssentialFields() throws PersistenceException{
+        return true;
+    }
+    protected MNonEmptyAtomicTypeConjunction_FactorsProxi factors;
+    
+    public MNonEmptyAtomicTypeConjunction(PersistentMType This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
+        /* Shall not be used by clients for object construction! Use static create operation instead! */
+        super((PersistentMType)This,(PersistentMModelItem)myCONCMModelItem,id);
+        this.factors = new MNonEmptyAtomicTypeConjunction_FactorsProxi(this);        
+    }
+    
+    static public long getTypeId() {
+        return 318;
+    }
+    
+    public long getClassId() {
+        return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 318) ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
+            .newMNonEmptyAtomicTypeConjunction(this.getId());
+        super.store();
+        this.getFactors().store();
+        
+    }
+    
+    public MNonEmptyAtomicTypeConjunction_FactorsProxi getFactors() throws PersistenceException {
+        return this.factors;
+    }
+    public PersistentMNonEmptyAtomicTypeConjunction getThis() throws PersistenceException {
+        if(this.This == null){
+            PersistentMNonEmptyAtomicTypeConjunction result = new MNonEmptyAtomicTypeConjunctionProxi(this.getId());
+            result.getTheObject();
+            return result;
+        }return (PersistentMNonEmptyAtomicTypeConjunction)this.This;
+    }
+    
+    public void accept(MAtomicTypeConjunctionVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R> R accept(MAtomicTypeConjunctionReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MAtomicTypeConjunctionExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MAtomicTypeConjunctionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public void accept(MAbstractTypeConjunctionVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R> R accept(MAbstractTypeConjunctionReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MAbstractTypeConjunctionExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MAbstractTypeConjunctionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public void accept(MTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyAtomicTypeConjunction(this);
+    }
+    public int getLeafInfo() throws PersistenceException{
+        return (int) (0 
+            + this.getDependentItems().getLength()
+            + this.getContainedTypes().getLength()
+            + this.getFactors().getLength());
+    }
+    
+    
+    public MModelItemSearchList getDependentItems(final TDObserver observer) 
+				throws PersistenceException{
+        MModelItemSearchList result = getThis().getDependentItems();
+		observer.updateTransientDerived(getThis(), "dependentItems", result);
 		return result;
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
 	}
-
-	public static PersistentMNonEmptyAtomicTypeConjunction createMNonEmptyAtomicTypeConjunction(
-			boolean delayed$Persistence, PersistentMNonEmptyAtomicTypeConjunction This) throws PersistenceException {
-		PersistentMNonEmptyAtomicTypeConjunction result = null;
-		if (delayed$Persistence) {
-			result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
-					.newDelayedMNonEmptyAtomicTypeConjunction();
-			result.setDelayed$Persistence(true);
-		} else {
-			result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
-					.newMNonEmptyAtomicTypeConjunction(-1);
+    public MModelItemSearchList getDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: getDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"getDependentItems\" not implemented yet.");
+		} catch (java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
 		}
-		java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
-		result.initialize(This, final$$Fields);
-		result.initializeOnCreation();
-		return result;
 	}
-
-	@Override
-	public java.util.Hashtable<String, Object> toHashtable(java.util.Hashtable<String, Object> allResults, int depth,
-			int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-		java.util.Hashtable<String, Object> result = null;
-		if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth) {
-			result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-			result.put("factors",
-					this.getFactors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false));
-			String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-			if (leaf && !allResults.contains(uniqueKey))
-				allResults.put(uniqueKey, result);
-		}
-		return result;
-	}
-
-	@Override
-	public MNonEmptyAtomicTypeConjunction provideCopy() throws PersistenceException {
-		MNonEmptyAtomicTypeConjunction result = this;
-		result = new MNonEmptyAtomicTypeConjunction(this.This, this.myCONCMModelItem, this.getId());
-		result.factors = this.factors.copy(result);
-		this.copyingPrivateUserAttributes(result);
-		return result;
-	}
-
-	@Override
-	public boolean hasEssentialFields() throws PersistenceException {
-		return true;
-	}
-
-	protected MNonEmptyAtomicTypeConjunction_FactorsProxi factors;
-
-	public MNonEmptyAtomicTypeConjunction(PersistentMType This, PersistentMModelItem myCONCMModelItem, long id)
-			throws persistence.PersistenceException {
-		/* Shall not be used by clients for object construction! Use static create operation instead! */
-		super(This, myCONCMModelItem, id);
-		this.factors = new MNonEmptyAtomicTypeConjunction_FactorsProxi(this);
-	}
-
-	static public long getTypeId() {
-		return 318;
-	}
-
-	@Override
-	public long getClassId() {
-		return getTypeId();
-	}
-
-	@Override
-	public void store() throws PersistenceException {
-		if (!this.isDelayed$Persistence())
-			return;
-		if (this.getClassId() == 318)
-			ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
-					.newMNonEmptyAtomicTypeConjunction(this.getId());
-		super.store();
-		this.getFactors().store();
-
-	}
-
-	@Override
-	public MNonEmptyAtomicTypeConjunction_FactorsProxi getFactors() throws PersistenceException {
-		return this.factors;
-	}
-
-	@Override
-	public PersistentMNonEmptyAtomicTypeConjunction getThis() throws PersistenceException {
-		if (this.This == null) {
-			PersistentMNonEmptyAtomicTypeConjunction result = new MNonEmptyAtomicTypeConjunctionProxi(this.getId());
-			result.getTheObject();
-			return result;
-		}
-		return (PersistentMNonEmptyAtomicTypeConjunction) this.This;
-	}
-
-	@Override
-	public void accept(MAtomicTypeConjunctionVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R> R accept(MAtomicTypeConjunctionReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(MAtomicTypeConjunctionExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(MAtomicTypeConjunctionReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public void accept(MAbstractTypeConjunctionVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R> R accept(MAbstractTypeConjunctionReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(MAbstractTypeConjunctionExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(MAbstractTypeConjunctionReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R> R accept(MComplexTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException,
-			E {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public void accept(MTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R> R accept(MTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public void accept(MModelItemVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R> R accept(MModelItemReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public void accept(AnythingVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R> R accept(AnythingReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyAtomicTypeConjunction(this);
-	}
-
-	@Override
-	public int getLeafInfo() throws PersistenceException {
-		return (int) (0 + this.getDependentItems().getLength() + this.getContainedTypes().getLength() + this
-				.getFactors().getLength());
-	}
-
-	@Override
-	public PersistentMNonEmptyAtomicTypeConjunction transientMultiplyNonEmpty(
-			final PersistentMNonEmptyAtomicTypeConjunction other) throws PersistenceException {
+    public PersistentMNonEmptyAtomicTypeConjunction transientMultiplyNonEmpty(final PersistentMNonEmptyAtomicTypeConjunction other) 
+				throws PersistenceException{
 		final PersistentMNonEmptyAtomicTypeConjunction result = MNonEmptyAtomicTypeConjunction
 				.createMNonEmptyAtomicTypeConjunction(true);
 		try {
@@ -362,35 +298,43 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 		}
 		return result;
 	}
-
-	@Override
-	public MModelItemSearchList getDependentItems() throws PersistenceException {
-		// TODO: implement method: getDependentItems
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"getDependentItems\" not implemented yet.");
-		} catch (java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
 	}
-
-	@Override
-	public void initializeOnInstantiation() throws PersistenceException {
-	}
-
-	@Override
-	public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) throws PersistenceException {
-		if (getThis().equals(part))
-			return true;
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
 		java.util.Iterator iterator0 = getThis().getFactors().iterator();
-		while (iterator0.hasNext())
-			if (((MComplexTypeHierarchyHIERARCHY) iterator0.next()).containsMComplexTypeHierarchy(part))
-				return true;
+		while(iterator0.hasNext())
+			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
-	}
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMNonEmptyAtomicTypeConjunction)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMNonEmptyAtomicTypeConjunction)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+		}
+    }
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
 
-	@Override
-	public PersistentMBoolean isLessOrEqual(final PersistentMType other) throws PersistenceException {
+	}
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$factors$$MNonEmptyAtomicTypeConjunction = strategy.initialize$$MNonEmptyAtomicTypeConjunction$$factors(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getFactors().iterator();
+		while (iterator$$.hasNext()){
+			PersistentMAtomicType current$$Field = (PersistentMAtomicType)iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$factors$$MNonEmptyAtomicTypeConjunction, strategy);
+			result$$factors$$MNonEmptyAtomicTypeConjunction = strategy.consolidate$$MNonEmptyAtomicTypeConjunction$$factors(getThis(), result$$factors$$MNonEmptyAtomicTypeConjunction, current$$);
+		}
+		return strategy.finalize$$MNonEmptyAtomicTypeConjunction(getThis(), parameter,result$$factors$$MNonEmptyAtomicTypeConjunction);
+    }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
 		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
 
 			@Override
@@ -456,63 +400,15 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 			}
 		}));
 	}
-
-	@Override
-	public <T> T strategyMComplexTypeHierarchy(final T parameter,
-			final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) throws PersistenceException {
-		T result$$factors$$MNonEmptyAtomicTypeConjunction = strategy
-				.initialize$$MNonEmptyAtomicTypeConjunction$$factors(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getFactors().iterator();
-		while (iterator$$.hasNext()) {
-			PersistentMAtomicType current$$Field = (PersistentMAtomicType) iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$factors$$MNonEmptyAtomicTypeConjunction,
-					strategy);
-			result$$factors$$MNonEmptyAtomicTypeConjunction = strategy
-					.consolidate$$MNonEmptyAtomicTypeConjunction$$factors(getThis(),
-							result$$factors$$MNonEmptyAtomicTypeConjunction, current$$);
-		}
-		return strategy.finalize$$MNonEmptyAtomicTypeConjunction(getThis(), parameter,
-				result$$factors$$MNonEmptyAtomicTypeConjunction);
+    public void initializeOnCreation() 
+				throws PersistenceException{
 	}
-
-	@Override
-	public void initializeOnCreation() throws PersistenceException {
-	}
-
-	@Override
-	public MModelItemSearchList getDependentItems(final TDObserver observer) throws PersistenceException {
-		MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
-	}
-
-	@Override
-	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-	}
-
-	@Override
-	public void prepareForDeletion() throws model.ConsistencyException, PersistenceException {
-		// TODO: implement method: prepareForDeletion
-
-	}
-
-	@Override
-	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields)
-			throws PersistenceException {
-		this.setThis((PersistentMNonEmptyAtomicTypeConjunction) This);
-		if (this.equals(This)) {
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(
-					this.isDelayed$Persistence(), (PersistentMNonEmptyAtomicTypeConjunction) This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-		}
-	}
-
-	@Override
-	public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() throws PersistenceException {
+    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
+				throws PersistenceException{
 		return MNonEmptyDisjunctiveNormalForm.transientCreateDNFFromAtomicTypeConjunction(getThis());
 	}
 
-	/* Start of protected part that is not overridden by persistence generator */
+    /* Start of protected part that is not overridden by persistence generator */
 	@Override
 	public SearchListRoot<? extends PersistentMType> fetchContainedTypes() throws PersistenceException {
 		return getThis().getFactors();
@@ -557,5 +453,5 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 		return result;
 	}
 	/* End of protected part that is not overridden by persistence generator */
-
+    
 }

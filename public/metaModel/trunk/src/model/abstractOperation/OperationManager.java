@@ -260,6 +260,22 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
+    public void removeFpFromOp(final PersistentOperation op, final PersistentFormalParameter fp, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveFpFromOpCommand command = model.meta.RemoveFpFromOpCommand.createRemoveFpFromOpCommand(now, now);
+		command.setOp(op);
+		command.setFp(fp);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp) 
+				throws model.DoubleDefinitionException, PersistenceException{
+
+		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
+		getThis().createOperation(theMEmptyTypeDisjunction, target, name, fp);
+	}
     public OperationSearchList getConstants() 
 				throws PersistenceException{
 		// Konstanten sind wie statische Operationen ohne Parameter
@@ -272,22 +288,6 @@ public class OperationManager extends PersistentObject implements PersistentOper
 
 		}));
 	}
-    public void createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp) 
-				throws model.DoubleDefinitionException, PersistenceException{
-
-		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
-		getThis().createOperation(theMEmptyTypeDisjunction, target, name, fp);
-	}
-    public void removeFpFromOp(final PersistentOperation op, final PersistentFormalParameter fp, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveFpFromOpCommand command = model.meta.RemoveFpFromOpCommand.createRemoveFpFromOpCommand(now, now);
-		command.setOp(op);
-		command.setFp(fp);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void createConstant(final String name, final PersistentMType target, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -297,6 +297,18 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public OperationSearchList getStaticOperations() 
+				throws PersistenceException{
+
+		return new OperationSearchList(getThis().getOperations().findAll(new Predcate<PersistentOperation>() {
+
+			@Override
+			public boolean test(PersistentOperation argument) throws PersistenceException {
+				return argument.isStatic().toBoolean();
+			}
+
+		}));
+	}
     public void removeOperation(final PersistentOperation op) 
 				throws model.ConsistencyException, PersistenceException{
 		if (op.inverseGetType().getLength() > 0) {
@@ -323,20 +335,13 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public OperationSearchList getStaticOperations() 
-				throws PersistenceException{
-
-		return new OperationSearchList(getThis().getOperations().findAll(new Predcate<PersistentOperation>() {
-
-			@Override
-			public boolean test(PersistentOperation argument) throws PersistenceException {
-				return argument.isStatic().toBoolean();
-			}
-
-		}));
-	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+		getStaticOperations();
+		getConstants();
 	}
     public OperationSearchList getStaticOperations(final TDObserver observer) 
 				throws PersistenceException{
@@ -344,11 +349,6 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		observer.updateTransientDerived(getThis(), "staticOperations", result);
 		return result;
     }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-		getStaticOperations();
-		getConstants();
-	}
     public void createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());

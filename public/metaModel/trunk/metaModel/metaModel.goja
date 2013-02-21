@@ -227,9 +227,12 @@ part typeSystem {
 	/* Objekte */
 	class MObject extends AbstractObject {
 		MAtomicType ** types;
+		derived Link** linksFromMe;
+		derived Link** linksToMe;
 		void addType(MAtomicType newType) throws ConsistencyException;
 		void removeType(MAtomicType oldType) throws ConsistencyException;
 		void replaceType(MAtomicType oldType, MAtomicType newType) throws ConsistencyException; 
+		MBoolean containsInHierarchies(MObject obj, Hierarchy** hieracs);
 	}
 
 	class MSingletonObject##SngltnObj extends AbstractObject {
@@ -485,8 +488,8 @@ active void removeLink(Link link);
 }
 
 abstract class MessageOrLink {
-    prior MObject source;
-    prior MObject target;
+    prior symmetric MObject source;
+    prior symmetric MObject target;
 }
 
 // TODO: Was ist mit statische Methoden und Methoden die void zurueck geben sollen? Source/Target 0..1? Eventuell noch mal spezialisieren

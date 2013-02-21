@@ -31,81 +31,67 @@ import utils.TruePredcate;
 
 /* Additional import section end */
 
-public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplexType implements
-		PersistentMAbstractTypeDisjunction {
-
-	@Override
-	public java.util.Hashtable<String, Object> toHashtable(java.util.Hashtable<String, Object> allResults, int depth,
-			int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-		java.util.Hashtable<String, Object> result = null;
-		if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth) {
-			result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-			String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-			if (leaf && !allResults.contains(uniqueKey))
-				allResults.put(uniqueKey, result);
-		}
-		return result;
+public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplexType implements PersistentMAbstractTypeDisjunction{
+    
+    
+    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    java.util.Hashtable<String,Object> result = null;
+        if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+            if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
+        }
+        return result;
+    }
+    
+    public abstract MAbstractTypeDisjunction provideCopy() throws PersistenceException;
+    
+    public boolean hasEssentialFields() throws PersistenceException{
+        return true;
+    }
+    
+    public MAbstractTypeDisjunction(PersistentMType This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
+        /* Shall not be used by clients for object construction! Use static create operation instead! */
+        super((PersistentMType)This,(PersistentMModelItem)myCONCMModelItem,id);        
+    }
+    
+    static public long getTypeId() {
+        return 305;
+    }
+    
+    public long getClassId() {
+        return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        super.store();
+        
+    }
+    
+    public abstract PersistentMAbstractTypeDisjunction getThis() throws PersistenceException ;
+    
+    
+    
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
 	}
-
-	@Override
-	public abstract MAbstractTypeDisjunction provideCopy() throws PersistenceException;
-
-	@Override
-	public boolean hasEssentialFields() throws PersistenceException {
-		return true;
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
 	}
-
-	public MAbstractTypeDisjunction(PersistentMType This, PersistentMModelItem myCONCMModelItem, long id)
-			throws persistence.PersistenceException {
-		/* Shall not be used by clients for object construction! Use static create operation instead! */
-		super(This, myCONCMModelItem, id);
-	}
-
-	static public long getTypeId() {
-		return 305;
-	}
-
-	@Override
-	public long getClassId() {
-		return getTypeId();
-	}
-
-	@Override
-	public void store() throws PersistenceException {
-		if (!this.isDelayed$Persistence())
-			return;
-		super.store();
-
-	}
-
-	@Override
-	public abstract PersistentMAbstractTypeDisjunction getThis() throws PersistenceException;
-
-	@Override
-	public void initializeOnInstantiation() throws PersistenceException {
-	}
-
-	@Override
-	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-	}
-
-	@Override
-	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields)
-			throws PersistenceException {
-		this.setThis((PersistentMAbstractTypeDisjunction) This);
-		if (this.equals(This)) {
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(
-					this.isDelayed$Persistence(), (PersistentMAbstractTypeDisjunction) This);
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMAbstractTypeDisjunction)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMAbstractTypeDisjunction)This);
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
 	}
-
-	@Override
-	public void initializeOnCreation() throws PersistenceException {
-	}
-
-	@Override
-	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
 		if (other instanceof PersistentMAbstractTypeDisjunction) {
 			PersistentMAbstractTypeDisjunction disjOther = (PersistentMAbstractTypeDisjunction) other;
 			Iterator<PersistentMType> iteratorThis = getThis().getContainedTypes().iterator();
@@ -124,9 +110,8 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 
 		return MFalse.getTheMFalse();
 	}
-
-	@Override
-	public String fetchName() throws PersistenceException {
+    public String fetchName() 
+				throws PersistenceException{
 		StringBuilder builder = new StringBuilder();
 
 		builder.append("{");
@@ -145,34 +130,30 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 
 		return builder.toString();
 	}
-
-	@Override
-	public MTypeSearchList getContainedTypes() throws PersistenceException {
+    public MTypeSearchList getContainedTypes() 
+				throws PersistenceException{
 		return SearchLists.toMTypeSearchList(fetchContainedTypes());
 	}
-
-	@Override
-	public String fetchTypeLinkOperator() throws PersistenceException {
+    public String fetchTypeLinkOperator() 
+				throws PersistenceException{
 		return MAbstractTypeDisjunction.TYPE_LINK_OP;
 	}
-
-	@Override
-	public PersistentMBoolean isSingleton() throws PersistenceException {
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
 		if (getThis().getContainedTypes().getLength() == 1) {
 			return getThis().getContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isSingleton();
 		}
 		return MFalse.getTheMFalse();
 	}
-
-	@Override
-	public PersistentMBoolean isAbstract() throws PersistenceException {
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
 		if (getThis().getContainedTypes().getLength() == 1) {
 			return getThis().getContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isAbstract();
 		}
 		return MTrue.getTheMTrue();
 	}
 
-	/* Start of protected part that is not overridden by persistence generator */
+    /* Start of protected part that is not overridden by persistence generator */
 	public static String TYPE_LINK_OP = "++";
 
 	public static PersistentMAbstractTypeDisjunction transientCreateAbstrTypeDisj(MTypeSearchList addends)
@@ -307,5 +288,5 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 		return result;
 	}
 	/* End of protected part that is not overridden by persistence generator */
-
+    
 }
