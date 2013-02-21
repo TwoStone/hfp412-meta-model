@@ -223,14 +223,11 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     public PersistentQuantity convert(final common.Fraction amount) 
 				throws PersistenceException{
-        //TODO: implement method: convert
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"convert\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		Fraction convertedAmount = this.getThis().getMyFunction().execute(amount);
+		return QuantityManager.getTheQuantityManager().createQuantity(
+				((PersistentUnitType) this.getThis().getSource().getType()).getDefaultUnit(), convertedAmount);
+
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		// implement method: initializeOnInstantiation
@@ -238,9 +235,9 @@ public class Conversion extends PersistentObject implements PersistentConversion
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentConversion)This);
@@ -251,14 +248,9 @@ public class Conversion extends PersistentObject implements PersistentConversion
     }
     public PersistentQuantity convertInverse(final common.Fraction amount) 
 				throws PersistenceException{
-        //TODO: implement method: convertInverse
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"convertInverse\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		Fraction convertedAmount = this.getThis().getMyFunction().executeInverse(amount);
+		return QuantityManager.getTheQuantityManager().createQuantity(this.getThis().getSource(), convertedAmount);
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// implement method: initializeOnCreation

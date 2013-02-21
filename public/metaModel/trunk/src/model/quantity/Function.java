@@ -184,9 +184,9 @@ public class Function extends PersistentObject implements PersistentFunction{
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentFunction)This);
@@ -202,24 +202,24 @@ public class Function extends PersistentObject implements PersistentFunction{
 	}
     public common.Fraction executeInverse(final common.Fraction amount) 
 				throws PersistenceException{
-        //TODO: implement method: executeInverse
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"executeInverse\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		Fraction result = null;
+		try {
+			result = amount.add(this.constant.mul(Fraction.parse("-1"))).mul(factor.invert());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
     public common.Fraction execute(final common.Fraction amount) 
 				throws PersistenceException{
-        //TODO: implement method: execute
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"execute\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		Fraction result = null;
+		try {
+			result = amount.mul(this.factor).add(this.constant);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

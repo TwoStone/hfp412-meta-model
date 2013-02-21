@@ -202,9 +202,13 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     public void createUnit(final String name, final PersistentUnitType type) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: createUnit
-        
-    }
+		AbsUnitSearchList old = Unit.getAbsUnitByName(name);
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION + name);
+		}
+		getThis().getUnits().add(Unit.createUnit(type, name));
+
+	}
     public UnitTypeSearchList getAtomicUnitTypes() 
 				throws PersistenceException{
 		final UnitTypeSearchList result = new UnitTypeSearchList();
@@ -229,9 +233,9 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public void addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: addReference
-        
-    }
+		// TODO: implement method: addReference
+
+	}
     public void createCompUnit(final String name, final PersistentCompUnitType type, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -259,14 +263,37 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     public void createCompUnit(final String name, final PersistentCompUnitType type) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: createCompUnit
-        
-    }
+
+		// DoubleDefinition: Namensgleichheit.
+		if (AbsUnitType.getAbsUnitTypeByName(name).iterator().hasNext())
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION);
+
+		// DoubleDefinition: Gleiche Auspr?gung (Typengleichheit).
+		// TODO: Double Definition bei gleicher Auspr --> etwas komplexer^^
+
+		Iterator<PersistentReferenceType> it = type.getRefs().iterator();
+		PersistentCompUnit newCompUnit = CompUnit.createCompUnit(type, name);
+
+		while (it.hasNext()) {
+
+			PersistentReferenceType curRefType = it.next();
+
+			if (curRefType.getRef().getDefaultUnit() != null) {
+				PersistentReference ref = Reference.createReference();
+				ref.setType(curRefType);
+				ref.setExponent(curRefType.getExponent());
+				ref.setRef(curRefType.getRef().getDefaultUnit());
+				newCompUnit.getRefs().add(ref);
+			}
+
+		}
+		this.getThis().getUnits().add(newCompUnit);
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+
+	}
     public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -296,14 +323,19 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     public void createCompUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: createCompUnitType
-        
-    }
+		// TODO: nur mit addReferenceType erstellen? Sonst entstehen leere CompUnitTypes
+		AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
+		}
+		this.getThis().getUnitTypes().add(CompUnitType.createCompUnitType(name));
+
+	}
     public void removeUnitType(final PersistentAbsUnitType type) 
 				throws PersistenceException{
-        //TODO: implement method: removeUnitType
-        
-    }
+		// TODO: implement method: removeUnitType; schon vorhandene Units zu diesem Typ mit löschen!
+
+	}
     public void createUnit(final String name, final PersistentUnitType type, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -315,9 +347,9 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     public void removeUnit(final PersistentAbsUnit unit) 
 				throws PersistenceException{
-        //TODO: implement method: removeUnit
-        
-    }
+		// TODO: implement method: removeUnit
+
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 
@@ -337,9 +369,15 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
 				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: setConversion
-        
-    }
+
+		// TODO: Conversion ??ndern, wenn schon vorhanden
+		// TODO: Doppelte Functions?
+		if (((PersistentUnitType) unit.getType()).getDefaultUnit() == null) {
+			throw new ConsistencyException(ExceptionConstants.NO_DEFAULT_UNIT);
+		}
+		Conversion.createConversion(unit, Function.createFunction(factor, constant));
+
+	}
     public void removeUnitType(final PersistentAbsUnitType type, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -357,19 +395,116 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit) 
 				throws PersistenceException{
-        //TODO: implement method: setDefaultUnit
-        
-    }
+		type.setDefaultUnit(unit);
+	}
     public void addReferenceType(final String name, final PersistentAbsUnitType unitType, final PersistentUnitType referenceUnitType, final long exponent) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: addReferenceType
-        
-    }
+
+		// Name schon vorhanden?
+		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION);
+		}
+
+		// CompUnitType erstellen mit Unterscheidung ob auf UnitType oder CompUnitType
+		getThis()
+				.getUnitTypes()
+				.add(unitType
+						.accept(new AbsUnitTypeReturnExceptionVisitor<PersistentCompUnitType, DoubleDefinitionException>() {
+
+							@Override
+							public PersistentCompUnitType handleCompUnitType(final PersistentCompUnitType compUnitType)
+									throws PersistenceException, DoubleDefinitionException {
+
+								// Schon eine Referenz auf referenceUnitType vorhanden?
+								PersistentReferenceType reference = compUnitType.getRefs().findFirst(
+										new Predcate<PersistentReferenceType>() {
+
+											@Override
+											public boolean test(final PersistentReferenceType argument)
+													throws PersistenceException {
+												if (argument.getRef().equals(unitType)) {
+													return true;
+												}
+												return false;
+											}
+										});
+
+								// Wenn ja, exponent erhöhen
+								if (reference != null) {
+									reference.setExponent(reference.getExponent() + exponent);
+								}
+								// Wenn nein, neue Referenz erstellen
+								else {
+									reference = ReferenceType.createReferenceType(exponent, referenceUnitType);
+								}
+
+								// Liste der Referenzen aus CompUnitType ohne referenceUnitType
+								final List<PersistentReferenceType> references = new ArrayList<PersistentReferenceType>();
+								final Iterator<PersistentReferenceType> iterator = compUnitType.getRefs().iterator();
+								while (iterator.hasNext()) {
+									references.add(iterator.next());
+								}
+
+								// Prüfen ob CompUnitType schon vorhanden
+
+								final PersistentCompUnitType result = CompUnitType.createCompUnitType(name);
+								result.getRefs().add(reference);
+								return result;
+							}
+
+							@Override
+							public PersistentCompUnitType handleUnitType(final PersistentUnitType unitType)
+									throws PersistenceException, DoubleDefinitionException {
+								PersistentCompUnitType result = null;
+
+								// referenceUnitType und unitType gleich?
+								if (referenceUnitType.equals(unitType)) {
+									final PersistentReferenceType referenceType = ReferenceType.createReferenceType(
+											exponent + 1, unitType);
+
+									// CompUnitType mit den Referenzen schon vorhanden?
+									if (existsCompUnitTypeWithReferenceTypes(referenceType)) {
+										throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_COMP_UNIT_TYPE
+												+ referenceType);
+									}
+
+									result = CompUnitType.createCompUnitType(name);
+									result.getRefs().add(referenceType);
+
+								} else {
+									final PersistentReferenceType referenceType = ReferenceType.createReferenceType(
+											exponent, referenceUnitType);
+									final PersistentReferenceType referenceType2 = ReferenceType.createReferenceType(1,
+											unitType);
+
+									// CompUnitType mit den Referenzen schon vorhanden?
+									if (existsCompUnitTypeWithReferenceTypes(referenceType, referenceType2)) {
+										throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_COMP_UNIT_TYPE
+												+ referenceType + ", " + referenceType2);
+									}
+
+									result = CompUnitType.createCompUnitType(name);
+									result.getRefs().add(referenceType);
+									result.getRefs().add(referenceType2);
+								}
+
+								return result;
+							}
+						}));
+
+	}
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: createUnitType
-        
-    }
+		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION);
+		}
+
+		this.getThis().getUnitTypes().add(UnitType.createUnitType(name));
+
+	}
     public void createCompUnitType(final String name, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
