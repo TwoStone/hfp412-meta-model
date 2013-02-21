@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 
-import persistence.PersistentObject;
+import persistence.PersistentRoot;
 import utils.Lists;
 
 /**
@@ -43,9 +43,9 @@ public class GOJAUnitTestRunner extends BlockJUnit4ClassRunner {
 	private void injectField(TestingBase testObject, Field field) throws IllegalAccessException, NoSuchFieldException {
 		InjectSingleton annotation = field.getAnnotation(InjectSingleton.class);
 		if (annotation != null) {
-			Class<? extends PersistentObject> singletonClass = annotation.value();
+			Class<? extends PersistentRoot> singletonClass = annotation.value();
 			testObject.resetSingleton(singletonClass);
-			PersistentObject singleton = testObject.getManager(singletonClass);
+			PersistentRoot singleton = testObject.getManager(singletonClass);
 			field.setAccessible(true);
 			field.set(testObject, singleton);
 		}

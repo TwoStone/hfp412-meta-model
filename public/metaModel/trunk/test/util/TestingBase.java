@@ -25,20 +25,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
-import persistence.Cache;
-import persistence.ConnectionHandler;
-import persistence.PersistenceException;
-import persistence.PersistentMAbstractTypeConjunction;
-import persistence.PersistentMAbstractTypeDisjunction;
-import persistence.PersistentMAspect;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMFalse;
-import persistence.PersistentMMixedConjunction;
-import persistence.PersistentMMixedTypeDisjunction;
-import persistence.PersistentMTrue;
-import persistence.PersistentMType;
-import persistence.PersistentObject;
+import persistence.*;
 import utils.SearchLists;
 import utils.Sets;
 
@@ -51,7 +38,7 @@ public abstract class TestingBase {
 	@InjectSingleton(MTrue.class)
 	protected PersistentMTrue mTrue;
 
-	private final Set<Class<? extends PersistentObject>> manager = Sets.newHashSet();
+	private final Set<Class<? extends PersistentRoot>> manager = Sets.newHashSet();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -152,7 +139,7 @@ public abstract class TestingBase {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <T extends PersistentObject> T getManager(Class<? extends T> managerClazz) {
+	protected <T extends PersistentRoot> T getManager(Class<? extends T> managerClazz) {
 		String methodName = String.format("getThe%s", managerClazz.getSimpleName());
 		Method method;
 		try {

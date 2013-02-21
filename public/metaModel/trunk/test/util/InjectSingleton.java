@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import persistence.PersistentObject;
+import persistence.PersistentRoot;
 
 /**
  * Annotation zum Injecten von Singletons in GOJA. Das Feld muss dabei den Persistent*-Typen des Singletons habe. Als
@@ -19,5 +19,5 @@ public @interface InjectSingleton {
 	/**
 	 * Die Klasse des Singleton, der injected werden soll.
 	 */
-	Class<? extends PersistentObject> value();
+	Class<? extends PersistentRoot> value();
 }
