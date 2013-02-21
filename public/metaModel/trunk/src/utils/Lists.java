@@ -52,7 +52,7 @@ public final class Lists {
 		return new ArrayList<T>(collection);
 	}
 
-	@SafeVarargs
+	@SuppressWarnings("unchecked")
 	public static <T> ArrayList<T> newArrayList(T... elements) {
 		ArrayList<T> list = newArrayList(elements.length);
 		for (T element : elements) {
