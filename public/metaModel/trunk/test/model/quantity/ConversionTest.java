@@ -3,13 +3,12 @@
  */
 package model.quantity;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import model.ConsistencyException;
 import model.CycleException;
-import model.quantity.Conversion;
-import model.quantity.Function;
-import model.quantity.Unit;
-import model.quantity.UnitType;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import persistence.PersistenceException;
@@ -18,18 +17,15 @@ import persistence.PersistentFunction;
 import persistence.PersistentQuantity;
 import persistence.PersistentUnit;
 import persistence.PersistentUnitType;
-import test.util.AbstractTest;
+import util.TestingBase;
 
 import common.Fraction;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Steffi
  * 
  */
-public class ConversionTest extends AbstractTest {
+public class ConversionTest extends TestingBase {
 	private PersistentUnitType type;
 	private PersistentUnit unit;
 	private PersistentUnit defaultUnit;
@@ -37,6 +33,12 @@ public class ConversionTest extends AbstractTest {
 
 	public ConversionTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
+	}
+
+	@Before
+	public void furtherSetup() throws NoSuchFieldException, IllegalAccessException {
+		resetSingleton(QuantityManager.class);
+		resetSingleton(FractionManager.class);
 	}
 
 	private void initObjects() throws Exception {

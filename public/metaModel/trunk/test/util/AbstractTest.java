@@ -1,4 +1,4 @@
-package test.util;
+package util;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,12 +7,12 @@ import model.ConsistencyException;
 import model.CycleException;
 import model.abstractOperation.FormalParameter;
 import model.abstractOperation.Operation;
-import model.basic.MFalse;
-import model.basic.MTrue;
 import model.messageOrLink.ActualParameter;
 import model.messageOrLink.Message;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
+import model.typeSystem.MEmptyTypeConjunction;
+import model.typeSystem.MEmptyTypeDisjunction;
 import model.typeSystem.MObject;
 
 import org.junit.Before;
@@ -24,18 +24,13 @@ import persistence.PersistentFormalParameter;
 import persistence.PersistentMAbstractTypeConjunction;
 import persistence.PersistentMAbstractTypeDisjunction;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMBoolean;
 import persistence.PersistentMEmptyTypeConjunction;
 import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMObject;
 import persistence.PersistentMessage;
 import persistence.PersistentOperation;
-import util.TestingBase;
 
 public abstract class AbstractTest extends TestingBase {
-
-	protected PersistentMBoolean mTrue;
-	protected PersistentMBoolean mFalse;
 
 	protected PersistentMAtomicType mat1;
 	protected PersistentMAtomicType mat2;
@@ -44,6 +39,7 @@ public abstract class AbstractTest extends TestingBase {
 	protected PersistentMAtomicType mat5;
 	protected PersistentMAtomicType mat6;
 
+	@InjectSingleton(MEmptyTypeConjunction.class)
 	protected PersistentMEmptyTypeConjunction mptEmpty;
 	protected PersistentMAbstractTypeConjunction mptSingle1;
 	protected PersistentMAbstractTypeConjunction mptSingle2;
@@ -55,6 +51,7 @@ public abstract class AbstractTest extends TestingBase {
 	protected PersistentMAbstractTypeConjunction mptMultiple5And6;
 	protected PersistentMAbstractTypeConjunction mptMultiple4And5;
 
+	@InjectSingleton(MEmptyTypeDisjunction.class)
 	protected PersistentMEmptyTypeDisjunction mstEmpty;
 	protected PersistentMAbstractTypeDisjunction mstSingle1;
 	protected PersistentMAbstractTypeDisjunction mstSingle2;
@@ -94,14 +91,8 @@ public abstract class AbstractTest extends TestingBase {
 	protected PersistentFormalParameter fp2;
 	protected PersistentFormalParameter fp3;
 
-	public AbstractTest() throws CycleException, PersistenceException, ConsistencyException {
-		super();
-	}
-
-	@Override
 	@Before
 	public void setup() throws PersistenceException, SQLException, IOException {
-		super.setup();
 		try {
 			this.init();
 		} catch (CycleException e) {
@@ -112,9 +103,6 @@ public abstract class AbstractTest extends TestingBase {
 	}
 
 	private void init() throws CycleException, PersistenceException, ConsistencyException {
-		// Boolean
-		mTrue = MTrue.getTheMTrue();
-		mFalse = MFalse.getTheMFalse();
 
 		// AtomicType
 		mat1 = MAtomicType.createMAtomicType("Typ1", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 1"));
@@ -181,9 +169,6 @@ public abstract class AbstractTest extends TestingBase {
 		mpo4And5 = MObject.createMObject();
 		mpo4And5.addType(mat4);
 		mpo4And5.addType(mat5);
-
-		// TODO: Exemplar von emptySumType
-		// msoEmpty = InstanceObject.createInstanceObject(mstEmpty);
 
 		standardOp = Operation.createOperation("Standardoperation", mat1, mat6);
 		voidOp = Operation.createOperation("void-Operation", mat1, mstEmpty);

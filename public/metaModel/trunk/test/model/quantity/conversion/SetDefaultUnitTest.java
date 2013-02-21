@@ -12,11 +12,11 @@ import org.junit.Test;
 import persistence.PersistenceException;
 import persistence.PersistentUnit;
 import persistence.PersistentUnitType;
-import test.util.AbstractTest;
+import util.TestingBase;
 
 import common.Fraction;
 
-public class SetDefaultUnitTest extends AbstractTest {
+public class SetDefaultUnitTest extends TestingBase {
 
 	public SetDefaultUnitTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();

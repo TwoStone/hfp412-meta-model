@@ -1,4 +1,4 @@
-package test.util;
+package util;
 
 import modelServer.RemoteServerMaster;
 import modelServer.ServerReporter;

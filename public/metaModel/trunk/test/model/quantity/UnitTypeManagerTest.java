@@ -3,11 +3,12 @@
  */
 package model.quantity;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
-import model.quantity.AbsUnitType;
-import model.quantity.UnitTypeManager;
 
 import org.junit.Test;
 
@@ -15,17 +16,14 @@ import persistence.PersistenceException;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
-import test.util.AbstractTest;
+import util.TestingBase;
 import constants.ExceptionConstants;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Testet den UnitTypeManager
  * 
  */
-public class UnitTypeManagerTest extends AbstractTest {
+public class UnitTypeManagerTest extends TestingBase {
 
 	public UnitTypeManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();

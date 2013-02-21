@@ -1,4 +1,3 @@
-package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,13 +11,13 @@ import model.CycleException;
 import org.junit.Test;
 
 import persistence.PersistenceException;
-import test.util.AbstractTest;
+import util.TestingBase;
 
 import common.Fraction;
 
-public class FractionTests extends AbstractTest {
+public class FractionTest extends TestingBase {
 
-	public FractionTests() throws CycleException, PersistenceException, ConsistencyException {
+	public FractionTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
 	}
 

@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ SetConversionTest.class, SetDefaultUnitTest.class })
+@SuiteClasses({ ConversionTest.class, FunctionTests.class, QuantityTest.class, UnitTypeManagerTest.class,
+		SetConversionTest.class, SetDefaultUnitTest.class })
 public class AllTests {
 
 }

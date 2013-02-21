@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Iterator;
 
-import model.ConsistencyException;
-import model.CycleException;
 import model.DoubleDefinitionException;
 
 import org.junit.Before;
@@ -15,15 +13,13 @@ import persistence.PersistenceException;
 import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
 import persistence.Predcate;
-import test.util.AbstractTest;
+import util.AbstractTest;
+import util.InjectSingleton;
 
 public class AssociationTest extends AbstractTest {
-	private final PersistentAssociationManager manager;
 
-	public AssociationTest() throws CycleException, PersistenceException, ConsistencyException {
-		super();
-		this.manager = AssociationManager.getTheAssociationManager();
-	}
+	@InjectSingleton(AssociationManager.class)
+	private PersistentAssociationManager manager;
 
 	@Before
 	public void cleanUp() throws PersistenceException {

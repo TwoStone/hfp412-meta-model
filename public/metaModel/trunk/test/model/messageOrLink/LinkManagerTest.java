@@ -9,7 +9,6 @@ import model.abstractOperation.Association;
 import model.abstractOperation.AssociationManager;
 import model.abstractOperation.Hierarchy;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import persistence.PersistenceException;
@@ -17,21 +16,19 @@ import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
 import persistence.PersistentHierarchy;
 import persistence.PersistentLinkManager;
-import test.util.AbstractTest;
+import util.AbstractTest;
+import util.InjectSingleton;
 
 public class LinkManagerTest extends AbstractTest {
 	public LinkManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
 	}
 
+	@InjectSingleton(LinkManager.class)
 	private PersistentLinkManager linkMan;
-	private PersistentAssociationManager associationMan;
 
-	@Before
-	public void inits() throws PersistenceException {
-		this.linkMan = getManager(LinkManager.class);
-		this.associationMan = getManager(AssociationManager.class);
-	}
+	@InjectSingleton(AssociationManager.class)
+	private PersistentAssociationManager associationMan;
 
 	@Test
 	public void createLink() throws PersistenceException, ConsistencyException, CycleException {

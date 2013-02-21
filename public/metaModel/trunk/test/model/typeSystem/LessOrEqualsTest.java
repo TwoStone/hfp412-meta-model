@@ -8,11 +8,20 @@ import org.junit.Test;
 import persistence.PersistenceException;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMMixedConjunction;
 import persistence.PersistentMMixedTypeDisjunction;
+import util.InjectSingleton;
 import util.TestingBase;
 
 public class LessOrEqualsTest extends TestingBase {
+
+	@InjectSingleton(MEmptyTypeDisjunction.class)
+	private PersistentMEmptyTypeDisjunction emptyTypeDisjunction;
+
+	@InjectSingleton(MEmptyTypeConjunction.class)
+	private PersistentMEmptyTypeConjunction emptyTypeConjunction;
 
 	@Test
 	public void sameAtomicType() throws ConsistencyException, PersistenceException {
@@ -184,14 +193,14 @@ public class LessOrEqualsTest extends TestingBase {
 		PersistentMAtomicType typeA = atomicType("A", aspect("A"));
 
 		assertMFalse(MEmptyTypeConjunction.getTheMEmptyTypeConjunction().isLessOrEqual(typeA));
-		assertMTrue(typeA.isLessOrEqual(MEmptyTypeConjunction.getTheMEmptyTypeConjunction()));
+		assertMTrue(typeA.isLessOrEqual(emptyTypeConjunction));
 	}
 
 	@Test
 	public void emptySum() throws PersistenceException {
 		PersistentMAtomicType typeA = atomicType("A", aspect("A"));
 
-		assertMTrue(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction().isLessOrEqual(typeA));
+		assertMTrue(emptyTypeDisjunction.isLessOrEqual(typeA));
 	}
 
 }

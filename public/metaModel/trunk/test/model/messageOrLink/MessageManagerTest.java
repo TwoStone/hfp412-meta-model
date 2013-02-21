@@ -2,10 +2,8 @@ package model.messageOrLink;
 
 import static org.junit.Assert.assertEquals;
 import model.ConsistencyException;
-import model.CycleException;
 import model.DoubleDefinitionException;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import persistence.ActualParameterSearchList;
@@ -13,19 +11,13 @@ import persistence.PersistenceException;
 import persistence.PersistentMessage;
 import persistence.PersistentMessageManager;
 import persistence.Predcate;
-import test.util.AbstractTest;
+import util.AbstractTest;
+import util.InjectSingleton;
 
 public class MessageManagerTest extends AbstractTest {
-	public MessageManagerTest() throws CycleException, PersistenceException, ConsistencyException {
-		super();
-	}
 
+	@InjectSingleton(MessageManager.class)
 	private PersistentMessageManager messMan;
-
-	@Before
-	public void inits() throws PersistenceException {
-		this.messMan = getManager(MessageManager.class);
-	}
 
 	@Test
 	public void removeStandardMessage() throws PersistenceException, DoubleDefinitionException {

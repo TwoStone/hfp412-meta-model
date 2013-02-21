@@ -88,6 +88,9 @@
 
 
 	<target name="junit" depends="compileTest">
+		<delete dir="${reports.junit.dir}" failonerror="no">
+			<include name="*"/>
+		</delete>
 		<mkdir dir="${reports.junit.dir}"/>
 		<junit printsummary="yes" haltonfailure="no" includeantruntime="yes">
 			<formatter type="xml"/>
@@ -101,6 +104,7 @@
 			<batchtest todir="${reports.junit.dir}">
 				<fileset dir="${test.dir}">
 					<include name="**/*Test.java"/>
+					<exclude name="**/util/**"/>
 				</fileset>
 			</batchtest>
 		</junit>

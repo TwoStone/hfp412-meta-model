@@ -1,30 +1,19 @@
-package abstractOperation;
+package model.abstractOperation;
 
 import static org.junit.Assert.assertEquals;
-import model.ConsistencyException;
-import model.CycleException;
 import model.DoubleDefinitionException;
-import model.abstractOperation.Operation;
-import model.abstractOperation.OperationManager;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import persistence.PersistenceException;
 import persistence.PersistentOperationManager;
-import test.util.AbstractTest;
+import util.AbstractTest;
+import util.InjectSingleton;
 
 public class OperationTest extends AbstractTest {
+
+	@InjectSingleton(OperationManager.class)
 	private PersistentOperationManager manager;
-
-	public OperationTest() throws CycleException, PersistenceException, ConsistencyException {
-		super();
-	}
-
-	@Before
-	public void cleanUp() throws PersistenceException {
-		this.manager = OperationManager.getTheOperationManager();
-	}
 
 	@Test
 	public void isStatic() throws PersistenceException, DoubleDefinitionException {

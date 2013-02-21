@@ -7,11 +7,20 @@ import org.junit.Test;
 import persistence.PersistenceException;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMMixedConjunction;
 import persistence.PersistentMMixedTypeDisjunction;
+import util.InjectSingleton;
 import util.TestingBase;
 
 public class IsAbstractTest extends TestingBase {
+
+	@InjectSingleton(MEmptyTypeConjunction.class)
+	private PersistentMEmptyTypeConjunction emptyTypeConjunction;
+
+	@InjectSingleton(MEmptyTypeDisjunction.class)
+	private PersistentMEmptyTypeDisjunction emptyTypeDisjunction;
 
 	@Test
 	public void onMAtomicType_test01() throws PersistenceException {
@@ -33,14 +42,12 @@ public class IsAbstractTest extends TestingBase {
 
 	@Test
 	public void onEmtpyProduct() throws PersistenceException {
-		// TODO Wirklich? Anything ist nicht abstrakt?
-		org.junit.Assert.assertEquals(mFalse, MEmptyTypeConjunction.getTheMEmptyTypeConjunction().isAbstract());
+		org.junit.Assert.assertEquals(mFalse, emptyTypeConjunction.isAbstract());
 	}
 
 	@Test
 	public void onEmtpySum() throws PersistenceException {
-
-		org.junit.Assert.assertEquals(mTrue, MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction().isAbstract());
+		org.junit.Assert.assertEquals(mTrue, emptyTypeDisjunction.isAbstract());
 	}
 
 	@Test

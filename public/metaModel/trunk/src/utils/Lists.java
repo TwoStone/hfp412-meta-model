@@ -52,6 +52,15 @@ public final class Lists {
 		return new ArrayList<T>(collection);
 	}
 
+	@SafeVarargs
+	public static <T> ArrayList<T> newArrayList(T... elements) {
+		ArrayList<T> list = newArrayList(elements.length);
+		for (T element : elements) {
+			list.add(element);
+		}
+		return list;
+	}
+
 	/**
 	 * Transformiert die Liste elementweise in dem die übergebene {@link FunctionWithResult Funktion} auf jedem Element
 	 * angewendet wird.

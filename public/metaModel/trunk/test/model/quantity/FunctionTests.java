@@ -5,17 +5,16 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import model.ConsistencyException;
 import model.CycleException;
-import model.quantity.Function;
 
 import org.junit.Test;
 
 import persistence.PersistenceException;
 import persistence.PersistentFunction;
-import test.util.AbstractTest;
+import util.TestingBase;
 
 import common.Fraction;
 
-public class FunctionTests extends AbstractTest {
+public class FunctionTests extends TestingBase {
 
 	public FunctionTests() throws CycleException, PersistenceException, ConsistencyException {
 		super();

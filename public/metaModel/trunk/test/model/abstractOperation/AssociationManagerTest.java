@@ -13,15 +13,16 @@ import persistence.PersistenceException;
 import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
 import persistence.Predcate;
-import test.util.AbstractTest;
+import util.AbstractTest;
+import util.InjectSingleton;
 
 public class AssociationManagerTest extends AbstractTest {
 
-	private final PersistentAssociationManager manager;
+	@InjectSingleton(AssociationManager.class)
+	private PersistentAssociationManager manager;
 
 	public AssociationManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
-		this.manager = AssociationManager.getTheAssociationManager();
 	}
 
 	@Before

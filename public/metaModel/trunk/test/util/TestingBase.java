@@ -22,8 +22,8 @@ import modelServer.ConnectionServer;
 
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
 
 import persistence.Cache;
 import persistence.ConnectionHandler;
@@ -38,19 +38,23 @@ import persistence.PersistentMMixedConjunction;
 import persistence.PersistentMMixedTypeDisjunction;
 import persistence.PersistentMTrue;
 import persistence.PersistentMType;
-import test.util.EmptyServerReporter;
 import utils.SearchLists;
 import utils.Sets;
 
+@RunWith(GOJAUnitTestRunner.class)
 public abstract class TestingBase {
 
+	@InjectSingleton(MFalse.class)
 	protected PersistentMFalse mFalse;
+
+	@InjectSingleton(MTrue.class)
 	protected PersistentMTrue mTrue;
 
 	private final Set<Class<?>> manager = Sets.newHashSet();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		Cache.getTheCache().reset$For$Test();
 		// System.out.println("Abstract initializations...");
 		ConnectionHandler connection = ConnectionHandler.getTheConnectionHandler();
 		connection.connect(DBConnectionConstants.DataBaseName, DBConnectionConstants.SchemaName,
@@ -70,15 +74,6 @@ public abstract class TestingBase {
 		// TODO Hier vielleicht noch das leeren der DB einbauen... Für pauschalbereinigung
 
 		ConnectionServer.stopTheConnectionServer();
-	}
-
-	@Before
-	public void setup() throws PersistenceException, SQLException, IOException {
-		Cache.getTheCache().reset$For$Test();
-		MTrue.reset$For$Test = true;
-		MFalse.reset$For$Test = true;
-		mFalse = MFalse.getTheMFalse();
-		mTrue = MTrue.getTheMTrue();
 	}
 
 	protected static PersistentMAtomicType atomicType(String name, PersistentMAspect aspect)
@@ -181,11 +176,15 @@ public abstract class TestingBase {
 		Cache.getTheCache().reset$For$Test();
 
 		for (Class<?> managerClazz : manager) {
-			Field field = managerClazz.getField("reset$For$Test");
-			field.set(null, true);
+			resetSingleton(managerClazz);
 		}
 
 		manager.clear();
+	}
+
+	protected void resetSingleton(Class<?> managerClazz) throws NoSuchFieldException, IllegalAccessException {
+		Field field = managerClazz.getField("reset$For$Test");
+		field.set(null, true);
 	}
 
 }

@@ -3,7 +3,6 @@ package model.typeSystem;
 import junit.framework.Assert;
 import model.CycleException;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import persistence.PersistenceException;
@@ -16,13 +15,6 @@ import persistence.PersistentMMixedTypeDisjunction;
 import util.TestingBase;
 
 public class DisjunctiveNormalFormTest extends TestingBase {
-
-	@Before
-	public void setUp() throws PersistenceException {
-	}
-
-	public void tearDown() {
-	}
 
 	@Test
 	public void testAtomicType() throws PersistenceException, CycleException {

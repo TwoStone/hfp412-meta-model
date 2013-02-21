@@ -7,11 +7,20 @@ import org.junit.Test;
 import persistence.PersistenceException;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMMixedConjunction;
 import persistence.PersistentMMixedTypeDisjunction;
+import util.InjectSingleton;
 import util.TestingBase;
 
 public class IsSingeltonTest extends TestingBase {
+
+	@InjectSingleton(MEmptyTypeDisjunction.class)
+	private PersistentMEmptyTypeDisjunction emptyTypeDisjunction;
+
+	@InjectSingleton(MEmptyTypeConjunction.class)
+	private PersistentMEmptyTypeConjunction emptyTypeConjunction;
 
 	@Test
 	public void onMAtomicType_test01() throws PersistenceException {
@@ -33,14 +42,15 @@ public class IsSingeltonTest extends TestingBase {
 
 	@Test
 	public void onEmtpyProduct() throws PersistenceException {
-		// Anything Singleton?
-		org.junit.Assert.assertEquals(mTrue, MEmptyTypeConjunction.getTheMEmptyTypeConjunction().isSingleton());
+		MEmptyTypeDisjunction.reset$For$Test = true;
+		org.junit.Assert.assertEquals(mTrue, emptyTypeConjunction.isSingleton());
 	}
 
 	@Test
 	public void onEmtpySum() throws PersistenceException {
+		MEmptyTypeDisjunction.reset$For$Test = true;
 		// Wirklich? Löwe hatte doch was anderes gesagt, oder?
-		org.junit.Assert.assertEquals(mTrue, MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction().isSingleton());
+		org.junit.Assert.assertEquals(mTrue, emptyTypeDisjunction.isSingleton());
 	}
 
 	@Test

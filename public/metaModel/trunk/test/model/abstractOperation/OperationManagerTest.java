@@ -1,26 +1,19 @@
-package abstractOperation;
+package model.abstractOperation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Iterator;
 
 import model.ConsistencyException;
-import model.CycleException;
 import model.DoubleDefinitionException;
 import model.NotAvailableException;
-import model.abstractOperation.FormalParameter;
-import model.abstractOperation.Operation;
-import model.abstractOperation.OperationManager;
 import model.messageOrLink.MessageManager;
 import model.typeSystem.MEmptyTypeDisjunction;
 import model.visitor.AbsOperationVisitor;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import persistence.ActualParameterSearchList;
@@ -34,22 +27,16 @@ import persistence.PersistentOperation;
 import persistence.PersistentOperationManager;
 import persistence.Predcate;
 import persistence.SearchListRoot;
-import test.util.AbstractTest;
+import util.AbstractTest;
+import util.InjectSingleton;
 
 public class OperationManagerTest extends AbstractTest {
 
+	@InjectSingleton(OperationManager.class)
 	private PersistentOperationManager manager;
+
+	@InjectSingleton(MessageManager.class)
 	private PersistentMessageManager messageManager;
-
-	public OperationManagerTest() throws CycleException, PersistenceException, ConsistencyException {
-		super();
-	}
-
-	@Before
-	public void cleanUp() throws PersistenceException, SQLException, IOException {
-		this.manager = getManager(OperationManager.class);
-		this.messageManager = getManager(MessageManager.class);
-	}
 
 	@Test(expected = DoubleDefinitionException.class)
 	public void equalNamedOperationsAreNotAllowed() throws DoubleDefinitionException, PersistenceException {
