@@ -3,6 +3,7 @@ package model.messageOrLink;
 import model.ConsistencyException;
 import model.CycleException;
 import model.UserException;
+import model.typeSystem.ObjectManager;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -12,12 +13,12 @@ import persistence.ConnectionHandler;
 import persistence.Invoker;
 import persistence.LinkManagerProxi;
 import persistence.LinkManager_LinksProxi;
+import persistence.MObjectSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAssociation;
 import persistence.PersistentCreateLinkCommand;
 import persistence.PersistentLink;
 import persistence.PersistentLinkManager;
-import persistence.PersistentMAtomicType;
 import persistence.PersistentMObject;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
@@ -196,31 +197,37 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 	public void createLink(final PersistentAssociation type, final PersistentMObject source,
 			final PersistentMObject target) throws model.ConsistencyException, model.CycleException,
 			PersistenceException {
+
 		// FIXME: Hierarchien!
 		if (target.containsInHierarchies(source, type.getHierarchies().getList()).toBoolean()) {
-			throw new CycleException("Es entstuende ein Zyklus beim anlegen einer des Links von " + source + " nach "
+			throw new CycleException("Es entstuende ein Zyklus ,beim anlegen einer des Links von " + source + " nach "
 					+ target);
 		}
-		// Passt die Source zum AssociationType?
-		if (source.getTypes().findFirst(new Predcate<PersistentMAtomicType>() {
+
+		MObjectSearchList possibleSources = ObjectManager.getTheObjectManager()
+				.fetchObjectsWithTypeLE(type.getSource());
+
+		MObjectSearchList possibleTargets = ObjectManager.getTheObjectManager()
+				.fetchObjectsWithTypeLE(type.getTarget());
+
+		// Passt die Source zum Association,Type?
+		if (possibleSources.findFirst(new Predcate<PersistentMObject>() {
 
 			@Override
-			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-				return argument.equals(type.getSource());
+			public boolean test(PersistentMObject argument) throws PersistenceException {
+				return argument.equals(source);
 			}
-
 		}) == null) {
 			throw new ConsistencyException("Die gewaehlte Source passt nicht zum AssoicationType!");
 		}
 
 		// Ist das Target gemaess Typebene korrekt?
-		if (target.getTypes().findFirst(new Predcate<PersistentMAtomicType>() {
+		if (possibleTargets.findFirst(new Predcate<PersistentMObject>() {
 
 			@Override
-			public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-				return argument.equals(type.getTarget());
+			public boolean test(PersistentMObject argument) throws PersistenceException {
+				return argument.equals(target);
 			}
-
 		}) == null) {
 			throw new ConsistencyException("Das gewaehlte Target passt nicht zum AssoicationType!");
 		}
