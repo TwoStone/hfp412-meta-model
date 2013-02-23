@@ -24,8 +24,8 @@ import persistence.PersistenceException;
 import persistence.PersistentAssociation;
 import persistence.PersistentCommonDate;
 import persistence.PersistentCreateLinkCommand;
-import persistence.PersistentMObject;
 import persistence.PersistentLinkManager;
+import persistence.PersistentMObject;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 

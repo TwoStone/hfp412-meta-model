@@ -1,9 +1,25 @@
 
 package model.measurement;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AggregationStrategyExceptionVisitor;
+import model.visitor.AggregationStrategyReturnExceptionVisitor;
+import model.visitor.AggregationStrategyReturnVisitor;
+import model.visitor.AggregationStrategyVisitor;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MeasurementSearchList;
+import persistence.MinStrategyProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAbsQuantity;
+import persistence.PersistentMinStrategy;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */

@@ -233,6 +233,7 @@ part typeSystem {
 		void removeType(MAtomicType oldType) throws ConsistencyException;
 		void replaceType(MAtomicType oldType, MAtomicType newType) throws ConsistencyException; 
 		MBoolean containsInHierarchies(MObject obj, Hierarchy** hieracs);
+		MBoolean containsInHierarchy(MObject obj, Hierarchy hierac);
 	}
 
 	class MSingletonObject##SngltnObj extends AbstractObject {
@@ -506,7 +507,7 @@ class ActualParameter {
 }
 
 class Link extends MessageOrLink {
-    prior Association type;
+    prior symmetric Association type;
 }
 }
 

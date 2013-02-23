@@ -1,6 +1,5 @@
 package model.measurement;
 
-import model.NotComputableException;
 import model.UserException;
 import model.visitor.AggregationStrategyExceptionVisitor;
 import model.visitor.AggregationStrategyReturnExceptionVisitor;

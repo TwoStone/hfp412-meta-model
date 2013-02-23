@@ -256,6 +256,16 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 	}
 
 	@Override
+	public PersistentMBoolean containsInHierarchy(final PersistentMObject obj, final PersistentHierarchy hierac)
+			throws PersistenceException {
+
+		HierarchySearchList listOfHierarchies = new HierarchySearchList();
+		listOfHierarchies.add(hierac);
+
+		return getThis().containsInHierarchies(obj, listOfHierarchies);
+	}
+
+	@Override
 	public void initializeOnInstantiation() throws PersistenceException {
 	}
 

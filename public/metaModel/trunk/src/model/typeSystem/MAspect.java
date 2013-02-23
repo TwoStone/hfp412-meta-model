@@ -5,7 +5,16 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.*;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MAspectProxi;
+import persistence.MAspectSearchList;
+import persistence.MAtomicTypeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentMAspect;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 /* Additional import section end */
 

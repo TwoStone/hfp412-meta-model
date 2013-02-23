@@ -13,6 +13,7 @@ import persistence.Anything;
 import persistence.AssociationProxi;
 import persistence.Association_HierarchiesProxi;
 import persistence.ConnectionHandler;
+import persistence.LinkSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsOperation;
 import persistence.PersistentAssociation;
@@ -181,6 +182,13 @@ public class Association extends model.abstractOperation.AbsOperation implements
 			this.setSource((PersistentMType)final$$Fields.get("source"));
 			this.setTarget((PersistentMType)final$$Fields.get("target"));
 		}
+    }
+    public LinkSearchList inverseGetType() 
+				throws PersistenceException{
+        LinkSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theLinkFacade
+							.inverseGetType(this.getId(), this.getClassId());
+		return result;
     }
     public PersistentMBoolean isObservation() 
 				throws PersistenceException{

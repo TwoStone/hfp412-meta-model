@@ -1,8 +1,16 @@
 
 package model;
 
-import persistence.*;
-import model.visitor.*;
+import model.visitor.ConsistencyExceptionExceptionVisitor;
+import model.visitor.ConsistencyExceptionReturnExceptionVisitor;
+import model.visitor.ConsistencyExceptionReturnVisitor;
+import model.visitor.ConsistencyExceptionVisitor;
+import model.visitor.UserExceptionExceptionVisitor;
+import model.visitor.UserExceptionReturnExceptionVisitor;
+import model.visitor.UserExceptionReturnVisitor;
+import model.visitor.UserExceptionVisitor;
+import persistence.PersistenceException;
+import persistence.TDObserver;
 
 
 /* Additional import section end */

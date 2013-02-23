@@ -24,8 +24,8 @@ import persistence.PersistenceException;
 import persistence.PersistentAccountManager;
 import persistence.PersistentCommonDate;
 import persistence.PersistentCreateAccountCommand;
-import persistence.PersistentMObject;
 import persistence.PersistentMAccountType;
+import persistence.PersistentMObject;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 

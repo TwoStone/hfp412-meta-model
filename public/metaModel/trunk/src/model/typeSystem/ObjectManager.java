@@ -1,12 +1,29 @@
 package model.typeSystem;
 
-import model.ConsistencyException;
 import model.UserException;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.*;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.MAtomicTypeSearchList;
+import persistence.MObjectSearchList;
+import persistence.ObjectManagerProxi;
+import persistence.ObjectManager_ObjectsProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAddTypeCommand;
+import persistence.PersistentCreateMObjectCommand;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMObject;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentObjectManager;
+import persistence.PersistentProxi;
+import persistence.PersistentRemoveTypeCommand;
+import persistence.PersistentReplaceTypeCommand;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
