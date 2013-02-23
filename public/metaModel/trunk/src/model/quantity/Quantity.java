@@ -22,6 +22,7 @@ import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnit;
 import persistence.PersistentCompUnit;
 import persistence.PersistentCompoundQuantity;
+import persistence.PersistentMBoolean;
 import persistence.PersistentProxi;
 import persistence.PersistentQuantity;
 import persistence.PersistentReference;
@@ -522,6 +523,13 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 				return false;
 			}
 		});
+	}
+
+	@Override
+	public PersistentMBoolean isLessOrEqualThan(PersistentAbsQuantity compareValue) throws UserException,
+			PersistenceException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/* End of protected part that is not overridden by persistence generator */
