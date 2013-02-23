@@ -4,6 +4,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * This class hides an attribute of type Map and provides an aggregate functionality to sum values with the same key
+ * Restriction: Values must be "castable" to Long
+ * 
+ * @author Stefan
+ * 
+ * @param <K>
+ *            Type for key value for hided HashMap.
+ */
 public class SummableHashMap<K> {
 
 	private final Map<K, Long> map;
@@ -16,6 +25,12 @@ public class SummableHashMap<K> {
 		return map;
 	}
 
+	/**
+	 * merges the argument to the map. values with the same key will be added.
+	 * 
+	 * @param arg
+	 *            SummableHashMap to merge
+	 */
 	public void aggregate(SummableHashMap<K> arg) {
 		Iterator<K> i = arg.getMap().keySet().iterator();
 		while (i.hasNext()) {
