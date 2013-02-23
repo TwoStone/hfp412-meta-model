@@ -294,6 +294,8 @@ part quantity {
 		AbsQuantity sub(AbsQuantity subtrahend) throws NotComputableException;
 		AbsQuantity mul(AbsQuantity factor) throws NotComputableException;
 		AbsQuantity div(AbsQuantity divisor) throws NotComputableException;
+		MBoolean isLessOrEqualThan(AbsQuantity compareValue) throws UserException;
+		
 	}
 
 	class Quantity extends AbsQuantity {
