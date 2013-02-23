@@ -13,7 +13,7 @@ import persistence.PersistentRoot;
  * "Persistent".
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = { ElementType.FIELD })
+@Target(value = { ElementType.FIELD, ElementType.PARAMETER })
 public @interface InjectSingleton {
 
 	/**

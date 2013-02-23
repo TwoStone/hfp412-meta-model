@@ -17,12 +17,6 @@ import util.TestingBase;
 
 public class LessOrEqualsTest extends TestingBase {
 
-	@InjectSingleton(MEmptyTypeDisjunction.class)
-	private PersistentMEmptyTypeDisjunction emptyTypeDisjunction;
-
-	@InjectSingleton(MEmptyTypeConjunction.class)
-	private PersistentMEmptyTypeConjunction emptyTypeConjunction;
-
 	@Test
 	public void sameAtomicType() throws ConsistencyException, PersistenceException {
 		PersistentMAspect aspect = aspect("A");
@@ -189,7 +183,9 @@ public class LessOrEqualsTest extends TestingBase {
 	}
 
 	@Test
-	public void emptyProduct() throws PersistenceException {
+	public void emptyProduct(
+			@InjectSingleton(MEmptyTypeConjunction.class) PersistentMEmptyTypeConjunction emptyTypeConjunction)
+			throws PersistenceException {
 		PersistentMAtomicType typeA = atomicType("A", aspect("A"));
 
 		assertMFalse(MEmptyTypeConjunction.getTheMEmptyTypeConjunction().isLessOrEqual(typeA));
@@ -197,7 +193,10 @@ public class LessOrEqualsTest extends TestingBase {
 	}
 
 	@Test
-	public void emptySum() throws PersistenceException {
+	public void emptySum(
+			@InjectSingleton(MEmptyTypeDisjunction.class) PersistentMEmptyTypeDisjunction emptyTypeDisjunction)
+			throws PersistenceException {
+
 		PersistentMAtomicType typeA = atomicType("A", aspect("A"));
 
 		assertMTrue(emptyTypeDisjunction.isLessOrEqual(typeA));
