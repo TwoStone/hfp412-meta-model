@@ -309,7 +309,7 @@ part quantity {
 	}
 
 	abstract class AbsUnit {
-		no-view prior AbsUnitType type; // 1
+		symmetric no-view prior AbsUnitType type; // 1
 		indexed prior String name;
 	}
 
