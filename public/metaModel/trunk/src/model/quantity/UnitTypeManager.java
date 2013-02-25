@@ -231,8 +231,9 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 
 		return result;
 	}
-    public void addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent) 
+    public PersistentCompUnit addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent) 
 				throws model.DoubleDefinitionException, PersistenceException{
+		return null;
 		// TODO: implement method: addReference
 
 	}
@@ -397,7 +398,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 				throws PersistenceException{
 		type.setDefaultUnit(unit);
 	}
-    public void addReferenceType(final String name, final PersistentAbsUnitType unitType, final PersistentUnitType referenceUnitType, final long exponent) 
+    public PersistentCompUnitType addReferenceType(final String name, final PersistentAbsUnitType unitType, final PersistentUnitType referenceUnitType, final long exponent) 
 				throws model.DoubleDefinitionException, PersistenceException{
 
 		// Name schon vorhanden?
@@ -492,6 +493,8 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 								return result;
 							}
 						}));
+		// TODO: return
+		return null;
 
 	}
     public void createUnitType(final String name) 

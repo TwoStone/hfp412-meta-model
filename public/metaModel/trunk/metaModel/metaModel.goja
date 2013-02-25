@@ -314,7 +314,7 @@ part quantity {
 	}
 
 	class CompUnit extends AbsUnit {
-		Reference ** refs;
+		symmetric Reference ** refs;
 		
 		/* Pr?ft, ob Exponenten der Exemplarebene mit Typebene ?bereinstimmen*/
 		void checkExponents() throws ExponentMatchingException;
@@ -326,7 +326,7 @@ part quantity {
 	}
 
 	class CompUnitType extends AbsUnitType {
-	 ReferenceType ** refs;
+	 	symmetric ReferenceType ** refs;
 	}
 
 	class UnitType extends AbsUnitType {
@@ -378,14 +378,14 @@ part quantity {
 		active void createCompUnitType(String name) throws DoubleDefinitionException;
 		active void removeUnitType(AbsUnitType type);
 		active void setDefaultUnit(UnitType type, Unit unit);
-		active void addReferenceType(String name, AbsUnitType unitType, UnitType referenceUnitType, Integer exponent) 
+		active CompUnitType addReferenceType(String name, AbsUnitType unitType, UnitType referenceUnitType, Integer exponent) 
 			throws DoubleDefinitionException;
 
 		/* Operationen fuer Exemplarebene */
 		active void createUnit(String name, UnitType type) throws DoubleDefinitionException;
 		active void createCompUnit(String name, CompUnitType type) throws DoubleDefinitionException;
 		active void removeUnit(AbsUnit unit);
-		active void addReference(String name, AbsUnit unit, Unit referenceUnit, Integer exponent) throws DoubleDefinitionException;
+		active CompUnit addReference(String name, AbsUnit unit, Unit referenceUnit, Integer exponent) throws DoubleDefinitionException;
 		active void setConversion(Unit unit, Fraction factor, Fraction constant) throws ConsistencyException;
 	}
 
@@ -633,7 +633,6 @@ exception WrongSubTypeAspectException{}
 exception EmptyTypeException{}
 exception NotAvailableException{}
 exception NotFoundException{}
-exception AlreadyFinalizedException{}
 exception NotFinalizedException{}
 exception ExponentMatchingException{}
 exception NotComputableException{}
