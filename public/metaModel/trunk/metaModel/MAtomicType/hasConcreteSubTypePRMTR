@@ -1,0 +1,10 @@
+{
+		Iterator<PersistentMAtomicType> subTypesI = getThis().getSubTypes().iterator();
+		while (subTypesI.hasNext()) {
+			PersistentMAtomicType currentType = subTypesI.next();
+			if (!currentType.isAbstract().toBoolean() || currentType.hasConcreteSubType().toBoolean()) {
+				return MTrue.getTheMTrue();
+			}
+		}
+		return MFalse.getTheMFalse();
+	}

@@ -1,0 +1,4 @@
+{
+		getUnitTypeManager().setDefaultUnit(type, defaultUnit, getThis());
+
+	}

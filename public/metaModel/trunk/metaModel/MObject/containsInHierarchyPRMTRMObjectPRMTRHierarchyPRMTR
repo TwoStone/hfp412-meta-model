@@ -1,0 +1,7 @@
+{
+
+		HierarchySearchList listOfHierarchies = new HierarchySearchList();
+		listOfHierarchies.add(hierac);
+
+		return getThis().containsInHierarchies(obj, listOfHierarchies);
+	}

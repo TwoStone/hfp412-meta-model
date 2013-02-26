@@ -1,0 +1,10 @@
+{
+		MModelItemSearchList dependentItems = getThis().getDependentItems();
+		if (dependentItems.getLength() > 0) {
+			throw new ConsistencyException("Cant delete " + getThis() + " because it has " + dependentItems.getLength()
+					+ " ModelItems");
+			// TODO ueber besseren Text nachdenken (objekte nennen)
+		}
+		getThis().prepareForDeletion();
+		getThis().delete$Me();
+	}

@@ -1,0 +1,44 @@
+package model.abstractOperation;
+
+import java.util.Iterator;
+
+import model.ConsistencyException;
+import model.DoubleDefinitionException;
+import model.UserException;
+import model.typeSystem.MEmptyTypeDisjunction;
+import model.visitor.AbsOperationReturnExceptionVisitor;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.FormalParameterSearchList;
+import persistence.Invoker;
+import persistence.OperationManagerProxi;
+import persistence.OperationManager_FormalParametersProxi;
+import persistence.OperationManager_OperationsProxi;
+import persistence.OperationSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentAbsOperation;
+import persistence.PersistentAddFpCommand;
+import persistence.PersistentAddMultipleFpCommand;
+import persistence.PersistentAssociation;
+import persistence.PersistentCreateConstantCommand;
+import persistence.PersistentCreateFpCommand;
+import persistence.PersistentCreateOperationCommand;
+import persistence.PersistentCreateStaticOpCommand;
+import persistence.PersistentCreateVoidOperationCommand;
+import persistence.PersistentFormalParameter;
+import persistence.PersistentMEmptyTypeDisjunction;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentOperation;
+import persistence.PersistentOperationManager;
+import persistence.PersistentProxi;
+import persistence.PersistentRemoveFpCommand;
+import persistence.PersistentRemoveFpFromOpCommand;
+import persistence.PersistentRemoveOperationCommand;
+import persistence.Predcate;
+import persistence.TDObserver;
+

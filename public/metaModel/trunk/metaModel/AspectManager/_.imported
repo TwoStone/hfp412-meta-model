@@ -1,0 +1,22 @@
+package model.typeSystem;
+
+import model.ConsistencyException;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.AspectManagerProxi;
+import persistence.AspectManager_AspectsProxi;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.MAspectSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentAspectManager;
+import persistence.PersistentCreateAspectCommand;
+import persistence.PersistentMAspect;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
+

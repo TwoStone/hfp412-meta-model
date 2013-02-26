@@ -1,0 +1,3 @@
+{
+		return model.measurement.AccountTypeManager.getTheAccountTypeManager();
+	}

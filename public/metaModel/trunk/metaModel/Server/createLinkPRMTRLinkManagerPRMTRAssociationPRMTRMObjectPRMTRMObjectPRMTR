@@ -1,0 +1,4 @@
+{
+		link.createLink(type, source, target, getThis());
+
+	}

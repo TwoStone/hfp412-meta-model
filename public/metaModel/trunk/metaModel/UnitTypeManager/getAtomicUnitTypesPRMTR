@@ -1,0 +1,21 @@
+{
+		final UnitTypeSearchList result = new UnitTypeSearchList();
+
+		this.getThis().getUnitTypes().applyToAll(new Procdure<PersistentAbsUnitType>() {
+			@Override
+			public void doItTo(PersistentAbsUnitType argument) throws PersistenceException {
+				argument.accept(new AbsUnitTypeVisitor() {
+					@Override
+					public void handleUnitType(PersistentUnitType unitType) throws PersistenceException {
+						result.add(unitType);
+					}
+
+					@Override
+					public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException {
+					}
+				});
+			}
+		});
+
+		return result;
+	}

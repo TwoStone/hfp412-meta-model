@@ -1,0 +1,23 @@
+package model.naming;
+
+import java.util.regex.Pattern;
+
+import model.UserException;
+import model.basic.MBoolean;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.NameSchemeInstanceSearchList;
+import persistence.NameSchemeProxi;
+import persistence.NameSchemeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentMBoolean;
+import persistence.PersistentNameScheme;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
+

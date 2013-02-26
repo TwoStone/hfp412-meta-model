@@ -1,0 +1,13 @@
+{
+		final NameSearchList list = new NameSearchList();
+
+		this.getThis().getTypes().applyToAll(new Procdure<PersistentMAtomicType>() {
+
+			@Override
+			public void doItTo(PersistentMAtomicType argument) throws PersistenceException {
+				list.add(argument.getPossibleNames());
+			}
+		});
+
+		return list;
+	}

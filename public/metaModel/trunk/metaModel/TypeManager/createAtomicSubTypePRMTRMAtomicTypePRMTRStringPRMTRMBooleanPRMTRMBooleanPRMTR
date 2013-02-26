@@ -1,0 +1,14 @@
+{
+		TypeManager.checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
+		PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType,
+				superType.getAspect());
+		try {
+			result.setSuperType(superType);
+
+		} catch (CycleException e) {
+			// TODO Can't occur
+			e.printStackTrace();
+		}
+		getThis().getTypes().add(result);
+		return result;
+	}

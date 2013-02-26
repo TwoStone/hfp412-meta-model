@@ -1,0 +1,25 @@
+
+	@Override
+	public SearchListRoot<? extends PersistentMType> fetchContainedTypes() throws PersistenceException {
+		return getThis().getAddends();
+	}
+
+	public static PersistentMMixedTypeDisjunction transientCreateMixedTypeDisj(MTypeSearchList typeList)
+			throws PersistenceException {
+		final PersistentMMixedTypeDisjunction result = MMixedTypeDisjunction.createMMixedTypeDisjunction(true);
+		typeList.applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				try {
+					result.getAddends().add(argument);
+				} catch (CycleException e) {
+					// TODO should not occur
+					e.printStackTrace();
+				}
+
+			}
+		});
+		return result;
+	}
+	

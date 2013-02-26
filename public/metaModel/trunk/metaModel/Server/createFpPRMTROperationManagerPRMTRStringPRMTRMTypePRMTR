@@ -1,0 +1,3 @@
+{
+		operationManager.createFp(name, ofType, getThis());
+	}

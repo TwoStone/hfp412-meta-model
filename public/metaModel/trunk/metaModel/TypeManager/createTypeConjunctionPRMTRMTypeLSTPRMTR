@@ -1,0 +1,16 @@
+{
+		final PersistentMAbstractTypeConjunction result = MAbstractTypeConjunction.transientCreateAbstractTypeConj(factors);
+
+		if (result.equals(MEmptyTypeConjunction.getTheMEmptyTypeConjunction())) {
+			return MEmptyTypeConjunction.getTheMEmptyTypeConjunction();
+		}
+
+		PersistentMType containedEqualType = getStructuralEquivalentType(result);
+
+		if (containedEqualType == null) {
+			getThis().getTypes().add(result);
+			return result;
+		}
+
+		return (PersistentMAbstractTypeConjunction) containedEqualType;
+	}

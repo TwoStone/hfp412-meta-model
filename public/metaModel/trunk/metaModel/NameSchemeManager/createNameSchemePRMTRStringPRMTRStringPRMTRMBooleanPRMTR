@@ -1,0 +1,5 @@
+{
+		PersistentNameScheme nameScheme = NameScheme.createNameScheme(regExpPattern, name, isIterable);
+		this.getThis().getSchemes().add(nameScheme);
+		return nameScheme;
+	}

@@ -1,0 +1,8 @@
+
+
+	@Override
+	public SearchListRoot<? extends PersistentMType> fetchContainedTypes() {
+		return new MTypeSearchList();
+	}
+
+	

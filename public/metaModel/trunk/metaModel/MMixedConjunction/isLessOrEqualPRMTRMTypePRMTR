@@ -1,0 +1,3 @@
+{
+		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
+	}

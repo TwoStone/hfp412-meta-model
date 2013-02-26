@@ -1,0 +1,18 @@
+{
+
+		if (!this.isArgumentCompound(subtrahend)) {
+			// summand instanceof Quantity
+			PersistentQuantity subtrahendCast = (PersistentQuantity) subtrahend;
+			if (this.hasSameUnitAs(subtrahendCast))
+				return this.simpleSub(subtrahendCast);
+
+			if (!this.hasSameUnitTypeAs(subtrahendCast))
+				throw new NotComputableException("Addition / Subtraktion nur mit gleichem Typ möglich!");
+
+			return this.complexSub(subtrahendCast);
+
+		} else {
+			PersistentCompoundQuantity subtrahendCast = (PersistentCompoundQuantity) subtrahend;
+			return subtrahendCast.sub(getThis());
+		}
+	}

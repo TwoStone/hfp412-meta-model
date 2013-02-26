@@ -1,0 +1,23 @@
+{
+		PersistentMDisjunctiveNormalForm result = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
+
+		final List<PersistentMDisjunctiveNormalForm> dnfsOfChildren = Lists.newArrayList();
+
+		getThis().getFactors().applyToAll(new Procdure<PersistentMType>() {
+			@Override
+			public void doItTo(PersistentMType argument) throws PersistenceException {
+				dnfsOfChildren.add(argument.fetchDisjunctiveNormalform());
+			}
+		});
+
+		Iterator<PersistentMDisjunctiveNormalForm> childDnfI = dnfsOfChildren.iterator();
+
+		if (childDnfI.hasNext()) {
+			result = childDnfI.next();
+		}
+
+		while (childDnfI.hasNext()) {
+			result = result.transientMultiply(childDnfI.next());
+		}
+		return result;
+	}

@@ -1,0 +1,15 @@
+{
+		return getThis().getContainedTypes().getLength() == 0 ? MFalse.getTheMFalse() : MBoolean
+				.createFromBoolean(getThis().getContainedTypes().aggregate(new Aggregtion<PersistentMType, Boolean>() {
+
+					@Override
+					public Boolean neutral() throws PersistenceException {
+						return true;
+					}
+
+					@Override
+					public Boolean compose(Boolean result, PersistentMType argument) throws PersistenceException {
+						return result && argument.isSingleton().toBoolean();
+					}
+				}));
+	}

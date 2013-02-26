@@ -1,0 +1,43 @@
+{
+		final PersistentMNonEmptyDisjunctiveNormalForm result = MNonEmptyDisjunctiveNormalForm
+				.createMNonEmptyDisjunctiveNormalForm(true);
+		try {
+			getThis().getAddends().applyToAllException(new ProcdureException<PersistentMType, CycleException>() {
+
+				@Override
+				public void doItTo(PersistentMType argument) throws PersistenceException, CycleException {
+					final PersistentMDisjunctiveNormalForm dnf = argument.fetchDisjunctiveNormalform();
+
+					dnf.accept(new MDisjunctiveNormalFormExceptionVisitor<CycleException>() {
+
+						@Override
+						public void handleMNonEmptyDisjunctiveNormalForm(
+								PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm)
+								throws PersistenceException, CycleException {
+							mNonEmptyDisjunctiveNormalForm.getAddends().applyToAllException(
+									new ProcdureException<PersistentMAtomicTypeConjunction, CycleException>() {
+
+										@Override
+										public void doItTo(PersistentMAtomicTypeConjunction argument)
+												throws PersistenceException, CycleException {
+											result.getAddends().add(argument);
+										}
+									});
+						}
+
+						@Override
+						public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction)
+								throws PersistenceException, CycleException {
+						}
+					});
+
+				}
+
+			});
+		} catch (CycleException e) {
+			// TODO quatschException
+			e.printStackTrace();
+		}
+
+		return result.getAddends().getLength() > 0 ? result : MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
+	}

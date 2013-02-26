@@ -1,0 +1,3 @@
+{
+		return MAbstractTypeConjunction.TYPE_LINK_OP;
+	}

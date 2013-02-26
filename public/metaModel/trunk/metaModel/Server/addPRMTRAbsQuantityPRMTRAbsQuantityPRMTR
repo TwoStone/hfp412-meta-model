@@ -1,0 +1,3 @@
+{
+		return summand1.add(summand2);
+	}

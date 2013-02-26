@@ -1,0 +1,22 @@
+package model.quantity;
+
+import model.DoubleDefinitionException;
+import model.NotFoundException;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.FractionManagerProxi;
+import persistence.FractionManager_ManagedFractionsProxi;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAddFractionCommand;
+import persistence.PersistentFractionManager;
+import persistence.PersistentFractionWrapper;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
+

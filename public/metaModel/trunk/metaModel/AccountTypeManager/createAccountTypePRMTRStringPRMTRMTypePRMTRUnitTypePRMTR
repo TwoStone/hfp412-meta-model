@@ -1,0 +1,3 @@
+{
+		this.getThis().getAccountTypes().add(MAccountType.createMAccountType(type, unitType));
+	}

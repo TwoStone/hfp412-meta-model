@@ -1,0 +1,21 @@
+
+package model.messageOrLink;
+
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.ActualParameterProxi;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentActualParameter;
+import persistence.PersistentFormalParameter;
+import persistence.PersistentMObject;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
+
+

@@ -1,0 +1,3 @@
+{
+		accountManager.createAccount(name, type, object, getThis());
+	}

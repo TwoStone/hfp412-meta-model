@@ -1,0 +1,8 @@
+{
+
+		PersistentFractionWrapper wrapper = FractionManager.getTheFractionManager().getManagedFractions().get(key);
+		if (wrapper == null)
+			throw new NotFoundException(key + " wasn't found in hashmap");
+		return wrapper.getFraction();
+
+	}

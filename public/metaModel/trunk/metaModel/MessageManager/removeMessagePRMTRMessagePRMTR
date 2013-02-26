@@ -1,0 +1,13 @@
+{
+		getThis().getMessages().removeFirstSuccess(new Predcate<PersistentMessage>() {
+
+			@Override
+			public boolean test(PersistentMessage argument) throws PersistenceException {
+				if (argument.equals(m)) {
+					return true;
+				}
+				return false;
+			}
+		});
+
+	}

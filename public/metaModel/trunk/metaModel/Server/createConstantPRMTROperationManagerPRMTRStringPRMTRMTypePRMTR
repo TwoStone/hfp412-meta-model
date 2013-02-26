@@ -1,0 +1,3 @@
+{
+		operationManager.createConstant(name, target, getThis());
+	}

@@ -1,0 +1,9 @@
+{
+		Fraction result = null;
+		try {
+			result = amount.add(this.constant.mul(Fraction.parse("-1"))).mul(factor.invert());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return result;
+	}

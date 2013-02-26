@@ -1,0 +1,10 @@
+{
+		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION);
+		}
+
+		this.getThis().getUnitTypes().add(UnitType.createUnitType(name));
+
+	}

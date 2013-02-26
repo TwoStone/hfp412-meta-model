@@ -1,0 +1,19 @@
+{
+		if (other instanceof PersistentMAbstractTypeDisjunction) {
+			PersistentMAbstractTypeDisjunction disjOther = (PersistentMAbstractTypeDisjunction) other;
+			Iterator<PersistentMType> iteratorThis = getThis().getContainedTypes().iterator();
+			Iterator<PersistentMType> iteratorOther = disjOther.getContainedTypes().iterator();
+			while (iteratorThis.hasNext()) {
+				if (iteratorOther.hasNext()) {
+					if (!iteratorThis.next().isStructuralEquivalant(iteratorOther.next()).toBoolean()) {
+						return MFalse.getTheMFalse();
+					}
+				} else {
+					return MFalse.getTheMFalse();
+				}
+			}
+			return MBoolean.createFromBoolean(!iteratorOther.hasNext());
+		}
+
+		return MFalse.getTheMFalse();
+	}

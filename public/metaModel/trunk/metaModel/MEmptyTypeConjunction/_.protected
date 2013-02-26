@@ -1,0 +1,13 @@
+
+	@Override
+	public SearchListRoot<? extends PersistentMType> fetchContainedTypes() {
+		return new MTypeSearchList();
+	}
+
+	@Override
+	public PersistentMAtomicTypeConjunction transientMultiply(PersistentMAtomicTypeConjunction other)
+			throws PersistenceException {
+		return other;
+	}
+
+	

@@ -1,0 +1,27 @@
+{
+		if (op.inverseGetType().getLength() > 0) {
+			throw new ConsistencyException(
+					"Zu dieser Operation existieren Exemplare! Formalparameter kann nicht entfernt werden");
+		}
+
+		Iterator<PersistentFormalParameter> iterator = op.getParameters().iterator();
+		boolean deleted = false;
+		while (iterator.hasNext()) {
+			if (iterator.next().equals(fp)) {
+				iterator.remove();
+				deleted = true;
+			}
+		}
+
+		if (!deleted) {
+			// Wurde offenbar keiner gefunden
+			throw new ConsistencyException("Formalparameter befindet sich nicht in der Parameterliste!");
+		}
+		// op.getParameters().removeFirstSuccess(new Predcate<PersistentFormalParameter>() {
+		//
+		// @Override
+		// public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+		// return fp.equals(argument);
+		// }
+		// });
+	}

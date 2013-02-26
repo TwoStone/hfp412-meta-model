@@ -1,0 +1,23 @@
+package model.messageOrLink;
+
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MessageOrLinkExceptionVisitor;
+import model.visitor.MessageOrLinkReturnExceptionVisitor;
+import model.visitor.MessageOrLinkReturnVisitor;
+import model.visitor.MessageOrLinkVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.LinkProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAssociation;
+import persistence.PersistentLink;
+import persistence.PersistentMObject;
+import persistence.PersistentMessageOrLink;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
+

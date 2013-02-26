@@ -1,0 +1,6 @@
+{
+		TypeManager.checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
+		PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType, aspect);
+		getThis().getTypes().add(result);
+		return result;
+	}

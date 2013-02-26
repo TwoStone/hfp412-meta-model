@@ -1,0 +1,10 @@
+{
+
+		// 1. DDE Pruefen
+		checkOperationDoubleDefinition(name);
+
+		// 2. Operation erstellen
+		PersistentOperation createOperation = Operation.createOperation(name, source, target);
+		getThis().getOperations().add(createOperation);
+		getThis().addMultipleFp(createOperation, fp);
+	}

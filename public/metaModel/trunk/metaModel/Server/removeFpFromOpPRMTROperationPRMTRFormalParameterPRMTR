@@ -1,0 +1,3 @@
+{
+		getOperationManager().removeFpFromOp(operation, fp, getThis());
+	}

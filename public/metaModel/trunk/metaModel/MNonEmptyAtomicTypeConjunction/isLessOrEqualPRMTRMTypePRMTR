@@ -1,0 +1,66 @@
+{
+		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
+
+			@Override
+			public Boolean handleMMixedTypeDisjunction(PersistentMMixedTypeDisjunction mMixedTypeDisjunction)
+					throws PersistenceException {
+				return getThis().isLessOrEqual(mMixedTypeDisjunction.fetchDisjunctiveNormalform()).toBoolean();
+			}
+
+			@Override
+			public Boolean handleMNonEmptyDisjunctiveNormalForm(
+					PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm)
+					throws PersistenceException {
+				Iterator<PersistentMAtomicTypeConjunction> othersAddends = mNonEmptyDisjunctiveNormalForm.getAddends()
+						.iterator();
+				while (othersAddends.hasNext()) {
+					if (getThis().isLessOrEqual(othersAddends.next()).toBoolean()) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			@Override
+			public Boolean handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction)
+					throws PersistenceException {
+				return false;
+			}
+
+			@Override
+			public Boolean handleMMixedConjunction(PersistentMMixedConjunction mMixedConjunction)
+					throws PersistenceException {
+				return getThis().isLessOrEqual(mMixedConjunction.fetchDisjunctiveNormalform()).toBoolean();
+			}
+
+			@Override
+			public Boolean handleMNonEmptyAtomicTypeConjunction(
+					PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction)
+					throws PersistenceException {
+				Iterator<PersistentMAtomicType> othersFactors = mNonEmptyAtomicTypeConjunction.getFactors().iterator();
+				while (othersFactors.hasNext()) {
+					if (!getThis().isLessOrEqual(othersFactors.next()).toBoolean()) {
+						return false;
+					}
+				}
+				return true;
+			}
+
+			@Override
+			public Boolean handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction)
+					throws PersistenceException {
+				return true;
+			}
+
+			@Override
+			public Boolean handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+				Iterator<PersistentMAtomicType> myFactors = getThis().getFactors().iterator();
+				while (myFactors.hasNext()) {
+					if (myFactors.next().isLessOrEqual(mAtomicType).toBoolean()) {
+						return true;
+					}
+				}
+				return false;
+			}
+		}));
+	}

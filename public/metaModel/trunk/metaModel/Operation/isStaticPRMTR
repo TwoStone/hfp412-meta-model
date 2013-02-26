@@ -1,0 +1,3 @@
+{
+		return MBoolean.createFromBoolean(this.getSource().equals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction()));
+	}

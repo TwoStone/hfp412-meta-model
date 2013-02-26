@@ -1,0 +1,21 @@
+{
+		new Thread(new Runnable() {
+			@Override
+			public void /* INTERNAL */run() {
+				try {
+					try {
+						command.checkException();
+						// Handle result!
+						signalChanged(true);
+					} catch (model.UserException e) {
+						model.UserExceptionToDisplayVisitor visitor = new model.UserExceptionToDisplayVisitor();
+						e.accept(visitor);
+						getErrors().add(visitor.getResult());
+						signalChanged(true);
+					}
+				} catch (PersistenceException e) {
+					// Handle fatal exception!
+				}
+			}
+		}).start();
+	}

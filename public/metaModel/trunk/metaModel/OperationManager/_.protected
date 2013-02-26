@@ -1,0 +1,24 @@
+
+
+	private void checkOperationDoubleDefinition(String name) throws DoubleDefinitionException, PersistenceException {
+		Iterator<PersistentAbsOperation> iterator = Operation.getAbsOperationByName(name).iterator();
+		while (iterator.hasNext()) {
+			iterator.next().accept(new AbsOperationReturnExceptionVisitor<AbsOperation, DoubleDefinitionException>() {
+
+				@Override
+				public AbsOperation handleOperation(PersistentOperation operation) throws PersistenceException,
+						DoubleDefinitionException {
+					throw new DoubleDefinitionException(
+							"Die Namen der Operationen sind eindeutig! Bitte waehlen Sie einen anderen Namen.");
+				}
+
+				@Override
+				public AbsOperation handleAssociation(PersistentAssociation association) throws PersistenceException,
+						DoubleDefinitionException {
+					return null;
+				}
+			});
+		}
+	}
+
+	

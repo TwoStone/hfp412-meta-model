@@ -1,0 +1,14 @@
+
+
+	/**
+	 * Testet ob ein CompoundUnitType mit den übergebenen ReferenceTypes schon vorhanden ist.
+	 * 
+	 * @param referenceTypes
+	 * @return
+	 */
+	private boolean existsCompUnitTypeWithReferenceTypes(PersistentReferenceType... referenceTypes) {
+		// TODO!
+		return false;
+	}
+
+	

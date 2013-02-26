@@ -1,0 +1,37 @@
+{
+		if (fp.inverseGetType().getLength() > 0) {
+			throw new ConsistencyException(
+					"Zu diesem Formalparameter existieren Exemplare! Kann nicht geloescht werden.");
+		}
+
+		PersistentOperation findFirst = getThis().getOperations().findFirst(new Predcate<PersistentOperation>() {
+
+			@Override
+			public boolean test(PersistentOperation argument) throws PersistenceException {
+
+				PersistentFormalParameter foundParam = argument.getParameters().findFirst(
+						new Predcate<PersistentFormalParameter>() {
+
+							@Override
+							public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+								return argument.equals(fp);
+							}
+						});
+				return foundParam != null;
+			}
+		});
+
+		if (findFirst != null) {
+			throw new ConsistencyException(
+					"Mindestens eine Operation benutzt diesen Formalparameter. Parameter konnte nicht geloescht werden.");
+		}
+
+		getThis().getFormalParameters().removeFirstSuccess(new Predcate<PersistentFormalParameter>() {
+
+			@Override
+			public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+				return argument.equals(fp);
+			}
+		});
+
+	}

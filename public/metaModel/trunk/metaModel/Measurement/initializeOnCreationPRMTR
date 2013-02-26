@@ -1,0 +1,25 @@
+{
+		// Prüfen, ob m aus Measurement : m.quantity.unit.type = m.type.unitType
+		final PersistentAbsUnitType unitType = this.getThis().getQuantity()
+				.accept(new AbsQuantityReturnVisitor<PersistentAbsUnitType>() {
+					@Override
+					public PersistentAbsUnitType handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity)
+							throws PersistenceException {
+						return compoundQuantity.getParts().findFirst(new Predcate<PersistentQuantity>() {
+							@Override
+							public boolean test(PersistentQuantity argument) throws PersistenceException {
+								return true;
+							}
+						}).getUnit().getType();
+					}
+
+					@Override
+					public PersistentAbsUnitType handleQuantity(PersistentQuantity quantity)
+							throws PersistenceException {
+						return quantity.getUnit().getType();
+					}
+				});
+		if (!this.getThis().getType().getUnitType().equals(unitType)) {
+			throw new Error(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY);
+		}
+	}

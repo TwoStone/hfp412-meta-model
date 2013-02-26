@@ -1,0 +1,12 @@
+{
+		if (op.inverseGetType().getLength() > 0) {
+			throw new ConsistencyException("Zu dieser Operationen existieren Messages! Loeschen nicht durchgefuehrt");
+		}
+		getThis().getOperations().removeFirstSuccess(new Predcate<PersistentOperation>() {
+
+			@Override
+			public boolean test(PersistentOperation argument) throws PersistenceException {
+				return op.equals(argument);
+			}
+		});
+	}

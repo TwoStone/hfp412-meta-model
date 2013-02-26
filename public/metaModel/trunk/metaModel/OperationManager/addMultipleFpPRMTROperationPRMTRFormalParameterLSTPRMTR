@@ -1,0 +1,24 @@
+{
+
+		Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
+
+		Iterator<PersistentFormalParameter> otherIterator = null;
+		PersistentFormalParameter otherCurrent = null;
+		PersistentFormalParameter currentFp = null;
+
+		while (fpIterator.hasNext()) {
+			currentFp = fpIterator.next();
+			otherIterator = op.getParameters().iterator();
+
+			while (otherIterator.hasNext()) {
+				otherCurrent = otherIterator.next();
+				if (otherCurrent.getName().equals(currentFp.getName())) {
+
+					throw new DoubleDefinitionException("Ein Parameter mit dem Namen " + otherCurrent
+							+ " existiert schon in der Parameterliste!");
+				}
+			}
+			op.getParameters().add(currentFp);
+		}
+
+	}

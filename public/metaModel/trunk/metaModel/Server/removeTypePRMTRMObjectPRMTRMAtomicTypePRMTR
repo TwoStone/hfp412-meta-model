@@ -1,0 +1,3 @@
+{
+		getObjectManager().removeType(object, oldType, getThis());
+	}

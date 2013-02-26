@@ -1,0 +1,5 @@
+{
+		// TODO: DDE
+		PersistentAssociation a = Association.createAssociation(name, source, target);
+		getThis().getAssociations().add(a);
+	}

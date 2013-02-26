@@ -1,0 +1,5 @@
+{
+		MAspectSearchList result = new MAspectSearchList();
+		result.add(getThis().getAspect());
+		return result;
+	}

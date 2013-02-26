@@ -1,0 +1,18 @@
+{
+		boolean consEx = false;
+		// TODO: SumTypes auseinandernehmen und einzelne Summanden als m??gliches Target/Source
+
+		if (!type.getTarget().equals(target.getTypes())) {
+
+		}
+		if (consEx) {
+			throw new ConsistencyException("");
+		}
+		// TODO: DDE
+		PersistentMessage m = Message.createMessage(source, target, type);
+		Iterator<PersistentActualParameter> it = ap.iterator();
+		while (it.hasNext()) {
+			m.getActualParameters().add(it.next());
+		}
+		getThis().getMessages().add(m);
+	}

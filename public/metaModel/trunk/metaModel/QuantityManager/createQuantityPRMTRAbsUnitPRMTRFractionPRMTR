@@ -1,0 +1,25 @@
+{
+		// amount in FractionManager suchen oder neu erstellen.
+		final String fractionStroke = "/";
+		final String enumeratorString = amount.getEnumerator().toString();
+		final String denominatorString = amount.getEnumerator().toString();
+		final String fractionSearchString = enumeratorString + fractionStroke + denominatorString;
+		common.Fraction persistentAmount;
+
+		try {
+			persistentAmount = FractionManager.getTheFractionManager().getFraction(fractionSearchString);
+
+		} catch (NotFoundException e) {
+			persistentAmount = amount;
+			try {
+				FractionManager.getTheFractionManager().addFraction(fractionSearchString, persistentAmount);
+			} catch (DoubleDefinitionException e1) {
+				System.out.println("error while fraction creation");
+			}
+
+		}
+
+		PersistentQuantity newQuantity = Quantity.createQuantity(amount, unit);
+		getThis().getQuantities().add(newQuantity);
+		return newQuantity;
+	}

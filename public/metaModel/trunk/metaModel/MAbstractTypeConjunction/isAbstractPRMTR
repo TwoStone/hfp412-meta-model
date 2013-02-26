@@ -1,0 +1,19 @@
+{
+		if (getThis().equals(MEmptyTypeConjunction.getTheMEmptyTypeConjunction())) {
+			return MTrue.getTheMTrue();
+		}
+
+		return MBoolean.createFromBoolean(getThis().getContainedTypes().aggregate(
+				new Aggregtion<PersistentMType, Boolean>() {
+
+					@Override
+					public Boolean neutral() throws PersistenceException {
+						return false;
+					}
+
+					@Override
+					public Boolean compose(Boolean result, PersistentMType argument) throws PersistenceException {
+						return result || argument.isAbstract().toBoolean();
+					}
+				}));
+	}

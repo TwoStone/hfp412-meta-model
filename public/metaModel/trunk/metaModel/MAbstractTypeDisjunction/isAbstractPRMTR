@@ -1,0 +1,6 @@
+{
+		if (getThis().getContainedTypes().getLength() == 1) {
+			return getThis().getContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isAbstract();
+		}
+		return MTrue.getTheMTrue();
+	}

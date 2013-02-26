@@ -1,0 +1,13 @@
+{
+		common.Fraction preExisting;
+		try {
+			preExisting = getThis().getFraction(key);
+			if (preExisting != null)
+				throw new DoubleDefinitionException("Fraction object " + key + " is already exists");
+		} catch (NotFoundException e) {
+			PersistentFractionWrapper newFractionWrapper = FractionWrapper.createFractionWrapper();
+			newFractionWrapper.setFraction(newFraction);
+			getThis().getManagedFractions().put(key, newFractionWrapper);
+		}
+
+	}

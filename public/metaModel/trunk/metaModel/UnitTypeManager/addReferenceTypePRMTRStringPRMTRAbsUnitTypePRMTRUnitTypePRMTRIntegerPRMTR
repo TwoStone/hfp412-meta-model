@@ -1,0 +1,98 @@
+{
+
+		// Name schon vorhanden?
+		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION);
+		}
+
+		// CompUnitType erstellen mit Unterscheidung ob auf UnitType oder CompUnitType
+		getThis()
+				.getUnitTypes()
+				.add(unitType
+						.accept(new AbsUnitTypeReturnExceptionVisitor<PersistentCompUnitType, DoubleDefinitionException>() {
+
+							@Override
+							public PersistentCompUnitType handleCompUnitType(final PersistentCompUnitType compUnitType)
+									throws PersistenceException, DoubleDefinitionException {
+
+								// Schon eine Referenz auf referenceUnitType vorhanden?
+								PersistentReferenceType reference = compUnitType.getRefs().findFirst(
+										new Predcate<PersistentReferenceType>() {
+
+											@Override
+											public boolean test(final PersistentReferenceType argument)
+													throws PersistenceException {
+												if (argument.getRef().equals(unitType)) {
+													return true;
+												}
+												return false;
+											}
+										});
+
+								// Wenn ja, exponent erhöhen
+								if (reference != null) {
+									reference.setExponent(reference.getExponent() + exponent);
+								}
+								// Wenn nein, neue Referenz erstellen
+								else {
+									reference = ReferenceType.createReferenceType(exponent, referenceUnitType);
+								}
+
+								// Liste der Referenzen aus CompUnitType ohne referenceUnitType
+								final List<PersistentReferenceType> references = new ArrayList<PersistentReferenceType>();
+								final Iterator<PersistentReferenceType> iterator = compUnitType.getRefs().iterator();
+								while (iterator.hasNext()) {
+									references.add(iterator.next());
+								}
+
+								// Prüfen ob CompUnitType schon vorhanden
+
+								final PersistentCompUnitType result = CompUnitType.createCompUnitType(name);
+								result.getRefs().add(reference);
+								return result;
+							}
+
+							@Override
+							public PersistentCompUnitType handleUnitType(final PersistentUnitType unitType)
+									throws PersistenceException, DoubleDefinitionException {
+								PersistentCompUnitType result = null;
+
+								// referenceUnitType und unitType gleich?
+								if (referenceUnitType.equals(unitType)) {
+									final PersistentReferenceType referenceType = ReferenceType.createReferenceType(
+											exponent + 1, unitType);
+
+									// CompUnitType mit den Referenzen schon vorhanden?
+									if (existsCompUnitTypeWithReferenceTypes(referenceType)) {
+										throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_COMP_UNIT_TYPE
+												+ referenceType);
+									}
+
+									result = CompUnitType.createCompUnitType(name);
+									result.getRefs().add(referenceType);
+
+								} else {
+									final PersistentReferenceType referenceType = ReferenceType.createReferenceType(
+											exponent, referenceUnitType);
+									final PersistentReferenceType referenceType2 = ReferenceType.createReferenceType(1,
+											unitType);
+
+									// CompUnitType mit den Referenzen schon vorhanden?
+									if (existsCompUnitTypeWithReferenceTypes(referenceType, referenceType2)) {
+										throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_COMP_UNIT_TYPE
+												+ referenceType + ", " + referenceType2);
+									}
+
+									result = CompUnitType.createCompUnitType(name);
+									result.getRefs().add(referenceType);
+									result.getRefs().add(referenceType2);
+								}
+
+								return result;
+							}
+						}));
+		// TODO: return
+		return null;
+
+	}

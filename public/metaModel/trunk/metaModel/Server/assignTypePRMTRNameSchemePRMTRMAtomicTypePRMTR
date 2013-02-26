@@ -1,0 +1,3 @@
+{
+		getNameSchemeManager().assignType(scheme, type, getThis());
+	}

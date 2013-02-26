@@ -1,0 +1,11 @@
+{
+
+		return new OperationSearchList(getThis().getOperations().findAll(new Predcate<PersistentOperation>() {
+
+			@Override
+			public boolean test(PersistentOperation argument) throws PersistenceException {
+				return argument.isStatic().toBoolean();
+			}
+
+		}));
+	}

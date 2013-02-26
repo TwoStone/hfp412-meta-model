@@ -1,0 +1,3 @@
+{
+		getLinkManager().removeLink(link, getThis());
+	}

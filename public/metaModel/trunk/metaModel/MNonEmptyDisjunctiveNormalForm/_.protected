@@ -1,0 +1,76 @@
+
+
+	public static PersistentMNonEmptyDisjunctiveNormalForm transientCreateNEDNF(
+			List<PersistentMAtomicTypeConjunction> conjunctions) throws PersistenceException {
+		PersistentMNonEmptyDisjunctiveNormalForm result = MNonEmptyDisjunctiveNormalForm
+				.createMNonEmptyDisjunctiveNormalForm(true);
+		for (PersistentMAtomicTypeConjunction conj : conjunctions) {
+			try {
+				result.getAddends().add(conj);
+			} catch (CycleException e) {
+				// TODO Should not happen
+				e.printStackTrace();
+			}
+		}
+		return result;
+
+	}
+
+	protected static PersistentMNonEmptyDisjunctiveNormalForm transientCreateDNFromAtomicType(PersistentMAtomicType at)
+			throws PersistenceException {
+		PersistentMNonEmptyDisjunctiveNormalForm result = MNonEmptyDisjunctiveNormalForm
+				.createMNonEmptyDisjunctiveNormalForm(true);
+		PersistentMNonEmptyAtomicTypeConjunction addend = MNonEmptyAtomicTypeConjunction
+				.createMNonEmptyAtomicTypeConjunction(true);
+		try {
+			addend.getFactors().add(at);
+			result.getAddends().add(addend);
+		} catch (CycleException e) {
+			// TODO Can't occure exception
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	protected static PersistentMNonEmptyDisjunctiveNormalForm transientCreateDNFFromAtomicTypeConjunction(
+			PersistentMAtomicTypeConjunction conj) throws PersistenceException {
+		PersistentMNonEmptyDisjunctiveNormalForm result = MNonEmptyDisjunctiveNormalForm
+				.createMNonEmptyDisjunctiveNormalForm(true);
+		try {
+			result.getAddends().add(conj);
+		} catch (CycleException e) {
+			// TODO Can't occure exception
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public SearchListRoot<? extends PersistentMType> fetchContainedTypes() throws PersistenceException {
+		return getThis().getAddends();
+	}
+
+	protected static void addAddendNormalize(PersistentMNonEmptyDisjunctiveNormalForm result,
+			PersistentMAtomicTypeConjunction newAddend) throws PersistenceException {
+		boolean addAddend = true;
+		try {
+			Iterator<PersistentMAtomicTypeConjunction> resultAddendI = result.getAddends().iterator();
+
+			while (addAddend && resultAddendI.hasNext()) {
+				PersistentMAtomicTypeConjunction currentResAddend = resultAddendI.next();
+				if (newAddend.isLessOrEqual(currentResAddend).toBoolean()) {
+					addAddend = false;
+				} else if (currentResAddend.isLessOrEqual(newAddend).toBoolean()) {
+					resultAddendI.remove();
+				}
+			}
+			if (addAddend) {
+				result.getAddends().add(newAddend);
+			}
+		} catch (CycleException e) {
+			// TODO Should not happen
+			e.printStackTrace();
+		}
+	}
+
+	

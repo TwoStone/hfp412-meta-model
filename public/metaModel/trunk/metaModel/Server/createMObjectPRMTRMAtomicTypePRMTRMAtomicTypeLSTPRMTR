@@ -1,0 +1,3 @@
+{
+		getObjectManager().createMObject(type, otherTypes, getThis());
+	}

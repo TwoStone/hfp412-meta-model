@@ -1,0 +1,5 @@
+{
+		getTypeManager().createAtomicRootType(aspect, typeName, MBoolean.createFromFactoryString(singletonType),
+				MBoolean.createFromFactoryString(abstractType), getThis());
+
+	}

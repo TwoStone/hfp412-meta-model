@@ -1,0 +1,3 @@
+{
+		getAssociationManager().removeAssociation(a, getThis());
+	}

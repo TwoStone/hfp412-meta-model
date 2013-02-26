@@ -1,0 +1,3 @@
+{
+		getOperationManager().createStaticOp(name, target, fp, getThis());
+	}

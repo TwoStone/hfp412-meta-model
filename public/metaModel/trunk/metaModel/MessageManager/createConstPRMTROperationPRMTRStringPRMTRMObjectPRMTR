@@ -1,0 +1,4 @@
+{
+		// TODO: EmptyType nicht als Object verf??gbar
+		// getThis().createMessage(type, MEmptySumType.getTheMEmptySumType(), target, ap);
+	}

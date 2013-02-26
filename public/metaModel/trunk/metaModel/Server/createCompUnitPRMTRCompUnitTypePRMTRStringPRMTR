@@ -1,0 +1,4 @@
+{
+		getUnitTypeManager().createCompUnit(name, compUnitType, getThis());
+
+	}

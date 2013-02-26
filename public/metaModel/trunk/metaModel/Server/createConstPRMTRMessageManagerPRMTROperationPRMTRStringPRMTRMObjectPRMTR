@@ -1,0 +1,3 @@
+{
+		getMessageManager().createConst(type, name, target, getThis());
+	}

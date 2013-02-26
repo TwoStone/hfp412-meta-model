@@ -1,0 +1,3 @@
+{
+		getAssociationManager().removeAssoFrmHier(h, a, getThis());
+	}

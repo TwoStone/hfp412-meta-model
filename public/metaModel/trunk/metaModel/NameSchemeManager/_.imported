@@ -1,0 +1,33 @@
+package model.naming;
+
+import model.ConsistencyException;
+import model.PatternNotMatchException;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.NameSchemeManagerProxi;
+import persistence.NameSchemeManager_NamesProxi;
+import persistence.NameSchemeManager_SchemesProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAssignNameCommand;
+import persistence.PersistentAssignTypeCommand;
+import persistence.PersistentCreateNameSchemeCommand;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMObject;
+import persistence.PersistentName;
+import persistence.PersistentNameInstance;
+import persistence.PersistentNameScheme;
+import persistence.PersistentNameSchemeInstance;
+import persistence.PersistentNameSchemeManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.Predcate;
+import persistence.SearchListRoot;
+import persistence.TDObserver;
+

@@ -1,0 +1,4 @@
+{
+		getOperationManager().addFp(op, fp, getThis());
+
+	}

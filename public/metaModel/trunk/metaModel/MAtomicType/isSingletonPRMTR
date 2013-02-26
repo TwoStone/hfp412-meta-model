@@ -1,0 +1,5 @@
+{
+		return getSingletonType();
+		// return MBoolean.createFromBoolean(getThis().getSingletonType().toBoolean()
+		// && !getThis().hasConcreteSubType().toBoolean());
+	}

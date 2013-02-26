@@ -1,0 +1,28 @@
+{
+
+		// DoubleDefinition: Namensgleichheit.
+		if (AbsUnitType.getAbsUnitTypeByName(name).iterator().hasNext())
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION);
+
+		// DoubleDefinition: Gleiche Auspr?gung (Typengleichheit).
+		// TODO: Double Definition bei gleicher Auspr --> etwas komplexer^^
+
+		Iterator<PersistentReferenceType> it = type.getRefs().iterator();
+		PersistentCompUnit newCompUnit = CompUnit.createCompUnit(type, name);
+
+		while (it.hasNext()) {
+
+			PersistentReferenceType curRefType = it.next();
+
+			if (curRefType.getRef().getDefaultUnit() != null) {
+				PersistentReference ref = Reference.createReference();
+				ref.setType(curRefType);
+				ref.setExponent(curRefType.getExponent());
+				ref.setRef(curRefType.getRef().getDefaultUnit());
+				newCompUnit.getRefs().add(ref);
+			}
+
+		}
+		this.getThis().getUnits().add(newCompUnit);
+
+	}

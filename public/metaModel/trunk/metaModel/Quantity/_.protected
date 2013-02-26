@@ -1,0 +1,218 @@
+
+
+	private PersistentAbsUnitType findTargetUnitType(SummableHashMap<PersistentUnitType> computedRefTypes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private SummableHashMap<PersistentUnit> computeReferences(PersistentAbsUnit myUnit, PersistentAbsUnit factorUnit)
+			throws PersistenceException {
+		final SummableHashMap<PersistentUnit> myReferences = computeReferences(myUnit);
+		final SummableHashMap<PersistentUnit> factorReferences = computeReferences(factorUnit);
+		final SummableHashMap<PersistentUnit> aggregatedReferences = aggregateReferences(myReferences, factorReferences);
+		return aggregatedReferences;
+	}
+
+	private SummableHashMap<PersistentUnitType> cumputeReferenceTypes(PersistentAbsUnit myUnit,
+			PersistentAbsUnit factorUnit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private PersistentAbsUnit findTargetUnit(final SummableHashMap<PersistentUnit> calculatedRefs)
+			throws PersistenceException {
+		PersistentAbsUnit result = null;
+		boolean targetTypeIsScalar = false;
+		boolean targetTypeIsAtomar = false;
+
+		if (calculatedRefs.getMap().isEmpty()) {
+			targetTypeIsScalar = true;
+		}
+
+		if ((calculatedRefs.getMap().size() == 1)
+				& (calculatedRefs.getMap().values().iterator().next().equals(new Long(1)))) {
+			targetTypeIsAtomar = true;
+		}
+
+		if (targetTypeIsScalar) {
+			// TODO was ist mit skalaren?
+		}
+
+		if (targetTypeIsAtomar) { // bedeutet aber auch, dass ein Faktor skalar sein kann ODER z.B. (m^2/s) * (s/m)
+
+			result = UnitTypeManager.getTheUnitTypeManager().getUnits().findFirst(new Predcate<PersistentAbsUnit>() {
+
+				@Override
+				public boolean test(PersistentAbsUnit argument) throws PersistenceException {
+					boolean result = false;
+					if (argument.equals(calculatedRefs.getMap().keySet().iterator().next())) {
+						result = true;
+					}
+					return result;
+				}
+
+			});
+		} else {
+			result = UnitTypeManager.getTheUnitTypeManager().getUnits().findFirst(new Predcate<PersistentAbsUnit>() {
+
+				@Override
+				public boolean test(final PersistentAbsUnit argument) throws PersistenceException {
+
+					boolean result = false;
+
+					result = argument.accept(new AbsUnitReturnVisitor<Boolean>() {
+						// TODO: evtl eine Operation getAllCompoundUnits() bereitstellen. Würde den Code verkürzen.
+						@Override
+						public Boolean handleUnit(PersistentUnit unit) throws PersistenceException {
+							return false;
+						}
+
+						@Override
+						public Boolean handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException {
+							boolean result = false;
+							Iterator<PersistentReference> i = compUnit.getRefs().iterator();
+							while (i.hasNext()) {
+								PersistentReference current = i.next();
+								PersistentUnit actUnit = current.getRef();
+								Long actExponent = current.getExponent();
+
+								if (!calculatedRefs.getMap().containsKey(actUnit)) {
+									result = false;
+									break;
+								}
+								if (!actExponent.equals(calculatedRefs.getMap().get(actUnit))) {
+									result = false;
+									break;
+								}
+								result = true;
+
+							}
+							return result;
+						}
+					});
+					return result;
+				}
+			});
+		}
+
+		return result;
+	}
+
+	private SummableHashMap<PersistentUnit> aggregateReferences(SummableHashMap<PersistentUnit> myReferences,
+			SummableHashMap<PersistentUnit> factorReferences) {
+		SummableHashMap<PersistentUnit> result = myReferences;
+		myReferences.aggregate(factorReferences);
+		return result;
+	}
+
+	private SummableHashMap<PersistentUnit> computeReferences(PersistentAbsUnit unit) throws PersistenceException {
+		return unit.accept(new AbsUnitReturnVisitor<SummableHashMap<PersistentUnit>>() {
+
+			@Override
+			public SummableHashMap<PersistentUnit> handleUnit(PersistentUnit unit) throws PersistenceException {
+				SummableHashMap<PersistentUnit> result = new SummableHashMap<PersistentUnit>();
+				result.getMap().put(unit, new Long(1));
+				return result;
+			}
+
+			@Override
+			public SummableHashMap<PersistentUnit> handleCompUnit(PersistentCompUnit compUnit)
+					throws PersistenceException {
+				SummableHashMap<PersistentUnit> result = new SummableHashMap<PersistentUnit>();
+				Iterator<PersistentReference> i = compUnit.getRefs().iterator();
+				while (i.hasNext()) {
+					PersistentReference current = i.next();
+					result.getMap().put(current.getRef(), current.getExponent());
+				}
+				return result;
+			}
+		});
+
+	}
+
+	private PersistentQuantity simpleAdd(PersistentQuantity summand) throws PersistenceException,
+			NotComputableException {
+		try {
+			Fraction sum = getThis().getAmount().add(summand.getAmount());
+			PersistentQuantity resultSimple = QuantityManager.getTheQuantityManager().createQuantity(
+					getThis().getUnit(), sum);
+			return resultSimple;
+		} catch (Throwable e) {
+			throw new NotComputableException(e.getMessage());
+		}
+	}
+
+	private PersistentAbsQuantity simpleSub(PersistentQuantity minuend) throws PersistenceException,
+			NotComputableException {
+		Fraction difference;
+		try {
+			difference = getThis().getAmount().sub(minuend.getAmount());
+			PersistentQuantity resultSimple = QuantityManager.getTheQuantityManager().createQuantity(
+					getThis().getUnit(), difference);
+			return resultSimple;
+		} catch (Throwable e) {
+			throw new NotComputableException(e.getMessage());
+		}
+
+	}
+
+	private boolean hasSameUnitAs(PersistentQuantity summandCast) throws PersistenceException {
+		return getThis().getUnit().equals(summandCast.getUnit());
+	}
+
+	private boolean hasSameUnitTypeAs(PersistentQuantity summandCast) throws PersistenceException {
+		return getThis().getUnit().getType().equals(summandCast.getUnit().getType());
+	}
+
+	private PersistentAbsQuantity complexAdd(PersistentQuantity summandCast) throws PersistenceException {
+		PersistentCompoundQuantity newCompoundQuantity = CompoundQuantity.createCompoundQuantity();
+		newCompoundQuantity.getParts().add(getThis());
+		newCompoundQuantity.getParts().add(summandCast);
+		QuantityManager.getTheQuantityManager().getQuantities().add(newCompoundQuantity);
+		return newCompoundQuantity;
+	}
+
+	private PersistentAbsQuantity complexSub(PersistentQuantity minuend) throws PersistenceException {
+		PersistentCompoundQuantity newCompoundQuantity = CompoundQuantity.createCompoundQuantity();
+		newCompoundQuantity.getParts().add(getThis());
+		// minuend muss mit -1 vorher multipliziert werden!
+		String fractionSearchString = "-" + minuend.getAmount().toString();
+		try {
+			FractionManager.getTheFractionManager().getFraction(fractionSearchString);
+		} catch (NotFoundException e) {
+			try {
+				// TODO: evtl globale Konstante "-1" einführen?
+				Fraction f = minuend.getAmount().mul(Fraction.parse("-1/1"));
+				FractionManager.getTheFractionManager().addFraction(f.toString(), f);
+				PersistentQuantity q = QuantityManager.getTheQuantityManager().createQuantity(minuend.getUnit(), f);
+				newCompoundQuantity.getParts().add(q);
+			} catch (Throwable e1) {
+			}
+		}
+		QuantityManager.getTheQuantityManager().getQuantities().add(newCompoundQuantity);
+		return newCompoundQuantity;
+	}
+
+	private boolean isArgumentCompound(PersistentAbsQuantity summand) throws PersistenceException {
+		return summand.accept(new AbsQuantityReturnVisitor<Boolean>() {
+			@Override
+			public Boolean handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity)
+					throws PersistenceException {
+				return true;
+			}
+
+			@Override
+			public Boolean handleQuantity(PersistentQuantity quantity) throws PersistenceException {
+				return false;
+			}
+		});
+	}
+
+	@Override
+	public PersistentMBoolean isLessOrEqualThan(PersistentAbsQuantity compareValue) throws UserException,
+			PersistenceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	

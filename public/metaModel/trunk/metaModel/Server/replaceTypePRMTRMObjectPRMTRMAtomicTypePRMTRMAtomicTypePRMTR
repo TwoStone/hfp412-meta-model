@@ -1,0 +1,3 @@
+{
+		getObjectManager().replaceType(object, oldType, newType, getThis());
+	}

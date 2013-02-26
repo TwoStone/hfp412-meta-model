@@ -1,0 +1,17 @@
+{
+		return other.accept(new MAtomicTypeConjunctionReturnVisitor<PersistentMAtomicTypeConjunction>() {
+
+			@Override
+			public PersistentMAtomicTypeConjunction handleMNonEmptyAtomicTypeConjunction(
+					PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction)
+					throws PersistenceException {
+				return getThis().transientMultiplyNonEmpty(mNonEmptyAtomicTypeConjunction);
+			}
+
+			@Override
+			public PersistentMAtomicTypeConjunction handleMEmptyTypeConjunction(
+					PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException {
+				return getThis();
+			}
+		});
+	}

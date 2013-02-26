@@ -1,0 +1,13 @@
+
+
+    public void setIcon(IconRenderer renderer) {
+        //TODO: Implement setIcon in wrapper class of association unitTypes in class UnitTypeManager
+    	this.getWrappedObject().setIcon(renderer);
+    }
+	
+	public String toString(){
+    	//TODO: Implement toString in wrapper class for association unitTypes in class UnitTypeManager
+    	return this.getWrappedObject().toString();
+    }
+
+    

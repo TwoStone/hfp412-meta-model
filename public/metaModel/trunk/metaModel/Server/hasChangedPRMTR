@@ -1,0 +1,5 @@
+{
+		boolean result = this.changed;
+		this.changed = false;
+		return result;
+	}

@@ -1,0 +1,3 @@
+{
+		return model.abstractOperation.OperationManager.getTheOperationManager();
+	}

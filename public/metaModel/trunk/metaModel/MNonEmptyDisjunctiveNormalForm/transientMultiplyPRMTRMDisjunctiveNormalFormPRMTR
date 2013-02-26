@@ -1,0 +1,17 @@
+{
+		return other.accept(new MDisjunctiveNormalFormReturnVisitor<PersistentMDisjunctiveNormalForm>() {
+
+			@Override
+			public PersistentMDisjunctiveNormalForm handleMNonEmptyDisjunctiveNormalForm(
+					PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm)
+					throws PersistenceException {
+				return getThis().transientMultiplyNonEmpty(mNonEmptyDisjunctiveNormalForm);
+			}
+
+			@Override
+			public PersistentMDisjunctiveNormalForm handleMEmptyTypeDisjunction(
+					PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction) throws PersistenceException {
+				return mEmptyTypeDisjunction;
+			}
+		});
+	}

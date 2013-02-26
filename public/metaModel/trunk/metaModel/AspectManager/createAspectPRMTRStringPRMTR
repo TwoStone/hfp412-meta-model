@@ -1,0 +1,9 @@
+{
+		MAspectSearchList mAspectByName = MAspect.getMAspectByName(name);
+		if (mAspectByName.getLength() > 0) {
+			throw new ConsistencyException("Aspect-names must be unique. There is already an Aspect named: " + name);
+		}
+		PersistentMAspect result = MAspect.createMAspect(name);
+		getThis().getAspects().add(result);
+		return result;
+	}

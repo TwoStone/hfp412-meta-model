@@ -1,0 +1,4 @@
+{
+		getThis().getTypeManager().createTypeConjunction(containees, getThis());
+
+	}

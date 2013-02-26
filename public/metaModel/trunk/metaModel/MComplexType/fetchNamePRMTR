@@ -1,0 +1,19 @@
+{
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("(");
+		Iterator<PersistentMType> iterator = this.getContainedTypes().iterator();
+		if (iterator.hasNext()) {
+			builder.append(iterator.next().fetchName());
+		}
+
+		while (iterator.hasNext()) {
+			PersistentMType persistentMType = iterator.next();
+			builder.append(this.getThis().fetchTypeLinkOperator());
+			builder.append(persistentMType.fetchName());
+		}
+
+		builder.append(")");
+
+		return builder.toString();
+	}
