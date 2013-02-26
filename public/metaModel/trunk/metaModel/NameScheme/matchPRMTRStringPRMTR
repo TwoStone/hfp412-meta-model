@@ -1,3 +1,0 @@
-{
-		return MBoolean.createFromBoolean(Pattern.matches(getThis().getRegExpPattern(), name));
-	}

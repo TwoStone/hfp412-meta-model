@@ -1,3 +1,0 @@
-{
-		return model.messageOrLink.MessageManager.getTheMessageManager();
-	}

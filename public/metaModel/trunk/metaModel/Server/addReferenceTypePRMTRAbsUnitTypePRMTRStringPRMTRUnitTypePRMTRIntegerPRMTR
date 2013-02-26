@@ -1,4 +1,0 @@
-{
-		getUnitTypeManager().addReferenceType(name, unitType, referenceUnitType, exponent, getThis());
-
-	}

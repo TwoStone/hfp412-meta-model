@@ -1,3 +1,0 @@
-{
-		getMeasurementTypeManager().createMeasurementType(name, type, unitType, getThis());
-	}

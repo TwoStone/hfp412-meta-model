@@ -1,8 +1,0 @@
-{
-		new Thread(new Runnable() {
-			@Override
-			public/* INTERNAL */void run() {
-				// Handle exception!
-			}
-		}).start();
-	}

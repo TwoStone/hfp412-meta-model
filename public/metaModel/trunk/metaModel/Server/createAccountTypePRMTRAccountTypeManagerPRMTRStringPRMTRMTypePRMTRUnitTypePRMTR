@@ -1,3 +1,0 @@
-{
-		getAccountTypeManager().createAccountType(name, type, unitType, getThis());
-	}

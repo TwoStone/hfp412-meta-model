@@ -1,7 +1,0 @@
-
-package view.objects;
-
-import view.*;
-import view.visitor.*;
-
-

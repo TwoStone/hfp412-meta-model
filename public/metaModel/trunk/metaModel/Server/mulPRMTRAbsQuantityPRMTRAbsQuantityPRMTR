@@ -1,3 +1,0 @@
-{
-		return factor1.mul(factor2);
-	}

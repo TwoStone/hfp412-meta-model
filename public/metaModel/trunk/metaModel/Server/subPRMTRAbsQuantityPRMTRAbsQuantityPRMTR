@@ -1,3 +1,0 @@
-{
-		return minuend.sub(subtrahend);
-	}

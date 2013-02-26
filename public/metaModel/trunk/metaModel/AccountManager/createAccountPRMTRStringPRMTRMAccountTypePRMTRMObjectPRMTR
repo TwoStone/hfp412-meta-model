@@ -1,3 +1,0 @@
-{
-		this.getThis().getAccounts().add(Account.createAccount(object, type));
-	}

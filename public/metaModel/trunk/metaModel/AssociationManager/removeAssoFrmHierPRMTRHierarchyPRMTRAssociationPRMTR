@@ -1,9 +1,0 @@
-{
-		a.getHierarchies().removeFirstSuccess(new Predcate<PersistentHierarchy>() {
-
-			@Override
-			public boolean test(PersistentHierarchy argument) throws PersistenceException {
-				return h.equals(argument);
-			}
-		});
-	}

@@ -1,3 +1,0 @@
-{
-		return strategy.aggregateMeasurements(getThis().getEntries().getList());
-	}

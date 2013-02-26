@@ -1,6 +1,0 @@
-{
-		if (!measurement.getType().getUnitType().equals(this.getThis().getType().getUnitType())) {
-			throw new ConsistencyException(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_ACCOUNT);
-		}
-		this.getThis().getEntries().add(measurement);
-	}

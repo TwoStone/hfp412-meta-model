@@ -1,4 +1,0 @@
-{
-		getObjectManager().addType(object, newType, getThis());
-
-	}

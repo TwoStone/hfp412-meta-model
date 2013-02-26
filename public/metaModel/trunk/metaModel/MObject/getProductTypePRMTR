@@ -1,3 +1,0 @@
-{
-		return MNonEmptyAtomicTypeConjunction.transientCreateNETypeConj(getThis().getTypes().getList());
-	}

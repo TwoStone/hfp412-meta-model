@@ -1,9 +1,0 @@
-{
-        //TODO: implement method: fetchObjectsWithTypeLE
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchObjectsWithTypeLE\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }

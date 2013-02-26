@@ -1,3 +1,0 @@
-{
-		return SearchLists.toMTypeSearchList(fetchContainedTypes());
-	}

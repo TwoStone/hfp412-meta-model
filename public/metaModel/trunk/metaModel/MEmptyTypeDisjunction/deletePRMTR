@@ -1,3 +1,0 @@
-{
-		throw new ConsistencyException("The Nothing may not be deleted.");
-	}

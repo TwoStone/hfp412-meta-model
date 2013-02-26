@@ -1,3 +1,0 @@
-{
-		getLinkManager().createLink(type, source, target, getThis());
-	}

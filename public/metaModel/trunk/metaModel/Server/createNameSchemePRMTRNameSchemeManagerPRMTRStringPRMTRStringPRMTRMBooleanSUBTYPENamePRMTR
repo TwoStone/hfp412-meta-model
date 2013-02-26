@@ -1,4 +1,0 @@
-{
-		getNameSchemeManager().createNameScheme(schemeName, regExp, MBoolean.createFromFactoryString(isIterable),
-				getThis());
-	}

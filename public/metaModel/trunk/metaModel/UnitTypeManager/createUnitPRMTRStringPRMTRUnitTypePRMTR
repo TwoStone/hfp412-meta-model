@@ -1,8 +1,0 @@
-{
-		AbsUnitSearchList old = Unit.getAbsUnitByName(name);
-		if (old.iterator().hasNext()) {
-			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION + name);
-		}
-		getThis().getUnits().add(Unit.createUnit(type, name));
-
-	}

@@ -1,6 +1,0 @@
-{
-		PersistentName name = Name.createName(type, scheme);
-		this.getNames().add(name);
-
-		return name;
-	}

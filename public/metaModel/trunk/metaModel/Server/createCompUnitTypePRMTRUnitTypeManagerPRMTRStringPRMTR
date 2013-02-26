@@ -1,3 +1,0 @@
-{
-		manager.createCompUnitType(name, getThis());
-	}

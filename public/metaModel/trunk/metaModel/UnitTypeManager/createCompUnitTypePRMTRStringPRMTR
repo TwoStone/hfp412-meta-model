@@ -1,9 +1,0 @@
-{
-		// TODO: nur mit addReferenceType erstellen? Sonst entstehen leere CompUnitTypes
-		AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
-		if (old.iterator().hasNext()) {
-			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
-		}
-		this.getThis().getUnitTypes().add(CompUnitType.createCompUnitType(name));
-
-	}

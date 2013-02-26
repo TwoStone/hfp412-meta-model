@@ -1,3 +1,0 @@
-{
-		getUnitTypeManager().setConversion(unit, factor, constant, getThis());
-	}

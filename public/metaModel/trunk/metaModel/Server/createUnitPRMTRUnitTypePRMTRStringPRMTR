@@ -1,3 +1,0 @@
-{
-		getUnitTypeManager().createUnit(name, type, getThis());
-	}

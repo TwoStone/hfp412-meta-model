@@ -1,3 +1,0 @@
-{
-		return model.measurement.MeasurementTypeManager.getTheMeasurementTypeManager();
-	}

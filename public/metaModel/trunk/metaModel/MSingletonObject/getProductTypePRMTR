@@ -1,5 +1,0 @@
-{
-		MAtomicTypeSearchList sl = new MAtomicTypeSearchList();
-		sl.add(getThis().getType());
-		return MNonEmptyAtomicTypeConjunction.transientCreateNETypeConj(sl);
-	}

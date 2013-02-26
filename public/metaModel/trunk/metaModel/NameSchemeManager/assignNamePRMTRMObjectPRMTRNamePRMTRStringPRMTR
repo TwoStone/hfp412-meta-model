@@ -1,9 +1,0 @@
-{
-		checkTypeIsAssignable(object, name);
-		checkNameSchemeIsNotPresent(object, name);
-		checkNameIsValid(name, value);
-
-		PersistentNameSchemeInstance nameSchemeInstance = NameSchemeInstance.createNameSchemeInstance(value,
-				name.getNameScheme());
-		NameInstance.createNameInstance(name, object, nameSchemeInstance);
-	}

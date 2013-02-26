@@ -1,3 +1,0 @@
-{
-		return model.abstractOperation.AssociationManager.getTheAssociationManager();
-	}

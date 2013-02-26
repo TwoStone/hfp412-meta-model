@@ -1,4 +1,0 @@
-{
-		Fraction convertedAmount = this.getThis().getMyFunction().executeInverse(amount);
-		return QuantityManager.getTheQuantityManager().createQuantity(this.getThis().getSource(), convertedAmount);
-	}

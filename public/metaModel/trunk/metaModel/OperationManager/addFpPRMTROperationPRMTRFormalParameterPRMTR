@@ -1,5 +1,0 @@
-{
-		FormalParameterSearchList list = new FormalParameterSearchList();
-		list.add(fp);
-		getThis().addMultipleFp(op, list);
-	}

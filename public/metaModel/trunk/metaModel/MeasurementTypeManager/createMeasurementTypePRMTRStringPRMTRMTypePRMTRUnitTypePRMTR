@@ -1,3 +1,0 @@
-{
-		this.getThis().getMeasurementTypes().add(MMeasurementType.createMMeasurementType(type, unitType));
-	}

@@ -1,5 +1,0 @@
-{
-		getTypeManager().createAtomicSubType(superType, typeName, MBoolean.createFromFactoryString(singletonType),
-				MBoolean.createFromFactoryString(abstractType), getThis());
-
-	}

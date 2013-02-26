@@ -1,3 +1,0 @@
-{
-		getThis().getAspectManager().createAspect(name, getThis());
-	}

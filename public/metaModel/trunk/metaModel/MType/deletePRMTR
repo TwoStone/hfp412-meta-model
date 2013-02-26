@@ -1,3 +1,0 @@
-{
-		getThis().getMyCONCMModelItem().delete();
-	}

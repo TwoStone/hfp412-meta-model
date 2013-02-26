@@ -1,3 +1,0 @@
-{
-		getAssociationManager().addAssociation(theHierarchy, association, getThis());
-	}

@@ -1,5 +1,0 @@
-{
-
-		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
-		getThis().createOperation(source, theMEmptyTypeDisjunction, name, fp);
-	}

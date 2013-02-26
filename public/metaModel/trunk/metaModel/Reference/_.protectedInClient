@@ -1,6 +1,0 @@
-
-    
-    public void setIcon(IconRenderer renderer) {
-        super.setIcon(renderer);
-    }
-    

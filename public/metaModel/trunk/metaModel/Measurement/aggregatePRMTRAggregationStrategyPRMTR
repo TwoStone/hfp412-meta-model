@@ -1,5 +1,0 @@
-{
-		MeasurementSearchList measurements = new MeasurementSearchList();
-		measurements.add(getThis());
-		return strategy.aggregateMeasurements(measurements);
-	}

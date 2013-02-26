@@ -1,4 +1,0 @@
-{
-		getQuantityManager().convertToDefault(quantity, getThis());
-
-	}

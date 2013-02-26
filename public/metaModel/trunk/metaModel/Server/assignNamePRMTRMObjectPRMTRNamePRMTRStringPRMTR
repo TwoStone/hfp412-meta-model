@@ -1,4 +1,0 @@
-{
-		getNameSchemeManager().assignName(object, scheme, name, getThis());
-
-	}

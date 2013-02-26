@@ -1,6 +1,0 @@
-{
-		Fraction convertedAmount = this.getThis().getMyFunction().execute(amount);
-		return QuantityManager.getTheQuantityManager().createQuantity(
-				((PersistentUnitType) this.getThis().getSource().getType()).getDefaultUnit(), convertedAmount);
-
-	}

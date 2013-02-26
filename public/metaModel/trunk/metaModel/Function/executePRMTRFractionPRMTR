@@ -1,9 +1,0 @@
-{
-		Fraction result = null;
-		try {
-			result = amount.mul(this.factor).add(this.constant);
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-		return result;
-	}

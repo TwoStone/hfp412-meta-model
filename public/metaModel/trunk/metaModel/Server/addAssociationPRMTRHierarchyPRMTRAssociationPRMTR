@@ -1,3 +1,0 @@
-{
-		getThis().getAssociationManager().addAssociation(h, a, getThis());
-	}

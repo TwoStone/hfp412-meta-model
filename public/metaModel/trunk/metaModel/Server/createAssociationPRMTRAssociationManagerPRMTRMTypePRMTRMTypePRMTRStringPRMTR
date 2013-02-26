@@ -1,3 +1,0 @@
-{
-		manager.createAssociation(source, target, name, getThis());
-	}

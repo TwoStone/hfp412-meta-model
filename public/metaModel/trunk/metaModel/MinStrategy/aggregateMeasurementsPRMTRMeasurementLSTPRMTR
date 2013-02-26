@@ -1,9 +1,0 @@
-{
-        //TODO: implement method: aggregateMeasurements
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"aggregateMeasurements\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }

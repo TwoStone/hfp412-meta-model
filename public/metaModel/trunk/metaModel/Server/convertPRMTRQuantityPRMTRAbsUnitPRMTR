@@ -1,3 +1,0 @@
-{
-		getQuantityManager().convert(quantity, unit, getThis());
-	}

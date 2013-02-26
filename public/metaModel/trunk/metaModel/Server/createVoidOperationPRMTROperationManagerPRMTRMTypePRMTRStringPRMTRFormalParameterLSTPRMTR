@@ -1,3 +1,0 @@
-{
-		getOperationManager().createVoidOperation(source, name, fp, getThis());
-	}

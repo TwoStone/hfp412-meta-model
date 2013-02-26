@@ -1,3 +1,0 @@
-{
-		getUnitTypeManager().removeUnit(unit, getThis());
-	}
