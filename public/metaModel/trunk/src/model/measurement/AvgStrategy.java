@@ -177,8 +177,8 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     
     // Start of section that contains operations that must be implemented.
     
-    public PersistentAbsQuantity aggregateMeasurements(final MeasurementSearchList measurements) 
-				throws PersistenceException{
+    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsQuantity neutralElement, final MeasurementSearchList measurements) 
+				throws model.NotComputableException, PersistenceException{
         //TODO: implement method: aggregateMeasurements
         try{
             throw new java.lang.UnsupportedOperationException("Method \"aggregateMeasurements\" not implemented yet.");

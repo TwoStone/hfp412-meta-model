@@ -1,6 +1,7 @@
 package model.measurement;
 
 import model.UserException;
+import model.quantity.Quantity;
 import model.visitor.AbsQuantityReturnVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
@@ -28,6 +29,9 @@ import persistence.PersistentQuantifObject;
 import persistence.PersistentQuantity;
 import persistence.Predcate;
 import persistence.TDObserver;
+
+import common.Fraction;
+
 import constants.ExceptionConstants;
 
 /* Additional import section end */
@@ -243,18 +247,18 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 		final PersistentAbsUnitType unitType = this.getThis().getQuantity()
 				.accept(new AbsQuantityReturnVisitor<PersistentAbsUnitType>() {
 					@Override
-					public PersistentAbsUnitType handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity)
-							throws PersistenceException {
+					public PersistentAbsUnitType handleCompoundQuantity(
+							final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
 						return compoundQuantity.getParts().findFirst(new Predcate<PersistentQuantity>() {
 							@Override
-							public boolean test(PersistentQuantity argument) throws PersistenceException {
+							public boolean test(final PersistentQuantity argument) throws PersistenceException {
 								return true;
 							}
 						}).getUnit().getType();
 					}
 
 					@Override
-					public PersistentAbsUnitType handleQuantity(PersistentQuantity quantity)
+					public PersistentAbsUnitType handleQuantity(final PersistentQuantity quantity)
 							throws PersistenceException {
 						return quantity.getUnit().getType();
 					}
@@ -271,16 +275,18 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     // Start of section that contains overridden operations only.
     
     public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
-				throws PersistenceException{
-		MeasurementSearchList measurements = new MeasurementSearchList();
+				throws model.NotComputableException, PersistenceException{
+		final MeasurementSearchList measurements = new MeasurementSearchList();
 		measurements.add(getThis());
-		return strategy.aggregateMeasurements(measurements);
+
+		final PersistentQuantity neutralElement = Quantity.createQuantity(Fraction.Null, this.getThis().getQuantity()
+				.fetchDefaultUnit());
+
+		return strategy.aggregateMeasurements(neutralElement, measurements);
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

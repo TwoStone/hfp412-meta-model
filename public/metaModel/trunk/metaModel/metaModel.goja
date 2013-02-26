@@ -296,7 +296,7 @@ part quantity {
 		AbsQuantity mul(AbsQuantity factor) throws NotComputableException;
 		AbsQuantity div(AbsQuantity divisor) throws NotComputableException;
 		MBoolean isLessOrEqualThan(AbsQuantity compareValue) throws UserException;
-		
+		abstract AbsUnit fetchDefaultUnit();
 	}
 
 	class Quantity extends AbsQuantity {
@@ -555,7 +555,7 @@ hierarchy MAccountTypeHierarchy##MAccTypeHie;
 
 abstract class QuantifObject@@QuantifiedObject {
 	symmetric prior MObject object;
-	active AbsQuantity aggregate(AggregationStrategy strategy);
+	active AbsQuantity aggregate(AggregationStrategy strategy) throws NotComputableException;
 }
 
 class Measurement extends QuantifObject {
@@ -574,7 +574,7 @@ class Account extends QuantifObject {
 hierarchy AccountHierarchy##AccountHie;
 
 interface AggregationStrategy##AggrStrtgy {
-	AbsQuantity aggregateMeasurements##aggrtMsmnt(Measurement** measurements);
+	AbsQuantity aggregateMeasurements##aggrtMsmnt(AbsQuantity neutralElement, Measurement** measurements) throws NotComputableException;
 }
 
 class MinStrategy implements AggregationStrategy {}

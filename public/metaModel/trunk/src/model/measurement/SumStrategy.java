@@ -1,5 +1,6 @@
 package model.measurement;
 
+import model.NotComputableException;
 import model.UserException;
 import model.visitor.AggregationStrategyExceptionVisitor;
 import model.visitor.AggregationStrategyReturnExceptionVisitor;
@@ -9,11 +10,13 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import persistence.AggregtionException;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
+import persistence.PersistentMeasurement;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentSumStrategy;
@@ -177,29 +180,35 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
     
     // Start of section that contains operations that must be implemented.
     
-    public PersistentAbsQuantity aggregateMeasurements(final MeasurementSearchList measurements) 
-				throws PersistenceException{
-        //TODO: implement method: aggregateMeasurements
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"aggregateMeasurements\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsQuantity neutralElement, final MeasurementSearchList measurements) 
+				throws model.NotComputableException, PersistenceException{
+
+		return measurements
+				.aggregateException(new AggregtionException<PersistentMeasurement, PersistentAbsQuantity, NotComputableException>() {
+
+					@Override
+					public PersistentAbsQuantity neutral() throws PersistenceException, NotComputableException {
+						return neutralElement;
+					}
+
+					@Override
+					public PersistentAbsQuantity compose(final PersistentAbsQuantity result,
+							final PersistentMeasurement argument) throws PersistenceException, NotComputableException {
+						return result.add(argument.getQuantity());
+					}
+
+				});
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
 
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
 
 	}
     
@@ -208,9 +217,7 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

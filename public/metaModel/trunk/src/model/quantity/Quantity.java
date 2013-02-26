@@ -222,6 +222,10 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
+    public PersistentAbsUnit fetchDefaultUnit() 
+				throws PersistenceException{
+		return this.getThis().getUnit();
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation

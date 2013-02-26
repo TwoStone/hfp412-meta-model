@@ -299,14 +299,14 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     // Start of section that contains overridden operations only.
     
     public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
-				throws PersistenceException{
-		return strategy.aggregateMeasurements(getThis().getEntries().getList());
+				throws model.NotComputableException, PersistenceException{
+		// FIXME: So geht das ja nicht...
+		// return strategy.aggregateMeasurements(getThis().getEntries().getList());
+		return null;
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

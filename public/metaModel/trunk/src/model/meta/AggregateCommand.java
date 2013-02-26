@@ -264,8 +264,12 @@ public class AggregateCommand extends PersistentObject implements PersistentAggr
     }
     public void execute() 
 				throws PersistenceException{
-        this.setCommandResult(this.getCommandReceiver().aggregate(this.getStrategy()));
-		
+        try{
+			this.setCommandResult(this.getCommandReceiver().aggregate(this.getStrategy()));
+		}
+		catch(model.NotComputableException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{
