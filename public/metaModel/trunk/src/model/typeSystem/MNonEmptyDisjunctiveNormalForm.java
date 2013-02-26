@@ -286,11 +286,6 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: delete
-        
-    }
     public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
 				throws PersistenceException{
 		return getThis();
@@ -433,6 +428,11 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
     
     // Start of section that contains overridden operations only.
     
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+        //TODO: implement method: delete
+        
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     

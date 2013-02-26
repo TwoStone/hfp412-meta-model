@@ -411,11 +411,6 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: delete
-        
-    }
     public MAspectSearchList fetchAspects() 
 				throws PersistenceException{
 		MAspectSearchList result = new MAspectSearchList();
@@ -563,6 +558,11 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     
     // Start of section that contains overridden operations only.
     
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+        //TODO: implement method: delete
+        
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     

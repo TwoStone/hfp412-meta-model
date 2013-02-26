@@ -265,11 +265,6 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: delete
-        
-    }
     public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
 				throws PersistenceException{
 		final PersistentMNonEmptyDisjunctiveNormalForm result = MNonEmptyDisjunctiveNormalForm
@@ -349,6 +344,11 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
     
     // Start of section that contains overridden operations only.
     
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+        //TODO: implement method: delete
+        
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     

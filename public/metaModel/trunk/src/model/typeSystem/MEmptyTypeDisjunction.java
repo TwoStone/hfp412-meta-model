@@ -254,10 +254,6 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		throw new ConsistencyException("The Nothing may not be deleted.");
-	}
     public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
 				throws PersistenceException{
 		return getThis();
@@ -301,6 +297,10 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
     
     // Start of section that contains overridden operations only.
     
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		throw new ConsistencyException("The Nothing may not be deleted.");
+	}
     public String fetchName() 
 				throws PersistenceException{
 		return "Nothing";

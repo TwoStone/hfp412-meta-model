@@ -265,11 +265,6 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
 				throws PersistenceException{
 
 	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: delete
-
-	}
     public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
 				throws PersistenceException{
 		PersistentMDisjunctiveNormalForm result = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
@@ -327,6 +322,11 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
     
     // Start of section that contains overridden operations only.
     
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: delete
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
     
