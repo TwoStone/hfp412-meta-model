@@ -307,14 +307,14 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		FormalParameterSearchList list = new FormalParameterSearchList();
+		final FormalParameterSearchList list = new FormalParameterSearchList();
 		list.add(fp);
 		getThis().addMultipleFp(op, list);
 	}
     public void addMultipleFp(final PersistentOperation op, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
 
-		Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
+		final Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
 
 		Iterator<PersistentFormalParameter> otherIterator = null;
 		PersistentFormalParameter otherCurrent = null;
@@ -338,22 +338,21 @@ public class OperationManager extends PersistentObject implements PersistentOper
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
     public void createConstant(final String name, final PersistentMType target) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
+		final PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction
+				.getTheMEmptyTypeDisjunction();
 		getThis().createOperation(theMEmptyTypeDisjunction, target, name, new FormalParameterSearchList());
 	}
     public void createFp(final String name, final PersistentMType ofType) 
 				throws model.DoubleDefinitionException, PersistenceException{
 		// TODO: Muessen Nameclashes ueberprueft werden?
-		PersistentFormalParameter findFirst = getThis().getFormalParameters().findFirst(
+		final PersistentFormalParameter findFirst = getThis().getFormalParameters().findFirst(
 				new Predcate<PersistentFormalParameter>() {
 
 					@Override
-					public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+					public boolean test(final PersistentFormalParameter argument) throws PersistenceException {
 						return argument.getName().equals(name);
 					}
 				});
@@ -371,20 +370,22 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		checkOperationDoubleDefinition(name);
 
 		// 2. Operation erstellen
-		PersistentOperation createOperation = Operation.createOperation(name, source, target);
+		final PersistentOperation createOperation = Operation.createOperation(name, source, target);
 		getThis().getOperations().add(createOperation);
 		getThis().addMultipleFp(createOperation, fp);
 	}
     public void createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
 
-		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
+		final PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction
+				.getTheMEmptyTypeDisjunction();
 		getThis().createOperation(theMEmptyTypeDisjunction, target, name, fp);
 	}
     public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, PersistenceException{
 
-		PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
+		final PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction
+				.getTheMEmptyTypeDisjunction();
 		getThis().createOperation(source, theMEmptyTypeDisjunction, name, fp);
 	}
     public OperationSearchList getConstants() 
@@ -393,7 +394,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		return new OperationSearchList(getThis().getStaticOperations().findAll(new Predcate<PersistentOperation>() {
 
 			@Override
-			public boolean test(PersistentOperation argument) throws PersistenceException {
+			public boolean test(final PersistentOperation argument) throws PersistenceException {
 				return argument.getParameters().getLength() <= 0;
 			}
 
@@ -411,7 +412,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		return new OperationSearchList(getThis().getOperations().findAll(new Predcate<PersistentOperation>() {
 
 			@Override
-			public boolean test(PersistentOperation argument) throws PersistenceException {
+			public boolean test(final PersistentOperation argument) throws PersistenceException {
 				return argument.isStatic().toBoolean();
 			}
 
@@ -438,7 +439,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 					"Zu dieser Operation existieren Exemplare! Formalparameter kann nicht entfernt werden");
 		}
 
-		Iterator<PersistentFormalParameter> iterator = op.getParameters().iterator();
+		final Iterator<PersistentFormalParameter> iterator = op.getParameters().iterator();
 		boolean deleted = false;
 		while (iterator.hasNext()) {
 			if (iterator.next().equals(fp)) {
@@ -466,16 +467,16 @@ public class OperationManager extends PersistentObject implements PersistentOper
 					"Zu diesem Formalparameter existieren Exemplare! Kann nicht geloescht werden.");
 		}
 
-		PersistentOperation findFirst = getThis().getOperations().findFirst(new Predcate<PersistentOperation>() {
+		final PersistentOperation findFirst = getThis().getOperations().findFirst(new Predcate<PersistentOperation>() {
 
 			@Override
-			public boolean test(PersistentOperation argument) throws PersistenceException {
+			public boolean test(final PersistentOperation argument) throws PersistenceException {
 
-				PersistentFormalParameter foundParam = argument.getParameters().findFirst(
+				final PersistentFormalParameter foundParam = argument.getParameters().findFirst(
 						new Predcate<PersistentFormalParameter>() {
 
 							@Override
-							public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+							public boolean test(final PersistentFormalParameter argument) throws PersistenceException {
 								return argument.equals(fp);
 							}
 						});
@@ -491,7 +492,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		getThis().getFormalParameters().removeFirstSuccess(new Predcate<PersistentFormalParameter>() {
 
 			@Override
-			public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+			public boolean test(final PersistentFormalParameter argument) throws PersistenceException {
 				return argument.equals(fp);
 			}
 		});
@@ -505,7 +506,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		getThis().getOperations().removeFirstSuccess(new Predcate<PersistentOperation>() {
 
 			@Override
-			public boolean test(PersistentOperation argument) throws PersistenceException {
+			public boolean test(final PersistentOperation argument) throws PersistenceException {
 				return op.equals(argument);
 			}
 		});
@@ -516,30 +517,29 @@ public class OperationManager extends PersistentObject implements PersistentOper
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	private void checkOperationDoubleDefinition(String name) throws DoubleDefinitionException, PersistenceException {
-		Iterator<PersistentAbsOperation> iterator = Operation.getAbsOperationByName(name).iterator();
+	private void checkOperationDoubleDefinition(final String name) throws DoubleDefinitionException,
+			PersistenceException {
+		final Iterator<PersistentAbsOperation> iterator = Operation.getAbsOperationByName(name).iterator();
 		while (iterator.hasNext()) {
 			iterator.next().accept(new AbsOperationReturnExceptionVisitor<AbsOperation, DoubleDefinitionException>() {
 
 				@Override
-				public AbsOperation handleOperation(PersistentOperation operation) throws PersistenceException,
+				public AbsOperation handleOperation(final PersistentOperation operation) throws PersistenceException,
 						DoubleDefinitionException {
 					throw new DoubleDefinitionException(
 							"Die Namen der Operationen sind eindeutig! Bitte waehlen Sie einen anderen Namen.");
 				}
 
 				@Override
-				public AbsOperation handleAssociation(PersistentAssociation association) throws PersistenceException,
-						DoubleDefinitionException {
+				public AbsOperation handleAssociation(final PersistentAssociation association)
+						throws PersistenceException, DoubleDefinitionException {
 					return null;
 				}
 			});
 		}
 	}
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

@@ -24,6 +24,6 @@ public class OperationTest extends AbstractTest {
 		assertEquals(mFalse, Operation.createOperation("", mstSingle1, mat1).isStatic());
 		assertEquals(mTrue, Operation.createOperation("", mptEmpty, mat1).isStatic());
 		assertEquals(mFalse, Operation.createOperation("", mstEmpty, mat1).isStatic());
-		// TODO CompTypes testen
+		// TODO: Christin CompTypes testen
 	}
 }

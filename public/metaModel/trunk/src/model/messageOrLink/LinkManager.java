@@ -190,8 +190,6 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
 	}
     public void createLink(final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target) 
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
@@ -201,17 +199,17 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 					+ target);
 		}
 
-		MObjectSearchList possibleSources = ObjectManager.getTheObjectManager()
-				.fetchObjectsWithTypeLE(type.getSource());
+		final MObjectSearchList possibleSources = ObjectManager.getTheObjectManager().fetchObjectsWithTypeLE(
+				type.getSource());
 
-		MObjectSearchList possibleTargets = ObjectManager.getTheObjectManager()
-				.fetchObjectsWithTypeLE(type.getTarget());
+		final MObjectSearchList possibleTargets = ObjectManager.getTheObjectManager().fetchObjectsWithTypeLE(
+				type.getTarget());
 
 		// Passt die Source zum Association,Type?
 		if (possibleSources.findFirst(new Predcate<PersistentMObject>() {
 
 			@Override
-			public boolean test(PersistentMObject argument) throws PersistenceException {
+			public boolean test(final PersistentMObject argument) throws PersistenceException {
 				return argument.equals(source);
 			}
 		}) == null) {
@@ -222,7 +220,7 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 		if (possibleTargets.findFirst(new Predcate<PersistentMObject>() {
 
 			@Override
-			public boolean test(PersistentMObject argument) throws PersistenceException {
+			public boolean test(final PersistentMObject argument) throws PersistenceException {
 				return argument.equals(target);
 			}
 		}) == null) {
@@ -233,18 +231,13 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
-
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
 	}
     public void removeLink(final PersistentLink link) 
 				throws PersistenceException{
 		// TODO: implement method: removeLink
-
 	}
     
     
@@ -252,9 +245,7 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

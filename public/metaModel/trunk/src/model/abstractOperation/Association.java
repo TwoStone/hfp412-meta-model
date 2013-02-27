@@ -186,18 +186,12 @@ public class Association extends model.abstractOperation.AbsOperation implements
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
-
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
 	}
     public PersistentMBoolean isObservation() 
 				throws PersistenceException{
@@ -209,9 +203,7 @@ public class Association extends model.abstractOperation.AbsOperation implements
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

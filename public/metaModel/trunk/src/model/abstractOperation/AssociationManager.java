@@ -231,12 +231,12 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
 
 		// Pruefen ob durch bestehende Links ein Zyklus entstehen wuerde
-		LinkSearchList allLinksOfAssociation = a.inverseGetType();
+		final LinkSearchList allLinksOfAssociation = a.inverseGetType();
 
-		PersistentLink firstCycle = allLinksOfAssociation.findFirst(new Predcate<PersistentLink>() {
+		final PersistentLink firstCycle = allLinksOfAssociation.findFirst(new Predcate<PersistentLink>() {
 
 			@Override
-			public boolean test(PersistentLink argument) throws PersistenceException {
+			public boolean test(final PersistentLink argument) throws PersistenceException {
 				return argument.getTarget().containsInHierarchy(argument.getSource(), h).toBoolean();
 			}
 		});
@@ -253,21 +253,15 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	}
     public void createAssociation(final PersistentMType source, final PersistentMType target, final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		// TODO: DDE
-		PersistentAssociation a = Association.createAssociation(name, source, target);
+		// TODO: Christin DDE
+		final PersistentAssociation a = Association.createAssociation(name, source, target);
 		getThis().getAssociations().add(a);
 	}
     public void createHierarchy(final PersistentAssociation a, final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-		PersistentHierarchy h = Hierarchy.createHierarchy(name);
-		try {
+				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+		final PersistentHierarchy h = Hierarchy.createHierarchy(name);
 			getThis().addAssociation(h, a);
-		} catch (CycleException e) {
-			// TODO Eigentlich haben wir hier gar keine Cycle! Thimo nochmal fragen...
-			e.printStackTrace();
 		}
-		getThis().getHierarchies().add(h);
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -279,7 +273,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		a.getHierarchies().removeFirstSuccess(new Predcate<PersistentHierarchy>() {
 
 			@Override
-			public boolean test(PersistentHierarchy argument) throws PersistenceException {
+			public boolean test(final PersistentHierarchy argument) throws PersistenceException {
 				return h.equals(argument);
 			}
 		});
@@ -288,7 +282,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
 		getThis().getAssociations().removeFirstSuccess(new Predcate<PersistentAssociation>() {
 			@Override
-			public boolean test(PersistentAssociation argument) throws PersistenceException {
+			public boolean test(final PersistentAssociation argument) throws PersistenceException {
 				return a.equals(argument);
 			}
 		});

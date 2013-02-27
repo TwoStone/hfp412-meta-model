@@ -611,18 +611,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createConst(String managerProxiString, String typeProxiString, String name, String targetProxiString){
-        try {
-            PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
-            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentMObject target = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
-            ((PersistentServer)this.server).createConst(manager, type, name, target);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> createEntry(String accountProxiString, String objectProxiString, String measurementTypeProxiString, String quantityProxiString){
         try {
             PersistentAccount account = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(accountProxiString));
@@ -723,43 +711,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createMessage(String sourceProxiString, String typeProxiString, String targetProxiString, java.util.Vector<String> apTrnsprt){
-        try {
-            PersistentMObject source = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
-            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentMObject target = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
-            ActualParameterSearchList ap = new ActualParameterSearchList();
-			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
-			while (apItrtr.hasNext()){
-				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
-				ap.add(currentProxi);
-			}
-            ((PersistentServer)this.server).createMessage(source, type, target, ap);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> createMessage(String managerProxiString, String typeProxiString, String sourceProxiString, String targetProxiString, java.util.Vector<String> apTrnsprt){
-        try {
-            PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
-            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentMObject source = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
-            PersistentMObject target = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
-            ActualParameterSearchList ap = new ActualParameterSearchList();
-			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
-			while (apItrtr.hasNext()){
-				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
-				ap.add(currentProxi);
-			}
-            ((PersistentServer)this.server).createMessage(manager, type, source, target, ap);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> createNameScheme(String managerProxiString, String schemeName, String regExp, String isIterable){
         try {
             PersistentNameSchemeManager manager = (PersistentNameSchemeManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
@@ -811,24 +762,6 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentAbsUnit unit = (PersistentAbsUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
             common.Fraction f = common.Fraction.parse(fAsString);
             ((PersistentServer)this.server).createQuantity(manager, unit, f);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> createStaticMessage(String managerProxiString, String typeProxiString, String name, String targetProxiString, java.util.Vector<String> apTrnsprt){
-        try {
-            PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
-            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentMObject target = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(targetProxiString));
-            ActualParameterSearchList ap = new ActualParameterSearchList();
-			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
-			while (apItrtr.hasNext()){
-				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
-				ap.add(currentProxi);
-			}
-            ((PersistentServer)this.server).createStaticMessage(manager, type, name, target, ap);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -896,41 +829,6 @@ public  class RemoteServer extends RemoteServerMaster {
         try {
             PersistentUnitType type = (PersistentUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
             ((PersistentServer)this.server).createUnit(type, name);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> createVoidMessage(String sourceProxiString, String typeProxiString, java.util.Vector<String> apTrnsprt){
-        try {
-            PersistentMObject source = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
-            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            ActualParameterSearchList ap = new ActualParameterSearchList();
-			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
-			while (apItrtr.hasNext()){
-				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
-				ap.add(currentProxi);
-			}
-            ((PersistentServer)this.server).createVoidMessage(source, type, ap);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> createVoidMessage(String managerProxiString, String typeProxiString, String sourceProxiString, java.util.Vector<String> apTrnsprt){
-        try {
-            PersistentMessageManager manager = (PersistentMessageManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
-            PersistentOperation type = (PersistentOperation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            PersistentMObject source = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
-            ActualParameterSearchList ap = new ActualParameterSearchList();
-			java.util.Iterator<String> apItrtr = apTrnsprt.iterator();
-			while (apItrtr.hasNext()){
-				PersistentActualParameter currentProxi = (PersistentActualParameter)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(apItrtr.next()));
-				ap.add(currentProxi);
-			}
-            ((PersistentServer)this.server).createVoidMessage(manager, type, source, ap);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -1044,16 +942,6 @@ public  class RemoteServer extends RemoteServerMaster {
         try {
             PersistentLink link = (PersistentLink)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(linkProxiString));
             ((PersistentServer)this.server).removeLink(link);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> removeMessage(String mProxiString){
-        try {
-            PersistentMessage m = (PersistentMessage)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(mProxiString));
-            ((PersistentServer)this.server).removeMessage(m);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

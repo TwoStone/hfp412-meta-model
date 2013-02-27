@@ -246,7 +246,7 @@ public class MessageManager extends PersistentObject implements PersistentMessag
 	}
     public void createMessage(final PersistentOperation type, final PersistentMObject source, final PersistentMObject target, final ActualParameterSearchList ap) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-		boolean consEx = false;
+		final boolean consEx = false;
 		// TODO: SumTypes auseinandernehmen und einzelne Summanden als m??gliches Target/Source
 
 		if (!type.getTarget().equals(target.getTypes())) {
@@ -256,8 +256,8 @@ public class MessageManager extends PersistentObject implements PersistentMessag
 			throw new ConsistencyException("");
 		}
 		// TODO: DDE
-		PersistentMessage m = Message.createMessage(source, target, type);
-		Iterator<PersistentActualParameter> it = ap.iterator();
+		final PersistentMessage m = Message.createMessage(source, target, type);
+		final Iterator<PersistentActualParameter> it = ap.iterator();
 		while (it.hasNext()) {
 			m.getActualParameters().add(it.next());
 		}
@@ -284,7 +284,7 @@ public class MessageManager extends PersistentObject implements PersistentMessag
 		getThis().getMessages().removeFirstSuccess(new Predcate<PersistentMessage>() {
 
 			@Override
-			public boolean test(PersistentMessage argument) throws PersistenceException {
+			public boolean test(final PersistentMessage argument) throws PersistenceException {
 				if (argument.equals(m)) {
 					return true;
 				}
@@ -299,8 +299,7 @@ public class MessageManager extends PersistentObject implements PersistentMessag
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-	
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

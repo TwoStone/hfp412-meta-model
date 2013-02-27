@@ -1,18 +1,12 @@
 package model.abstractOperation;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.Iterator;
-
 import model.DoubleDefinitionException;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import persistence.PersistenceException;
-import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
-import persistence.Predcate;
 import util.AbstractTest;
 import util.InjectSingleton;
 
@@ -20,21 +14,6 @@ public class AssociationTest extends AbstractTest {
 
 	@InjectSingleton(AssociationManager.class)
 	private PersistentAssociationManager manager;
-
-	@Before
-	public void cleanUp() throws PersistenceException {
-		Iterator<PersistentAssociation> iterator = this.manager.getAssociations().iterator();
-		// TODO: Wie zur Hoelle leert man hier die Liste!?
-		while (iterator.hasNext()) {
-			manager.getAssociations().removeFirstSuccess(new Predcate<PersistentAssociation>() {
-
-				@Override
-				public boolean test(PersistentAssociation argument) throws PersistenceException {
-					return true;
-				}
-			});
-		}
-	}
 
 	@Test
 	public void isObservation() throws PersistenceException, DoubleDefinitionException {
@@ -45,6 +24,6 @@ public class AssociationTest extends AbstractTest {
 		assertEquals(mFalse, Association.createAssociation("", mat1, mstSingle1).isObservation());
 		assertEquals(mTrue, Association.createAssociation("", mat1, mptEmpty).isObservation());
 		assertEquals(mTrue, Association.createAssociation("", mat1, mstEmpty).isObservation());
-		// TODO CompTypes testen
+		// TODO: Christin CompTypes testen
 	}
 }

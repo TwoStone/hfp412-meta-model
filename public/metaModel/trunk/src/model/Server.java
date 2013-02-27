@@ -780,10 +780,6 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		operationManager.createConstant(name, target, getThis());
 	}
-    public void createConst(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentMObject target) 
-				throws PersistenceException{
-		getMessageManager().createConst(type, name, target, getThis());
-	}
     public void createEntry(final PersistentAccount account, final PersistentMObject object, final PersistentMMeasurementType measurementType, final PersistentQuantity quantity) 
 				throws model.ConsistencyException, PersistenceException{
 		// TODO: implement method: createEntry
@@ -819,16 +815,6 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		getMeasurementTypeManager().createMeasurementType(name, type, unitType, getThis());
 	}
-    public void createMessage(final PersistentMObject source, final PersistentOperation type, final PersistentMObject target, final ActualParameterSearchList ap) 
-				throws PersistenceException{
-		// TODO: implement method: createMessage
-
-	}
-    public void createMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentMObject source, final PersistentMObject target, final ActualParameterSearchList ap) 
-				throws PersistenceException{
-		// TODO: implement method: createMessage
-
-	}
     public void createNameScheme(final PersistentNameSchemeManager manager, final String schemeName, final String regExp, final String isIterable) 
 				throws PersistenceException{
 		getNameSchemeManager().createNameScheme(schemeName, regExp, MBoolean.createFromFactoryString(isIterable),
@@ -845,11 +831,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit, final common.Fraction f) 
 				throws PersistenceException{
 		getQuantityManager().createQuantity(unit, f, getThis());
-	}
-    public void createStaticMessage(final PersistentMessageManager manager, final PersistentOperation type, final String name, final PersistentMObject target, final ActualParameterSearchList ap) 
-				throws PersistenceException{
-		// TODO: implement method: createStaticMessage
-
 	}
     public void createStaticOp(final PersistentOperationManager operationManager, final String name, final PersistentMType target, final FormalParameterSearchList fp) 
 				throws PersistenceException{
@@ -872,16 +853,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void createUnit(final PersistentUnitType type, final String name) 
 				throws PersistenceException{
 		getUnitTypeManager().createUnit(name, type, getThis());
-	}
-    public void createVoidMessage(final PersistentMObject source, final PersistentOperation type, final ActualParameterSearchList ap) 
-				throws PersistenceException{
-		// TODO: implement method: createVoidMessage
-
-	}
-    public void createVoidMessage(final PersistentMessageManager manager, final PersistentOperation type, final PersistentMObject source, final ActualParameterSearchList ap) 
-				throws PersistenceException{
-		// TODO: implement method: createVoidMessage
-
 	}
     public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
 				throws PersistenceException{
@@ -1087,11 +1058,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void removeLink(final PersistentLink link) 
 				throws PersistenceException{
 		getLinkManager().removeLink(link, getThis());
-	}
-    public void removeMessage(final PersistentMessage m) 
-				throws PersistenceException{
-		// TODO: implement method: removeMessage
-
 	}
     public void removeOperation(final PersistentOperation op) 
 				throws PersistenceException{

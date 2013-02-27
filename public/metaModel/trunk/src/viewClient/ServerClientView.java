@@ -580,6 +580,23 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
+            if (selected instanceof NameSchemeManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Namensschema erstellen ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateNameSchemeNameSchemeManagerStringStringMBooleanSUBTYPENameMssgWizard wizard = new ServerCreateNameSchemeNameSchemeManagerStringStringMBooleanSUBTYPENameMssgWizard("Namensschema erstellen");
+                        wizard.setFirstArgument((NameSchemeManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             if (selected instanceof OperationManagerView){
                 item = new javax.swing.JMenuItem();
                 item.setText("createConstant ... ");
@@ -647,23 +664,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     public void actionPerformed(java.awt.event.ActionEvent e) {
                         ServerCreateVoidOperationOperationManagerMTypeStringFormalParameterLSTMssgWizard wizard = new ServerCreateVoidOperationOperationManagerMTypeStringFormalParameterLSTMssgWizard("createVoidOperation");
                         wizard.setFirstArgument((OperationManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof NameSchemeManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("Namensschema erstellen ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateNameSchemeNameSchemeManagerStringStringMBooleanSUBTYPENameMssgWizard wizard = new ServerCreateNameSchemeNameSchemeManagerStringStringMBooleanSUBTYPENameMssgWizard("Namensschema erstellen");
-                        wizard.setFirstArgument((NameSchemeManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -944,36 +944,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     
                 });
                 result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createMessage ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateMessageMObjectOperationMObjectActualParameterLSTMssgWizard wizard = new ServerCreateMessageMObjectOperationMObjectActualParameterLSTMssgWizard("createMessage");
-                        wizard.setFirstArgument((MObjectView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createVoidMessage ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard("createVoidMessage");
-                        wizard.setFirstArgument((MObjectView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
             }
             if (selected instanceof HierarchyView){
                 item = new javax.swing.JMenuItem();
@@ -1052,86 +1022,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                         wizard.pack();
                         wizard.setLocationRelativeTo(getNavigationPanel());
                         wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof MessageManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("createConstant ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateConstMessageManagerOperationStringMObjectMssgWizard wizard = new ServerCreateConstMessageManagerOperationStringMObjectMssgWizard("createConstant");
-                        wizard.setFirstArgument((MessageManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createMessage ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateMessageMessageManagerOperationMObjectMObjectActualParameterLSTMssgWizard wizard = new ServerCreateMessageMessageManagerOperationMObjectMObjectActualParameterLSTMssgWizard("createMessage");
-                        wizard.setFirstArgument((MessageManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createStaticMessage ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateStaticMessageMessageManagerOperationStringMObjectActualParameterLSTMssgWizard wizard = new ServerCreateStaticMessageMessageManagerOperationStringMObjectActualParameterLSTMssgWizard("createStaticMessage");
-                        wizard.setFirstArgument((MessageManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createVoidMessage ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateVoidMessageMessageManagerOperationMObjectActualParameterLSTMssgWizard wizard = new ServerCreateVoidMessageMessageManagerOperationMObjectActualParameterLSTMssgWizard("createVoidMessage");
-                        wizard.setFirstArgument((MessageManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof MessageView){
-                item = new javax.swing.JMenuItem();
-                item.setText("removeMessage");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeMessage" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
-                            try {
-                                getConnection().removeMessage((MessageView)selected);
-                                getConnection().setEagerRefresh();
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
                     }
                     
                 });
@@ -2617,57 +2507,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateConstMessageManagerOperationStringMObjectMssgWizard extends Wizard {
-
-		protected ServerCreateConstMessageManagerOperationStringMObjectMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateConstMessageManagerOperationStringMObjectMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createConst(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new StringSelectionPanel("name", this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MObjectView", (ViewRoot) getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private MessageManagerView firstArgument; 
-	
-		public void setFirstArgument(MessageManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
 	class ServerCreateEntryAccountMObjectMMeasurementTypeQuantityMssgWizard extends Wizard {
 
 		protected ServerCreateEntryAccountMObjectMMeasurementTypeQuantityMssgWizard(String operationName){
@@ -3163,110 +3002,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateMessageMObjectOperationMObjectActualParameterLSTMssgWizard extends Wizard {
-
-		protected ServerCreateMessageMObjectOperationMObjectActualParameterLSTMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateMessageMObjectOperationMObjectActualParameterLSTMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MObjectView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot) getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private MObjectView firstArgument; 
-	
-		public void setFirstArgument(MObjectView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateMessageMessageManagerOperationMObjectMObjectActualParameterLSTMssgWizard extends Wizard {
-
-		protected ServerCreateMessageMessageManagerOperationMObjectMObjectActualParameterLSTMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateMessageMessageManagerOperationMObjectMObjectActualParameterLSTMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult(),
-									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(3)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MObjectView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MObjectView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot) getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private MessageManagerView firstArgument; 
-	
-		public void setFirstArgument(MessageManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
 	class ServerCreateNameSchemeNameSchemeManagerStringStringMBooleanSUBTYPENameMssgWizard extends Wizard {
 
 		protected ServerCreateNameSchemeNameSchemeManagerStringStringMBooleanSUBTYPENameMssgWizard(String operationName){
@@ -3523,59 +3258,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private QuantityManagerView firstArgument; 
 	
 		public void setFirstArgument(QuantityManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateStaticMessageMessageManagerOperationStringMObjectActualParameterLSTMssgWizard extends Wizard {
-
-		protected ServerCreateStaticMessageMessageManagerOperationStringMObjectActualParameterLSTMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateStaticMessageMessageManagerOperationStringMObjectActualParameterLSTMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createStaticMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									((StringSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult(),
-									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(3)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new StringSelectionPanel("name", this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MObjectView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot) getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private MessageManagerView firstArgument; 
-	
-		public void setFirstArgument(MessageManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
@@ -3854,106 +3536,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			}catch(ModelException me){
 				 handleException(me);
 			}
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard extends Wizard {
-
-		protected ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateVoidMessageMObjectOperationActualParameterLSTMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createVoidMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(1)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot) getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private MObjectView firstArgument; 
-	
-		public void setFirstArgument(MObjectView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerCreateVoidMessageMessageManagerOperationMObjectActualParameterLSTMssgWizard extends Wizard {
-
-		protected ServerCreateVoidMessageMessageManagerOperationMObjectActualParameterLSTMssgWizard(String operationName){
-			super();
-			getOkButton().setText(operationName);
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerCreateVoidMessageMessageManagerOperationMObjectActualParameterLSTMssgWizard.help";
-			super.initialize();			
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().createVoidMessage(firstArgument, (OperationView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
-									(MObjectView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
-									(java.util.Vector<ActualParameterView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(2)).getResult());
-				getConnection().setEagerRefresh();
-				setVisible(false);
-				dispose();	
-			}
-			catch(ModelException me){
-				handleException(me);
-				setVisible(false);
-				dispose();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		
-		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("type", "view.OperationView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MObjectView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectCollectionSelectionPanel("ap", "view.ActualParameterView", (ViewRoot) getConnection().getServerView(), this));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private MessageManagerView firstArgument; 
-	
-		public void setFirstArgument(MessageManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
 			this.check();
 		}
 		

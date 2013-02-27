@@ -1,18 +1,13 @@
 package model.abstractOperation;
 
-import java.util.Iterator;
-
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import persistence.PersistenceException;
-import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
-import persistence.Predcate;
 import util.AbstractTest;
 import util.InjectSingleton;
 
@@ -23,21 +18,6 @@ public class AssociationManagerTest extends AbstractTest {
 
 	public AssociationManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
-	}
-
-	@Before
-	public void cleanUp() throws PersistenceException {
-		Iterator<PersistentAssociation> iterator = this.manager.getAssociations().iterator();
-		// TODO: Wie zur Hoelle leert man hier die Liste!?
-		while (iterator.hasNext()) {
-			manager.getAssociations().removeFirstSuccess(new Predcate<PersistentAssociation>() {
-
-				@Override
-				public boolean test(PersistentAssociation argument) throws PersistenceException {
-					return true;
-				}
-			});
-		}
 	}
 
 	@Test

@@ -1,4 +1,3 @@
-
 package model.abstractOperation;
 
 import model.UserException;
@@ -16,7 +15,6 @@ import persistence.PersistentHierarchy;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -196,28 +194,20 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+	}
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }
