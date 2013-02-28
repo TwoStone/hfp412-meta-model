@@ -1,3 +1,18 @@
 \subsection{Operations und Associations}
 
+
+\subsection{Messages und Links}
+Ein Link ist eine konkrete Ausprägungen einer Assoziation. 
+Folglich ist die Erstellung eines Links nur möglich, wenn eine Assoziation als Typ gewählt wurde. 
+Außerdem ist es zwingend erforderlich sowohl ein Quell- als auch Zielobjekt anzugeben.
+
+Da die Typebene an die Exemplarwelt gewisse Ansprüche stellt, existieren für die Regelung der 
+Quell- und Zielobjekte folgende Konsistenzbedingungen:
+\begin{enumerate}
+\item $\forall \, l \in Link: l.source.type.isLessOrEqual(l.type.source)$
+\item $\forall \, l \in Link: l.target.type.isLessOrEqual(l.type.target)$
+\end{enumerate}
+Wie in der Abbildung XXX ersichtlich, können Assoziationen an Hierarchien teilnehmen. Auf der Typebene sind Zyklen innerhalb von Hierarchien zur Darstellung von Aggregationen noch möglich. Anders verhält sich dies auf der Exemplarebene. Alle Links dessen Assoziationen in einer Hierarchie sind, müssen zyklenfrei sein! Wenn ein Nutzer versucht zyklische Links innerhalb einer Hierarchie zu erstellen, wird eine entsprechende Fehlermeldung erscheinen und der Link wird nicht angelegt.
+
+
 \blindtext
