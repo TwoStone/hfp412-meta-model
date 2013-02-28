@@ -231,6 +231,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> source_Path_In_CreateLink(){
+        try {
+            MObjectSearchList result = ((PersistentServer)this.server).source_Path_In_CreateLink();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> source_Path_In_CreateOperation(){
         try {
             MTypeSearchList result = ((PersistentServer)this.server).source_Path_In_CreateOperation();
@@ -256,6 +267,17 @@ public  class RemoteServer extends RemoteServerMaster {
     public synchronized java.util.Hashtable<?,?> target_Path_In_CreateConstant(){
         try {
             MTypeSearchList result = ((PersistentServer)this.server).target_Path_In_CreateConstant();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> target_Path_In_CreateLink(){
+        try {
+            MObjectSearchList result = ((PersistentServer)this.server).target_Path_In_CreateLink();
             return createOKResult(result.getVector(1, 0, false, this, false, true));
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -300,6 +322,17 @@ public  class RemoteServer extends RemoteServerMaster {
     public synchronized java.util.Hashtable<?,?> type_Path_In_CreateAccount(){
         try {
             MAccountTypeSearchList result = ((PersistentServer)this.server).type_Path_In_CreateAccount();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> type_Path_In_CreateLink(){
+        try {
+            AssociationSearchList result = ((PersistentServer)this.server).type_Path_In_CreateLink();
             return createOKResult(result.getVector(1, 0, false, this, false, true));
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

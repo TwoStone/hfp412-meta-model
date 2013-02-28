@@ -64,8 +64,9 @@ server Server {
 	void removeOperation(Operation op);
 
 	/** Links **/
-	void createLink(LinkManager link, Association type, MObject source, MObject target);
-	void createLink(MObject source, Association type, MObject target);
+// Todo: Derived Attribut einfuehren damit nur moegliche Targets angezeigt werden
+	void createLink(LinkManager link, Association type{associationManager;associations}, MObject source {objectManager;objects}, MObject target {objectManager;objects});
+	void createLink(MObject source, Association type {associationManager;associations}, MObject target {objectManager;objects});
 	void removeLink(Link link);
 
 	/** Quantity/Unit **/
