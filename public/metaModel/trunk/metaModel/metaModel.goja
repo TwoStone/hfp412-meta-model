@@ -479,7 +479,7 @@ active void createLink(Association type, MObject source, MObject target) throws 
 active void removeLink(Link link);
 }
 
-abstract class MessageOrLink {
+abstract class MessageOrLink covers MModelItem{
     prior symmetric MObject source;
     prior symmetric MObject target;
 }

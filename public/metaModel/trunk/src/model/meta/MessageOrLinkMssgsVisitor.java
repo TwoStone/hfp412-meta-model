@@ -9,7 +9,7 @@ interface MessageOrLinkDOWNMssgsVisitor extends MessageDOWNMssgsVisitor, LinkDOW
 }
 
 
-interface MessageOrLinkUPMssgsVisitor  {
+interface MessageOrLinkUPMssgsVisitor extends MModelItemUPMssgsVisitor {
 
     
 }

@@ -30,5 +30,13 @@ public abstract class MModelItemDirectVisitor implements MModelItemVisitor {
     }
     public abstract void handleCONCMModelItem(PersistentCONCMModelItem cONCMModelItem) throws PersistenceException;
     
+    public abstract void handleMessageOrLink(PersistentMessageOrLink messageOrLink) throws PersistenceException;
+    
+    public void handleLink(PersistentLink link) throws PersistenceException{
+        this.handleMessageOrLink(link);
+    }
+    public void handleMessage(PersistentMessage message) throws PersistenceException{
+        this.handleMessageOrLink(message);
+    }
     
 }

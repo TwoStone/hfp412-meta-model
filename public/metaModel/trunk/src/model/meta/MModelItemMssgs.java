@@ -5,4 +5,4 @@ public interface MModelItemMssgs {
 }
 
 interface MModelItemDOWNMssgs extends Mssgs, MModelItemMssgs{}
-interface MModelItemUPMssgs extends MTypeUPMssgs, MModelItemMssgs{}
+interface MModelItemUPMssgs extends MTypeUPMssgs, MessageOrLinkUPMssgs, MModelItemMssgs{}

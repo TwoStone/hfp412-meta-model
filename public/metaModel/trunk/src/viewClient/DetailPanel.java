@@ -1331,6 +1331,7 @@ class NameInstanceDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MessageDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MessageOrLink$$source = "MessageOrLink$$source";
     protected static final String MessageOrLink$$target = "MessageOrLink$$target";
     protected static final String Message$$type = "Message$$type";
@@ -1397,6 +1398,7 @@ class AspectManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class LinkDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MessageOrLink$$source = "MessageOrLink$$source";
     protected static final String MessageOrLink$$target = "MessageOrLink$$target";
     protected static final String Link$$type = "Link$$type";

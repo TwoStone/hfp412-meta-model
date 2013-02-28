@@ -11,6 +11,9 @@ public abstract class MModelItemStandardVisitor implements MModelItemVisitor {
     public void handleMMixedTypeDisjunction(PersistentMMixedTypeDisjunction mMixedTypeDisjunction) throws PersistenceException{
         this.standardHandling(mMixedTypeDisjunction);
     }
+    public void handleLink(PersistentLink link) throws PersistenceException{
+        this.standardHandling(link);
+    }
     public void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException{
         this.standardHandling(mEmptyTypeConjunction);
     }
@@ -19,6 +22,9 @@ public abstract class MModelItemStandardVisitor implements MModelItemVisitor {
     }
     public void handleCONCMModelItem(PersistentCONCMModelItem cONCMModelItem) throws PersistenceException{
         this.standardHandling(cONCMModelItem);
+    }
+    public void handleMessage(PersistentMessage message) throws PersistenceException{
+        this.standardHandling(message);
     }
     public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction) throws PersistenceException{
         this.standardHandling(mEmptyTypeDisjunction);

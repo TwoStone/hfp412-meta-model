@@ -248,6 +248,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMMixedTypeDisjunction(PersistentMMixedTypeDisjunction mMixedTypeDisjunction) throws PersistenceException{
         this.handleMModelItem(mMixedTypeDisjunction);
     }
+    public void handleLink(PersistentLink link) throws PersistenceException{
+        this.handleMModelItem(link);
+    }
     public void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException{
         this.handleMModelItem(mEmptyTypeConjunction);
     }
@@ -256,6 +259,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleCONCMModelItem(PersistentCONCMModelItem cONCMModelItem) throws PersistenceException{
         this.handleMModelItem(cONCMModelItem);
+    }
+    public void handleMessage(PersistentMessage message) throws PersistenceException{
+        this.handleMModelItem(message);
     }
     public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction) throws PersistenceException{
         this.handleMModelItem(mEmptyTypeDisjunction);
@@ -268,14 +274,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException;
     
-    public abstract void handleMessageOrLink(PersistentMessageOrLink messageOrLink) throws PersistenceException;
-    
-    public void handleLink(PersistentLink link) throws PersistenceException{
-        this.handleMessageOrLink(link);
-    }
-    public void handleMessage(PersistentMessage message) throws PersistenceException{
-        this.handleMessageOrLink(message);
-    }
     public abstract void handleAbsOperation(PersistentAbsOperation absOperation) throws PersistenceException;
     
     public void handleOperation(PersistentOperation operation) throws PersistenceException{
