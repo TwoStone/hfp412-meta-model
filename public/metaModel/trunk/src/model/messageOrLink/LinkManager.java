@@ -288,7 +288,13 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 
 	@Override
 	public void removeLink(final PersistentLink link) throws PersistenceException {
-		// TODO: implement method: removeLink
+		getThis().getLinks().removeFirstSuccess(new Predcate<PersistentLink>() {
+
+			@Override
+			public boolean test(final PersistentLink argument) throws PersistenceException {
+				return argument.equals(link);
+			}
+		});
 	}
 
 	// Start of section that contains overridden operations only.
