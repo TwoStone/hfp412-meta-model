@@ -32,7 +32,7 @@ public class LinkManagerTest extends AbstractTest {
 
 	@Test
 	public void createLink() throws PersistenceException, ConsistencyException, CycleException {
-		PersistentAssociation createAssociation = Association.createAssociation("testAssociation", mat1, mat6);
+		final PersistentAssociation createAssociation = Association.createAssociation("testAssociation", mat1, mat6);
 		// FIXME: Gibt Exception obwohl der Typ anfänglich gesetzt wird Oo mao1.getTypes ist leer!
 		this.linkMan.createLink(createAssociation, mao1, mao6);
 
@@ -42,8 +42,8 @@ public class LinkManagerTest extends AbstractTest {
 	@Test
 	public void createLinkWithHierarchieConstraints() throws PersistenceException, DoubleDefinitionException,
 			CycleException, ConsistencyException {
-		PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
-		PersistentAssociation createAssociation = Association.createAssociation("testAssociation", mat1, mat6);
+		final PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
+		final PersistentAssociation createAssociation = Association.createAssociation("testAssociation", mat1, mat6);
 		this.associationMan.addAssociation(createHierarchy, createAssociation);
 
 		this.linkMan.createLink(createAssociation, mao1, mao6);
@@ -57,12 +57,12 @@ public class LinkManagerTest extends AbstractTest {
 	 * @throws ConsistencyException
 	 */
 	@Test(expected = CycleException.class)
-	public void createLinkWithHierarchieConstraintsViolationAtomic2Atomic01() throws PersistenceException,
+	public void createLinkWithHierarchieConstraintsViolation01() throws PersistenceException,
 			DoubleDefinitionException, CycleException, ConsistencyException {
 
-		PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
-		PersistentAssociation firstAssociation = Association.createAssociation("firstAssociation", mat1, mat1);
-		PersistentAssociation secondAssociation = Association.createAssociation("secondAssociation", mat1, mat1);
+		final PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
+		final PersistentAssociation firstAssociation = Association.createAssociation("firstAssociation", mat1, mat1);
+		final PersistentAssociation secondAssociation = Association.createAssociation("secondAssociation", mat1, mat1);
 
 		this.associationMan.addAssociation(createHierarchy, firstAssociation);
 		this.associationMan.addAssociation(createHierarchy, secondAssociation);
@@ -78,12 +78,12 @@ public class LinkManagerTest extends AbstractTest {
 	 * @throws ConsistencyException
 	 */
 	@Test(expected = CycleException.class)
-	public void createLinkWithHierarchieConstraintsViolationAtomic2Atomic02() throws PersistenceException,
+	public void createLinkWithHierarchieConstraintsViolation02() throws PersistenceException,
 			DoubleDefinitionException, CycleException, ConsistencyException {
 
-		PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
-		PersistentAssociation firstAssociation = Association.createAssociation("firstAssociation", mat1, mat6);
-		PersistentAssociation secondAssociation = Association.createAssociation("secondAssociation", mat6, mat1);
+		final PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
+		final PersistentAssociation firstAssociation = Association.createAssociation("firstAssociation", mat1, mat6);
+		final PersistentAssociation secondAssociation = Association.createAssociation("secondAssociation", mat6, mat1);
 
 		this.associationMan.addAssociation(createHierarchy, firstAssociation);
 		this.associationMan.addAssociation(createHierarchy, secondAssociation);
@@ -94,72 +94,56 @@ public class LinkManagerTest extends AbstractTest {
 	}
 
 	/**
-	 * Hierarchieverletzung <br/>
-	 * Typebene: mat1 -> mat4**mat5; mat4 -> mat1 Entsprechende Links erzeugt => Zyklus
+	 * 1ne Hierarchie <br/>
+	 * Aufbau: mao1 -x-> mao6; mao6 -x-> mao5; mao5 -x-> mao1; <br/>
+	 * Keine Hierarchieverletzung
 	 * 
 	 * @throws ConsistencyException
 	 */
-	@Test(expected = CycleException.class)
-	public void createLinkWithHierarchieConstraintsViolationAtomic2Product01() throws PersistenceException,
-			DoubleDefinitionException, CycleException, ConsistencyException {
+	public void createLinkWithHierarchieConstraints03() throws PersistenceException, DoubleDefinitionException,
+			CycleException, ConsistencyException {
 
-		PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
-		PersistentAssociation firstAssociation = Association.createAssociation("firstAssociation", mat1,
-				mptMultiple4And5);
-		PersistentAssociation secondAssociation = Association.createAssociation("secondAssociation", mat4, mat1);
+		final PersistentHierarchy createHierarchy1 = Hierarchy.createHierarchy("hierarchie1");
 
-		this.associationMan.addAssociation(createHierarchy, firstAssociation);
-		this.associationMan.addAssociation(createHierarchy, secondAssociation);
+		final PersistentAssociation firstAssociation = Association.createAssociation("firstAssociation", mat1, mat6);
+		final PersistentAssociation secondAssociation = Association.createAssociation("secondAssociation", mat6, mat1);
+		final PersistentAssociation thirdAssociation = Association.createAssociation("thirdAssociation", mat5, mat1);
 
-		this.linkMan.createLink(firstAssociation, mao1, mpo4And5);
-		this.linkMan.createLink(secondAssociation, mao4, mao1);
+		this.associationMan.addAssociation(createHierarchy1, firstAssociation);
+		this.associationMan.addAssociation(createHierarchy1, secondAssociation);
+		this.associationMan.addAssociation(createHierarchy1, thirdAssociation);
+
+		this.linkMan.createLink(firstAssociation, mao1, mao6);
+		this.linkMan.createLink(secondAssociation, mao6, mao5);
+		this.linkMan.createLink(secondAssociation, mao5, mao1);
 		fail("Zyklische Links konnten angelegt werden!");
 	}
 
 	/**
-	 * Hierarchieverletzung <br/>
-	 * Typebene: mat4**mat5 -> mat1; mat1 -> mat5 Entsprechende Links erzeugt => Zyklus
+	 * 2 Hierarchien: x,y <br/>
+	 * Aufbau: mao1 -x-> mao6; mao6 -y-> mao5; mao5 -x-> mao1; <br/>
+	 * Keine Hierarchieverletzung
 	 * 
 	 * @throws ConsistencyException
 	 */
-	@Test(expected = CycleException.class)
-	public void createLinkWithHierarchieConstraintsViolationProduct2Atomic() throws PersistenceException,
-			DoubleDefinitionException, CycleException, ConsistencyException {
+	public void createLinkWithHierarchieConstraints02() throws PersistenceException, DoubleDefinitionException,
+			CycleException, ConsistencyException {
 
-		PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
-		PersistentAssociation firstAssociation = Association.createAssociation("firstAssociation", mptMultiple4And5,
-				mat1);
-		PersistentAssociation secondAssociation = Association.createAssociation("secondAssociation", mat1, mat5);
+		final PersistentHierarchy createHierarchy1 = Hierarchy.createHierarchy("hierarchie1");
+		final PersistentHierarchy createHierarchy2 = Hierarchy.createHierarchy("hierarchie2");
 
-		this.associationMan.addAssociation(createHierarchy, firstAssociation);
-		this.associationMan.addAssociation(createHierarchy, secondAssociation);
+		final PersistentAssociation firstAssociation = Association.createAssociation("firstAssociation", mat1, mat6);
+		final PersistentAssociation secondAssociation = Association.createAssociation("secondAssociation", mat6, mat1);
+		final PersistentAssociation thirdAssociation = Association.createAssociation("thirdAssociation", mat5, mat1);
 
-		this.linkMan.createLink(firstAssociation, mpo4And5, mao1);
-		this.linkMan.createLink(secondAssociation, mao1, mao5);
-		fail("Zyklische Links konnten angelegt werden!");
-	}
+		this.associationMan.addAssociation(createHierarchy1, firstAssociation);
+		this.associationMan.addAssociation(createHierarchy1, thirdAssociation);
 
-	/**
-	 * Hierarchieverletzung <br/>
-	 * Typebene: mat4 -> mat4++mat5; mat5 -> mat4 Entsprechende Links erzeugt => Zyklus
-	 * 
-	 * @throws ConsistencyException
-	 */
-	@Test(expected = CycleException.class)
-	public void createLinkWithHierarchieConstraintsViolationSum2Atomic01() throws PersistenceException,
-			DoubleDefinitionException, CycleException, ConsistencyException {
+		this.associationMan.addAssociation(createHierarchy2, secondAssociation);
 
-		PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
-		PersistentAssociation firstAssociation = Association.createAssociation("firstAssociation", mat4,
-				mstMultiple4And5);
-		PersistentAssociation secondAssociation = Association.createAssociation("secondAssociation", mat5, mat4);
-
-		this.associationMan.addAssociation(createHierarchy, firstAssociation);
-		this.associationMan.addAssociation(createHierarchy, secondAssociation);
-
-		this.linkMan.createLink(firstAssociation, mao4, mao5);
-		this.linkMan.createLink(secondAssociation, mao5, mao4);
-		fail("Zyklische Links konnten angelegt werden!");
+		this.linkMan.createLink(firstAssociation, mao1, mao6);
+		this.linkMan.createLink(secondAssociation, mao6, mao5);
+		this.linkMan.createLink(secondAssociation, mao5, mao1);
 	}
 
 }

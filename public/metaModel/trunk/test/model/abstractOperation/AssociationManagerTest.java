@@ -1,13 +1,18 @@
 package model.abstractOperation;
 
+import static org.junit.Assert.fail;
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
+import model.messageOrLink.LinkManager;
 
 import org.junit.Test;
 
 import persistence.PersistenceException;
+import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
+import persistence.PersistentHierarchy;
+import persistence.PersistentLinkManager;
 import util.AbstractTest;
 import util.InjectSingleton;
 
@@ -15,6 +20,9 @@ public class AssociationManagerTest extends AbstractTest {
 
 	@InjectSingleton(AssociationManager.class)
 	private PersistentAssociationManager manager;
+
+	@InjectSingleton(LinkManager.class)
+	private PersistentLinkManager linkManager;
 
 	public AssociationManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
@@ -101,5 +109,39 @@ public class AssociationManagerTest extends AbstractTest {
 	@Test(expected = ConsistencyException.class)
 	public void createAssoicationCE04() throws PersistenceException, DoubleDefinitionException {
 		manager.createAssociation(mat1, mstEmpty, "a");
+	}
+
+	@Test
+	public void createAssoicationWithoutCycleE01() throws PersistenceException, DoubleDefinitionException,
+			ConsistencyException, CycleException {
+		final PersistentAssociation firstAsso = Association.createAssociation("a", mat1, mat3);
+		final PersistentAssociation secondAsso = Association.createAssociation("b", mat3, mat1);
+
+		manager.getAssociations().add(firstAsso);
+		manager.getAssociations().add(secondAsso);
+
+		linkManager.createLink(firstAsso, mao1, mao3);
+		linkManager.createLink(firstAsso, mao3, mao1);
+	}
+
+	@Test(expected = CycleException.class)
+	public void createAssoicationCycleE01() throws PersistenceException, DoubleDefinitionException,
+			ConsistencyException, CycleException {
+
+		final PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("firstHierarchy");
+		manager.getHierarchies().add(createHierarchy);
+
+		final PersistentAssociation firstAsso = Association.createAssociation("a", mat1, mat3);
+		final PersistentAssociation secondAsso = Association.createAssociation("b", mat3, mat1);
+
+		manager.getAssociations().add(firstAsso);
+		manager.getAssociations().add(secondAsso);
+
+		linkManager.createLink(firstAsso, mao1, mao3);
+		linkManager.createLink(firstAsso, mao3, mao1);
+
+		manager.addAssociation(createHierarchy, firstAsso);
+		manager.addAssociation(createHierarchy, secondAsso);
+		fail("Zyklus konnte erstellt werden");
 	}
 }

@@ -65,6 +65,7 @@ public abstract class AbstractTest extends TestingBase {
 	protected PersistentMAbstractTypeDisjunction mstMultiple2And4And5;
 
 	protected PersistentMObject mao1;
+	protected PersistentMObject mao3;
 	protected PersistentMObject mao4;
 	protected PersistentMObject mao5;
 	protected PersistentMObject mao6;
@@ -95,9 +96,9 @@ public abstract class AbstractTest extends TestingBase {
 	public void setup() throws PersistenceException, SQLException, IOException {
 		try {
 			this.init();
-		} catch (CycleException e) {
+		} catch (final CycleException e) {
 			e.printStackTrace();
-		} catch (ConsistencyException e) {
+		} catch (final ConsistencyException e) {
 			e.printStackTrace();
 		}
 	}
@@ -159,6 +160,8 @@ public abstract class AbstractTest extends TestingBase {
 
 		mao1 = MObject.createMObject();
 		mao1.addType(mat1);
+		mao3 = MObject.createMObject();
+		mao3.addType(mat3);
 		mao4 = MObject.createMObject();
 		mao4.addType(mat4);
 		mao5 = MObject.createMObject();
