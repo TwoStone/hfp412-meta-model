@@ -115,6 +115,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
         this.handleCommonDate(createCompUnitTypeCommand);
     }
+    public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException{
+        this.handleCommonDate(changeAbstractCommand);
+    }
     public void handleCreateTypeDisjunctionCommand(PersistentCreateTypeDisjunctionCommand createTypeDisjunctionCommand) throws PersistenceException{
         this.handleCommonDate(createTypeDisjunctionCommand);
     }

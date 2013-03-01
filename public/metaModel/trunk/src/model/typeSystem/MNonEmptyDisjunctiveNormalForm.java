@@ -63,372 +63,258 @@ import utils.SearchLists;
 
 /* Additional import section end */
 
-public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiveNormalForm implements
-		PersistentMNonEmptyDisjunctiveNormalForm {
-
-	public static PersistentMNonEmptyDisjunctiveNormalForm createMNonEmptyDisjunctiveNormalForm()
-			throws PersistenceException {
-		return createMNonEmptyDisjunctiveNormalForm(false);
-	}
-
-	public static PersistentMNonEmptyDisjunctiveNormalForm createMNonEmptyDisjunctiveNormalForm(
-			final boolean delayed$Persistence) throws PersistenceException {
-		PersistentMNonEmptyDisjunctiveNormalForm result = null;
-		if (delayed$Persistence) {
-			result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
-					.newDelayedMNonEmptyDisjunctiveNormalForm();
-			result.setDelayed$Persistence(true);
-		} else {
-			result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
-					.newMNonEmptyDisjunctiveNormalForm(-1);
-		}
-		final java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
-		result.initialize(result, final$$Fields);
-		result.initializeOnCreation();
-		return result;
-	}
-
-	public static PersistentMNonEmptyDisjunctiveNormalForm createMNonEmptyDisjunctiveNormalForm(
-			final boolean delayed$Persistence, final PersistentMNonEmptyDisjunctiveNormalForm This)
-			throws PersistenceException {
-		PersistentMNonEmptyDisjunctiveNormalForm result = null;
-		if (delayed$Persistence) {
-			result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
-					.newDelayedMNonEmptyDisjunctiveNormalForm();
-			result.setDelayed$Persistence(true);
-		} else {
-			result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
-					.newMNonEmptyDisjunctiveNormalForm(-1);
-		}
-		final java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
-		result.initialize(This, final$$Fields);
-		result.initializeOnCreation();
-		return result;
-	}
-
-	@Override
-	public java.util.Hashtable<String, Object> toHashtable(final java.util.Hashtable<String, Object> allResults,
-			final int depth, final int essentialLevel, final boolean forGUI, final boolean leaf,
-			final TDObserver tdObserver) throws PersistenceException {
-		java.util.Hashtable<String, Object> result = null;
-		if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth) {
-			result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-			result.put(
-					"addends",
-					this.getAddends().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false,
-							essentialLevel == 0));
-			final String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-			if (leaf && !allResults.contains(uniqueKey))
-				allResults.put(uniqueKey, result);
-		}
-		return result;
-	}
-
-	@Override
-	public MNonEmptyDisjunctiveNormalForm provideCopy() throws PersistenceException {
-		MNonEmptyDisjunctiveNormalForm result = this;
-		result = new MNonEmptyDisjunctiveNormalForm(this.This, this.myCONCMModelItem, this.getId());
-		result.addends = this.addends.copy(result);
-		this.copyingPrivateUserAttributes(result);
-		return result;
-	}
-
-	@Override
-	public boolean hasEssentialFields() throws PersistenceException {
-		return true;
-	}
-
-	protected MNonEmptyDisjunctiveNormalForm_AddendsProxi addends;
-
-	public MNonEmptyDisjunctiveNormalForm(final PersistentMType This, final PersistentMModelItem myCONCMModelItem,
-			final long id) throws persistence.PersistenceException {
-		/* Shall not be used by clients for object construction! Use static create operation instead! */
-		super(This, myCONCMModelItem, id);
-		this.addends = new MNonEmptyDisjunctiveNormalForm_AddendsProxi(this);
-	}
-
-	static public long getTypeId() {
-		return 313;
-	}
-
-	@Override
-	public long getClassId() {
-		return getTypeId();
-	}
-
-	@Override
-	public void store() throws PersistenceException {
-		if (!this.isDelayed$Persistence())
-			return;
-		if (this.getClassId() == 313)
-			ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
-					.newMNonEmptyDisjunctiveNormalForm(this.getId());
-		super.store();
-		this.getAddends().store();
-
-	}
-
-	@Override
-	public MNonEmptyDisjunctiveNormalForm_AddendsProxi getAddends() throws PersistenceException {
-		return this.addends;
-	}
-
-	@Override
-	public PersistentMNonEmptyDisjunctiveNormalForm getThis() throws PersistenceException {
-		if (this.This == null) {
-			final PersistentMNonEmptyDisjunctiveNormalForm result = new MNonEmptyDisjunctiveNormalFormProxi(
-					this.getId());
-			result.getTheObject();
-			return result;
-		}
-		return (PersistentMNonEmptyDisjunctiveNormalForm) this.This;
-	}
-
-	@Override
-	public void accept(final MDisjunctiveNormalFormVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R> R accept(final MDisjunctiveNormalFormReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(final MDisjunctiveNormalFormExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(final MDisjunctiveNormalFormReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public void accept(final MAbstractTypeDisjunctionVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R> R accept(final MAbstractTypeDisjunctionReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(final MAbstractTypeDisjunctionExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(final MAbstractTypeDisjunctionReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public void accept(final MComplexTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R> R accept(final MComplexTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(final MComplexTypeExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(final MComplexTypeReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public void accept(final MTypeVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R> R accept(final MTypeReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(final MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(final MTypeReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public void accept(final MModelItemVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R> R accept(final MModelItemReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(final MModelItemExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(final MModelItemReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public void accept(final AnythingVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R> R accept(final AnythingReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(final AnythingExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(final AnythingReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public void accept(final MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R> R accept(final MComplexTypeHierarchyHIERARCHYReturnVisitor<R> visitor) throws PersistenceException {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <E extends UserException> void accept(final MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
-		visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public <R, E extends UserException> R accept(
-			final MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E> visitor) throws PersistenceException, E {
-		return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
-	}
-
-	@Override
-	public int getLeafInfo() throws PersistenceException {
-		if (this.getDependentItems().getLength() > 0)
-			return 1;
-		if (this.getMTDJContainingMe().getLength() > 0)
-			return 1;
-		if (this.getMTCContainingMe().getLength() > 0)
-			return 1;
-		if (this.getContainedTypes().getLength() > 0)
-			return 1;
-		if (this.getAddends().getLength() > 0)
-			return 1;
-		return 0;
-	}
-
-	@Override
-	public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) throws PersistenceException {
-		if (getThis().equals(part))
-			return true;
-		final java.util.Iterator iterator0 = getThis().getAddends().iterator();
-		while (iterator0.hasNext())
-			if (((MComplexTypeHierarchyHIERARCHY) iterator0.next()).containsMComplexTypeHierarchy(part))
-				return true;
+public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiveNormalForm implements PersistentMNonEmptyDisjunctiveNormalForm{
+    
+    
+    public static PersistentMNonEmptyDisjunctiveNormalForm createMNonEmptyDisjunctiveNormalForm() throws PersistenceException{
+        return createMNonEmptyDisjunctiveNormalForm(false);
+    }
+    
+    public static PersistentMNonEmptyDisjunctiveNormalForm createMNonEmptyDisjunctiveNormalForm(boolean delayed$Persistence) throws PersistenceException {
+        PersistentMNonEmptyDisjunctiveNormalForm result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
+                .newDelayedMNonEmptyDisjunctiveNormalForm();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
+                .newMNonEmptyDisjunctiveNormalForm(-1);
+        }
+        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        result.initialize(result, final$$Fields);
+        result.initializeOnCreation();
+        return result;
+    }
+    
+    public static PersistentMNonEmptyDisjunctiveNormalForm createMNonEmptyDisjunctiveNormalForm(boolean delayed$Persistence,PersistentMNonEmptyDisjunctiveNormalForm This) throws PersistenceException {
+        PersistentMNonEmptyDisjunctiveNormalForm result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
+                .newDelayedMNonEmptyDisjunctiveNormalForm();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
+                .newMNonEmptyDisjunctiveNormalForm(-1);
+        }
+        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
+        result.initialize(This, final$$Fields);
+        result.initializeOnCreation();
+        return result;
+    }
+    
+    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    java.util.Hashtable<String,Object> result = null;
+        if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("addends", this.getAddends().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
+            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+            if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
+        }
+        return result;
+    }
+    
+    public MNonEmptyDisjunctiveNormalForm provideCopy() throws PersistenceException{
+        MNonEmptyDisjunctiveNormalForm result = this;
+        result = new MNonEmptyDisjunctiveNormalForm(this.This, 
+                                                    this.myCONCMModelItem, 
+                                                    this.getId());
+        result.addends = this.addends.copy(result);
+        this.copyingPrivateUserAttributes(result);
+        return result;
+    }
+    
+    public boolean hasEssentialFields() throws PersistenceException{
+        return true;
+    }
+    protected MNonEmptyDisjunctiveNormalForm_AddendsProxi addends;
+    
+    public MNonEmptyDisjunctiveNormalForm(PersistentMType This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
+        /* Shall not be used by clients for object construction! Use static create operation instead! */
+        super((PersistentMType)This,(PersistentMModelItem)myCONCMModelItem,id);
+        this.addends = new MNonEmptyDisjunctiveNormalForm_AddendsProxi(this);        
+    }
+    
+    static public long getTypeId() {
+        return 313;
+    }
+    
+    public long getClassId() {
+        return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 313) ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
+            .newMNonEmptyDisjunctiveNormalForm(this.getId());
+        super.store();
+        this.getAddends().store();
+        
+    }
+    
+    public MNonEmptyDisjunctiveNormalForm_AddendsProxi getAddends() throws PersistenceException {
+        return this.addends;
+    }
+    public PersistentMNonEmptyDisjunctiveNormalForm getThis() throws PersistenceException {
+        if(this.This == null){
+            PersistentMNonEmptyDisjunctiveNormalForm result = new MNonEmptyDisjunctiveNormalFormProxi(this.getId());
+            result.getTheObject();
+            return result;
+        }return (PersistentMNonEmptyDisjunctiveNormalForm)this.This;
+    }
+    
+    public void accept(MDisjunctiveNormalFormVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R> R accept(MDisjunctiveNormalFormReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <E extends UserException>  void accept(MDisjunctiveNormalFormExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R, E extends UserException> R accept(MDisjunctiveNormalFormReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public void accept(MAbstractTypeDisjunctionVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R> R accept(MAbstractTypeDisjunctionReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <E extends UserException>  void accept(MAbstractTypeDisjunctionExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R, E extends UserException> R accept(MAbstractTypeDisjunctionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public void accept(MTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
+    }
+    public int getLeafInfo() throws PersistenceException{
+        if (this.getDependentItems().getLength() > 0) return 1;
+        if (this.getMTDJContainingMe().getLength() > 0) return 1;
+        if (this.getMTCContainingMe().getLength() > 0) return 1;
+        if (this.getContainedTypes().getLength() > 0) return 1;
+        if (this.getAddends().getLength() > 0) return 1;
+        return 0;
+    }
+    
+    
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		java.util.Iterator iterator0 = getThis().getAddends().iterator();
+		while(iterator0.hasNext())
+			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
-	}
-
-	// Start of section that contains operations that must be implemented.
-
-	@Override
-	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields)
-			throws PersistenceException {
-		this.setThis((PersistentMNonEmptyDisjunctiveNormalForm) This);
-		if (this.equals(This)) {
-			final PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(
-					this.isDelayed$Persistence(), (PersistentMNonEmptyDisjunctiveNormalForm) This);
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMNonEmptyDisjunctiveNormalForm)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMNonEmptyDisjunctiveNormalForm)This);
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
-	}
-
-	@Override
-	public <T> T strategyMComplexTypeHierarchy(final T parameter,
-			final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) throws PersistenceException {
-		T result$$addends$$MNonEmptyDisjunctiveNormalForm = strategy
-				.initialize$$MNonEmptyDisjunctiveNormalForm$$addends(getThis(), parameter);
-		final java.util.Iterator iterator$$ = getThis().getAddends().iterator();
-		while (iterator$$.hasNext()) {
-			final PersistentMAtomicTypeConjunction current$$Field = (PersistentMAtomicTypeConjunction) iterator$$
-					.next();
-			final T current$$ = current$$Field.strategyMComplexTypeHierarchy(
-					result$$addends$$MNonEmptyDisjunctiveNormalForm, strategy);
-			result$$addends$$MNonEmptyDisjunctiveNormalForm = strategy
-					.consolidate$$MNonEmptyDisjunctiveNormalForm$$addends(getThis(),
-							result$$addends$$MNonEmptyDisjunctiveNormalForm, current$$);
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$addends$$MNonEmptyDisjunctiveNormalForm = strategy.initialize$$MNonEmptyDisjunctiveNormalForm$$addends(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getAddends().iterator();
+		while (iterator$$.hasNext()){
+			PersistentMAtomicTypeConjunction current$$Field = (PersistentMAtomicTypeConjunction)iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$addends$$MNonEmptyDisjunctiveNormalForm, strategy);
+			result$$addends$$MNonEmptyDisjunctiveNormalForm = strategy.consolidate$$MNonEmptyDisjunctiveNormalForm$$addends(getThis(), result$$addends$$MNonEmptyDisjunctiveNormalForm, current$$);
 		}
-		return strategy.finalize$$MNonEmptyDisjunctiveNormalForm(getThis(), parameter,
-				result$$addends$$MNonEmptyDisjunctiveNormalForm);
+		return strategy.finalize$$MNonEmptyDisjunctiveNormalForm(getThis(), parameter,result$$addends$$MNonEmptyDisjunctiveNormalForm);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
 	}
-
-	@Override
-	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-	}
-
-	@Override
-	public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() throws PersistenceException {
+    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
+				throws PersistenceException{
 		return getThis();
 	}
-
-	@Override
-	public MTypeSearchList fetchTypesContainingThisDirectly() throws PersistenceException {
+    public MTypeSearchList fetchTypesContainingThisDirectly() 
+				throws PersistenceException{
 		final MTypeSearchList result = new MTypeSearchList();
 		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
 		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
 		return result;
 	}
-
-	@Override
-	public MModelItemSearchList getDependentItems(final TDObserver observer) throws PersistenceException {
-		final MModelItemSearchList result = getThis().getDependentItems();
+    public MModelItemSearchList getDependentItems(final TDObserver observer) 
+				throws PersistenceException{
+        MModelItemSearchList result = getThis().getDependentItems();
 		observer.updateTransientDerived(getThis(), "dependentItems", result);
 		return result;
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
 	}
-
-	@Override
-	public void initializeOnCreation() throws PersistenceException {
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
 	}
-
-	@Override
-	public void initializeOnInstantiation() throws PersistenceException {
-	}
-
-	@Override
-	public PersistentMBoolean isLessOrEqual(final PersistentMType other) throws PersistenceException {
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
 		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
 
 			@Override
@@ -493,10 +379,8 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
 			}
 		}));
 	}
-
-	@Override
-	public PersistentMNonEmptyDisjunctiveNormalForm transientMultiplyNonEmpty(
-			final PersistentMNonEmptyDisjunctiveNormalForm other) throws PersistenceException {
+    public PersistentMNonEmptyDisjunctiveNormalForm transientMultiplyNonEmpty(final PersistentMNonEmptyDisjunctiveNormalForm other) 
+				throws PersistenceException{
 		final PersistentMNonEmptyDisjunctiveNormalForm result = MNonEmptyDisjunctiveNormalForm
 				.createMNonEmptyDisjunctiveNormalForm(true);
 		getThis().getAddends().applyToAll(new Procdure<PersistentMAtomicTypeConjunction>() {
@@ -518,10 +402,8 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
 		return result;
 
 	}
-
-	@Override
-	public PersistentMDisjunctiveNormalForm transientMultiply(final PersistentMDisjunctiveNormalForm other)
-			throws PersistenceException {
+    public PersistentMDisjunctiveNormalForm transientMultiply(final PersistentMDisjunctiveNormalForm other) 
+				throws PersistenceException{
 		return other.accept(new MDisjunctiveNormalFormReturnVisitor<PersistentMDisjunctiveNormalForm>() {
 
 			@Override
@@ -538,10 +420,12 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
 			}
 		});
 	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
-	// Start of section that contains overridden operations only.
-
-	/* Start of protected part that is not overridden by persistence generator */
+    /* Start of protected part that is not overridden by persistence generator */
 
 	public static PersistentMNonEmptyDisjunctiveNormalForm transientCreateNEDNF(
 			final List<PersistentMAtomicTypeConjunction> conjunctions) throws PersistenceException {
@@ -617,5 +501,5 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
 	}
 
 	/* End of protected part that is not overridden by persistence generator */
-
+    
 }

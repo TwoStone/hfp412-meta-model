@@ -11,6 +11,9 @@ public abstract class TypeManagerCommandStandardVisitor implements TypeManagerCo
     public void handleCreateTypeConjunctionCommand(PersistentCreateTypeConjunctionCommand createTypeConjunctionCommand) throws PersistenceException{
         this.standardHandling(createTypeConjunctionCommand);
     }
+    public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException{
+        this.standardHandling(changeAbstractCommand);
+    }
     public void handleCreateTypeDisjunctionCommand(PersistentCreateTypeDisjunctionCommand createTypeDisjunctionCommand) throws PersistenceException{
         this.standardHandling(createTypeDisjunctionCommand);
     }

@@ -215,6 +215,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
     }
+    public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException{
+        this.standardHandling(changeAbstractCommand);
+    }
     public void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException{
         this.standardHandling(avgStrategy);
     }

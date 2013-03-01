@@ -24,6 +24,8 @@ server Server {
 	void createAtomicSubType(MAtomicType superType, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
 	void createTypeDisjunction(MType** containees{typeManager;types});
 	void createTypeConjunction(MType** containees{typeManager;types});
+
+	void changeAbstract(MAtomicType type, MBooleanSUBTYPEName newAbstractType);
 	//	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
 
 	/** Object **/
@@ -150,6 +152,7 @@ part typeSystem {
 		prior indexed String name;
 		client-as-string prior MBoolean singletonType;
 		client-as-string prior MBoolean abstractType;
+		void changeAbstract(MBoolean newAbstractType) throws ConsistencyException;
 		no-view prior symmetric(types) MAspect aspect;
 		no-view symmetric(subTypes) MAtomicType superType hierarchy MAtomicTypeHierarchy;
 		
@@ -248,6 +251,7 @@ part typeSystem {
 		active MAbstractTypeDisjunction createTypeDisjunction##crTpDisj(MType** addends) throws ConsistencyException;
 		active MAbstractTypeConjunction createTypeConjunction##crTpConj(MType** factors) throws ConsistencyException;
 		
+		active void changeAbstract(MAtomicType type, MBoolean newAbstractType) throws ConsistencyException;
 
 		
 		

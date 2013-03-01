@@ -743,6 +743,10 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		getNameSchemeManager().assignType(scheme, type, getThis());
 	}
+    public void changeAbstract(final PersistentMAtomicType type, final String newAbstractType) 
+				throws PersistenceException{
+		getTypeManager().changeAbstract(type, MBoolean.createFromFactoryString(newAbstractType), getThis());
+	}
     public void connected(final String user) 
 				throws PersistenceException{
 	}

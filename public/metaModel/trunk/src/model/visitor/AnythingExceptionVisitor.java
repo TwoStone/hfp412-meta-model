@@ -60,6 +60,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException, E;
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException, E;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
+    public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException, E;
     public void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException, E;
     public void handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException, E;
     public void handleHierarchy(PersistentHierarchy hierarchy) throws PersistenceException, E;

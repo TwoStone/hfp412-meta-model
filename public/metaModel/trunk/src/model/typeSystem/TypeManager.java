@@ -12,6 +12,7 @@ import persistence.ConnectionHandler;
 import persistence.Invoker;
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
+import persistence.PersistentChangeAbstractCommand;
 import persistence.PersistentCreateAtomicRootTypeCommand;
 import persistence.PersistentCreateAtomicSubTypeCommand;
 import persistence.PersistentCreateTypeConjunctionCommand;
@@ -163,6 +164,20 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     }
     
     
+    public void changeAbstract(final PersistentMAtomicType type, final PersistentMBoolean newAbstractType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentChangeAbstractCommand command = model.meta.ChangeAbstractCommand.createChangeAbstractCommand(now, now);
+		command.setType(type);
+		command.setNewAbstractType(newAbstractType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void createAtomicRootType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -174,10 +189,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public void createAtomicSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -219,25 +230,29 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		if(this.equals(This)){
 		}
     }
+    public void changeAbstract(final PersistentMAtomicType type, final PersistentMBoolean newAbstractType) 
+				throws model.ConsistencyException, PersistenceException{
+		type.changeAbstract(newAbstractType);
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
     public PersistentMAtomicType createAtomicRootType(final PersistentMAspect aspect, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws model.ConsistencyException, PersistenceException{
 		TypeManager.checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
-		PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType, aspect);
+		final PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType, aspect);
 		getThis().getTypes().add(result);
 		return result;
 	}
     public PersistentMAtomicType createAtomicSubType(final PersistentMAtomicType superType, final String name, final PersistentMBoolean singletonType, final PersistentMBoolean abstractType) 
 				throws model.ConsistencyException, PersistenceException{
 		TypeManager.checkMAtomicTypeNameAndConsitency(name, singletonType, abstractType);
-		PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType,
+		final PersistentMAtomicType result = MAtomicType.createMAtomicType(name, singletonType, abstractType,
 				superType.getAspect());
 		try {
 			result.setSuperType(superType);
 
-		} catch (CycleException e) {
+		} catch (final CycleException e) {
 			// TODO Can't occur
 			e.printStackTrace();
 		}
@@ -246,13 +261,14 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 	}
     public PersistentMAbstractTypeConjunction createTypeConjunction(final MTypeSearchList factors) 
 				throws model.ConsistencyException, PersistenceException{
-		final PersistentMAbstractTypeConjunction result = MAbstractTypeConjunction.transientCreateAbstractTypeConj(factors);
+		final PersistentMAbstractTypeConjunction result = MAbstractTypeConjunction
+				.transientCreateAbstractTypeConj(factors);
 
 		if (result.equals(MEmptyTypeConjunction.getTheMEmptyTypeConjunction())) {
 			return MEmptyTypeConjunction.getTheMEmptyTypeConjunction();
 		}
 
-		PersistentMType containedEqualType = getStructuralEquivalentType(result);
+		final PersistentMType containedEqualType = getStructuralEquivalentType(result);
 
 		if (containedEqualType == null) {
 			getThis().getTypes().add(result);
@@ -264,13 +280,14 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     public PersistentMAbstractTypeDisjunction createTypeDisjunction(final MTypeSearchList addends) 
 				throws model.ConsistencyException, PersistenceException{
 
-		final PersistentMAbstractTypeDisjunction result = MAbstractTypeDisjunction.transientCreateAbstrTypeDisj(addends);
+		final PersistentMAbstractTypeDisjunction result = MAbstractTypeDisjunction
+				.transientCreateAbstrTypeDisj(addends);
 
 		if (result.equals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction())) {
 			return MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
 		}
 
-		PersistentMType containedEqualType = getStructuralEquivalentType(result);
+		final PersistentMType containedEqualType = getStructuralEquivalentType(result);
 
 		if (containedEqualType == null) {
 			getThis().getTypes().add(result);
@@ -292,9 +309,9 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-	private static void checkMAtomicTypeNameAndConsitency(String name, PersistentMBoolean singletonType,
-			PersistentMBoolean abstractType) throws PersistenceException, ConsistencyException {
+
+	private static void checkMAtomicTypeNameAndConsitency(final String name, final PersistentMBoolean singletonType,
+			final PersistentMBoolean abstractType) throws PersistenceException, ConsistencyException {
 		if (singletonType.toBoolean() && abstractType.toBoolean()) {
 			throw new ConsistencyException("Singletons may not be abstract");
 		}
@@ -339,22 +356,21 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 		return getThis().getTypes().findFirst(new Predcate<PersistentMType>() {
 
 			@Override
-			public boolean test(PersistentMType argument) throws PersistenceException {
+			public boolean test(final PersistentMType argument) throws PersistenceException {
 				return search.isStructuralEquivalant(argument).toBoolean();
 			}
 		});
 	}
 
-	private void checkOnlyNonSingletonFactors(MTypeSearchList factors) throws ConsistencyException,
+	private void checkOnlyNonSingletonFactors(final MTypeSearchList factors) throws ConsistencyException,
 			PersistenceException {
-		for (PersistentMType type : Iterables.wrap(factors)) {
+		for (final PersistentMType type : Iterables.wrap(factors)) {
 			if (type.isSingleton().toBoolean()) {
 				throw new ConsistencyException("Die Produktbildung von Singletons ist nicht erlaubt!");
 			}
 		}
 	}
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

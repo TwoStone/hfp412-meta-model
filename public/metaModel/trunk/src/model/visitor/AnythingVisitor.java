@@ -60,6 +60,7 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException;
     public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException;
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
+    public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException;
     public void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException;
     public void handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException;
     public void handleHierarchy(PersistentHierarchy hierarchy) throws PersistenceException;
