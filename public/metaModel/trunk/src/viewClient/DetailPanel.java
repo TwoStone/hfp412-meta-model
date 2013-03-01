@@ -1007,9 +1007,12 @@ class NameSchemeDefaultDetailPanel extends DefaultDetailPanel{
 class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
+    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MAtomicType$$name = "MAtomicType$$name";
     protected static final String MAtomicType$$singletonType = "MAtomicType$$singletonType";
     protected static final String MAtomicType$$abstractType = "MAtomicType$$abstractType";
+    protected static final String MAtomicType$$nEATCContainingMe = "MAtomicType$$nEATCContainingMe";
     protected static final String MAtomicType$$subTypes = "MAtomicType$$subTypes";
     protected static final String MAtomicType$$possibleNames = "MAtomicType$$possibleNames";
     
@@ -1049,6 +1052,8 @@ class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
 class MEmptyTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
+    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     
     protected MEmptyTypeDisjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1178,6 +1183,8 @@ class OperationManagerDefaultDetailPanel extends DefaultDetailPanel{
 class MMixedConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
+    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MMixedConjunction$$factors = "MMixedConjunction$$factors";
     
@@ -1275,6 +1282,7 @@ class AccountTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String AbstractObject$$possibleNames = "AbstractObject$$possibleNames";
     protected static final String AbstractObject$$productType = "AbstractObject$$productType";
     protected static final String MObject$$types = "MObject$$types";
@@ -1297,7 +1305,10 @@ class MObjectDefaultDetailPanel extends DefaultDetailPanel{
 class MEmptyTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
+    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MAtomicTypeConjunction$$nEDNFContainingMe = "MAtomicTypeConjunction$$nEDNFContainingMe";
     
     protected MEmptyTypeConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1630,6 +1641,8 @@ class MAccountTypeDefaultDetailPanel extends DefaultDetailPanel{
 class MMixedTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
+    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MMixedTypeDisjunction$$addends = "MMixedTypeDisjunction$$addends";
     
@@ -1664,7 +1677,10 @@ class TypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 class MNonEmptyAtomicTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
+    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
+    protected static final String MAtomicTypeConjunction$$nEDNFContainingMe = "MAtomicTypeConjunction$$nEDNFContainingMe";
     protected static final String MNonEmptyAtomicTypeConjunction$$factors = "MNonEmptyAtomicTypeConjunction$$factors";
     
     protected MNonEmptyAtomicTypeConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1729,6 +1745,8 @@ class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 class MNonEmptyDisjunctiveNormalFormDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
+    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MNonEmptyDisjunctiveNormalForm$$addends = "MNonEmptyDisjunctiveNormalForm$$addends";
     
@@ -2001,6 +2019,7 @@ class NameDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MSingletonObjectDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String AbstractObject$$possibleNames = "AbstractObject$$possibleNames";
     protected static final String AbstractObject$$productType = "AbstractObject$$productType";
     protected static final String MSingletonObject$$type = "MSingletonObject$$type";

@@ -5,14 +5,6 @@ import persistence.*;
 
 public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
-    public abstract void handleAbstractObject(PersistentAbstractObject abstractObject) throws PersistenceException;
-    
-    public void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException{
-        this.handleAbstractObject(mSingletonObject);
-    }
-    public void handleMObject(PersistentMObject mObject) throws PersistenceException{
-        this.handleAbstractObject(mObject);
-    }
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     
     public abstract void handleMaxStrategy(PersistentMaxStrategy maxStrategy) throws PersistenceException;
@@ -65,9 +57,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMAccountType(PersistentMAccountType mAccountType) throws PersistenceException{
         this.handleMQuantiObjectType(mAccountType);
     }
-    public abstract void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
-    
     public abstract void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
+    
+    public abstract void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
     
     public abstract void handleNameSchemeInstance(PersistentNameSchemeInstance nameSchemeInstance) throws PersistenceException;
     
@@ -245,6 +237,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
         this.handleMModelItem(mAtomicType);
     }
+    public void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException{
+        this.handleMModelItem(mSingletonObject);
+    }
     public void handleMMixedTypeDisjunction(PersistentMMixedTypeDisjunction mMixedTypeDisjunction) throws PersistenceException{
         this.handleMModelItem(mMixedTypeDisjunction);
     }
@@ -265,6 +260,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction) throws PersistenceException{
         this.handleMModelItem(mEmptyTypeDisjunction);
+    }
+    public void handleMObject(PersistentMObject mObject) throws PersistenceException{
+        this.handleMModelItem(mObject);
     }
     public void handleMMixedConjunction(PersistentMMixedConjunction mMixedConjunction) throws PersistenceException{
         this.handleMModelItem(mMixedConjunction);

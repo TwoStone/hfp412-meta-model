@@ -9,7 +9,7 @@ interface AbstractObjectDOWNMssgsVisitor extends MObjectDOWNMssgsVisitor, MSingl
 }
 
 
-interface AbstractObjectUPMssgsVisitor  {
+interface AbstractObjectUPMssgsVisitor extends MModelItemUPMssgsVisitor {
 
     
 }

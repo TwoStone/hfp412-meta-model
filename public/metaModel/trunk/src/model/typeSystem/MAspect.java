@@ -194,9 +194,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+	}
     public MAtomicTypeSearchList getTypes(final TDObserver observer) 
 				throws PersistenceException{
         MAtomicTypeSearchList result = getThis().getTypes();
@@ -215,9 +213,7 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

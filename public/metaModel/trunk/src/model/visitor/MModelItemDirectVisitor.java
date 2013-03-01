@@ -5,6 +5,14 @@ import persistence.*;
 
 public abstract class MModelItemDirectVisitor implements MModelItemVisitor {
     
+    public abstract void handleAbstractObject(PersistentAbstractObject abstractObject) throws PersistenceException;
+    
+    public void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException{
+        this.handleAbstractObject(mSingletonObject);
+    }
+    public void handleMObject(PersistentMObject mObject) throws PersistenceException{
+        this.handleAbstractObject(mObject);
+    }
     public abstract void handleMType(PersistentMType mType) throws PersistenceException;
     
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{

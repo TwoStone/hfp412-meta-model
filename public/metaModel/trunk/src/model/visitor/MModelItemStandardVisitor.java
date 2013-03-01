@@ -8,6 +8,9 @@ public abstract class MModelItemStandardVisitor implements MModelItemVisitor {
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
         this.standardHandling(mAtomicType);
     }
+    public void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException{
+        this.standardHandling(mSingletonObject);
+    }
     public void handleMMixedTypeDisjunction(PersistentMMixedTypeDisjunction mMixedTypeDisjunction) throws PersistenceException{
         this.standardHandling(mMixedTypeDisjunction);
     }
@@ -28,6 +31,9 @@ public abstract class MModelItemStandardVisitor implements MModelItemVisitor {
     }
     public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction) throws PersistenceException{
         this.standardHandling(mEmptyTypeDisjunction);
+    }
+    public void handleMObject(PersistentMObject mObject) throws PersistenceException{
+        this.standardHandling(mObject);
     }
     public void handleMMixedConjunction(PersistentMMixedConjunction mMixedConjunction) throws PersistenceException{
         this.standardHandling(mMixedConjunction);

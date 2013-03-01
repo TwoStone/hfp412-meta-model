@@ -126,6 +126,8 @@ part typeSystem {
 		abstract MBoolean isStructuralEquivalant(MType other);  			
 		abstract MDisjunctiveNormalForm fetchDisjunctiveNormalform();
 		abstract MAspect** fetchAspects();
+		abstract MType** fetchTypesContainingThisDirectly();
+		
 /*
 			MAssociation** fetchAssociations();
 			MBoolean allObjectsOfTypeAreSingleton();
@@ -152,7 +154,6 @@ part typeSystem {
 		no-view symmetric(subTypes) MAtomicType superType hierarchy MAtomicTypeHierarchy;
 		
 		MBoolean hasConcreteSubType();	
-			//void addSubType(MAtomicType typeunder) throws CycleException, WrongSubTypeAspectException;
 	}
 	
 	/* Komplexe Typen*/
@@ -177,13 +178,13 @@ part typeSystem {
 	}
 
 	class MNonEmptyDisjunctiveNormalForm##NEDisjNF extends MDisjunctiveNormalForm {
-  		MAtomicTypeConjunction** addends hierarchy MComplexTypeHierarchy;
+  		symmetric(nEDNFContainingMe) MAtomicTypeConjunction** addends hierarchy MComplexTypeHierarchy;
 		
 		MNonEmptyDisjunctiveNormalForm transientMultiplyNonEmpty(MNonEmptyDisjunctiveNormalForm other);
 	}
 	
 	class MMixedTypeDisjunction##MxdTpDisj@@MixedTypeDisjunction extends MAbstractTypeDisjunction {
-		MType** addends hierarchy MComplexTypeHierarchy;
+		symmetric(mTDJContainingMe) MType** addends hierarchy MComplexTypeHierarchy;
 	}
 	
 
@@ -194,29 +195,29 @@ part typeSystem {
 
 	
 	abstract class MAtomicTypeConjunction##ATConj extends MAbstractTypeConjunction {
-	MAtomicTypeConjunction transientMultiply(MAtomicTypeConjunction other);
+		MAtomicTypeConjunction transientMultiply(MAtomicTypeConjunction other);
 	}
 	
 			/* Anything */
 	singleton MEmptyTypeConjunction##ETpConj@@EmptyTypeConjunction extends MAtomicTypeConjunction {}
 
 	class MNonEmptyAtomicTypeConjunction##NEATConj extends MAtomicTypeConjunction{
-		MAtomicType** factors hierarchy MComplexTypeHierarchy;
+		symmetric(nEATCContainingMe) MAtomicType** factors hierarchy MComplexTypeHierarchy;
 		MNonEmptyAtomicTypeConjunction transientMultiplyNonEmpty(MNonEmptyAtomicTypeConjunction other);
 	}
 
 	class MMixedConjunction extends MAbstractTypeConjunction {
-		MType** factors hierarchy MComplexTypeHierarchy;
+		symmetric(mTCContainingMe) MType** factors hierarchy MComplexTypeHierarchy;
 	}
 		
-	abstract class AbstractObject##AbsObj {
+	abstract class AbstractObject##AbsObj covers MModelItem {
 		derived Name ** possibleNames;
 		derived MNonEmptyAtomicTypeConjunction productType;
 	}
 
 	/* Objekte */
 	class MObject extends AbstractObject {
-		MAtomicType ** types;
+		symmetric MAtomicType ** types;
 		derived Link** linksFromMe;
 		derived Link** linksToMe;
 		void addType(MAtomicType newType) throws ConsistencyException;

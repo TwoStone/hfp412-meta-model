@@ -3,7 +3,7 @@ package model.meta;
 public interface MModelItemMssgsVisitor extends MModelItemDOWNMssgsVisitor, MModelItemUPMssgsVisitor {}
 
 
-interface MModelItemDOWNMssgsVisitor extends MTypeDOWNMssgsVisitor, MessageOrLinkDOWNMssgsVisitor {
+interface MModelItemDOWNMssgsVisitor extends AbstractObjectDOWNMssgsVisitor, MTypeDOWNMssgsVisitor, MessageOrLinkDOWNMssgsVisitor {
 
     
 }
