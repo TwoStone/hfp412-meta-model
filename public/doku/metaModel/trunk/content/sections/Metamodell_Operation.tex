@@ -2,17 +2,32 @@
 
 
 \subsection{Messages und Links}
-Ein Link ist eine konkrete Ausprägungen einer Assoziation. 
-Folglich ist die Erstellung eines Links nur möglich, wenn eine Assoziation als Typ gewählt wurde. 
-Außerdem ist es zwingend erforderlich sowohl ein Quell- als auch Zielobjekt anzugeben.
 
-Da die Typebene an die Exemplarwelt gewisse Ansprüche stellt, existieren für die Regelung der 
-Quell- und Zielobjekte folgende Konsistenzbedingungen:
+Messages und Links haben zwar eine gemeinsame Oberklasse (MessageOrLink), dennoch wurden in der
+ersten Ausbaustufe lediglich die Links implementiert. Zu den Messages existiert eine rudimentäre
+Implementierung die dem Anwender aber über die Oberfläche nicht bereitgestellt wird, da die 
+Semantik eines Messageexemplars bislang nicht eindeutig geklärt ist. \vspace{15pt}
+
+
+Ein Link ist eine konkrete Ausprägungen einer Assoziation. 
+Folglich ist die Erstellung eines Links nur möglich, wenn eine Assoziation als Typ gewählt wurde und der zu erstellende Link
+sich an die  daraus ergebenden Konsitenzbedingungen hält.
+Für Links stehen dem Anwender nur zwei Funktionen zur Verfügung.
+
+\subsubsection{Einen Link erstellen - createLink}
+Wie zuvor erwähnt, ist es für einen Link zwingend notwendig sich an die Konsistenzbedingungen der Assoziation zu halten.
+Bei der Erstellung eines Links wird eine \emph{ConsistencyException,} wenn die Quell- und/oder Zielobjekte gemäß der Typebene nicht 
+gestattet sind.
+
 \begin{enumerate}
 \item $\forall \, l \in Link: l.source.type.isLessOrEqual(l.type.source)$
 \item $\forall \, l \in Link: l.target.type.isLessOrEqual(l.type.target)$
 \end{enumerate}
-Wie in der Abbildung XXX ersichtlich, können Assoziationen an Hierarchien teilnehmen. Auf der Typebene sind Zyklen innerhalb von Hierarchien zur Darstellung von Aggregationen noch möglich. Anders verhält sich dies auf der Exemplarebene. Alle Links dessen Assoziationen in einer Hierarchie sind, müssen zyklenfrei sein! Wenn ein Nutzer versucht zyklische Links innerhalb einer Hierarchie zu erstellen, wird eine entsprechende Fehlermeldung erscheinen und der Link wird nicht angelegt.
 
+Des weiteren is es Assoziationen möglich an mehreren Hierarchien teilzunehmen. Zyklische Assoziationen sind auf der Metaebene möglich, 
+da sich sonst keinerlei Aggregationsbeziehung abbilden ließe.
+Auf der Ebene der Exemplare hingegen, müssen \emph{alle Links einer Assoziation in allen Hierarchien zyklenfrei sein.}
+Wenn ein Anwender versucht zyklische Links zu erzeugen, wird eine \emph{CycleException} geworfen und der jeweilige Link wird nicht erstellt.
 
-\blindtext
+\subsubsection{Löschen eines Links - removeLink}
+Beim Entfernen eines bestehenden Links gibt es keinerlei Restriktionen zu beachten. Der Anwender kann bestehende Links beliebig entfernen.
