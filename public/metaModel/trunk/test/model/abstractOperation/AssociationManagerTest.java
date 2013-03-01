@@ -112,7 +112,7 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void createAssoicationWithoutCycleE01() throws PersistenceException, DoubleDefinitionException,
+	public void addAssoicationWithoutCycleE01() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException, CycleException {
 		final PersistentAssociation firstAsso = Association.createAssociation("a", mat1, mat3);
 		final PersistentAssociation secondAsso = Association.createAssociation("b", mat3, mat1);
@@ -125,8 +125,8 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test(expected = CycleException.class)
-	public void createAssoicationCycleE01() throws PersistenceException, DoubleDefinitionException,
-			ConsistencyException, CycleException {
+	public void addAssoicationCycleE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
+			CycleException {
 
 		final PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("firstHierarchy");
 		manager.getHierarchies().add(createHierarchy);
