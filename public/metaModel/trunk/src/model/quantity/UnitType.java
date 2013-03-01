@@ -1,5 +1,6 @@
 package model.quantity;
 
+import model.ConsistencyException;
 import model.UserException;
 import model.visitor.AbsUnitTypeExceptionVisitor;
 import model.visitor.AbsUnitTypeReturnExceptionVisitor;
@@ -13,12 +14,14 @@ import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
+import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentProxi;
 import persistence.PersistentUnit;
 import persistence.PersistentUnitType;
 import persistence.TDObserver;
 import persistence.UnitTypeProxi;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -188,17 +191,25 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// implement method: copyingPrivateUserAttributes
+
+	}
+    public PersistentAbsUnit fetchDefaultUnit() 
+				throws model.ConsistencyException, PersistenceException{
+		final PersistentUnit result = this.getDefaultUnit();
+		if (result == null) {
+			throw new ConsistencyException(ExceptionConstants.NO_DEFAULT_UNIT);
+		}
+		return result;
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
+		// implement method: initializeOnCreation
 
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
+		// implement method: initializeOnInstantiation
 
 	}
     
@@ -207,9 +218,7 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

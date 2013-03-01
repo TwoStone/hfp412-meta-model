@@ -174,16 +174,16 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// implement method: copyingPrivateUserAttributes
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
+		// implement method: initializeOnInstantiation
 
 	}
     
@@ -192,9 +192,7 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

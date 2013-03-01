@@ -40,6 +40,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> defaultUnit_Path_In_SetDefaultUnit(){
+        try {
+            AbsUnitSearchList result = ((PersistentServer)this.server).defaultUnit_Path_In_SetDefaultUnit();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> fp_Path_In_AddFp(){
         try {
             FormalParameterSearchList result = ((PersistentServer)this.server).fp_Path_In_AddFp();

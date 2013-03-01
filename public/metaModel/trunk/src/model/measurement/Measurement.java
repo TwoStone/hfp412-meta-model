@@ -1,5 +1,6 @@
 package model.measurement;
 
+import model.ConsistencyException;
 import model.UserException;
 import model.quantity.Quantity;
 import model.visitor.AbsQuantityReturnVisitor;
@@ -279,8 +280,14 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 		final MeasurementSearchList measurements = new MeasurementSearchList();
 		measurements.add(getThis());
 
-		final PersistentQuantity neutralElement = Quantity.createQuantity(Fraction.Null, this.getThis().getQuantity()
-				.fetchDefaultUnit());
+		PersistentQuantity neutralElement = null;
+		try {
+			neutralElement = Quantity.createQuantity(Fraction.Null, this.getThis().getType().getUnitType()
+					.fetchDefaultUnit());
+		} catch (final ConsistencyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return strategy.aggregateMeasurements(neutralElement, measurements);
 	}

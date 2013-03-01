@@ -191,7 +191,7 @@ public class Function extends PersistentObject implements PersistentFunction{
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
+		// implement method: copyingPrivateUserAttributes
 
 	}
     public common.Fraction executeInverse(final common.Fraction amount) 
@@ -199,7 +199,7 @@ public class Function extends PersistentObject implements PersistentFunction{
 		Fraction result = null;
 		try {
 			result = amount.add(this.constant.mul(Fraction.parse("-1"))).mul(factor.invert());
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			e.printStackTrace();
 		}
 		return result;
@@ -209,19 +209,19 @@ public class Function extends PersistentObject implements PersistentFunction{
 		Fraction result = null;
 		try {
 			result = amount.mul(this.factor).add(this.constant);
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
+		// implement method: initializeOnCreation
 
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
+		// implement method: initializeOnInstantiation
 
 	}
     
@@ -230,9 +230,7 @@ public class Function extends PersistentObject implements PersistentFunction{
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

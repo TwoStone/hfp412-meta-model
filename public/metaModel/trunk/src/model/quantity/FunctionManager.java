@@ -1,4 +1,3 @@
-
 package model.quantity;
 
 import model.UserException;
@@ -15,7 +14,6 @@ import persistence.PersistentFunctionManager;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -161,28 +159,26 @@ public class FunctionManager extends PersistentObject implements PersistentFunct
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// implement method: copyingPrivateUserAttributes
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// implement method: initializeOnCreation
+
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// implement method: initializeOnInstantiation
+
+	}
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

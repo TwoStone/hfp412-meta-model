@@ -80,7 +80,7 @@ server Server {
 	void addReference(AbsUnit unit, String name, Unit referenceUnit{unitTypeManager;units}, Integer exponent);
 	void createQuantity@@Create_quantity(QuantityManager manager, AbsUnit unit, Fraction f);
 	void setConversion(Unit unit, Fraction factor, Fraction constant);
-	void setDefaultUnit(UnitType type, Unit defaultUnit);
+	void setDefaultUnit(UnitType type, Unit defaultUnit{unitTypeManager;units});
 	void convertToDefault(Quantity quantity);
 	void convert(Quantity quantity, AbsUnit unit);
 
@@ -287,7 +287,6 @@ part quantity {
 		AbsQuantity mul(AbsQuantity factor) throws NotComputableException;
 		AbsQuantity div(AbsQuantity divisor) throws NotComputableException;
 		MBoolean isLessOrEqualThan(AbsQuantity compareValue) throws UserException;
-		abstract AbsUnit fetchDefaultUnit();
 	}
 
 	class Quantity extends AbsQuantity {
@@ -314,6 +313,7 @@ part quantity {
 
 	abstract class AbsUnitType {
 		indexed prior String name;
+		abstract AbsUnit fetchDefaultUnit() throws ConsistencyException;
 	}
 
 	class CompUnitType extends AbsUnitType {

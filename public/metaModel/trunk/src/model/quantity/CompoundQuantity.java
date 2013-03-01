@@ -165,16 +165,6 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public PersistentAbsUnit fetchDefaultUnit() 
-				throws PersistenceException{
-		return this.getThis().getParts().findFirst(new Predcate<PersistentQuantity>() {
-
-			@Override
-			public boolean test(final PersistentQuantity argument) throws PersistenceException {
-				return true;
-			}
-		}).getUnit();
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}

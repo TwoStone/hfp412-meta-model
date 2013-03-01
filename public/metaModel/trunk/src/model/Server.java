@@ -457,6 +457,11 @@ public class Server extends PersistentObject implements PersistentServer{
         		return new MTypeSearchList(getThis().getTypeManager().
 				getTypes().getList());
     }
+    public AbsUnitSearchList defaultUnit_Path_In_SetDefaultUnit() 
+				throws model.UserException, PersistenceException{
+        		return new AbsUnitSearchList(getThis().getUnitTypeManager().
+				getUnits().getList());
+    }
     public FormalParameterSearchList fp_Path_In_AddFp() 
 				throws model.UserException, PersistenceException{
         		return new FormalParameterSearchList(getThis().getOperationManager().

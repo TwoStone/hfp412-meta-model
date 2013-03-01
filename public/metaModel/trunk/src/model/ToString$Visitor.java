@@ -80,7 +80,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public ToString$Visitor() {
 	}
 
-	public synchronized String toString(Anything anything) throws PersistenceException {
+	public synchronized String toString(final Anything anything) throws PersistenceException {
 		result = null;
 		anything.accept(this);
 		if (result == null) {
@@ -122,158 +122,159 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	protected void standardHandling(Anything anything) {
+	protected void standardHandling(final Anything anything) {
 		result = anything.getClassId() + ";" + anything.getId();
 	}
 
 	@Override
-	public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException {
+	public void handleMAtomicType(final PersistentMAtomicType mAtomicType) throws PersistenceException {
 		result = mAtomicType.fetchName();
 	}
 
 	@Override
-	public void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException {
+	public void handleTypeManager(final PersistentTypeManager typeManager) throws PersistenceException {
 		result = "Liste der Typen";
 	}
 
 	@Override
-	public void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException {
+	public void handleAspectManager(final PersistentAspectManager aspectManager) throws PersistenceException {
 		result = "Liste der Aspekte";
 
 	}
 
 	@Override
-	public void handleMAspect(PersistentMAspect mAspect) throws PersistenceException {
+	public void handleMAspect(final PersistentMAspect mAspect) throws PersistenceException {
 		result = mAspect.getName();
 	}
 
 	@Override
-	public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException {
+	public void handleMFalse(final PersistentMFalse mFalse) throws PersistenceException {
 		result = "false";
 	}
 
 	@Override
-	public void handleMTrue(PersistentMTrue mTrue) throws PersistenceException {
+	public void handleMTrue(final PersistentMTrue mTrue) throws PersistenceException {
 		result = "true";
 	}
 
 	@Override
-	public void handleAssociationManager(PersistentAssociationManager associationManager) throws PersistenceException {
+	public void handleAssociationManager(final PersistentAssociationManager associationManager)
+			throws PersistenceException {
 		result = "Liste der Assoziationen";
 	}
 
 	@Override
-	public void handleHierarchy(PersistentHierarchy hierarchy) throws PersistenceException {
+	public void handleHierarchy(final PersistentHierarchy hierarchy) throws PersistenceException {
 		result = hierarchy.getName();
 	}
 
 	@Override
-	public void handleAssociation(PersistentAssociation association) throws PersistenceException {
+	public void handleAssociation(final PersistentAssociation association) throws PersistenceException {
 		result = association.getName() + " (" + association.getSource().fetchName() + ")";
 	}
 
 	@Override
-	public void handleQuantity(PersistentQuantity quantity) throws PersistenceException {
+	public void handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleCompoundQuantity(PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
+	public void handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException {
+	public void handleReferenceType(final PersistentReferenceType referenceType) throws PersistenceException {
 		this.result = referenceType.getRef() + "^" + referenceType.getExponent();
 	}
 
 	@Override
-	public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException {
+	public void handleQuantityManager(final PersistentQuantityManager quantityManager) throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_QUANTITY_MANAGER;
 	}
 
 	@Override
-	public void handleUnitType(PersistentUnitType unitType) throws PersistenceException {
+	public void handleUnitType(final PersistentUnitType unitType) throws PersistenceException {
 		this.result = unitType.getName();
 
 	}
 
 	@Override
-	public void handleUnit(PersistentUnit unit) throws PersistenceException {
+	public void handleUnit(final PersistentUnit unit) throws PersistenceException {
 		this.result = unit.getName() + " (" + unit.getType().getName() + ")";
 
 	}
 
 	@Override
-	public void handleServer(PersistentServer server) throws PersistenceException {
+	public void handleServer(final PersistentServer server) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleReference(PersistentReference reference) throws PersistenceException {
+	public void handleReference(final PersistentReference reference) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleConversion(PersistentConversion conversion) throws PersistenceException {
-		PersistentUnit defaultUnit = ((PersistentUnitType) conversion.getSource().getType()).getDefaultUnit();
+	public void handleConversion(final PersistentConversion conversion) throws PersistenceException {
+		final PersistentUnit defaultUnit = ((PersistentUnitType) conversion.getSource().getType()).getDefaultUnit();
 		if (defaultUnit == null)
 			return;
-		Fraction m = conversion.getMyFunction().getFactor();
-		Fraction b = conversion.getMyFunction().getConstant();
-		this.result = "1" + defaultUnit.getName() + " = (" + m + " + " + b + ") " + conversion.getSource().getName();
-		// TODO Wenn sich die Default-Unit ändert?!
+		final Fraction m = conversion.getMyFunction().getFactor();
+		final Fraction b = conversion.getMyFunction().getConstant();
+		this.result = "1" + defaultUnit.getName() + " = (" + m + "* 1 " + " + " + b + ") "
+				+ conversion.getSource().getName();
 	}
 
 	@Override
-	public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException {
+	public void handleCompUnit(final PersistentCompUnit compUnit) throws PersistenceException {
 		this.result = compUnit.getName() + " (" + compUnit.getType().getName() + ")";
 	}
 
 	@Override
-	public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException {
+	public void handleCompUnitType(final PersistentCompUnitType compUnitType) throws PersistenceException {
 		this.result = compUnitType.getName();
 
 	}
 
 	@Override
-	public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException {
+	public void handleUnitTypeManager(final PersistentUnitTypeManager unitTypeManager) throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_UNIT_TYPE_MANAGER;
 
 	}
 
 	@Override
-	public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException {
+	public void handleFractionManager(final PersistentFractionManager fractionManager) throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_FRACTION_MANAGER;
 
 	}
 
 	@Override
-	public void handleFunction(PersistentFunction function) throws PersistenceException {
+	public void handleFunction(final PersistentFunction function) throws PersistenceException {
+		this.result = "y = " + function.getFactor() + " * x + " + function.getConstant();
+
+	}
+
+	@Override
+	public void handleMAccountType(final PersistentMAccountType mAccountType) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleMAccountType(PersistentMAccountType mAccountType) throws PersistenceException {
+	public void handleMeasurement(final PersistentMeasurement measurement) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleMeasurement(PersistentMeasurement measurement) throws PersistenceException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void handleOperation(PersistentOperation operation) throws PersistenceException {
-		StringBuilder parameterListe = new StringBuilder();
-		Iterator<PersistentFormalParameter> iterator = operation.getParameters().iterator();
+	public void handleOperation(final PersistentOperation operation) throws PersistenceException {
+		final StringBuilder parameterListe = new StringBuilder();
+		final Iterator<PersistentFormalParameter> iterator = operation.getParameters().iterator();
 		PersistentFormalParameter current = null;
 		int count = 0;
 		while (iterator.hasNext()) {
@@ -289,41 +290,41 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleAccount(PersistentAccount account) throws PersistenceException {
+	public void handleAccount(final PersistentAccount account) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleMMeasurementType(PersistentMMeasurementType mMeasurementType) throws PersistenceException {
+	public void handleMMeasurementType(final PersistentMMeasurementType mMeasurementType) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException {
+	public void handleFormalParameter(final PersistentFormalParameter formalParameter) throws PersistenceException {
 		result = formalParameter.getName();
 	}
 
 	@Override
-	public void handleMessage(PersistentMessage message) throws PersistenceException {
+	public void handleMessage(final PersistentMessage message) throws PersistenceException {
 		final PersistentMessage internalMessage = message;
 
 		message.getType().isStatic().accept(new MBooleanVisitor() {
 
 			@Override
-			public void handleMTrue(PersistentMTrue mTrue) throws PersistenceException {
+			public void handleMTrue(final PersistentMTrue mTrue) throws PersistenceException {
 				result = "";
 			}
 
 			@Override
-			public void handleMFalse(PersistentMFalse mFalse) throws PersistenceException {
+			public void handleMFalse(final PersistentMFalse mFalse) throws PersistenceException {
 				result = internalMessage.getSource().toString();
 			}
 		});
 		result += "#" + message.getTarget().toString() + " " + message.getType().toString() + "(";
 
-		Iterator<PersistentActualParameter> it = message.getActualParameters().iterator();
+		final Iterator<PersistentActualParameter> it = message.getActualParameters().iterator();
 
 		// Sonderbehandlung fuer den Ersten
 		if (it.hasNext()) {
@@ -338,163 +339,167 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException {
+	public void handleActualParameter(final PersistentActualParameter actualParameter) throws PersistenceException {
 		result = actualParameter.getType().toString() + "=" + actualParameter.getValue().toString();
 	}
 
 	@Override
-	public void handleLink(PersistentLink link) throws PersistenceException {
+	public void handleLink(final PersistentLink link) throws PersistenceException {
 		result = link.getSource().toString() + "." + link.getType().getName() + ">>" + link.getTarget().toString();
 	}
 
 	@Override
-	public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager)
+	public void handleMeasurementTypeManager(final PersistentMeasurementTypeManager measurementTypeManager)
 			throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_MEASUREMENT_TYPE_MANAGER;
 	}
 
 	@Override
-	public void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException {
+	public void handleAccountTypeManager(final PersistentAccountTypeManager accountTypeManager)
+			throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_ACCOUNT_TYPE_MANAGER;
 	}
 
 	@Override
-	public void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException {
+	public void handleAccountManager(final PersistentAccountManager accountManager) throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_ACCOUNT_MANAGER;
 	}
 
 	@Override
-	public void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException {
+	public void handleMessageManager(final PersistentMessageManager messageManager) throws PersistenceException {
 		result = "Liste der Nachrichten";
 	}
 
 	@Override
-	public void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException {
+	public void handleOperationManager(final PersistentOperationManager operationManager) throws PersistenceException {
 		result = "Liste der Operationen";
 	}
 
 	@Override
-	public void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException {
+	public void handleLinkManager(final PersistentLinkManager linkManager) throws PersistenceException {
 		result = "Liste der Links";
 	}
 
 	@Override
-	public void handleMObject(PersistentMObject mObject) throws PersistenceException {
+	public void handleMObject(final PersistentMObject mObject) throws PersistenceException {
 		result = String.valueOf(mObject.getId());
 		result += Strings.join(", ", mObject.getNames().iterator(),
 				new Strings.ToStringStrategy<PersistentNameInstance>() {
 
 					@Override
-					public String getString(PersistentNameInstance element) throws PersistenceException {
+					public String getString(final PersistentNameInstance element) throws PersistenceException {
 						return element.toString(true);
 					}
 				});
 	}
 
 	@Override
-	public void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException {
+	public void handleObjectManager(final PersistentObjectManager objectManager) throws PersistenceException {
 		result = "Objektwelt";
 	}
 
 	@Override
-	public void handleNameSchemeInstance(PersistentNameSchemeInstance nameSchemeInstance) throws PersistenceException {
+	public void handleNameSchemeInstance(final PersistentNameSchemeInstance nameSchemeInstance)
+			throws PersistenceException {
 		result = nameSchemeInstance.getName();
 	}
 
 	@Override
-	public void handleNameScheme(PersistentNameScheme nameScheme) throws PersistenceException {
+	public void handleNameScheme(final PersistentNameScheme nameScheme) throws PersistenceException {
 		result = nameScheme.getName();
 	}
 
 	@Override
-	public void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException {
+	public void handleNameInstance(final PersistentNameInstance nameInstance) throws PersistenceException {
 		result = nameInstance.getNameScheme().getName() + "(" + nameInstance.getNameScheme().getType().getName() + ")";
 	}
 
 	@Override
-	public void handleNameSchemeManager(PersistentNameSchemeManager nameSchemeManager) throws PersistenceException {
+	public void handleNameSchemeManager(final PersistentNameSchemeManager nameSchemeManager)
+			throws PersistenceException {
 		result = "Liste von Namensschemata";
 	}
 
 	@Override
-	public void handleName(PersistentName name) throws PersistenceException {
+	public void handleName(final PersistentName name) throws PersistenceException {
 		result = name.getFromType().getName() + "->" + name.getNameScheme().getName();
 	}
 
 	@Override
-	public void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException {
+	public void handleFunctionManager(final PersistentFunctionManager functionManager) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException {
+	public void handleFractionWrapper(final PersistentFractionWrapper fractionWrapper) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException {
+	public void handleMSingletonObject(final PersistentMSingletonObject mSingletonObject) throws PersistenceException {
 		// TODO StringRepräsentation von Singletons
 
 	}
 
 	@Override
-	public void handleMinStrategy(PersistentMinStrategy minStrategy) throws PersistenceException {
+	public void handleMinStrategy(final PersistentMinStrategy minStrategy) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException {
+	public void handleAvgStrategy(final PersistentAvgStrategy avgStrategy) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleSumStrategy(PersistentSumStrategy sumStrategy) throws PersistenceException {
+	public void handleSumStrategy(final PersistentSumStrategy sumStrategy) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleMaxStrategy(PersistentMaxStrategy maxStrategy) throws PersistenceException {
+	public void handleMaxStrategy(final PersistentMaxStrategy maxStrategy) throws PersistenceException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction)
+	public void handleMEmptyTypeDisjunction(final PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction)
 			throws PersistenceException {
 		result = mEmptyTypeDisjunction.fetchName();
 	}
 
 	@Override
-	public void handleMMixedConjunction(PersistentMMixedConjunction mMixedConjunction) throws PersistenceException {
+	public void handleMMixedConjunction(final PersistentMMixedConjunction mMixedConjunction)
+			throws PersistenceException {
 		result = mMixedConjunction.fetchName();
 	}
 
 	@Override
-	public void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction)
+	public void handleMEmptyTypeConjunction(final PersistentMEmptyTypeConjunction mEmptyTypeConjunction)
 			throws PersistenceException {
 		result = mEmptyTypeConjunction.fetchName();
 	}
 
 	@Override
-	public void handleMMixedTypeDisjunction(PersistentMMixedTypeDisjunction mMixedTypeDisjunction)
+	public void handleMMixedTypeDisjunction(final PersistentMMixedTypeDisjunction mMixedTypeDisjunction)
 			throws PersistenceException {
 		result = mMixedTypeDisjunction.fetchName();
 	}
 
 	@Override
 	public void handleMNonEmptyAtomicTypeConjunction(
-			PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction) throws PersistenceException {
+			final PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction) throws PersistenceException {
 		result = mNonEmptyAtomicTypeConjunction.fetchName();
 	}
 
 	@Override
 	public void handleMNonEmptyDisjunctiveNormalForm(
-			PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm) throws PersistenceException {
+			final PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm) throws PersistenceException {
 		result = mNonEmptyDisjunctiveNormalForm.fetchName();
 	}
 }

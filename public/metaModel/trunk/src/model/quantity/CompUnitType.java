@@ -14,6 +14,7 @@ import persistence.CompUnitTypeProxi;
 import persistence.CompUnitType_RefsProxi;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
+import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentCompUnitType;
 import persistence.TDObserver;
@@ -164,15 +165,25 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// implement method: copyingPrivateUserAttributes
+
+	}
+    public PersistentAbsUnit fetchDefaultUnit() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: fetchDefaultUnit
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDefaultUnit\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
+		// implement method: initializeOnInstantiation
 
 	}
     
@@ -181,9 +192,7 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

@@ -25,6 +25,7 @@ import persistence.PersistentAddReferenceCommand;
 import persistence.PersistentAddReferenceTypeCommand;
 import persistence.PersistentCompUnit;
 import persistence.PersistentCompUnitType;
+import persistence.PersistentConversion;
 import persistence.PersistentCreateCompUnitCommand;
 import persistence.PersistentCreateCompUnitTypeCommand;
 import persistence.PersistentCreateUnitCommand;
@@ -406,7 +407,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     public void createCompUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
 		// TODO: nur mit addReferenceType erstellen? Sonst entstehen leere CompUnitTypes
-		AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
 		if (old.iterator().hasNext()) {
 			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
 		}
@@ -423,15 +424,15 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		// DoubleDefinition: Gleiche Auspr?gung (Typengleichheit).
 		// TODO: Double Definition bei gleicher Auspr --> etwas komplexer^^
 
-		Iterator<PersistentReferenceType> it = type.getRefs().iterator();
-		PersistentCompUnit newCompUnit = CompUnit.createCompUnit(type, name);
+		final Iterator<PersistentReferenceType> it = type.getRefs().iterator();
+		final PersistentCompUnit newCompUnit = CompUnit.createCompUnit(type, name);
 
 		while (it.hasNext()) {
 
-			PersistentReferenceType curRefType = it.next();
+			final PersistentReferenceType curRefType = it.next();
 
 			if (curRefType.getRef().getDefaultUnit() != null) {
-				PersistentReference ref = Reference.createReference();
+				final PersistentReference ref = Reference.createReference();
 				ref.setType(curRefType);
 				ref.setExponent(curRefType.getExponent());
 				ref.setRef(curRefType.getRef().getDefaultUnit());
@@ -455,7 +456,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public void createUnit(final String name, final PersistentUnitType type) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		AbsUnitSearchList old = Unit.getAbsUnitByName(name);
+		final AbsUnitSearchList old = Unit.getAbsUnitByName(name);
 		if (old.iterator().hasNext()) {
 			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION + name);
 		}
@@ -468,15 +469,16 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 
 		this.getThis().getUnitTypes().applyToAll(new Procdure<PersistentAbsUnitType>() {
 			@Override
-			public void doItTo(PersistentAbsUnitType argument) throws PersistenceException {
+			public void doItTo(final PersistentAbsUnitType argument) throws PersistenceException {
 				argument.accept(new AbsUnitTypeVisitor() {
 					@Override
-					public void handleUnitType(PersistentUnitType unitType) throws PersistenceException {
+					public void handleUnitType(final PersistentUnitType unitType) throws PersistenceException {
 						result.add(unitType);
 					}
 
 					@Override
-					public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException {
+					public void handleCompUnitType(final PersistentCompUnitType compUnitType)
+							throws PersistenceException {
 					}
 				});
 			}
@@ -510,27 +512,42 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
 				throws model.ConsistencyException, PersistenceException{
-
-		// TODO: Conversion ??ndern, wenn schon vorhanden
-		// TODO: Doppelte Functions?
+		// Auf DefaultUnit prüfen
 		if (((PersistentUnitType) unit.getType()).getDefaultUnit() == null) {
-			throw new ConsistencyException(ExceptionConstants.NO_DEFAULT_UNIT);
+			throw new ConsistencyException(ExceptionConstants.NO_DEFAULT_UNIT_FOR_CONVERSION);
 		}
-		Conversion.createConversion(unit, Function.createFunction(factor, constant));
 
+		// Conversion ??ndern, wenn schon vorhanden
+		final PersistentConversion conversion = unit.getMyConversion();
+		if (conversion != null) {
+			conversion.setMyFunction(Function.createFunction(factor, constant));
+		}
+		// neue Conversion erstellen
+		else {
+			Conversion.createConversion(unit, Function.createFunction(factor, constant));
+		}
+
+		// TODO: Doppelte Functions?
 	}
     public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit) 
 				throws PersistenceException{
-        //TODO: implement method: setDefaultUnit
-        
-    }
+		// TODO: Conversions ander Units ändern
+
+		// neue DefaultUnit setzen
+		type.setDefaultUnit(unit);
+		// Conversion für neue Default Unit auf 1 setzen
+		try {
+			this.getThis().setConversion(unit, Fraction.parse("1"), Fraction.Null);
+		} catch (final ConsistencyException e) {
+			// Kann nicht passieren, da DefaultUnit zuvor gesetzt wurde
+		}
+	}
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
 	/**
 	 * Testet ob ein CompoundUnitType mit den übergebenen ReferenceTypes schon vorhanden ist.
@@ -538,12 +555,11 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	 * @param referenceTypes
 	 * @return
 	 */
-	private boolean existsCompUnitTypeWithReferenceTypes(PersistentReferenceType... referenceTypes) {
+	private boolean existsCompUnitTypeWithReferenceTypes(final PersistentReferenceType... referenceTypes) {
 		// TODO!
 		return false;
 	}
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

@@ -4137,7 +4137,19 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("defaultUnit", "view.UnitView", (ViewRoot) getConnection().getServerView(), this));		
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("defaultUnit", "view.UnitView", new ListRoot(getConnection().defaultUnit_Path_In_SetDefaultUnit()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
 		}
