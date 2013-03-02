@@ -26,13 +26,12 @@ import persistence.PersistentAddReferenceTypeCommand;
 import persistence.PersistentCompUnit;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentConversion;
-import persistence.PersistentCreateCompUnitCommand;
-import persistence.PersistentCreateCompUnitTypeCommand;
 import persistence.PersistentCreateUnitCommand;
 import persistence.PersistentCreateUnitTypeCommand;
+import persistence.PersistentFetchScalarCommand;
+import persistence.PersistentFetchScalarTypeCommand;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
-import persistence.PersistentReference;
 import persistence.PersistentReferenceType;
 import persistence.PersistentRemoveUnitCommand;
 import persistence.PersistentRemoveUnitTypeCommand;
@@ -218,23 +217,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void createCompUnitType(final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateCompUnitTypeCommand command = model.meta.CreateCompUnitTypeCommand.createCreateCompUnitTypeCommand(name, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void createCompUnit(final String name, final PersistentCompUnitType type, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateCompUnitCommand command = model.meta.CreateCompUnitCommand.createCreateCompUnitCommand(name, now, now);
-		command.setType(type);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void createUnitType(final String name, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -248,6 +230,22 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentCreateUnitCommand command = model.meta.CreateUnitCommand.createCreateUnitCommand(name, now, now);
 		command.setType(type);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void fetchScalarType(final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentFetchScalarTypeCommand command = model.meta.FetchScalarTypeCommand.createFetchScalarTypeCommand(now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void fetchScalar(final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentFetchScalarCommand command = model.meta.FetchScalarCommand.createFetchScalarCommand(now, now);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -362,7 +360,8 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 											exponent + 1, unitType);
 
 									// CompUnitType mit den Referenzen schon vorhanden?
-									if (existsCompUnitTypeWithReferenceTypes(referenceType)) {
+									final PersistentCompUnitType type = getCompUnitTypeWithReferenceTypes(referenceType);
+									if (type != null) {
 										throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_COMP_UNIT_TYPE
 												+ referenceType);
 									}
@@ -377,7 +376,9 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 											unitType);
 
 									// CompUnitType mit den Referenzen schon vorhanden?
-									if (existsCompUnitTypeWithReferenceTypes(referenceType, referenceType2)) {
+									final PersistentCompUnitType type = getCompUnitTypeWithReferenceTypes(
+											referenceType, referenceType2);
+									if (type != null) {
 										throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_COMP_UNIT_TYPE
 												+ referenceType + ", " + referenceType2);
 									}
@@ -404,45 +405,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 				throws PersistenceException{
 
 	}
-    public void createCompUnitType(final String name) 
-				throws model.DoubleDefinitionException, PersistenceException{
-		// TODO: nur mit addReferenceType erstellen? Sonst entstehen leere CompUnitTypes
-		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
-		if (old.iterator().hasNext()) {
-			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
-		}
-		this.getThis().getUnitTypes().add(CompUnitType.createCompUnitType(name));
-
-	}
-    public void createCompUnit(final String name, final PersistentCompUnitType type) 
-				throws model.DoubleDefinitionException, PersistenceException{
-
-		// DoubleDefinition: Namensgleichheit.
-		if (AbsUnitType.getAbsUnitTypeByName(name).iterator().hasNext())
-			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION);
-
-		// DoubleDefinition: Gleiche Auspr?gung (Typengleichheit).
-		// TODO: Double Definition bei gleicher Auspr --> etwas komplexer^^
-
-		final Iterator<PersistentReferenceType> it = type.getRefs().iterator();
-		final PersistentCompUnit newCompUnit = CompUnit.createCompUnit(type, name);
-
-		while (it.hasNext()) {
-
-			final PersistentReferenceType curRefType = it.next();
-
-			if (curRefType.getRef().getDefaultUnit() != null) {
-				final PersistentReference ref = Reference.createReference();
-				ref.setType(curRefType);
-				ref.setExponent(curRefType.getExponent());
-				ref.setRef(curRefType.getRef().getDefaultUnit());
-				newCompUnit.getRefs().add(ref);
-			}
-
-		}
-		this.getThis().getUnits().add(newCompUnit);
-
-	}
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
 		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
@@ -462,6 +424,25 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		}
 		getThis().getUnits().add(Unit.createUnit(type, name));
 
+	}
+    public PersistentCompUnitType fetchScalarType() 
+				throws PersistenceException{
+		PersistentCompUnitType type = getCompUnitTypeWithReferenceTypes(new PersistentReferenceType[] {});
+		if (type == null) {
+			type = CompUnitType.createCompUnitType("ScalarType");
+			getThis().getUnitTypes().add(type);
+		}
+		return type;
+	}
+    public PersistentCompUnit fetchScalar() 
+				throws PersistenceException{
+		// TODO: implement method: fetchScalar
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchScalar\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public UnitTypeSearchList getAtomicUnitTypes() 
 				throws PersistenceException{
@@ -554,10 +535,13 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	 * 
 	 * @param referenceTypes
 	 * @return
+	 * @throws PersistenceException
 	 */
-	private boolean existsCompUnitTypeWithReferenceTypes(final PersistentReferenceType... referenceTypes) {
-		// TODO!
-		return false;
+	protected PersistentCompUnitType getCompUnitTypeWithReferenceTypes(final PersistentReferenceType... referenceTypes)
+			throws PersistenceException {
+		final PersistentReferenceType reference = referenceTypes[0];
+		reference.getRef();
+		return null;
 	}
 
 	/* End of protected part that is not overridden by persistence generator */

@@ -23,7 +23,7 @@ import persistence.Invoker;
 import persistence.PersistenceException;
 import persistence.PersistentCommonDate;
 import persistence.PersistentCompUnitType;
-import persistence.PersistentCreateCompUnitCommand;
+import persistence.PersistentFetchScalarTypeCommand;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentUnitTypeManager;
@@ -31,28 +31,27 @@ import persistence.PersistentUnitTypeManager;
 
 /* Additional import section end */
 
-public class CreateCompUnitCommand extends PersistentObject implements PersistentCreateCompUnitCommand{
+public class FetchScalarTypeCommand extends PersistentObject implements PersistentFetchScalarTypeCommand{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentCreateCompUnitCommand getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade.getClass(objectId);
-        return (PersistentCreateCompUnitCommand)PersistentProxi.createProxi(objectId, classId);
+    public static PersistentFetchScalarTypeCommand getById(long objectId) throws PersistenceException{
+        long classId = ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade.getClass(objectId);
+        return (PersistentFetchScalarTypeCommand)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentCreateCompUnitCommand createCreateCompUnitCommand(String name,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createCreateCompUnitCommand(name,createDate,commitDate,false);
+    public static PersistentFetchScalarTypeCommand createFetchScalarTypeCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createFetchScalarTypeCommand(createDate,commitDate,false);
     }
     
-    public static PersistentCreateCompUnitCommand createCreateCompUnitCommand(String name,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
-        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentCreateCompUnitCommand result = null;
+    public static PersistentFetchScalarTypeCommand createFetchScalarTypeCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        PersistentFetchScalarTypeCommand result = null;
         if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade
-                .newDelayedCreateCompUnitCommand(name);
+            result = ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade
+                .newDelayedFetchScalarTypeCommand();
             result.setDelayed$Persistence(true);
         }else{
-            result = ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade
-                .newCreateCompUnitCommand(name,-1);
+            result = ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade
+                .newFetchScalarTypeCommand(-1);
         }
         result.setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -61,26 +60,24 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected String name;
-    protected PersistentCompUnitType type;
     protected Invoker invoker;
     protected PersistentUnitTypeManager commandReceiver;
+    protected PersistentCompUnitType commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateCompUnitCommand(String name,PersistentCompUnitType type,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public FetchScalarTypeCommand(Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCompUnitType commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.name = name;
-        this.type = type;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
     static public long getTypeId() {
-        return 161;
+        return 327;
     }
     
     public long getClassId() {
@@ -89,50 +86,28 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 161) ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade
-            .newCreateCompUnitCommand(name,this.getId());
+        if (this.getClassId() == 327) ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade
+            .newFetchScalarTypeCommand(this.getId());
         super.store();
-        if(this.getType() != null){
-            this.getType().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade.typeSet(this.getId(), getType());
-        }
         if(this.getInvoker() != null){
             this.getInvoker().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade.invokerSet(this.getId(), getInvoker());
+            ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade.invokerSet(this.getId(), getInvoker());
         }
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+            ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
+            ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
         }
         
     }
     
-    public String getName() throws PersistenceException {
-        return this.name;
-    }
-    public void setName(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade.nameSet(this.getId(), newValue);
-        this.name = newValue;
-    }
-    public PersistentCompUnitType getType() throws PersistenceException {
-        return this.type;
-    }
-    public void setType(PersistentCompUnitType newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.type)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.type = (PersistentCompUnitType)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade.typeSet(this.getId(), newValue);
-        }
-    }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
     }
@@ -144,7 +119,7 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade.invokerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
     public PersistentUnitTypeManager getCommandReceiver() throws PersistenceException {
@@ -158,7 +133,21 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
         this.commandReceiver = (PersistentUnitTypeManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade.commandReceiverSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public PersistentCompUnitType getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(PersistentCompUnitType newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentCompUnitType)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -172,7 +161,7 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
         this.myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateCompUnitCommandFacade.myCommonDateSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade.myCommonDateSet(this.getId(), newValue);
         }
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
@@ -193,56 +182,56 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
     }
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException {
-        visitor.handleCreateCompUnitCommand(this);
+        visitor.handleFetchScalarTypeCommand(this);
     }
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateCompUnitCommand(this);
+         return visitor.handleFetchScalarTypeCommand(this);
     }
     public <E extends UserException>  void accept(CommonDateExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateCompUnitCommand(this);
+         visitor.handleFetchScalarTypeCommand(this);
     }
     public <R, E extends UserException> R accept(CommonDateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateCompUnitCommand(this);
+         return visitor.handleFetchScalarTypeCommand(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleCreateCompUnitCommand(this);
+        visitor.handleFetchScalarTypeCommand(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateCompUnitCommand(this);
+         return visitor.handleFetchScalarTypeCommand(this);
     }
     public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateCompUnitCommand(this);
+         visitor.handleFetchScalarTypeCommand(this);
     }
     public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateCompUnitCommand(this);
+         return visitor.handleFetchScalarTypeCommand(this);
     }
     public void accept(CommandVisitor visitor) throws PersistenceException {
-        visitor.handleCreateCompUnitCommand(this);
+        visitor.handleFetchScalarTypeCommand(this);
     }
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateCompUnitCommand(this);
+         return visitor.handleFetchScalarTypeCommand(this);
     }
     public <E extends UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateCompUnitCommand(this);
+         visitor.handleFetchScalarTypeCommand(this);
     }
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateCompUnitCommand(this);
+         return visitor.handleFetchScalarTypeCommand(this);
     }
     public void accept(UnitTypeManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleCreateCompUnitCommand(this);
+        visitor.handleFetchScalarTypeCommand(this);
     }
     public <R> R accept(UnitTypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateCompUnitCommand(this);
+         return visitor.handleFetchScalarTypeCommand(this);
     }
     public <E extends UserException>  void accept(UnitTypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateCompUnitCommand(this);
+         visitor.handleFetchScalarTypeCommand(this);
     }
     public <R, E extends UserException> R accept(UnitTypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateCompUnitCommand(this);
+         return visitor.handleFetchScalarTypeCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getType() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
+        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
@@ -253,12 +242,8 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
     }
     public void execute() 
 				throws PersistenceException{
-        try{
-			this.getCommandReceiver().createCompUnit(this.getName(), this.getType());
-		}
-		catch(model.DoubleDefinitionException e){
-			this.commandException = e;
-		}
+        this.setCommandResult(this.getCommandReceiver().fetchScalarType());
+		
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{
@@ -278,8 +263,6 @@ public class CreateCompUnitCommand extends PersistentObject implements Persisten
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
     
     /* End of protected part that is not overridden by persistence generator */
     

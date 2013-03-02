@@ -47,12 +47,6 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException{
         this.standardHandling(setDefaultUnitCommand);
     }
-    public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
-        this.standardHandling(createCompUnitCommand);
-    }
-    public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
-        this.standardHandling(createCompUnitTypeCommand);
-    }
     public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException{
         this.standardHandling(changeAbstractCommand);
     }
@@ -85,6 +79,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException{
         this.standardHandling(replaceTypeCommand);
+    }
+    public void handleFetchScalarTypeCommand(PersistentFetchScalarTypeCommand fetchScalarTypeCommand) throws PersistenceException{
+        this.standardHandling(fetchScalarTypeCommand);
     }
     public void handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException{
         this.standardHandling(createConstCommand);
@@ -130,6 +127,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicRootTypeCommand);
+    }
+    public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException{
+        this.standardHandling(fetchScalarCommand);
     }
     public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException{
         this.standardHandling(convertCommand);

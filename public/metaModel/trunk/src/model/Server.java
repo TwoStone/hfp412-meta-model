@@ -37,7 +37,6 @@ import persistence.PersistentAccountTypeManager;
 import persistence.PersistentAspectManager;
 import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
-import persistence.PersistentCompUnitType;
 import persistence.PersistentFormalParameter;
 import persistence.PersistentFractionManager;
 import persistence.PersistentHierarchy;
@@ -790,15 +789,6 @@ public class Server extends PersistentObject implements PersistentServer{
 				MBoolean.createFromFactoryString(abstractType), getThis());
 
 	}
-    public void createCompUnitType(final PersistentUnitTypeManager manager, final String name) 
-				throws PersistenceException{
-		manager.createCompUnitType(name, getThis());
-	}
-    public void createCompUnit(final PersistentCompUnitType compUnitType, final String name) 
-				throws PersistenceException{
-		getUnitTypeManager().createCompUnit(name, compUnitType, getThis());
-
-	}
     public void createConstant(final PersistentOperationManager operationManager, final String name, final PersistentMType target) 
 				throws PersistenceException{
 		operationManager.createConstant(name, target, getThis());
@@ -891,6 +881,14 @@ public class Server extends PersistentObject implements PersistentServer{
     public PersistentAbsQuantity div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) 
 				throws model.NotComputableException, PersistenceException{
 		return dividend.div(divisor);
+	}
+    public void fetchScalarType(final PersistentUnitTypeManager manager) 
+				throws PersistenceException{
+		manager.fetchScalarType(getThis());
+	}
+    public void fetchScalar(final PersistentUnitTypeManager manager) 
+				throws PersistenceException{
+		manager.fetchScalar(getThis());
 	}
     public PersistentAccountManager getAccountManager(final TDObserver observer) 
 				throws PersistenceException{

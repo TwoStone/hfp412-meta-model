@@ -73,11 +73,11 @@ server Server {
 
 	/** Quantity/Unit **/
 	void createUnitType@@Create_unit_type(UnitTypeManager manager, String name);
-	void createCompUnitType@@Create_compound_unit_type(UnitTypeManager manager, String name);
+	void fetchScalarType(UnitTypeManager manager);
 	void removeUnitType(AbsUnitType type);
 	void addReferenceType(AbsUnitType unitType, String name, UnitType referenceUnitType {unitTypeManager;atomicUnitTypes}, Integer exponent);
 	void createUnit@@Create_unit(UnitType type, String name);
-	void createCompUnit(CompUnitType compUnitType, String name);
+	void fetchScalar(UnitTypeManager manager);
 	void removeUnit(AbsUnit unit);
 	void addReference(AbsUnit unit, String name, Unit referenceUnit{unitTypeManager;units}, Integer exponent);
 	void createQuantity@@Create_quantity(QuantityManager manager, AbsUnit unit, Fraction f);
@@ -370,7 +370,7 @@ part quantity {
 	
 		/* Operationen fuer Typebene */
 		active void createUnitType(String name) throws DoubleDefinitionException;
-		active void createCompUnitType(String name) throws DoubleDefinitionException;
+		active CompUnitType fetchScalarType();
 		active void removeUnitType(AbsUnitType type);
 		active void setDefaultUnit(UnitType type, Unit unit);
 		active CompUnitType addReferenceType(String name, AbsUnitType unitType, UnitType referenceUnitType, Integer exponent) 
@@ -378,7 +378,7 @@ part quantity {
 
 		/* Operationen fuer Exemplarebene */
 		active void createUnit(String name, UnitType type) throws DoubleDefinitionException;
-		active void createCompUnit(String name, CompUnitType type) throws DoubleDefinitionException;
+		active CompUnit fetchScalar();
 		active void removeUnit(AbsUnit unit);
 		active CompUnit addReference(String name, AbsUnit unit, Unit referenceUnit, Integer exponent) throws DoubleDefinitionException;
 		active void setConversion(Unit unit, Fraction factor, Fraction constant) throws ConsistencyException;
@@ -628,7 +628,6 @@ exception WrongSubTypeAspectException{}
 exception EmptyTypeException{}
 exception NotAvailableException{}
 exception NotFoundException{}
-exception NotFinalizedException{}
 exception ExponentMatchingException{}
 exception NotComputableException{}
 

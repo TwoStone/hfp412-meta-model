@@ -125,6 +125,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException{
         this.standardHandling(removeFpCommand);
     }
+    public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException{
+        this.standardHandling(fetchScalarCommand);
+    }
     public void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException{
         this.standardHandling(mEmptyTypeConjunction);
     }
@@ -206,12 +209,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException{
         this.standardHandling(setDefaultUnitCommand);
     }
-    public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
-        this.standardHandling(createCompUnitCommand);
-    }
-    public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
-        this.standardHandling(createCompUnitTypeCommand);
-    }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
     }
@@ -265,6 +262,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMNonEmptyDisjunctiveNormalForm(PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm) throws PersistenceException{
         this.standardHandling(mNonEmptyDisjunctiveNormalForm);
+    }
+    public void handleFetchScalarTypeCommand(PersistentFetchScalarTypeCommand fetchScalarTypeCommand) throws PersistenceException{
+        this.standardHandling(fetchScalarTypeCommand);
     }
     public void handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException{
         this.standardHandling(createConstCommand);

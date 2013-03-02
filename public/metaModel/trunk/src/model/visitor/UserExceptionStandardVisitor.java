@@ -5,11 +5,11 @@ import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
-    public void handleWrongSubTypeAspectException(model.WrongSubTypeAspectException wrongSubTypeAspectException) throws PersistenceException{
-        this.standardHandling(wrongSubTypeAspectException);
-    }
     public void handleConsistencyException(model.ConsistencyException consistencyException) throws PersistenceException{
         this.standardHandling(consistencyException);
+    }
+    public void handleWrongSubTypeAspectException(model.WrongSubTypeAspectException wrongSubTypeAspectException) throws PersistenceException{
+        this.standardHandling(wrongSubTypeAspectException);
     }
     public void handleExponentMatchingException(model.ExponentMatchingException exponentMatchingException) throws PersistenceException{
         this.standardHandling(exponentMatchingException);
@@ -26,14 +26,11 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleEmptyTypeException(model.EmptyTypeException emptyTypeException) throws PersistenceException{
         this.standardHandling(emptyTypeException);
     }
-    public void handleNotFoundException(model.NotFoundException notFoundException) throws PersistenceException{
-        this.standardHandling(notFoundException);
-    }
     public void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException{
         this.standardHandling(doubleDefinitionException);
     }
-    public void handleNotFinalizedException(model.NotFinalizedException notFinalizedException) throws PersistenceException{
-        this.standardHandling(notFinalizedException);
+    public void handleNotFoundException(model.NotFoundException notFoundException) throws PersistenceException{
+        this.standardHandling(notFoundException);
     }
     public void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException{
         this.standardHandling(restrictionException);

@@ -109,12 +109,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException{
         this.handleCommonDate(setDefaultUnitCommand);
     }
-    public void handleCreateCompUnitCommand(PersistentCreateCompUnitCommand createCompUnitCommand) throws PersistenceException{
-        this.handleCommonDate(createCompUnitCommand);
-    }
-    public void handleCreateCompUnitTypeCommand(PersistentCreateCompUnitTypeCommand createCompUnitTypeCommand) throws PersistenceException{
-        this.handleCommonDate(createCompUnitTypeCommand);
-    }
     public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException{
         this.handleCommonDate(changeAbstractCommand);
     }
@@ -147,6 +141,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException{
         this.handleCommonDate(replaceTypeCommand);
+    }
+    public void handleFetchScalarTypeCommand(PersistentFetchScalarTypeCommand fetchScalarTypeCommand) throws PersistenceException{
+        this.handleCommonDate(fetchScalarTypeCommand);
     }
     public void handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException{
         this.handleCommonDate(createConstCommand);
@@ -192,6 +189,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
         this.handleCommonDate(createAtomicRootTypeCommand);
+    }
+    public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException{
+        this.handleCommonDate(fetchScalarCommand);
     }
     public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException{
         this.handleCommonDate(convertCommand);

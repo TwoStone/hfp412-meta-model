@@ -3,9 +3,6 @@
  */
 package model.quantity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
@@ -18,6 +15,8 @@ import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
 import util.TestingBase;
 import constants.ExceptionConstants;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Testet den UnitTypeManager
@@ -37,25 +36,25 @@ public class UnitTypeManagerTest extends TestingBase {
 
 		try {
 
-			PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
-			String name = "Temperatur";
-			long currentLength = typeManager.getUnitTypes().getLength();
+			final PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
+			final String name = "Temperatur";
+			final long currentLength = typeManager.getUnitTypes().getLength();
 			try {
 				typeManager.createUnitType(name);
 				assertEquals("Es sollte nur einen UnitType geben.", currentLength + 1, typeManager.getUnitTypes()
 						.getLength());
-			} catch (DoubleDefinitionException e) {
+			} catch (final DoubleDefinitionException e) {
 				fail("Es sollte keine DoubleDefinitionException geben.");
 			}
 
 			try {
 				typeManager.createUnitType(name);
 				fail("Temperatur doppelt definiert, fehlende DoubleDefinitionExcpetion!");
-			} catch (DoubleDefinitionException e) {
+			} catch (final DoubleDefinitionException e) {
 				// Exception korrekt!
 				assertEquals(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION, e.getMessage());
 			}
-		} catch (PersistenceException e) {
+		} catch (final PersistenceException e) {
 			fail("Exception: " + e.getMessage());
 		}
 	}
@@ -66,32 +65,32 @@ public class UnitTypeManagerTest extends TestingBase {
 	@Test
 	public void testCreateUnit() {
 		try {
-			PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
-			String unitTypeName = "Laenge";
+			final PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
+			final String unitTypeName = "Laenge";
 			try {
 				typeManager.createUnitType(unitTypeName);
-			} catch (DoubleDefinitionException e) {
+			} catch (final DoubleDefinitionException e) {
 				// UnitType Temperatur ggf. schon aus vorherigem Testfall vorhanden.
 			}
-			PersistentUnitType unitType = (PersistentUnitType) AbsUnitType.getAbsUnitTypeByName(unitTypeName)
+			final PersistentUnitType unitType = (PersistentUnitType) AbsUnitType.getAbsUnitTypeByName(unitTypeName)
 					.iterator().next();
-			String unitName = "Meter";
+			final String unitName = "Meter";
 			try {
 				typeManager.createUnit(unitName, unitType);
 				assertEquals("Es sollte nur eine Unit geben.", 1, typeManager.getUnits().getLength());
-			} catch (DoubleDefinitionException e) {
+			} catch (final DoubleDefinitionException e) {
 				fail("Es sollte keine DoubleDefinitionException geben.");
 			}
 
 			try {
 				typeManager.createUnit(unitName, unitType);
 				fail("Temperatur doppelt definiert, fehlende DoubleDefinitionExcpetion!");
-			} catch (DoubleDefinitionException e) {
+			} catch (final DoubleDefinitionException e) {
 				// Exception korrekt!
 				assertEquals(ExceptionConstants.DOUBLE_UNIT_DEFINITION + unitName, e.getMessage());
 			}
 
-		} catch (PersistenceException e) {
+		} catch (final PersistenceException e) {
 			fail("Exception: " + e.getMessage());
 		}
 	}
@@ -101,7 +100,7 @@ public class UnitTypeManagerTest extends TestingBase {
 	 */
 	@Test
 	public void testAddDefaultUnit() {
-		// TODO!!
+		// TODO Test schreiben!
 	}
 
 	/**
@@ -110,52 +109,37 @@ public class UnitTypeManagerTest extends TestingBase {
 	 */
 	@Test
 	public void testCreateCompoundUnitType() {
-		try {
-			PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
-			String name = "Hello, I'm a complex Type!";
-			try {
-				utm.createCompUnitType(name);
-				PersistentCompUnitType cut = (PersistentCompUnitType) AbsUnitType.getAbsUnitTypeByName(name).iterator()
-						.next();
-				assertEquals(name, cut.getName());
-				assertTrue(cut.getRefs().getLength() == 0);
-				// assertFalse(this.isTrue(cut.isFinal()));
-			} catch (DoubleDefinitionException e) {
-				fail("Es sollte keine DoubleDefinitionException geben.");
-			}
-
-		} catch (PersistenceException e) {
-			fail("Exception: " + e.getMessage());
-		}
+		// TODO Test schreiben
 	}
 
 	@Test
 	public void testCreateCompoundUnitTypeSpeedExample() {
+		// TODO: Test schreiben
 		try {
-			PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
-			String nameOfLength = "Length";
-			String nameOfTime = "Time";
-			String nameOfSpeed = "Speed";
+			final PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
+			final String nameOfLength = "Length";
+			final String nameOfTime = "Time";
+			final String nameOfSpeed = "Speed";
 			try {
 				utm.createUnitType(nameOfLength);
 				utm.createUnitType(nameOfTime);
-				utm.createCompUnitType(nameOfSpeed);
-				PersistentUnitType length = (PersistentUnitType) AbsUnitType.getAbsUnitTypeByName(nameOfLength)
+				// utm.createCompUnitType(nameOfSpeed);
+				final PersistentUnitType length = (PersistentUnitType) AbsUnitType.getAbsUnitTypeByName(nameOfLength)
 						.iterator().next();
-				PersistentUnitType time = (PersistentUnitType) AbsUnitType.getAbsUnitTypeByName(nameOfTime).iterator()
-						.next();
-				PersistentCompUnitType speed = (PersistentCompUnitType) AbsUnitType.getAbsUnitTypeByName(nameOfSpeed)
+				final PersistentUnitType time = (PersistentUnitType) AbsUnitType.getAbsUnitTypeByName(nameOfTime)
 						.iterator().next();
+				final PersistentCompUnitType speed = (PersistentCompUnitType) AbsUnitType
+						.getAbsUnitTypeByName(nameOfSpeed).iterator().next();
 				// assertFalse(this.isTrue(speed.isFinal()));
 				utm.addReferenceType(nameOfSpeed, speed, length, 1);
 				utm.addReferenceType(nameOfSpeed, speed, time, -1);
 				// assertFalse(this.isTrue(speed.isFinal()));
 				// speed.finishModeling();sertTrue(this.isTrue(speed.isFinal()));
 
-			} catch (DoubleDefinitionException e) {
+			} catch (final DoubleDefinitionException e) {
 				fail("Es sollte keine DoubleDefinitionException geben.");
 			}
-		} catch (PersistenceException e) {
+		} catch (final PersistenceException e) {
 			fail("Exception: " + e.getMessage());
 		}
 
@@ -166,23 +150,7 @@ public class UnitTypeManagerTest extends TestingBase {
 	 */
 	@Test
 	public void testCreateCompoundUnit() {
-		try {
-			PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
-			String name = "Hello, I'm a complex Type!";
-			String nameU = "Hello, I'm a complex Unit!";
-			try {
-				utm.createCompUnitType(name);
-				PersistentCompUnitType cut = (PersistentCompUnitType) AbsUnitType.getAbsUnitTypeByName(name).iterator()
-						.next();
-				// cut.setIsFinal(MTrue.getTheMTrue());
-				utm.createCompUnit(nameU, cut);
-			} catch (DoubleDefinitionException e) {
-
-			}
-
-		} catch (PersistenceException e) {
-			fail("Exception: " + e.getMessage());
-		}
+		// TODO : Test schreiben!
 	}
 
 }
