@@ -315,14 +315,9 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 						try {
 							targetUnit = UnitTypeManager.getTheUnitTypeManager().fetchUnitByUnitType(targetUnitType);
 						} catch (final NotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							// Unit bauen u. verwenden.
+							targetUnit = createTargetUnit(targetUnitType);
 						}
-					}
-
-					if (targetUnit == null) {
-						// Unit bauen u. verwenden.
-						targetUnit = createTargetUnit(targetUnitType);
 					}
 
 				} else { // Ziel-UnitType nicht gefunden :-(
