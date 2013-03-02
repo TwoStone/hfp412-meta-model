@@ -301,6 +301,8 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	@Override
 	public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a)
 			throws model.DoubleDefinitionException, model.CycleException, PersistenceException {
+		// TODO: Christin: DDE, wenn Assoc schon in Hierarchy, aber eigentlich besser Consistency, oder? evtl. Rename in
+		// addAssToHierarchy
 
 		// Pruefen ob durch bestehende Links ein Zyklus entstehen wuerde
 		final LinkSearchList allLinksOfAssociation = a.inverseGetType();
@@ -365,8 +367,11 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	@Override
 	public void createHierarchy(final PersistentAssociation a, final String name)
 			throws model.DoubleDefinitionException, model.CycleException, PersistenceException {
+		// TODO: Christin: DDE. Cycle, wenn es eine Assoc ist, die von Typ A auf Typ A zeigt, und es Links dazu gibt,
+		// bei denen s = t;
 		final PersistentHierarchy h = Hierarchy.createHierarchy(name);
 		getThis().addAssociation(h, a);
+		getThis().getHierarchies().add(h);
 	}
 
 	@Override
@@ -392,7 +397,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	@Override
 	public void removeAssociation(final PersistentAssociation a) throws model.ConsistencyException,
 			model.CycleException, PersistenceException {
-
+		// TODO: Christin: Consistency, falls es Links gibt. Cycle, wann? Sollte eigentlich nicht
 		getThis().getAssociations().removeFirstSuccess(new Predcate<PersistentAssociation>() {
 			@Override
 			public boolean test(final PersistentAssociation argument) throws PersistenceException {
