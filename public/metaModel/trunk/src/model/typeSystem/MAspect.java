@@ -174,6 +174,18 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
     }
     
     
+    public MAtomicTypeSearchList getTypes(final TDObserver observer) 
+				throws PersistenceException{
+        MAtomicTypeSearchList result = getThis().getTypes();
+		observer.updateTransientDerived(getThis(), "types", result);
+		return result;
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public MAtomicTypeSearchList getTypes() 
 				throws PersistenceException{
         MAtomicTypeSearchList result = null;
@@ -181,10 +193,6 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
 							.inverseGetAspect(this.getId(), this.getClassId());
 		return result;
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMAspect)This);
@@ -192,28 +200,16 @@ public class MAspect extends PersistentObject implements PersistentMAspect{
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public MAtomicTypeSearchList getTypes(final TDObserver observer) 
-				throws PersistenceException{
-        MAtomicTypeSearchList result = getThis().getTypes();
-		observer.updateTransientDerived(getThis(), "types", result);
-		return result;
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    
+    /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -155,29 +155,6 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     }
     
     
-    public void convertToDefault(final PersistentQuantity quantity, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentConvertToDefaultCommand command = model.meta.ConvertToDefaultCommand.createConvertToDefaultCommand(now, now);
-		command.setQuantity(quantity);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentConvertCommand command = model.meta.ConvertCommand.createConvertCommand(now, now);
-		command.setQuantity(quantity);
-		command.setUnit(unit);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void createQuantity(final PersistentAbsUnit unit, final common.Fraction amount, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -187,22 +164,18 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
-        this.setThis((PersistentQuantityManager)This);
-		if(this.equals(This)){
-		}
+	}
+    public void convertToDefault(final PersistentQuantity quantity, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentConvertToDefaultCommand command = model.meta.ConvertToDefaultCommand.createConvertToDefaultCommand(now, now);
+		command.setQuantity(quantity);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void convertToDefault(final PersistentQuantity quantity) 
-				throws PersistenceException{
-		// TODO: implement method: convertToDefault
-
-	}
-    public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) 
-				throws PersistenceException{
-		// TODO: implement method: convert
-
-	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
@@ -232,21 +205,44 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 		getThis().getQuantities().add(newQuantity);
 		return newQuantity;
 	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentQuantityManager)This);
+		if(this.equals(This)){
+		}
+    }
+    public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) 
+				throws PersistenceException{
+		// TODO: implement method: convert
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
+    public void convertToDefault(final PersistentQuantity quantity) 
 				throws PersistenceException{
+		// TODO: implement method: convertToDefault
+
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentConvertCommand command = model.meta.ConvertCommand.createConvertCommand(now, now);
+		command.setQuantity(quantity);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
+    
 
 	
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -115,16 +115,6 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
     }
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        
-		if(this.equals(This)){
-		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public void coordinate(final Command command) 
 				throws PersistenceException{
         if (!this.getExecuter().iterator().hasNext()){
@@ -134,20 +124,26 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
 		}
 		((PersistentCommandExecuter)this.getExecuter().iterator().next()).commandPut(command);
     }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-        this.initializeOnInstantiation();
-    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         
     }
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        
+		if(this.equals(This)){
+		}
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        this.initializeOnInstantiation();
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
+    
+    
     
     
     

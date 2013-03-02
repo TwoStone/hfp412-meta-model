@@ -31,17 +31,31 @@ public class SummableHashMap<K> {
 	 * @param arg
 	 *            SummableHashMap to merge
 	 */
-	public void aggregate(SummableHashMap<K> arg) {
-		Iterator<K> i = arg.getMap().keySet().iterator();
+	public void aggregate(final SummableHashMap<K> arg) {
+		final Iterator<K> i = arg.getMap().keySet().iterator();
 		while (i.hasNext()) {
-			K key = i.next();
+			final K key = i.next();
 			if (this.getMap().containsKey(key)) {
-				Long value = this.getMap().get(key) + arg.getMap().get(key);
+				final Long value = this.getMap().get(key) + arg.getMap().get(key);
 				this.getMap().put(key, value);
 			} else {
 				this.getMap().put(key, arg.getMap().get(key));
 			}
 		}
+	}
+
+	/**
+	 * Adds a key-value pair to the map. If the key exists, the value will be added to the existing value.
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public void add(final K key, final Long value) {
+		Long concreteValue = value;
+		if (this.getMap().containsKey(key))
+			concreteValue = value + this.getMap().get(key);
+		this.getMap().put(key, concreteValue);
+
 	}
 
 }

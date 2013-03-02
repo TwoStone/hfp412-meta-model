@@ -5,11 +5,11 @@ import persistence.*;
 
 public abstract class ObjectManagerCommandStandardVisitor implements ObjectManagerCommandVisitor {
     
-    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
-        this.standardHandling(addTypeCommand);
-    }
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
         this.standardHandling(createMObjectCommand);
+    }
+    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
+        this.standardHandling(addTypeCommand);
     }
     public void handleRemoveTypeCommand(PersistentRemoveTypeCommand removeTypeCommand) throws PersistenceException{
         this.standardHandling(removeTypeCommand);

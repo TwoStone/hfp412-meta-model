@@ -177,6 +177,16 @@ public class Function extends PersistentObject implements PersistentFunction{
     }
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// implement method: initializeOnInstantiation
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentFunction)This);
@@ -185,13 +195,9 @@ public class Function extends PersistentObject implements PersistentFunction{
 			this.setConstant((common.Fraction)final$$Fields.get("constant"));
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public void initializeOnCreation() 
 				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
+		// implement method: initializeOnCreation
 
 	}
     public common.Fraction executeInverse(final common.Fraction amount) 
@@ -214,23 +220,13 @@ public class Function extends PersistentObject implements PersistentFunction{
 		}
 		return result;
 	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-		// implement method: initializeOnCreation
-
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// implement method: initializeOnInstantiation
-
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    
+    /* End of protected part that is not overridden by persistence generator */
     
 }

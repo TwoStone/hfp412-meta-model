@@ -126,6 +126,16 @@ public abstract class AbsUnit extends PersistentObject implements PersistentAbsU
     
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// implement method: initializeOnInstantiation
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAbsUnit)This);
@@ -134,32 +144,18 @@ public abstract class AbsUnit extends PersistentObject implements PersistentAbsU
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
-
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// implement method: initializeOnCreation
 
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// implement method: initializeOnInstantiation
-
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    
+    /* End of protected part that is not overridden by persistence generator */
     
 }

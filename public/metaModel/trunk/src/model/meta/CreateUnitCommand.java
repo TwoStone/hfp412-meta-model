@@ -1,4 +1,3 @@
-
 package model.meta;
 
 import model.UserException;
@@ -25,9 +24,9 @@ import persistence.PersistentCommonDate;
 import persistence.PersistentCreateUnitCommand;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
+import persistence.PersistentUnit;
 import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
-
 
 /* Additional import section end */
 
@@ -65,17 +64,19 @@ public class CreateUnitCommand extends PersistentObject implements PersistentCre
     protected PersistentUnitType type;
     protected Invoker invoker;
     protected PersistentUnitTypeManager commandReceiver;
+    protected PersistentUnit commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateUnitCommand(String name,PersistentUnitType type,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateUnitCommand(String name,PersistentUnitType type,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentUnit commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.type = type;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -103,6 +104,10 @@ public class CreateUnitCommand extends PersistentObject implements PersistentCre
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theCreateUnitCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateUnitCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -159,6 +164,20 @@ public class CreateUnitCommand extends PersistentObject implements PersistentCre
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateUnitCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public PersistentUnit getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(PersistentUnit newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateUnitCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -243,22 +262,27 @@ public class CreateUnitCommand extends PersistentObject implements PersistentCre
     public int getLeafInfo() throws PersistenceException{
         if (this.getType() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
+        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
     
-    public void checkException() 
-				throws UserException, PersistenceException{
-        if (this.commandException != null) throw this.commandException;
-    }
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createUnit(this.getName(), this.getType());
+			this.setCommandResult(this.getCommandReceiver().createUnit(this.getName(), this.getType()));
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
 		}
+    }
+    public void checkException() 
+				throws UserException, PersistenceException{
+        if (this.commandException != null) throw this.commandException;
+    }
+    public void sendResult() 
+				throws PersistenceException{
+        this.invoker.handleResult(this);
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{
@@ -268,19 +292,11 @@ public class CreateUnitCommand extends PersistentObject implements PersistentCre
 				throws PersistenceException{
         this.invoker.handleException(this, exception);
     }
-    public void sendResult() 
-				throws PersistenceException{
-        this.invoker.handleResult(this);
-    }
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     
-    
-    
+
+	
     /* End of protected part that is not overridden by persistence generator */
     
 }

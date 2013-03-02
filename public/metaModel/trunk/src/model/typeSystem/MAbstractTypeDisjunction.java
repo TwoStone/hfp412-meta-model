@@ -73,6 +73,12 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
     
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMAbstractTypeDisjunction)This);
@@ -81,23 +87,9 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
     public String fetchName() 
 				throws PersistenceException{
 		StringBuilder builder = new StringBuilder();
@@ -117,28 +109,6 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 		builder.append("}");
 
 		return builder.toString();
-	}
-    public String fetchTypeLinkOperator() 
-				throws PersistenceException{
-		return MAbstractTypeDisjunction.TYPE_LINK_OP;
-	}
-    public MTypeSearchList getContainedTypes() 
-				throws PersistenceException{
-		return SearchLists.toMTypeSearchList(fetchContainedTypes());
-	}
-    public PersistentMBoolean isAbstract() 
-				throws PersistenceException{
-		if (getThis().getContainedTypes().getLength() == 1) {
-			return getThis().getContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isAbstract();
-		}
-		return MTrue.getTheMTrue();
-	}
-    public PersistentMBoolean isSingleton() 
-				throws PersistenceException{
-		if (getThis().getContainedTypes().getLength() == 1) {
-			return getThis().getContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isSingleton();
-		}
-		return MFalse.getTheMFalse();
 	}
     public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
 				throws PersistenceException{
@@ -160,8 +130,32 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 
 		return MFalse.getTheMFalse();
 	}
+    public MTypeSearchList getContainedTypes() 
+				throws PersistenceException{
+		return SearchLists.toMTypeSearchList(fetchContainedTypes());
+	}
+    public String fetchTypeLinkOperator() 
+				throws PersistenceException{
+		return MAbstractTypeDisjunction.TYPE_LINK_OP;
+	}
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
+		if (getThis().getContainedTypes().getLength() == 1) {
+			return getThis().getContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isSingleton();
+		}
+		return MFalse.getTheMFalse();
+	}
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+		if (getThis().getContainedTypes().getLength() == 1) {
+			return getThis().getContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isAbstract();
+		}
+		return MTrue.getTheMTrue();
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
 	public static String TYPE_LINK_OP = "++";
 
@@ -297,6 +291,8 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 		return result;
 	}
 	
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

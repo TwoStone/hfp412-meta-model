@@ -8,8 +8,8 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException, E;
     public void handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException, E;
-    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException, E;
     public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException, E;
+    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException, E;
     public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException, E;
     public void handleMinStrategy(PersistentMinStrategy minStrategy) throws PersistenceException, E;
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException, E;
@@ -94,8 +94,8 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleAddFractionCommand(PersistentAddFractionCommand addFractionCommand) throws PersistenceException, E;
     public void handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException, E;
     public void handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException, E;
-    public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException, E;
     public void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException, E;
+    public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException, E;
     public void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException, E;
     public void handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException, E;
     

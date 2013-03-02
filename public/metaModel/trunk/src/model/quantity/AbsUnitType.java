@@ -96,17 +96,16 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
     
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
-        this.setThis((PersistentAbsUnitType)This);
-		if(this.equals(This)){
-			this.setName((String)final$$Fields.get("name"));
-		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
+		// implement method: initializeOnInstantiation
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
     public AbsUnitSearchList inverseGetType() 
 				throws PersistenceException{
         AbsUnitSearchList result = null;
@@ -114,28 +113,25 @@ public abstract class AbsUnitType extends PersistentObject implements Persistent
 							.inverseGetType(this.getId(), this.getClassId());
 		return result;
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
-
-	}
+        this.setThis((PersistentAbsUnitType)This);
+		if(this.equals(This)){
+			this.setName((String)final$$Fields.get("name"));
+		}
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// implement method: initializeOnCreation
 
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// implement method: initializeOnInstantiation
-
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    
+    /* End of protected part that is not overridden by persistence generator */
     
 }

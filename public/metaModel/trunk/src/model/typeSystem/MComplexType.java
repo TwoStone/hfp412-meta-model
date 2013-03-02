@@ -64,18 +64,9 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
     
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
-        this.setThis((PersistentMComplexType)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMComplexType)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
@@ -85,26 +76,22 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 		observer.updateTransientDerived(getThis(), "containedTypes", result);
 		return result;
     }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMComplexType)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMComplexType)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+		}
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
+    public MModelItemSearchList getDependentItems() 
 				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
-    public MAspectSearchList fetchAspects() 
-				throws PersistenceException{
-		final MAspectSearchList result = new MAspectSearchList();
-		getContainedTypes().applyToAll(new Procdure<PersistentMType>() {
-
-			@Override
-			public void doItTo(final PersistentMType argument) throws PersistenceException {
-				result.add(argument.fetchAspects());
-			}
-		});
+		final MModelItemSearchList result = new MModelItemSearchList();
+		SearchLists.addSecondToFirst(result, getThis().fetchTypesContainingThisDirectly());
+		// FIXME Add other dependencies (associations etc)
 		return result;
 	}
     public String fetchName() 
@@ -127,16 +114,21 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 
 		return builder.toString();
 	}
+    public MAspectSearchList fetchAspects() 
+				throws PersistenceException{
+		final MAspectSearchList result = new MAspectSearchList();
+		getContainedTypes().applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(final PersistentMType argument) throws PersistenceException {
+				result.add(argument.fetchAspects());
+			}
+		});
+		return result;
+	}
     public MTypeSearchList getContainedTypes() 
 				throws PersistenceException{
 		return SearchLists.toMTypeSearchList(fetchContainedTypes());
-	}
-    public MModelItemSearchList getDependentItems() 
-				throws PersistenceException{
-		final MModelItemSearchList result = new MModelItemSearchList();
-		SearchLists.addSecondToFirst(result, getThis().fetchTypesContainingThisDirectly());
-		// FIXME Add other dependencies (associations etc)
-		return result;
 	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
@@ -145,6 +137,8 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
 
 	protected PersistentMBoolean allChildrenAreStructuralEquivalent(final PersistentMComplexType other)
 			throws PersistenceException {
@@ -163,6 +157,8 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 
 	public abstract SearchListRoot<? extends PersistentMType> fetchContainedTypes() throws PersistenceException;
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    
+    /* End of protected part that is not overridden by persistence generator */
     
 }

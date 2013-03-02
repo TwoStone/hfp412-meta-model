@@ -207,6 +207,12 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     }
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentFormalParameter)This);
@@ -215,10 +221,6 @@ public class FormalParameter extends PersistentObject implements PersistentForma
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public ActualParameterSearchList inverseGetType() 
 				throws PersistenceException{
         ActualParameterSearchList result = null;
@@ -226,22 +228,16 @@ public class FormalParameter extends PersistentObject implements PersistentForma
 							.inverseGetType(this.getId(), this.getClassId());
 		return result;
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    
+    /* End of protected part that is not overridden by persistence generator */
     
 }

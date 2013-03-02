@@ -70,11 +70,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException{
         this.handleCommonDate(convertToDefaultCommand);
     }
-    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
-        this.handleCommonDate(createMObjectCommand);
-    }
     public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
         this.handleCommonDate(addTypeCommand);
+    }
+    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
+        this.handleCommonDate(createMObjectCommand);
     }
     public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
         this.handleCommonDate(assignTypeCommand);

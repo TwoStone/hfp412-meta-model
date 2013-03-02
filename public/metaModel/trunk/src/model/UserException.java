@@ -48,12 +48,12 @@ public abstract class UserException extends Exception{
     abstract public <R, E extends UserException> R accept(UserExceptionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
+    
+    
     
     
     

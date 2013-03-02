@@ -247,10 +247,6 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     }
     
     
-    public void checkException() 
-				throws UserException, PersistenceException{
-        if (this.commandException != null) throw this.commandException;
-    }
     public void execute() 
 				throws PersistenceException{
         try{
@@ -263,6 +259,14 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
 			this.commandException = e;
 		}
     }
+    public void checkException() 
+				throws UserException, PersistenceException{
+        if (this.commandException != null) throw this.commandException;
+    }
+    public void sendResult() 
+				throws PersistenceException{
+        this.invoker.handleResult(this);
+    }
     public Invoker fetchInvoker() 
 				throws PersistenceException{
         return this.getInvoker();
@@ -271,16 +275,12 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
 				throws PersistenceException{
         this.invoker.handleException(this, exception);
     }
-    public void sendResult() 
-				throws PersistenceException{
-        this.invoker.handleResult(this);
-    }
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
+    
+    
     
     
     

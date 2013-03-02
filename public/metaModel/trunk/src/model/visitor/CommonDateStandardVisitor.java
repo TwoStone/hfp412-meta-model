@@ -8,11 +8,11 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException{
         this.standardHandling(convertToDefaultCommand);
     }
-    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
-        this.standardHandling(createMObjectCommand);
-    }
     public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
         this.standardHandling(addTypeCommand);
+    }
+    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
+        this.standardHandling(createMObjectCommand);
     }
     public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
         this.standardHandling(assignTypeCommand);

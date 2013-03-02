@@ -8,8 +8,8 @@ public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R>
     public R handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     public R handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException;
-    public R handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException;
     public R handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
+    public R handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException;
     public R handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException;
     public R handleMinStrategy(PersistentMinStrategy minStrategy) throws PersistenceException;
     public R handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;
@@ -94,8 +94,8 @@ public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R>
     public R handleAddFractionCommand(PersistentAddFractionCommand addFractionCommand) throws PersistenceException;
     public R handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException;
     public R handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException;
-    public R handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException;
     public R handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException;
+    public R handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException;
     public R handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException;
     public R handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException;
     

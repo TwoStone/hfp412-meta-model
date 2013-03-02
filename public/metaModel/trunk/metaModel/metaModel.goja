@@ -89,7 +89,7 @@ server Server {
 	/** computing **/
 	AbsQuantity add(AbsQuantity summand1, AbsQuantity summand2) throws NotComputableException;
 	AbsQuantity sub(AbsQuantity minuend, AbsQuantity subtrahend) throws NotComputableException;
-	AbsQuantity mul(AbsQuantity factor1, AbsQuantity factor2) throws NotComputableException;
+	AbsQuantity mul(AbsQuantity factor1, AbsQuantity factor2) throws NotComputableException, DoubleDefinitionException;
 	AbsQuantity div(AbsQuantity dividend, AbsQuantity divisor) throws NotComputableException;
 
 	/** Measurement/Account **/
@@ -288,7 +288,7 @@ part quantity {
 	
 		AbsQuantity add(AbsQuantity summand) throws NotComputableException;
 		AbsQuantity sub(AbsQuantity subtrahend) throws NotComputableException;
-		AbsQuantity mul(AbsQuantity factor) throws NotComputableException;
+		AbsQuantity mul(AbsQuantity factor) throws NotComputableException, DoubleDefinitionException;
 		AbsQuantity div(AbsQuantity divisor) throws NotComputableException;
 		MBoolean isLessOrEqualThan(AbsQuantity compareValue) throws UserException;
 	}
@@ -377,7 +377,7 @@ part quantity {
 			throws DoubleDefinitionException;
 
 		/* Operationen fuer Exemplarebene */
-		active void createUnit(String name, UnitType type) throws DoubleDefinitionException;
+		active Unit createUnit(String name, UnitType type) throws DoubleDefinitionException;
 		active CompUnit fetchScalar();
 		active void removeUnit(AbsUnit unit);
 		active CompUnit addReference(String name, AbsUnit unit, Unit referenceUnit, Integer exponent) throws DoubleDefinitionException;

@@ -75,6 +75,12 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
     
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMAbstractTypeConjunction)This);
@@ -83,62 +89,8 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
-    public String fetchTypeLinkOperator() 
-				throws PersistenceException{
-		return MAbstractTypeConjunction.TYPE_LINK_OP;
-	}
-    public PersistentMBoolean isAbstract() 
-				throws PersistenceException{
-		if (getThis().equals(MEmptyTypeConjunction.getTheMEmptyTypeConjunction())) {
-			return MTrue.getTheMTrue();
-		}
-
-		return MBoolean.createFromBoolean(getThis().getContainedTypes().aggregate(
-				new Aggregtion<PersistentMType, Boolean>() {
-
-					@Override
-					public Boolean neutral() throws PersistenceException {
-						return false;
-					}
-
-					@Override
-					public Boolean compose(Boolean result, PersistentMType argument) throws PersistenceException {
-						return result || argument.isAbstract().toBoolean();
-					}
-				}));
-	}
-    public PersistentMBoolean isSingleton() 
-				throws PersistenceException{
-		return getThis().getContainedTypes().getLength() == 0 ? MFalse.getTheMFalse() : MBoolean
-				.createFromBoolean(getThis().getContainedTypes().aggregate(new Aggregtion<PersistentMType, Boolean>() {
-
-					@Override
-					public Boolean neutral() throws PersistenceException {
-						return true;
-					}
-
-					@Override
-					public Boolean compose(Boolean result, PersistentMType argument) throws PersistenceException {
-						return result && argument.isSingleton().toBoolean();
-					}
-				}));
 	}
     public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
 				throws PersistenceException{
@@ -160,8 +112,50 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 
 		return MFalse.getTheMFalse();
 	}
+    public String fetchTypeLinkOperator() 
+				throws PersistenceException{
+		return MAbstractTypeConjunction.TYPE_LINK_OP;
+	}
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
+		return getThis().getContainedTypes().getLength() == 0 ? MFalse.getTheMFalse() : MBoolean
+				.createFromBoolean(getThis().getContainedTypes().aggregate(new Aggregtion<PersistentMType, Boolean>() {
+
+					@Override
+					public Boolean neutral() throws PersistenceException {
+						return true;
+					}
+
+					@Override
+					public Boolean compose(Boolean result, PersistentMType argument) throws PersistenceException {
+						return result && argument.isSingleton().toBoolean();
+					}
+				}));
+	}
+    public PersistentMBoolean isAbstract() 
+				throws PersistenceException{
+		if (getThis().equals(MEmptyTypeConjunction.getTheMEmptyTypeConjunction())) {
+			return MTrue.getTheMTrue();
+		}
+
+		return MBoolean.createFromBoolean(getThis().getContainedTypes().aggregate(
+				new Aggregtion<PersistentMType, Boolean>() {
+
+					@Override
+					public Boolean neutral() throws PersistenceException {
+						return false;
+					}
+
+					@Override
+					public Boolean compose(Boolean result, PersistentMType argument) throws PersistenceException {
+						return result || argument.isAbstract().toBoolean();
+					}
+				}));
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
 	public static String TYPE_LINK_OP = "**";
 
@@ -372,6 +366,8 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 		return result;
 	}
 	
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }
