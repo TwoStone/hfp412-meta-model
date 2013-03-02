@@ -382,6 +382,8 @@ part quantity {
 		active void removeUnit(AbsUnit unit);
 		active CompUnit addReference(String name, AbsUnit unit, Unit referenceUnit, Integer exponent) throws DoubleDefinitionException;
 		active void setConversion(Unit unit, Fraction factor, Fraction constant) throws ConsistencyException;
+
+		AbsUnit fetchUnitByUnitType(AbsUnitType ut) throws NotFoundException;
 	}
 
 	singleton QuantityManager {

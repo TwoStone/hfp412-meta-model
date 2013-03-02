@@ -312,44 +312,21 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 
 				if (targetUnitType != null) { // Ziel-UnitType gefunden
 					if (targetUnitType.inverseGetType().getLength() > 0) {
-						targetUnit = targetUnitType.accept(new AbsUnitTypeReturnVisitor<PersistentAbsUnit>() {
-
-							@Override
-							public PersistentAbsUnit handleCompUnitType(final PersistentCompUnitType compUnitType)
-									throws PersistenceException {
-								if (compUnitType.inverseGetType() == null) {
-									return null;
-								} else {
-									return compUnitType.inverseGetType().iterator().next();
-								}
-							}
-
-							@Override
-							public PersistentAbsUnit handleUnitType(final PersistentUnitType unitType)
-									throws PersistenceException {
-								// nimm default oder den erstbesten
-								final PersistentUnit defaultU = unitType.getDefaultUnit();
-								if (!(defaultU == null)) {
-									if (unitType.inverseGetType() == null) {
-										return null;
-									} else {
-										return unitType.inverseGetType().iterator().next();
-									}
-								} else {
-									return defaultU;
-								}
-							}
-						});
+						try {
+							targetUnit = UnitTypeManager.getTheUnitTypeManager().fetchUnitByUnitType(targetUnitType);
+						} catch (final NotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 
 					if (targetUnit == null) {
+						// Unit bauen u. verwenden.
 						targetUnit = createTargetUnit(targetUnitType);
 					}
-					// TODO: Wenn gefunden, Unit verwenden
 
-					// TODO: Wenn nein, Unit bauen und verwenden.
 				} else { // Ziel-UnitType nicht gefunden :-(
-					// TODO: Ziel UnitType bauen
+					createTargetUnitType(computedRefTypes);
 					// TODO: Ziel Unit bauen, Unit verwenden
 				}
 
@@ -676,6 +653,8 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 			public PersistentAbsUnit handleCompUnitType(final PersistentCompUnitType compUnitType)
 					throws PersistenceException, DoubleDefinitionException {
 				throw new PersistenceException("automatic creation of CompUnitTypes not implemented yet!", 0);
+				// TODO: Vorüberlegung: Zuerst schauen, ob alle Einheiten zu den UnitTypes vorhanden sind und diese ggf.
+				// erstelen. Danach die CompUnit konfigurieren.
 			}
 
 			@Override
@@ -689,6 +668,16 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 			}
 		});
 		return null;
+	}
+
+	/**
+	 * Erstellt automatisiert einen persistenten UnitType nach Bauanleitung (Map)
+	 * 
+	 * @param computedRefTypes
+	 */
+	private void createTargetUnitType(final SummableHashMap<PersistentUnitType> computedRefTypes) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private PersistentQuantity simpleAdd(final PersistentQuantity summand) throws PersistenceException,
