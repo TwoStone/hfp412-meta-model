@@ -9,7 +9,9 @@ import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentBasicCalculation;
+import persistence.PersistentCompoundQuantity;
 import persistence.PersistentProxi;
+import persistence.PersistentQuantity;
 import persistence.PersistentUnitMutabCalc;
 import persistence.TDObserver;
 
@@ -146,6 +148,16 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 		// TODO Auto-generated method stub
 
 	}
+    public void calcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub
+
+	}
+    public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub
+
+	}
     public void findTargetUnitType() 
 				throws model.NotComputableException, PersistenceException{
 		// TODO Auto-generated method stub
@@ -156,11 +168,14 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 		// TODO Auto-generated method stub
 
 	}
+    public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

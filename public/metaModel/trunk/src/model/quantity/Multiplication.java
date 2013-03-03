@@ -1,10 +1,28 @@
-
 package model.quantity;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
-
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.BasicCalculationExceptionVisitor;
+import model.visitor.BasicCalculationReturnExceptionVisitor;
+import model.visitor.BasicCalculationReturnVisitor;
+import model.visitor.BasicCalculationVisitor;
+import model.visitor.UnitMutabCalcExceptionVisitor;
+import model.visitor.UnitMutabCalcReturnExceptionVisitor;
+import model.visitor.UnitMutabCalcReturnVisitor;
+import model.visitor.UnitMutabCalcVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MultiplicationProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAbsQuantity;
+import persistence.PersistentAbsUnit;
+import persistence.PersistentAbsUnitType;
+import persistence.PersistentBasicCalculation;
+import persistence.PersistentMultiplication;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -151,60 +169,48 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void calcTargetRefs() 
 				throws model.NotComputableException, PersistenceException{
-        //TODO: implement method: calcTargetRefs
-        
-    }
+		// TODO: implement method: calcTargetRefs
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMultiplication)This);
 		if(this.equals(This)){
 		}
     }
-    public void calcFraction(final common.Fraction arg1, final common.Fraction arg2) 
+    public common.Fraction calcFraction(final common.Fraction arg1, final common.Fraction arg2) 
 				throws model.NotComputableException, PersistenceException{
-        //TODO: implement method: calcFraction
-        
-    }
-    public void calcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) 
-				throws model.NotComputableException, PersistenceException{
-        //TODO: implement method: calcAtomar
-        
-    }
+		// TODO: implement method: calcFraction
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"calcFraction\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
-    public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) 
-				throws model.NotComputableException, PersistenceException{
-        //TODO: implement method: calc1Compound1Atomar
-        
-    }
-    public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) 
-				throws model.NotComputableException, PersistenceException{
-        //TODO: implement method: calcComp
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
     public void calcTargetRefTypes() 
 				throws model.NotComputableException, PersistenceException{
-        //TODO: implement method: calcTargetRefTypes
-        
-    }
+		// TODO: implement method: calcTargetRefTypes
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

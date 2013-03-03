@@ -1,14 +1,17 @@
 package model.quantity;
 
-import model.NotComputableException;
+import model.visitor.AbsQuantityExceptionVisitor;
+import model.visitor.AbsQuantityReturnVisitor;
 import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentBasicCalculation;
+import persistence.PersistentCompoundQuantity;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
+import persistence.PersistentQuantity;
 import persistence.TDObserver;
 
 /* Additional import section end */
@@ -191,14 +194,68 @@ public abstract class BasicCalculation extends PersistentObject implements Persi
 	}
     public void calculate() 
 				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
+		getThis().getArg1().accept(new AbsQuantityExceptionVisitor<model.NotComputableException>() {
 
+			@Override
+			public void handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
+					throws PersistenceException, model.NotComputableException {
+				final boolean arg2Comp = BasicCalculation.this.getThis().getArg2()
+						.accept(new AbsQuantityReturnVisitor<Boolean>() {
+
+							@Override
+							public Boolean handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
+									throws PersistenceException {
+								return true;
+							}
+
+							@Override
+							public Boolean handleQuantity(final PersistentQuantity quantity)
+									throws PersistenceException {
+								return false;
+							}
+						});
+				if (arg2Comp) {
+					BasicCalculation.this.getThis().calcComp(compoundQuantity,
+							(PersistentCompoundQuantity) BasicCalculation.this.getThis().getArg2());
+				} else {
+					BasicCalculation.this.getThis().calc1Compound1Atomar(
+							(PersistentQuantity) BasicCalculation.this.getThis().getArg2(), compoundQuantity);
+				}
+
+			}
+
+			@Override
+			public void handleQuantity(final PersistentQuantity quantity) throws PersistenceException,
+					model.NotComputableException {
+				final boolean arg2Comp = BasicCalculation.this.getThis().getArg2()
+						.accept(new AbsQuantityReturnVisitor<Boolean>() {
+
+							@Override
+							public Boolean handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
+									throws PersistenceException {
+								return true;
+							}
+
+							@Override
+							public Boolean handleQuantity(final PersistentQuantity quantity)
+									throws PersistenceException {
+								return false;
+							}
+						});
+				if (arg2Comp) {
+					BasicCalculation.this.getThis().calc1Compound1Atomar(quantity,
+							(PersistentCompoundQuantity) BasicCalculation.this.getThis().getArg2());
+				} else {
+					BasicCalculation.this.getThis().calcAtomar(quantity,
+							(PersistentQuantity) BasicCalculation.this.getThis().getArg2());
+				}
+
+			}
+		});
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

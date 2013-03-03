@@ -172,6 +172,16 @@ public class FractionManager extends PersistentObject implements PersistentFract
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
+    public common.Fraction invertSign(final common.Fraction fraction) 
+				throws PersistenceException{
+        //TODO: implement method: invertSign
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"invertSign\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentFractionManager)This);

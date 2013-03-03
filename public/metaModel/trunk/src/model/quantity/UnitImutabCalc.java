@@ -1,8 +1,14 @@
-
 package model.quantity;
 
-import persistence.*;
-
+import model.NotComputableException;
+import persistence.Anything;
+import persistence.PersistenceException;
+import persistence.PersistentAbsQuantity;
+import persistence.PersistentBasicCalculation;
+import persistence.PersistentCompoundQuantity;
+import persistence.PersistentQuantity;
+import persistence.PersistentUnitImutabCalc;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -50,14 +56,14 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
     
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentUnitImutabCalc)This);
@@ -66,14 +72,45 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
+    public void calcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) 
+				throws model.NotComputableException, PersistenceException{
+		if (atom1.getUnit().equals(atom2.getUnit())) {
+
+			final PersistentQuantity result = QuantityManager.getTheQuantityManager().createQuantity(atom1.getUnit(),
+					getThis().calcFraction(atom1.getAmount(), atom2.getAmount()));
+			getThis().setResultt(result);
+
+		} else {
+
+			if (!(atom1.getUnit().getType().equals(atom2.getUnit().getType())))
+				throw new NotComputableException(constants.ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_ADD_OR_SUB);
+
+			final PersistentCompoundQuantity result = CompoundQuantity.createCompoundQuantity();
+			// TODO: hier muss noch unterschieden werden, ob Subtraktion oder Addition. Bei Subtraktion muss * (-1)
+			// gerechnet werden.
+			result.getParts().add(atom1);
+			result.getParts().add(atom2);
+			QuantityManager.getTheQuantityManager().getQuantities().add(result);
+			getThis().setResultt(result);
+		}
+
+	}
+    public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub
+
+	}
+    public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

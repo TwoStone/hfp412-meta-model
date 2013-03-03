@@ -370,7 +370,7 @@ part quantity {
 		abstract void calc1Compound1Atomar(Quantity atom, CompoundQuantity comp) throws NotComputableException;	
 		abstract void calcAtomar(Quantity atom1, Quantity atom2) throws NotComputableException;
 		abstract void calcComp(CompoundQuantity comp1, CompoundQuantity comp2) throws NotComputableException;
-		abstract void calcFraction(Fraction arg1, Fraction arg2) throws NotComputableException;
+		abstract Fraction calcFraction(Fraction arg1, Fraction arg2) throws NotComputableException;
 	}
 
 	/* Unit Immutable Calculation (+ | -) */
@@ -424,6 +424,7 @@ part quantity {
 	singleton QuantityManager {
 		AbsQuantity ** quantities;
 		active Quantity createQuantity(AbsUnit unit, Fraction amount);
+		AbsQuantity invertSign(AbsQuantity absQuantity);
 		active void convertToDefault(Quantity quantity);
 		active void convert(Quantity quantity, AbsUnit unit);
 	}
@@ -432,6 +433,7 @@ part quantity {
 	singleton FractionManager {
 		FractionWrapper **String** managedFractions;
 		Fraction getFraction(String key) throws NotFoundException;
+		Fraction invertSign(Fraction fraction);
 		active void addFraction(String key, Fraction newFraction) throws DoubleDefinitionException;
 	}
 
