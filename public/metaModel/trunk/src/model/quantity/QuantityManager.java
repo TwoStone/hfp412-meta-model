@@ -1,8 +1,11 @@
 package model.quantity;
 
+import java.util.Iterator;
+
 import model.DoubleDefinitionException;
 import model.NotFoundException;
 import model.UserException;
+import model.visitor.AbsQuantityReturnVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -13,6 +16,7 @@ import persistence.Invoker;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnit;
+import persistence.PersistentCompoundQuantity;
 import persistence.PersistentConvertCommand;
 import persistence.PersistentConvertToDefaultCommand;
 import persistence.PersistentCreateQuantityCommand;
@@ -23,6 +27,8 @@ import persistence.PersistentQuantityManager;
 import persistence.QuantityManagerProxi;
 import persistence.QuantityManager_QuantitiesProxi;
 import persistence.TDObserver;
+
+import common.Fraction;
 
 /* Additional import section end */
 
@@ -212,13 +218,19 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 
 	@Override
 	public PersistentAbsQuantity invertSign(final PersistentAbsQuantity absQuantity) throws PersistenceException {
-		// TODO: implement method: invertSign
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"invertSign\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return absQuantity.accept(new AbsQuantityReturnVisitor<PersistentAbsQuantity>() {
+
+			@Override
+			public PersistentAbsQuantity handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
+					throws PersistenceException {
+				return QuantityManager.this.doInvertSign(compoundQuantity);
+			}
+
+			@Override
+			public PersistentAbsQuantity handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
+				return QuantityManager.this.doInvertSign(quantity);
+			}
+		});
 	}
 
 	@Override
@@ -305,7 +317,24 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	/* Start of protected part that is not overridden by persistence generator */
+	protected PersistentQuantity doInvertSign(final PersistentQuantity q) throws PersistenceException {
+		final Fraction amount = FractionManager.getTheFractionManager().invertSign(q.getAmount());
+		final PersistentQuantity res = Quantity.createQuantity(amount, q.getUnit());
+		getThis().getQuantities().add(res);
+		return res;
+	}
 
+	protected PersistentCompoundQuantity doInvertSign(final PersistentCompoundQuantity q) throws PersistenceException {
+		final PersistentCompoundQuantity cp = CompoundQuantity.createCompoundQuantity();
+		final Iterator<PersistentQuantity> i = q.getParts().iterator();
+		while (i.hasNext()) {
+			final PersistentQuantity current = i.next();
+			final PersistentQuantity invertedQuantity = this.doInvertSign(current);
+			cp.getParts().add(invertedQuantity);
+		}
+		getThis().getQuantities().add(cp);
+		return cp;
+	}
 	/* End of protected part that is not overridden by persistence generator */
 
 }
