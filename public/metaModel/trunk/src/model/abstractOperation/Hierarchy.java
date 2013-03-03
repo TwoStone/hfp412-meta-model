@@ -201,8 +201,10 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
 
 	
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

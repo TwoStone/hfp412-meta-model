@@ -3,7 +3,7 @@ package model.visitor;
 import model.UserException;
 import persistence.*;
 
-public interface AnythingReturnExceptionVisitor<R, E extends UserException> extends AbstractObjectReturnExceptionVisitor<R, E> ,AbsOperationReturnExceptionVisitor<R, E> ,QuantifObjectReturnExceptionVisitor<R, E> ,MQuantiObjectTypeReturnExceptionVisitor<R, E> ,MModelItemReturnExceptionVisitor<R, E> ,MBooleanReturnExceptionVisitor<R, E> ,AbsUnitTypeReturnExceptionVisitor<R, E> ,AbsQuantityReturnExceptionVisitor<R, E> ,CommonDateReturnExceptionVisitor<R, E> ,MTypeReturnExceptionVisitor<R, E> ,AbsUnitReturnExceptionVisitor<R, E> ,MessageOrLinkReturnExceptionVisitor<R, E> {
+public interface AnythingReturnExceptionVisitor<R, E extends UserException> extends AbstractObjectReturnExceptionVisitor<R, E> ,AbsOperationReturnExceptionVisitor<R, E> ,QuantifObjectReturnExceptionVisitor<R, E> ,MQuantiObjectTypeReturnExceptionVisitor<R, E> ,MModelItemReturnExceptionVisitor<R, E> ,MBooleanReturnExceptionVisitor<R, E> ,BasicCalculationReturnExceptionVisitor<R, E> ,AbsUnitTypeReturnExceptionVisitor<R, E> ,AbsQuantityReturnExceptionVisitor<R, E> ,CommonDateReturnExceptionVisitor<R, E> ,MTypeReturnExceptionVisitor<R, E> ,AbsUnitReturnExceptionVisitor<R, E> ,MessageOrLinkReturnExceptionVisitor<R, E> {
     
     public R handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException, E;
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException, E;
@@ -58,8 +58,8 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleCreateLinkCommand(PersistentCreateLinkCommand createLinkCommand) throws PersistenceException, E;
     public R handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException, E;
     public R handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException, E;
-    public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
     public R handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException, E;
+    public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
     public R handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException, E;
     public R handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException, E;
     public R handleHierarchy(PersistentHierarchy hierarchy) throws PersistenceException, E;
@@ -94,8 +94,8 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleAddFractionCommand(PersistentAddFractionCommand addFractionCommand) throws PersistenceException, E;
     public R handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException, E;
     public R handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException, E;
-    public R handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException, E;
     public R handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException, E;
+    public R handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException, E;
     public R handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException, E;
     public R handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException, E;
     

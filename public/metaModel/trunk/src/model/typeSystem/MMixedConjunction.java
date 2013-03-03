@@ -318,6 +318,7 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
 
 	@Override
 	public SearchListRoot<? extends PersistentMType> fetchContainedTypes() throws PersistenceException {
@@ -344,6 +345,7 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
 	}
 
 	
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

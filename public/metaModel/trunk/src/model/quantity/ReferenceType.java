@@ -232,8 +232,10 @@ public class ReferenceType extends PersistentObject implements PersistentReferen
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

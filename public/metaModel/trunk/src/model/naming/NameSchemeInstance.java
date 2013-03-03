@@ -234,6 +234,8 @@ public class NameSchemeInstance extends PersistentObject implements PersistentNa
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

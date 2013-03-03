@@ -289,6 +289,8 @@ public class CreateStaticOpCommand extends PersistentObject implements Persisten
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

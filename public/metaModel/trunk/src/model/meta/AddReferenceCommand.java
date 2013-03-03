@@ -328,8 +328,10 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

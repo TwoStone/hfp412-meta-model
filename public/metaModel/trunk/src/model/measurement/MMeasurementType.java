@@ -182,6 +182,8 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

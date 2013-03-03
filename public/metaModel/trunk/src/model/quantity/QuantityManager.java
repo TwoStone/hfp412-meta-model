@@ -239,8 +239,10 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

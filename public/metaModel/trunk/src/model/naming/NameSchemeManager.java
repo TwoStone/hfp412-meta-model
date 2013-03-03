@@ -243,6 +243,7 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     
     
     
+    
 	private static void checkTypeIsAssignable(final PersistentMObject object, final PersistentName name)
 			throws PersistenceException, ConsistencyException {
 		SearchListRoot<PersistentMAtomicType> fittingTypes = object.getTypes().findAll(
@@ -281,6 +282,7 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
 	}
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

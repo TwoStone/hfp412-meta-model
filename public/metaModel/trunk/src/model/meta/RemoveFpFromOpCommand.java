@@ -292,6 +292,8 @@ public class RemoveFpFromOpCommand extends PersistentObject implements Persisten
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

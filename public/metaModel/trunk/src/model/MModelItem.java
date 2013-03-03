@@ -117,8 +117,10 @@ public abstract class MModelItem extends PersistentObject implements PersistentM
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

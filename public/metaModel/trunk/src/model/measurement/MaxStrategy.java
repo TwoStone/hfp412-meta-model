@@ -203,8 +203,10 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

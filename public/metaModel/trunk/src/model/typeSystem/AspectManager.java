@@ -190,8 +190,10 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

@@ -203,8 +203,10 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

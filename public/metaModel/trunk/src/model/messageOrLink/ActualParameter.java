@@ -252,6 +252,8 @@ public class ActualParameter extends PersistentObject implements PersistentActua
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

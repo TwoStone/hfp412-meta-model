@@ -264,6 +264,8 @@ public class FetchScalarCommand extends PersistentObject implements PersistentFe
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

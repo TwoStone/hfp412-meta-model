@@ -70,6 +70,8 @@ public class CycleException extends model.UserException{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

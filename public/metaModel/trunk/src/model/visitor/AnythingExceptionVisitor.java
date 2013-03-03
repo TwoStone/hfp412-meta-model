@@ -3,7 +3,7 @@ package model.visitor;
 import model.UserException;
 import persistence.*;
 
-public interface AnythingExceptionVisitor<E extends UserException> extends AbstractObjectExceptionVisitor<E>,AbsOperationExceptionVisitor<E>,QuantifObjectExceptionVisitor<E>,MQuantiObjectTypeExceptionVisitor<E>,MModelItemExceptionVisitor<E>,MBooleanExceptionVisitor<E>,AbsUnitTypeExceptionVisitor<E>,AbsQuantityExceptionVisitor<E>,CommonDateExceptionVisitor<E>,MTypeExceptionVisitor<E>,AbsUnitExceptionVisitor<E>,MessageOrLinkExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends UserException> extends AbstractObjectExceptionVisitor<E>,AbsOperationExceptionVisitor<E>,QuantifObjectExceptionVisitor<E>,MQuantiObjectTypeExceptionVisitor<E>,MModelItemExceptionVisitor<E>,MBooleanExceptionVisitor<E>,BasicCalculationExceptionVisitor<E>,AbsUnitTypeExceptionVisitor<E>,AbsQuantityExceptionVisitor<E>,CommonDateExceptionVisitor<E>,MTypeExceptionVisitor<E>,AbsUnitExceptionVisitor<E>,MessageOrLinkExceptionVisitor<E>{
     
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException, E;
@@ -58,8 +58,8 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleCreateLinkCommand(PersistentCreateLinkCommand createLinkCommand) throws PersistenceException, E;
     public void handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException, E;
     public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException, E;
-    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
     public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException, E;
+    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException, E;
     public void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException, E;
     public void handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException, E;
     public void handleHierarchy(PersistentHierarchy hierarchy) throws PersistenceException, E;
@@ -94,8 +94,8 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleAddFractionCommand(PersistentAddFractionCommand addFractionCommand) throws PersistenceException, E;
     public void handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException, E;
     public void handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException, E;
-    public void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException, E;
     public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException, E;
+    public void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException, E;
     public void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException, E;
     public void handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException, E;
     

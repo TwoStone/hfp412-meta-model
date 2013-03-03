@@ -292,6 +292,8 @@ public class AddTypeCommand extends PersistentObject implements PersistentAddTyp
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

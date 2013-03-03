@@ -313,6 +313,8 @@ public class ReplaceTypeCommand extends PersistentObject implements PersistentRe
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

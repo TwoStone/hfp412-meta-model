@@ -292,6 +292,8 @@ public class AddFpCommand extends PersistentObject implements PersistentAddFpCom
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

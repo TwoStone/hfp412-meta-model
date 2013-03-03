@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R> ,AbsOperationReturnVisitor<R> ,QuantifObjectReturnVisitor<R> ,MQuantiObjectTypeReturnVisitor<R> ,MModelItemReturnVisitor<R> ,MBooleanReturnVisitor<R> ,AbsUnitTypeReturnVisitor<R> ,AbsQuantityReturnVisitor<R> ,CommonDateReturnVisitor<R> ,MTypeReturnVisitor<R> ,AbsUnitReturnVisitor<R> ,MessageOrLinkReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R> ,AbsOperationReturnVisitor<R> ,QuantifObjectReturnVisitor<R> ,MQuantiObjectTypeReturnVisitor<R> ,MModelItemReturnVisitor<R> ,MBooleanReturnVisitor<R> ,BasicCalculationReturnVisitor<R> ,AbsUnitTypeReturnVisitor<R> ,AbsQuantityReturnVisitor<R> ,CommonDateReturnVisitor<R> ,MTypeReturnVisitor<R> ,AbsUnitReturnVisitor<R> ,MessageOrLinkReturnVisitor<R> {
     
     public R handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
@@ -58,8 +58,8 @@ public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R>
     public R handleCreateLinkCommand(PersistentCreateLinkCommand createLinkCommand) throws PersistenceException;
     public R handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException;
     public R handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException;
-    public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     public R handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException;
+    public R handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     public R handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException;
     public R handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException;
     public R handleHierarchy(PersistentHierarchy hierarchy) throws PersistenceException;
@@ -94,8 +94,8 @@ public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R>
     public R handleAddFractionCommand(PersistentAddFractionCommand addFractionCommand) throws PersistenceException;
     public R handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException;
     public R handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException;
-    public R handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException;
     public R handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException;
+    public R handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException;
     public R handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException;
     public R handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException;
     

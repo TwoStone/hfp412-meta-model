@@ -510,6 +510,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
 
 	private void checkOperationDoubleDefinition(final String name) throws DoubleDefinitionException,
 			PersistenceException {
@@ -534,6 +535,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 	}
 
 	
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

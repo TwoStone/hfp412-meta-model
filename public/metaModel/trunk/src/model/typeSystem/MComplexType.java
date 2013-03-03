@@ -139,6 +139,7 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
 
 	protected PersistentMBoolean allChildrenAreStructuralEquivalent(final PersistentMComplexType other)
 			throws PersistenceException {
@@ -158,6 +159,7 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 	public abstract SearchListRoot<? extends PersistentMType> fetchContainedTypes() throws PersistenceException;
 
 	
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

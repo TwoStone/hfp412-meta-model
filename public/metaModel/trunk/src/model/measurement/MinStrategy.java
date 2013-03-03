@@ -209,6 +209,8 @@ public class MinStrategy extends PersistentObject implements PersistentMinStrate
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

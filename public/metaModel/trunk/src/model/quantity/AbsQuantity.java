@@ -110,6 +110,8 @@ public abstract class AbsQuantity extends PersistentObject implements Persistent
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

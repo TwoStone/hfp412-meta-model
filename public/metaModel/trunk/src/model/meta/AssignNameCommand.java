@@ -306,6 +306,8 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

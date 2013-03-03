@@ -306,6 +306,8 @@ public class CreateConstCommand extends PersistentObject implements PersistentCr
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

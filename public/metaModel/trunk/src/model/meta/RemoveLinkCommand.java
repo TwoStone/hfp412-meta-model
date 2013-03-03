@@ -266,6 +266,8 @@ public class RemoveLinkCommand extends PersistentObject implements PersistentRem
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

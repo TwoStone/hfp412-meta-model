@@ -259,8 +259,10 @@ public class Reference extends PersistentObject implements PersistentReference{
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

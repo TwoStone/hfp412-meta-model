@@ -287,6 +287,8 @@ public class NameInstance extends PersistentObject implements PersistentNameInst
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

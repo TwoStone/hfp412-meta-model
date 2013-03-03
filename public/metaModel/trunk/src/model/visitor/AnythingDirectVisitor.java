@@ -301,6 +301,20 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleSumStrategy(PersistentSumStrategy sumStrategy) throws PersistenceException;
     
+    public abstract void handleBasicCalculation(PersistentBasicCalculation basicCalculation) throws PersistenceException;
+    
+    public void handleMultiplication(PersistentMultiplication multiplication) throws PersistenceException{
+        this.handleBasicCalculation(multiplication);
+    }
+    public void handleSubtraction(PersistentSubtraction subtraction) throws PersistenceException{
+        this.handleBasicCalculation(subtraction);
+    }
+    public void handleDivision(PersistentDivision division) throws PersistenceException{
+        this.handleBasicCalculation(division);
+    }
+    public void handleAddition(PersistentAddition addition) throws PersistenceException{
+        this.handleBasicCalculation(addition);
+    }
     public abstract void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException;
     
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;

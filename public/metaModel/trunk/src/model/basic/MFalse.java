@@ -163,8 +163,10 @@ public class MFalse extends model.basic.MBoolean implements PersistentMFalse{
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
 
 	
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

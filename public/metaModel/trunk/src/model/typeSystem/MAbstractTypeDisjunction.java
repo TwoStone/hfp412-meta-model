@@ -157,6 +157,7 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
     
     
     
+    
 	public static String TYPE_LINK_OP = "++";
 
 	public static PersistentMAbstractTypeDisjunction transientCreateAbstrTypeDisj(MTypeSearchList addends)
@@ -291,6 +292,7 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 		return result;
 	}
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

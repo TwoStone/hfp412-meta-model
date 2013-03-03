@@ -748,6 +748,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMObject(view.MObjectView object){
         result = new MObjectDefaultDetailPanel(handler, object);
     }
+    public void handleMultiplication(view.MultiplicationView object){
+        result = new MultiplicationDefaultDetailPanel(handler, object);
+    }
     public void handleMEmptyTypeConjunction(view.MEmptyTypeConjunctionView object){
         result = new MEmptyTypeConjunctionDefaultDetailPanel(handler, object);
     }
@@ -820,6 +823,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMNonEmptyDisjunctiveNormalForm(view.MNonEmptyDisjunctiveNormalFormView object){
         result = new MNonEmptyDisjunctiveNormalFormDefaultDetailPanel(handler, object);
     }
+    public void handleSubtraction(view.SubtractionView object){
+        result = new SubtractionDefaultDetailPanel(handler, object);
+    }
     public void handleFractionManager(view.FractionManagerView object){
         result = new FractionManagerDefaultDetailPanel(handler, object);
     }
@@ -850,6 +856,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleLinkManager(view.LinkManagerView object){
         result = new LinkManagerDefaultDetailPanel(handler, object);
     }
+    public void handleAddition(view.AdditionView object){
+        result = new AdditionDefaultDetailPanel(handler, object);
+    }
     public void handleMTrue(view.MTrueView object){
         result = new MTrueDefaultDetailPanel(handler, object);
     }
@@ -864,6 +873,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleMSingletonObject(view.MSingletonObjectView object){
         result = new MSingletonObjectDefaultDetailPanel(handler, object);
+    }
+    public void handleDivision(view.DivisionView object){
+        result = new DivisionDefaultDetailPanel(handler, object);
     }
     public void handleFractionWrapper(view.FractionWrapperView object){
         result = new FractionWrapperDefaultDetailPanel(handler, object);
@@ -1298,6 +1310,26 @@ class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MObjectView getAnything(){
         return (view.MObjectView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MultiplicationDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String BasicCalculation$$arg1 = "BasicCalculation$$arg1";
+    protected static final String BasicCalculation$$arg2 = "BasicCalculation$$arg2";
+    protected static final String BasicCalculation$$resultt = "BasicCalculation$$resultt";
+    protected static final String UnitMutabCalc$$targetUnit = "UnitMutabCalc$$targetUnit";
+    protected static final String UnitMutabCalc$$targetUnitType = "UnitMutabCalc$$targetUnitType";
+    
+    protected MultiplicationDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.MultiplicationView getAnything(){
+        return (view.MultiplicationView)this.anything;
     }
 }
 
@@ -1762,6 +1794,24 @@ class MNonEmptyDisjunctiveNormalFormDefaultDetailPanel extends DefaultDetailPane
 }
 
 @SuppressWarnings("serial")
+class SubtractionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String BasicCalculation$$arg1 = "BasicCalculation$$arg1";
+    protected static final String BasicCalculation$$arg2 = "BasicCalculation$$arg2";
+    protected static final String BasicCalculation$$resultt = "BasicCalculation$$resultt";
+    
+    protected SubtractionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.SubtractionView getAnything(){
+        return (view.SubtractionView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class FractionManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String FractionManager$$managedFractions = "FractionManager$$managedFractions";
@@ -1945,6 +1995,24 @@ class LinkManagerDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class AdditionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String BasicCalculation$$arg1 = "BasicCalculation$$arg1";
+    protected static final String BasicCalculation$$arg2 = "BasicCalculation$$arg2";
+    protected static final String BasicCalculation$$resultt = "BasicCalculation$$resultt";
+    
+    protected AdditionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.AdditionView getAnything(){
+        return (view.AdditionView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class MTrueDefaultDetailPanel extends DefaultDetailPanel{
     
     protected MTrueDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -2032,6 +2100,26 @@ class MSingletonObjectDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MSingletonObjectView getAnything(){
         return (view.MSingletonObjectView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class DivisionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String BasicCalculation$$arg1 = "BasicCalculation$$arg1";
+    protected static final String BasicCalculation$$arg2 = "BasicCalculation$$arg2";
+    protected static final String BasicCalculation$$resultt = "BasicCalculation$$resultt";
+    protected static final String UnitMutabCalc$$targetUnit = "UnitMutabCalc$$targetUnit";
+    protected static final String UnitMutabCalc$$targetUnitType = "UnitMutabCalc$$targetUnitType";
+    
+    protected DivisionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.DivisionView getAnything(){
+        return (view.DivisionView)this.anything;
     }
 }
 

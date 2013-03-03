@@ -256,8 +256,10 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
 
 	
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

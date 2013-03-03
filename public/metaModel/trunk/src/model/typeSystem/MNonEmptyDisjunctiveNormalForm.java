@@ -420,6 +420,7 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
 
 	public static PersistentMNonEmptyDisjunctiveNormalForm transientCreateNEDNF(
 			final List<PersistentMAtomicTypeConjunction> conjunctions) throws PersistenceException {
@@ -495,6 +496,7 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
 	}
 
 	
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

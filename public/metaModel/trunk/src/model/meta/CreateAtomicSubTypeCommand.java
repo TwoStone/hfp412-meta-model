@@ -345,6 +345,8 @@ public class CreateAtomicSubTypeCommand extends PersistentObject implements Pers
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

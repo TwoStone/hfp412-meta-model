@@ -9,6 +9,7 @@ import persistence.PersistentAccount;
 import persistence.PersistentAccountManager;
 import persistence.PersistentAccountTypeManager;
 import persistence.PersistentActualParameter;
+import persistence.PersistentAddition;
 import persistence.PersistentAspectManager;
 import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
@@ -17,6 +18,7 @@ import persistence.PersistentCompUnit;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentConversion;
+import persistence.PersistentDivision;
 import persistence.PersistentFormalParameter;
 import persistence.PersistentFractionManager;
 import persistence.PersistentFractionWrapper;
@@ -45,6 +47,7 @@ import persistence.PersistentMeasurementTypeManager;
 import persistence.PersistentMessage;
 import persistence.PersistentMessageManager;
 import persistence.PersistentMinStrategy;
+import persistence.PersistentMultiplication;
 import persistence.PersistentName;
 import persistence.PersistentNameInstance;
 import persistence.PersistentNameScheme;
@@ -58,6 +61,7 @@ import persistence.PersistentQuantityManager;
 import persistence.PersistentReference;
 import persistence.PersistentReferenceType;
 import persistence.PersistentServer;
+import persistence.PersistentSubtraction;
 import persistence.PersistentSumStrategy;
 import persistence.PersistentTypeManager;
 import persistence.PersistentUnit;
@@ -501,5 +505,29 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleMNonEmptyDisjunctiveNormalForm(
 			final PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm) throws PersistenceException {
 		result = mNonEmptyDisjunctiveNormalForm.fetchName();
+	}
+
+	@Override
+	public void handleMultiplication(final PersistentMultiplication multiplication) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleSubtraction(final PersistentSubtraction subtraction) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleAddition(final PersistentAddition addition) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleDivision(final PersistentDivision division) throws PersistenceException {
+		// TODO Auto-generated method stub
+
 	}
 }

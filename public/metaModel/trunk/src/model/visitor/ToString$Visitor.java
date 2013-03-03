@@ -22,6 +22,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleMMeasurementType(PersistentMMeasurementType mMeasurementType) throws PersistenceException;
     public abstract void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
     public abstract void handleMObject(PersistentMObject mObject) throws PersistenceException;
+    public abstract void handleMultiplication(PersistentMultiplication multiplication) throws PersistenceException;
     public abstract void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException;
     public abstract void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException;
     public abstract void handleMessage(PersistentMessage message) throws PersistenceException;
@@ -45,6 +46,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException;
     public abstract void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
     public abstract void handleMNonEmptyDisjunctiveNormalForm(PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm) throws PersistenceException;
+    public abstract void handleSubtraction(PersistentSubtraction subtraction) throws PersistenceException;
     public abstract void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException;
     public abstract void handleReference(PersistentReference reference) throws PersistenceException;
     public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
@@ -55,11 +57,13 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleUnitType(PersistentUnitType unitType) throws PersistenceException;
     public abstract void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException;
     public abstract void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;
+    public abstract void handleAddition(PersistentAddition addition) throws PersistenceException;
     public abstract void handleMTrue(PersistentMTrue mTrue) throws PersistenceException;
     public abstract void handleQuantity(PersistentQuantity quantity) throws PersistenceException;
     public abstract void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException;
     public abstract void handleName(PersistentName name) throws PersistenceException;
     public abstract void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException;
+    public abstract void handleDivision(PersistentDivision division) throws PersistenceException;
     public abstract void handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException;
     public abstract void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException;
     public abstract void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException;

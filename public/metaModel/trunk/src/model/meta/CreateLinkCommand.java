@@ -316,6 +316,8 @@ public class CreateLinkCommand extends PersistentObject implements PersistentCre
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

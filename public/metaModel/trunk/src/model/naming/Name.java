@@ -252,6 +252,8 @@ public class Name extends PersistentObject implements PersistentName{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

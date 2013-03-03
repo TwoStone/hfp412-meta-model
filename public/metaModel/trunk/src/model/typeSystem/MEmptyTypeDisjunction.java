@@ -296,6 +296,7 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
 
 	@Override
 	public SearchListRoot<? extends PersistentMType> fetchContainedTypes() {
@@ -303,6 +304,7 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
 	}
 
 	
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

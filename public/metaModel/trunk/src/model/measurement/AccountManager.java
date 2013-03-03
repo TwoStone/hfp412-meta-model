@@ -187,8 +187,10 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

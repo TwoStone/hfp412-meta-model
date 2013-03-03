@@ -268,6 +268,8 @@ public class AddFractionCommand extends PersistentObject implements PersistentAd
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

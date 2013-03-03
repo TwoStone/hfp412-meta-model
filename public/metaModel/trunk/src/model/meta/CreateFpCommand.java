@@ -281,6 +281,8 @@ public class CreateFpCommand extends PersistentObject implements PersistentCreat
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

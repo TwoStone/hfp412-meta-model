@@ -203,8 +203,10 @@ public class FractionManager extends PersistentObject implements PersistentFract
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

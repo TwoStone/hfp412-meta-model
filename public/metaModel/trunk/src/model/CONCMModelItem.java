@@ -151,6 +151,8 @@ public class CONCMModelItem extends model.MModelItem implements PersistentCONCMM
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

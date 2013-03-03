@@ -157,6 +157,7 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
     
     
     
+    
 	public static String TYPE_LINK_OP = "**";
 
 	public static PersistentMAbstractTypeConjunction transientCreateAbstractTypeConj(MTypeSearchList factors)
@@ -366,6 +367,7 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 		return result;
 	}
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

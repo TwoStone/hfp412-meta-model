@@ -261,8 +261,10 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

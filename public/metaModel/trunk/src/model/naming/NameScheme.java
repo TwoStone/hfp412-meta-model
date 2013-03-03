@@ -262,8 +262,10 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

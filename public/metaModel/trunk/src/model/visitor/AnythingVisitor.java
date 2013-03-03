@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisitor,QuantifObjectVisitor,MQuantiObjectTypeVisitor,MModelItemVisitor,MBooleanVisitor,AbsUnitTypeVisitor,AbsQuantityVisitor,CommonDateVisitor,MTypeVisitor,AbsUnitVisitor,MessageOrLinkVisitor{
+public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisitor,QuantifObjectVisitor,MQuantiObjectTypeVisitor,MModelItemVisitor,MBooleanVisitor,BasicCalculationVisitor,AbsUnitTypeVisitor,AbsQuantityVisitor,CommonDateVisitor,MTypeVisitor,AbsUnitVisitor,MessageOrLinkVisitor{
     
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
@@ -58,8 +58,8 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleCreateLinkCommand(PersistentCreateLinkCommand createLinkCommand) throws PersistenceException;
     public void handleCreateVoidOperationCommand(PersistentCreateVoidOperationCommand createVoidOperationCommand) throws PersistenceException;
     public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException;
-    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException;
+    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException;
     public void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException;
     public void handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException;
     public void handleHierarchy(PersistentHierarchy hierarchy) throws PersistenceException;
@@ -94,8 +94,8 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleAddFractionCommand(PersistentAddFractionCommand addFractionCommand) throws PersistenceException;
     public void handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException;
     public void handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException;
-    public void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException;
     public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException;
+    public void handleFunctionManager(PersistentFunctionManager functionManager) throws PersistenceException;
     public void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException;
     public void handleCreateFpCommand(PersistentCreateFpCommand createFpCommand) throws PersistenceException;
     

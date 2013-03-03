@@ -288,6 +288,8 @@ public class SetDefaultUnitCommand extends PersistentObject implements Persisten
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

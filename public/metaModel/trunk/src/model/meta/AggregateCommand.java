@@ -292,6 +292,8 @@ public class AggregateCommand extends PersistentObject implements PersistentAggr
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

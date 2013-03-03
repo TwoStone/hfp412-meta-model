@@ -128,6 +128,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException{
         this.standardHandling(fetchScalarCommand);
     }
+    public void handleMultiplication(PersistentMultiplication multiplication) throws PersistenceException{
+        this.standardHandling(multiplication);
+    }
     public void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException{
         this.standardHandling(mEmptyTypeConjunction);
     }
@@ -209,11 +212,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException{
         this.standardHandling(setDefaultUnitCommand);
     }
-    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
-        this.standardHandling(commonDate);
-    }
     public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException{
         this.standardHandling(changeAbstractCommand);
+    }
+    public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
+        this.standardHandling(commonDate);
     }
     public void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException{
         this.standardHandling(avgStrategy);
@@ -269,6 +272,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCreateConstCommand(PersistentCreateConstCommand createConstCommand) throws PersistenceException{
         this.standardHandling(createConstCommand);
     }
+    public void handleSubtraction(PersistentSubtraction subtraction) throws PersistenceException{
+        this.standardHandling(subtraction);
+    }
     public void handleFractionManager(PersistentFractionManager fractionManager) throws PersistenceException{
         this.standardHandling(fractionManager);
     }
@@ -311,6 +317,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
         this.standardHandling(createAssociationCommand);
     }
+    public void handleAddition(PersistentAddition addition) throws PersistenceException{
+        this.standardHandling(addition);
+    }
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicRootTypeCommand);
     }
@@ -320,14 +329,14 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException{
         this.standardHandling(convertCommand);
     }
+    public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
+        this.standardHandling(addReferenceTypeCommand);
+    }
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException{
         this.standardHandling(commandExecuter);
     }
     public void handleQuantity(PersistentQuantity quantity) throws PersistenceException{
         this.standardHandling(quantity);
-    }
-    public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
-        this.standardHandling(addReferenceTypeCommand);
     }
     public void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException{
         this.standardHandling(actualParameter);
@@ -346,6 +355,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleRemoveFpFromOpCommand(PersistentRemoveFpFromOpCommand removeFpFromOpCommand) throws PersistenceException{
         this.standardHandling(removeFpFromOpCommand);
+    }
+    public void handleDivision(PersistentDivision division) throws PersistenceException{
+        this.standardHandling(division);
     }
     public void handleFractionWrapper(PersistentFractionWrapper fractionWrapper) throws PersistenceException{
         this.standardHandling(fractionWrapper);

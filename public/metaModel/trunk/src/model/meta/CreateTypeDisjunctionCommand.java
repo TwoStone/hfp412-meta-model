@@ -278,6 +278,8 @@ public class CreateTypeDisjunctionCommand extends PersistentObject implements Pe
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

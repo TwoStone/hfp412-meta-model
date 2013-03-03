@@ -288,6 +288,8 @@ public class ConvertCommand extends PersistentObject implements PersistentConver
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

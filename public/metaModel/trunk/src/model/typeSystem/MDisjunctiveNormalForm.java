@@ -74,8 +74,10 @@ public abstract class MDisjunctiveNormalForm extends model.typeSystem.MAbstractT
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

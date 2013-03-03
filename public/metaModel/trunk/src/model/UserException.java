@@ -59,6 +59,8 @@ public abstract class UserException extends Exception{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

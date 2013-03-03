@@ -287,8 +287,10 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
 
 	
+    
     
     /* End of protected part that is not overridden by persistence generator */
     
