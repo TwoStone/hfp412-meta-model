@@ -202,4 +202,9 @@ public class FractionTest extends TestingBase {
 		assertEquals(BigInteger.ONE, one.getEnumerator());
 		assertEquals(BigInteger.ONE, one.getDenominator());
 	}
+
+	@Test
+	public void testInvertSign_1() {
+		// TODO: implement testcase
+	}
 }
