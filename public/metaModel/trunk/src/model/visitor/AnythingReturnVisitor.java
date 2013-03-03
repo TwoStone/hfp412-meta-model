@@ -32,6 +32,7 @@ public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R>
     public R handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException;
     public R handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException;
     public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
+    public R handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException;
     public R handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException;
     public R handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
     public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
@@ -49,6 +50,7 @@ public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R>
     public R handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException;
     public R handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException;
     public R handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException;
+    public R handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException;
     public R handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
     public R handleNameSchemeManager(PersistentNameSchemeManager nameSchemeManager) throws PersistenceException;
     public R handleCreateStaticOpCommand(PersistentCreateStaticOpCommand createStaticOpCommand) throws PersistenceException;
@@ -66,6 +68,7 @@ public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R>
     public R handleAddFpCommand(PersistentAddFpCommand addFpCommand) throws PersistenceException;
     public R handleCreateStaticMessageCommand(PersistentCreateStaticMessageCommand createStaticMessageCommand) throws PersistenceException;
     public R handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException;
+    public R handleSubCommand(PersistentSubCommand subCommand) throws PersistenceException;
     public R handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException;
     public R handleSumStrategy(PersistentSumStrategy sumStrategy) throws PersistenceException;
     public R handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
@@ -86,6 +89,7 @@ public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R>
     public R handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;
     public R handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException;
     public R handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException;
+    public R handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException;
     public R handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException;
     public R handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException;
     public R handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException;

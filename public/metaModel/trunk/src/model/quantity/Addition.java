@@ -1,6 +1,7 @@
 package model.quantity;
 
 import model.UserException;
+import model.basic.MFalse;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -20,6 +21,7 @@ import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAddition;
 import persistence.PersistentBasicCalculation;
+import persistence.PersistentMBoolean;
 import persistence.TDObserver;
 
 /* Additional import section end */
@@ -165,6 +167,10 @@ public class Addition extends model.quantity.UnitImutabCalc implements Persisten
 				throws PersistenceException{
 		// TODO: implement method: initializeOnInstantiation
 
+	}
+    public PersistentMBoolean mustSignInverted() 
+				throws PersistenceException{
+		return MFalse.getTheMFalse();
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

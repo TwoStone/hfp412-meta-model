@@ -235,8 +235,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    @SuppressWarnings("unchecked")
-    public synchronized AbsQuantityView mul(AbsQuantityView factor1, AbsQuantityView factor2) throws ModelException, DoubleDefinitionException, NotComputableException{
+    public synchronized void mul(AbsQuantityView factor1, AbsQuantityView factor2) throws ModelException, DoubleDefinitionException, NotComputableException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)factor1).createProxiInformation());
@@ -250,15 +249,6 @@ public class ServerConnection extends ConnectionMaster {
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
-            }else{
-                java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
-                view.objects.ViewProxi.resolveReferences(allResults, this.getHandler());
-                common.ProxiInformation proxiInformation = common.RPCConstantsAndServices.createProxiInformation((String) success.get(common.RPCConstantsAndServices.RootFieldName));
-                AbsQuantityView result = (AbsQuantityView) view.objects.ViewProxi.createProxi(proxiInformation, this.getHandler());
-                if (result != null) ((view.objects.ViewRoot)result).setToString(proxiInformation.getToString());
-                view.objects.ViewObject root = (view.objects.ViewObject) allResults.get(proxiInformation.getHashKey());
-                if (root != null) ((view.objects.ViewProxi)result).setObject(root);
-                return result;
             }
         }catch(IOException ioe){
             throw new ModelException(ioe.getMessage(),0);
@@ -536,8 +526,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    @SuppressWarnings("unchecked")
-    public synchronized AbsQuantityView div(AbsQuantityView dividend, AbsQuantityView divisor) throws ModelException, NotComputableException{
+    public synchronized void div(AbsQuantityView dividend, AbsQuantityView divisor) throws ModelException, NotComputableException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)dividend).createProxiInformation());
@@ -549,15 +538,6 @@ public class ServerConnection extends ConnectionMaster {
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
-            }else{
-                java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
-                view.objects.ViewProxi.resolveReferences(allResults, this.getHandler());
-                common.ProxiInformation proxiInformation = common.RPCConstantsAndServices.createProxiInformation((String) success.get(common.RPCConstantsAndServices.RootFieldName));
-                AbsQuantityView result = (AbsQuantityView) view.objects.ViewProxi.createProxi(proxiInformation, this.getHandler());
-                if (result != null) ((view.objects.ViewRoot)result).setToString(proxiInformation.getToString());
-                view.objects.ViewObject root = (view.objects.ViewObject) allResults.get(proxiInformation.getHashKey());
-                if (root != null) ((view.objects.ViewProxi)result).setObject(root);
-                return result;
             }
         }catch(IOException ioe){
             throw new ModelException(ioe.getMessage(),0);
@@ -1905,8 +1885,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    @SuppressWarnings("unchecked")
-    public synchronized AbsQuantityView add(AbsQuantityView summand1, AbsQuantityView summand2) throws ModelException, NotComputableException{
+    public synchronized void add(AbsQuantityView summand1, AbsQuantityView summand2) throws ModelException, NotComputableException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)summand1).createProxiInformation());
@@ -1918,15 +1897,6 @@ public class ServerConnection extends ConnectionMaster {
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
-            }else{
-                java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
-                view.objects.ViewProxi.resolveReferences(allResults, this.getHandler());
-                common.ProxiInformation proxiInformation = common.RPCConstantsAndServices.createProxiInformation((String) success.get(common.RPCConstantsAndServices.RootFieldName));
-                AbsQuantityView result = (AbsQuantityView) view.objects.ViewProxi.createProxi(proxiInformation, this.getHandler());
-                if (result != null) ((view.objects.ViewRoot)result).setToString(proxiInformation.getToString());
-                view.objects.ViewObject root = (view.objects.ViewObject) allResults.get(proxiInformation.getHashKey());
-                if (root != null) ((view.objects.ViewProxi)result).setObject(root);
-                return result;
             }
         }catch(IOException ioe){
             throw new ModelException(ioe.getMessage(),0);
@@ -2540,8 +2510,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    @SuppressWarnings("unchecked")
-    public synchronized AbsQuantityView sub(AbsQuantityView minuend, AbsQuantityView subtrahend) throws ModelException, NotComputableException{
+    public synchronized void sub(AbsQuantityView minuend, AbsQuantityView subtrahend) throws ModelException, NotComputableException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)minuend).createProxiInformation());
@@ -2553,15 +2522,6 @@ public class ServerConnection extends ConnectionMaster {
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
-            }else{
-                java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
-                view.objects.ViewProxi.resolveReferences(allResults, this.getHandler());
-                common.ProxiInformation proxiInformation = common.RPCConstantsAndServices.createProxiInformation((String) success.get(common.RPCConstantsAndServices.RootFieldName));
-                AbsQuantityView result = (AbsQuantityView) view.objects.ViewProxi.createProxi(proxiInformation, this.getHandler());
-                if (result != null) ((view.objects.ViewRoot)result).setToString(proxiInformation.getToString());
-                view.objects.ViewObject root = (view.objects.ViewObject) allResults.get(proxiInformation.getHashKey());
-                if (root != null) ((view.objects.ViewProxi)result).setObject(root);
-                return result;
             }
         }catch(IOException ioe){
             throw new ModelException(ioe.getMessage(),0);

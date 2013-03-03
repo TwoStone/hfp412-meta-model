@@ -1611,14 +1611,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 				
 		protected void perform() {
 			try {
-				ViewRoot result = (ViewRoot) getConnection().mul(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				ReturnValueView view = new ReturnValueView(result, new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
-				view.setLocationRelativeTo(getNavigationScrollPane());
+				getConnection().mul(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
-				dispose();
-				view.setVisible(true);
-				view.repaint();	
+				dispose();	
 			}
 			catch(ModelException me){
 				handleException(me);
@@ -2099,14 +2095,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 				
 		protected void perform() {
 			try {
-				ViewRoot result = (ViewRoot) getConnection().div(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				ReturnValueView view = new ReturnValueView(result, new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
-				view.setLocationRelativeTo(getNavigationScrollPane());
+				getConnection().div(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
-				dispose();
-				view.setVisible(true);
-				view.repaint();	
+				dispose();	
 			}
 			catch(ModelException me){
 				handleException(me);
@@ -3648,14 +3640,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 				
 		protected void perform() {
 			try {
-				ViewRoot result = (ViewRoot) getConnection().add(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				ReturnValueView view = new ReturnValueView(result, new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
-				view.setLocationRelativeTo(getNavigationScrollPane());
+				getConnection().add(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
-				dispose();
-				view.setVisible(true);
-				view.repaint();	
+				dispose();	
 			}
 			catch(ModelException me){
 				handleException(me);
@@ -4155,14 +4143,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 				
 		protected void perform() {
 			try {
-				ViewRoot result = (ViewRoot) getConnection().sub(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
-				ReturnValueView view = new ReturnValueView(result, new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
-				view.setLocationRelativeTo(getNavigationScrollPane());
+				getConnection().sub(firstArgument, (AbsQuantityView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
-				dispose();
-				view.setVisible(true);
-				view.repaint();	
+				dispose();	
 			}
 			catch(ModelException me){
 				handleException(me);

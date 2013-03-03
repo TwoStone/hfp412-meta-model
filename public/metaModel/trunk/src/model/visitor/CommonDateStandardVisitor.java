@@ -8,6 +8,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException{
         this.standardHandling(convertToDefaultCommand);
     }
+    public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException{
+        this.standardHandling(divCommand);
+    }
     public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
         this.standardHandling(addTypeCommand);
     }
@@ -68,6 +71,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateStaticMessageCommand(PersistentCreateStaticMessageCommand createStaticMessageCommand) throws PersistenceException{
         this.standardHandling(createStaticMessageCommand);
     }
+    public void handleSubCommand(PersistentSubCommand subCommand) throws PersistenceException{
+        this.standardHandling(subCommand);
+    }
     public void handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException{
         this.standardHandling(removeAssoFrmHierCommand);
     }
@@ -113,6 +119,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException{
         this.standardHandling(createHierarchyCommand);
     }
+    public void handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException{
+        this.standardHandling(mulCommand);
+    }
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException{
         this.standardHandling(createMeasurementTypeCommand);
     }
@@ -136,6 +145,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     }
     public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException{
         this.standardHandling(convertCommand);
+    }
+    public void handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException{
+        this.standardHandling(addCommand);
     }
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);

@@ -1,11 +1,14 @@
 package model.quantity;
 
 import model.NotComputableException;
+import model.visitor.MBooleanReturnVisitor;
 import persistence.Anything;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentBasicCalculation;
 import persistence.PersistentCompoundQuantity;
+import persistence.PersistentMFalse;
+import persistence.PersistentMTrue;
 import persistence.PersistentQuantity;
 import persistence.PersistentUnitImutabCalc;
 import persistence.TDObserver;
@@ -89,10 +92,25 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
 				throw new NotComputableException(constants.ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_ADD_OR_SUB);
 
 			final PersistentCompoundQuantity result = CompoundQuantity.createCompoundQuantity();
-			// TODO: hier muss noch unterschieden werden, ob Subtraktion oder Addition. Bei Subtraktion muss * (-1)
-			// gerechnet werden.
+
 			result.getParts().add(atom1);
-			result.getParts().add(atom2);
+			final Boolean mustBeInverted = getThis().mustSignInverted().accept(new MBooleanReturnVisitor<Boolean>() {
+
+				@Override
+				public Boolean handleMFalse(final PersistentMFalse mFalse) throws PersistenceException {
+					return false;
+				}
+
+				@Override
+				public Boolean handleMTrue(final PersistentMTrue mTrue) throws PersistenceException {
+					return true;
+				}
+			});
+			if (mustBeInverted) {
+				result.getParts().add((PersistentQuantity) QuantityManager.getTheQuantityManager().invertSign(atom2));
+			} else {
+				result.getParts().add(atom2);
+			}
 			QuantityManager.getTheQuantityManager().getQuantities().add(result);
 			getThis().setResultt(result);
 		}

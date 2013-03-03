@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class CommandStandardVisitor implements CommandVisitor {
     
+    public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException{
+        this.standardHandling(divCommand);
+    }
     public void handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException{
         this.standardHandling(convertToDefaultCommand);
     }
@@ -65,11 +68,14 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateStaticMessageCommand(PersistentCreateStaticMessageCommand createStaticMessageCommand) throws PersistenceException{
         this.standardHandling(createStaticMessageCommand);
     }
-    public void handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException{
-        this.standardHandling(removeAssoFrmHierCommand);
+    public void handleSubCommand(PersistentSubCommand subCommand) throws PersistenceException{
+        this.standardHandling(subCommand);
     }
     public void handleCreateVoidMessageCommand(PersistentCreateVoidMessageCommand createVoidMessageCommand) throws PersistenceException{
         this.standardHandling(createVoidMessageCommand);
+    }
+    public void handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException{
+        this.standardHandling(removeAssoFrmHierCommand);
     }
     public void handleAddAssociationCommand(PersistentAddAssociationCommand addAssociationCommand) throws PersistenceException{
         this.standardHandling(addAssociationCommand);
@@ -110,17 +116,20 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException{
         this.standardHandling(createHierarchyCommand);
     }
+    public void handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException{
+        this.standardHandling(mulCommand);
+    }
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException{
         this.standardHandling(createMeasurementTypeCommand);
     }
     public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException{
         this.standardHandling(addMultipleFpCommand);
     }
-    public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
-        this.standardHandling(createAssociationCommand);
-    }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);
+    }
+    public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException{
+        this.standardHandling(createAssociationCommand);
     }
     public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException{
         this.standardHandling(removeFpCommand);
@@ -133,6 +142,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException{
         this.standardHandling(convertCommand);
+    }
+    public void handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException{
+        this.standardHandling(addCommand);
     }
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);

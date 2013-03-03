@@ -87,10 +87,10 @@ server Server {
 	void convert(Quantity quantity, AbsUnit unit);
 
 	/** computing **/
-	AbsQuantity add(AbsQuantity summand1, AbsQuantity summand2) throws NotComputableException;
-	AbsQuantity sub(AbsQuantity minuend, AbsQuantity subtrahend) throws NotComputableException;
-	AbsQuantity mul(AbsQuantity factor1, AbsQuantity factor2) throws NotComputableException, DoubleDefinitionException;
-	AbsQuantity div(AbsQuantity dividend, AbsQuantity divisor) throws NotComputableException;
+	void add(AbsQuantity summand1, AbsQuantity summand2) throws NotComputableException;
+	void sub(AbsQuantity minuend, AbsQuantity subtrahend) throws NotComputableException;
+	void mul(AbsQuantity factor1, AbsQuantity factor2) throws NotComputableException, DoubleDefinitionException;
+	void div(AbsQuantity dividend, AbsQuantity divisor) throws NotComputableException;
 
 	/** Measurement/Account **/
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
@@ -374,7 +374,9 @@ part quantity {
 	}
 
 	/* Unit Immutable Calculation (+ | -) */
-	abstract class UnitImutabCalc extends BasicCalculation {}
+	abstract class UnitImutabCalc extends BasicCalculation {
+		abstract MBoolean mustSignInverted();
+	}
 	class Addition extends UnitImutabCalc {}
 	class Subtraction extends UnitImutabCalc {}
 
@@ -427,6 +429,13 @@ part quantity {
 		AbsQuantity invertSign(AbsQuantity absQuantity);
 		active void convertToDefault(Quantity quantity);
 		active void convert(Quantity quantity, AbsUnit unit);
+
+		active AbsQuantity add(AbsQuantity summand1, AbsQuantity summand2) throws NotComputableException;
+		active AbsQuantity sub(AbsQuantity minuend, AbsQuantity subtrahend) throws NotComputableException;
+		active AbsQuantity mul(AbsQuantity factor1, AbsQuantity factor2) throws NotComputableException;
+		active AbsQuantity div(AbsQuantity dividend, AbsQuantity divisor) throws NotComputableException;
+		
+		
 	}
 
 	/*Jeder Bruch nur einmal vorhanden*/

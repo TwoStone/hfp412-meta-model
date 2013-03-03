@@ -98,6 +98,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMMixedConjunction(PersistentMMixedConjunction mMixedConjunction) throws PersistenceException{
         this.standardHandling(mMixedConjunction);
     }
+    public void handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException{
+        this.standardHandling(mulCommand);
+    }
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException{
         this.standardHandling(errorDisplay);
     }
@@ -182,6 +185,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleOperation(PersistentOperation operation) throws PersistenceException{
         this.standardHandling(operation);
     }
+    public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException{
+        this.standardHandling(divCommand);
+    }
     public void handleCONCMModelItem(PersistentCONCMModelItem cONCMModelItem) throws PersistenceException{
         this.standardHandling(cONCMModelItem);
     }
@@ -244,6 +250,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMNonEmptyAtomicTypeConjunction(PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction) throws PersistenceException{
         this.standardHandling(mNonEmptyAtomicTypeConjunction);
+    }
+    public void handleSubCommand(PersistentSubCommand subCommand) throws PersistenceException{
+        this.standardHandling(subCommand);
     }
     public void handleSumStrategy(PersistentSumStrategy sumStrategy) throws PersistenceException{
         this.standardHandling(sumStrategy);
@@ -325,6 +334,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMTrue(PersistentMTrue mTrue) throws PersistenceException{
         this.standardHandling(mTrue);
+    }
+    public void handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException{
+        this.standardHandling(addCommand);
     }
     public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException{
         this.standardHandling(convertCommand);

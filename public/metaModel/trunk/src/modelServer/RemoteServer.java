@@ -102,13 +102,12 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    @SuppressWarnings("unchecked")
     public synchronized java.util.Hashtable<?,?> mul(String factor1ProxiString, String factor2ProxiString){
         try {
             PersistentAbsQuantity factor1 = (PersistentAbsQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(factor1ProxiString));
             PersistentAbsQuantity factor2 = (PersistentAbsQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(factor2ProxiString));
-            PersistentAbsQuantity result = ((PersistentServer)this.server).mul(factor1, factor2);
-            return createOKResult(result, 1, this);
+            ((PersistentServer)this.server).mul(factor1, factor2);
+            return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }catch(model.DoubleDefinitionException e0){
@@ -230,13 +229,12 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    @SuppressWarnings("unchecked")
     public synchronized java.util.Hashtable<?,?> div(String dividendProxiString, String divisorProxiString){
         try {
             PersistentAbsQuantity dividend = (PersistentAbsQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(dividendProxiString));
             PersistentAbsQuantity divisor = (PersistentAbsQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(divisorProxiString));
-            PersistentAbsQuantity result = ((PersistentServer)this.server).div(dividend, divisor);
-            return createOKResult(result, 1, this);
+            ((PersistentServer)this.server).div(dividend, divisor);
+            return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }catch(model.NotComputableException e0){
@@ -808,13 +806,12 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    @SuppressWarnings("unchecked")
     public synchronized java.util.Hashtable<?,?> add(String summand1ProxiString, String summand2ProxiString){
         try {
             PersistentAbsQuantity summand1 = (PersistentAbsQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(summand1ProxiString));
             PersistentAbsQuantity summand2 = (PersistentAbsQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(summand2ProxiString));
-            PersistentAbsQuantity result = ((PersistentServer)this.server).add(summand1, summand2);
-            return createOKResult(result, 1, this);
+            ((PersistentServer)this.server).add(summand1, summand2);
+            return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }catch(model.NotComputableException e0){
@@ -1034,13 +1031,12 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    @SuppressWarnings("unchecked")
     public synchronized java.util.Hashtable<?,?> sub(String minuendProxiString, String subtrahendProxiString){
         try {
             PersistentAbsQuantity minuend = (PersistentAbsQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(minuendProxiString));
             PersistentAbsQuantity subtrahend = (PersistentAbsQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(subtrahendProxiString));
-            PersistentAbsQuantity result = ((PersistentServer)this.server).sub(minuend, subtrahend);
-            return createOKResult(result, 1, this);
+            ((PersistentServer)this.server).sub(minuend, subtrahend);
+            return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }catch(model.NotComputableException e0){

@@ -32,6 +32,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException, E;
     public void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException, E;
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
+    public void handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException, E;
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException, E;
     public void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException, E;
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
@@ -49,6 +50,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException, E;
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException, E;
     public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException, E;
+    public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException, E;
     public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException, E;
     public void handleNameSchemeManager(PersistentNameSchemeManager nameSchemeManager) throws PersistenceException, E;
     public void handleCreateStaticOpCommand(PersistentCreateStaticOpCommand createStaticOpCommand) throws PersistenceException, E;
@@ -66,6 +68,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleAddFpCommand(PersistentAddFpCommand addFpCommand) throws PersistenceException, E;
     public void handleCreateStaticMessageCommand(PersistentCreateStaticMessageCommand createStaticMessageCommand) throws PersistenceException, E;
     public void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException, E;
+    public void handleSubCommand(PersistentSubCommand subCommand) throws PersistenceException, E;
     public void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException, E;
     public void handleSumStrategy(PersistentSumStrategy sumStrategy) throws PersistenceException, E;
     public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException, E;
@@ -86,6 +89,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException, E;
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException, E;
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException, E;
+    public void handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException, E;
     public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException, E;
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException, E;
     public void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException, E;

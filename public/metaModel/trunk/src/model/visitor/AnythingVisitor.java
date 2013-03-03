@@ -32,6 +32,7 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException;
     public void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException;
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
+    public void handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException;
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException;
     public void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
@@ -49,6 +50,7 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException;
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException;
     public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException;
+    public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException;
     public void handleQuantityManager(PersistentQuantityManager quantityManager) throws PersistenceException;
     public void handleNameSchemeManager(PersistentNameSchemeManager nameSchemeManager) throws PersistenceException;
     public void handleCreateStaticOpCommand(PersistentCreateStaticOpCommand createStaticOpCommand) throws PersistenceException;
@@ -66,6 +68,7 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleAddFpCommand(PersistentAddFpCommand addFpCommand) throws PersistenceException;
     public void handleCreateStaticMessageCommand(PersistentCreateStaticMessageCommand createStaticMessageCommand) throws PersistenceException;
     public void handleTypeManager(PersistentTypeManager typeManager) throws PersistenceException;
+    public void handleSubCommand(PersistentSubCommand subCommand) throws PersistenceException;
     public void handleMessageManager(PersistentMessageManager messageManager) throws PersistenceException;
     public void handleSumStrategy(PersistentSumStrategy sumStrategy) throws PersistenceException;
     public void handleUnitTypeManager(PersistentUnitTypeManager unitTypeManager) throws PersistenceException;
@@ -86,6 +89,7 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleLinkManager(PersistentLinkManager linkManager) throws PersistenceException;
     public void handleCreateAssociationCommand(PersistentCreateAssociationCommand createAssociationCommand) throws PersistenceException;
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException;
+    public void handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException;
     public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException;
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException;
     public void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException;
