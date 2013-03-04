@@ -120,36 +120,33 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
     
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentUnitMutabCalc)This);
 		if(this.equals(This)){
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
 
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
+    public void createTargetUnitType() 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub
 
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
-    public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) 
+    public void findTargetUnit() 
 				throws model.NotComputableException, PersistenceException{
 		// TODO Auto-generated method stub
 
@@ -159,17 +156,7 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 		// TODO Auto-generated method stub
 
 	}
-    public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-
-	}
-    public void createTargetUnitType() 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-
-	}
-    public void createTargetUnit() 
+    public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) 
 				throws model.NotComputableException, PersistenceException{
 		// TODO Auto-generated method stub
 
@@ -179,7 +166,12 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 		// TODO Auto-generated method stub
 
 	}
-    public void findTargetUnit() 
+    public void createTargetUnit() 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub
+
+	}
+    public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) 
 				throws model.NotComputableException, PersistenceException{
 		// TODO Auto-generated method stub
 

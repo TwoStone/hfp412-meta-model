@@ -244,10 +244,6 @@ public class CreateTypeDisjunctionCommand extends PersistentObject implements Pe
     }
     
     
-    public void checkException() 
-				throws UserException, PersistenceException{
-        if (this.commandException != null) throw this.commandException;
-    }
     public void execute() 
 				throws PersistenceException{
         try{
@@ -257,6 +253,14 @@ public class CreateTypeDisjunctionCommand extends PersistentObject implements Pe
 			this.commandException = e;
 		}
     }
+    public void checkException() 
+				throws UserException, PersistenceException{
+        if (this.commandException != null) throw this.commandException;
+    }
+    public void sendResult() 
+				throws PersistenceException{
+        this.invoker.handleResult(this);
+    }
     public Invoker fetchInvoker() 
 				throws PersistenceException{
         return this.getInvoker();
@@ -265,14 +269,6 @@ public class CreateTypeDisjunctionCommand extends PersistentObject implements Pe
 				throws PersistenceException{
         this.invoker.handleException(this, exception);
     }
-    public void sendResult() 
-				throws PersistenceException{
-        this.invoker.handleResult(this);
-    }
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     

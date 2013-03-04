@@ -235,15 +235,32 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
     }
     
     
+    public MModelItemSearchList getDependentItems(final TDObserver observer) 
+				throws PersistenceException{
+        MModelItemSearchList result = getThis().getDependentItems();
+		observer.updateTransientDerived(getThis(), "dependentItems", result);
+		return result;
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+
+	}
+    public MTypeSearchList fetchTypesContainingThisDirectly() 
+				throws PersistenceException{
+		final MTypeSearchList result = new MTypeSearchList();
+		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
+		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
+		SearchLists.addSecondToFirst(result, getThis().getNEDNFContainingMe());
+		return result;
+	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
 		return false;
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMEmptyTypeConjunction)This);
@@ -256,42 +273,17 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
 				throws PersistenceException{
         return strategy.finalize$$MEmptyTypeConjunction(getThis(), parameter);
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
-
+		return MBoolean.createFromBoolean(getThis().equals(other));
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
 	}
     public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
 				throws PersistenceException{
 		return MNonEmptyDisjunctiveNormalForm.transientCreateDNFFromAtomicTypeConjunction(getThis());
 	}
-    public MTypeSearchList fetchTypesContainingThisDirectly() 
-				throws PersistenceException{
-		final MTypeSearchList result = new MTypeSearchList();
-		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
-		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
-		SearchLists.addSecondToFirst(result, getThis().getNEDNFContainingMe());
-		return result;
-	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
-				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
-				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().equals(other));
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
 		throw new ConsistencyException("The Anything may not be deleted.");
@@ -300,12 +292,12 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
 				throws PersistenceException{
 		return "Anything";
 	}
-    public void prepareForDeletion() 
-				throws model.ConsistencyException, PersistenceException{
-	}
     public PersistentMAtomicTypeConjunction transientMultiply(final PersistentMAtomicTypeConjunction other) 
 				throws PersistenceException{
 		return other;
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

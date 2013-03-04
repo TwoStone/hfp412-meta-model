@@ -202,50 +202,13 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
     }
     
     
-    public NameInstanceSearchList getNames() 
+    public PersistentMBoolean containsInHierarchy(final PersistentMObject obj, final PersistentHierarchy hierac) 
 				throws PersistenceException{
-        NameInstanceSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameInstanceFacade
-							.inverseGetFromObject(this.getId(), this.getClassId());
-		return result;
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentMObject)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMObject)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-		}
-    }
-    public QuantifObjectSearchList inverseGetObject() 
-				throws PersistenceException{
-        QuantifObjectSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade
-							.inverseGetObject(this.getId(), this.getClassId());
-		return result;
-    }
-    public MessageOrLinkSearchList inverseGetSource() 
-				throws PersistenceException{
-        MessageOrLinkSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
-							.inverseGetSource(this.getId(), this.getClassId());
-		return result;
-    }
-    public MessageOrLinkSearchList inverseGetTarget() 
-				throws PersistenceException{
-        MessageOrLinkSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
-							.inverseGetTarget(this.getId(), this.getClassId());
-		return result;
-    }
-    public void addType(final PersistentMAtomicType newType) 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: addType
 
+		final HierarchySearchList listOfHierarchies = new HierarchySearchList();
+		listOfHierarchies.add(hierac);
+
+		return getThis().containsInHierarchies(obj, listOfHierarchies);
 	}
     public PersistentMBoolean containsInHierarchies(final PersistentMObject obj, final HierarchySearchList hieracs) 
 				throws PersistenceException{
@@ -280,18 +243,22 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 		}
 		return MFalse.getTheMFalse();
 	}
-    public PersistentMBoolean containsInHierarchy(final PersistentMObject obj, final PersistentHierarchy hierac) 
+    public LinkSearchList getLinksToMe(final TDObserver observer) 
 				throws PersistenceException{
-
-		final HierarchySearchList listOfHierarchies = new HierarchySearchList();
-		listOfHierarchies.add(hierac);
-
-		return getThis().containsInHierarchies(obj, listOfHierarchies);
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
+        LinkSearchList result = getThis().getLinksToMe();
+		observer.updateTransientDerived(getThis(), "linksToMe", result);
+		return result;
+    }
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
-
 	}
+    public QuantifObjectSearchList inverseGetObject() 
+				throws PersistenceException{
+        QuantifObjectSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade
+							.inverseGetObject(this.getId(), this.getClassId());
+		return result;
+    }
     public MModelItemSearchList getDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: getDependentItems
@@ -302,12 +269,14 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 			throw uoe;
 		}
 	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
+    public void addType(final PersistentMAtomicType newType) 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: addType
+
+	}
+    public void initializeOnCreation() 
 				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
-    }
+	}
     public LinkSearchList getLinksFromMe() 
 				throws PersistenceException{
 		final LinkSearchList result = new LinkSearchList();
@@ -328,12 +297,59 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 		}
 		return result;
 	}
+    public void removeType(final PersistentMAtomicType oldType) 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: removeType
+
+	}
+    public NameInstanceSearchList getNames() 
+				throws PersistenceException{
+        NameInstanceSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameInstanceFacade
+							.inverseGetFromObject(this.getId(), this.getClassId());
+		return result;
+    }
+    public MModelItemSearchList getDependentItems(final TDObserver observer) 
+				throws PersistenceException{
+        MModelItemSearchList result = getThis().getDependentItems();
+		observer.updateTransientDerived(getThis(), "dependentItems", result);
+		return result;
+    }
+    public MessageOrLinkSearchList inverseGetTarget() 
+				throws PersistenceException{
+        MessageOrLinkSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
+							.inverseGetTarget(this.getId(), this.getClassId());
+		return result;
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+
+	}
     public LinkSearchList getLinksFromMe(final TDObserver observer) 
 				throws PersistenceException{
         LinkSearchList result = getThis().getLinksFromMe();
 		observer.updateTransientDerived(getThis(), "linksFromMe", result);
 		return result;
     }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMObject)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMObject)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+		}
+    }
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
+
+	}
+    public void replaceType(final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: replaceType
+
+	}
     public LinkSearchList getLinksToMe() 
 				throws PersistenceException{
 		final LinkSearchList result = new LinkSearchList();
@@ -354,37 +370,13 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 		}
 		return result;
 	}
-    public LinkSearchList getLinksToMe(final TDObserver observer) 
+    public MessageOrLinkSearchList inverseGetSource() 
 				throws PersistenceException{
-        LinkSearchList result = getThis().getLinksToMe();
-		observer.updateTransientDerived(getThis(), "linksToMe", result);
+        MessageOrLinkSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
+							.inverseGetSource(this.getId(), this.getClassId());
 		return result;
     }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void prepareForDeletion() 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: prepareForDeletion
-
-	}
-    public void removeType(final PersistentMAtomicType oldType) 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: removeType
-
-	}
-    public void replaceType(final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: replaceType
-
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
     public NameSearchList getPossibleNames() 
 				throws PersistenceException{
 		final NameSearchList list = new NameSearchList();

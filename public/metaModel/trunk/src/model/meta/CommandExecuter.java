@@ -125,34 +125,6 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
     }
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        
-		if(this.equals(This)){
-		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public synchronized Command commandGet() 
-				throws PersistenceException{
-        while (!this.getCommands().iterator().hasNext()){
-			try {
-				this.wait();
-			}catch(InterruptedException ie){
-				return null;
-			}
-		}
-		java.util.Iterator<Command> commands = this.getCommands().iterator();
-		Command command = commands.next();
-		return command;
-    }
-    public synchronized void commandPut(final Command command) 
-				throws PersistenceException{
-        this.getCommands().add(command);
-		this.notify();
-    }
     public synchronized void finishCommand(final CommitConnectionHandler handler) 
 				throws PersistenceException{
         java.util.Iterator<Command> commands = this.getCommands().iterator();
@@ -160,14 +132,6 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
 		commands.remove();
 		((PersistentCommonDate)command).setCommitDate(new java.sql.Date(new java.util.Date().getTime()));
 		handler.commit();
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-        this.initializeOnInstantiation();
-    }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-        this.start();
     }
     public void run() {
         try {
@@ -205,6 +169,21 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
 			return;
 		}
     }
+    public synchronized void commandPut(final Command command) 
+				throws PersistenceException{
+        this.getCommands().add(command);
+		this.notify();
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        this.start();
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        
+		if(this.equals(This)){
+		}
+    }
     public void start() 
 				throws PersistenceException{
         Thread myThread = new Thread(this, "CommandExecuter " + this.getId());
@@ -216,10 +195,23 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
 			false);
 		myThread.start();
     }
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        this.initializeOnInstantiation();
+    }
+    public synchronized Command commandGet() 
+				throws PersistenceException{
+        while (!this.getCommands().iterator().hasNext()){
+			try {
+				this.wait();
+			}catch(InterruptedException ie){
+				return null;
+			}
+		}
+		java.util.Iterator<Command> commands = this.getCommands().iterator();
+		Command command = commands.next();
+		return command;
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     

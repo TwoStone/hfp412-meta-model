@@ -202,20 +202,13 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
     }
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public MModelItemSearchList getDependentItems(final TDObserver observer) 
 				throws PersistenceException{
-        this.setThis((PersistentMSingletonObject)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMSingletonObject)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-			this.setType((PersistentMAtomicType)final$$Fields.get("type"));
-		}
+        MModelItemSearchList result = getThis().getDependentItems();
+		observer.updateTransientDerived(getThis(), "dependentItems", result);
+		return result;
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
     public MModelItemSearchList getDependentItems() 
@@ -228,27 +221,26 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
 			throw uoe;
 		}
 	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMSingletonObject)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMSingletonObject)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+			this.setType((PersistentMAtomicType)final$$Fields.get("type"));
+		}
     }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 		// TODO: implement method: prepareForDeletion
 
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
 		// TODO Auto-generated method stub

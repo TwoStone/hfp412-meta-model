@@ -152,25 +152,7 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     }
     
     
-    public void createAspect(final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateAspectCommand command = model.meta.CreateAspectCommand.createCreateAspectCommand(name, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentAspectManager)This);
-		if(this.equals(This)){
-		}
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
     public PersistentMAspect createAspect(final String name) 
@@ -183,16 +165,26 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
 		getThis().getAspects().add(result);
 		return result;
 	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentAspectManager)This);
+		if(this.equals(This)){
+		}
+    }
+    public void createAspect(final String name, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateAspectCommand command = model.meta.CreateAspectCommand.createCreateAspectCommand(name, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     

@@ -175,6 +175,12 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
     
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMessageOrLink)This);
@@ -185,32 +191,18 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
 			this.setTarget((PersistentMObject)final$$Fields.get("target"));
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO Check delegation to abstract class and overwrite if necessary!
-		this.getMyCONCMModelItem().delete();
 	}
     public MModelItemSearchList getDependentItems() 
 				throws PersistenceException{
 		// Weder Messages noch Links haben dependentItems
 		return new MModelItemSearchList();
+	}
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO Check delegation to abstract class and overwrite if necessary!
+		this.getMyCONCMModelItem().delete();
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

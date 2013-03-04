@@ -167,16 +167,27 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
     }
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
+    public void calcTargetRefs() 
+				throws model.NotComputableException, PersistenceException{
+		// TODO: implement method: calcTargetRefs
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentDivision)This);
 		if(this.equals(This)){
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public common.Fraction calcFraction(final common.Fraction arg1, final common.Fraction arg2) 
 				throws model.NotComputableException, PersistenceException{
 		// TODO: implement method: calcFraction
@@ -187,35 +198,16 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
 			throw uoe;
 		}
 	}
-    public void calcTargetRefTypes() 
-				throws model.NotComputableException, PersistenceException{
-		// TODO: implement method: calcTargetRefTypes
-
-	}
-    public void calcTargetRefs() 
-				throws model.NotComputableException, PersistenceException{
-		// TODO: implement method: calcTargetRefs
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
 
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
+    public void calcTargetRefTypes() 
+				throws model.NotComputableException, PersistenceException{
+		// TODO: implement method: calcTargetRefTypes
 
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
 

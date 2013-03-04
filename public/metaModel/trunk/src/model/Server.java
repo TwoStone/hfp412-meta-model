@@ -442,145 +442,22 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     
-    public MTypeSearchList containees_Path_In_CreateTypeConjunction() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public MTypeSearchList containees_Path_In_CreateTypeDisjunction() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public AbsUnitSearchList defaultUnit_Path_In_SetDefaultUnit() 
-				throws model.UserException, PersistenceException{
-        		return new AbsUnitSearchList(getThis().getUnitTypeManager().
-				getUnits().getList());
-    }
-    public FormalParameterSearchList fp_Path_In_AddFp() 
-				throws model.UserException, PersistenceException{
-        		return new FormalParameterSearchList(getThis().getOperationManager().
-				getFormalParameters().getList());
-    }
-    public FormalParameterSearchList fp_Path_In_CreateOperation() 
-				throws model.UserException, PersistenceException{
-        		return new FormalParameterSearchList(getThis().getOperationManager().
-				getFormalParameters().getList());
-    }
-    public FormalParameterSearchList fp_Path_In_CreateStaticOp() 
-				throws model.UserException, PersistenceException{
-        		return new FormalParameterSearchList(getThis().getOperationManager().
-				getFormalParameters().getList());
-    }
-    public FormalParameterSearchList fp_Path_In_CreateVoidOperation() 
-				throws model.UserException, PersistenceException{
-        		return new FormalParameterSearchList(getThis().getOperationManager().
-				getFormalParameters().getList());
-    }
-    public PersistentAccountManager getAccountManager() 
-				throws PersistenceException{
-		return model.measurement.AccountManager.getTheAccountManager();
-	}
-    public PersistentAccountTypeManager getAccountTypeManager() 
-				throws PersistenceException{
-		return model.measurement.AccountTypeManager.getTheAccountTypeManager();
-	}
-    public PersistentAspectManager getAspectManager() 
-				throws PersistenceException{
-		return model.typeSystem.AspectManager.getTheAspectManager();
-	}
-    public PersistentAssociationManager getAssociationManager() 
-				throws PersistenceException{
-		return model.abstractOperation.AssociationManager.getTheAssociationManager();
-	}
-    public PersistentFractionManager getFractionManager() 
-				throws PersistenceException{
-		return model.quantity.FractionManager.getTheFractionManager();
-	}
-    public PersistentLinkManager getLinkManager() 
-				throws PersistenceException{
-		return model.messageOrLink.LinkManager.getTheLinkManager();
-	}
-    public PersistentMeasurementTypeManager getMeasurementTypeManager() 
-				throws PersistenceException{
-		return model.measurement.MeasurementTypeManager.getTheMeasurementTypeManager();
-	}
-    public PersistentMessageManager getMessageManager() 
-				throws PersistenceException{
-		return model.messageOrLink.MessageManager.getTheMessageManager();
-	}
-    public PersistentNameSchemeManager getNameSchemeManager() 
-				throws PersistenceException{
-		return model.naming.NameSchemeManager.getTheNameSchemeManager();
-	}
     public PersistentObjectManager getObjectManager() 
 				throws PersistenceException{
 		return model.typeSystem.ObjectManager.getTheObjectManager();
 	}
-    public PersistentOperationManager getOperationManager() 
+    public void signalChanged(final boolean signal) 
 				throws PersistenceException{
-		return model.abstractOperation.OperationManager.getTheOperationManager();
+        this.changed = signal;
+    }
+    public void createHierarchy(final PersistentAssociationManager manager, final PersistentAssociation a, final String name) 
+				throws PersistenceException{
+		manager.createHierarchy(a, name, getThis());
+
 	}
-    public PersistentQuantityManager getQuantityManager() 
-				throws PersistenceException{
-		return model.quantity.QuantityManager.getTheQuantityManager();
-	}
-    public PersistentTypeManager getTypeManager() 
-				throws PersistenceException{
-		return model.typeSystem.TypeManager.getTheTypeManager();
-	}
-    public PersistentUnitTypeManager getUnitTypeManager() 
-				throws PersistenceException{
-		return model.quantity.UnitTypeManager.getTheUnitTypeManager();
-	}
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentServer)This);
-		if(this.equals(This)){
-			this.setPassword((String)final$$Fields.get("password"));
-			this.setUser((String)final$$Fields.get("user"));
-			this.setHackCount((Long)final$$Fields.get("hackCount"));
-			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
-		}
-    }
-    public MMeasurementTypeSearchList measurementType_Path_In_CreateEntry() 
-				throws model.UserException, PersistenceException{
-        		return new MMeasurementTypeSearchList(getThis().getMeasurementTypeManager().
-				getMeasurementTypes().getList());
-    }
-    public MTypeSearchList newType_Path_In_AddType() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public MAtomicTypeSearchList newType_Path_In_ReplaceType(final PersistentMAtomicType oldType) 
-				throws model.UserException, PersistenceException{
-        		return new MAtomicTypeSearchList(oldType.
-				getAspect().
-				getTypes());
-    }
-    public MObjectSearchList object_Path_In_CreateEntry() 
-				throws model.UserException, PersistenceException{
-        		return new MObjectSearchList(getThis().getObjectManager().
-				getObjects().getList());
-    }
     public MTypeSearchList ofType_Path_In_CreateFp() 
 				throws model.UserException, PersistenceException{
         		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public MAtomicTypeSearchList oldType_Path_In_RemoveType(final PersistentMObject object) 
-				throws model.UserException, PersistenceException{
-        		return new MAtomicTypeSearchList(object.
-				getTypes().getList());
-    }
-    public MAtomicTypeSearchList oldType_Path_In_ReplaceType(final PersistentMObject object) 
-				throws model.UserException, PersistenceException{
-        		return new MAtomicTypeSearchList(object.
 				getTypes().getList());
     }
     public MTypeSearchList otherTypes_Path_In_CreateMObject() 
@@ -588,400 +465,39 @@ public class Server extends PersistentObject implements PersistentServer{
         		return new MTypeSearchList(getThis().getTypeManager().
 				getTypes().getList());
     }
-    public AbsQuantitySearchList quantity_Path_In_CreateEntry() 
-				throws model.UserException, PersistenceException{
-        		return new AbsQuantitySearchList(getThis().getQuantityManager().
-				getQuantities().getList());
-    }
-    public UnitTypeSearchList referenceUnitType_Path_In_AddReferenceType() 
-				throws model.UserException, PersistenceException{
-        		return new UnitTypeSearchList(getThis().getUnitTypeManager().
-				getAtomicUnitTypes());
-    }
-    public AbsUnitSearchList referenceUnit_Path_In_AddReference() 
-				throws model.UserException, PersistenceException{
-        		return new AbsUnitSearchList(getThis().getUnitTypeManager().
-				getUnits().getList());
-    }
-    public NameSchemeSearchList scheme_Path_In_AssignNameScheme() 
-				throws model.UserException, PersistenceException{
-        		return new NameSchemeSearchList(getThis().getNameSchemeManager().
-				getSchemes().getList());
-    }
-    public MAtomicTypeSearchList scheme_Path_In_AssignName(final PersistentMObject object) 
-				throws model.UserException, PersistenceException{
-        		return new MAtomicTypeSearchList(object.
-				getTypes().getList());
-    }
-    public void signalChanged(final boolean signal) 
-				throws PersistenceException{
-        this.changed = signal;
-    }
-    public MObjectSearchList source_Path_In_CreateLink() 
-				throws model.UserException, PersistenceException{
-        		return new MObjectSearchList(getThis().getObjectManager().
-				getObjects().getList());
-    }
-    public MTypeSearchList source_Path_In_CreateOperation() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public MTypeSearchList source_Path_In_CreateVoidOperation() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public MTypeSearchList target_Path_In_CreateConstant() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public MObjectSearchList target_Path_In_CreateLink() 
-				throws model.UserException, PersistenceException{
-        		return new MObjectSearchList(getThis().getObjectManager().
-				getObjects().getList());
-    }
-    public MTypeSearchList target_Path_In_CreateOperation() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public MTypeSearchList target_Path_In_CreateStaticOp() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public MTypeSearchList type_Path_In_CreateAccountType() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public MAccountTypeSearchList type_Path_In_CreateAccount() 
-				throws model.UserException, PersistenceException{
-        		return new MAccountTypeSearchList(getThis().getAccountTypeManager().
-				getAccountTypes().getList());
-    }
-    public AssociationSearchList type_Path_In_CreateLink() 
-				throws model.UserException, PersistenceException{
-        		return new AssociationSearchList(getThis().getAssociationManager().
-				getAssociations().getList());
-    }
-    public MTypeSearchList type_Path_In_CreateMObject() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public MTypeSearchList type_Path_In_CreateMeasurementType() 
-				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
-    }
-    public UnitTypeSearchList unitType_Path_In_CreateAccountType() 
-				throws model.UserException, PersistenceException{
-        		return new UnitTypeSearchList(getThis().getUnitTypeManager().
-				getAtomicUnitTypes());
-    }
-    public UnitTypeSearchList unitType_Path_In_CreateMeasurementType() 
-				throws model.UserException, PersistenceException{
-        		return new UnitTypeSearchList(getThis().getUnitTypeManager().
-				getAtomicUnitTypes());
-    }
-    public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
-				throws PersistenceException{
-		getThis().getAssociationManager().addAssociation(h, a, getThis());
-	}
-    public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
-				throws PersistenceException{
-		getOperationManager().addFp(op, fp, getThis());
-
-	}
-    public void addReferenceType(final PersistentAbsUnitType unitType, final String name, final PersistentUnitType referenceUnitType, final long exponent) 
-				throws PersistenceException{
-		getUnitTypeManager().addReferenceType(name, unitType, referenceUnitType, exponent, getThis());
-
-	}
-    public void addReference(final PersistentAbsUnit unit, final String name, final PersistentUnit referenceUnit, final long exponent) 
-				throws PersistenceException{
-		getUnitTypeManager().addReference(name, unit, referenceUnit, exponent, getThis());
-
-	}
-    public void addSubAccountType(final PersistentMAccountType parent, final PersistentMAccountType child) 
-				throws model.CycleException, PersistenceException{
-		// TODO: implement method: addSubAccountType
-	}
-    public void addSubAccount(final PersistentAccount parent, final PersistentAccount child) 
-				throws model.CycleException, PersistenceException{
-		// TODO: implement method: addSubAccount
-
-	}
-    public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy) 
-				throws PersistenceException{
-		getAssociationManager().addAssociation(theHierarchy, association, getThis());
-	}
-    public void addType(final PersistentMObject object, final PersistentMAtomicType newType) 
-				throws PersistenceException{
-		getObjectManager().addType(object, newType, getThis());
-
-	}
-    public void add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) 
-				throws model.NotComputableException, PersistenceException{
-		getThis().getQuantityManager().add(summand1, summand2, getThis());
-	}
-    public void assignNameScheme(final PersistentMAtomicType type, final PersistentNameScheme scheme) 
-				throws PersistenceException{
-		getNameSchemeManager().assignType(scheme, type, getThis());
-
-	}
-    public void assignName(final PersistentMObject object, final PersistentName scheme, final String name) 
-				throws PersistenceException{
-		getNameSchemeManager().assignName(object, scheme, name, getThis());
-
-	}
-    public void assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type) 
-				throws PersistenceException{
-		getNameSchemeManager().assignType(scheme, type, getThis());
-	}
-    public void changeAbstract(final PersistentMAtomicType type, final String newAbstractType) 
-				throws PersistenceException{
-		getTypeManager().changeAbstract(type, MBoolean.createFromFactoryString(newAbstractType), getThis());
-	}
-    public void connected(final String user) 
-				throws PersistenceException{
-	}
-    public void convertToDefault(final PersistentQuantity quantity) 
-				throws PersistenceException{
-		getQuantityManager().convertToDefault(quantity, getThis());
-
-	}
-    public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) 
-				throws PersistenceException{
-		getQuantityManager().convert(quantity, unit, getThis());
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public void createAccountType(final PersistentAccountTypeManager accountTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
-				throws PersistenceException{
-		getAccountTypeManager().createAccountType(name, type, unitType, getThis());
-	}
-    public void createAccount(final PersistentAccountManager accountManager, final String name, final PersistentMAccountType type, final PersistentMObject object) 
-				throws PersistenceException{
-		accountManager.createAccount(name, type, object, getThis());
-	}
-    public void createAspect(final PersistentAspectManager aspectManager, final String name) 
-				throws PersistenceException{
-		getThis().getAspectManager().createAspect(name, getThis());
-	}
-    public void createAssociation(final PersistentAssociationManager manager, final PersistentMType source, final PersistentMType target, final String name) 
-				throws PersistenceException{
-		manager.createAssociation(source, target, name, getThis());
-	}
-    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final String singletonType, final String abstractType) 
-				throws PersistenceException{
-		getTypeManager().createAtomicRootType(aspect, typeName, MBoolean.createFromFactoryString(singletonType),
-				MBoolean.createFromFactoryString(abstractType), getThis());
-
-	}
-    public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final String singletonType, final String abstractType) 
-				throws PersistenceException{
-		getTypeManager().createAtomicSubType(superType, typeName, MBoolean.createFromFactoryString(singletonType),
-				MBoolean.createFromFactoryString(abstractType), getThis());
-
-	}
-    public void createConstant(final PersistentOperationManager operationManager, final String name, final PersistentMType target) 
-				throws PersistenceException{
-		operationManager.createConstant(name, target, getThis());
-	}
-    public void createEntry(final PersistentAccount account, final PersistentMObject object, final PersistentMMeasurementType measurementType, final PersistentQuantity quantity) 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: createEntry
-	}
-    public void createFp(final PersistentOperationManager operationManager, final String name, final PersistentMType ofType) 
-				throws PersistenceException{
-		operationManager.createFp(name, ofType, getThis());
-	}
-    public void createHierarchy(final PersistentAssociationManager manager, final PersistentAssociation a, final String name) 
-				throws PersistenceException{
-		manager.createHierarchy(a, name, getThis());
-
-	}
-    public void createHierarchy(final PersistentAssociation a, final String name) 
-				throws PersistenceException{
-		getThis().getAssociationManager().createHierarchy(a, name, getThis());
-
-	}
-    public void createLink(final PersistentLinkManager link, final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target) 
-				throws PersistenceException{
-		link.createLink(type, source, target, getThis());
-
-	}
-    public void createLink(final PersistentMObject source, final PersistentAssociation type, final PersistentMObject target) 
-				throws PersistenceException{
-		getLinkManager().createLink(type, source, target, getThis());
-	}
-    public void createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes) 
-				throws PersistenceException{
-		getObjectManager().createMObject(type, otherTypes, getThis());
-	}
-    public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
-				throws PersistenceException{
-		getMeasurementTypeManager().createMeasurementType(name, type, unitType, getThis());
-	}
-    public void createNameScheme(final PersistentNameSchemeManager manager, final String schemeName, final String regExp, final String isIterable) 
-				throws PersistenceException{
-		getNameSchemeManager().createNameScheme(schemeName, regExp, MBoolean.createFromFactoryString(isIterable),
-				getThis());
-	}
-    public void createOperation(final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
-				throws PersistenceException{
-		getOperationManager().createOperation(source, target, name, fp, getThis());
-	}
-    public void createOperation(final PersistentOperationManager operationManager, final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
-				throws PersistenceException{
-		getOperationManager().createOperation(source, target, name, fp, getThis());
-	}
-    public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit, final common.Fraction f) 
-				throws PersistenceException{
-		getQuantityManager().createQuantity(unit, f, getThis());
-	}
-    public void createStaticOp(final PersistentOperationManager operationManager, final String name, final PersistentMType target, final FormalParameterSearchList fp) 
-				throws PersistenceException{
-		getOperationManager().createStaticOp(name, target, fp, getThis());
-	}
-    public void createTypeConjunction(final MTypeSearchList containees) 
-				throws PersistenceException{
-		getThis().getTypeManager().createTypeConjunction(containees, getThis());
-
-	}
-    public void createTypeDisjunction(final MTypeSearchList containees) 
-				throws PersistenceException{
-		getThis().getTypeManager().createTypeDisjunction(containees, getThis());
-
-	}
-    public void createUnitType(final PersistentUnitTypeManager manager, final String name) 
-				throws PersistenceException{
-		getUnitTypeManager().createUnitType(name, getThis());
-	}
-    public void createUnit(final PersistentUnitType type, final String name) 
-				throws PersistenceException{
-		getUnitTypeManager().createUnit(name, type, getThis());
-	}
-    public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
-				throws PersistenceException{
-		getOperationManager().createVoidOperation(source, name, fp, getThis());
-	}
-    public void createVoidOperation(final PersistentOperationManager operationManager, final PersistentMType source, final String name, final FormalParameterSearchList fp) 
-				throws PersistenceException{
-		getOperationManager().createVoidOperation(source, name, fp, getThis());
-	}
-    public void disconnected() 
-				throws PersistenceException{
-	}
-    public void div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) 
-				throws model.NotComputableException, PersistenceException{
-		getThis().getQuantityManager().div(dividend, divisor, getThis());
-	}
-    public void fetchScalarType(final PersistentUnitTypeManager manager) 
-				throws PersistenceException{
-		manager.fetchScalarType(getThis());
-	}
-    public void fetchScalar(final PersistentUnitTypeManager manager) 
-				throws PersistenceException{
-		manager.fetchScalar(getThis());
-	}
-    public PersistentAccountManager getAccountManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentAccountManager result = getThis().getAccountManager();
-		observer.updateTransientDerived(getThis(), "accountManager", result);
-		return result;
-    }
-    public PersistentAccountTypeManager getAccountTypeManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentAccountTypeManager result = getThis().getAccountTypeManager();
-		observer.updateTransientDerived(getThis(), "accountTypeManager", result);
-		return result;
-    }
-    public PersistentAspectManager getAspectManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentAspectManager result = getThis().getAspectManager();
-		observer.updateTransientDerived(getThis(), "aspectManager", result);
-		return result;
-    }
-    public PersistentAssociationManager getAssociationManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentAssociationManager result = getThis().getAssociationManager();
-		observer.updateTransientDerived(getThis(), "associationManager", result);
-		return result;
-    }
-    public PersistentFractionManager getFractionManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentFractionManager result = getThis().getFractionManager();
-		observer.updateTransientDerived(getThis(), "fractionManager", result);
-		return result;
-    }
-    public PersistentLinkManager getLinkManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentLinkManager result = getThis().getLinkManager();
-		observer.updateTransientDerived(getThis(), "linkManager", result);
-		return result;
-    }
-    public PersistentMeasurementTypeManager getMeasurementTypeManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentMeasurementTypeManager result = getThis().getMeasurementTypeManager();
-		observer.updateTransientDerived(getThis(), "measurementTypeManager", result);
-		return result;
-    }
-    public PersistentMessageManager getMessageManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentMessageManager result = getThis().getMessageManager();
-		observer.updateTransientDerived(getThis(), "messageManager", result);
-		return result;
-    }
     public PersistentNameSchemeManager getNameSchemeManager(final TDObserver observer) 
 				throws PersistenceException{
         PersistentNameSchemeManager result = getThis().getNameSchemeManager();
 		observer.updateTransientDerived(getThis(), "nameSchemeManager", result);
 		return result;
     }
-    public PersistentObjectManager getObjectManager(final TDObserver observer) 
+    public void createTypeDisjunction(final MTypeSearchList containees) 
 				throws PersistenceException{
-        PersistentObjectManager result = getThis().getObjectManager();
-		observer.updateTransientDerived(getThis(), "objectManager", result);
+		getThis().getTypeManager().createTypeDisjunction(containees, getThis());
+
+	}
+    public void createEntry(final PersistentAccount account, final PersistentMObject object, final PersistentMMeasurementType measurementType, final PersistentQuantity quantity) 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: createEntry
+	}
+    public PersistentLinkManager getLinkManager() 
+				throws PersistenceException{
+		return model.messageOrLink.LinkManager.getTheLinkManager();
+	}
+    public PersistentAccountTypeManager getAccountTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentAccountTypeManager result = getThis().getAccountTypeManager();
+		observer.updateTransientDerived(getThis(), "accountTypeManager", result);
 		return result;
     }
-    public PersistentOperationManager getOperationManager(final TDObserver observer) 
+    public PersistentNameSchemeManager getNameSchemeManager() 
 				throws PersistenceException{
-        PersistentOperationManager result = getThis().getOperationManager();
-		observer.updateTransientDerived(getThis(), "operationManager", result);
-		return result;
-    }
-    public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
+		return model.naming.NameSchemeManager.getTheNameSchemeManager();
+	}
+    public void createHierarchy(final PersistentAssociation a, final String name) 
 				throws PersistenceException{
-        PersistentQuantityManager result = getThis().getQuantityManager();
-		observer.updateTransientDerived(getThis(), "quantityManager", result);
-		return result;
-    }
-    public PersistentTypeManager getTypeManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentTypeManager result = getThis().getTypeManager();
-		observer.updateTransientDerived(getThis(), "typeManager", result);
-		return result;
-    }
-    public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentUnitTypeManager result = getThis().getUnitTypeManager();
-		observer.updateTransientDerived(getThis(), "unitTypeManager", result);
-		return result;
-    }
-    public void handleException(final Command command, final PersistenceException exception) 
-				throws PersistenceException{
-		new Thread(new Runnable() {
-			@Override
-			public/* INTERNAL */void run() {
-				// Handle exception!
-			}
-		}).start();
+		getThis().getAssociationManager().createHierarchy(a, name, getThis());
+
 	}
     public void handleResult(final Command command) 
 				throws PersistenceException{
@@ -1005,12 +521,322 @@ public class Server extends PersistentObject implements PersistentServer{
 			}
 		}).start();
 	}
-    public boolean hasChanged() 
+    public PersistentUnitTypeManager getUnitTypeManager() 
 				throws PersistenceException{
-		final boolean result = this.changed;
-		this.changed = false;
-		return result;
+		return model.quantity.UnitTypeManager.getTheUnitTypeManager();
 	}
+    public PersistentAspectManager getAspectManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentAspectManager result = getThis().getAspectManager();
+		observer.updateTransientDerived(getThis(), "aspectManager", result);
+		return result;
+    }
+    public PersistentUnitTypeManager getUnitTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentUnitTypeManager result = getThis().getUnitTypeManager();
+		observer.updateTransientDerived(getThis(), "unitTypeManager", result);
+		return result;
+    }
+    public FormalParameterSearchList fp_Path_In_AddFp() 
+				throws model.UserException, PersistenceException{
+        		return new FormalParameterSearchList(getThis().getOperationManager().
+				getFormalParameters().getList());
+    }
+    public void mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2) 
+				throws model.DoubleDefinitionException, model.NotComputableException, PersistenceException{
+		getThis().getQuantityManager().mul(factor1, factor2, getThis());
+	}
+    public MTypeSearchList source_Path_In_CreateOperation() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public void createLink(final PersistentLinkManager link, final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target) 
+				throws PersistenceException{
+		link.createLink(type, source, target, getThis());
+
+	}
+    public PersistentFractionManager getFractionManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentFractionManager result = getThis().getFractionManager();
+		observer.updateTransientDerived(getThis(), "fractionManager", result);
+		return result;
+    }
+    public MTypeSearchList type_Path_In_CreateMeasurementType() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
+				throws PersistenceException{
+		getOperationManager().addFp(op, fp, getThis());
+
+	}
+    public PersistentMeasurementTypeManager getMeasurementTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentMeasurementTypeManager result = getThis().getMeasurementTypeManager();
+		observer.updateTransientDerived(getThis(), "measurementTypeManager", result);
+		return result;
+    }
+    public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy) 
+				throws PersistenceException{
+		getAssociationManager().addAssociation(theHierarchy, association, getThis());
+	}
+    public void createFp(final PersistentOperationManager operationManager, final String name, final PersistentMType ofType) 
+				throws PersistenceException{
+		operationManager.createFp(name, ofType, getThis());
+	}
+    public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) 
+				throws PersistenceException{
+		getQuantityManager().convert(quantity, unit, getThis());
+	}
+    public MTypeSearchList containees_Path_In_CreateTypeConjunction() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public PersistentAccountManager getAccountManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentAccountManager result = getThis().getAccountManager();
+		observer.updateTransientDerived(getThis(), "accountManager", result);
+		return result;
+    }
+    public PersistentTypeManager getTypeManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentTypeManager result = getThis().getTypeManager();
+		observer.updateTransientDerived(getThis(), "typeManager", result);
+		return result;
+    }
+    public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
+				throws PersistenceException{
+		getObjectManager().replaceType(object, oldType, newType, getThis());
+	}
+    public void createAtomicSubType(final PersistentMAtomicType superType, final String typeName, final String singletonType, final String abstractType) 
+				throws PersistenceException{
+		getTypeManager().createAtomicSubType(superType, typeName, MBoolean.createFromFactoryString(singletonType),
+				MBoolean.createFromFactoryString(abstractType), getThis());
+
+	}
+    public void div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) 
+				throws model.NotComputableException, PersistenceException{
+		getThis().getQuantityManager().div(dividend, divisor, getThis());
+	}
+    public void changeAbstract(final PersistentMAtomicType type, final String newAbstractType) 
+				throws PersistenceException{
+		getTypeManager().changeAbstract(type, MBoolean.createFromFactoryString(newAbstractType), getThis());
+	}
+    public void createMeasurementType(final PersistentMeasurementTypeManager measurementTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
+				throws PersistenceException{
+		getMeasurementTypeManager().createMeasurementType(name, type, unitType, getThis());
+	}
+    public void removeUnitType(final PersistentAbsUnitType type) 
+				throws PersistenceException{
+		getUnitTypeManager().removeUnitType(type, getThis());
+	}
+    public void addSubAccountType(final PersistentMAccountType parent, final PersistentMAccountType child) 
+				throws model.CycleException, PersistenceException{
+		// TODO: implement method: addSubAccountType
+	}
+    public PersistentQuantityManager getQuantityManager() 
+				throws PersistenceException{
+		return model.quantity.QuantityManager.getTheQuantityManager();
+	}
+    public void removeOperation(final PersistentOperation op) 
+				throws PersistenceException{
+		getOperationManager().removeOperation(op, getThis());
+	}
+    public PersistentOperationManager getOperationManager() 
+				throws PersistenceException{
+		return model.abstractOperation.OperationManager.getTheOperationManager();
+	}
+    public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
+				throws PersistenceException{
+		getThis().getAssociationManager().addAssociation(h, a, getThis());
+	}
+    public void createConstant(final PersistentOperationManager operationManager, final String name, final PersistentMType target) 
+				throws PersistenceException{
+		operationManager.createConstant(name, target, getThis());
+	}
+    public void removeLink(final PersistentLink link) 
+				throws PersistenceException{
+		getLinkManager().removeLink(link, getThis());
+	}
+    public MAccountTypeSearchList type_Path_In_CreateAccount() 
+				throws model.UserException, PersistenceException{
+        		return new MAccountTypeSearchList(getThis().getAccountTypeManager().
+				getAccountTypes().getList());
+    }
+    public UnitTypeSearchList unitType_Path_In_CreateAccountType() 
+				throws model.UserException, PersistenceException{
+        		return new UnitTypeSearchList(getThis().getUnitTypeManager().
+				getAtomicUnitTypes());
+    }
+    public MTypeSearchList target_Path_In_CreateOperation() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public void createLink(final PersistentMObject source, final PersistentAssociation type, final PersistentMObject target) 
+				throws PersistenceException{
+		getLinkManager().createLink(type, source, target, getThis());
+	}
+    public void disconnected() 
+				throws PersistenceException{
+	}
+    public void handleException(final Command command, final PersistenceException exception) 
+				throws PersistenceException{
+		new Thread(new Runnable() {
+			@Override
+			public/* INTERNAL */void run() {
+				// Handle exception!
+			}
+		}).start();
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentServer)This);
+		if(this.equals(This)){
+			this.setPassword((String)final$$Fields.get("password"));
+			this.setUser((String)final$$Fields.get("user"));
+			this.setHackCount((Long)final$$Fields.get("hackCount"));
+			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
+		}
+    }
+    public MAtomicTypeSearchList scheme_Path_In_AssignName(final PersistentMObject object) 
+				throws model.UserException, PersistenceException{
+        		return new MAtomicTypeSearchList(object.
+				getTypes().getList());
+    }
+    public void addType(final PersistentMObject object, final PersistentMAtomicType newType) 
+				throws PersistenceException{
+		getObjectManager().addType(object, newType, getThis());
+
+	}
+    public MTypeSearchList target_Path_In_CreateConstant() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public void createNameScheme(final PersistentNameSchemeManager manager, final String schemeName, final String regExp, final String isIterable) 
+				throws PersistenceException{
+		getNameSchemeManager().createNameScheme(schemeName, regExp, MBoolean.createFromFactoryString(isIterable),
+				getThis());
+	}
+    public MTypeSearchList containees_Path_In_CreateTypeDisjunction() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public void removeFpFromOp(final PersistentOperation operation, final PersistentFormalParameter fp) 
+				throws PersistenceException{
+		getOperationManager().removeFpFromOp(operation, fp, getThis());
+	}
+    public PersistentOperationManager getOperationManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentOperationManager result = getThis().getOperationManager();
+		observer.updateTransientDerived(getThis(), "operationManager", result);
+		return result;
+    }
+    public PersistentAccountTypeManager getAccountTypeManager() 
+				throws PersistenceException{
+		return model.measurement.AccountTypeManager.getTheAccountTypeManager();
+	}
+    public PersistentTypeManager getTypeManager() 
+				throws PersistenceException{
+		return model.typeSystem.TypeManager.getTheTypeManager();
+	}
+    public void createAssociation(final PersistentAssociationManager manager, final PersistentMType source, final PersistentMType target, final String name) 
+				throws PersistenceException{
+		manager.createAssociation(source, target, name, getThis());
+	}
+    public void removeFromHierarchy(final PersistentHierarchy h, final PersistentAssociation a) 
+				throws PersistenceException{
+		getAssociationManager().removeAssoFrmHier(h, a, getThis());
+	}
+    public void createVoidOperation(final PersistentOperationManager operationManager, final PersistentMType source, final String name, final FormalParameterSearchList fp) 
+				throws PersistenceException{
+		getOperationManager().createVoidOperation(source, name, fp, getThis());
+	}
+    public MAtomicTypeSearchList newType_Path_In_ReplaceType(final PersistentMAtomicType oldType) 
+				throws model.UserException, PersistenceException{
+        		return new MAtomicTypeSearchList(oldType.
+				getAspect().
+				getTypes());
+    }
+    public void createTypeConjunction(final MTypeSearchList containees) 
+				throws PersistenceException{
+		getThis().getTypeManager().createTypeConjunction(containees, getThis());
+
+	}
+    public void connected(final String user) 
+				throws PersistenceException{
+	}
+    public void createOperation(final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
+				throws PersistenceException{
+		getOperationManager().createOperation(source, target, name, fp, getThis());
+	}
+    public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
+				throws PersistenceException{
+		getOperationManager().createVoidOperation(source, name, fp, getThis());
+	}
+    public FormalParameterSearchList fp_Path_In_CreateOperation() 
+				throws model.UserException, PersistenceException{
+        		return new FormalParameterSearchList(getThis().getOperationManager().
+				getFormalParameters().getList());
+    }
+    public PersistentAssociationManager getAssociationManager() 
+				throws PersistenceException{
+		return model.abstractOperation.AssociationManager.getTheAssociationManager();
+	}
+    public MMeasurementTypeSearchList measurementType_Path_In_CreateEntry() 
+				throws model.UserException, PersistenceException{
+        		return new MMeasurementTypeSearchList(getThis().getMeasurementTypeManager().
+				getMeasurementTypes().getList());
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public UnitTypeSearchList referenceUnitType_Path_In_AddReferenceType() 
+				throws model.UserException, PersistenceException{
+        		return new UnitTypeSearchList(getThis().getUnitTypeManager().
+				getAtomicUnitTypes());
+    }
+    public void createUnitType(final PersistentUnitTypeManager manager, final String name) 
+				throws PersistenceException{
+		getUnitTypeManager().createUnitType(name, getThis());
+	}
+    public void createAccountType(final PersistentAccountTypeManager accountTypeManager, final String name, final PersistentMType type, final PersistentUnitType unitType) 
+				throws PersistenceException{
+		getAccountTypeManager().createAccountType(name, type, unitType, getThis());
+	}
+    public void createQuantity(final PersistentQuantityManager manager, final PersistentAbsUnit unit, final common.Fraction f) 
+				throws PersistenceException{
+		getQuantityManager().createQuantity(unit, f, getThis());
+	}
+    public FormalParameterSearchList fp_Path_In_CreateStaticOp() 
+				throws model.UserException, PersistenceException{
+        		return new FormalParameterSearchList(getThis().getOperationManager().
+				getFormalParameters().getList());
+    }
+    public void removeUnit(final PersistentAbsUnit unit) 
+				throws PersistenceException{
+		getUnitTypeManager().removeUnit(unit, getThis());
+	}
+    public PersistentMessageManager getMessageManager() 
+				throws PersistenceException{
+		return model.messageOrLink.MessageManager.getTheMessageManager();
+	}
+    public MObjectSearchList object_Path_In_CreateEntry() 
+				throws model.UserException, PersistenceException{
+        		return new MObjectSearchList(getThis().getObjectManager().
+				getObjects().getList());
+    }
+    public PersistentMessageManager getMessageManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentMessageManager result = getThis().getMessageManager();
+		observer.updateTransientDerived(getThis(), "messageManager", result);
+		return result;
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 		/*
@@ -1053,70 +879,236 @@ public class Server extends PersistentObject implements PersistentServer{
 		 */
 
 	}
-    public void initializeOnInstantiation() 
+    public void convertToDefault(final PersistentQuantity quantity) 
 				throws PersistenceException{
-	}
-    public void mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2) 
-				throws model.DoubleDefinitionException, model.NotComputableException, PersistenceException{
-		getThis().getQuantityManager().mul(factor1, factor2, getThis());
+		getQuantityManager().convertToDefault(quantity, getThis());
+
 	}
     public void removeAssociation(final PersistentAssociation a) 
 				throws PersistenceException{
 		getAssociationManager().removeAssociation(a, getThis());
 	}
-    public void removeFpFromOp(final PersistentOperation operation, final PersistentFormalParameter fp) 
+    public PersistentAssociationManager getAssociationManager(final TDObserver observer) 
 				throws PersistenceException{
-		getOperationManager().removeFpFromOp(operation, fp, getThis());
+        PersistentAssociationManager result = getThis().getAssociationManager();
+		observer.updateTransientDerived(getThis(), "associationManager", result);
+		return result;
+    }
+    public void addReference(final PersistentAbsUnit unit, final String name, final PersistentUnit referenceUnit, final long exponent) 
+				throws PersistenceException{
+		getUnitTypeManager().addReference(name, unit, referenceUnit, exponent, getThis());
+
 	}
     public void removeFp(final PersistentFormalParameter fp) 
 				throws PersistenceException{
 		getOperationManager().removeFp(fp, getThis());
 	}
-    public void removeFromHierarchy(final PersistentHierarchy h, final PersistentAssociation a) 
-				throws PersistenceException{
-		getAssociationManager().removeAssoFrmHier(h, a, getThis());
-	}
-    public void removeLink(final PersistentLink link) 
-				throws PersistenceException{
-		getLinkManager().removeLink(link, getThis());
-	}
-    public void removeOperation(final PersistentOperation op) 
-				throws PersistenceException{
-		getOperationManager().removeOperation(op, getThis());
-	}
     public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType) 
 				throws PersistenceException{
 		getObjectManager().removeType(object, oldType, getThis());
 	}
-    public void removeUnitType(final PersistentAbsUnitType type) 
+    public PersistentAspectManager getAspectManager() 
 				throws PersistenceException{
-		getUnitTypeManager().removeUnitType(type, getThis());
+		return model.typeSystem.AspectManager.getTheAspectManager();
 	}
-    public void removeUnit(final PersistentAbsUnit unit) 
+    public MObjectSearchList source_Path_In_CreateLink() 
+				throws model.UserException, PersistenceException{
+        		return new MObjectSearchList(getThis().getObjectManager().
+				getObjects().getList());
+    }
+    public void createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes) 
 				throws PersistenceException{
-		getUnitTypeManager().removeUnit(unit, getThis());
+		getObjectManager().createMObject(type, otherTypes, getThis());
 	}
-    public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
+    public void assignNameScheme(final PersistentMAtomicType type, final PersistentNameScheme scheme) 
 				throws PersistenceException{
-		getObjectManager().replaceType(object, oldType, newType, getThis());
+		getNameSchemeManager().assignType(scheme, type, getThis());
+
 	}
-    public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
-				throws PersistenceException{
-		getUnitTypeManager().setConversion(unit, factor, constant, getThis());
-	}
+    public MObjectSearchList target_Path_In_CreateLink() 
+				throws model.UserException, PersistenceException{
+        		return new MObjectSearchList(getThis().getObjectManager().
+				getObjects().getList());
+    }
     public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit defaultUnit) 
 				throws PersistenceException{
 		getUnitTypeManager().setDefaultUnit(type, defaultUnit, getThis());
 
 	}
+    public void createUnit(final PersistentUnitType type, final String name) 
+				throws PersistenceException{
+		getUnitTypeManager().createUnit(name, type, getThis());
+	}
+    public AbsUnitSearchList referenceUnit_Path_In_AddReference() 
+				throws model.UserException, PersistenceException{
+        		return new AbsUnitSearchList(getThis().getUnitTypeManager().
+				getUnits().getList());
+    }
+    public void createAtomicRootType(final PersistentMAspect aspect, final String typeName, final String singletonType, final String abstractType) 
+				throws PersistenceException{
+		getTypeManager().createAtomicRootType(aspect, typeName, MBoolean.createFromFactoryString(singletonType),
+				MBoolean.createFromFactoryString(abstractType), getThis());
+
+	}
+    public void addSubAccount(final PersistentAccount parent, final PersistentAccount child) 
+				throws model.CycleException, PersistenceException{
+		// TODO: implement method: addSubAccount
+
+	}
+    public void fetchScalar(final PersistentUnitTypeManager manager) 
+				throws PersistenceException{
+		manager.fetchScalar(getThis());
+	}
+    public void add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) 
+				throws model.NotComputableException, PersistenceException{
+		getThis().getQuantityManager().add(summand1, summand2, getThis());
+	}
+    public MTypeSearchList source_Path_In_CreateVoidOperation() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public void fetchScalarType(final PersistentUnitTypeManager manager) 
+				throws PersistenceException{
+		manager.fetchScalarType(getThis());
+	}
+    public PersistentFractionManager getFractionManager() 
+				throws PersistenceException{
+		return model.quantity.FractionManager.getTheFractionManager();
+	}
+    public void createAspect(final PersistentAspectManager aspectManager, final String name) 
+				throws PersistenceException{
+		getThis().getAspectManager().createAspect(name, getThis());
+	}
+    public boolean hasChanged() 
+				throws PersistenceException{
+		final boolean result = this.changed;
+		this.changed = false;
+		return result;
+	}
+    public PersistentMeasurementTypeManager getMeasurementTypeManager() 
+				throws PersistenceException{
+		return model.measurement.MeasurementTypeManager.getTheMeasurementTypeManager();
+	}
+    public AbsQuantitySearchList quantity_Path_In_CreateEntry() 
+				throws model.UserException, PersistenceException{
+        		return new AbsQuantitySearchList(getThis().getQuantityManager().
+				getQuantities().getList());
+    }
+    public AbsUnitSearchList defaultUnit_Path_In_SetDefaultUnit() 
+				throws model.UserException, PersistenceException{
+        		return new AbsUnitSearchList(getThis().getUnitTypeManager().
+				getUnits().getList());
+    }
+    public AssociationSearchList type_Path_In_CreateLink() 
+				throws model.UserException, PersistenceException{
+        		return new AssociationSearchList(getThis().getAssociationManager().
+				getAssociations().getList());
+    }
+    public MTypeSearchList newType_Path_In_AddType() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public void createAccount(final PersistentAccountManager accountManager, final String name, final PersistentMAccountType type, final PersistentMObject object) 
+				throws PersistenceException{
+		accountManager.createAccount(name, type, object, getThis());
+	}
+    public PersistentLinkManager getLinkManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentLinkManager result = getThis().getLinkManager();
+		observer.updateTransientDerived(getThis(), "linkManager", result);
+		return result;
+    }
+    public PersistentAccountManager getAccountManager() 
+				throws PersistenceException{
+		return model.measurement.AccountManager.getTheAccountManager();
+	}
+    public MTypeSearchList target_Path_In_CreateStaticOp() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public FormalParameterSearchList fp_Path_In_CreateVoidOperation() 
+				throws model.UserException, PersistenceException{
+        		return new FormalParameterSearchList(getThis().getOperationManager().
+				getFormalParameters().getList());
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public PersistentQuantityManager getQuantityManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentQuantityManager result = getThis().getQuantityManager();
+		observer.updateTransientDerived(getThis(), "quantityManager", result);
+		return result;
+    }
+    public void createStaticOp(final PersistentOperationManager operationManager, final String name, final PersistentMType target, final FormalParameterSearchList fp) 
+				throws PersistenceException{
+		getOperationManager().createStaticOp(name, target, fp, getThis());
+	}
+    public MTypeSearchList type_Path_In_CreateAccountType() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
+				throws PersistenceException{
+		getUnitTypeManager().setConversion(unit, factor, constant, getThis());
+	}
+    public void createOperation(final PersistentOperationManager operationManager, final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
+				throws PersistenceException{
+		getOperationManager().createOperation(source, target, name, fp, getThis());
+	}
+    public void addReferenceType(final PersistentAbsUnitType unitType, final String name, final PersistentUnitType referenceUnitType, final long exponent) 
+				throws PersistenceException{
+		getUnitTypeManager().addReferenceType(name, unitType, referenceUnitType, exponent, getThis());
+
+	}
+    public PersistentObjectManager getObjectManager(final TDObserver observer) 
+				throws PersistenceException{
+        PersistentObjectManager result = getThis().getObjectManager();
+		observer.updateTransientDerived(getThis(), "objectManager", result);
+		return result;
+    }
     public void sub(final PersistentAbsQuantity minuend, final PersistentAbsQuantity subtrahend) 
 				throws model.NotComputableException, PersistenceException{
 		getThis().getQuantityManager().sub(minuend, subtrahend, getThis());
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void assignName(final PersistentMObject object, final PersistentName scheme, final String name) 
+				throws PersistenceException{
+		getNameSchemeManager().assignName(object, scheme, name, getThis());
+
+	}
+    public NameSchemeSearchList scheme_Path_In_AssignNameScheme() 
+				throws model.UserException, PersistenceException{
+        		return new NameSchemeSearchList(getThis().getNameSchemeManager().
+				getSchemes().getList());
+    }
+    public MTypeSearchList type_Path_In_CreateMObject() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public MAtomicTypeSearchList oldType_Path_In_RemoveType(final PersistentMObject object) 
+				throws model.UserException, PersistenceException{
+        		return new MAtomicTypeSearchList(object.
+				getTypes().getList());
+    }
+    public void assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type) 
+				throws PersistenceException{
+		getNameSchemeManager().assignType(scheme, type, getThis());
+	}
+    public MAtomicTypeSearchList oldType_Path_In_ReplaceType(final PersistentMObject object) 
+				throws model.UserException, PersistenceException{
+        		return new MAtomicTypeSearchList(object.
+				getTypes().getList());
+    }
+    public UnitTypeSearchList unitType_Path_In_CreateMeasurementType() 
+				throws model.UserException, PersistenceException{
+        		return new UnitTypeSearchList(getThis().getUnitTypeManager().
+				getAtomicUnitTypes());
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 

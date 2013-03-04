@@ -11,11 +11,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
         this.standardHandling(assignTypeCommand);
     }
-    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
-        this.standardHandling(addTypeCommand);
-    }
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
         this.standardHandling(createMObjectCommand);
+    }
+    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
+        this.standardHandling(addTypeCommand);
     }
     public void handleMinStrategy(PersistentMinStrategy minStrategy) throws PersistenceException{
         this.standardHandling(minStrategy);

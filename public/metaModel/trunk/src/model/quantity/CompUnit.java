@@ -155,6 +155,16 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
     }
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// implement method: initializeOnInstantiation
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentCompUnit)This);
@@ -163,33 +173,15 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
+    public void initializeOnCreation() 
+				throws PersistenceException{
+
+	}
     public void checkExponents() 
 				throws model.ExponentMatchingException, PersistenceException{
 		// TODO: implement method: checkExponents
 
 	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
-
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// implement method: initializeOnInstantiation
-
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     
