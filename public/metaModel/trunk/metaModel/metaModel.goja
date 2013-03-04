@@ -385,8 +385,8 @@ part quantity {
 		AbsUnit targetUnit;
 		AbsUnitType targetUnitType;
 		// consider protected part in Java-Source!
-		abstract void calcTargetRefs() throws NotComputableException;
-		abstract void calcTargetRefTypes() throws NotComputableException;
+		abstract void calcTargetRefs(Quantity arg1, Quantity arg2) throws NotComputableException;
+		abstract void calcTargetRefTypes(Quantity arg1, Quantity arg2) throws NotComputableException;
 		void findTargetUnit() throws NotComputableException;
 		void findTargetUnitType() throws NotComputableException;
 		void createTargetUnitType() throws NotComputableException;
