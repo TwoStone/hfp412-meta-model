@@ -75,12 +75,6 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
     
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMAbstractTypeConjunction)This);
@@ -89,48 +83,26 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
-		if (other instanceof PersistentMAbstractTypeConjunction) {
-			PersistentMAbstractTypeConjunction conjOther = (PersistentMAbstractTypeConjunction) other;
-			Iterator<PersistentMType> iteratorThis = getThis().getContainedTypes().iterator();
-			Iterator<PersistentMType> iteratorOther = conjOther.getContainedTypes().iterator();
-			while (iteratorThis.hasNext()) {
-				if (iteratorOther.hasNext()) {
-					if (!iteratorThis.next().isStructuralEquivalant(iteratorOther.next()).toBoolean()) {
-						return MFalse.getTheMFalse();
-					}
-				} else {
-					return MFalse.getTheMFalse();
-				}
-			}
-			return MBoolean.createFromBoolean(!iteratorOther.hasNext());
-		}
-
-		return MFalse.getTheMFalse();
 	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
     public String fetchTypeLinkOperator() 
 				throws PersistenceException{
 		return MAbstractTypeConjunction.TYPE_LINK_OP;
-	}
-    public PersistentMBoolean isSingleton() 
-				throws PersistenceException{
-		return getThis().getContainedTypes().getLength() == 0 ? MFalse.getTheMFalse() : MBoolean
-				.createFromBoolean(getThis().getContainedTypes().aggregate(new Aggregtion<PersistentMType, Boolean>() {
-
-					@Override
-					public Boolean neutral() throws PersistenceException {
-						return true;
-					}
-
-					@Override
-					public Boolean compose(Boolean result, PersistentMType argument) throws PersistenceException {
-						return result && argument.isSingleton().toBoolean();
-					}
-				}));
 	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
@@ -151,6 +123,42 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 						return result || argument.isAbstract().toBoolean();
 					}
 				}));
+	}
+    public PersistentMBoolean isSingleton() 
+				throws PersistenceException{
+		return getThis().getContainedTypes().getLength() == 0 ? MFalse.getTheMFalse() : MBoolean
+				.createFromBoolean(getThis().getContainedTypes().aggregate(new Aggregtion<PersistentMType, Boolean>() {
+
+					@Override
+					public Boolean neutral() throws PersistenceException {
+						return true;
+					}
+
+					@Override
+					public Boolean compose(Boolean result, PersistentMType argument) throws PersistenceException {
+						return result && argument.isSingleton().toBoolean();
+					}
+				}));
+	}
+    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
+				throws PersistenceException{
+		if (other instanceof PersistentMAbstractTypeConjunction) {
+			PersistentMAbstractTypeConjunction conjOther = (PersistentMAbstractTypeConjunction) other;
+			Iterator<PersistentMType> iteratorThis = getThis().getContainedTypes().iterator();
+			Iterator<PersistentMType> iteratorOther = conjOther.getContainedTypes().iterator();
+			while (iteratorThis.hasNext()) {
+				if (iteratorOther.hasNext()) {
+					if (!iteratorThis.next().isStructuralEquivalant(iteratorOther.next()).toBoolean()) {
+						return MFalse.getTheMFalse();
+					}
+				} else {
+					return MFalse.getTheMFalse();
+				}
+			}
+			return MBoolean.createFromBoolean(!iteratorOther.hasNext());
+		}
+
+		return MFalse.getTheMFalse();
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

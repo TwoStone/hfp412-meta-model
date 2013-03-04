@@ -11,11 +11,15 @@ import org.junit.Test;
 
 import persistence.PersistenceException;
 import persistence.PersistentCompUnitType;
+import persistence.PersistentReferenceType;
 import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
+import persistence.ReferenceTypeSearchList;
 import util.TestingBase;
 import constants.ExceptionConstants;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 /**
@@ -70,7 +74,7 @@ public class UnitTypeManagerTest extends TestingBase {
 			try {
 				typeManager.createUnitType(unitTypeName);
 			} catch (final DoubleDefinitionException e) {
-				// UnitType Temperatur ggf. schon aus vorherigem Testfall vorhanden.
+				// UnitType Laenge ggf. schon aus vorherigem Testfall vorhanden.
 			}
 			final PersistentUnitType unitType = (PersistentUnitType) AbsUnitType.getAbsUnitTypeByName(unitTypeName)
 					.iterator().next();
@@ -84,7 +88,7 @@ public class UnitTypeManagerTest extends TestingBase {
 
 			try {
 				typeManager.createUnit(unitName, unitType);
-				fail("Temperatur doppelt definiert, fehlende DoubleDefinitionExcpetion!");
+				fail("Meter doppelt definiert, fehlende DoubleDefinitionExcpetion!");
 			} catch (final DoubleDefinitionException e) {
 				// Exception korrekt!
 				assertEquals(ExceptionConstants.DOUBLE_UNIT_DEFINITION + unitName, e.getMessage());
@@ -99,13 +103,12 @@ public class UnitTypeManagerTest extends TestingBase {
 	 * Testet das Hinzuf�gen einer DefaultUnit.
 	 */
 	@Test
-	public void testAddDefaultUnit() {
+	public void testSetDefaultUnit() {
 		// TODO Test schreiben!
 	}
 
 	/**
-	 * Testet das Erstellen und abschließen einer Compound Unit Nachbedingungen: Name gesetzt, |Refs| = 0, isFinal =
-	 * false
+	 * Testet das Erstellen eines Compound Unit Type
 	 */
 	@Test
 	public void testCreateCompoundUnitType() {
@@ -153,4 +156,35 @@ public class UnitTypeManagerTest extends TestingBase {
 		// TODO : Test schreiben!
 	}
 
+	/**
+	 * Testet die Methode fetchCompUnitTypeWithReferenceTypes
+	 */
+	@Test
+	public void testGetExistinCUT() {
+		try {
+			final PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
+			final PersistentUnitType length = UnitType.createUnitType("Laenge");
+			final PersistentReferenceType lengthRef = ReferenceType.createReferenceType(1, length);
+			final PersistentUnitType time = UnitType.createUnitType("Zeit");
+			final PersistentReferenceType timeRef = ReferenceType.createReferenceType(-1, time);
+			final ReferenceTypeSearchList refTypes = new ReferenceTypeSearchList();
+			refTypes.add(timeRef);
+			refTypes.add(lengthRef);
+
+			// Testen ohne erstellten CompUnitType
+			PersistentCompUnitType existingCompUnitType = typeManager.getExistingCUT(refTypes);
+			assertNull("Es sollte kein CompUnitType mit diesen Referenzen existieren.", existingCompUnitType);
+
+			final PersistentCompUnitType lengthTimeCompUnit = CompUnitType.createCompUnitType("Laenge/Zeit");
+			lengthTimeCompUnit.getRefs().add(lengthRef);
+			lengthTimeCompUnit.getRefs().add(timeRef);
+
+			// Testen nach erstellen des CompUnitType
+			existingCompUnitType = typeManager.getExistingCUT(refTypes);
+			assertNotNull("Es sollte ein CompUnitType mit diesen Referenzen existieren.", existingCompUnitType);
+
+		} catch (final PersistenceException e) {
+			fail("Exception: " + e.getMessage());
+		}
+	}
 }

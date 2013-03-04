@@ -11,11 +11,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
         this.standardHandling(assignTypeCommand);
     }
-    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
-        this.standardHandling(createMObjectCommand);
-    }
     public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
         this.standardHandling(addTypeCommand);
+    }
+    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
+        this.standardHandling(createMObjectCommand);
     }
     public void handleMinStrategy(PersistentMinStrategy minStrategy) throws PersistenceException{
         this.standardHandling(minStrategy);
@@ -127,6 +127,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException{
         this.standardHandling(removeFpCommand);
+    }
+    public void handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException{
+        this.standardHandling(getExistingCUTCommand);
     }
     public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException{
         this.standardHandling(fetchScalarCommand);

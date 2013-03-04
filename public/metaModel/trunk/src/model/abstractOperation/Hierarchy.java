@@ -174,12 +174,6 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public AssociationSearchList getAssociations() 
 				throws PersistenceException{
         AssociationSearchList result = null;
@@ -187,6 +181,10 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
 							.inverseGetHierarchies(this.getId(), this.getClassId());
 		return result;
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentHierarchy)This);
@@ -194,9 +192,19 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

@@ -210,12 +210,6 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentQuantity)This);
@@ -224,27 +218,51 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 			this.setUnit((PersistentAbsUnit)final$$Fields.get("unit"));
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
+    public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
 				throws model.NotComputableException, PersistenceException{
 
-		if (!this.isArgumentCompound(subtrahend)) {
+		if (!this.isArgumentCompound(summand)) {
 			// summand instanceof Quantity
-			final PersistentQuantity subtrahendCast = (PersistentQuantity) subtrahend;
-			if (this.hasSameUnitAs(subtrahendCast))
-				return this.simpleSub(subtrahendCast);
+			final PersistentQuantity summandCast = (PersistentQuantity) summand;
+			if (this.hasSameUnitAs(summandCast))
+				return this.simpleAdd(summandCast);
 
-			if (!this.hasSameUnitTypeAs(subtrahendCast))
+			if (!this.hasSameUnitTypeAs(summandCast))
 				throw new NotComputableException("Addition / Subtraktion nur mit gleichem Typ möglich!");
 
-			return this.complexSub(subtrahendCast);
+			return this.complexAdd(summandCast);
 
 		} else {
-			final PersistentCompoundQuantity subtrahendCast = (PersistentCompoundQuantity) subtrahend;
-			return subtrahendCast.sub(getThis());
+			final PersistentCompoundQuantity summandCast = (PersistentCompoundQuantity) summand;
+			return summandCast.add(getThis());
 		}
+	}
+    public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub
+		return null;
+	}
+    public PersistentMBoolean isLessOrEqualThan(final PersistentAbsQuantity compareValue) 
+				throws model.UserException, PersistenceException{
+		// TODO Auto-generated method stub
+		return null;
 	}
     public PersistentAbsQuantity mul(final PersistentAbsQuantity factor) 
 				throws model.DoubleDefinitionException, model.NotComputableException, PersistenceException{
@@ -293,34 +311,24 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 			return factorAsCompoundQuantity.mul(getThis());
 		}
 	}
-    public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-    public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
 				throws model.NotComputableException, PersistenceException{
 
-		if (!this.isArgumentCompound(summand)) {
+		if (!this.isArgumentCompound(subtrahend)) {
 			// summand instanceof Quantity
-			final PersistentQuantity summandCast = (PersistentQuantity) summand;
-			if (this.hasSameUnitAs(summandCast))
-				return this.simpleAdd(summandCast);
+			final PersistentQuantity subtrahendCast = (PersistentQuantity) subtrahend;
+			if (this.hasSameUnitAs(subtrahendCast))
+				return this.simpleSub(subtrahendCast);
 
-			if (!this.hasSameUnitTypeAs(summandCast))
+			if (!this.hasSameUnitTypeAs(subtrahendCast))
 				throw new NotComputableException("Addition / Subtraktion nur mit gleichem Typ möglich!");
 
-			return this.complexAdd(summandCast);
+			return this.complexSub(subtrahendCast);
 
 		} else {
-			final PersistentCompoundQuantity summandCast = (PersistentCompoundQuantity) summand;
-			return summandCast.add(getThis());
+			final PersistentCompoundQuantity subtrahendCast = (PersistentCompoundQuantity) subtrahend;
+			return subtrahendCast.sub(getThis());
 		}
-	}
-    public PersistentMBoolean isLessOrEqualThan(final PersistentAbsQuantity compareValue) 
-				throws model.UserException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

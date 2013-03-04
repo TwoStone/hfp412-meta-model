@@ -233,26 +233,6 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
     }
     
     
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
-				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
-    }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-
-	}
-    public MTypeSearchList fetchTypesContainingThisDirectly() 
-				throws PersistenceException{
-		final MTypeSearchList result = new MTypeSearchList();
-		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
-		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
-		return result;
-	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -261,6 +241,10 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
 			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMMixedConjunction)This);
@@ -280,12 +264,9 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
 		}
 		return strategy.finalize$$MMixedConjunction(getThis(), parameter,result$$factors$$MMixedConjunction);
     }
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
+
 	}
     public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
 				throws PersistenceException{
@@ -311,6 +292,33 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
 		}
 		return result;
 	}
+    public MTypeSearchList fetchTypesContainingThisDirectly() 
+				throws PersistenceException{
+		final MTypeSearchList result = new MTypeSearchList();
+		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
+		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
+		return result;
+	}
+    public MModelItemSearchList getDependentItems(final TDObserver observer) 
+				throws PersistenceException{
+        MModelItemSearchList result = getThis().getDependentItems();
+		observer.updateTransientDerived(getThis(), "dependentItems", result);
+		return result;
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 	}

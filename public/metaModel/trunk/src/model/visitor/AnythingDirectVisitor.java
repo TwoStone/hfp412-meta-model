@@ -73,11 +73,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException{
         this.handleCommonDate(divCommand);
     }
-    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
-        this.handleCommonDate(addTypeCommand);
-    }
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
         this.handleCommonDate(createMObjectCommand);
+    }
+    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
+        this.handleCommonDate(addTypeCommand);
     }
     public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
         this.handleCommonDate(assignTypeCommand);
@@ -192,6 +192,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.handleCommonDate(createQuantityCommand);
+    }
+    public void handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException{
+        this.handleCommonDate(getExistingCUTCommand);
     }
     public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException{
         this.handleCommonDate(removeFpCommand);

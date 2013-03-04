@@ -228,12 +228,17 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
     }
     
     
-    public void initializeOnInstantiation() 
+    public NameSchemeInstanceSearchList getNames() 
 				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
+        NameSchemeInstanceSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameSchemeInstanceFacade
+							.inverseGetType(this.getId(), this.getClassId());
+		return result;
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentNameScheme)This);
@@ -243,20 +248,23 @@ public class NameScheme extends PersistentObject implements PersistentNameScheme
 			this.setIsIterable((PersistentMBoolean)final$$Fields.get("isIterable"));
 		}
     }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
     public PersistentMBoolean match(final String name) 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(Pattern.matches(getThis().getRegExpPattern(), name));
 	}
-    public NameSchemeInstanceSearchList getNames() 
-				throws PersistenceException{
-        NameSchemeInstanceSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameSchemeInstanceFacade
-							.inverseGetType(this.getId(), this.getClassId());
-		return result;
-    }
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

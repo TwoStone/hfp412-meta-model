@@ -412,6 +412,7 @@ part quantity {
 		active void setDefaultUnit(UnitType type, Unit unit);
 		active CompUnitType addReferenceType(String name, AbsUnitType unitType, UnitType referenceUnitType, Integer exponent) 
 			throws DoubleDefinitionException;
+		active CompUnitType getExistingCUT(ReferenceType** refTypes);
 
 		/* Operationen fuer Exemplarebene */
 		active Unit createUnit(String name, UnitType type) throws DoubleDefinitionException;
