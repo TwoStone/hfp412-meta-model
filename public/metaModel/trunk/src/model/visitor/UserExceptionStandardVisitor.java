@@ -5,14 +5,14 @@ import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
-    public void handleConsistencyException(model.ConsistencyException consistencyException) throws PersistenceException{
-        this.standardHandling(consistencyException);
+    public void handleExponentMatchingException(model.ExponentMatchingException exponentMatchingException) throws PersistenceException{
+        this.standardHandling(exponentMatchingException);
     }
     public void handleWrongSubTypeAspectException(model.WrongSubTypeAspectException wrongSubTypeAspectException) throws PersistenceException{
         this.standardHandling(wrongSubTypeAspectException);
     }
-    public void handleExponentMatchingException(model.ExponentMatchingException exponentMatchingException) throws PersistenceException{
-        this.standardHandling(exponentMatchingException);
+    public void handleConsistencyException(model.ConsistencyException consistencyException) throws PersistenceException{
+        this.standardHandling(consistencyException);
     }
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException{
         this.standardHandling(cycleException);
@@ -26,11 +26,11 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleEmptyTypeException(model.EmptyTypeException emptyTypeException) throws PersistenceException{
         this.standardHandling(emptyTypeException);
     }
-    public void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException{
-        this.standardHandling(doubleDefinitionException);
-    }
     public void handleNotFoundException(model.NotFoundException notFoundException) throws PersistenceException{
         this.standardHandling(notFoundException);
+    }
+    public void handleDoubleDefinitionException(model.DoubleDefinitionException doubleDefinitionException) throws PersistenceException{
+        this.standardHandling(doubleDefinitionException);
     }
     public void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException{
         this.standardHandling(restrictionException);

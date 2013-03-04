@@ -6,8 +6,8 @@ import persistence.*;
 public interface CommonDateVisitor {
     
     public void handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException;
-    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException;
+    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
     public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException;
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;
     public void handleRemoveUnitTypeCommand(PersistentRemoveUnitTypeCommand removeUnitTypeCommand) throws PersistenceException;

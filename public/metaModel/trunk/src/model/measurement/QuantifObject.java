@@ -112,28 +112,6 @@ public abstract class QuantifObject extends PersistentObject implements Persiste
     
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentQuantifObject)This);
-		if(this.equals(This)){
-			this.setObject((PersistentMObject)final$$Fields.get("object"));
-		}
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
-
-	}
     public void aggregate(final AggregationStrategy strategy, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -143,6 +121,36 @@ public abstract class QuantifObject extends PersistentObject implements Persiste
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentQuantifObject)This);
+		if(this.equals(This)){
+			this.setObject((PersistentMObject)final$$Fields.get("object"));
+		}
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnCreation
+
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

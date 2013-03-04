@@ -130,6 +130,10 @@ public class CommonDate extends PersistentObject implements PersistentCommonDate
     }
     
     
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

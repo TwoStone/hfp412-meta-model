@@ -136,28 +136,36 @@ public class MTrue extends model.basic.MBoolean implements PersistentMTrue{
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMTrue)This);
 		if(this.equals(This)){
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
+    public PersistentMBoolean invert() 
+				throws PersistenceException{
+		return MFalse.getTheMFalse();
 	}
     public boolean toBoolean() 
 				throws PersistenceException{
 		return true;
-	}
-    public PersistentMBoolean invert() 
-				throws PersistenceException{
-		return MFalse.getTheMFalse();
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

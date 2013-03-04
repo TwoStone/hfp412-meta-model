@@ -6,8 +6,8 @@ import persistence.*;
 public interface CommonDateReturnVisitor<R> {
     
     public R handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException;
-    public R handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
     public R handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException;
+    public R handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
     public R handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException;
     public R handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;
     public R handleRemoveUnitTypeCommand(PersistentRemoveUnitTypeCommand removeUnitTypeCommand) throws PersistenceException;

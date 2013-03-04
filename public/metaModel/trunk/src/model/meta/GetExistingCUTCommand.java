@@ -220,18 +220,14 @@ public class GetExistingCUTCommand extends PersistentObject implements Persisten
     }
     
     
-    public void execute() 
-				throws PersistenceException{
-        this.setCommandResult(this.getCommandReceiver().getExistingCUT(this.getRefTypes().getList()));
-		
-    }
     public void checkException() 
 				throws UserException, PersistenceException{
         if (this.commandException != null) throw this.commandException;
     }
-    public void sendResult() 
+    public void execute() 
 				throws PersistenceException{
-        this.invoker.handleResult(this);
+        this.setCommandResult(this.getCommandReceiver().getExistingCUT(this.getRefTypes().getList()));
+		
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{
@@ -241,6 +237,14 @@ public class GetExistingCUTCommand extends PersistentObject implements Persisten
 				throws PersistenceException{
         this.invoker.handleException(this, exception);
     }
+    public void sendResult() 
+				throws PersistenceException{
+        this.invoker.handleResult(this);
+    }
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

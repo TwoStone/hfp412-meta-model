@@ -29,7 +29,8 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void createAssociationSuccessful() throws PersistenceException, DoubleDefinitionException {
+	public void createAssociationSuccessful() throws PersistenceException, DoubleDefinitionException,
+			ConsistencyException {
 		manager.createAssociation(mat4, mat5, "a");
 		manager.createAssociation(mat4, mat5, "b");
 		manager.createAssociation(mat2, mat3, "c");
@@ -44,70 +45,70 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
-	public void createAssoicationDDE01() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationDDE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat2, mat3, "a");
 		manager.createAssociation(mat2, mat1, "a");
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
-	public void createAssoicationDDE02() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationDDE02() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat2, mat3, "a");
 		manager.createAssociation(mat3, mat2, "a");
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
-	public void createAssoicationDDE03() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationDDE03() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat1, mat3, "a");
 		manager.createAssociation(mat3, mat1, "a");
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
-	public void createAssoicationDDE04() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationDDE04() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat2, mat3, "a");
 		manager.createAssociation(mat2, mat3, "a");
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
-	public void createAssoicationDDE05() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationDDE05() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat2, mat4, "a");
 		manager.createAssociation(mptSingle2, mat4, "a");
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
-	public void createAssoicationDDE06() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationDDE06() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat2, mat5, "a");
 		manager.createAssociation(mptMultiple2And4, mat5, "a");
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
-	public void createAssoicationDDE07() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationDDE07() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat2, mat4, "a");
 		manager.createAssociation(mstSingle2, mat4, "a");
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
-	public void createAssoicationDDE08() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationDDE08() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat2, mat5, "a");
 		manager.createAssociation(mstMultiple2And4, mat5, "a");
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void createAssoicationCE01() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationCE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mptEmpty, mat1, "a");
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void createAssoicationCE02() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationCE02() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat1, mptEmpty, "a");
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void createAssoicationCE03() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationCE03() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mstEmpty, mat1, "a");
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void createAssoicationCE04() throws PersistenceException, DoubleDefinitionException {
+	public void createAssoicationCE04() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat1, mstEmpty, "a");
 	}
 

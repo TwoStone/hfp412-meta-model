@@ -170,6 +170,16 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
     }
     
     
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentSumStrategy)This);
+		if(this.equals(This)){
+		}
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsQuantity neutralElement, final MeasurementSearchList measurements) 
 				throws model.NotComputableException, PersistenceException{
 
@@ -189,24 +199,22 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
 
 				});
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-
-	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 
 	}
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentSumStrategy)This);
-		if(this.equals(This)){
-		}
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 
 	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

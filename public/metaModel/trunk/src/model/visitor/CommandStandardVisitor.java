@@ -14,11 +14,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
         this.standardHandling(assignTypeCommand);
     }
-    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
-        this.standardHandling(createMObjectCommand);
-    }
     public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
         this.standardHandling(addTypeCommand);
+    }
+    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
+        this.standardHandling(createMObjectCommand);
     }
     public void handleCreateStaticOpCommand(PersistentCreateStaticOpCommand createStaticOpCommand) throws PersistenceException{
         this.standardHandling(createStaticOpCommand);
@@ -80,11 +80,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleAddAssociationCommand(PersistentAddAssociationCommand addAssociationCommand) throws PersistenceException{
         this.standardHandling(addAssociationCommand);
     }
-    public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException{
-        this.standardHandling(replaceTypeCommand);
-    }
     public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
         this.standardHandling(setConversionCommand);
+    }
+    public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException{
+        this.standardHandling(replaceTypeCommand);
     }
     public void handleFetchScalarTypeCommand(PersistentFetchScalarTypeCommand fetchScalarTypeCommand) throws PersistenceException{
         this.standardHandling(fetchScalarTypeCommand);
