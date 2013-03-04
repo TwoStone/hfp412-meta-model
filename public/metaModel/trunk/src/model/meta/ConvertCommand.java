@@ -258,14 +258,18 @@ public class ConvertCommand extends PersistentObject implements PersistentConver
     }
     
     
-    public void checkException() 
-				throws UserException, PersistenceException{
-        if (this.commandException != null) throw this.commandException;
-    }
     public void execute() 
 				throws PersistenceException{
         this.getCommandReceiver().convert(this.getQuantity(), this.getUnit());
 		
+    }
+    public void checkException() 
+				throws UserException, PersistenceException{
+        if (this.commandException != null) throw this.commandException;
+    }
+    public void sendResult() 
+				throws PersistenceException{
+        this.invoker.handleResult(this);
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{
@@ -275,14 +279,6 @@ public class ConvertCommand extends PersistentObject implements PersistentConver
 				throws PersistenceException{
         this.invoker.handleException(this, exception);
     }
-    public void sendResult() 
-				throws PersistenceException{
-        this.invoker.handleResult(this);
-    }
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     

@@ -226,16 +226,6 @@ public class Reference extends PersistentObject implements PersistentReference{
     }
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentReference)This);
-		if(this.equals(This)){
-		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public CompUnitSearchList inverseGetRefs() 
 				throws PersistenceException{
         CompUnitSearchList result = null;
@@ -243,25 +233,27 @@ public class Reference extends PersistentObject implements PersistentReference{
 							.inverseGetRefs(this.getId(), this.getClassId());
 		return result;
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
-
-	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnInstantiation
 
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentReference)This);
+		if(this.equals(This)){
+		}
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnCreation
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
     

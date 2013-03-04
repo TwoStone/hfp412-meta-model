@@ -154,24 +154,6 @@ public class FractionManager extends PersistentObject implements PersistentFract
     }
     
     
-    public void addFraction(final String key, final common.Fraction newFraction, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddFractionCommand command = model.meta.AddFractionCommand.createAddFractionCommand(key, newFraction, now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentFractionManager)This);
-		if(this.equals(This)){
-		}
-    }
     public void addFraction(final String key, final common.Fraction newFraction) 
 				throws model.DoubleDefinitionException, PersistenceException{
 		common.Fraction preExisting;
@@ -186,23 +168,10 @@ public class FractionManager extends PersistentObject implements PersistentFract
 		}
 
 	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public common.Fraction getFraction(final String key) 
-				throws model.NotFoundException, PersistenceException{
-
-		final PersistentFractionWrapper wrapper = FractionManager.getTheFractionManager().getManagedFractions()
-				.get(key);
-		if (wrapper == null)
-			throw new NotFoundException(key + " wasn't found in hashmap");
-		return wrapper.getFraction();
-
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
     public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
     public common.Fraction invertSign(final common.Fraction fraction) 
@@ -215,10 +184,33 @@ public class FractionManager extends PersistentObject implements PersistentFract
             throw uoe;
         }
     }
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentFractionManager)This);
+		if(this.equals(This)){
+		}
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public common.Fraction getFraction(final String key) 
+				throws model.NotFoundException, PersistenceException{
+
+		final PersistentFractionWrapper wrapper = FractionManager.getTheFractionManager().getManagedFractions()
+				.get(key);
+		if (wrapper == null)
+			throw new NotFoundException(key + " wasn't found in hashmap");
+		return wrapper.getFraction();
+
+	}
+    public void addFraction(final String key, final common.Fraction newFraction, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddFractionCommand command = model.meta.AddFractionCommand.createAddFractionCommand(key, newFraction, now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
 

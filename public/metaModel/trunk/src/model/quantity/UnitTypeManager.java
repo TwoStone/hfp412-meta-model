@@ -197,6 +197,89 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     
     
+    public void addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddReferenceCommand command = model.meta.AddReferenceCommand.createAddReferenceCommand(name, exponent, now, now);
+		command.setUnit(unit);
+		command.setReferenceUnit(referenceUnit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public PersistentUnit createUnit(final String name, final PersistentUnitType type) 
+				throws model.DoubleDefinitionException, PersistenceException{
+		final AbsUnitSearchList old = Unit.getAbsUnitByName(name);
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION + name);
+		}
+		final PersistentUnit result = Unit.createUnit(type, name);
+		getThis().getUnits().add(result);
+		return result;
+
+	}
+    public UnitTypeSearchList getAtomicUnitTypes() 
+				throws PersistenceException{
+		final UnitTypeSearchList result = new UnitTypeSearchList();
+
+		this.getThis().getUnitTypes().applyToAll(new Procdure<PersistentAbsUnitType>() {
+			@Override
+			public void doItTo(final PersistentAbsUnitType argument) throws PersistenceException {
+				argument.accept(new AbsUnitTypeVisitor() {
+					@Override
+					public void handleUnitType(final PersistentUnitType unitType) throws PersistenceException {
+						result.add(unitType);
+					}
+
+					@Override
+					public void handleCompUnitType(final PersistentCompUnitType compUnitType)
+							throws PersistenceException {
+					}
+				});
+			}
+		});
+
+		return result;
+	}
+    public PersistentCompUnit addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent) 
+				throws model.DoubleDefinitionException, PersistenceException{
+		return null;
+		// TODO: implement method: addReference
+
+	}
+    public PersistentCompUnit fetchScalar() 
+				throws PersistenceException{
+		// TODO: implement method: fetchScalar
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchScalar\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
+    public PersistentCompUnitType fetchScalarType() 
+				throws PersistenceException{
+		PersistentCompUnitType type = getCompUnitTypeWithReferenceTypes(new PersistentReferenceType[] {});
+		if (type == null) {
+			type = CompUnitType.createCompUnitType("ScalarType");
+			getThis().getUnitTypes().add(type);
+		}
+		return type;
+	}
+    public void fetchScalar(final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentFetchScalarCommand command = model.meta.FetchScalarCommand.createFetchScalarCommand(now, now);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public UnitTypeSearchList getAtomicUnitTypes(final TDObserver observer) 
+				throws PersistenceException{
+        UnitTypeSearchList result = getThis().getAtomicUnitTypes();
+		observer.updateTransientDerived(getThis(), "atomicUnitTypes", result);
+		return result;
+    }
     public void addReferenceType(final String name, final PersistentAbsUnitType unitType, final PersistentUnitType referenceUnitType, final long exponent, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -207,16 +290,16 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent, final Invoker invoker) 
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+
+	}
+    public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddReferenceCommand command = model.meta.AddReferenceCommand.createAddReferenceCommand(name, exponent, now, now);
+		PersistentSetDefaultUnitCommand command = model.meta.SetDefaultUnitCommand.createSetDefaultUnitCommand(now, now);
+		command.setType(type);
 		command.setUnit(unit);
-		command.setReferenceUnit(referenceUnit);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -229,6 +312,20 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void removeUnit(final PersistentAbsUnit unit, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveUnitCommand command = model.meta.RemoveUnitCommand.createRemoveUnitCommand(now, now);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void removeUnitType(final PersistentAbsUnitType type) 
+				throws PersistenceException{
+		// TODO: implement method: removeUnitType; schon vorhandene Units zu diesem Typ mit löschen!
+
+	}
     public void createUnit(final String name, final PersistentUnitType type, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -238,18 +335,31 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void fetchScalarType(final Invoker invoker) 
+    public PersistentCompUnitType getExistingCUT(final ReferenceTypeSearchList refTypes) 
+				throws PersistenceException{
+		if (refTypes.getLength() == 0) {
+			// TODO: ScalarType zurückgeben
+		}
+		final Iterator<PersistentReferenceType> refTypeIterator = refTypes.iterator();
+		final PersistentReferenceType firstRefType = refTypeIterator.next();
+		final CompUnitTypeSearchList compUnitTypes = firstRefType.inverseGetRefs();
+		// TODO compUnitTypes durchgehen und vergleichen
+		return null;
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+
+	}
+    public void removeUnit(final PersistentAbsUnit unit) 
+				throws PersistenceException{
+		// TODO: implement method: removeUnit
+
+	}
+    public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentFetchScalarTypeCommand command = model.meta.FetchScalarTypeCommand.createFetchScalarTypeCommand(now, now);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void fetchScalar(final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentFetchScalarCommand command = model.meta.FetchScalarCommand.createFetchScalarCommand(now, now);
+		PersistentSetConversionCommand command = model.meta.SetConversionCommand.createSetConversionCommand(factor, constant, now, now);
+		command.setUnit(unit);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -266,12 +376,29 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public void initializeOnCreation() 
 				throws PersistenceException{
-        this.setThis((PersistentUnitTypeManager)This);
-		if(this.equals(This)){
+
+	}
+    public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
+				throws model.ConsistencyException, PersistenceException{
+		// Auf DefaultUnit prüfen
+		if (((PersistentUnitType) unit.getType()).getDefaultUnit() == null) {
+			throw new ConsistencyException(ExceptionConstants.NO_DEFAULT_UNIT_FOR_CONVERSION);
 		}
-    }
+
+		// Conversion ??ndern, wenn schon vorhanden
+		final PersistentConversion conversion = unit.getMyConversion();
+		if (conversion != null) {
+			conversion.setMyFunction(Function.createFunction(factor, constant));
+		}
+		// neue Conversion erstellen
+		else {
+			Conversion.createConversion(unit, Function.createFunction(factor, constant));
+		}
+
+		// TODO: Doppelte Functions?
+	}
     public void removeUnitType(final PersistentAbsUnitType type, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -281,34 +408,63 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void removeUnit(final PersistentAbsUnit unit, final Invoker invoker) 
+    public void fetchScalarType(final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveUnitCommand command = model.meta.RemoveUnitCommand.createRemoveUnitCommand(now, now);
-		command.setUnit(unit);
+		PersistentFetchScalarTypeCommand command = model.meta.FetchScalarTypeCommand.createFetchScalarTypeCommand(now, now);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant, final Invoker invoker) 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentSetConversionCommand command = model.meta.SetConversionCommand.createSetConversionCommand(factor, constant, now, now);
-		command.setUnit(unit);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+        this.setThis((PersistentUnitTypeManager)This);
+		if(this.equals(This)){
+		}
     }
-    public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit, final Invoker invoker) 
+    public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit) 
 				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentSetDefaultUnitCommand command = model.meta.SetDefaultUnitCommand.createSetDefaultUnitCommand(now, now);
-		command.setType(type);
-		command.setUnit(unit);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
+		// TODO: Conversions ander Units ändern
+
+		// neue DefaultUnit setzen
+		type.setDefaultUnit(unit);
+		// Conversion für neue Default Unit auf 1 setzen
+		try {
+			this.getThis().setConversion(unit, Fraction.parse("1"), Fraction.Null);
+		} catch (final ConsistencyException e) {
+			// Kann nicht passieren, da DefaultUnit zuvor gesetzt wurde
+		}
+	}
+    public PersistentAbsUnit fetchUnitByUnitType(final PersistentAbsUnitType ut) 
+				throws model.NotFoundException, PersistenceException{
+		return ut.accept(new AbsUnitTypeReturnVisitor<PersistentAbsUnit>() {
+
+			@Override
+			public PersistentAbsUnit handleCompUnitType(final PersistentCompUnitType compUnitType)
+					throws PersistenceException {
+				if (compUnitType.inverseGetType() == null) {
+					return null;
+				} else {
+					return compUnitType.inverseGetType().iterator().next();
+				}
+			}
+
+			@Override
+			public PersistentAbsUnit handleUnitType(final PersistentUnitType unitType) throws PersistenceException {
+				// nimm default oder den erstbesten
+				final PersistentUnit defaultU = unitType.getDefaultUnit();
+				if (!(defaultU == null)) {
+					if (unitType.inverseGetType() == null) {
+						return null;
+					} else {
+						return unitType.inverseGetType().iterator().next();
+					}
+				} else {
+					return defaultU;
+				}
+			}
+		});
+	}
     public PersistentCompUnitType addReferenceType(final String name, final PersistentAbsUnitType unitType, final PersistentUnitType referenceUnitType, final long exponent) 
 				throws model.DoubleDefinitionException, PersistenceException{
 
@@ -411,16 +567,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		return null;
 
 	}
-    public PersistentCompUnit addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent) 
-				throws model.DoubleDefinitionException, PersistenceException{
-		return null;
-		// TODO: implement method: addReference
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-
-	}
     public void createUnitType(final String name) 
 				throws model.DoubleDefinitionException, PersistenceException{
 		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
@@ -432,160 +578,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		this.getThis().getUnitTypes().add(UnitType.createUnitType(name));
 
 	}
-    public PersistentUnit createUnit(final String name, final PersistentUnitType type) 
-				throws model.DoubleDefinitionException, PersistenceException{
-		final AbsUnitSearchList old = Unit.getAbsUnitByName(name);
-		if (old.iterator().hasNext()) {
-			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION + name);
-		}
-		final PersistentUnit result = Unit.createUnit(type, name);
-		getThis().getUnits().add(result);
-		return result;
-
-	}
-    public PersistentCompUnitType fetchScalarType() 
-				throws PersistenceException{
-		PersistentCompUnitType type = getCompUnitTypeWithReferenceTypes(new PersistentReferenceType[] {});
-		if (type == null) {
-			type = CompUnitType.createCompUnitType("ScalarType");
-			getThis().getUnitTypes().add(type);
-		}
-		return type;
-	}
-    public PersistentCompUnit fetchScalar() 
-				throws PersistenceException{
-		// TODO: implement method: fetchScalar
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchScalar\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
-    public PersistentAbsUnit fetchUnitByUnitType(final PersistentAbsUnitType ut) 
-				throws model.NotFoundException, PersistenceException{
-		return ut.accept(new AbsUnitTypeReturnVisitor<PersistentAbsUnit>() {
-
-			@Override
-			public PersistentAbsUnit handleCompUnitType(final PersistentCompUnitType compUnitType)
-					throws PersistenceException {
-				if (compUnitType.inverseGetType() == null) {
-					return null;
-				} else {
-					return compUnitType.inverseGetType().iterator().next();
-				}
-			}
-
-			@Override
-			public PersistentAbsUnit handleUnitType(final PersistentUnitType unitType) throws PersistenceException {
-				// nimm default oder den erstbesten
-				final PersistentUnit defaultU = unitType.getDefaultUnit();
-				if (!(defaultU == null)) {
-					if (unitType.inverseGetType() == null) {
-						return null;
-					} else {
-						return unitType.inverseGetType().iterator().next();
-					}
-				} else {
-					return defaultU;
-				}
-			}
-		});
-	}
-    public UnitTypeSearchList getAtomicUnitTypes() 
-				throws PersistenceException{
-		final UnitTypeSearchList result = new UnitTypeSearchList();
-
-		this.getThis().getUnitTypes().applyToAll(new Procdure<PersistentAbsUnitType>() {
-			@Override
-			public void doItTo(final PersistentAbsUnitType argument) throws PersistenceException {
-				argument.accept(new AbsUnitTypeVisitor() {
-					@Override
-					public void handleUnitType(final PersistentUnitType unitType) throws PersistenceException {
-						result.add(unitType);
-					}
-
-					@Override
-					public void handleCompUnitType(final PersistentCompUnitType compUnitType)
-							throws PersistenceException {
-					}
-				});
-			}
-		});
-
-		return result;
-	}
-    public UnitTypeSearchList getAtomicUnitTypes(final TDObserver observer) 
-				throws PersistenceException{
-        UnitTypeSearchList result = getThis().getAtomicUnitTypes();
-		observer.updateTransientDerived(getThis(), "atomicUnitTypes", result);
-		return result;
-    }
-    public PersistentCompUnitType getExistingCUT(final ReferenceTypeSearchList refTypes) 
-				throws PersistenceException{
-		if (refTypes.getLength() == 0) {
-			// TODO: ScalarType zurückgeben
-		}
-		final Iterator<PersistentReferenceType> refTypeIterator = refTypes.iterator();
-		final PersistentReferenceType firstRefType = refTypeIterator.next();
-		final CompUnitTypeSearchList compUnitTypes = firstRefType.inverseGetRefs();
-		// TODO compUnitTypes durchgehen und vergleichen
-		return null;
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-
-	}
-    public void removeUnitType(final PersistentAbsUnitType type) 
-				throws PersistenceException{
-		// TODO: implement method: removeUnitType; schon vorhandene Units zu diesem Typ mit löschen!
-
-	}
-    public void removeUnit(final PersistentAbsUnit unit) 
-				throws PersistenceException{
-		// TODO: implement method: removeUnit
-
-	}
-    public void setConversion(final PersistentUnit unit, final common.Fraction factor, final common.Fraction constant) 
-				throws model.ConsistencyException, PersistenceException{
-		// Auf DefaultUnit prüfen
-		if (((PersistentUnitType) unit.getType()).getDefaultUnit() == null) {
-			throw new ConsistencyException(ExceptionConstants.NO_DEFAULT_UNIT_FOR_CONVERSION);
-		}
-
-		// Conversion ??ndern, wenn schon vorhanden
-		final PersistentConversion conversion = unit.getMyConversion();
-		if (conversion != null) {
-			conversion.setMyFunction(Function.createFunction(factor, constant));
-		}
-		// neue Conversion erstellen
-		else {
-			Conversion.createConversion(unit, Function.createFunction(factor, constant));
-		}
-
-		// TODO: Doppelte Functions?
-	}
-    public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit) 
-				throws PersistenceException{
-		// TODO: Conversions ander Units ändern
-
-		// neue DefaultUnit setzen
-		type.setDefaultUnit(unit);
-		// Conversion für neue Default Unit auf 1 setzen
-		try {
-			this.getThis().setConversion(unit, Fraction.parse("1"), Fraction.Null);
-		} catch (final ConsistencyException e) {
-			// Kann nicht passieren, da DefaultUnit zuvor gesetzt wurde
-		}
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
 

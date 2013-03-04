@@ -171,30 +171,6 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     
     
-    public void assignName(final PersistentMObject object, final PersistentName name, final String value, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAssignNameCommand command = model.meta.AssignNameCommand.createAssignNameCommand(value, now, now);
-		command.setObject(object);
-		command.setName(name);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAssignTypeCommand command = model.meta.AssignTypeCommand.createAssignTypeCommand(now, now);
-		command.setScheme(scheme);
-		command.setType(type);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void createNameScheme(final String name, final String regExpPattern, final PersistentMBoolean isIterable, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -204,11 +180,27 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentNameSchemeManager)This);
 		if(this.equals(This)){
 		}
+    }
+    public void assignName(final PersistentMObject object, final PersistentName name, final String value, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAssignNameCommand command = model.meta.AssignNameCommand.createAssignNameCommand(value, now, now);
+		command.setObject(object);
+		command.setName(name);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void assignName(final PersistentMObject object, final PersistentName name, final String value) 
 				throws model.PatternNotMatchException, model.ConsistencyException, PersistenceException{
@@ -220,6 +212,25 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
 				name.getNameScheme());
 		NameInstance.createNameInstance(name, object, nameSchemeInstance);
 	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAssignTypeCommand command = model.meta.AssignTypeCommand.createAssignTypeCommand(now, now);
+		command.setScheme(scheme);
+		command.setType(type);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public PersistentNameScheme createNameScheme(final String name, final String regExpPattern, final PersistentMBoolean isIterable) 
+				throws PersistenceException{
+		PersistentNameScheme nameScheme = NameScheme.createNameScheme(regExpPattern, name, isIterable);
+		this.getThis().getSchemes().add(nameScheme);
+		return nameScheme;
+	}
     public PersistentName assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type) 
 				throws PersistenceException{
 		PersistentName name = Name.createName(type, scheme);
@@ -227,25 +238,6 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
 
 		return name;
 	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public PersistentNameScheme createNameScheme(final String name, final String regExpPattern, final PersistentMBoolean isIterable) 
-				throws PersistenceException{
-		PersistentNameScheme nameScheme = NameScheme.createNameScheme(regExpPattern, name, isIterable);
-		this.getThis().getSchemes().add(nameScheme);
-		return nameScheme;
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     

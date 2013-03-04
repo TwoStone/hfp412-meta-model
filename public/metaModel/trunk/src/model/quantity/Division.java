@@ -22,6 +22,7 @@ import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentBasicCalculation;
 import persistence.PersistentDivision;
+import persistence.PersistentQuantity;
 import persistence.TDObserver;
 
 /* Additional import section end */
@@ -167,16 +168,27 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
     }
     
     
+    public void calcTargetRefs(final PersistentQuantity arg1, final PersistentQuantity arg2) 
+				throws model.NotComputableException, PersistenceException{
+		// TODO: implement method: calcTargetRefs
+
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentDivision)This);
 		if(this.equals(This)){
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public common.Fraction calcFraction(final common.Fraction arg1, final common.Fraction arg2) 
 				throws model.NotComputableException, PersistenceException{
 		// TODO: implement method: calcFraction
@@ -187,19 +199,9 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
 			throw uoe;
 		}
 	}
-    public void calcTargetRefTypes() 
+    public void calcTargetRefTypes(final PersistentQuantity arg1, final PersistentQuantity arg2) 
 				throws model.NotComputableException, PersistenceException{
 		// TODO: implement method: calcTargetRefTypes
-
-	}
-    public void calcTargetRefs() 
-				throws model.NotComputableException, PersistenceException{
-		// TODO: implement method: calcTargetRefs
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
     public void initializeOnCreation() 
@@ -207,15 +209,6 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
 		// TODO: implement method: initializeOnCreation
 
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
 

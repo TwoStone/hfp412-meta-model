@@ -1,6 +1,9 @@
 package model.quantity;
 
+import java.util.Iterator;
+
 import model.UserException;
+import model.visitor.AbsUnitReturnVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -21,10 +24,14 @@ import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentBasicCalculation;
+import persistence.PersistentCompUnit;
 import persistence.PersistentMultiplication;
+import persistence.PersistentQuantity;
+import persistence.PersistentReference;
+import persistence.PersistentUnit;
 import persistence.TDObserver;
 
-import common.Fraction;
+import common.SummableHashMap;
 
 /* Additional import section end */
 
@@ -169,16 +176,26 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
     }
     
     
+    public void calcTargetRefs(final PersistentQuantity arg1, final PersistentQuantity arg2) 
+				throws model.NotComputableException, PersistenceException{
+		final SummableHashMap<PersistentUnit> myReferences = computeReferences(arg1);
+		final SummableHashMap<PersistentUnit> factorReferences = computeReferences(arg2);
+		final SummableHashMap<PersistentUnit> aggregatedReferences = aggregateReferences(myReferences, factorReferences);
+		this.targetRefs = aggregatedReferences;
+
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMultiplication)This);
 		if(this.equals(This)){
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public common.Fraction calcFraction(final common.Fraction arg1, final common.Fraction arg2) 
 				throws model.NotComputableException, PersistenceException{
         //TODO: implement method: calcFraction
@@ -189,31 +206,64 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
             throw uoe;
         }
     }
-    public void calcTargetRefTypes() 
+    public void calcTargetRefTypes(final PersistentQuantity arg1, final PersistentQuantity arg2) 
 				throws model.NotComputableException, PersistenceException{
-		// TODO: implement method: calcTargetRefType
+		// TODO: implement method: calcTargetRefTypes
 
-	}
-    public void calcTargetRefs() 
-				throws model.NotComputableException, PersistenceException{
-		// TODO: implement method: calcTargetRefs
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
+
+	/**
+	 * Liest aus der Einheit einer Quantität die Referenz-Konfiguration aus und gibt das Ergebnis als Map zurück.
+	 * Atomare Einheiten werden als Map mit einem Eintrag zurückgeliefert, bei dem die Einheit der Schlüssel ist und der
+	 * Exponent "1" als Wert explizit gesetzt wird. Bei zusammengesetzten Einheiten wird die refs-Assoziation ausgelesen
+	 * und direkt in die Map übertragen.
+	 * 
+	 * @param arg
+	 * @return
+	 * @throws PersistenceException
+	 */
+	private SummableHashMap<PersistentUnit> computeReferences(final PersistentQuantity arg) throws PersistenceException {
+		return arg.getUnit().accept(new AbsUnitReturnVisitor<SummableHashMap<PersistentUnit>>() {
+
+			@Override
+			public SummableHashMap<PersistentUnit> handleUnit(final PersistentUnit unit) throws PersistenceException {
+				final SummableHashMap<PersistentUnit> result = new SummableHashMap<PersistentUnit>();
+				result.getMap().put(unit, new Long(1));
+				return result;
+			}
+
+			@Override
+			public SummableHashMap<PersistentUnit> handleCompUnit(final PersistentCompUnit compUnit)
+					throws PersistenceException {
+				final SummableHashMap<PersistentUnit> result = new SummableHashMap<PersistentUnit>();
+				final Iterator<PersistentReference> i = compUnit.getRefs().iterator();
+				while (i.hasNext()) {
+					final PersistentReference current = i.next();
+					result.getMap().put(current.getRef(), current.getExponent());
+				}
+				return result;
+			}
+		});
+	}
+
+	/**
+	 * aggregiert zwei Objekte vom Typ {@link SummableHashMap}
+	 * 
+	 * @param myReferences
+	 * @param factorReferences
+	 * @return
+	 */
+	private SummableHashMap<PersistentUnit> aggregateReferences(final SummableHashMap<PersistentUnit> myReferences,
+			final SummableHashMap<PersistentUnit> factorReferences) {
+		final SummableHashMap<PersistentUnit> result = myReferences;
+		myReferences.aggregate(factorReferences);
+		return result;
+	}
 
 	/* End of protected part that is not overridden by persistence generator */
     

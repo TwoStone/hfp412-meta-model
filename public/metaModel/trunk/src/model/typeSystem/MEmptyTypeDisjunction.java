@@ -233,33 +233,17 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
     }
     
     
-    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+    public MModelItemSearchList getDependentItems(final TDObserver observer) 
 				throws PersistenceException{
-        if(getThis().equals(part)) return true;
-		return false;
+        MModelItemSearchList result = getThis().getDependentItems();
+		observer.updateTransientDerived(getThis(), "dependentItems", result);
+		return result;
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentMEmptyTypeDisjunction)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMEmptyTypeDisjunction)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-		}
-    }
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return strategy.finalize$$MEmptyTypeDisjunction(getThis(), parameter);
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
-    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		return getThis();
 	}
     public MTypeSearchList fetchTypesContainingThisDirectly() 
 				throws PersistenceException{
@@ -268,37 +252,45 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
 		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
 		return result;
 	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
+        if(getThis().equals(part)) return true;
+		return false;
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMEmptyTypeDisjunction)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMEmptyTypeDisjunction)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+		}
+    }
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+		return MTrue.getTheMTrue();
+	}
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return strategy.finalize$$MEmptyTypeDisjunction(getThis(), parameter);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
+    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
 				throws PersistenceException{
-	}
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
-				throws PersistenceException{
-		return MTrue.getTheMTrue();
+		return getThis();
 	}
     public PersistentMDisjunctiveNormalForm transientMultiply(final PersistentMDisjunctiveNormalForm other) 
 				throws PersistenceException{
 		return getThis();
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		throw new ConsistencyException("The Nothing may not be deleted.");
-	}
     public String fetchName() 
 				throws PersistenceException{
 		return "Nothing";
+	}
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		throw new ConsistencyException("The Nothing may not be deleted.");
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
