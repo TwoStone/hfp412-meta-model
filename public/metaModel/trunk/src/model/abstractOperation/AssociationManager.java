@@ -267,9 +267,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 			}
 		});
 		if (firstCycle != null) {
-			throw new CycleException(
-					"Es entstuende ein Zyklus, hinzufuegen der Assoziation zu dieser Hierarchy. Erster Zyklus durch: "
-							+ firstCycle.toString());
+			throw new CycleException("Es entstuende ein Zyklus, hinzufuegen der Assoziation zu dieser Hierarchy. Erster Zyklus durch: " + firstCycle.toString());
 		}
 
 		a.getHierarchies().add(h);
@@ -290,14 +288,12 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 					return argument.accept(new AbsOperationReturnVisitor<PersistentMBoolean>() {
 
 						@Override
-						public PersistentMBoolean handleOperation(final PersistentOperation operation)
-								throws PersistenceException {
+						public PersistentMBoolean handleOperation(final PersistentOperation operation) throws PersistenceException {
 							return MFalse.getTheMFalse();
 						}
 
 						@Override
-						public PersistentMBoolean handleAssociation(final PersistentAssociation association)
-								throws PersistenceException {
+						public PersistentMBoolean handleAssociation(final PersistentAssociation association) throws PersistenceException {
 							return MTrue.getTheMTrue();
 						}
 					}).toBoolean();
@@ -318,7 +314,18 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	}
     public void createHierarchy(final PersistentAssociation a, final String name) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, model.CycleException, PersistenceException{
-		// TODO: implement method: createHierarchy
+		if (getThis().getHierarchies().findFirst(new Predcate<PersistentHierarchy>() {
+			@Override
+			public boolean test(final PersistentHierarchy argument) throws PersistenceException {
+				return argument.getName().equals(name);
+			}
+		}) != null) {
+			throw new DoubleDefinitionException("Eine Hierarchie mit dem Namen '" + name + "'existiert bereits.");
+		}
+
+		final PersistentHierarchy h = Hierarchy.createHierarchy(name);
+		getThis().addAssociation(h, a);
+		getThis().getHierarchies().add(h);
 
 	}
     public void initializeOnCreation() 
@@ -341,8 +348,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
 		// Consistency, falls es Links gibt.
 		if (a.inverseGetType().getLength() < 0) {
-			throw new ConsistencyException("Die Assoziation '" + a
-					+ "' kann nicht gelöscht werden, solang Exemplare existieren.");
+			throw new ConsistencyException("Die Assoziation '" + a + "' kann nicht gelöscht werden, solang Exemplare existieren.");
 		}
 
 		getThis().getAssociations().removeFirstSuccess(new Predcate<PersistentAssociation>() {
@@ -359,47 +365,37 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 
     /* Start of protected part that is not overridden by persistence generator */
 
-	private void checkType(final PersistentMType type, final String sort) throws PersistenceException,
-			ConsistencyException {
+	private void checkType(final PersistentMType type, final String sort) throws PersistenceException, ConsistencyException {
 		type.accept(new MTypeExceptionVisitor<ConsistencyException>() {
 
 			@Override
-			public void handleMMixedTypeDisjunction(final PersistentMMixedTypeDisjunction mMixedTypeDisjunction)
-					throws PersistenceException, ConsistencyException {
+			public void handleMMixedTypeDisjunction(final PersistentMMixedTypeDisjunction mMixedTypeDisjunction) throws PersistenceException, ConsistencyException {
 			}
 
 			@Override
-			public void handleMNonEmptyDisjunctiveNormalForm(
-					final PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm)
-					throws PersistenceException, ConsistencyException {
+			public void handleMNonEmptyDisjunctiveNormalForm(final PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm) throws PersistenceException, ConsistencyException {
 			}
 
 			@Override
-			public void handleMEmptyTypeDisjunction(final PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction)
-					throws PersistenceException, ConsistencyException {
+			public void handleMEmptyTypeDisjunction(final PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction) throws PersistenceException, ConsistencyException {
 				throw new ConsistencyException(sort + " darf nicht vom Typ " + type + " sein.");
 			}
 
 			@Override
-			public void handleMMixedConjunction(final PersistentMMixedConjunction mMixedConjunction)
-					throws PersistenceException, ConsistencyException {
+			public void handleMMixedConjunction(final PersistentMMixedConjunction mMixedConjunction) throws PersistenceException, ConsistencyException {
 			}
 
 			@Override
-			public void handleMNonEmptyAtomicTypeConjunction(
-					final PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction)
-					throws PersistenceException, ConsistencyException {
+			public void handleMNonEmptyAtomicTypeConjunction(final PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction) throws PersistenceException, ConsistencyException {
 			}
 
 			@Override
-			public void handleMEmptyTypeConjunction(final PersistentMEmptyTypeConjunction mEmptyTypeConjunction)
-					throws PersistenceException, ConsistencyException {
+			public void handleMEmptyTypeConjunction(final PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException, ConsistencyException {
 				throw new ConsistencyException(sort + " darf nicht vom Typ " + type + " sein.");
 			}
 
 			@Override
-			public void handleMAtomicType(final PersistentMAtomicType mAtomicType) throws PersistenceException,
-					ConsistencyException {
+			public void handleMAtomicType(final PersistentMAtomicType mAtomicType) throws PersistenceException, ConsistencyException {
 			}
 		});
 	}
