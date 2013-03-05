@@ -120,7 +120,7 @@ public class AssociationManagerTest extends AbstractTest {
 
 	@Test
 	public void removeAssociationSuccessful() throws PersistenceException, DoubleDefinitionException,
-			ConsistencyException {
+			ConsistencyException, CycleException {
 		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
 		final PersistentAssociation b = Association.createAssociation("b", mptSingle2, mat5);
 		final PersistentAssociation c = Association.createAssociation("c", mptMultiple2And4, mat5);
@@ -211,7 +211,8 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void removeAssoFormHierarchy() throws PersistenceException, NotAvailableException {
+	public void removeAssoFormHierarchy() throws PersistenceException, NotAvailableException, CycleException,
+			ConsistencyException {
 		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
 		final PersistentHierarchy h = Hierarchy.createHierarchy("a");
 		try {

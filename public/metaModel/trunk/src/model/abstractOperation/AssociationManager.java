@@ -317,20 +317,9 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		getThis().getAssociations().add(a);
 	}
     public void createHierarchy(final PersistentAssociation a, final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.ConsistencyException, model.CycleException, PersistenceException{
+		// TODO: implement method: createHierarchy
 
-		if (getThis().getHierarchies().findFirst(new Predcate<PersistentHierarchy>() {
-			@Override
-			public boolean test(final PersistentHierarchy argument) throws PersistenceException {
-				return argument.getName().equals(name);
-			}
-		}) != null) {
-			throw new DoubleDefinitionException("Eine Hierarchie mit dem Namen '" + name + "'existiert bereits.");
-		}
-
-		final PersistentHierarchy h = Hierarchy.createHierarchy(name);
-		getThis().addAssociation(h, a);
-		getThis().getHierarchies().add(h);
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -339,7 +328,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 				throws PersistenceException{
 	}
     public void removeAssoFrmHier(final PersistentHierarchy h, final PersistentAssociation a) 
-				throws model.NotAvailableException, model.CycleException, PersistenceException{
+				throws model.NotAvailableException, model.ConsistencyException, model.CycleException, PersistenceException{
 		a.getHierarchies().removeFirstSuccess(new Predcate<PersistentHierarchy>() {
 			// TODO: Christin: NotAvailableException und Testfall dazu
 			@Override
@@ -355,6 +344,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 			throw new ConsistencyException("Die Assoziation '" + a
 					+ "' kann nicht gelöscht werden, solang Exemplare existieren.");
 		}
+
 		getThis().getAssociations().removeFirstSuccess(new Predcate<PersistentAssociation>() {
 			@Override
 			public boolean test(final PersistentAssociation argument) throws PersistenceException {

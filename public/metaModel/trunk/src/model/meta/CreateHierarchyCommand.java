@@ -1,32 +1,9 @@
 
 package model.meta;
 
-import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.AssociationManagerCommandExceptionVisitor;
-import model.visitor.AssociationManagerCommandReturnExceptionVisitor;
-import model.visitor.AssociationManagerCommandReturnVisitor;
-import model.visitor.AssociationManagerCommandVisitor;
-import model.visitor.CommandExceptionVisitor;
-import model.visitor.CommandReturnExceptionVisitor;
-import model.visitor.CommandReturnVisitor;
-import model.visitor.CommandVisitor;
-import model.visitor.CommonDateExceptionVisitor;
-import model.visitor.CommonDateReturnExceptionVisitor;
-import model.visitor.CommonDateReturnVisitor;
-import model.visitor.CommonDateVisitor;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentAssociation;
-import persistence.PersistentAssociationManager;
-import persistence.PersistentCommonDate;
-import persistence.PersistentCreateHierarchyCommand;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -80,7 +57,7 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 120;
+        return 340;
     }
     
     public long getClassId() {
@@ -89,7 +66,7 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 120) ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade
+        if (this.getClassId() == 340) ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade
             .newCreateHierarchyCommand(name,this.getId());
         super.store();
         if(this.getA() != null){
@@ -259,6 +236,9 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
 		}
+		catch(model.ConsistencyException e){
+			this.commandException = e;
+		}
 		catch(model.CycleException e){
 			this.commandException = e;
 		}
@@ -281,14 +261,6 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-    
-    
-    
     
     /* End of protected part that is not overridden by persistence generator */
     
