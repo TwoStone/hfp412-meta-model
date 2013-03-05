@@ -42,10 +42,7 @@ public class LinkManagerTest extends AbstractTest {
 		final PersistentAssociation createAssociation = Association.createAssociation("testAssociation", mat1, mat6);
 		associationMan.getAssociations().add(createAssociation);
 
-		final PersistentMObject atmoicObject1 = objectMan.createMObject(mat1, new MAtomicTypeSearchList());
-		final PersistentMObject atmoicObject6 = objectMan.createMObject(mat6, new MAtomicTypeSearchList());
-
-		this.linkMan.createLink(createAssociation, atmoicObject1, atmoicObject6);
+		this.linkMan.createLink(createAssociation, mao1, mao6);
 
 		assertEquals(1, linkMan.getLinks().getLength());
 	}
@@ -57,10 +54,7 @@ public class LinkManagerTest extends AbstractTest {
 		final PersistentAssociation createAssociation = Association.createAssociation("testAssociation", mat1, mat6);
 		this.associationMan.addAssociation(createHierarchy, createAssociation);
 
-		final PersistentMObject atmoicObject1 = objectMan.createMObject(mat1, new MAtomicTypeSearchList());
-		final PersistentMObject atmoicObject6 = objectMan.createMObject(mat6, new MAtomicTypeSearchList());
-
-		this.linkMan.createLink(createAssociation, atmoicObject1, atmoicObject6);
+		this.linkMan.createLink(createAssociation, mao1, mao6);
 
 		assertEquals(1, linkMan.getLinks().getLength());
 	}
