@@ -22,5 +22,7 @@ public final class ExceptionConstants {
 
 	public static final String NO_DEFAULT_UNIT = "Im UnitType dieser Unit ist keine Default-Unit gesetzt.";
 
+	public static final String WRONG_ACCOUNT_TYPE = "Falscher AccountType";
+
 	public static final String UNIT_TYPE_DOES_NOT_MATCH_ADD_OR_SUB = "Addition oder Subtraktion nur mit gleichem Einheitstyp möglich!";
 }

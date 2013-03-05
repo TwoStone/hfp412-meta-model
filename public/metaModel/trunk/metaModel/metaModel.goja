@@ -615,7 +615,7 @@ class Account extends QuantifObject {
 	prior MAccountType type;
 	Account** subAccounts hierarchy AccountHierarchy;
 	Measurement** entries;
-	active void addSubAccount(Account account) throws CycleException;
+	active void addSubAccount(Account account) throws CycleException, ConsistencyException;
 	active void addEntry(Measurement measurement) throws ConsistencyException;
 }
 hierarchy AccountHierarchy##AccountHie;

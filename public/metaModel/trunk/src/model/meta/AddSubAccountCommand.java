@@ -244,6 +244,9 @@ public class AddSubAccountCommand extends PersistentObject implements Persistent
         try{
 			this.getCommandReceiver().addSubAccount(this.getAccount());
 		}
+		catch(model.ConsistencyException e){
+			this.commandException = e;
+		}
 		catch(model.CycleException e){
 			this.commandException = e;
 		}

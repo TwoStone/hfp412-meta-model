@@ -282,8 +282,17 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 		this.getThis().getEntries().add(measurement);
 	}
     public void addSubAccount(final PersistentAccount account) 
-				throws model.CycleException, PersistenceException{
-		this.getThis().getSubAccounts().add(account);
+				throws model.ConsistencyException, model.CycleException, PersistenceException{
+
+		final PersistentMAccountType newAccType = account.getType();
+
+		// FIXME: Prüfen ob <account> von gleichem bzw. konkreterem AccountType wie <this> ist.
+		if (newAccType.equals(this.getThis().getType())) {
+			this.getThis().getSubAccounts().add(account);
+		} else {
+			throw new ConsistencyException(ExceptionConstants.WRONG_ACCOUNT_TYPE);
+		}
+
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -306,13 +315,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
 
-	
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }
