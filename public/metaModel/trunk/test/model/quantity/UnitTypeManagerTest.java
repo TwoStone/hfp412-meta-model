@@ -20,6 +20,7 @@ import constants.ExceptionConstants;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -186,5 +187,17 @@ public class UnitTypeManagerTest extends TestingBase {
 		} catch (final PersistenceException e) {
 			fail("Exception: " + e.getMessage());
 		}
+	}
+
+	@Test
+	public void testFetchScalarType() {
+		final PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
+		try {
+			final PersistentCompUnitType scalarType = typeManager.fetchScalarType();
+			assertTrue("Referenz-Liste von scalarType sollte leer sein.", scalarType.getRefs().getLength() == 0);
+		} catch (final PersistenceException e) {
+			fail("Exception: " + e.getMessage());
+		}
+
 	}
 }
