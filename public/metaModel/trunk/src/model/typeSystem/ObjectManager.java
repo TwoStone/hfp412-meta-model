@@ -1,30 +1,12 @@
 package model.typeSystem;
 
+import model.ConsistencyException;
 import model.UserException;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.MAtomicTypeSearchList;
-import persistence.MObjectSearchList;
-import persistence.ObjectManagerProxi;
-import persistence.ObjectManager_ObjectsProxi;
-import persistence.PersistenceException;
-import persistence.PersistentAddTypeCommand;
-import persistence.PersistentCreateMObjectCommand;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMObject;
-import persistence.PersistentMType;
-import persistence.PersistentObject;
-import persistence.PersistentObjectManager;
-import persistence.PersistentProxi;
-import persistence.PersistentRemoveTypeCommand;
-import persistence.PersistentReplaceTypeCommand;
-import persistence.Predcate;
-import persistence.TDObserver;
+import persistence.*;
 
 /* Additional import section end */
 
@@ -214,28 +196,33 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     }
     public void addType(final PersistentMObject object, final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: addType
-
+		object.addType(newType);
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
     public PersistentMObject createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes) 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: createMObject
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"createMObject\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+
+		final PersistentMObject newObject = MObject.createMObject(true);
+		newObject.addType(type);
+		otherTypes.applyToAllException(new ProcdureException<PersistentMAtomicType, ConsistencyException>() {
+
+			@Override
+			public void doItTo(PersistentMAtomicType argument) throws PersistenceException, ConsistencyException {
+				newObject.addType(argument);
+			}
+		});
+
+		this.getThis().getObjects().add(newObject);
+		return newObject;
 	}
     public MObjectSearchList fetchObjectsWithTypeLE(final PersistentMType type) 
 				throws PersistenceException{
 		return new MObjectSearchList(getThis().getObjects().findAll(new Predcate<PersistentMObject>() {
 
 			@Override
-			public boolean test(final PersistentMObject argument) throws PersistenceException {
+			public boolean test(PersistentMObject argument) throws PersistenceException {
 				return argument.getProductType().isLessOrEqual(type).toBoolean();
 			}
 		}));
@@ -248,12 +235,11 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
 	}
     public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType) 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: removeType
-
+		object.removeType(oldType);
 	}
     public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: replaceType
+		object.replaceType(oldType, newType);
 
 	}
     
@@ -262,13 +248,7 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
 
-	
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }
