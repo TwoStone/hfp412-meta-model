@@ -463,7 +463,7 @@ active void createAssociation(MType source, MType target, String name) throws Do
 active void removeAssociation(Association a) throws CycleException, ConsistencyException;
 active void createHierarchy(Association a, String name) throws CycleException, DoubleDefinitionException;
 
-active void addAssociation(Hierarchy h, Association a) throws DoubleDefinitionException, CycleException;
+active void addAssociation(Hierarchy h, Association a) throws DoubleDefinitionException, CycleException, ConsistencyException;
 active void removeAssoFrmHier(Hierarchy h, Association a) throws CycleException, NotAvailableException;
 }
 
