@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentCreateLinkCommand;
-import persistence.PersistentRemoveLinkCommand;
+import persistence.*;
 
 public interface LinkManagerCommandVisitor {
     

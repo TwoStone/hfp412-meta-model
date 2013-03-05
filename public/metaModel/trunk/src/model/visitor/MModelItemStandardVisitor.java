@@ -1,20 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentCONCMModelItem;
-import persistence.PersistentLink;
-import persistence.PersistentMAtomicType;
-import persistence.PersistentMEmptyTypeConjunction;
-import persistence.PersistentMEmptyTypeDisjunction;
-import persistence.PersistentMMixedConjunction;
-import persistence.PersistentMMixedTypeDisjunction;
-import persistence.PersistentMModelItem;
-import persistence.PersistentMNonEmptyAtomicTypeConjunction;
-import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
-import persistence.PersistentMObject;
-import persistence.PersistentMSingletonObject;
-import persistence.PersistentMessage;
+import persistence.*;
 
 public abstract class MModelItemStandardVisitor implements MModelItemVisitor {
     

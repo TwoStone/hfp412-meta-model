@@ -1,8 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentAddSubAccountTypeCommand;
+import persistence.*;
 
 public interface MAccountTypeCommandVisitor {
     

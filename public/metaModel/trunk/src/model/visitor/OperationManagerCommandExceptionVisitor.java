@@ -1,17 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentAddFpCommand;
-import persistence.PersistentAddMultipleFpCommand;
-import persistence.PersistentCreateConstantCommand;
-import persistence.PersistentCreateFpCommand;
-import persistence.PersistentCreateOperationCommand;
-import persistence.PersistentCreateStaticOpCommand;
-import persistence.PersistentCreateVoidOperationCommand;
-import persistence.PersistentRemoveFpCommand;
-import persistence.PersistentRemoveFpFromOpCommand;
-import persistence.PersistentRemoveOperationCommand;
+import persistence.*;
 
 public interface OperationManagerCommandExceptionVisitor<E extends UserException> {
     

@@ -6,12 +6,10 @@ import java.util.Iterator;
 
 import javax.crypto.SecretKey;
 
-import model.Server;
-import persistence.PersistenceException;
 import persistence.PersistentProxi;
-import persistence.PersistentRoot;
-import persistence.PersistentServer;
-import persistence.Remote;
+
+import model.*;
+import persistence.*;
 
 
 public class ConnectionServer extends RemoteServerMaster {
@@ -91,7 +89,7 @@ public class ConnectionServer extends RemoteServerMaster {
 		}
 	}
 	public synchronized Hashtable<String,Object> fork(String user, String oldConnection, String objectId, String classId){
-		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der ï¿½blichen Stelle laden!",0));
+		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der üblichen Stelle laden!",0));
 	}
 	public synchronized Hashtable<String,Object> fork(String user, String oldConnection, String objectId, String classId, java.util.Date date){
 		if (this.connections.size() >= this.maximalNumberOfConnections) 
@@ -129,7 +127,7 @@ public class ConnectionServer extends RemoteServerMaster {
 	}
 	
 	public synchronized Hashtable<String,Object> connect(String user, String password, boolean createUserIfNotPresent, byte[] keyBytes){
-		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der ï¿½blichen Stelle laden!",0));
+		return createExceptionResult(new PersistenceException("Bitte neue Version der Software von der üblichen Stelle laden!",0));
 	}
 	
 	public synchronized Hashtable<String,Object> connect(String user, String password, boolean createUserIfNotPresent, byte[] keyBytes, java.util.Date date, int version){
@@ -138,7 +136,7 @@ public class ConnectionServer extends RemoteServerMaster {
 		if (date.before(earliest) || date.after(latest))
 			return createExceptionResult(new PersistenceException("Bitte Systemzeit einstellen: Ihre Zeit: " + date.toString() + ". Unsere Zeit: " + new java.util.Date().toString(),0));
 		if (this.connections.size() >= this.maximalNumberOfConnections)
-			return createExceptionResult(new PersistenceException("!Maximale Anzahl der Verbindungen ï¿½berschritten! Spï¿½ter nochmals versuchen!",0));
+			return createExceptionResult(new PersistenceException("!Maximale Anzahl der Verbindungen überschritten! Später nochmals versuchen!",0));
 		if (version < common.RPCConstantsAndServices.CurrentVersion)
 			return createExceptionResult(new PersistenceException(common.RPCConstantsAndServices.VersionErrorText,0));
 		Iterator<PersistentServer> serverIterator;

@@ -1,10 +1,7 @@
 
 package model.visitor;
 
-import persistence.LinkManagerCommand;
-import persistence.PersistenceException;
-import persistence.PersistentCreateLinkCommand;
-import persistence.PersistentRemoveLinkCommand;
+import persistence.*;
 
 public abstract class LinkManagerCommandStandardVisitor implements LinkManagerCommandVisitor {
     

@@ -49,6 +49,7 @@ public abstract class AbstractTest extends TestingBase {
 	protected PersistentMAbstractTypeConjunction mptMultiple4And2;
 	protected PersistentMAbstractTypeConjunction mptMultiple5And6;
 	protected PersistentMAbstractTypeConjunction mptMultiple4And5;
+	protected PersistentMAbstractTypeConjunction mptMixed2Or4And5Or6;
 
 	@InjectSingleton(MEmptyTypeDisjunction.class)
 	protected PersistentMEmptyTypeDisjunction mstEmpty;
@@ -62,6 +63,7 @@ public abstract class AbstractTest extends TestingBase {
 	protected PersistentMAbstractTypeDisjunction mstMultiple4And5;
 	protected PersistentMAbstractTypeDisjunction mstMultiple5And6;
 	protected PersistentMAbstractTypeDisjunction mstMultiple2And4And5;
+	protected PersistentMAbstractTypeDisjunction mstMixed2And4Or5And6;
 
 	protected PersistentMObject mao1;
 	protected PersistentMObject mao3;
@@ -116,15 +118,7 @@ public abstract class AbstractTest extends TestingBase {
 		mat2.setSuperType(mat3);
 
 		// ProductType
-		/*
-		 * mptEmpty = MEmptyTypeConjunction.getTheMEmptyTypeConjunction(); mptSingle1 =
-		 * MMixedConjunction.createMMixedConjunction(); mptSingle2 = MMixedConjunction.createMMixedConjunction();
-		 * mptSingle3 = MMixedConjunction.createMMixedConjunction(); mptSingle4 =
-		 * MMixedConjunction.createMMixedConjunction(); mptSingle5 = MMixedConjunction.createMMixedConjunction();
-		 * mptMultiple2And4 = MMixedConjunction.createMMixedConjunction(); mptMultiple4And2 =
-		 * MMixedConjunction.createMMixedConjunction(); mptMultiple5And6 = MMixedConjunction.createMMixedConjunction();
-		 * mptMultiple4And5 = MMixedConjunction.createMMixedConjunction();
-		 */
+
 		mptSingle1 = TestingBase.transNormConj(mat1);
 		mptSingle2 = TestingBase.transNormConj(mat2);
 		mptSingle3 = TestingBase.transNormConj(mat3);
@@ -135,16 +129,8 @@ public abstract class AbstractTest extends TestingBase {
 		mptMultiple4And2 = TestingBase.transNormConj(mat4, mat2);
 		mptMultiple5And6 = TestingBase.transNormConj(mat5, mat6);
 		mptMultiple4And5 = TestingBase.transNormConj(mat4, mat5);
+		mptMixed2Or4And5Or6 = TestingBase.transNormConj(mptMultiple2And4, mptMultiple5And6);
 
-		// SumType
-		/*
-		 * mstEmpty = MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(); mstSingle1 = MSumType.createMSumType();
-		 * mstSingle2 = MSumType.createMSumType(); mstSingle3 = MSumType.createMSumType(); mstSingle4 =
-		 * MSumType.createMSumType(); mstSingle5 = MSumType.createMSumType(); mstMultiple2And4 =
-		 * MSumType.createMSumType(); mstMultiple4And2 = MSumType.createMSumType(); mstMultiple4And5 =
-		 * MSumType.createMSumType(); mstMultiple5And6 = MSumType.createMSumType(); mstMultiple2And4And5 =
-		 * MSumType.createMSumType();
-		 */
 		mstSingle1 = TestingBase.transNormDisj(mat1);
 		mstSingle2 = TestingBase.transNormDisj(mat2);
 		mstSingle3 = TestingBase.transNormDisj(mat3);
@@ -156,6 +142,7 @@ public abstract class AbstractTest extends TestingBase {
 		mstMultiple4And5 = TestingBase.transNormDisj(mat4, mat5);
 		mstMultiple5And6 = TestingBase.transNormDisj(mat5, mat6);
 		mstMultiple2And4And5 = TestingBase.transNormDisj(mat2, mat4, mat5);
+		mstMixed2And4Or5And6 = TestingBase.transNormDisj(mstMultiple2And4, mstMultiple5And6);
 
 		mao1 = MObject.createMObject();
 		mao1.addType(mat1);

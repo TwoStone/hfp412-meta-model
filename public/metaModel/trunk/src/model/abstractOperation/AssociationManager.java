@@ -245,7 +245,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
-				throws model.DoubleDefinitionException, model.ConsistencyException, model.CycleException, PersistenceException{
+				throws model.ConsistencyException, model.CycleException, PersistenceException{
 		// Consistency, wenn Assoc schon in Hierarchy
 		if (h.getAssociations().findFirst(new Predcate<PersistentAssociation>() {
 			@Override
@@ -317,7 +317,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		getThis().getAssociations().add(a);
 	}
     public void createHierarchy(final PersistentAssociation a, final String name) 
-				throws model.DoubleDefinitionException, model.CycleException, PersistenceException{
+				throws model.DoubleDefinitionException, model.ConsistencyException, model.CycleException, PersistenceException{
 
 		if (getThis().getHierarchies().findFirst(new Predcate<PersistentHierarchy>() {
 			@Override
@@ -339,9 +339,9 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 				throws PersistenceException{
 	}
     public void removeAssoFrmHier(final PersistentHierarchy h, final PersistentAssociation a) 
-				throws model.NotAvailableException, model.CycleException, PersistenceException{
+				throws model.NotAvailableException, PersistenceException{
 		a.getHierarchies().removeFirstSuccess(new Predcate<PersistentHierarchy>() {
-
+			// TODO: Christin: NotAvailableException und Testfall dazu
 			@Override
 			public boolean test(final PersistentHierarchy argument) throws PersistenceException {
 				return h.equals(argument);
@@ -349,7 +349,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		});
 	}
     public void removeAssociation(final PersistentAssociation a) 
-				throws model.ConsistencyException, model.CycleException, PersistenceException{
+				throws model.ConsistencyException, PersistenceException{
 		// Consistency, falls es Links gibt.
 		if (a.inverseGetType().getLength() < 0) {
 			throw new ConsistencyException("Die Assoziation '" + a

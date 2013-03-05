@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.MAccountTypeCommand;
-import persistence.PersistenceException;
-import persistence.PersistentAddSubAccountTypeCommand;
+import persistence.*;
 
 public abstract class MAccountTypeCommandStandardVisitor implements MAccountTypeCommandVisitor {
     

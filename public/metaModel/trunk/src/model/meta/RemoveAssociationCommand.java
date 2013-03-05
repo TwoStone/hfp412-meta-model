@@ -248,9 +248,6 @@ public class RemoveAssociationCommand extends PersistentObject implements Persis
 		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}
-		catch(model.CycleException e){
-			this.commandException = e;
-		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

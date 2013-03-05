@@ -1,12 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentAddition;
-import persistence.PersistentBasicCalculation;
-import persistence.PersistentDivision;
-import persistence.PersistentMultiplication;
-import persistence.PersistentSubtraction;
+import persistence.*;
 
 public abstract class BasicCalculationStandardVisitor implements BasicCalculationVisitor {
     

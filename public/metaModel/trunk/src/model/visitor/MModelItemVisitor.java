@@ -1,8 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentCONCMModelItem;
+import persistence.*;
 
 public interface MModelItemVisitor extends AbstractObjectVisitor,MTypeVisitor,MessageOrLinkVisitor{
     

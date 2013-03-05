@@ -1,12 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentCreateConstCommand;
-import persistence.PersistentCreateMessageCommand;
-import persistence.PersistentCreateStaticMessageCommand;
-import persistence.PersistentCreateVoidMessageCommand;
-import persistence.PersistentRemoveMessageCommand;
+import persistence.*;
 
 public interface MessageManagerCommandReturnVisitor<R> {
     

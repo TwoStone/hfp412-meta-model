@@ -1,8 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMMixedTypeDisjunction;
+import persistence.*;
 
 public interface MAbstractTypeDisjunctionReturnVisitor<R> extends MDisjunctiveNormalFormReturnVisitor<R> {
     

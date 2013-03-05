@@ -1,9 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentAddition;
-import persistence.PersistentSubtraction;
+import persistence.*;
 
 public interface UnitImutabCalcExceptionVisitor<E extends UserException> {
     

@@ -1,57 +1,12 @@
 package viewClient;
 
-import java.io.IOException;
+import view.*;
 import java.net.MalformedURLException;
+
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
-
 import org.apache.xmlrpc.XmlRpcException;
-
-import view.AbsQuantityView;
-import view.AbsUnitTypeView;
-import view.AbsUnitView;
-import view.AccountManagerView;
-import view.AccountTypeManagerView;
-import view.AccountView;
-import view.AspectManagerView;
-import view.AssociationManagerView;
-import view.AssociationView;
-import view.ConsistencyException;
-import view.CycleException;
-import view.DeletedException;
-import view.DoubleDefinitionException;
-import view.EmptyTypeException;
-import view.ExponentMatchingException;
-import view.FormalParameterView;
-import view.HierarchyView;
-import view.LinkManagerView;
-import view.LinkView;
-import view.MAccountTypeView;
-import view.MAspectView;
-import view.MAtomicTypeView;
-import view.MMeasurementTypeView;
-import view.MObjectView;
-import view.MTypeView;
-import view.MeasurementTypeManagerView;
-import view.ModelException;
-import view.NameSchemeManagerView;
-import view.NameSchemeView;
-import view.NameView;
-import view.NotAvailableException;
-import view.NotComputableException;
-import view.NotFoundException;
-import view.OperationManagerView;
-import view.OperationView;
-import view.PatternNotMatchException;
-import view.QuantityManagerView;
-import view.QuantityView;
-import view.RestrictionException;
-import view.ServerView;
-import view.UnitTypeManagerView;
-import view.UnitTypeView;
-import view.UnitView;
-import view.UserException;
-import view.WrongSubTypeAspectException;
 
 public class ServerConnection extends ConnectionMaster {
 
@@ -70,28 +25,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -113,28 +68,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -156,28 +111,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -199,28 +154,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -242,28 +197,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -285,28 +240,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -328,28 +283,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -371,28 +326,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -414,28 +369,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -458,28 +413,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -501,28 +456,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -544,28 +499,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -588,28 +543,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -632,28 +587,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -675,28 +630,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -718,28 +673,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -761,28 +716,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -804,28 +759,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -847,28 +802,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -891,28 +846,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -934,28 +889,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -977,28 +932,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1020,28 +975,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1063,28 +1018,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1106,28 +1061,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1149,28 +1104,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1192,28 +1147,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1235,28 +1190,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1278,28 +1233,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1321,28 +1276,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1364,28 +1319,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1407,28 +1362,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1450,28 +1405,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
@@ -1493,28 +1448,28 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
-                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
-                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
                     throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
                     throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
                     throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
                     throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
-                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
                     throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
-                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
                     throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
-                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
                     throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");

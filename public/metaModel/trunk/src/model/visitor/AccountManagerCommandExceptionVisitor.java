@@ -1,8 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentCreateAccountCommand;
+import persistence.*;
 
 public interface AccountManagerCommandExceptionVisitor<E extends UserException> {
     

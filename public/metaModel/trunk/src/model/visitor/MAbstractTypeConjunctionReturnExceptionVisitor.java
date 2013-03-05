@@ -1,8 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentMMixedConjunction;
+import persistence.*;
 
 public interface MAbstractTypeConjunctionReturnExceptionVisitor<R, E extends UserException> extends MAtomicTypeConjunctionReturnExceptionVisitor<R, E> {
     

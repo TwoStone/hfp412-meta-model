@@ -1,8 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMMixedConjunction;
+import persistence.*;
 
 public interface MAbstractTypeConjunctionVisitor extends MAtomicTypeConjunctionVisitor{
     

@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
+import model.NotAvailableException;
 import model.messageOrLink.LinkManager;
 
 import org.junit.Test;
@@ -42,6 +43,11 @@ public class AssociationManagerTest extends AbstractTest {
 		manager.createAssociation(mptMultiple2And4, mat5, "h");
 		manager.createAssociation(mstSingle2, mat5, "i");
 		manager.createAssociation(mstMultiple2And4, mat5, "j");
+
+		manager.createAssociation(mstMixed2And4Or5And6, mat5, "k");
+		manager.createAssociation(mptMixed2Or4And5Or6, mat5, "l");
+		manager.createAssociation(mat5, mstMixed2And4Or5And6, "m");
+		manager.createAssociation(mat5, mptMixed2Or4And5Or6, "n");
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
@@ -110,6 +116,112 @@ public class AssociationManagerTest extends AbstractTest {
 	@Test(expected = ConsistencyException.class)
 	public void createAssoicationCE04() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat1, mstEmpty, "a");
+	}
+
+	@Test
+	public void removeAssociationSuccessful() throws PersistenceException, DoubleDefinitionException,
+			ConsistencyException {
+		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
+		final PersistentAssociation b = Association.createAssociation("b", mptSingle2, mat5);
+		final PersistentAssociation c = Association.createAssociation("c", mptMultiple2And4, mat5);
+		final PersistentAssociation d = Association.createAssociation("d", mstSingle2, mat5);
+		final PersistentAssociation e = Association.createAssociation("e", mstMultiple2And4, mat5);
+		final PersistentAssociation f = Association.createAssociation("f", mstMixed2And4Or5And6, mat5);
+		final PersistentAssociation g = Association.createAssociation("g", mptMixed2Or4And5Or6, mat5);
+		manager.getAssociations().add(a);
+		manager.getAssociations().add(b);
+		manager.getAssociations().add(c);
+		manager.getAssociations().add(d);
+		manager.getAssociations().add(e);
+		manager.getAssociations().add(f);
+		manager.getAssociations().add(g);
+
+		manager.removeAssociation(a);
+		manager.removeAssociation(b);
+		manager.removeAssociation(c);
+		manager.removeAssociation(d);
+		manager.removeAssociation(e);
+		manager.removeAssociation(f);
+		manager.removeAssociation(g);
+	}
+
+	@Test(expected = ConsistencyException.class)
+	public void removeAssociationCE() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
+			CycleException {
+		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
+		try {
+			manager.getAssociations().add(a);
+			linkManager.createLink(a, mao4, mao5);
+		} catch (final Exception e) {
+			fail("Exception an der falschen Stelle");
+		}
+		manager.removeAssociation(a);
+	}
+
+	@Test
+	public void createHierarchySuccessful() throws PersistenceException, DoubleDefinitionException,
+			ConsistencyException, CycleException {
+		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
+		final PersistentAssociation b = Association.createAssociation("b", mptSingle2, mat5);
+		final PersistentAssociation c = Association.createAssociation("c", mptMultiple2And4, mat5);
+		final PersistentAssociation d = Association.createAssociation("d", mstSingle2, mat5);
+		final PersistentAssociation e = Association.createAssociation("e", mstMultiple2And4, mat5);
+		final PersistentAssociation f = Association.createAssociation("f", mstMixed2And4Or5And6, mat5);
+		final PersistentAssociation g = Association.createAssociation("g", mptMixed2Or4And5Or6, mat5);
+		manager.getAssociations().add(a);
+		manager.getAssociations().add(b);
+		manager.getAssociations().add(c);
+		manager.getAssociations().add(d);
+		manager.getAssociations().add(e);
+		manager.getAssociations().add(f);
+		manager.getAssociations().add(g);
+
+		manager.createHierarchy(a, "a");
+		manager.createHierarchy(b, "b");
+		manager.createHierarchy(c, "c");
+		manager.createHierarchy(d, "d");
+		manager.createHierarchy(e, "e");
+		manager.createHierarchy(f, "f");
+		manager.createHierarchy(g, "g");
+	}
+
+	@Test(expected = DoubleDefinitionException.class)
+	public void createHierarchyDDE() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
+			CycleException {
+		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
+		final PersistentAssociation b = Association.createAssociation("b", mptSingle2, mat5);
+		manager.getAssociations().add(a);
+		manager.getAssociations().add(b);
+
+		manager.createHierarchy(a, "a");
+		manager.createHierarchy(b, "a");
+	}
+
+	@Test(expected = CycleException.class)
+	public void createHierarchyCE() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
+			CycleException {
+		final PersistentAssociation a = Association.createAssociation("a", mat4, mat4);
+		try {
+			manager.getAssociations().add(a);
+			linkManager.createLink(a, mao4, mao4);
+		} catch (final Exception e) {
+			fail("Exception an der falschen Stelle");
+		}
+		manager.createHierarchy(a, "a");
+	}
+
+	@Test
+	public void removeAssoFormHierarchy() throws PersistenceException, NotAvailableException {
+		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
+		final PersistentHierarchy h = Hierarchy.createHierarchy("a");
+		try {
+			manager.getAssociations().add(a);
+			h.getAssociations().add(a);
+			manager.getHierarchies().add(h);
+		} catch (final Exception e) {
+			fail("Exception an der falschen Stelle");
+		}
+		manager.removeAssoFrmHier(h, a);
 	}
 
 	@Test

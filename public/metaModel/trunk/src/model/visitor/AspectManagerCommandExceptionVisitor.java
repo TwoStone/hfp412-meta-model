@@ -1,8 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentCreateAspectCommand;
+import persistence.*;
 
 public interface AspectManagerCommandExceptionVisitor<E extends UserException> {
     

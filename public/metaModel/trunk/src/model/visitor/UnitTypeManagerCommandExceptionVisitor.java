@@ -1,18 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentAddReferenceCommand;
-import persistence.PersistentAddReferenceTypeCommand;
-import persistence.PersistentCreateUnitCommand;
-import persistence.PersistentCreateUnitTypeCommand;
-import persistence.PersistentFetchScalarCommand;
-import persistence.PersistentFetchScalarTypeCommand;
-import persistence.PersistentGetExistingCUTCommand;
-import persistence.PersistentRemoveUnitCommand;
-import persistence.PersistentRemoveUnitTypeCommand;
-import persistence.PersistentSetConversionCommand;
-import persistence.PersistentSetDefaultUnitCommand;
+import persistence.*;
 
 public interface UnitTypeManagerCommandExceptionVisitor<E extends UserException> {
     

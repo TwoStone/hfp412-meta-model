@@ -1,10 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentAbstractObject;
-import persistence.PersistentMObject;
-import persistence.PersistentMSingletonObject;
+import persistence.*;
 
 public abstract class AbstractObjectStandardVisitor implements AbstractObjectVisitor {
     

@@ -1,10 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentAssignNameCommand;
-import persistence.PersistentAssignTypeCommand;
-import persistence.PersistentCreateNameSchemeCommand;
+import persistence.*;
 
 public interface NameSchemeManagerCommandExceptionVisitor<E extends UserException> {
     

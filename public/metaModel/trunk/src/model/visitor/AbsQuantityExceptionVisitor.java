@@ -1,9 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentCompoundQuantity;
-import persistence.PersistentQuantity;
+import persistence.*;
 
 public interface AbsQuantityExceptionVisitor<E extends UserException> {
     
