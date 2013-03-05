@@ -1,7 +1,9 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentDivision;
+import persistence.PersistentMultiplication;
 
 public interface UnitMutabCalcReturnExceptionVisitor<R, E extends UserException> {
     

@@ -1,6 +1,5 @@
 package model.quantity;
 
-import model.NotComputableException;
 import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;

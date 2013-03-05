@@ -3,8 +3,6 @@
  */
 package model.quantity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import model.ConsistencyException;
 import model.CycleException;
 
@@ -21,8 +19,11 @@ import util.TestingBase;
 
 import common.Fraction;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
- * @author Steffi
+ * Testet die Klasse Conversion
  * 
  */
 public class ConversionTest extends TestingBase {
@@ -52,7 +53,7 @@ public class ConversionTest extends TestingBase {
 	@Test
 	public void testCreate() throws Exception {
 		this.initObjects();
-		PersistentConversion c = Conversion.createConversion(unit, function);
+		final PersistentConversion c = Conversion.createConversion(unit, function);
 		assertNotNull(c);
 	}
 
@@ -64,8 +65,8 @@ public class ConversionTest extends TestingBase {
 	@Test
 	public void testConvert() throws Exception {
 		this.initObjects();
-		PersistentConversion c = Conversion.createConversion(unit, function);
-		PersistentQuantity convertedAmount = c.convert(Fraction.parse("4"));
+		final PersistentConversion c = Conversion.createConversion(unit, function);
+		final PersistentQuantity convertedAmount = c.convert(Fraction.parse("4"));
 		assertEquals(this.defaultUnit, convertedAmount.getUnit());
 		assertEquals("31", convertedAmount.getAmount().toString());
 	}
@@ -76,8 +77,8 @@ public class ConversionTest extends TestingBase {
 	@Test
 	public void testConvertInverse() throws Exception {
 		this.initObjects();
-		PersistentConversion c = Conversion.createConversion(unit, function);
-		PersistentQuantity convertedAmount = c.convertInverse(Fraction.parse("4"));
+		final PersistentConversion c = Conversion.createConversion(unit, function);
+		final PersistentQuantity convertedAmount = c.convertInverse(Fraction.parse("4"));
 		assertEquals(this.unit, convertedAmount.getUnit());
 		assertEquals("1/7", convertedAmount.getAmount().toString());
 	}

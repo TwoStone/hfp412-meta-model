@@ -1,7 +1,69 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.Command;
+import persistence.PersistenceException;
+import persistence.PersistentAddAssociationCommand;
+import persistence.PersistentAddCommand;
+import persistence.PersistentAddEntryCommand;
+import persistence.PersistentAddFpCommand;
+import persistence.PersistentAddFractionCommand;
+import persistence.PersistentAddMultipleFpCommand;
+import persistence.PersistentAddReferenceCommand;
+import persistence.PersistentAddReferenceTypeCommand;
+import persistence.PersistentAddSubAccountCommand;
+import persistence.PersistentAddSubAccountTypeCommand;
+import persistence.PersistentAddTypeCommand;
+import persistence.PersistentAggregateCommand;
+import persistence.PersistentAssignNameCommand;
+import persistence.PersistentAssignTypeCommand;
+import persistence.PersistentChangeAbstractCommand;
+import persistence.PersistentConvertCommand;
+import persistence.PersistentConvertToDefaultCommand;
+import persistence.PersistentCreateAccountCommand;
+import persistence.PersistentCreateAccountTypeCommand;
+import persistence.PersistentCreateAspectCommand;
+import persistence.PersistentCreateAssociationCommand;
+import persistence.PersistentCreateAtomicRootTypeCommand;
+import persistence.PersistentCreateAtomicSubTypeCommand;
+import persistence.PersistentCreateConstCommand;
+import persistence.PersistentCreateConstantCommand;
+import persistence.PersistentCreateFpCommand;
+import persistence.PersistentCreateHierarchyCommand;
+import persistence.PersistentCreateLinkCommand;
+import persistence.PersistentCreateMObjectCommand;
+import persistence.PersistentCreateMeasurementTypeCommand;
+import persistence.PersistentCreateMessageCommand;
+import persistence.PersistentCreateNameSchemeCommand;
+import persistence.PersistentCreateOperationCommand;
+import persistence.PersistentCreateQuantityCommand;
+import persistence.PersistentCreateStaticMessageCommand;
+import persistence.PersistentCreateStaticOpCommand;
+import persistence.PersistentCreateTypeConjunctionCommand;
+import persistence.PersistentCreateTypeDisjunctionCommand;
+import persistence.PersistentCreateUnitCommand;
+import persistence.PersistentCreateUnitTypeCommand;
+import persistence.PersistentCreateVoidMessageCommand;
+import persistence.PersistentCreateVoidOperationCommand;
+import persistence.PersistentDivCommand;
+import persistence.PersistentFetchScalarCommand;
+import persistence.PersistentFetchScalarTypeCommand;
+import persistence.PersistentGetExistingCUTCommand;
+import persistence.PersistentMulCommand;
+import persistence.PersistentRemoveAssoFrmHierCommand;
+import persistence.PersistentRemoveAssociationCommand;
+import persistence.PersistentRemoveFpCommand;
+import persistence.PersistentRemoveFpFromOpCommand;
+import persistence.PersistentRemoveLinkCommand;
+import persistence.PersistentRemoveMessageCommand;
+import persistence.PersistentRemoveOperationCommand;
+import persistence.PersistentRemoveTypeCommand;
+import persistence.PersistentRemoveUnitCommand;
+import persistence.PersistentRemoveUnitTypeCommand;
+import persistence.PersistentReplaceTypeCommand;
+import persistence.PersistentSetConversionCommand;
+import persistence.PersistentSetDefaultUnitCommand;
+import persistence.PersistentSubCommand;
 
 public abstract class CommandStandardVisitor implements CommandVisitor {
     
@@ -80,11 +142,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleAddAssociationCommand(PersistentAddAssociationCommand addAssociationCommand) throws PersistenceException{
         this.standardHandling(addAssociationCommand);
     }
-    public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
-        this.standardHandling(setConversionCommand);
-    }
     public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException{
         this.standardHandling(replaceTypeCommand);
+    }
+    public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
+        this.standardHandling(setConversionCommand);
     }
     public void handleFetchScalarTypeCommand(PersistentFetchScalarTypeCommand fetchScalarTypeCommand) throws PersistenceException{
         this.standardHandling(fetchScalarTypeCommand);

@@ -1,7 +1,8 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAddSubAccountTypeCommand;
 
 public interface MAccountTypeCommandReturnExceptionVisitor<R, E extends UserException> {
     

@@ -1,7 +1,10 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAbsQuantity;
+import persistence.PersistentCompoundQuantity;
+import persistence.PersistentQuantity;
 
 public abstract class AbsQuantityStandardVisitor implements AbsQuantityVisitor {
     

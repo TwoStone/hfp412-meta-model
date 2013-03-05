@@ -1,7 +1,9 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAccount;
+import persistence.PersistentMeasurement;
 
 public interface QuantifObjectReturnExceptionVisitor<R, E extends UserException> {
     

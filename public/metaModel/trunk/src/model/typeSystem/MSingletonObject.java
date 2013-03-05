@@ -1,6 +1,5 @@
 package model.typeSystem;
 
-import model.ConsistencyException;
 import model.UserException;
 import model.visitor.AbstractObjectExceptionVisitor;
 import model.visitor.AbstractObjectReturnExceptionVisitor;

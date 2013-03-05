@@ -23,7 +23,6 @@ import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 
 import rGType.CharacterType;
-
 import view.Anything;
 import view.ModelException;
 import expressions.RegularExpression;

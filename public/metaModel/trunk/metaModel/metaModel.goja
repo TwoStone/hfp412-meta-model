@@ -322,6 +322,7 @@ part quantity {
 
 	class CompUnitType extends AbsUnitType {
 	 	symmetric ReferenceType ** refs;
+		MBoolean hasReferences(ReferenceType** refs);
 	}
 
 	class UnitType extends AbsUnitType {

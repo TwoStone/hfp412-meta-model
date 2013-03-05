@@ -20,8 +20,6 @@ import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
 
-import common.Fraction;
-
 /* Additional import section end */
 
 public class FractionManager extends PersistentObject implements PersistentFractionManager{

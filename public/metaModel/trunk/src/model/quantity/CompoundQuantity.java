@@ -15,11 +15,8 @@ import persistence.CompoundQuantity_PartsProxi;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
-import persistence.PersistentAbsUnit;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentMBoolean;
-import persistence.PersistentQuantity;
-import persistence.Predcate;
 import persistence.TDObserver;
 
 /* Additional import section end */

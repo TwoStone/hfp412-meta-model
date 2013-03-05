@@ -26,11 +26,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleRemoveUnitTypeCommand(PersistentRemoveUnitTypeCommand removeUnitTypeCommand) throws PersistenceException{
         this.standardHandling(removeUnitTypeCommand);
     }
-    public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
-        this.standardHandling(createUnitCommand);
-    }
     public void handleCreateAspectCommand(PersistentCreateAspectCommand createAspectCommand) throws PersistenceException{
         this.standardHandling(createAspectCommand);
+    }
+    public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
+        this.standardHandling(createUnitCommand);
     }
     public void handleNameSchemeInstance(PersistentNameSchemeInstance nameSchemeInstance) throws PersistenceException{
         this.standardHandling(nameSchemeInstance);

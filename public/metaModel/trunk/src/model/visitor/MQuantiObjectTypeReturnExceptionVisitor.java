@@ -1,7 +1,9 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMAccountType;
+import persistence.PersistentMMeasurementType;
 
 public interface MQuantiObjectTypeReturnExceptionVisitor<R, E extends UserException> {
     

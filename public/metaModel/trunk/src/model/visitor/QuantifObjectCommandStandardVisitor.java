@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAggregateCommand;
+import persistence.QuantifObjectCommand;
 
 public abstract class QuantifObjectCommandStandardVisitor implements QuantifObjectCommandVisitor {
     

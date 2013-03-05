@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMFalse;
+import persistence.PersistentMTrue;
 
 public interface MBooleanReturnVisitor<R> {
     

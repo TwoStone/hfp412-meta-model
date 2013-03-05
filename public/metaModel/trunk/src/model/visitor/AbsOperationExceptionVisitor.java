@@ -1,7 +1,9 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAssociation;
+import persistence.PersistentOperation;
 
 public interface AbsOperationExceptionVisitor<E extends UserException> {
     

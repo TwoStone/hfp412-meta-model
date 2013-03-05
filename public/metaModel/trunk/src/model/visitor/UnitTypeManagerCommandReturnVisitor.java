@@ -1,7 +1,18 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAddReferenceCommand;
+import persistence.PersistentAddReferenceTypeCommand;
+import persistence.PersistentCreateUnitCommand;
+import persistence.PersistentCreateUnitTypeCommand;
+import persistence.PersistentFetchScalarCommand;
+import persistence.PersistentFetchScalarTypeCommand;
+import persistence.PersistentGetExistingCUTCommand;
+import persistence.PersistentRemoveUnitCommand;
+import persistence.PersistentRemoveUnitTypeCommand;
+import persistence.PersistentSetConversionCommand;
+import persistence.PersistentSetDefaultUnitCommand;
 
 public interface UnitTypeManagerCommandReturnVisitor<R> {
     

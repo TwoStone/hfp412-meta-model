@@ -569,7 +569,8 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 
 		// TODO: Doppelte Functions?
 	}
-	public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit) throws PersistenceException {
+    public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit) 
+				throws PersistenceException{
 		final PersistentUnit newDefaultUnit = unit;
 
 		final PersistentUnit oldDefaultUnit = type.getDefaultUnit();
