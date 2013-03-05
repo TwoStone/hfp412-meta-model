@@ -6,6 +6,7 @@ import model.CycleException;
 import model.DoubleDefinitionException;
 import model.NotAvailableException;
 import model.messageOrLink.LinkManager;
+import model.typeSystem.ObjectManager;
 
 import org.junit.Test;
 
@@ -14,6 +15,7 @@ import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
 import persistence.PersistentHierarchy;
 import persistence.PersistentLinkManager;
+import persistence.PersistentObjectManager;
 import util.AbstractTest;
 import util.InjectSingleton;
 
@@ -24,6 +26,9 @@ public class AssociationManagerTest extends AbstractTest {
 
 	@InjectSingleton(LinkManager.class)
 	private PersistentLinkManager linkManager;
+
+	@InjectSingleton(ObjectManager.class)
+	private PersistentObjectManager objectMan;
 
 	public AssociationManagerTest() throws CycleException, PersistenceException, ConsistencyException {
 		super();
@@ -235,7 +240,7 @@ public class AssociationManagerTest extends AbstractTest {
 		manager.getAssociations().add(secondAsso);
 
 		linkManager.createLink(firstAsso, mao1, mao3);
-		linkManager.createLink(firstAsso, mao3, mao1);
+		linkManager.createLink(secondAsso, mao3, mao1);
 	}
 
 	@Test(expected = CycleException.class)
@@ -252,7 +257,7 @@ public class AssociationManagerTest extends AbstractTest {
 		manager.getAssociations().add(secondAsso);
 
 		linkManager.createLink(firstAsso, mao1, mao3);
-		linkManager.createLink(firstAsso, mao3, mao1);
+		linkManager.createLink(secondAsso, mao3, mao1);
 
 		manager.addAssociation(createHierarchy, firstAsso);
 		manager.addAssociation(createHierarchy, secondAsso);

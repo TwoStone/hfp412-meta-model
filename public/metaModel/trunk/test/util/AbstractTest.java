@@ -12,11 +12,12 @@ import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
 import model.typeSystem.MEmptyTypeConjunction;
 import model.typeSystem.MEmptyTypeDisjunction;
-import model.typeSystem.MObject;
+import model.typeSystem.ObjectManager;
 
 import org.junit.Before;
 
 import persistence.ActualParameterSearchList;
+import persistence.MAtomicTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentActualParameter;
 import persistence.PersistentFormalParameter;
@@ -27,9 +28,13 @@ import persistence.PersistentMEmptyTypeConjunction;
 import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMObject;
 import persistence.PersistentMessage;
+import persistence.PersistentObjectManager;
 import persistence.PersistentOperation;
 
 public abstract class AbstractTest extends TestingBase {
+
+	@InjectSingleton(ObjectManager.class)
+	private PersistentObjectManager objectMan;
 
 	protected PersistentMAtomicType mat1;
 	protected PersistentMAtomicType mat2;
@@ -105,6 +110,8 @@ public abstract class AbstractTest extends TestingBase {
 	}
 
 	private void init() throws CycleException, PersistenceException, ConsistencyException {
+		// TODO: Mit Niklas kurz reden: Injection greift zu spaet, daher manuell instanziiert.
+		objectMan = ObjectManager.getTheObjectManager();
 
 		// AtomicType
 		mat1 = MAtomicType.createMAtomicType("Typ1", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 1"));
@@ -144,20 +151,16 @@ public abstract class AbstractTest extends TestingBase {
 		mstMultiple2And4And5 = TestingBase.transNormDisj(mat2, mat4, mat5);
 		mstMixed2And4Or5And6 = TestingBase.transNormDisj(mstMultiple2And4, mstMultiple5And6);
 
-		mao1 = MObject.createMObject();
-		mao1.addType(mat1);
-		mao3 = MObject.createMObject();
-		mao3.addType(mat3);
-		mao4 = MObject.createMObject();
-		mao4.addType(mat4);
-		mao5 = MObject.createMObject();
-		mao5.addType(mat5);
-		mao6 = MObject.createMObject();
-		mao6.addType(mat6);
+		mao1 = objectMan.createMObject(mat1, new MAtomicTypeSearchList());
+		mao3 = objectMan.createMObject(mat3, new MAtomicTypeSearchList());
+		mao4 = objectMan.createMObject(mat4, new MAtomicTypeSearchList());
+		mao5 = objectMan.createMObject(mat5, new MAtomicTypeSearchList());
+		mao6 = objectMan.createMObject(mat6, new MAtomicTypeSearchList());
 
-		mpo4And5 = MObject.createMObject();
-		mpo4And5.addType(mat4);
-		mpo4And5.addType(mat5);
+		final MAtomicTypeSearchList listWithTypeMat5 = new MAtomicTypeSearchList();
+		listWithTypeMat5.add(mat5);
+
+		mpo4And5 = objectMan.createMObject(mat1, listWithTypeMat5);
 
 		standardOp = Operation.createOperation("Standardoperation", mat1, mat6);
 		voidOp = Operation.createOperation("void-Operation", mat1, mstEmpty);

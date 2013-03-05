@@ -8,14 +8,18 @@ import model.DoubleDefinitionException;
 import model.abstractOperation.Association;
 import model.abstractOperation.AssociationManager;
 import model.abstractOperation.Hierarchy;
+import model.typeSystem.ObjectManager;
 
 import org.junit.Test;
 
+import persistence.MAtomicTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
 import persistence.PersistentHierarchy;
 import persistence.PersistentLinkManager;
+import persistence.PersistentMObject;
+import persistence.PersistentObjectManager;
 import util.AbstractTest;
 import util.InjectSingleton;
 
@@ -30,11 +34,18 @@ public class LinkManagerTest extends AbstractTest {
 	@InjectSingleton(AssociationManager.class)
 	private PersistentAssociationManager associationMan;
 
+	@InjectSingleton(ObjectManager.class)
+	private PersistentObjectManager objectMan;
+
 	@Test
 	public void createLink() throws PersistenceException, ConsistencyException, CycleException {
 		final PersistentAssociation createAssociation = Association.createAssociation("testAssociation", mat1, mat6);
-		// FIXME: Gibt Exception obwohl der Typ anfänglich gesetzt wird Oo mao1.getTypes ist leer!
-		this.linkMan.createLink(createAssociation, mao1, mao6);
+		associationMan.getAssociations().add(createAssociation);
+
+		final PersistentMObject atmoicObject1 = objectMan.createMObject(mat1, new MAtomicTypeSearchList());
+		final PersistentMObject atmoicObject6 = objectMan.createMObject(mat6, new MAtomicTypeSearchList());
+
+		this.linkMan.createLink(createAssociation, atmoicObject1, atmoicObject6);
 
 		assertEquals(1, linkMan.getLinks().getLength());
 	}
@@ -46,7 +57,10 @@ public class LinkManagerTest extends AbstractTest {
 		final PersistentAssociation createAssociation = Association.createAssociation("testAssociation", mat1, mat6);
 		this.associationMan.addAssociation(createHierarchy, createAssociation);
 
-		this.linkMan.createLink(createAssociation, mao1, mao6);
+		final PersistentMObject atmoicObject1 = objectMan.createMObject(mat1, new MAtomicTypeSearchList());
+		final PersistentMObject atmoicObject6 = objectMan.createMObject(mat6, new MAtomicTypeSearchList());
+
+		this.linkMan.createLink(createAssociation, atmoicObject1, atmoicObject6);
 
 		assertEquals(1, linkMan.getLinks().getLength());
 	}
@@ -88,8 +102,11 @@ public class LinkManagerTest extends AbstractTest {
 		this.associationMan.addAssociation(createHierarchy, firstAssociation);
 		this.associationMan.addAssociation(createHierarchy, secondAssociation);
 
-		this.linkMan.createLink(firstAssociation, mao1, mao6);
-		this.linkMan.createLink(secondAssociation, mao6, mao1);
+		final PersistentMObject atmoicObject1 = objectMan.createMObject(mat1, new MAtomicTypeSearchList());
+		final PersistentMObject atmoicObject6 = objectMan.createMObject(mat6, new MAtomicTypeSearchList());
+
+		this.linkMan.createLink(firstAssociation, atmoicObject1, atmoicObject6);
+		this.linkMan.createLink(secondAssociation, atmoicObject6, atmoicObject1);
 		fail("Zyklische Links konnten angelegt werden!");
 	}
 
