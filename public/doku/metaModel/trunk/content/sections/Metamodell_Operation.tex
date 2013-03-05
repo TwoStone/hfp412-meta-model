@@ -1,5 +1,55 @@
 \subsection{Operations und Associations}
 
+\subsubsection{Assoziationen}
+
+Die Klasse Association repräsentiert die Möglichkeit Assoziationen zwischen zwei beliebigen Typen abzubilden.
+Neben dem Quell- und Zieltypen, kann eine Assoziation an beliebig vielen Hierarchien teilnehmen.
+Auf der Meta-Ebene ist es zur Abbildung von Aggregationen Möglich, Zyklen innerhalb einer Hierarchie durch Assoziationen zu erzeugen.
+Eine Assoziation entspricht der Interpretation einer Observation, wenn alle Targettypen entweder abstrakt oder singleton sind.
+Wie bei vielen anderen Modellbestandteilen, sind auch die Namen der Assoziation indiziert. Daraus folgt auch, dass es keine gleichnamigen 
+Assoziationen geben darf.
+
+Wie in der Abbildung XXX zu sehen ist, können sowohl Operationen als auch Assoziationen Formalparameter beinhalten. Diese Möglichkeit wird
+dem Anwender über die Oberfläche nicht bereitgestellt. Eine Mögliche Interpretation von Formalparametern für Assoziationen sind die n-stelligen Assoziationen
+welche in der ersten Implementierungsstufe nicht umgesetzt wurden.
+
+\subsubsubsection{AssociationManager}
+Der AssoziationManager bietet fünf transaktionale Operationen an und beinhaltet zwei Listen welche er verwaltet.
+Die eine Liste beinhaltet alle erstellten Assoziationen und die Andere alle Hierarchien. Diese beiden Listen werden dem Anwender an der 
+Oberfläche präsentiert.
+
+Im Folgenden werden Operationen die dem Anwender über dem Sever an der Oberfläche angeboten kurz beschrieben, wobei
+\textbf{Parameter} als auch \emph{Exceptions} durch entsprechende Formatierungen hervorgehoben wurden.
+
+\begin{description}
+\item[createAssociation] Bei Aufruf dieser Operation müssen \textbf{Quell- und Zieltyp} sowie der \textbf{Name} der zu erstellenden Assoziation 
+angegeben werden.
+Sollte der Name schon von einer anderen Assoziation verwendet werden, wirft die Operation eine \emph{DoubleDefinitionException} und die Assoziation wird nicht
+erstellt.
+Wenn der Name noch nicht von einer anderen Assoziation belegt ist, wird die Assoziation erstellt und zur Liste der bekannten Assoziationen hingefügt. 
+\item[removeAssociation] Diese Operation erwartet beim Aufruf nur die zu entfernende {Assoziation}. Bei erfolgreicher Durchführung dieser Operation, wird die
+angegebene Assoziation aus dem System entfernt. 
+Sollte es ein oder mehrere Exemplare zu dieser Assoziation (Links) geben, wird eine \emph{ConsistencyException} geworfen und die Assoziation wird nicht entfernt! 
+\item[createHierarchy] Da es in dem erarbeiteten Modell leeren Hierarchien geben darf, wird neben dem Namen der zu erstellenden \textbf{Hierarchie} auch eine 
+{Assoziation} erwartet. Nach erfolgreicher durchführung, wird die Hierarchie erstellt und die angegebene Assoziation der neuen Hierarchie zugeordnet.
+Insbesondere folgende Gründe führen zum Misserfolg:
+\begin{itemize}
+\item Der angegebene Name der Hierarchie wird schon von einer anderen Hierarchie verwendet.
+\item Durch das zuordnen der Assoziation zu dieser Hierarchie entsteht auf der Exemplarbene ein Zyklus. Das kann genau dann passieren, wenn es vor 
+der Erstellung der Hierarchie schon zyklische Links zu dieser Assoziation gibt. Da diese Links nun über ihre Assoziation in einer Hierarchie sind, sind 
+Zyklen nicht erlaubt und es kommt zu einer \emph{CycleException.}
+\end{itemize}
+\item[addAssociation] Diese Operation erwartet zum einen die \textbf{Hierarchie} zu der die Assoziation hinzugefügt werden soll und zum Anderen die \textbf{Assoziation} selbst.
+Wenn es auf der Exemplarbene keine zyklischen Links zu dieser Assoziation gibt, wird die Assoziation der Hierarchie zugeordnet. Sollte es zyklische Links
+zu dieser Assoziation geben oder die Assoziation ist bereits in dieser Hierarchie, werden entsprechende Exceptions (\emph{CycleException,} bzw. \emph{DoubleDefinitionException}) 
+geworfen und die Assoziation wird der Hierarchie nicht zugeordnet.
+\item[removeAssoFrmHier] Zum entfernen von Assoziationen aus Hierarchien, ist es notwendig dieser Operation sowohl die \textbf{Hierarchie}, als auch die zu entfernende 
+\textbf{Assoziation} anzugeben. Es wird nur die Assoziation aus der Hierarchie entfernt, nicht die Assoziation allgemein! Sofern die angegebene Assoziation an dieser 
+Hierarchie teilnimmt, wird diese Verbindung durch die Ausführung dieser Operation entfernt. Sollte dies nicht der Fall sein, wird eine
+\emph{NotAvailableException} geworfen. 
+\end{description}
+
+
 
 \subsection{Messages und Links}
 
