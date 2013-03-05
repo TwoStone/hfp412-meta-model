@@ -408,15 +408,15 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION);
 		}
 
-		// ReferenceType laden bzw neu erstellen
-		final PersistentReferenceType refType = getReferenceType(referenceUnitType, exponent);
-
 		final PersistentCompUnitType cut = unitType.accept(new AbsUnitTypeReturnVisitor<PersistentCompUnitType>() {
 
 			@Override
 			public PersistentCompUnitType handleCompUnitType(final PersistentCompUnitType compUnitType)
 					throws PersistenceException {
+				// TODO: referenzen von compUnitType auf referenceUnitType überprüfen
 				final ReferenceTypeSearchList refTypeList = new ReferenceTypeSearchList();
+				// ReferenceType laden bzw neu erstellen
+				final PersistentReferenceType refType = getReferenceType(referenceUnitType, exponent);
 				refTypeList.add(refType);
 				try {
 					refTypeList.add(compUnitType.getRefs());
@@ -430,10 +430,15 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 			@Override
 			public PersistentCompUnitType handleUnitType(final PersistentUnitType unitType) throws PersistenceException {
 				// ReferenceType mit unitType laden bzw. erstellen
-				final PersistentReferenceType refType2 = getReferenceType(unitType, exponent);
 				final ReferenceTypeSearchList refTypeList = new ReferenceTypeSearchList();
-				refTypeList.add(refType);
-				refTypeList.add(refType2);
+				if (referenceUnitType.equals(unitType)) {
+					refTypeList.add(getReferenceType(unitType, exponent + 1));
+				} else {
+					final PersistentReferenceType refType = getReferenceType(referenceUnitType, exponent);
+					final PersistentReferenceType refType2 = getReferenceType(unitType, exponent);
+					refTypeList.add(refType2);
+					refTypeList.add(refType);
+				}
 				return getCUT(name, refTypeList);
 			}
 
@@ -746,7 +751,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	protected PersistentCompUnitType getCUT(final String name, final ReferenceTypeSearchList refTypes)
 			throws PersistenceException {
 		PersistentCompUnitType result = getExistingCUT(refTypes);
-		if (result != null) {
+		if (result == null) {
 			result = CompUnitType.createCompUnitType(name);
 			try {
 				result.getRefs().add(refTypes);
