@@ -8,7 +8,6 @@ import model.CycleException;
 import model.abstractOperation.FormalParameter;
 import model.abstractOperation.Operation;
 import model.messageOrLink.ActualParameter;
-import model.messageOrLink.Message;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
 import model.typeSystem.MEmptyTypeConjunction;
@@ -177,12 +176,6 @@ public abstract class AbstractTest extends TestingBase {
 		voidOp = Operation.createOperation("void-Operation", mat1, mstEmpty);
 		constantOp = Operation.createOperation("Konstante", mstEmpty, mat1);
 		staticOp = Operation.createOperation("static-Operation", mstEmpty, mat1);
-
-		standardMessage = Message.createMessage(mao1, mao6, standardOp);
-		// TODO
-		// voidMessage = Message.createMessage(mao1, msoEmpty, standardOp);
-		// constantMessage = Message.createMessage(msoEmpty, mao1, standardOp);
-		// staticMessage = Message.createMessage(msoEmpty, mao1, standardOp);
 
 		fp1 = FormalParameter.createFormalParameter(mat1, "formalparameter1");
 		fp2 = FormalParameter.createFormalParameter(mat1, "formalparameter2");

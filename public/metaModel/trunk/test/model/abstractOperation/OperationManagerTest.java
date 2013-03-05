@@ -52,7 +52,7 @@ public class OperationManagerTest extends AbstractTest {
 
 	@Test
 	public void listShouldContainOperationAfterCreation() throws DoubleDefinitionException, PersistenceException {
-		String name = "einName";
+		final String name = "einName";
 		manager.createOperation(mat2, mat3, name, manager.getFormalParameters().getList());
 
 		if (Operation.getAbsOperationByName(name).getLength() <= 0) {
@@ -62,7 +62,7 @@ public class OperationManagerTest extends AbstractTest {
 
 	@Test
 	public void sourceOfStaticOperationHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException {
-		String name = "test04";
+		final String name = "test04";
 		// 1. Erstellen
 		manager.createStaticOp(name, mat2, manager.getFormalParameters().getList());
 
@@ -72,12 +72,12 @@ public class OperationManagerTest extends AbstractTest {
 		assertEqualsWithNameAndVisitor(name, new AbsOperationVisitor() {
 
 			@Override
-			public void handleOperation(PersistentOperation operation) throws PersistenceException {
+			public void handleOperation(final PersistentOperation operation) throws PersistenceException {
 				assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), operation.getSource());
 			}
 
 			@Override
-			public void handleAssociation(PersistentAssociation association) throws PersistenceException {
+			public void handleAssociation(final PersistentAssociation association) throws PersistenceException {
 				// Wenn eine Operation genauso heisst wie eine Association ist das
 				// erstmal nicht relevant.
 			}
@@ -87,7 +87,7 @@ public class OperationManagerTest extends AbstractTest {
 	/* Eigentlich unnoetig aber kost ja nischt! */
 	@Test
 	public void sourceOfConstantHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException {
-		String name = "test0X";
+		final String name = "test0X";
 		// 1. Erstellen
 		manager.createConstant(name, mat2);
 
@@ -97,13 +97,13 @@ public class OperationManagerTest extends AbstractTest {
 		assertEqualsWithNameAndVisitor(name, new AbsOperationVisitor() {
 
 			@Override
-			public void handleOperation(PersistentOperation operation) throws PersistenceException {
+			public void handleOperation(final PersistentOperation operation) throws PersistenceException {
 
 				assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), operation.getSource());
 			}
 
 			@Override
-			public void handleAssociation(PersistentAssociation association) throws PersistenceException {
+			public void handleAssociation(final PersistentAssociation association) throws PersistenceException {
 				// Wenn eine Operation genauso heisst wie eine Association ist das
 				// erstmal nicht relevant.
 			}
@@ -112,7 +112,7 @@ public class OperationManagerTest extends AbstractTest {
 
 	@Test
 	public void targetOfVoidOperationHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException {
-		String name = "test05";
+		final String name = "test05";
 		manager.createVoidOperation(mat1, name, manager.getFormalParameters().getList());
 
 		if (Operation.getAbsOperationByName(name).getLength() <= 0) {
@@ -122,12 +122,12 @@ public class OperationManagerTest extends AbstractTest {
 		assertEqualsWithNameAndVisitor(name, new AbsOperationVisitor() {
 
 			@Override
-			public void handleOperation(PersistentOperation operation) throws PersistenceException {
+			public void handleOperation(final PersistentOperation operation) throws PersistenceException {
 				assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), operation.getTarget());
 			}
 
 			@Override
-			public void handleAssociation(PersistentAssociation association) throws PersistenceException {
+			public void handleAssociation(final PersistentAssociation association) throws PersistenceException {
 				// Wenn eine Operation genauso heisst wie eine Association ist das
 				// erstmal nicht relevant.
 			}
@@ -139,13 +139,14 @@ public class OperationManagerTest extends AbstractTest {
 			ConsistencyException {
 		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner", mat3, mat4);
 		manager.removeOperation(createOperation);
-		PersistentOperation found = manager.getOperations().getList().findFirst(new Predcate<PersistentOperation>() {
+		final PersistentOperation found = manager.getOperations().getList()
+				.findFirst(new Predcate<PersistentOperation>() {
 
-			@Override
-			public boolean test(PersistentOperation argument) throws PersistenceException {
-				return argument.equals(createOperation);
-			}
-		});
+					@Override
+					public boolean test(final PersistentOperation argument) throws PersistenceException {
+						return argument.equals(createOperation);
+					}
+				});
 
 		assertNull(found);
 	}
@@ -164,14 +165,14 @@ public class OperationManagerTest extends AbstractTest {
 	public void operationShouldContainParameterAfterAdd() throws PersistenceException, ConsistencyException,
 			DoubleDefinitionException {
 		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
-		PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
+		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
 		manager.addFp(createOperation, param);
 
-		PersistentFormalParameter foundParam = createOperation.getParameters().findFirst(
+		final PersistentFormalParameter foundParam = createOperation.getParameters().findFirst(
 				new Predcate<PersistentFormalParameter>() {
 
 					@Override
-					public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+					public boolean test(final PersistentFormalParameter argument) throws PersistenceException {
 						return param.equals(argument);
 					}
 				});
@@ -185,18 +186,18 @@ public class OperationManagerTest extends AbstractTest {
 		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
 		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat1, "y");
 
-		FormalParameterSearchList searchList = new FormalParameterSearchList();
+		final FormalParameterSearchList searchList = new FormalParameterSearchList();
 		searchList.add(param);
 		searchList.add(param2);
 
-		PersistentOperation createOperation = Operation.createOperation("IrgendeinerXY", mat3, mat4);
+		final PersistentOperation createOperation = Operation.createOperation("IrgendeinerXY", mat3, mat4);
 		manager.addMultipleFp(createOperation, searchList);
 
-		SearchListRoot<PersistentFormalParameter> findAll = createOperation.getParameters().findAll(
+		final SearchListRoot<PersistentFormalParameter> findAll = createOperation.getParameters().findAll(
 				new Predcate<PersistentFormalParameter>() {
 
 					@Override
-					public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+					public boolean test(final PersistentFormalParameter argument) throws PersistenceException {
 						return param.equals(argument) || param2.equals(argument);
 					}
 				});
@@ -207,10 +208,10 @@ public class OperationManagerTest extends AbstractTest {
 	@Test(expected = DoubleDefinitionException.class)
 	public void equalNamedParametersInSameOperationAreNotAllowd() throws PersistenceException, ConsistencyException,
 			DoubleDefinitionException {
-		PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
-		PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "x");
+		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
+		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "x");
 
-		PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
+		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
 		manager.addFp(createOperation, param);
 		manager.addFp(createOperation, param2);
 	}
@@ -218,14 +219,14 @@ public class OperationManagerTest extends AbstractTest {
 	@Test(expected = DoubleDefinitionException.class)
 	public void equalNamedParametersInSameOperationAreNotAllowd2() throws PersistenceException, ConsistencyException,
 			DoubleDefinitionException {
-		PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
-		PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "x");
+		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
+		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "x");
 
-		FormalParameterSearchList searchList = new FormalParameterSearchList();
+		final FormalParameterSearchList searchList = new FormalParameterSearchList();
 		searchList.add(param);
 		searchList.add(param2);
 
-		PersistentOperation createOperation = Operation.createOperation("Irgendeiner02", mat3, mat4);
+		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner02", mat3, mat4);
 		manager.addMultipleFp(createOperation, searchList);
 	}
 
@@ -235,17 +236,17 @@ public class OperationManagerTest extends AbstractTest {
 		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
 		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "y");
 
-		PersistentOperation createOperation = Operation.createOperation("Irgendeiner03", mat3, mat4);
+		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner03", mat3, mat4);
 		manager.addFp(createOperation, param);
 		manager.addFp(createOperation, param2);
 
 		manager.removeFpFromOp(createOperation, param);
 
-		PersistentFormalParameter foundParam = createOperation.getParameters().findFirst(
+		final PersistentFormalParameter foundParam = createOperation.getParameters().findFirst(
 				new Predcate<PersistentFormalParameter>() {
 
 					@Override
-					public boolean test(PersistentFormalParameter argument) throws PersistenceException {
+					public boolean test(final PersistentFormalParameter argument) throws PersistenceException {
 						return param.equals(argument);
 					}
 				});
@@ -267,7 +268,7 @@ public class OperationManagerTest extends AbstractTest {
 		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
 		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "y");
 
-		FormalParameterSearchList searchList = new FormalParameterSearchList();
+		final FormalParameterSearchList searchList = new FormalParameterSearchList();
 		searchList.add(param);
 		searchList.add(param2);
 
@@ -279,21 +280,21 @@ public class OperationManagerTest extends AbstractTest {
 	@Test(expected = ConsistencyException.class)
 	public void removingFormalParameterFromOperationWithoutTheseParam() throws PersistenceException,
 			DoubleDefinitionException, ConsistencyException {
-		// TODO: Das muss doch besser gehen!? Erst anlegen und dann den Angelegten mit etwas vergleichen...
+		// TODO: Christin: Das muss doch besser gehen!? Erst anlegen und dann den Angelegten mit etwas vergleichen...
 
 		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
 		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "y");
 
-		FormalParameterSearchList searchList = new FormalParameterSearchList();
+		final FormalParameterSearchList searchList = new FormalParameterSearchList();
 		searchList.add(param);
 
 		final String name = "IrgendeinerXXX";
 		manager.createOperation(mat3, mat4, name, searchList);
 
-		PersistentOperation findFirst = manager.getOperations().findFirst(new Predcate<PersistentOperation>() {
+		final PersistentOperation findFirst = manager.getOperations().findFirst(new Predcate<PersistentOperation>() {
 
 			@Override
-			public boolean test(PersistentOperation argument) throws PersistenceException {
+			public boolean test(final PersistentOperation argument) throws PersistenceException {
 				return argument.getName().equals(name);
 			}
 		});
@@ -315,14 +316,15 @@ public class OperationManagerTest extends AbstractTest {
 	 * @param visitor
 	 * @throws PersistenceException
 	 */
-	private void assertEqualsWithNameAndVisitor(String name, AbsOperationVisitor visitor) throws PersistenceException {
+	private void assertEqualsWithNameAndVisitor(final String name, final AbsOperationVisitor visitor)
+			throws PersistenceException {
 		// 1. Wieder aus der Liste fummeln...
-		SearchListRoot<PersistentAbsOperation> findAll = Operation.getAbsOperationByName(name);
+		final SearchListRoot<PersistentAbsOperation> findAll = Operation.getAbsOperationByName(name);
 		/*
 		 * 2. Da es ggf. mehrere gibt (bspw. eine Assoziation und eine Operation), nur die iterieren und nur die
 		 * Operation vergleichen
 		 */
-		Iterator<PersistentAbsOperation> iterator = findAll.iterator();
+		final Iterator<PersistentAbsOperation> iterator = findAll.iterator();
 		while (iterator.hasNext()) {
 			iterator.next().accept(visitor);
 		}
