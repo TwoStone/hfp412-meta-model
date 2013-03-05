@@ -267,6 +267,9 @@ public class AddAssociationCommand extends PersistentObject implements Persisten
         try{
 			this.getCommandReceiver().addAssociation(this.getH(), this.getA());
 		}
+		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
+		}
 		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}

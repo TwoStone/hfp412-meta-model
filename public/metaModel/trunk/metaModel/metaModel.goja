@@ -404,6 +404,8 @@ part quantity {
 	singleton UnitTypeManager {
 		AbsUnitType ** unitTypes;
 		no-view derived UnitType** atomicUnitTypes;
+		no-view ReferenceType** refTypes;
+
 		AbsUnit ** units;
 	
 		/* Operationen fuer Typebene */

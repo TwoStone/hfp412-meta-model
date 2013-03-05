@@ -259,9 +259,6 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
 		}
-		catch(model.ConsistencyException e){
-			this.commandException = e;
-		}
 		catch(model.CycleException e){
 			this.commandException = e;
 		}

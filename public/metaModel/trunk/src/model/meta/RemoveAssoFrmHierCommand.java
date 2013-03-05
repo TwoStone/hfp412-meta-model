@@ -270,6 +270,9 @@ public class RemoveAssoFrmHierCommand extends PersistentObject implements Persis
 		catch(model.NotAvailableException e){
 			this.commandException = e;
 		}
+		catch(model.CycleException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

@@ -80,11 +80,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleAddAssociationCommand(PersistentAddAssociationCommand addAssociationCommand) throws PersistenceException{
         this.standardHandling(addAssociationCommand);
     }
-    public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
-        this.standardHandling(setConversionCommand);
-    }
     public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException{
         this.standardHandling(replaceTypeCommand);
+    }
+    public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
+        this.standardHandling(setConversionCommand);
     }
     public void handleFetchScalarTypeCommand(PersistentFetchScalarTypeCommand fetchScalarTypeCommand) throws PersistenceException{
         this.standardHandling(fetchScalarTypeCommand);
