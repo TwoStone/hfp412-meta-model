@@ -236,18 +236,14 @@ public class RemoveLinkCommand extends PersistentObject implements PersistentRem
     }
     
     
-    public void execute() 
-				throws PersistenceException{
-        this.getCommandReceiver().removeLink(this.getLink());
-		
-    }
     public void checkException() 
 				throws UserException, PersistenceException{
         if (this.commandException != null) throw this.commandException;
     }
-    public void sendResult() 
+    public void execute() 
 				throws PersistenceException{
-        this.invoker.handleResult(this);
+        this.getCommandReceiver().removeLink(this.getLink());
+		
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{
@@ -257,6 +253,14 @@ public class RemoveLinkCommand extends PersistentObject implements PersistentRem
 				throws PersistenceException{
         this.invoker.handleException(this, exception);
     }
+    public void sendResult() 
+				throws PersistenceException{
+        this.invoker.handleResult(this);
+    }
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

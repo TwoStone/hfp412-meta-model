@@ -8,8 +8,8 @@ public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R>
     public R handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     public R handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     public R handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException;
-    public R handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
     public R handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException;
+    public R handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
     public R handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException;
     public R handleMinStrategy(PersistentMinStrategy minStrategy) throws PersistenceException;
     public R handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;

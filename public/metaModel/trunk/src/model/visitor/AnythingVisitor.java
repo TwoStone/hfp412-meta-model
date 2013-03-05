@@ -8,8 +8,8 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleCommandCoordinator(PersistentCommandCoordinator commandCoordinator) throws PersistenceException;
     public void handleCommandExecuter(PersistentCommandExecuter commandExecuter) throws PersistenceException;
     public void handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException;
-    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException;
+    public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException;
     public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException;
     public void handleMinStrategy(PersistentMinStrategy minStrategy) throws PersistenceException;
     public void handleCreateUnitTypeCommand(PersistentCreateUnitTypeCommand createUnitTypeCommand) throws PersistenceException;

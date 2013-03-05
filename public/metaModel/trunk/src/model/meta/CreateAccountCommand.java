@@ -269,18 +269,14 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
     }
     
     
-    public void execute() 
-				throws PersistenceException{
-        this.getCommandReceiver().createAccount(this.getName(), this.getType(), this.getObject());
-		
-    }
     public void checkException() 
 				throws UserException, PersistenceException{
         if (this.commandException != null) throw this.commandException;
     }
-    public void sendResult() 
+    public void execute() 
 				throws PersistenceException{
-        this.invoker.handleResult(this);
+        this.getCommandReceiver().createAccount(this.getName(), this.getType(), this.getObject());
+		
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{
@@ -290,6 +286,14 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
 				throws PersistenceException{
         this.invoker.handleException(this, exception);
     }
+    public void sendResult() 
+				throws PersistenceException{
+        this.invoker.handleResult(this);
+    }
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

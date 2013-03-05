@@ -152,11 +152,17 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
     }
     
     
-    public void initializeOnInstantiation() 
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
-		// implement method: initializeOnInstantiation
-
-	}
+        this.setThis((PersistentCompUnitType)This);
+		if(this.equals(This)){
+			this.setName((String)final$$Fields.get("name"));
+		}
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 		// implement method: copyingPrivateUserAttributes
@@ -172,16 +178,18 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
 			throw uoe;
 		}
 	}
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentCompUnitType)This);
-		if(this.equals(This)){
-			this.setName((String)final$$Fields.get("name"));
-		}
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// implement method: initializeOnInstantiation
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

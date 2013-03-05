@@ -152,23 +152,41 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentCompoundQuantity)This);
 		if(this.equals(This)){
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
+    public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
 				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub hugo ist da
+		return null;
+	}
+    public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub
+		return null;
+	}
+    public PersistentMBoolean isLessOrEqualThan(final PersistentAbsQuantity compareValue) 
+				throws model.UserException, PersistenceException{
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -177,18 +195,8 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
 		// TODO Auto-generated method stub
 		return null;
 	}
-    public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
+    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
 				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-    public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub hugo ist da
-		return null;
-	}
-    public PersistentMBoolean isLessOrEqualThan(final PersistentAbsQuantity compareValue) 
-				throws model.UserException, PersistenceException{
 		// TODO Auto-generated method stub
 		return null;
 	}

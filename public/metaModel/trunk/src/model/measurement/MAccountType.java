@@ -187,14 +187,10 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-
-	}
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public boolean containsMAccountTypeHierarchy(final MAccountTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -222,14 +218,26 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 		}
 		return strategy.finalize$$MAccountType(getThis(), parameter,result$$subAccountTypes$$MAccountType);
     }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-
-	}
     public void addSubAccountType(final PersistentMAccountType accountType) 
 				throws model.CycleException, PersistenceException{
 		this.getThis().getSubAccountTypes().add(accountType);
 	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     
