@@ -222,8 +222,8 @@ public class AssociationManagerTest extends AbstractTest {
 		final PersistentHierarchy h = Hierarchy.createHierarchy("a");
 		try {
 			manager.getAssociations().add(a);
-			h.getAssociations().add(a);
 			manager.getHierarchies().add(h);
+			manager.addAssociation(h, a);
 		} catch (final Exception e) {
 			fail("Exception an der falschen Stelle");
 		}

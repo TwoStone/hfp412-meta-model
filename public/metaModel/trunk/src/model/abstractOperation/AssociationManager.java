@@ -3,6 +3,7 @@ package model.abstractOperation;
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
+import model.NotAvailableException;
 import model.UserException;
 import model.basic.MFalse;
 import model.basic.MTrue;
@@ -427,8 +428,29 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	@Override
 	public void removeAssoFrmHier(final PersistentHierarchy h, final PersistentAssociation a)
 			throws model.NotAvailableException, model.ConsistencyException, model.CycleException, PersistenceException {
+
+		// Wenn die Assoziation gar nicht in der Hierarchy ist => Exception
+		final PersistentAssociation findFirst = h.getAssociations().findFirst(new Predcate<PersistentAssociation>() {
+
+			@Override
+			public boolean test(final PersistentAssociation argument) throws PersistenceException {
+				return argument.equals(a);
+			}
+		});
+		if (findFirst == null) {
+			throw new NotAvailableException("Die Assoziation '" + a + "' ist nicht in der Hierarchy '" + h + "'");
+		}
+
+		// Wenn versucht wird die letzte Assoziation einer Hierarchie zu entfernen
+		if (h.getAssociations().getLength() <= 1) {
+			throw new ConsistencyException(
+					"Die Assoziation '"
+							+ a
+							+ "' ist die letzte Assoziation in der gewählten Hierarchie. Diese kann nicht aus der Hierarchie entfernt werden.");
+		}
+
 		a.getHierarchies().removeFirstSuccess(new Predcate<PersistentHierarchy>() {
-			// TODO: Christin: NotAvailableException und Testfall dazu
+			// TODO: Christin: NotAvailableException Testfall dazu
 			@Override
 			public boolean test(final PersistentHierarchy argument) throws PersistenceException {
 				return h.equals(argument);
@@ -443,6 +465,11 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		if (a.inverseGetType().getLength() > 0) {
 			throw new ConsistencyException("Die Assoziation '" + a
 					+ "' kann nicht gelöscht werden, solang Exemplare existieren.");
+		}
+		// Consistency wenn es Element einer Hierarchy ist
+		if (getThis().getHierarchies().getLength() > 0) {
+			throw new ConsistencyException("Die Assoziation '" + a
+					+ "' kann nicht gelöscht werden, da sie Element mindestens einer Hierarchy ist.");
 		}
 
 		getThis().getAssociations().removeFirstSuccess(new Predcate<PersistentAssociation>() {
