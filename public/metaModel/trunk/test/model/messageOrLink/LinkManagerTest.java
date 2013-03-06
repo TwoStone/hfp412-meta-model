@@ -17,6 +17,7 @@ import persistence.PersistenceException;
 import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
 import persistence.PersistentHierarchy;
+import persistence.PersistentLink;
 import persistence.PersistentLinkManager;
 import persistence.PersistentMObject;
 import persistence.PersistentObjectManager;
@@ -155,6 +156,22 @@ public class LinkManagerTest extends AbstractTest {
 		this.linkMan.createLink(firstAssociation, mao1, mao6);
 		this.linkMan.createLink(secondAssociation, mao6, mao5);
 		this.linkMan.createLink(secondAssociation, mao5, mao1);
+	}
+
+	@Test
+	public void removeLinkSuccess01() throws DoubleDefinitionException, ConsistencyException, CycleException,
+			PersistenceException {
+		final PersistentAssociation firstAssociation = Association.createAssociation("firstAssociation", mat1, mat6);
+		final PersistentHierarchy createHierarchy1 = Hierarchy.createHierarchy("hierarchie1");
+		this.associationMan.addAssociation(createHierarchy1, firstAssociation);
+
+		final PersistentLink createLink = Link.createLink(mao1, mao6, firstAssociation);
+		// TODO: Die Manager sollten beim create das erstellte Objekt zurueck geben. SO bring das nichts! (SIeht man
+		// beim debuggen).
+		linkMan.getLinks().add(createLink);
+
+		linkMan.removeLink(createLink);
+		assertEquals(0, linkMan.getLinks().getLength());
 	}
 
 }
