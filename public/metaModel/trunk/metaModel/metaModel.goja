@@ -335,9 +335,9 @@ part quantity {
 		prior no-view UnitType ref;
 	}
 	class Reference {
-		ReferenceType type;
-		Integer exponent;
-		Unit ref;
+		prior ReferenceType type;
+		prior Integer exponent;
+		prior Unit ref;
 	}
 	
 	class Conversion {
@@ -406,6 +406,7 @@ part quantity {
 		AbsUnitType ** unitTypes;
 		no-view derived UnitType** atomicUnitTypes;
 		no-view ReferenceType** refTypes;
+		no-view Reference** refs;
 
 		AbsUnit ** units;
 	
