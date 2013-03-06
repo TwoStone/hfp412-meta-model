@@ -463,7 +463,7 @@ singleton AssociationManager {
 	Association ** associations;
 	Hierarchy** hierarchies;
 
-active void createAssociation(MType source, MType target, String name) throws DoubleDefinitionException, ConsistencyException;
+active Association createAssociation(MType source, MType target, String name) throws DoubleDefinitionException, ConsistencyException;
 active void removeAssociation(Association a) throws CycleException, ConsistencyException;
 active void createHierarchy(Association a, String name) throws CycleException, DoubleDefinitionException, ConsistencyException;
 active void removeHierarchy(Hierarchy h);

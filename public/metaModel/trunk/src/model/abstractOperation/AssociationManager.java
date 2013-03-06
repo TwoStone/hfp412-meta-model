@@ -358,8 +358,8 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	}
 
 	@Override
-	public void createAssociation(final PersistentMType source, final PersistentMType target, final String name)
-			throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException {
+	public PersistentAssociation createAssociation(final PersistentMType source, final PersistentMType target,
+			final String name) throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException {
 		// DoubleDefinition prüfen
 		final AbsOperationSearchList absOperationWithSameName = Association.getAbsOperationByName(name);
 		PersistentAbsOperation doubleDefinition = null;
@@ -396,6 +396,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 
 		final PersistentAssociation a = Association.createAssociation(name, source, target);
 		getThis().getAssociations().add(a);
+		return a;
 	}
 
 	@Override

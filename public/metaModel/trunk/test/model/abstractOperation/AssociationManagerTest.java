@@ -126,20 +126,13 @@ public class AssociationManagerTest extends AbstractTest {
 	@Test
 	public void removeAssociationSuccessful() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException, CycleException {
-		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
-		final PersistentAssociation b = Association.createAssociation("b", mptSingle2, mat5);
-		final PersistentAssociation c = Association.createAssociation("c", mptMultiple2And4, mat5);
-		final PersistentAssociation d = Association.createAssociation("d", mstSingle2, mat5);
-		final PersistentAssociation e = Association.createAssociation("e", mstMultiple2And4, mat5);
-		final PersistentAssociation f = Association.createAssociation("f", mstMixed2And4Or5And6, mat5);
-		final PersistentAssociation g = Association.createAssociation("g", mptMixed2Or4And5Or6, mat5);
-		manager.getAssociations().add(a);
-		manager.getAssociations().add(b);
-		manager.getAssociations().add(c);
-		manager.getAssociations().add(d);
-		manager.getAssociations().add(e);
-		manager.getAssociations().add(f);
-		manager.getAssociations().add(g);
+		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
+		final PersistentAssociation b = manager.createAssociation(mptSingle2, mat5, "b");
+		final PersistentAssociation c = manager.createAssociation(mptMultiple2And4, mat5, "c");
+		final PersistentAssociation d = manager.createAssociation(mstSingle2, mat5, "d");
+		final PersistentAssociation e = manager.createAssociation(mstMultiple2And4, mat5, "e");
+		final PersistentAssociation f = manager.createAssociation(mstMixed2And4Or5And6, mat5, "f");
+		final PersistentAssociation g = manager.createAssociation(mptMixed2Or4And5Or6, mat5, "g");
 
 		manager.removeAssociation(a);
 		manager.removeAssociation(b);
@@ -166,20 +159,13 @@ public class AssociationManagerTest extends AbstractTest {
 	@Test
 	public void createHierarchySuccessful() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException, CycleException {
-		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
-		final PersistentAssociation b = Association.createAssociation("b", mptSingle2, mat5);
-		final PersistentAssociation c = Association.createAssociation("c", mptMultiple2And4, mat5);
-		final PersistentAssociation d = Association.createAssociation("d", mstSingle2, mat5);
-		final PersistentAssociation e = Association.createAssociation("e", mstMultiple2And4, mat5);
-		final PersistentAssociation f = Association.createAssociation("f", mstMixed2And4Or5And6, mat5);
-		final PersistentAssociation g = Association.createAssociation("g", mptMixed2Or4And5Or6, mat5);
-		manager.getAssociations().add(a);
-		manager.getAssociations().add(b);
-		manager.getAssociations().add(c);
-		manager.getAssociations().add(d);
-		manager.getAssociations().add(e);
-		manager.getAssociations().add(f);
-		manager.getAssociations().add(g);
+		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
+		final PersistentAssociation b = manager.createAssociation(mptSingle2, mat5, "b");
+		final PersistentAssociation c = manager.createAssociation(mptMultiple2And4, mat5, "c");
+		final PersistentAssociation d = manager.createAssociation(mstSingle2, mat5, "d");
+		final PersistentAssociation e = manager.createAssociation(mstMultiple2And4, mat5, "e");
+		final PersistentAssociation f = manager.createAssociation(mstMixed2And4Or5And6, mat5, "f");
+		final PersistentAssociation g = manager.createAssociation(mptMixed2Or4And5Or6, mat5, "g");
 
 		manager.createHierarchy(a, "a");
 		manager.createHierarchy(b, "b");
@@ -193,10 +179,8 @@ public class AssociationManagerTest extends AbstractTest {
 	@Test(expected = DoubleDefinitionException.class)
 	public void createHierarchyDDE() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
 			CycleException {
-		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
-		final PersistentAssociation b = Association.createAssociation("b", mptSingle2, mat5);
-		manager.getAssociations().add(a);
-		manager.getAssociations().add(b);
+		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
+		final PersistentAssociation b = manager.createAssociation(mptSingle2, mat5, "b");
 
 		manager.createHierarchy(a, "a");
 		manager.createHierarchy(b, "a");
@@ -205,9 +189,9 @@ public class AssociationManagerTest extends AbstractTest {
 	@Test(expected = CycleException.class)
 	public void createHierarchyCE() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
 			CycleException {
-		final PersistentAssociation a = Association.createAssociation("a", mat4, mat4);
+		PersistentAssociation a = null;
 		try {
-			manager.getAssociations().add(a);
+			a = manager.createAssociation(mat4, mat4, "a");
 			linkManager.createLink(a, mao4, mao4);
 		} catch (final Exception e) {
 			fail("Exception an der falschen Stelle");
@@ -217,11 +201,10 @@ public class AssociationManagerTest extends AbstractTest {
 
 	@Test
 	public void removeAssoFormHierarchy() throws PersistenceException, NotAvailableException, CycleException,
-			ConsistencyException {
-		final PersistentAssociation a = Association.createAssociation("a", mat4, mat5);
+			ConsistencyException, DoubleDefinitionException {
+		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		final PersistentHierarchy h = Hierarchy.createHierarchy("a");
 		try {
-			manager.getAssociations().add(a);
 			manager.getHierarchies().add(h);
 			manager.addAssociation(h, a);
 		} catch (final Exception e) {
@@ -233,11 +216,8 @@ public class AssociationManagerTest extends AbstractTest {
 	@Test
 	public void addAssoicationWithoutCycleE01() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException, CycleException {
-		final PersistentAssociation firstAsso = Association.createAssociation("a", mat1, mat3);
-		final PersistentAssociation secondAsso = Association.createAssociation("b", mat3, mat1);
-
-		manager.getAssociations().add(firstAsso);
-		manager.getAssociations().add(secondAsso);
+		final PersistentAssociation firstAsso = manager.createAssociation(mat1, mat3, "a");
+		final PersistentAssociation secondAsso = manager.createAssociation(mat3, mat1, "b");
 
 		linkManager.createLink(firstAsso, mao1, mao3);
 		linkManager.createLink(secondAsso, mao3, mao1);
@@ -250,11 +230,8 @@ public class AssociationManagerTest extends AbstractTest {
 		final PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("firstHierarchy");
 		manager.getHierarchies().add(createHierarchy);
 
-		final PersistentAssociation firstAsso = Association.createAssociation("a", mat1, mat3);
-		final PersistentAssociation secondAsso = Association.createAssociation("b", mat3, mat1);
-
-		manager.getAssociations().add(firstAsso);
-		manager.getAssociations().add(secondAsso);
+		final PersistentAssociation firstAsso = manager.createAssociation(mat1, mat3, "a");
+		final PersistentAssociation secondAsso = manager.createAssociation(mat3, mat1, "b");
 
 		linkManager.createLink(firstAsso, mao1, mao3);
 		linkManager.createLink(secondAsso, mao3, mao1);
