@@ -398,49 +398,70 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
 
 	@Override
-	public PersistentCompUnitType addReferenceType(final String name, final PersistentAbsUnitType unitType,
+	public PersistentAbsUnitType addReferenceType(final String name, final PersistentAbsUnitType unitType,
 			final PersistentUnitType referenceUnitType, final long exponent) throws model.DoubleDefinitionException,
 			PersistenceException {
 
 		// Name schon vorhanden?
 		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
 		if (old.iterator().hasNext()) {
-			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION);
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
 		}
 
-		final PersistentCompUnitType cut = unitType.accept(new AbsUnitTypeReturnVisitor<PersistentCompUnitType>() {
+		final PersistentAbsUnitType cut = unitType.accept(new AbsUnitTypeReturnVisitor<PersistentAbsUnitType>() {
 
 			@Override
-			public PersistentCompUnitType handleCompUnitType(final PersistentCompUnitType compUnitType)
+			public PersistentAbsUnitType handleCompUnitType(final PersistentCompUnitType compUnitType)
 					throws PersistenceException {
-				// TODO: referenzen von compUnitType auf referenceUnitType überprüfen
+				// Referenzen von compUnitType auf referenceUnitType überprüfen
+				PersistentReferenceType refType = null;
 				final ReferenceTypeSearchList refTypeList = new ReferenceTypeSearchList();
-
-				// ReferenceType laden bzw neu erstellen
-				final PersistentReferenceType refType = getReferenceType(referenceUnitType, exponent);
-				refTypeList.add(refType);
-				try {
-					refTypeList.add(compUnitType.getRefs());
-				} catch (final UserException e) {
-					e.printStackTrace();
+				final Iterator<PersistentReferenceType> i = compUnitType.getRefs().iterator();
+				while (i.hasNext()) {
+					final PersistentReferenceType next = i.next();
+					if (next.getRef().equals(referenceUnitType)) {
+						refType = next;
+					} else {
+						refTypeList.add(next);
+					}
 				}
+
+				if (refType == null) {
+					refType = getReferenceType(referenceUnitType, exponent);
+					refTypeList.add(refType);
+				} else {
+					if (exponent + refType.getExponent() != 0) {
+						refType = getReferenceType(referenceUnitType, exponent + refType.getExponent());
+						refTypeList.add(refType);
+					} else {
+						if (refTypeList.getLength() == 1 && refTypeList.iterator().next().getExponent() == 1) {
+
+							return referenceUnitType;
+						}
+					}
+				}
+
 				return getCUT(name, refTypeList);
 
 			}
 
 			@Override
-			public PersistentCompUnitType handleUnitType(final PersistentUnitType unitType) throws PersistenceException {
+			public PersistentAbsUnitType handleUnitType(final PersistentUnitType unitType) throws PersistenceException {
 				// ReferenceType mit unitType laden bzw. erstellen
 				final ReferenceTypeSearchList refTypeList = new ReferenceTypeSearchList();
 				if (referenceUnitType.equals(unitType)) {
-					refTypeList.add(getReferenceType(unitType, exponent + 1));
+					if (exponent + 1 != 0) {
+						refTypeList.add(getReferenceType(unitType, exponent + 1));
+						return getCUT(name, refTypeList);
+					}
+					return fetchScalarType();
 				} else {
 					final PersistentReferenceType refType = getReferenceType(referenceUnitType, exponent);
 					final PersistentReferenceType refType2 = getReferenceType(unitType, 1);
 					refTypeList.add(refType2);
 					refTypeList.add(refType);
+					return getCUT(name, refTypeList);
 				}
-				return getCUT(name, refTypeList);
 			}
 
 		});
