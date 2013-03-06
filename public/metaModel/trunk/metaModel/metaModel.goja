@@ -505,8 +505,6 @@ abstract class AbsOperation@@AbstractOperation {
 
 class Association extends AbsOperation {
 	symmetric(associations) Hierarchy** hierarchies; 
-
-	MBoolean isObservation();
 }
 
 class Operation extends AbsOperation {

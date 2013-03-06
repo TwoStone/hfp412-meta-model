@@ -193,10 +193,6 @@ public class Association extends model.abstractOperation.AbsOperation implements
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
-    public PersistentMBoolean isObservation() 
-				throws PersistenceException{
-		return this.getTarget().isSingleton();
-	}
     
     
     // Start of section that contains overridden operations only.
