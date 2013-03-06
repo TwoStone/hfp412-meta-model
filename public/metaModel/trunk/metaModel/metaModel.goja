@@ -511,6 +511,7 @@ class Association extends AbsOperation {
 
 class Operation extends AbsOperation {
 	MBoolean isStatic();
+	MBoolean isConstant();
 }
 
 
