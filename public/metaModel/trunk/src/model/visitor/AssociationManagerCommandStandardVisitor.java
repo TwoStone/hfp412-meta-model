@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class AssociationManagerCommandStandardVisitor implements AssociationManagerCommandVisitor {
     
+    public void handleRemoveHierarchyCommand(PersistentRemoveHierarchyCommand removeHierarchyCommand) throws PersistenceException{
+        this.standardHandling(removeHierarchyCommand);
+    }
     public void handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException{
         this.standardHandling(removeAssoFrmHierCommand);
     }

@@ -45,6 +45,7 @@ server Server {
 	void removeAssociation(Association a);
 	void createHierarchy(AssociationManager manager, Association a, String name);
 	void createHierarchy(Association a, String name);
+	void removeHierarchy(Hierarchy h);
 
 	void addAssociation(Hierarchy h, Association a);
 	void addToHierarchy(Association association, Hierarchy theHierarchy);
@@ -465,6 +466,7 @@ singleton AssociationManager {
 active void createAssociation(MType source, MType target, String name) throws DoubleDefinitionException, ConsistencyException;
 active void removeAssociation(Association a) throws CycleException, ConsistencyException;
 active void createHierarchy(Association a, String name) throws CycleException, DoubleDefinitionException, ConsistencyException;
+active void removeHierarchy(Hierarchy h);
 
 active void addAssociation(Hierarchy h, Association a) throws DoubleDefinitionException, CycleException, ConsistencyException;
 active void removeAssoFrmHier(Hierarchy h, Association a) throws CycleException, NotAvailableException, ConsistencyException;

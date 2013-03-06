@@ -43,6 +43,7 @@ import persistence.PersistentOperation;
 import persistence.PersistentProxi;
 import persistence.PersistentRemoveAssoFrmHierCommand;
 import persistence.PersistentRemoveAssociationCommand;
+import persistence.PersistentRemoveHierarchyCommand;
 import persistence.Predcate;
 import persistence.TDObserver;
 
@@ -308,6 +309,17 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 	}
 
 	@Override
+	public void removeHierarchy(final PersistentHierarchy h, final Invoker invoker) throws PersistenceException {
+		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		final PersistentRemoveHierarchyCommand command = model.meta.RemoveHierarchyCommand
+				.createRemoveHierarchyCommand(now, now);
+		command.setH(h);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+	}
+
+	@Override
 	public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a)
 			throws model.DoubleDefinitionException, model.ConsistencyException, model.CycleException,
 			PersistenceException {
@@ -437,6 +449,17 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 			@Override
 			public boolean test(final PersistentAssociation argument) throws PersistenceException {
 				return a.equals(argument);
+			}
+		});
+	}
+
+	@Override
+	public void removeHierarchy(final PersistentHierarchy h) throws PersistenceException {
+		getThis().getHierarchies().removeFirstSuccess(new Predcate<PersistentHierarchy>() {
+
+			@Override
+			public boolean test(final PersistentHierarchy argument) throws PersistenceException {
+				return argument.equals(h);
 			}
 		});
 	}

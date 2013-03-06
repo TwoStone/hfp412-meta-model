@@ -32,6 +32,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateAccountCommand(PersistentCreateAccountCommand createAccountCommand) throws PersistenceException{
         this.standardHandling(createAccountCommand);
     }
+    public void handleRemoveHierarchyCommand(PersistentRemoveHierarchyCommand removeHierarchyCommand) throws PersistenceException{
+        this.standardHandling(removeHierarchyCommand);
+    }
     public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicSubTypeCommand);
     }

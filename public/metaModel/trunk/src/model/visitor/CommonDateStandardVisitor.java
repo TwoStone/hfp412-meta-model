@@ -32,6 +32,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateAccountCommand(PersistentCreateAccountCommand createAccountCommand) throws PersistenceException{
         this.standardHandling(createAccountCommand);
     }
+    public void handleRemoveHierarchyCommand(PersistentRemoveHierarchyCommand removeHierarchyCommand) throws PersistenceException{
+        this.standardHandling(removeHierarchyCommand);
+    }
     public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicSubTypeCommand);
     }
@@ -134,11 +137,11 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.standardHandling(createQuantityCommand);
     }
-    public void handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException{
-        this.standardHandling(getExistingCUTCommand);
-    }
     public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException{
         this.standardHandling(removeFpCommand);
+    }
+    public void handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException{
+        this.standardHandling(getExistingCUTCommand);
     }
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
         this.standardHandling(createAtomicRootTypeCommand);

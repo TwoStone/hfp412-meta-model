@@ -94,6 +94,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateAccountCommand(PersistentCreateAccountCommand createAccountCommand) throws PersistenceException{
         this.handleCommonDate(createAccountCommand);
     }
+    public void handleRemoveHierarchyCommand(PersistentRemoveHierarchyCommand removeHierarchyCommand) throws PersistenceException{
+        this.handleCommonDate(removeHierarchyCommand);
+    }
     public void handleCreateAtomicSubTypeCommand(PersistentCreateAtomicSubTypeCommand createAtomicSubTypeCommand) throws PersistenceException{
         this.handleCommonDate(createAtomicSubTypeCommand);
     }
@@ -348,9 +351,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException;
     
-    public abstract void handleNameScheme(PersistentNameScheme nameScheme) throws PersistenceException;
-    
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
+    
+    public abstract void handleNameScheme(PersistentNameScheme nameScheme) throws PersistenceException;
     
     public abstract void handleName(PersistentName name) throws PersistenceException;
     
