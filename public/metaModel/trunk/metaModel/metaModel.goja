@@ -465,7 +465,7 @@ singleton AssociationManager {
 
 active Association createAssociation(MType source, MType target, String name) throws DoubleDefinitionException, ConsistencyException;
 active void removeAssociation(Association a) throws CycleException, ConsistencyException;
-active void createHierarchy(Association a, String name) throws CycleException, DoubleDefinitionException, ConsistencyException;
+active Hierarchy createHierarchy(Association a, String name) throws CycleException, DoubleDefinitionException, ConsistencyException;
 active void removeHierarchy(Hierarchy h);
 
 active void addAssociation(Hierarchy h, Association a) throws DoubleDefinitionException, CycleException, ConsistencyException;
@@ -535,7 +535,7 @@ active void removeMessage(Message m);
 singleton LinkManager {
 Link** links;
 
-active void createLink(Association type, MObject source, MObject target) throws ConsistencyException, CycleException;
+active Link createLink(Association type, MObject source, MObject target) throws ConsistencyException, CycleException;
 active void removeLink(Link link);
 }
 

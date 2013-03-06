@@ -42,17 +42,19 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     protected String name;
     protected Invoker invoker;
     protected PersistentAssociationManager commandReceiver;
+    protected PersistentHierarchy commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateHierarchyCommand(PersistentAssociation a,String name,Invoker invoker,PersistentAssociationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateHierarchyCommand(PersistentAssociation a,String name,Invoker invoker,PersistentAssociationManager commandReceiver,PersistentHierarchy commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.a = a;
         this.name = name;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -80,6 +82,10 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -136,6 +142,20 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public PersistentHierarchy getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(PersistentHierarchy newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentHierarchy)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateHierarchyCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -220,6 +240,7 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     public int getLeafInfo() throws PersistenceException{
         if (this.getA() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
+        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
@@ -231,7 +252,7 @@ public class CreateHierarchyCommand extends PersistentObject implements Persiste
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createHierarchy(this.getA(), this.getName());
+			this.setCommandResult(this.getCommandReceiver().createHierarchy(this.getA(), this.getName()));
 		}
 		catch(model.DoubleDefinitionException e){
 			this.commandException = e;
