@@ -26,6 +26,7 @@ import persistence.PersistentCommonDate;
 import persistence.PersistentCreateOperationCommand;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
+import persistence.PersistentOperation;
 import persistence.PersistentOperationManager;
 import persistence.PersistentProxi;
 
@@ -68,11 +69,12 @@ public class CreateOperationCommand extends PersistentObject implements Persiste
     protected CreateOperationCommand_FpProxi fp;
     protected Invoker invoker;
     protected PersistentOperationManager commandReceiver;
+    protected PersistentOperation commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateOperationCommand(PersistentMType source,PersistentMType target,String name,Invoker invoker,PersistentOperationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateOperationCommand(PersistentMType source,PersistentMType target,String name,Invoker invoker,PersistentOperationManager commandReceiver,PersistentOperation commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.source = source;
@@ -81,6 +83,7 @@ public class CreateOperationCommand extends PersistentObject implements Persiste
         this.fp = new CreateOperationCommand_FpProxi(this);
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -113,6 +116,10 @@ public class CreateOperationCommand extends PersistentObject implements Persiste
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theCreateOperationCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateOperationCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -186,6 +193,20 @@ public class CreateOperationCommand extends PersistentObject implements Persiste
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateOperationCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public PersistentOperation getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(PersistentOperation newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentOperation)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateOperationCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -271,6 +292,7 @@ public class CreateOperationCommand extends PersistentObject implements Persiste
         if (this.getSource() != null) return 1;
         if (this.getTarget() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
+        if (this.getCommandResult() != null) return 1;
         if (this.getFp().getLength() > 0) return 1;
         return 0;
     }
@@ -283,9 +305,12 @@ public class CreateOperationCommand extends PersistentObject implements Persiste
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createOperation(this.getSource(), this.getTarget(), this.getName(), this.getFp().getList());
+			this.setCommandResult(this.getCommandReceiver().createOperation(this.getSource(), this.getTarget(), this.getName(), this.getFp().getList()));
 		}
 		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
+		}
+		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}
     }

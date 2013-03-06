@@ -26,6 +26,7 @@ import persistence.PersistentCommonDate;
 import persistence.PersistentCreateVoidOperationCommand;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
+import persistence.PersistentOperation;
 import persistence.PersistentOperationManager;
 import persistence.PersistentProxi;
 
@@ -67,11 +68,12 @@ public class CreateVoidOperationCommand extends PersistentObject implements Pers
     protected CreateVoidOperationCommand_FpProxi fp;
     protected Invoker invoker;
     protected PersistentOperationManager commandReceiver;
+    protected PersistentOperation commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateVoidOperationCommand(PersistentMType source,String name,Invoker invoker,PersistentOperationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateVoidOperationCommand(PersistentMType source,String name,Invoker invoker,PersistentOperationManager commandReceiver,PersistentOperation commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.source = source;
@@ -79,6 +81,7 @@ public class CreateVoidOperationCommand extends PersistentObject implements Pers
         this.fp = new CreateVoidOperationCommand_FpProxi(this);
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -107,6 +110,10 @@ public class CreateVoidOperationCommand extends PersistentObject implements Pers
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theCreateVoidOperationCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateVoidOperationCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -166,6 +173,20 @@ public class CreateVoidOperationCommand extends PersistentObject implements Pers
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateVoidOperationCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public PersistentOperation getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(PersistentOperation newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentOperation)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateVoidOperationCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -250,6 +271,7 @@ public class CreateVoidOperationCommand extends PersistentObject implements Pers
     public int getLeafInfo() throws PersistenceException{
         if (this.getSource() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
+        if (this.getCommandResult() != null) return 1;
         if (this.getFp().getLength() > 0) return 1;
         return 0;
     }
@@ -262,9 +284,12 @@ public class CreateVoidOperationCommand extends PersistentObject implements Pers
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createVoidOperation(this.getSource(), this.getName(), this.getFp().getList());
+			this.setCommandResult(this.getCommandReceiver().createVoidOperation(this.getSource(), this.getName(), this.getFp().getList()));
 		}
 		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
+		}
+		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}
     }

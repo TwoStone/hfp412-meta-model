@@ -25,6 +25,7 @@ import persistence.PersistentCommonDate;
 import persistence.PersistentCreateConstantCommand;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
+import persistence.PersistentOperation;
 import persistence.PersistentOperationManager;
 import persistence.PersistentProxi;
 
@@ -65,17 +66,19 @@ public class CreateConstantCommand extends PersistentObject implements Persisten
     protected PersistentMType target;
     protected Invoker invoker;
     protected PersistentOperationManager commandReceiver;
+    protected PersistentOperation commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateConstantCommand(String name,PersistentMType target,Invoker invoker,PersistentOperationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateConstantCommand(String name,PersistentMType target,Invoker invoker,PersistentOperationManager commandReceiver,PersistentOperation commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.target = target;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -103,6 +106,10 @@ public class CreateConstantCommand extends PersistentObject implements Persisten
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theCreateConstantCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateConstantCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -159,6 +166,20 @@ public class CreateConstantCommand extends PersistentObject implements Persisten
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateConstantCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public PersistentOperation getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(PersistentOperation newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentOperation)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateConstantCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -243,6 +264,7 @@ public class CreateConstantCommand extends PersistentObject implements Persisten
     public int getLeafInfo() throws PersistenceException{
         if (this.getTarget() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
+        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
@@ -254,9 +276,12 @@ public class CreateConstantCommand extends PersistentObject implements Persisten
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createConstant(this.getName(), this.getTarget());
+			this.setCommandResult(this.getCommandReceiver().createConstant(this.getName(), this.getTarget()));
 		}
 		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
+		}
+		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}
     }

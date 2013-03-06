@@ -23,7 +23,6 @@ import persistence.PersistenceException;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentAddReferenceTypeCommand;
 import persistence.PersistentCommonDate;
-import persistence.PersistentCompUnitType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentUnitType;

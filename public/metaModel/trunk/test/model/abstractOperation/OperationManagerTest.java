@@ -11,6 +11,7 @@ import model.ConsistencyException;
 import model.DoubleDefinitionException;
 import model.NotAvailableException;
 import model.messageOrLink.MessageManager;
+import model.typeSystem.MEmptyTypeConjunction;
 import model.typeSystem.MEmptyTypeDisjunction;
 import model.visitor.AbsOperationVisitor;
 
@@ -20,7 +21,6 @@ import persistence.ActualParameterSearchList;
 import persistence.FormalParameterSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsOperation;
-import persistence.PersistentAssociation;
 import persistence.PersistentFormalParameter;
 import persistence.PersistentMessageManager;
 import persistence.PersistentOperation;
@@ -39,19 +39,22 @@ public class OperationManagerTest extends AbstractTest {
 	private PersistentMessageManager messageManager;
 
 	@Test(expected = DoubleDefinitionException.class)
-	public void equalNamedOperationsAreNotAllowed() throws DoubleDefinitionException, PersistenceException {
+	public void equalNamedOperationsAreNotAllowed() throws DoubleDefinitionException, PersistenceException,
+			ConsistencyException {
 		manager.createOperation(mat2, mat3, "test1", manager.getFormalParameters().getList());
 		manager.createOperation(mat3, mat4, "test1", manager.getFormalParameters().getList());
 	}
 
 	@Test
-	public void operationsWithDifferendNamesAreAllowed() throws DoubleDefinitionException, PersistenceException {
+	public void operationsWithDifferendNamesAreAllowed() throws DoubleDefinitionException, PersistenceException,
+			ConsistencyException {
 		manager.createOperation(mat2, mat3, "test1", manager.getFormalParameters().getList());
 		manager.createOperation(mat3, mat4, "test2", manager.getFormalParameters().getList());
 	}
 
 	@Test
-	public void listShouldContainOperationAfterCreation() throws DoubleDefinitionException, PersistenceException {
+	public void listShouldContainOperationAfterCreation() throws DoubleDefinitionException, PersistenceException,
+			ConsistencyException {
 		final String name = "einName";
 		manager.createOperation(mat2, mat3, name, manager.getFormalParameters().getList());
 
@@ -61,84 +64,54 @@ public class OperationManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void sourceOfStaticOperationHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException {
+	public void sourceOfStaticOperationHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException,
+			ConsistencyException {
 		final String name = "test04";
 		// 1. Erstellen
-		manager.createStaticOp(name, mat2, manager.getFormalParameters().getList());
+		final PersistentOperation createStaticOp = manager.createStaticOp(name, mat2, manager.getFormalParameters()
+				.getList());
 
 		if (Operation.getAbsOperationByName(name).getLength() <= 0) {
 			fail("Static Operation wurde offenbar nicht erstellt!");
 		}
-		assertEqualsWithNameAndVisitor(name, new AbsOperationVisitor() {
-
-			@Override
-			public void handleOperation(final PersistentOperation operation) throws PersistenceException {
-				assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), operation.getSource());
-			}
-
-			@Override
-			public void handleAssociation(final PersistentAssociation association) throws PersistenceException {
-				// Wenn eine Operation genauso heisst wie eine Association ist das
-				// erstmal nicht relevant.
-			}
-		});
+		assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), createStaticOp.getSource());
 	}
 
 	/* Eigentlich unnoetig aber kost ja nischt! */
 	@Test
-	public void sourceOfConstantHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException {
+	public void sourceOfConstantHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException,
+			ConsistencyException {
 		final String name = "test0X";
 		// 1. Erstellen
-		manager.createConstant(name, mat2);
+		final PersistentOperation createConstant = manager.createConstant(name, mat2);
 
 		if (Operation.getAbsOperationByName(name).getLength() <= 0) {
 			fail("Static Operation wurde offenbar nicht erstellt!");
 		}
-		assertEqualsWithNameAndVisitor(name, new AbsOperationVisitor() {
 
-			@Override
-			public void handleOperation(final PersistentOperation operation) throws PersistenceException {
-
-				assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), operation.getSource());
-			}
-
-			@Override
-			public void handleAssociation(final PersistentAssociation association) throws PersistenceException {
-				// Wenn eine Operation genauso heisst wie eine Association ist das
-				// erstmal nicht relevant.
-			}
-		});
+		assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), createConstant.getSource());
 	}
 
 	@Test
-	public void targetOfVoidOperationHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException {
+	public void targetOfVoidOperationHaveToBeEmptySum() throws DoubleDefinitionException, PersistenceException,
+			ConsistencyException {
 		final String name = "test05";
-		manager.createVoidOperation(mat1, name, manager.getFormalParameters().getList());
+		final PersistentOperation createVoidOperation = manager.createVoidOperation(mat1, name, manager
+				.getFormalParameters().getList());
 
 		if (Operation.getAbsOperationByName(name).getLength() <= 0) {
 			fail("Void Operation wurde offenbar nicht erstellt!");
 		}
-
-		assertEqualsWithNameAndVisitor(name, new AbsOperationVisitor() {
-
-			@Override
-			public void handleOperation(final PersistentOperation operation) throws PersistenceException {
-				assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), operation.getTarget());
-			}
-
-			@Override
-			public void handleAssociation(final PersistentAssociation association) throws PersistenceException {
-				// Wenn eine Operation genauso heisst wie eine Association ist das
-				// erstmal nicht relevant.
-			}
-		});
+		assertEquals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction(), createVoidOperation.getTarget());
 	}
 
 	@Test
 	public void listShouldNotContainOperationAfterRemove() throws DoubleDefinitionException, PersistenceException,
 			ConsistencyException {
-		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner", mat3, mat4);
+		final PersistentOperation createOperation = manager.createOperation(mat3, mat4, "Irgendeine",
+				new FormalParameterSearchList());
 		manager.removeOperation(createOperation);
+
 		final PersistentOperation found = manager.getOperations().getList()
 				.findFirst(new Predcate<PersistentOperation>() {
 
@@ -154,8 +127,8 @@ public class OperationManagerTest extends AbstractTest {
 	@Test(expected = ConsistencyException.class)
 	public void removingOperationIsNotAllowedIfMessagesExists() throws PersistenceException, DoubleDefinitionException,
 			ConsistencyException {
-		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
-
+		final PersistentOperation createOperation = manager.createOperation(mat3, mat4, "Irgendeiner01",
+				new FormalParameterSearchList());
 		messageManager.createMessage(createOperation, mao1, mao6, new ActualParameterSearchList());
 
 		this.manager.removeOperation(createOperation);
@@ -164,8 +137,9 @@ public class OperationManagerTest extends AbstractTest {
 	@Test
 	public void operationShouldContainParameterAfterAdd() throws PersistenceException, ConsistencyException,
 			DoubleDefinitionException {
-		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
-		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
+		final PersistentFormalParameter param = manager.createFp("x", mat1);
+		final PersistentOperation createOperation = manager.createOperation(mat3, mat4, "irgendeiner",
+				new FormalParameterSearchList());
 		manager.addFp(createOperation, param);
 
 		final PersistentFormalParameter foundParam = createOperation.getParameters().findFirst(
@@ -190,7 +164,8 @@ public class OperationManagerTest extends AbstractTest {
 		searchList.add(param);
 		searchList.add(param2);
 
-		final PersistentOperation createOperation = Operation.createOperation("IrgendeinerXY", mat3, mat4);
+		final PersistentOperation createOperation = manager.createOperation(mat3, mat4, "bla",
+				new FormalParameterSearchList());
 		manager.addMultipleFp(createOperation, searchList);
 
 		final SearchListRoot<PersistentFormalParameter> findAll = createOperation.getParameters().findAll(
@@ -208,10 +183,11 @@ public class OperationManagerTest extends AbstractTest {
 	@Test(expected = DoubleDefinitionException.class)
 	public void equalNamedParametersInSameOperationAreNotAllowd() throws PersistenceException, ConsistencyException,
 			DoubleDefinitionException {
-		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
-		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "x");
+		final PersistentFormalParameter param = manager.createFp("x", mat1);
+		final PersistentFormalParameter param2 = manager.createFp("x", mat2);
 
-		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner01", mat3, mat4);
+		final PersistentOperation createOperation = manager.createOperation(mat3, mat4, "Irgendeiner01",
+				new FormalParameterSearchList());
 		manager.addFp(createOperation, param);
 		manager.addFp(createOperation, param2);
 	}
@@ -219,24 +195,26 @@ public class OperationManagerTest extends AbstractTest {
 	@Test(expected = DoubleDefinitionException.class)
 	public void equalNamedParametersInSameOperationAreNotAllowd2() throws PersistenceException, ConsistencyException,
 			DoubleDefinitionException {
-		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
-		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "x");
+		final PersistentFormalParameter param = manager.createFp("x", mat1);
+		final PersistentFormalParameter param2 = manager.createFp("x", mat2);
 
 		final FormalParameterSearchList searchList = new FormalParameterSearchList();
 		searchList.add(param);
 		searchList.add(param2);
 
-		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner02", mat3, mat4);
+		final PersistentOperation createOperation = manager.createOperation(mat3, mat4, "Irgendeiner01",
+				new FormalParameterSearchList());
 		manager.addMultipleFp(createOperation, searchList);
 	}
 
 	@Test
 	public void operationShouldNotContainParameterAfterRemove() throws PersistenceException, NotAvailableException,
 			ConsistencyException, DoubleDefinitionException {
-		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
-		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "y");
+		final PersistentFormalParameter param = manager.createFp("x", mat1);
+		final PersistentFormalParameter param2 = manager.createFp("y", mat2);
 
-		final PersistentOperation createOperation = Operation.createOperation("Irgendeiner03", mat3, mat4);
+		final PersistentOperation createOperation = manager.createOperation(mat3, mat4, "Irgendeiner03",
+				new FormalParameterSearchList());
 		manager.addFp(createOperation, param);
 		manager.addFp(createOperation, param2);
 
@@ -265,8 +243,8 @@ public class OperationManagerTest extends AbstractTest {
 	@Test(expected = ConsistencyException.class)
 	public void removingUsedParametersIsNotAllowed() throws PersistenceException, NotAvailableException,
 			ConsistencyException, DoubleDefinitionException {
-		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
-		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "y");
+		final PersistentFormalParameter param = manager.createFp("x", mat1);
+		final PersistentFormalParameter param2 = manager.createFp("y", mat2);
 
 		final FormalParameterSearchList searchList = new FormalParameterSearchList();
 		searchList.add(param);
@@ -289,23 +267,35 @@ public class OperationManagerTest extends AbstractTest {
 		searchList.add(param);
 
 		final String name = "IrgendeinerXXX";
-		manager.createOperation(mat3, mat4, name, searchList);
-
-		final PersistentOperation findFirst = manager.getOperations().findFirst(new Predcate<PersistentOperation>() {
-
-			@Override
-			public boolean test(final PersistentOperation argument) throws PersistenceException {
-				return argument.getName().equals(name);
-			}
-		});
-		manager.removeFpFromOp(findFirst, param2);
+		final PersistentOperation createOperation = manager.createOperation(mat3, mat4, name, searchList);
+		manager.removeFpFromOp(createOperation, param2);
 	}
 
 	@Test
 	public void removingFormalParameterIsNotAllowedIfActualParameterExists() throws PersistenceException,
-			DoubleDefinitionException {
+			DoubleDefinitionException, ConsistencyException {
 		this.manager.createFp("Parameter 1", mat1);
 		fail("Actualparameter noch nicht anlegbar");
+	}
+
+	@Test
+	public void updateDerivedStaticListOnCreate() throws DoubleDefinitionException, ConsistencyException,
+			PersistenceException {
+
+		final FormalParameterSearchList formalParameterSearchList = new FormalParameterSearchList();
+		formalParameterSearchList.add(manager.createFp("aa", mat3));
+		manager.createOperation(MEmptyTypeConjunction.getTheMEmptyTypeConjunction(), mat1, "hallo",
+				new FormalParameterSearchList());
+		assertEquals(1, manager.getStaticOperations().getLength());
+	}
+
+	@Test
+	public void updateDerivedConstantListOnCreate() throws DoubleDefinitionException, ConsistencyException,
+			PersistenceException {
+
+		manager.createOperation(MEmptyTypeConjunction.getTheMEmptyTypeConjunction(), mat1, "hallo",
+				new FormalParameterSearchList());
+		assertEquals(1, manager.getConstants().getLength());
 	}
 
 	/**

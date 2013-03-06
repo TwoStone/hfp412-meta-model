@@ -23,6 +23,7 @@ import persistence.Invoker;
 import persistence.PersistenceException;
 import persistence.PersistentCommonDate;
 import persistence.PersistentCreateFpCommand;
+import persistence.PersistentFormalParameter;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentOperationManager;
@@ -65,17 +66,19 @@ public class CreateFpCommand extends PersistentObject implements PersistentCreat
     protected PersistentMType ofType;
     protected Invoker invoker;
     protected PersistentOperationManager commandReceiver;
+    protected PersistentFormalParameter commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateFpCommand(String name,PersistentMType ofType,Invoker invoker,PersistentOperationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateFpCommand(String name,PersistentMType ofType,Invoker invoker,PersistentOperationManager commandReceiver,PersistentFormalParameter commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.ofType = ofType;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
+        this.commandResult = commandResult;
         this.myCommonDate = myCommonDate;        
     }
     
@@ -103,6 +106,10 @@ public class CreateFpCommand extends PersistentObject implements PersistentCreat
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
             ConnectionHandler.getTheConnectionHandler().theCreateFpCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+        }
+        if(this.getCommandResult() != null){
+            this.getCommandResult().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateFpCommandFacade.commandResultSet(this.getId(), getCommandResult());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
@@ -159,6 +166,20 @@ public class CreateFpCommand extends PersistentObject implements PersistentCreat
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateFpCommandFacade.commandReceiverSet(this.getId(), newValue);
+        }
+    }
+    public PersistentFormalParameter getCommandResult() throws PersistenceException {
+        return this.commandResult;
+    }
+    public void setCommandResult(PersistentFormalParameter newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.commandResult)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.commandResult = (PersistentFormalParameter)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateFpCommandFacade.commandResultSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -243,6 +264,7 @@ public class CreateFpCommand extends PersistentObject implements PersistentCreat
     public int getLeafInfo() throws PersistenceException{
         if (this.getOfType() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
+        if (this.getCommandResult() != null) return 1;
         return 0;
     }
     
@@ -254,9 +276,12 @@ public class CreateFpCommand extends PersistentObject implements PersistentCreat
     public void execute() 
 				throws PersistenceException{
         try{
-			this.getCommandReceiver().createFp(this.getName(), this.getOfType());
+			this.setCommandResult(this.getCommandReceiver().createFp(this.getName(), this.getOfType()));
 		}
 		catch(model.DoubleDefinitionException e){
+			this.commandException = e;
+		}
+		catch(model.ConsistencyException e){
 			this.commandException = e;
 		}
     }

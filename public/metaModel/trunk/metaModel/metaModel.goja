@@ -479,11 +479,11 @@ singleton OperationManager {
 	derived Operation** constants;
 	FormalParameter ** formalParameters;
 
-active void createConstant(String name, MType target) throws DoubleDefinitionException;
-active void createStaticOp(String name, MType target, FormalParameter** fp) throws DoubleDefinitionException;
-active void createOperation(MType source, MType target, String name, FormalParameter** fp) throws DoubleDefinitionException;
-active void createVoidOperation(MType source, String name, FormalParameter** fp) throws DoubleDefinitionException;
-active void createFp(String name, MType ofType) throws DoubleDefinitionException;
+active Operation createConstant(String name, MType target) throws DoubleDefinitionException, ConsistencyException;
+active Operation createStaticOp(String name, MType target, FormalParameter** fp) throws DoubleDefinitionException, ConsistencyException;
+active Operation createOperation(MType source, MType target, String name, FormalParameter** fp) throws DoubleDefinitionException, ConsistencyException;
+active Operation createVoidOperation(MType source, String name, FormalParameter** fp) throws DoubleDefinitionException, ConsistencyException;
+active FormalParameter createFp(String name, MType ofType) throws DoubleDefinitionException, ConsistencyException;
 
 active void addFp(Operation op, FormalParameter fp) throws DoubleDefinitionException;
 active void addMultipleFp(Operation op, FormalParameter** fp) throws DoubleDefinitionException;

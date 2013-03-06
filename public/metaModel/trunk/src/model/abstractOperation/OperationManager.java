@@ -41,6 +41,7 @@ import persistence.PersistentRemoveFpFromOpCommand;
 import persistence.PersistentRemoveOperationCommand;
 import persistence.Predcate;
 import persistence.TDObserver;
+import utils.EmptySumTypeReturnBooleanVisitor;
 
 /* Additional import section end */
 
@@ -339,14 +340,20 @@ public class OperationManager extends PersistentObject implements PersistentOper
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public void createConstant(final String name, final PersistentMType target) 
-				throws model.DoubleDefinitionException, PersistenceException{
+    public PersistentOperation createConstant(final String name, final PersistentMType target) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
 		final PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction
 				.getTheMEmptyTypeDisjunction();
-		getThis().createOperation(theMEmptyTypeDisjunction, target, name, new FormalParameterSearchList());
+		return getThis().createOperation(theMEmptyTypeDisjunction, target, name, new FormalParameterSearchList());
 	}
-    public void createFp(final String name, final PersistentMType ofType) 
-				throws model.DoubleDefinitionException, PersistenceException{
+    public PersistentFormalParameter createFp(final String name, final PersistentMType ofType) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
+
+		final EmptySumTypeReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptySumTypeReturnBooleanVisitor();
+		if (ofType.accept(emptySumTypeReturnBooleanVisitor)) {
+			throw new ConsistencyException("Der Typ eines Formalparameters darf nicht der leeren Summe entsprechen!");
+		}
+
 		final PersistentFormalParameter findFirst = getThis().getFormalParameters().findFirst(
 				new Predcate<PersistentFormalParameter>() {
 
@@ -360,32 +367,42 @@ public class OperationManager extends PersistentObject implements PersistentOper
 			throw new DoubleDefinitionException("Ein Formalparameter mit diesem Namen existiert bereits!");
 		}
 
-		getThis().getFormalParameters().add(FormalParameter.createFormalParameter(ofType, name));
+		final PersistentFormalParameter createFormalParameter = FormalParameter.createFormalParameter(ofType, name);
+		getThis().getFormalParameters().add(createFormalParameter);
+		return createFormalParameter;
 	}
-    public void createOperation(final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
-				throws model.DoubleDefinitionException, PersistenceException{
-
-		// 1. DDE Pruefen
+    public PersistentOperation createOperation(final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
+		// DDE Pruefen
 		checkOperationDoubleDefinition(name);
 
-		// 2. Operation erstellen
+		// Source und Target duerfen nie zur gleichen Zeit der leeren Summe entsprechen
+		final EmptySumTypeReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptySumTypeReturnBooleanVisitor();
+		if (source.accept(emptySumTypeReturnBooleanVisitor) && target.accept(new EmptySumTypeReturnBooleanVisitor())) {
+			throw new ConsistencyException(
+					"Es koennen nicht Source und Target zur gleichen Zeit der leeren Summe entsprechen");
+		}
+
+		// Operation erstellen
 		final PersistentOperation createOperation = Operation.createOperation(name, source, target);
 		getThis().getOperations().add(createOperation);
 		getThis().addMultipleFp(createOperation, fp);
+
+		return createOperation;
 	}
-    public void createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp) 
-				throws model.DoubleDefinitionException, PersistenceException{
+    public PersistentOperation createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
 
 		final PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction
 				.getTheMEmptyTypeDisjunction();
-		getThis().createOperation(theMEmptyTypeDisjunction, target, name, fp);
+		return getThis().createOperation(theMEmptyTypeDisjunction, target, name, fp);
 	}
-    public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
-				throws model.DoubleDefinitionException, PersistenceException{
+    public PersistentOperation createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
 
 		final PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction
 				.getTheMEmptyTypeDisjunction();
-		getThis().createOperation(source, theMEmptyTypeDisjunction, name, fp);
+		return getThis().createOperation(source, theMEmptyTypeDisjunction, name, fp);
 	}
     public OperationSearchList getConstants() 
 				throws PersistenceException{
