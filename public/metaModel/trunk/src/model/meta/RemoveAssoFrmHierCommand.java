@@ -1,33 +1,9 @@
 
 package model.meta;
 
-import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.AssociationManagerCommandExceptionVisitor;
-import model.visitor.AssociationManagerCommandReturnExceptionVisitor;
-import model.visitor.AssociationManagerCommandReturnVisitor;
-import model.visitor.AssociationManagerCommandVisitor;
-import model.visitor.CommandExceptionVisitor;
-import model.visitor.CommandReturnExceptionVisitor;
-import model.visitor.CommandReturnVisitor;
-import model.visitor.CommandVisitor;
-import model.visitor.CommonDateExceptionVisitor;
-import model.visitor.CommonDateReturnExceptionVisitor;
-import model.visitor.CommonDateReturnVisitor;
-import model.visitor.CommonDateVisitor;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentAssociation;
-import persistence.PersistentAssociationManager;
-import persistence.PersistentCommonDate;
-import persistence.PersistentHierarchy;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
-import persistence.PersistentRemoveAssoFrmHierCommand;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -295,14 +271,6 @@ public class RemoveAssoFrmHierCommand extends PersistentObject implements Persis
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-    
-    
-    
     
     /* End of protected part that is not overridden by persistence generator */
     

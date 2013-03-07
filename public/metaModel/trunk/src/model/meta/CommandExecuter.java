@@ -1,23 +1,9 @@
 
 package model.meta;
 
-import model.DBConnectionConstants;
-import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import persistence.Anything;
-import persistence.Command;
-import persistence.CommandExecuter_CommandsProxi;
-import persistence.CommitConnectionHandler;
-import persistence.ConnectionHandler;
-import persistence.PersistenceException;
-import persistence.PersistentCommandExecuter;
-import persistence.PersistentCommonDate;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
-import persistence.TDObserver;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -222,16 +208,6 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     /* End of protected part that is not overridden by persistence generator */
     

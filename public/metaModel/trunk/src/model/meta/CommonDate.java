@@ -1,20 +1,9 @@
 
 package model.meta;
 
-import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.CommonDateExceptionVisitor;
-import model.visitor.CommonDateReturnExceptionVisitor;
-import model.visitor.CommonDateReturnVisitor;
-import model.visitor.CommonDateVisitor;
-import persistence.ConnectionHandler;
-import persistence.PersistenceException;
-import persistence.PersistentCommonDate;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -136,16 +125,6 @@ public class CommonDate extends PersistentObject implements PersistentCommonDate
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     /* End of protected part that is not overridden by persistence generator */
     

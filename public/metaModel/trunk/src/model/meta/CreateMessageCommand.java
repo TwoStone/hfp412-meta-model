@@ -1,34 +1,9 @@
 
 package model.meta;
 
-import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.CommandExceptionVisitor;
-import model.visitor.CommandReturnExceptionVisitor;
-import model.visitor.CommandReturnVisitor;
-import model.visitor.CommandVisitor;
-import model.visitor.CommonDateExceptionVisitor;
-import model.visitor.CommonDateReturnExceptionVisitor;
-import model.visitor.CommonDateReturnVisitor;
-import model.visitor.CommonDateVisitor;
-import model.visitor.MessageManagerCommandExceptionVisitor;
-import model.visitor.MessageManagerCommandReturnExceptionVisitor;
-import model.visitor.MessageManagerCommandReturnVisitor;
-import model.visitor.MessageManagerCommandVisitor;
-import persistence.ConnectionHandler;
-import persistence.CreateMessageCommand_ApProxi;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentCommonDate;
-import persistence.PersistentCreateMessageCommand;
-import persistence.PersistentMObject;
-import persistence.PersistentMessageManager;
-import persistence.PersistentObject;
-import persistence.PersistentOperation;
-import persistence.PersistentProxi;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -321,14 +296,6 @@ public class CreateMessageCommand extends PersistentObject implements Persistent
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-    
-    
-    
     
     /* End of protected part that is not overridden by persistence generator */
     

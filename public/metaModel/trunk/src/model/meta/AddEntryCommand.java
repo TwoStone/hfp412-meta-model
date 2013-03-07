@@ -1,32 +1,9 @@
 
 package model.meta;
 
-import model.UserException;
-import model.visitor.AccountCommandExceptionVisitor;
-import model.visitor.AccountCommandReturnExceptionVisitor;
-import model.visitor.AccountCommandReturnVisitor;
-import model.visitor.AccountCommandVisitor;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.CommandExceptionVisitor;
-import model.visitor.CommandReturnExceptionVisitor;
-import model.visitor.CommandReturnVisitor;
-import model.visitor.CommandVisitor;
-import model.visitor.CommonDateExceptionVisitor;
-import model.visitor.CommonDateReturnExceptionVisitor;
-import model.visitor.CommonDateReturnVisitor;
-import model.visitor.CommonDateVisitor;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentAccount;
-import persistence.PersistentAddEntryCommand;
-import persistence.PersistentCommonDate;
-import persistence.PersistentMeasurement;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -267,14 +244,6 @@ public class AddEntryCommand extends PersistentObject implements PersistentAddEn
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-    
-    
-    
     
     /* End of protected part that is not overridden by persistence generator */
     

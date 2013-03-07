@@ -1,33 +1,9 @@
 
 package model.meta;
 
-import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.CommandExceptionVisitor;
-import model.visitor.CommandReturnExceptionVisitor;
-import model.visitor.CommandReturnVisitor;
-import model.visitor.CommandVisitor;
-import model.visitor.CommonDateExceptionVisitor;
-import model.visitor.CommonDateReturnExceptionVisitor;
-import model.visitor.CommonDateReturnVisitor;
-import model.visitor.CommonDateVisitor;
-import model.visitor.NameSchemeManagerCommandExceptionVisitor;
-import model.visitor.NameSchemeManagerCommandReturnExceptionVisitor;
-import model.visitor.NameSchemeManagerCommandReturnVisitor;
-import model.visitor.NameSchemeManagerCommandVisitor;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentAssignNameCommand;
-import persistence.PersistentCommonDate;
-import persistence.PersistentMObject;
-import persistence.PersistentName;
-import persistence.PersistentNameSchemeManager;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -303,14 +279,6 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-    
-    
-    
     
     /* End of protected part that is not overridden by persistence generator */
     
