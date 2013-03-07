@@ -287,18 +287,17 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 
 		final PersistentMAccountType newAccType = account.getType();
 
-		// FIXME: Hier stimmt noch was nicht...
+		// FIXME: Hier stimmt noch was nicht... --> rekursion fehlt noch! jetzt aber müde...
 		// Prüfen ob <account> von gleichem bzw. konkreterem AccountType wie <this> ist.
 		if (!newAccType.equals(this.getThis().getType())
+				&& this.getThis().getType().getSubAccountTypes().findFirst(new Predcate<PersistentMAccountType>() {
 
-		&& this.getThis().getType().getSubAccountTypes().findFirst(new Predcate<PersistentMAccountType>() {
+					@Override
+					public boolean test(final PersistentMAccountType argument) throws PersistenceException {
+						return argument.equals(newAccType);
+					}
 
-			@Override
-			public boolean test(final PersistentMAccountType argument) throws PersistenceException {
-				return argument.equals(newAccType);
-			}
-
-		}) == null) {
+				}) == null) {
 			throw new ConsistencyException(ExceptionConstants.WRONG_ACCOUNT_TYPE);
 		}
 		this.getThis().getSubAccounts().add(account);
