@@ -411,7 +411,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		return cut;
 
 	}
-    public PersistentCompUnit addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent) 
+    public PersistentAbsUnit addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent) 
 				throws model.DoubleDefinitionException, PersistenceException{
 
 		// Name schon vorhanden?
@@ -420,10 +420,10 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION + name);
 		}
 
-		final PersistentCompUnit ret = unit.accept(new AbsUnitReturnVisitor<PersistentCompUnit>() {
+		final PersistentAbsUnit ret = unit.accept(new AbsUnitReturnVisitor<PersistentAbsUnit>() {
 
 			@Override
-			public PersistentCompUnit handleUnit(PersistentUnit unit) throws PersistenceException {
+			public PersistentAbsUnit handleUnit(PersistentUnit unit) throws PersistenceException {
 				// Reference mit unit laden bzw. erstellen
 				final ReferenceSearchList refList = new ReferenceSearchList();
 				if (referenceUnit.equals(unit)) {
@@ -433,19 +433,41 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 					}
 					return fetchScalar();
 				} else {
-//					final PersistentReference ref = getReference(referenceUnit, exponent);
-//					final PersistentReference ref2 = getReference(unit, 1);
-//					refList.add(ref2);
-//					refList.add(ref);
-//					return getCU(name, refList);
-					return null;
+					final PersistentReference ref1 = getReference(unit, 1);
+					final PersistentReference ref2 = getReference(referenceUnit, exponent);
+					refList.add(ref1);
+					refList.add(ref2);
+					return getCU(name, refList);
 				}
 			}
 
 			@Override
-			public PersistentCompUnit handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException {
-				// TODO Auto-generated method stub
-				return null;
+			public PersistentAbsUnit handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException {
+				PersistentReference ref = null;
+				final ReferenceSearchList refList = new ReferenceSearchList();
+				final Iterator<PersistentReference> i = compUnit.getRefs().iterator();
+				while (i.hasNext()) {
+					final PersistentReference next = i.next();
+					if (next.getRef().equals(referenceUnit)) {
+						ref = next;
+					} else {
+						refList.add(next);
+					}
+				}
+
+				if (ref == null) {
+					ref = getReference(referenceUnit, exponent);
+					refList.add(ref);
+				} else {
+					if (exponent + ref.getExponent() != 0) {
+						ref = getReference(referenceUnit, exponent + ref.getExponent());
+						refList.add(ref);
+					} else if (refList.getLength() == 1 && refList.iterator().next().getExponent() == 1) {
+						return refList.iterator().next().getRef();
+					}
+				}
+
+				return getCU(name, refList);
 			}
 			
 		});
@@ -499,13 +521,21 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public PersistentCompUnit fetchScalar() 
 				throws PersistenceException{
-		// TODO: implement method: fetchScalar
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchScalar\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+		PersistentCompUnit unit = (PersistentCompUnit) getThis().getUnits().findFirst(
+				new Predcate<PersistentAbsUnit>() {
+
+					@Override
+					public boolean test(final PersistentAbsUnit argument) throws PersistenceException {
+						return argument instanceof PersistentCompUnit
+								&& ((PersistentCompUnit) argument).getRefs().getLength() == 0;
+					}
+				});
+
+		if (unit == null) {
+			unit = CompUnit.createCompUnit(getThis().fetchScalarType(), "Scalar");
+			getThis().getUnits().add(unit);
 		}
+		return unit;
 	}
     public PersistentAbsUnit fetchUnitByUnitType(final PersistentAbsUnitType ut) 
 				throws model.NotFoundException, PersistenceException{

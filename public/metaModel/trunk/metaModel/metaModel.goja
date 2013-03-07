@@ -472,7 +472,7 @@ part quantity {
 		active Unit createUnit(String name, UnitType type) throws DoubleDefinitionException;
 		active CompUnit fetchScalar();
 		active void removeUnit(AbsUnit unit);
-		active CompUnit addReference(String name, AbsUnit unit, Unit referenceUnit, Integer exponent) throws DoubleDefinitionException;
+		active AbsUnit addReference(String name, AbsUnit unit, Unit referenceUnit, Integer exponent) throws DoubleDefinitionException;
 		active CompUnit getExistingCU(Reference** refs);
 		active void setConversion(Unit unit, Fraction factor, Fraction constant) throws ConsistencyException;
 
