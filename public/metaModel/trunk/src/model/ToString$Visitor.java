@@ -19,6 +19,7 @@ import persistence.PersistentCompUnitType;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentConversion;
 import persistence.PersistentDivision;
+import persistence.PersistentEnumerationManager;
 import persistence.PersistentFormalParameter;
 import persistence.PersistentFractionManager;
 import persistence.PersistentFractionWrapper;
@@ -32,6 +33,8 @@ import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMEmptyTypeConjunction;
 import persistence.PersistentMEmptyTypeDisjunction;
+import persistence.PersistentMEnum;
+import persistence.PersistentMEnumValue;
 import persistence.PersistentMFalse;
 import persistence.PersistentMMeasurementType;
 import persistence.PersistentMMixedConjunction;
@@ -39,6 +42,8 @@ import persistence.PersistentMMixedTypeDisjunction;
 import persistence.PersistentMNonEmptyAtomicTypeConjunction;
 import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
 import persistence.PersistentMObject;
+import persistence.PersistentMObservation;
+import persistence.PersistentMObservationType;
 import persistence.PersistentMSingletonObject;
 import persistence.PersistentMTrue;
 import persistence.PersistentMaxStrategy;
@@ -54,6 +59,7 @@ import persistence.PersistentNameScheme;
 import persistence.PersistentNameSchemeInstance;
 import persistence.PersistentNameSchemeManager;
 import persistence.PersistentObjectManager;
+import persistence.PersistentObservationManager;
 import persistence.PersistentOperation;
 import persistence.PersistentOperationManager;
 import persistence.PersistentQuantity;
@@ -530,4 +536,43 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void handleMEnum(final PersistentMEnum mEnum) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleMObservationType(final PersistentMObservationType mObservationType) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleMObservation(final PersistentMObservation mObservation) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleObservationManager(final PersistentObservationManager observationManager)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleMEnumValue(final PersistentMEnumValue mEnumValue) throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void handleEnumerationManager(final PersistentEnumerationManager enumerationManager)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+
+	}
+
 }

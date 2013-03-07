@@ -11,6 +11,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException{
         this.standardHandling(divCommand);
     }
+    public void handleCreateEnumCommand(PersistentCreateEnumCommand createEnumCommand) throws PersistenceException{
+        this.standardHandling(createEnumCommand);
+    }
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
         this.standardHandling(createMObjectCommand);
     }
@@ -50,6 +53,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.standardHandling(createUnitCommand);
     }
+    public void handleCreateObsTypeCommand(PersistentCreateObsTypeCommand createObsTypeCommand) throws PersistenceException{
+        this.standardHandling(createObsTypeCommand);
+    }
     public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException{
         this.standardHandling(setDefaultUnitCommand);
     }
@@ -65,6 +71,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleRemoveTypeCommand(PersistentRemoveTypeCommand removeTypeCommand) throws PersistenceException{
         this.standardHandling(removeTypeCommand);
     }
+    public void handleDeleteObsTypeCommand(PersistentDeleteObsTypeCommand deleteObsTypeCommand) throws PersistenceException{
+        this.standardHandling(deleteObsTypeCommand);
+    }
     public void handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException{
         this.standardHandling(removeAssociationCommand);
     }
@@ -74,23 +83,26 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleCreateStaticMessageCommand(PersistentCreateStaticMessageCommand createStaticMessageCommand) throws PersistenceException{
         this.standardHandling(createStaticMessageCommand);
     }
+    public void handleCreateEnumValueCommand(PersistentCreateEnumValueCommand createEnumValueCommand) throws PersistenceException{
+        this.standardHandling(createEnumValueCommand);
+    }
     public void handleSubCommand(PersistentSubCommand subCommand) throws PersistenceException{
         this.standardHandling(subCommand);
-    }
-    public void handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException{
-        this.standardHandling(removeAssoFrmHierCommand);
     }
     public void handleCreateVoidMessageCommand(PersistentCreateVoidMessageCommand createVoidMessageCommand) throws PersistenceException{
         this.standardHandling(createVoidMessageCommand);
     }
+    public void handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException{
+        this.standardHandling(removeAssoFrmHierCommand);
+    }
     public void handleAddAssociationCommand(PersistentAddAssociationCommand addAssociationCommand) throws PersistenceException{
         this.standardHandling(addAssociationCommand);
     }
-    public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
-        this.standardHandling(setConversionCommand);
-    }
     public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException{
         this.standardHandling(replaceTypeCommand);
+    }
+    public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
+        this.standardHandling(setConversionCommand);
     }
     public void handleFetchScalarTypeCommand(PersistentFetchScalarTypeCommand fetchScalarTypeCommand) throws PersistenceException{
         this.standardHandling(fetchScalarTypeCommand);
@@ -113,6 +125,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleAggregateCommand(PersistentAggregateCommand aggregateCommand) throws PersistenceException{
         this.standardHandling(aggregateCommand);
     }
+    public void handleCreateObservationCommand(PersistentCreateObservationCommand createObservationCommand) throws PersistenceException{
+        this.standardHandling(createObservationCommand);
+    }
     public void handleAddSubAccountTypeCommand(PersistentAddSubAccountTypeCommand addSubAccountTypeCommand) throws PersistenceException{
         this.standardHandling(addSubAccountTypeCommand);
     }
@@ -127,6 +142,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     }
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException{
         this.standardHandling(createMeasurementTypeCommand);
+    }
+    public void handleDeleteObservationCommand(PersistentDeleteObservationCommand deleteObservationCommand) throws PersistenceException{
+        this.standardHandling(deleteObservationCommand);
     }
     public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException{
         this.standardHandling(addMultipleFpCommand);
@@ -157,6 +175,12 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     }
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);
+    }
+    public void handleDeleteEnumValueCommand(PersistentDeleteEnumValueCommand deleteEnumValueCommand) throws PersistenceException{
+        this.standardHandling(deleteEnumValueCommand);
+    }
+    public void handleDeleteEnumCommand(PersistentDeleteEnumCommand deleteEnumCommand) throws PersistenceException{
+        this.standardHandling(deleteEnumCommand);
     }
     public void handleRemoveOperationCommand(PersistentRemoveOperationCommand removeOperationCommand) throws PersistenceException{
         this.standardHandling(removeOperationCommand);

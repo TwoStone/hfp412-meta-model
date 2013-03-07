@@ -73,6 +73,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException{
         this.handleCommonDate(divCommand);
     }
+    public void handleCreateEnumCommand(PersistentCreateEnumCommand createEnumCommand) throws PersistenceException{
+        this.handleCommonDate(createEnumCommand);
+    }
     public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
         this.handleCommonDate(createMObjectCommand);
     }
@@ -112,6 +115,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.handleCommonDate(createUnitCommand);
     }
+    public void handleCreateObsTypeCommand(PersistentCreateObsTypeCommand createObsTypeCommand) throws PersistenceException{
+        this.handleCommonDate(createObsTypeCommand);
+    }
     public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException{
         this.handleCommonDate(setDefaultUnitCommand);
     }
@@ -124,6 +130,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleRemoveTypeCommand(PersistentRemoveTypeCommand removeTypeCommand) throws PersistenceException{
         this.handleCommonDate(removeTypeCommand);
     }
+    public void handleDeleteObsTypeCommand(PersistentDeleteObsTypeCommand deleteObsTypeCommand) throws PersistenceException{
+        this.handleCommonDate(deleteObsTypeCommand);
+    }
     public void handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException{
         this.handleCommonDate(removeAssociationCommand);
     }
@@ -133,23 +142,26 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateStaticMessageCommand(PersistentCreateStaticMessageCommand createStaticMessageCommand) throws PersistenceException{
         this.handleCommonDate(createStaticMessageCommand);
     }
+    public void handleCreateEnumValueCommand(PersistentCreateEnumValueCommand createEnumValueCommand) throws PersistenceException{
+        this.handleCommonDate(createEnumValueCommand);
+    }
     public void handleSubCommand(PersistentSubCommand subCommand) throws PersistenceException{
         this.handleCommonDate(subCommand);
-    }
-    public void handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException{
-        this.handleCommonDate(removeAssoFrmHierCommand);
     }
     public void handleCreateVoidMessageCommand(PersistentCreateVoidMessageCommand createVoidMessageCommand) throws PersistenceException{
         this.handleCommonDate(createVoidMessageCommand);
     }
+    public void handleRemoveAssoFrmHierCommand(PersistentRemoveAssoFrmHierCommand removeAssoFrmHierCommand) throws PersistenceException{
+        this.handleCommonDate(removeAssoFrmHierCommand);
+    }
     public void handleAddAssociationCommand(PersistentAddAssociationCommand addAssociationCommand) throws PersistenceException{
         this.handleCommonDate(addAssociationCommand);
     }
-    public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
-        this.handleCommonDate(setConversionCommand);
-    }
     public void handleReplaceTypeCommand(PersistentReplaceTypeCommand replaceTypeCommand) throws PersistenceException{
         this.handleCommonDate(replaceTypeCommand);
+    }
+    public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
+        this.handleCommonDate(setConversionCommand);
     }
     public void handleFetchScalarTypeCommand(PersistentFetchScalarTypeCommand fetchScalarTypeCommand) throws PersistenceException{
         this.handleCommonDate(fetchScalarTypeCommand);
@@ -172,6 +184,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleAggregateCommand(PersistentAggregateCommand aggregateCommand) throws PersistenceException{
         this.handleCommonDate(aggregateCommand);
     }
+    public void handleCreateObservationCommand(PersistentCreateObservationCommand createObservationCommand) throws PersistenceException{
+        this.handleCommonDate(createObservationCommand);
+    }
     public void handleAddSubAccountTypeCommand(PersistentAddSubAccountTypeCommand addSubAccountTypeCommand) throws PersistenceException{
         this.handleCommonDate(addSubAccountTypeCommand);
     }
@@ -187,6 +202,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException{
         this.handleCommonDate(createMeasurementTypeCommand);
     }
+    public void handleDeleteObservationCommand(PersistentDeleteObservationCommand deleteObservationCommand) throws PersistenceException{
+        this.handleCommonDate(deleteObservationCommand);
+    }
     public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException{
         this.handleCommonDate(addMultipleFpCommand);
     }
@@ -196,11 +214,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException{
         this.handleCommonDate(createQuantityCommand);
     }
-    public void handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException{
-        this.handleCommonDate(getExistingCUTCommand);
-    }
     public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException{
         this.handleCommonDate(removeFpCommand);
+    }
+    public void handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException{
+        this.handleCommonDate(getExistingCUTCommand);
     }
     public void handleCreateAtomicRootTypeCommand(PersistentCreateAtomicRootTypeCommand createAtomicRootTypeCommand) throws PersistenceException{
         this.handleCommonDate(createAtomicRootTypeCommand);
@@ -216,6 +234,12 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.handleCommonDate(addReferenceTypeCommand);
+    }
+    public void handleDeleteEnumValueCommand(PersistentDeleteEnumValueCommand deleteEnumValueCommand) throws PersistenceException{
+        this.handleCommonDate(deleteEnumValueCommand);
+    }
+    public void handleDeleteEnumCommand(PersistentDeleteEnumCommand deleteEnumCommand) throws PersistenceException{
+        this.handleCommonDate(deleteEnumCommand);
     }
     public void handleRemoveOperationCommand(PersistentRemoveOperationCommand removeOperationCommand) throws PersistenceException{
         this.handleCommonDate(removeOperationCommand);
@@ -255,23 +279,20 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleMModelItem(PersistentMModelItem mModelItem) throws PersistenceException;
     
-    public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
-        this.handleMModelItem(mAtomicType);
-    }
-    public void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException{
-        this.handleMModelItem(mSingletonObject);
+    public void handleMEnum(PersistentMEnum mEnum) throws PersistenceException{
+        this.handleMModelItem(mEnum);
     }
     public void handleMMixedTypeDisjunction(PersistentMMixedTypeDisjunction mMixedTypeDisjunction) throws PersistenceException{
         this.handleMModelItem(mMixedTypeDisjunction);
     }
-    public void handleLink(PersistentLink link) throws PersistenceException{
-        this.handleMModelItem(link);
-    }
-    public void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException{
-        this.handleMModelItem(mEmptyTypeConjunction);
+    public void handleMEnumValue(PersistentMEnumValue mEnumValue) throws PersistenceException{
+        this.handleMModelItem(mEnumValue);
     }
     public void handleMNonEmptyAtomicTypeConjunction(PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction) throws PersistenceException{
         this.handleMModelItem(mNonEmptyAtomicTypeConjunction);
+    }
+    public void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException{
+        this.handleMModelItem(mEmptyTypeConjunction);
     }
     public void handleCONCMModelItem(PersistentCONCMModelItem cONCMModelItem) throws PersistenceException{
         this.handleMModelItem(cONCMModelItem);
@@ -279,17 +300,32 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleMessage(PersistentMessage message) throws PersistenceException{
         this.handleMModelItem(message);
     }
-    public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction) throws PersistenceException{
-        this.handleMModelItem(mEmptyTypeDisjunction);
-    }
-    public void handleMObject(PersistentMObject mObject) throws PersistenceException{
-        this.handleMModelItem(mObject);
+    public void handleMObservationType(PersistentMObservationType mObservationType) throws PersistenceException{
+        this.handleMModelItem(mObservationType);
     }
     public void handleMMixedConjunction(PersistentMMixedConjunction mMixedConjunction) throws PersistenceException{
         this.handleMModelItem(mMixedConjunction);
     }
     public void handleMNonEmptyDisjunctiveNormalForm(PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm) throws PersistenceException{
         this.handleMModelItem(mNonEmptyDisjunctiveNormalForm);
+    }
+    public void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException{
+        this.handleMModelItem(mSingletonObject);
+    }
+    public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
+        this.handleMModelItem(mAtomicType);
+    }
+    public void handleLink(PersistentLink link) throws PersistenceException{
+        this.handleMModelItem(link);
+    }
+    public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction) throws PersistenceException{
+        this.handleMModelItem(mEmptyTypeDisjunction);
+    }
+    public void handleMObservation(PersistentMObservation mObservation) throws PersistenceException{
+        this.handleMModelItem(mObservation);
+    }
+    public void handleMObject(PersistentMObject mObject) throws PersistenceException{
+        this.handleMModelItem(mObject);
     }
     public abstract void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException;
     
@@ -347,6 +383,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleUnit(PersistentUnit unit) throws PersistenceException{
         this.handleAbsUnit(unit);
     }
+    public abstract void handleEnumerationManager(PersistentEnumerationManager enumerationManager) throws PersistenceException;
+    
     public abstract void handleAspectManager(PersistentAspectManager aspectManager) throws PersistenceException;
     
     public abstract void handleActualParameter(PersistentActualParameter actualParameter) throws PersistenceException;
@@ -372,6 +410,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handleReference(PersistentReference reference) throws PersistenceException;
     
     public abstract void handleObjectManager(PersistentObjectManager objectManager) throws PersistenceException;
+    
+    public abstract void handleObservationManager(PersistentObservationManager observationManager) throws PersistenceException;
     
     
 }

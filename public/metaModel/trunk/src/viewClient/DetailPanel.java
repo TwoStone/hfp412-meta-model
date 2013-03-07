@@ -694,6 +694,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 	public DetailPanelFactory(ExceptionAndEventHandler handler) {
 		this.handler = handler;
 	}
+    public void handleMEnum(view.MEnumView object){
+        result = new MEnumDefaultDetailPanel(handler, object);
+    }
     public void handleMinStrategy(view.MinStrategyView object){
         result = new MinStrategyDefaultDetailPanel(handler, object);
     }
@@ -724,6 +727,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleAssociation(view.AssociationView object){
         result = new AssociationDefaultDetailPanel(handler, object);
     }
+    public void handleMObservationType(view.MObservationTypeView object){
+        result = new MObservationTypeDefaultDetailPanel(handler, object);
+    }
     public void handleFormalParameter(view.FormalParameterView object){
         result = new FormalParameterDefaultDetailPanel(handler, object);
     }
@@ -744,6 +750,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleAccountTypeManager(view.AccountTypeManagerView object){
         result = new AccountTypeManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleMObservation(view.MObservationView object){
+        result = new MObservationDefaultDetailPanel(handler, object);
     }
     public void handleMObject(view.MObjectView object){
         result = new MObjectDefaultDetailPanel(handler, object);
@@ -778,8 +787,14 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleCompUnit(view.CompUnitView object){
         result = new CompUnitDefaultDetailPanel(handler, object);
     }
+    public void handleObservationManager(view.ObservationManagerView object){
+        result = new ObservationManagerDefaultDetailPanel(handler, object);
+    }
     public void handleOperation(view.OperationView object){
         result = new OperationDefaultDetailPanel(handler, object);
+    }
+    public void handleMEnumValue(view.MEnumValueView object){
+        result = new MEnumValueDefaultDetailPanel(handler, object);
     }
     public void handleCONCMModelItem(view.CONCMModelItemView object){
         result = new CONCMModelItemDefaultDetailPanel(handler, object);
@@ -819,6 +834,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleUnitTypeManager(view.UnitTypeManagerView object){
         result = new UnitTypeManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleEnumerationManager(view.EnumerationManagerView object){
+        result = new EnumerationManagerDefaultDetailPanel(handler, object);
     }
     public void handleMNonEmptyDisjunctiveNormalForm(view.MNonEmptyDisjunctiveNormalFormView object){
         result = new MNonEmptyDisjunctiveNormalFormDefaultDetailPanel(handler, object);
@@ -890,6 +908,30 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 }
 
 
+
+@SuppressWarnings("serial")
+class MEnumDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MEnum$$name = "MEnum$$name";
+    
+    protected MEnumDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MEnum$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MEnumView getAnything(){
+        return (view.MEnumView)this.anything;
+    }
+}
 
 @SuppressWarnings("serial")
 class MinStrategyDefaultDetailPanel extends DefaultDetailPanel{
@@ -1149,6 +1191,32 @@ class AssociationDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class MObservationTypeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MObservationType$$name = "MObservationType$$name";
+    protected static final String MObservationType$$enumType = "MObservationType$$enumType";
+    protected static final String MObservationType$$theType = "MObservationType$$theType";
+    
+    protected MObservationTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MObservationType$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MObservationTypeView getAnything(){
+        return (view.MObservationTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class FormalParameterDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String FormalParameter$$ofType = "FormalParameter$$ofType";
@@ -1288,6 +1356,33 @@ class AccountTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.AccountTypeManagerView getAnything(){
         return (view.AccountTypeManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MObservationDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MObservation$$name = "MObservation$$name";
+    protected static final String MObservation$$theType = "MObservation$$theType";
+    protected static final String MObservation$$enumValue = "MObservation$$enumValue";
+    protected static final String MObservation$$theObsObject = "MObservation$$theObsObject";
+    
+    protected MObservationDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MObservation$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MObservationView getAnything(){
+        return (view.MObservationView)this.anything;
     }
 }
 
@@ -1522,6 +1617,23 @@ class CompUnitDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class ObservationManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ObservationManager$$observationTypes = "ObservationManager$$observationTypes";
+    protected static final String ObservationManager$$observations = "ObservationManager$$observations";
+    
+    protected ObservationManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ObservationManagerView getAnything(){
+        return (view.ObservationManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class OperationDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String AbsOperation$$name = "AbsOperation$$name";
@@ -1544,6 +1656,31 @@ class OperationDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.OperationView getAnything(){
         return (view.OperationView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class MEnumValueDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
+    protected static final String MEnumValue$$name = "MEnumValue$$name";
+    protected static final String MEnumValue$$theType = "MEnumValue$$theType";
+    
+    protected MEnumValueDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MEnumValue$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.MEnumValueView getAnything(){
+        return (view.MEnumValueView)this.anything;
     }
 }
 
@@ -1770,6 +1907,23 @@ class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.UnitTypeManagerView getAnything(){
         return (view.UnitTypeManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class EnumerationManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String EnumerationManager$$enumTypes = "EnumerationManager$$enumTypes";
+    protected static final String EnumerationManager$$enumValues = "EnumerationManager$$enumValues";
+    
+    protected EnumerationManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.EnumerationManagerView getAnything(){
+        return (view.EnumerationManagerView)this.anything;
     }
 }
 

@@ -5,6 +5,8 @@ import persistence.*;
 
 public abstract class MModelItemDirectVisitor implements MModelItemVisitor {
     
+    public abstract void handleMEnum(PersistentMEnum mEnum) throws PersistenceException;
+    
     public abstract void handleAbstractObject(PersistentAbstractObject abstractObject) throws PersistenceException;
     
     public void handleMSingletonObject(PersistentMSingletonObject mSingletonObject) throws PersistenceException{
@@ -13,6 +15,8 @@ public abstract class MModelItemDirectVisitor implements MModelItemVisitor {
     public void handleMObject(PersistentMObject mObject) throws PersistenceException{
         this.handleAbstractObject(mObject);
     }
+    public abstract void handleMEnumValue(PersistentMEnumValue mEnumValue) throws PersistenceException;
+    
     public abstract void handleMType(PersistentMType mType) throws PersistenceException;
     
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
@@ -37,6 +41,10 @@ public abstract class MModelItemDirectVisitor implements MModelItemVisitor {
         this.handleMType(mNonEmptyDisjunctiveNormalForm);
     }
     public abstract void handleCONCMModelItem(PersistentCONCMModelItem cONCMModelItem) throws PersistenceException;
+    
+    public abstract void handleMObservationType(PersistentMObservationType mObservationType) throws PersistenceException;
+    
+    public abstract void handleMObservation(PersistentMObservation mObservation) throws PersistenceException;
     
     public abstract void handleMessageOrLink(PersistentMessageOrLink messageOrLink) throws PersistenceException;
     

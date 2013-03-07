@@ -279,7 +279,56 @@ part typeSystem {
 	hierarchy MComplexTypeHierarchy##MCTypeHier;
 }
 
+part observations {
 
+	singleton EnumerationManager {
+		MEnum ** enumTypes;
+		MEnumValue ** enumValues;
+
+		active void createEnum(String name) throws DoubleDefinitionException;
+		
+		//Enum Values have to be unique within observation
+		active void createEnumValue(String name, MEnum type) throws DoubleDefinitionException;
+
+		active void deleteEnum(MEnum type) throws ConsistencyException;
+		active void deleteEnumValue(MEnumValue observation) throws ConsistencyException;
+	}
+
+	singleton ObservationManager {
+		MObservationType ** observationTypes;
+		MObservation ** observations;
+
+		//Observation Types are unique within Enums
+		active void createObsType(String name, MEnum enumType, MType theType) throws DoubleDefinitionException;
+		active void createObservation(String name, MObservationType theType, MObject theObsObject) throws ConsistencyException;
+
+		active void deleteObsType(MObservationType theType) throws ConsistencyException;
+		active void deleteObservation(MObservation observation);
+	}
+
+	class MEnum covers MModelItem {
+		prior indexed String name;
+	}
+
+	class MEnumValue covers MModelItem {
+		prior indexed String name;
+		prior symmetric MEnum theType;
+	}
+
+	class MObservationType covers MModelItem {
+		prior indexed String name;
+		prior symmetric MEnum enumType;
+		prior symmetric MType theType;
+	}
+
+	class MObservation covers MModelItem {
+		prior indexed String name;
+		prior symmetric MObservationType theType;
+		prior symmetric MEnumValue enumValue;
+		prior symmetric MObject theObsObject;
+	}
+
+}
 
 
 

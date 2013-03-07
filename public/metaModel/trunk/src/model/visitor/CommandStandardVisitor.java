@@ -5,20 +5,23 @@ import persistence.*;
 
 public abstract class CommandStandardVisitor implements CommandVisitor {
     
-    public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException{
-        this.standardHandling(divCommand);
-    }
     public void handleConvertToDefaultCommand(PersistentConvertToDefaultCommand convertToDefaultCommand) throws PersistenceException{
         this.standardHandling(convertToDefaultCommand);
     }
-    public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
-        this.standardHandling(assignTypeCommand);
+    public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException{
+        this.standardHandling(divCommand);
+    }
+    public void handleCreateEnumCommand(PersistentCreateEnumCommand createEnumCommand) throws PersistenceException{
+        this.standardHandling(createEnumCommand);
+    }
+    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
+        this.standardHandling(createMObjectCommand);
     }
     public void handleAddTypeCommand(PersistentAddTypeCommand addTypeCommand) throws PersistenceException{
         this.standardHandling(addTypeCommand);
     }
-    public void handleCreateMObjectCommand(PersistentCreateMObjectCommand createMObjectCommand) throws PersistenceException{
-        this.standardHandling(createMObjectCommand);
+    public void handleAssignTypeCommand(PersistentAssignTypeCommand assignTypeCommand) throws PersistenceException{
+        this.standardHandling(assignTypeCommand);
     }
     public void handleCreateStaticOpCommand(PersistentCreateStaticOpCommand createStaticOpCommand) throws PersistenceException{
         this.standardHandling(createStaticOpCommand);
@@ -44,6 +47,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateLinkCommand(PersistentCreateLinkCommand createLinkCommand) throws PersistenceException{
         this.standardHandling(createLinkCommand);
     }
+    public void handleCreateObsTypeCommand(PersistentCreateObsTypeCommand createObsTypeCommand) throws PersistenceException{
+        this.standardHandling(createObsTypeCommand);
+    }
     public void handleCreateUnitCommand(PersistentCreateUnitCommand createUnitCommand) throws PersistenceException{
         this.standardHandling(createUnitCommand);
     }
@@ -62,6 +68,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleRemoveTypeCommand(PersistentRemoveTypeCommand removeTypeCommand) throws PersistenceException{
         this.standardHandling(removeTypeCommand);
     }
+    public void handleDeleteObsTypeCommand(PersistentDeleteObsTypeCommand deleteObsTypeCommand) throws PersistenceException{
+        this.standardHandling(deleteObsTypeCommand);
+    }
     public void handleRemoveAssociationCommand(PersistentRemoveAssociationCommand removeAssociationCommand) throws PersistenceException{
         this.standardHandling(removeAssociationCommand);
     }
@@ -70,6 +79,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleCreateStaticMessageCommand(PersistentCreateStaticMessageCommand createStaticMessageCommand) throws PersistenceException{
         this.standardHandling(createStaticMessageCommand);
+    }
+    public void handleCreateEnumValueCommand(PersistentCreateEnumValueCommand createEnumValueCommand) throws PersistenceException{
+        this.standardHandling(createEnumValueCommand);
     }
     public void handleSubCommand(PersistentSubCommand subCommand) throws PersistenceException{
         this.standardHandling(subCommand);
@@ -110,6 +122,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleAggregateCommand(PersistentAggregateCommand aggregateCommand) throws PersistenceException{
         this.standardHandling(aggregateCommand);
     }
+    public void handleCreateObservationCommand(PersistentCreateObservationCommand createObservationCommand) throws PersistenceException{
+        this.standardHandling(createObservationCommand);
+    }
     public void handleAddSubAccountTypeCommand(PersistentAddSubAccountTypeCommand addSubAccountTypeCommand) throws PersistenceException{
         this.standardHandling(addSubAccountTypeCommand);
     }
@@ -124,6 +139,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException{
         this.standardHandling(createMeasurementTypeCommand);
+    }
+    public void handleDeleteObservationCommand(PersistentDeleteObservationCommand deleteObservationCommand) throws PersistenceException{
+        this.standardHandling(deleteObservationCommand);
     }
     public void handleAddMultipleFpCommand(PersistentAddMultipleFpCommand addMultipleFpCommand) throws PersistenceException{
         this.standardHandling(addMultipleFpCommand);
@@ -146,14 +164,20 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException{
         this.standardHandling(fetchScalarCommand);
     }
-    public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException{
-        this.standardHandling(convertCommand);
-    }
     public void handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException{
         this.standardHandling(addCommand);
     }
+    public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException{
+        this.standardHandling(convertCommand);
+    }
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);
+    }
+    public void handleDeleteEnumValueCommand(PersistentDeleteEnumValueCommand deleteEnumValueCommand) throws PersistenceException{
+        this.standardHandling(deleteEnumValueCommand);
+    }
+    public void handleDeleteEnumCommand(PersistentDeleteEnumCommand deleteEnumCommand) throws PersistenceException{
+        this.standardHandling(deleteEnumCommand);
     }
     public void handleRemoveOperationCommand(PersistentRemoveOperationCommand removeOperationCommand) throws PersistenceException{
         this.standardHandling(removeOperationCommand);
@@ -176,11 +200,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateNameSchemeCommand(PersistentCreateNameSchemeCommand createNameSchemeCommand) throws PersistenceException{
         this.standardHandling(createNameSchemeCommand);
     }
-    public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException{
-        this.standardHandling(removeMessageCommand);
-    }
     public void handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException{
         this.standardHandling(addEntryCommand);
+    }
+    public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException{
+        this.standardHandling(removeMessageCommand);
     }
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException{
         this.standardHandling(createMessageCommand);
