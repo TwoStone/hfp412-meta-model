@@ -35,7 +35,7 @@ public class AddReferenceTest extends AbstractTest {
 		final PersistentUnitType unitTypeLaenge = UnitType.createUnitType("Laenge");
 		final PersistentUnit unitM = Unit.createUnit(unitTypeLaenge, "m");
 
-		final PersistentCompUnit compUnit = utman.addReference("Fläche", unitM, unitM, 1);
+		final PersistentCompUnit compUnit = (PersistentCompUnit) utman.addReference("Fläche", unitM, unitM, 1);
 
 		//Exemplarebene richtig?
 		Assert.assertEquals(1, compUnit.getRefs().getLength());
@@ -64,7 +64,7 @@ public class AddReferenceTest extends AbstractTest {
 		final PersistentUnit unitS = Unit.createUnit(unitTypeZeit, "s");
 
 		//km/h erzeugen
-		final PersistentCompUnit compUnitKmh = utman.addReference("km/h", unitKm, unitH, -1);
+		final PersistentCompUnit compUnitKmh = (PersistentCompUnit) utman.addReference("km/h", unitKm, unitH, -1);
 
 		
 		
@@ -96,7 +96,7 @@ public class AddReferenceTest extends AbstractTest {
 		
 		
 		//km/(h*s) erzeugen
-		final PersistentCompUnit compUnitKmhs = utman.addReference("km/(h*s)", compUnitKmh, unitS, -1);
+		final PersistentCompUnit compUnitKmhs = (PersistentCompUnit) utman.addReference("km/(h*s)", compUnitKmh, unitS, -1);
 
 		//Exemplarebene km/h richtig?
 		Assert.assertEquals(3, compUnitKmhs.getRefs().getLength());
