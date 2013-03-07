@@ -1,7 +1,24 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentLink;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMEmptyTypeDisjunction;
+import persistence.PersistentMEnum;
+import persistence.PersistentMEnumValue;
+import persistence.PersistentMMixedConjunction;
+import persistence.PersistentMMixedTypeDisjunction;
+import persistence.PersistentMModelItem;
+import persistence.PersistentMNonEmptyAtomicTypeConjunction;
+import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
+import persistence.PersistentMObject;
+import persistence.PersistentMObservation;
+import persistence.PersistentMObservationType;
+import persistence.PersistentMSingletonObject;
+import persistence.PersistentMessage;
 
 public abstract class MModelItemStandardVisitor implements MModelItemVisitor {
     
@@ -47,11 +64,11 @@ public abstract class MModelItemStandardVisitor implements MModelItemVisitor {
     public void handleMEmptyTypeDisjunction(PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction) throws PersistenceException{
         this.standardHandling(mEmptyTypeDisjunction);
     }
-    public void handleMObservation(PersistentMObservation mObservation) throws PersistenceException{
-        this.standardHandling(mObservation);
-    }
     public void handleMObject(PersistentMObject mObject) throws PersistenceException{
         this.standardHandling(mObject);
+    }
+    public void handleMObservation(PersistentMObservation mObservation) throws PersistenceException{
+        this.standardHandling(mObservation);
     }
     protected abstract void standardHandling(PersistentMModelItem mModelItem) throws PersistenceException;
 }

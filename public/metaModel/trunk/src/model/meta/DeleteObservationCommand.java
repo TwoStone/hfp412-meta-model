@@ -1,9 +1,32 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.ObservationManagerCommandExceptionVisitor;
+import model.visitor.ObservationManagerCommandReturnExceptionVisitor;
+import model.visitor.ObservationManagerCommandReturnVisitor;
+import model.visitor.ObservationManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentDeleteObservationCommand;
+import persistence.PersistentMObservation;
+import persistence.PersistentObject;
+import persistence.PersistentObservationManager;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -54,7 +77,7 @@ public class DeleteObservationCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 354;
+        return 234;
     }
     
     public long getClassId() {
@@ -63,7 +86,7 @@ public class DeleteObservationCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 354) ConnectionHandler.getTheConnectionHandler().theDeleteObservationCommandFacade
+        if (this.getClassId() == 234) ConnectionHandler.getTheConnectionHandler().theDeleteObservationCommandFacade
             .newDeleteObservationCommand(this.getId());
         super.store();
         if(this.getObservation() != null){

@@ -272,13 +272,6 @@ public class OperationManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void removingFormalParameterIsNotAllowedIfActualParameterExists() throws PersistenceException,
-			DoubleDefinitionException, ConsistencyException {
-		this.manager.createFp("Parameter 1", mat1);
-		fail("Actualparameter noch nicht anlegbar");
-	}
-
-	@Test
 	public void updateDerivedStaticListOnCreate() throws DoubleDefinitionException, ConsistencyException,
 			PersistenceException {
 

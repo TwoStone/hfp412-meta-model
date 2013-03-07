@@ -1,7 +1,13 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentChangeAbstractCommand;
+import persistence.PersistentCreateAtomicRootTypeCommand;
+import persistence.PersistentCreateAtomicSubTypeCommand;
+import persistence.PersistentCreateTypeConjunctionCommand;
+import persistence.PersistentCreateTypeDisjunctionCommand;
+import persistence.TypeManagerCommand;
 
 public abstract class TypeManagerCommandStandardVisitor implements TypeManagerCommandVisitor {
     

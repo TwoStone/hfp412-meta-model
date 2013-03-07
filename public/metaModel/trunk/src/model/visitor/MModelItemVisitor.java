@@ -1,7 +1,12 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentMEnum;
+import persistence.PersistentMEnumValue;
+import persistence.PersistentMObservation;
+import persistence.PersistentMObservationType;
 
 public interface MModelItemVisitor extends AbstractObjectVisitor,MTypeVisitor,MessageOrLinkVisitor{
     

@@ -1,9 +1,31 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.MAccountTypeCommandExceptionVisitor;
+import model.visitor.MAccountTypeCommandReturnExceptionVisitor;
+import model.visitor.MAccountTypeCommandReturnVisitor;
+import model.visitor.MAccountTypeCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAddSubAccountTypeCommand;
+import persistence.PersistentCommonDate;
+import persistence.PersistentMAccountType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -54,7 +76,7 @@ public class AddSubAccountTypeCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 290;
+        return 132;
     }
     
     public long getClassId() {
@@ -63,7 +85,7 @@ public class AddSubAccountTypeCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 290) ConnectionHandler.getTheConnectionHandler().theAddSubAccountTypeCommandFacade
+        if (this.getClassId() == 132) ConnectionHandler.getTheConnectionHandler().theAddSubAccountTypeCommandFacade
             .newAddSubAccountTypeCommand(this.getId());
         super.store();
         if(this.getAccountType() != null){

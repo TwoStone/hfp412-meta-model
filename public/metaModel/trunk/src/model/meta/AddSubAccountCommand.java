@@ -1,9 +1,31 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AccountCommandExceptionVisitor;
+import model.visitor.AccountCommandReturnExceptionVisitor;
+import model.visitor.AccountCommandReturnVisitor;
+import model.visitor.AccountCommandVisitor;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAccount;
+import persistence.PersistentAddSubAccountCommand;
+import persistence.PersistentCommonDate;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -54,7 +76,7 @@ public class AddSubAccountCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 288;
+        return 252;
     }
     
     public long getClassId() {
@@ -63,7 +85,7 @@ public class AddSubAccountCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 288) ConnectionHandler.getTheConnectionHandler().theAddSubAccountCommandFacade
+        if (this.getClassId() == 252) ConnectionHandler.getTheConnectionHandler().theAddSubAccountCommandFacade
             .newAddSubAccountCommand(this.getId());
         super.store();
         if(this.getAccount() != null){

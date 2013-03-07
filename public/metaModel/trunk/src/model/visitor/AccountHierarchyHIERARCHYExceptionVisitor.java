@@ -1,7 +1,8 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAccount;
 
 public interface AccountHierarchyHIERARCHYExceptionVisitor<E extends UserException> {
     

@@ -1,9 +1,34 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.LinkManagerCommandExceptionVisitor;
+import model.visitor.LinkManagerCommandReturnExceptionVisitor;
+import model.visitor.LinkManagerCommandReturnVisitor;
+import model.visitor.LinkManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAssociation;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateLinkCommand;
+import persistence.PersistentLink;
+import persistence.PersistentLinkManager;
+import persistence.PersistentMObject;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -60,7 +85,7 @@ public class CreateLinkCommand extends PersistentObject implements PersistentCre
     }
     
     static public long getTypeId() {
-        return 160;
+        return 191;
     }
     
     public long getClassId() {
@@ -69,7 +94,7 @@ public class CreateLinkCommand extends PersistentObject implements PersistentCre
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 160) ConnectionHandler.getTheConnectionHandler().theCreateLinkCommandFacade
+        if (this.getClassId() == 191) ConnectionHandler.getTheConnectionHandler().theCreateLinkCommandFacade
             .newCreateLinkCommand(this.getId());
         super.store();
         if(this.getType() != null){

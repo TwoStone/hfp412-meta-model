@@ -44,7 +44,7 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
     }
     
     static public long getTypeId() {
-        return 331;
+        return 230;
     }
     
     public long getClassId() {

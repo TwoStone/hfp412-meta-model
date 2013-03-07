@@ -1,7 +1,79 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.Command;
+import persistence.PersistenceException;
+import persistence.PersistentAddAssociationCommand;
+import persistence.PersistentAddCommand;
+import persistence.PersistentAddEntryCommand;
+import persistence.PersistentAddFpCommand;
+import persistence.PersistentAddFractionCommand;
+import persistence.PersistentAddMultipleFpCommand;
+import persistence.PersistentAddReferenceCommand;
+import persistence.PersistentAddReferenceTypeCommand;
+import persistence.PersistentAddSubAccountCommand;
+import persistence.PersistentAddSubAccountTypeCommand;
+import persistence.PersistentAddTypeCommand;
+import persistence.PersistentAggregateCommand;
+import persistence.PersistentAssignNameCommand;
+import persistence.PersistentAssignTypeCommand;
+import persistence.PersistentChangeAbstractCommand;
+import persistence.PersistentConvertCommand;
+import persistence.PersistentConvertToDefaultCommand;
+import persistence.PersistentCreateAccountCommand;
+import persistence.PersistentCreateAccountTypeCommand;
+import persistence.PersistentCreateAspectCommand;
+import persistence.PersistentCreateAssociationCommand;
+import persistence.PersistentCreateAtomicRootTypeCommand;
+import persistence.PersistentCreateAtomicSubTypeCommand;
+import persistence.PersistentCreateConstCommand;
+import persistence.PersistentCreateConstantCommand;
+import persistence.PersistentCreateEnumCommand;
+import persistence.PersistentCreateEnumValueCommand;
+import persistence.PersistentCreateFpCommand;
+import persistence.PersistentCreateHierarchyCommand;
+import persistence.PersistentCreateLinkCommand;
+import persistence.PersistentCreateMObjectCommand;
+import persistence.PersistentCreateMeasurementTypeCommand;
+import persistence.PersistentCreateMessageCommand;
+import persistence.PersistentCreateNameSchemeCommand;
+import persistence.PersistentCreateObsTypeCommand;
+import persistence.PersistentCreateObservationCommand;
+import persistence.PersistentCreateOperationCommand;
+import persistence.PersistentCreateQuantityCommand;
+import persistence.PersistentCreateStaticMessageCommand;
+import persistence.PersistentCreateStaticOpCommand;
+import persistence.PersistentCreateTypeConjunctionCommand;
+import persistence.PersistentCreateTypeDisjunctionCommand;
+import persistence.PersistentCreateUnitCommand;
+import persistence.PersistentCreateUnitTypeCommand;
+import persistence.PersistentCreateVoidMessageCommand;
+import persistence.PersistentCreateVoidOperationCommand;
+import persistence.PersistentDeleteEnumCommand;
+import persistence.PersistentDeleteEnumValueCommand;
+import persistence.PersistentDeleteObsTypeCommand;
+import persistence.PersistentDeleteObservationCommand;
+import persistence.PersistentDivCommand;
+import persistence.PersistentFetchScalarCommand;
+import persistence.PersistentFetchScalarTypeCommand;
+import persistence.PersistentGetExistingCUCommand;
+import persistence.PersistentGetExistingCUTCommand;
+import persistence.PersistentMulCommand;
+import persistence.PersistentRemoveAssoFrmHierCommand;
+import persistence.PersistentRemoveAssociationCommand;
+import persistence.PersistentRemoveFpCommand;
+import persistence.PersistentRemoveFpFromOpCommand;
+import persistence.PersistentRemoveHierarchyCommand;
+import persistence.PersistentRemoveLinkCommand;
+import persistence.PersistentRemoveMessageCommand;
+import persistence.PersistentRemoveOperationCommand;
+import persistence.PersistentRemoveTypeCommand;
+import persistence.PersistentRemoveUnitCommand;
+import persistence.PersistentRemoveUnitTypeCommand;
+import persistence.PersistentReplaceTypeCommand;
+import persistence.PersistentSetConversionCommand;
+import persistence.PersistentSetDefaultUnitCommand;
+import persistence.PersistentSubCommand;
 
 public abstract class CommandStandardVisitor implements CommandVisitor {
     
@@ -164,11 +236,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException{
         this.standardHandling(fetchScalarCommand);
     }
-    public void handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException{
-        this.standardHandling(addCommand);
-    }
     public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException{
         this.standardHandling(convertCommand);
+    }
+    public void handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException{
+        this.standardHandling(addCommand);
     }
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);
@@ -206,11 +278,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException{
         this.standardHandling(removeMessageCommand);
     }
-    public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException{
-        this.standardHandling(createMessageCommand);
-    }
     public void handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException{
         this.standardHandling(getExistingCUCommand);
+    }
+    public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException{
+        this.standardHandling(createMessageCommand);
     }
     public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException{
         this.standardHandling(createAccountTypeCommand);

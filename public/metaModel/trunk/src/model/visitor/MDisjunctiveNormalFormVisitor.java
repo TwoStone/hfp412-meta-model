@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMEmptyTypeDisjunction;
+import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
 
 public interface MDisjunctiveNormalFormVisitor {
     

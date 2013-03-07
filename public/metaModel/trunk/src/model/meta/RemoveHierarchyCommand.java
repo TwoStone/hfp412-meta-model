@@ -1,9 +1,32 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.AssociationManagerCommandExceptionVisitor;
+import model.visitor.AssociationManagerCommandReturnExceptionVisitor;
+import model.visitor.AssociationManagerCommandReturnVisitor;
+import model.visitor.AssociationManagerCommandVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAssociationManager;
+import persistence.PersistentCommonDate;
+import persistence.PersistentHierarchy;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentRemoveHierarchyCommand;
 
 
 /* Additional import section end */
@@ -54,7 +77,7 @@ public class RemoveHierarchyCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 341;
+        return 112;
     }
     
     public long getClassId() {
@@ -63,7 +86,7 @@ public class RemoveHierarchyCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 341) ConnectionHandler.getTheConnectionHandler().theRemoveHierarchyCommandFacade
+        if (this.getClassId() == 112) ConnectionHandler.getTheConnectionHandler().theRemoveHierarchyCommandFacade
             .newRemoveHierarchyCommand(this.getId());
         super.store();
         if(this.getH() != null){

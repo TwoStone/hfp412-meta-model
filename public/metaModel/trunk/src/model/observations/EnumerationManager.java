@@ -1,9 +1,28 @@
 
 package model.observations;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.EnumerationManagerProxi;
+import persistence.EnumerationManager_EnumTypesProxi;
+import persistence.EnumerationManager_EnumValuesProxi;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCreateEnumCommand;
+import persistence.PersistentCreateEnumValueCommand;
+import persistence.PersistentDeleteEnumCommand;
+import persistence.PersistentDeleteEnumValueCommand;
+import persistence.PersistentEnumerationManager;
+import persistence.PersistentMEnum;
+import persistence.PersistentMEnumValue;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -87,7 +106,7 @@ public class EnumerationManager extends PersistentObject implements PersistentEn
     }
     
     static public long getTypeId() {
-        return 352;
+        return 215;
     }
     
     public long getClassId() {

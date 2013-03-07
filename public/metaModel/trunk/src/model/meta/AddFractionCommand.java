@@ -1,9 +1,31 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.FractionManagerCommandExceptionVisitor;
+import model.visitor.FractionManagerCommandReturnExceptionVisitor;
+import model.visitor.FractionManagerCommandReturnVisitor;
+import model.visitor.FractionManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAddFractionCommand;
+import persistence.PersistentCommonDate;
+import persistence.PersistentFractionManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -57,7 +79,7 @@ public class AddFractionCommand extends PersistentObject implements PersistentAd
     }
     
     static public long getTypeId() {
-        return 283;
+        return 255;
     }
     
     public long getClassId() {
@@ -66,7 +88,7 @@ public class AddFractionCommand extends PersistentObject implements PersistentAd
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 283) ConnectionHandler.getTheConnectionHandler().theAddFractionCommandFacade
+        if (this.getClassId() == 255) ConnectionHandler.getTheConnectionHandler().theAddFractionCommandFacade
             .newAddFractionCommand(key,newFraction,this.getId());
         super.store();
         if(this.getInvoker() != null){

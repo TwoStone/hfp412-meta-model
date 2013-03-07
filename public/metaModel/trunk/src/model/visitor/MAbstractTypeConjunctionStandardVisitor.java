@@ -1,7 +1,11 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMAbstractTypeConjunction;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMMixedConjunction;
+import persistence.PersistentMNonEmptyAtomicTypeConjunction;
 
 public abstract class MAbstractTypeConjunctionStandardVisitor implements MAbstractTypeConjunctionVisitor {
     

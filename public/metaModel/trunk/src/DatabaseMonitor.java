@@ -1,10 +1,10 @@
 import java.awt.BorderLayout;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JPanel;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class DatabaseMonitor extends JFrame implements Runnable{

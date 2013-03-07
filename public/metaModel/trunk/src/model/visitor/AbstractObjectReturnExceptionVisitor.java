@@ -1,7 +1,9 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMObject;
+import persistence.PersistentMSingletonObject;
 
 public interface AbstractObjectReturnExceptionVisitor<R, E extends UserException> {
     

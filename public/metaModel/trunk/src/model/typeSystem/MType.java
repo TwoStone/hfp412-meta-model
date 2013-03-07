@@ -62,7 +62,7 @@ public abstract class MType extends PersistentObject implements PersistentMType{
     }
     
     static public long getTypeId() {
-        return 172;
+        return 211;
     }
     
     public long getClassId() {

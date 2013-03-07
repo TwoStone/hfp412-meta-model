@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.UnitTypeManagerCommandExceptionVisitor;
+import model.visitor.UnitTypeManagerCommandReturnExceptionVisitor;
+import model.visitor.UnitTypeManagerCommandReturnVisitor;
+import model.visitor.UnitTypeManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.GetExistingCUCommand_RefsProxi;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCompUnit;
+import persistence.PersistentGetExistingCUCommand;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentUnitTypeManager;
 
 
 /* Additional import section end */
@@ -56,7 +80,7 @@ public class GetExistingCUCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 358;
+        return 174;
     }
     
     public long getClassId() {
@@ -65,7 +89,7 @@ public class GetExistingCUCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 358) ConnectionHandler.getTheConnectionHandler().theGetExistingCUCommandFacade
+        if (this.getClassId() == 174) ConnectionHandler.getTheConnectionHandler().theGetExistingCUCommandFacade
             .newGetExistingCUCommand(this.getId());
         super.store();
         this.getRefs().store();

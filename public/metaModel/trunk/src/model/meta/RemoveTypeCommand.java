@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.ObjectManagerCommandExceptionVisitor;
+import model.visitor.ObjectManagerCommandReturnExceptionVisitor;
+import model.visitor.ObjectManagerCommandReturnVisitor;
+import model.visitor.ObjectManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMObject;
+import persistence.PersistentObject;
+import persistence.PersistentObjectManager;
+import persistence.PersistentProxi;
+import persistence.PersistentRemoveTypeCommand;
 
 
 /* Additional import section end */
@@ -56,7 +80,7 @@ public class RemoveTypeCommand extends PersistentObject implements PersistentRem
     }
     
     static public long getTypeId() {
-        return 240;
+        return 117;
     }
     
     public long getClassId() {
@@ -65,7 +89,7 @@ public class RemoveTypeCommand extends PersistentObject implements PersistentRem
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 240) ConnectionHandler.getTheConnectionHandler().theRemoveTypeCommandFacade
+        if (this.getClassId() == 117) ConnectionHandler.getTheConnectionHandler().theRemoveTypeCommandFacade
             .newRemoveTypeCommand(this.getId());
         super.store();
         if(this.getObject() != null){

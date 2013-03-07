@@ -3,6 +3,10 @@
  */
 package model.quantity;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +17,6 @@ import persistence.PersistentReferenceType;
 import persistence.PersistentUnitType;
 import persistence.ReferenceTypeSearchList;
 import util.TestingBase;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Testet die Klasse CompUnitType.

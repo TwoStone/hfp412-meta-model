@@ -1,7 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
 
 public interface ConsistencyExceptionReturnExceptionVisitor<R, E extends UserException> {
     

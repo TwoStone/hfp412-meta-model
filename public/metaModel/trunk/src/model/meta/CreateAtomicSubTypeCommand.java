@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.TypeManagerCommandExceptionVisitor;
+import model.visitor.TypeManagerCommandReturnExceptionVisitor;
+import model.visitor.TypeManagerCommandReturnVisitor;
+import model.visitor.TypeManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateAtomicSubTypeCommand;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentTypeManager;
 
 
 /* Additional import section end */
@@ -63,7 +87,7 @@ public class CreateAtomicSubTypeCommand extends PersistentObject implements Pers
     }
     
     static public long getTypeId() {
-        return 157;
+        return 189;
     }
     
     public long getClassId() {
@@ -72,7 +96,7 @@ public class CreateAtomicSubTypeCommand extends PersistentObject implements Pers
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 157) ConnectionHandler.getTheConnectionHandler().theCreateAtomicSubTypeCommandFacade
+        if (this.getClassId() == 189) ConnectionHandler.getTheConnectionHandler().theCreateAtomicSubTypeCommandFacade
             .newCreateAtomicSubTypeCommand(name,this.getId());
         super.store();
         if(this.getSuperType() != null){

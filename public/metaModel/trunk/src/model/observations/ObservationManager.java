@@ -1,9 +1,31 @@
 
 package model.observations;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.ObservationManagerProxi;
+import persistence.ObservationManager_ObservationTypesProxi;
+import persistence.ObservationManager_ObservationsProxi;
+import persistence.PersistenceException;
+import persistence.PersistentCreateObsTypeCommand;
+import persistence.PersistentCreateObservationCommand;
+import persistence.PersistentDeleteObsTypeCommand;
+import persistence.PersistentDeleteObservationCommand;
+import persistence.PersistentMEnum;
+import persistence.PersistentMObject;
+import persistence.PersistentMObservation;
+import persistence.PersistentMObservationType;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentObservationManager;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -87,7 +109,7 @@ public class ObservationManager extends PersistentObject implements PersistentOb
     }
     
     static public long getTypeId() {
-        return 347;
+        return 178;
     }
     
     public long getClassId() {

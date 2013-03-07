@@ -97,7 +97,7 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     }
     
     static public long getTypeId() {
-        return 138;
+        return 165;
     }
     
     public long getClassId() {

@@ -1,7 +1,12 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentChangeAbstractCommand;
+import persistence.PersistentCreateAtomicRootTypeCommand;
+import persistence.PersistentCreateAtomicSubTypeCommand;
+import persistence.PersistentCreateTypeConjunctionCommand;
+import persistence.PersistentCreateTypeDisjunctionCommand;
 
 public interface TypeManagerCommandExceptionVisitor<E extends UserException> {
     

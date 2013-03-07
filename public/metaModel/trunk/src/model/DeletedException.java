@@ -37,7 +37,7 @@ public class DeletedException extends model.ConsistencyException{
     }
     
     static public long getTypeId() {
-        return -323;
+        return -303;
     }
     
     public long getClassId() {

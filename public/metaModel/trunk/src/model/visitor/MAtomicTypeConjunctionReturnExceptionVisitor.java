@@ -1,7 +1,9 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMNonEmptyAtomicTypeConjunction;
 
 public interface MAtomicTypeConjunctionReturnExceptionVisitor<R, E extends UserException> {
     

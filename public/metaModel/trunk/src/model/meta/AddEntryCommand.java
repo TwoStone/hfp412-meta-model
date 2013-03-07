@@ -1,9 +1,32 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AccountCommandExceptionVisitor;
+import model.visitor.AccountCommandReturnExceptionVisitor;
+import model.visitor.AccountCommandReturnVisitor;
+import model.visitor.AccountCommandVisitor;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAccount;
+import persistence.PersistentAddEntryCommand;
+import persistence.PersistentCommonDate;
+import persistence.PersistentMeasurement;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -54,7 +77,7 @@ public class AddEntryCommand extends PersistentObject implements PersistentAddEn
     }
     
     static public long getTypeId() {
-        return 321;
+        return 173;
     }
     
     public long getClassId() {
@@ -63,7 +86,7 @@ public class AddEntryCommand extends PersistentObject implements PersistentAddEn
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 321) ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade
+        if (this.getClassId() == 173) ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade
             .newAddEntryCommand(this.getId());
         super.store();
         if(this.getMeasurement() != null){

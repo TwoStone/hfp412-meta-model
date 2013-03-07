@@ -35,7 +35,7 @@ public abstract class MDisjunctiveNormalForm extends model.typeSystem.MAbstractT
     }
     
     static public long getTypeId() {
-        return 315;
+        return 238;
     }
     
     public long getClassId() {

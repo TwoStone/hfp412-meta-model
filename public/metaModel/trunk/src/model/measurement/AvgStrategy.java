@@ -96,7 +96,7 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     }
     
     static public long getTypeId() {
-        return 294;
+        return 197;
     }
     
     public long getClassId() {
@@ -105,7 +105,7 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 294) ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade
+        if (this.getClassId() == 197) ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade
             .newAvgStrategy(this.getId());
         super.store();
         if(!this.equals(this.getThis())){

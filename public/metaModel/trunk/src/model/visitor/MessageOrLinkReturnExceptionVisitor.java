@@ -1,7 +1,9 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentLink;
+import persistence.PersistentMessage;
 
 public interface MessageOrLinkReturnExceptionVisitor<R, E extends UserException> {
     

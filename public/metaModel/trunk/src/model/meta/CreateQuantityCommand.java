@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.QuantityManagerCommandExceptionVisitor;
+import model.visitor.QuantityManagerCommandReturnExceptionVisitor;
+import model.visitor.QuantityManagerCommandReturnVisitor;
+import model.visitor.QuantityManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAbsUnit;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateQuantityCommand;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentQuantity;
+import persistence.PersistentQuantityManager;
 
 
 /* Additional import section end */
@@ -58,7 +82,7 @@ public class CreateQuantityCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 131;
+        return 152;
     }
     
     public long getClassId() {
@@ -67,7 +91,7 @@ public class CreateQuantityCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 131) ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade
+        if (this.getClassId() == 152) ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade
             .newCreateQuantityCommand(amount,this.getId());
         super.store();
         if(this.getUnit() != null){

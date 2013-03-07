@@ -114,7 +114,7 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
     }
     
     static public long getTypeId() {
-        return 287;
+        return 254;
     }
     
     public long getClassId() {
@@ -123,7 +123,7 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 287) ConnectionHandler.getTheConnectionHandler().theMSingletonObjectFacade
+        if (this.getClassId() == 254) ConnectionHandler.getTheConnectionHandler().theMSingletonObjectFacade
             .newMSingletonObject(this.getId());
         super.store();
         if(this.getType() != null){

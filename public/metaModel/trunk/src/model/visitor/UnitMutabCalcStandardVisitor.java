@@ -1,7 +1,10 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentDivision;
+import persistence.PersistentMultiplication;
+import persistence.PersistentUnitMutabCalc;
 
 public abstract class UnitMutabCalcStandardVisitor implements UnitMutabCalcVisitor {
     

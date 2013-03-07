@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AccountManagerCommandExceptionVisitor;
+import model.visitor.AccountManagerCommandReturnExceptionVisitor;
+import model.visitor.AccountManagerCommandReturnVisitor;
+import model.visitor.AccountManagerCommandVisitor;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAccountManager;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateAccountCommand;
+import persistence.PersistentMAccountType;
+import persistence.PersistentMObject;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -59,7 +83,7 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 155;
+        return 188;
     }
     
     public long getClassId() {
@@ -68,7 +92,7 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 155) ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade
+        if (this.getClassId() == 188) ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade
             .newCreateAccountCommand(name,this.getId());
         super.store();
         if(this.getType() != null){

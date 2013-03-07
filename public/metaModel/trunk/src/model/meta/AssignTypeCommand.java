@@ -1,9 +1,34 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.NameSchemeManagerCommandExceptionVisitor;
+import model.visitor.NameSchemeManagerCommandReturnExceptionVisitor;
+import model.visitor.NameSchemeManagerCommandReturnVisitor;
+import model.visitor.NameSchemeManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAssignTypeCommand;
+import persistence.PersistentCommonDate;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentName;
+import persistence.PersistentNameScheme;
+import persistence.PersistentNameSchemeManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -58,7 +83,7 @@ public class AssignTypeCommand extends PersistentObject implements PersistentAss
     }
     
     static public long getTypeId() {
-        return 275;
+        return 107;
     }
     
     public long getClassId() {
@@ -67,7 +92,7 @@ public class AssignTypeCommand extends PersistentObject implements PersistentAss
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 275) ConnectionHandler.getTheConnectionHandler().theAssignTypeCommandFacade
+        if (this.getClassId() == 107) ConnectionHandler.getTheConnectionHandler().theAssignTypeCommandFacade
             .newAssignTypeCommand(this.getId());
         super.store();
         if(this.getScheme() != null){

@@ -1,7 +1,14 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.AssociationManagerCommand;
+import persistence.PersistenceException;
+import persistence.PersistentAddAssociationCommand;
+import persistence.PersistentCreateAssociationCommand;
+import persistence.PersistentCreateHierarchyCommand;
+import persistence.PersistentRemoveAssoFrmHierCommand;
+import persistence.PersistentRemoveAssociationCommand;
+import persistence.PersistentRemoveHierarchyCommand;
 
 public abstract class AssociationManagerCommandStandardVisitor implements AssociationManagerCommandVisitor {
     

@@ -1,9 +1,32 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.EnumerationManagerCommandExceptionVisitor;
+import model.visitor.EnumerationManagerCommandReturnExceptionVisitor;
+import model.visitor.EnumerationManagerCommandReturnVisitor;
+import model.visitor.EnumerationManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentDeleteEnumValueCommand;
+import persistence.PersistentEnumerationManager;
+import persistence.PersistentMEnumValue;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -54,7 +77,7 @@ public class DeleteEnumValueCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 355;
+        return 247;
     }
     
     public long getClassId() {
@@ -63,7 +86,7 @@ public class DeleteEnumValueCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 355) ConnectionHandler.getTheConnectionHandler().theDeleteEnumValueCommandFacade
+        if (this.getClassId() == 247) ConnectionHandler.getTheConnectionHandler().theDeleteEnumValueCommandFacade
             .newDeleteEnumValueCommand(this.getId());
         super.store();
         if(this.getEnumValue() != null){

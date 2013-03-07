@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentServer;
+import persistence.Remote;
 
 public abstract class RemoteStandardVisitor implements RemoteVisitor {
     

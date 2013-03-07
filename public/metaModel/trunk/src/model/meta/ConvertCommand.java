@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.QuantityManagerCommandExceptionVisitor;
+import model.visitor.QuantityManagerCommandReturnExceptionVisitor;
+import model.visitor.QuantityManagerCommandReturnVisitor;
+import model.visitor.QuantityManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAbsUnit;
+import persistence.PersistentCommonDate;
+import persistence.PersistentConvertCommand;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentQuantity;
+import persistence.PersistentQuantityManager;
 
 
 /* Additional import section end */
@@ -56,7 +80,7 @@ public class ConvertCommand extends PersistentObject implements PersistentConver
     }
     
     static public long getTypeId() {
-        return 320;
+        return 245;
     }
     
     public long getClassId() {
@@ -65,7 +89,7 @@ public class ConvertCommand extends PersistentObject implements PersistentConver
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 320) ConnectionHandler.getTheConnectionHandler().theConvertCommandFacade
+        if (this.getClassId() == 245) ConnectionHandler.getTheConnectionHandler().theConvertCommandFacade
             .newConvertCommand(this.getId());
         super.store();
         if(this.getQuantity() != null){

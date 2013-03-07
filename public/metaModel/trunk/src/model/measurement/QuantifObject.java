@@ -58,7 +58,7 @@ public abstract class QuantifObject extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 122;
+        return 139;
     }
     
     public long getClassId() {

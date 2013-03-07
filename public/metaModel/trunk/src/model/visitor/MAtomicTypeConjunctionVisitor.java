@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMNonEmptyAtomicTypeConjunction;
 
 public interface MAtomicTypeConjunctionVisitor {
     

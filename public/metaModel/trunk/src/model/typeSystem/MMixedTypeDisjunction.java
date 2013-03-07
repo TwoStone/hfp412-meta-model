@@ -125,7 +125,7 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
     }
     
     static public long getTypeId() {
-        return 312;
+        return 205;
     }
     
     public long getClassId() {
@@ -134,7 +134,7 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 312) ConnectionHandler.getTheConnectionHandler().theMMixedTypeDisjunctionFacade
+        if (this.getClassId() == 205) ConnectionHandler.getTheConnectionHandler().theMMixedTypeDisjunctionFacade
             .newMMixedTypeDisjunction(this.getId());
         super.store();
         this.getAddends().store();

@@ -99,7 +99,7 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
     }
     
     static public long getTypeId() {
-        return 333;
+        return 257;
     }
     
     public long getClassId() {
@@ -108,7 +108,7 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 333) ConnectionHandler.getTheConnectionHandler().theDivisionFacade
+        if (this.getClassId() == 257) ConnectionHandler.getTheConnectionHandler().theDivisionFacade
             .newDivision(this.getId());
         super.store();
         

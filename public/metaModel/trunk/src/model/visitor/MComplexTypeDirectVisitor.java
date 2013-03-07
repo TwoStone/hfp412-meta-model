@@ -1,7 +1,15 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentMAbstractTypeConjunction;
+import persistence.PersistentMAbstractTypeDisjunction;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMEmptyTypeDisjunction;
+import persistence.PersistentMMixedConjunction;
+import persistence.PersistentMMixedTypeDisjunction;
+import persistence.PersistentMNonEmptyAtomicTypeConjunction;
+import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
 
 public abstract class MComplexTypeDirectVisitor implements MComplexTypeVisitor {
     

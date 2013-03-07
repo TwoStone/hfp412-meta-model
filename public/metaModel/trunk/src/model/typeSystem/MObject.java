@@ -129,7 +129,7 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 130;
+        return 151;
     }
     
     public long getClassId() {
@@ -138,7 +138,7 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 130) ConnectionHandler.getTheConnectionHandler().theMObjectFacade
+        if (this.getClassId() == 151) ConnectionHandler.getTheConnectionHandler().theMObjectFacade
             .newMObject(this.getId());
         super.store();
         this.getTypes().store();

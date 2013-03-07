@@ -1,9 +1,30 @@
 
 package model.observations;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MEnumValueProxi;
+import persistence.MEnumValueSearchList;
+import persistence.MModelItemSearchList;
+import persistence.MObservationSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentMEnum;
+import persistence.PersistentMEnumValue;
+import persistence.PersistentMModelItem;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -121,7 +142,7 @@ public class MEnumValue extends PersistentObject implements PersistentMEnumValue
     }
     
     static public long getTypeId() {
-        return 348;
+        return 180;
     }
     
     public long getClassId() {
@@ -130,7 +151,7 @@ public class MEnumValue extends PersistentObject implements PersistentMEnumValue
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 348) ConnectionHandler.getTheConnectionHandler().theMEnumValueFacade
+        if (this.getClassId() == 180) ConnectionHandler.getTheConnectionHandler().theMEnumValueFacade
             .newMEnumValue(name,this.getId());
         super.store();
         if(this.getTheType() != null){

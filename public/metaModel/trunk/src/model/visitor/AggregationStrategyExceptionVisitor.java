@@ -1,7 +1,11 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentAvgStrategy;
+import persistence.PersistentMaxStrategy;
+import persistence.PersistentMinStrategy;
+import persistence.PersistentSumStrategy;
 
 public interface AggregationStrategyExceptionVisitor<E extends UserException> {
     

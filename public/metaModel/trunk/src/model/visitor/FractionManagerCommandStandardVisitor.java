@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.FractionManagerCommand;
+import persistence.PersistenceException;
+import persistence.PersistentAddFractionCommand;
 
 public abstract class FractionManagerCommandStandardVisitor implements FractionManagerCommandVisitor {
     

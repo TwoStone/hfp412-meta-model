@@ -1,9 +1,32 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.ObservationManagerCommandExceptionVisitor;
+import model.visitor.ObservationManagerCommandReturnExceptionVisitor;
+import model.visitor.ObservationManagerCommandReturnVisitor;
+import model.visitor.ObservationManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentDeleteObsTypeCommand;
+import persistence.PersistentMObservationType;
+import persistence.PersistentObject;
+import persistence.PersistentObservationManager;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -54,7 +77,7 @@ public class DeleteObsTypeCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 350;
+        return 198;
     }
     
     public long getClassId() {
@@ -63,7 +86,7 @@ public class DeleteObsTypeCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 350) ConnectionHandler.getTheConnectionHandler().theDeleteObsTypeCommandFacade
+        if (this.getClassId() == 198) ConnectionHandler.getTheConnectionHandler().theDeleteObsTypeCommandFacade
             .newDeleteObsTypeCommand(this.getId());
         super.store();
         if(this.getTheType() != null){

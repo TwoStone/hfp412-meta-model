@@ -1,7 +1,12 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.AggregationStrategy;
+import persistence.PersistenceException;
+import persistence.PersistentAvgStrategy;
+import persistence.PersistentMaxStrategy;
+import persistence.PersistentMinStrategy;
+import persistence.PersistentSumStrategy;
 
 public abstract class AggregationStrategyStandardVisitor implements AggregationStrategyVisitor {
     

@@ -152,7 +152,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     }
     
     static public long getTypeId() {
-        return 171;
+        return 212;
     }
     
     public long getClassId() {

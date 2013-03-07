@@ -1,9 +1,31 @@
 
 package model.observations;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MModelItemSearchList;
+import persistence.MObservationProxi;
+import persistence.MObservationSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentMEnumValue;
+import persistence.PersistentMModelItem;
+import persistence.PersistentMObject;
+import persistence.PersistentMObservation;
+import persistence.PersistentMObservationType;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
@@ -149,7 +171,7 @@ public class MObservation extends PersistentObject implements PersistentMObserva
     }
     
     static public long getTypeId() {
-        return 345;
+        return 149;
     }
     
     public long getClassId() {
@@ -158,7 +180,7 @@ public class MObservation extends PersistentObject implements PersistentMObserva
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 345) ConnectionHandler.getTheConnectionHandler().theMObservationFacade
+        if (this.getClassId() == 149) ConnectionHandler.getTheConnectionHandler().theMObservationFacade
             .newMObservation(name,this.getId());
         super.store();
         if(this.getTheType() != null){

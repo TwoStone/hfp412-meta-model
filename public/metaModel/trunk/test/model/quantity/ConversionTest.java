@@ -3,6 +3,8 @@
  */
 package model.quantity;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import model.ConsistencyException;
 import model.CycleException;
 
@@ -18,9 +20,6 @@ import persistence.PersistentUnitType;
 import util.TestingBase;
 
 import common.Fraction;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Testet die Klasse Conversion

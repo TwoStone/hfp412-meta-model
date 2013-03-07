@@ -1,7 +1,10 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentLink;
+import persistence.PersistentMessage;
+import persistence.PersistentMessageOrLink;
 
 public abstract class MessageOrLinkStandardVisitor implements MessageOrLinkVisitor {
     

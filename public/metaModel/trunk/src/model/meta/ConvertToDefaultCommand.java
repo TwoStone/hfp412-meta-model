@@ -1,9 +1,32 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.QuantityManagerCommandExceptionVisitor;
+import model.visitor.QuantityManagerCommandReturnExceptionVisitor;
+import model.visitor.QuantityManagerCommandReturnVisitor;
+import model.visitor.QuantityManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentConvertToDefaultCommand;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentQuantity;
+import persistence.PersistentQuantityManager;
 
 
 /* Additional import section end */
@@ -54,7 +77,7 @@ public class ConvertToDefaultCommand extends PersistentObject implements Persist
     }
     
     static public long getTypeId() {
-        return 319;
+        return 103;
     }
     
     public long getClassId() {
@@ -63,7 +86,7 @@ public class ConvertToDefaultCommand extends PersistentObject implements Persist
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 319) ConnectionHandler.getTheConnectionHandler().theConvertToDefaultCommandFacade
+        if (this.getClassId() == 103) ConnectionHandler.getTheConnectionHandler().theConvertToDefaultCommandFacade
             .newConvertToDefaultCommand(this.getId());
         super.store();
         if(this.getQuantity() != null){

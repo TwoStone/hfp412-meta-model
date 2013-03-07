@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.NameSchemeManagerCommandExceptionVisitor;
+import model.visitor.NameSchemeManagerCommandReturnExceptionVisitor;
+import model.visitor.NameSchemeManagerCommandReturnVisitor;
+import model.visitor.NameSchemeManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAssignNameCommand;
+import persistence.PersistentCommonDate;
+import persistence.PersistentMObject;
+import persistence.PersistentName;
+import persistence.PersistentNameSchemeManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -59,7 +83,7 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
     }
     
     static public long getTypeId() {
-        return 245;
+        return 128;
     }
     
     public long getClassId() {
@@ -68,7 +92,7 @@ public class AssignNameCommand extends PersistentObject implements PersistentAss
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 245) ConnectionHandler.getTheConnectionHandler().theAssignNameCommandFacade
+        if (this.getClassId() == 128) ConnectionHandler.getTheConnectionHandler().theAssignNameCommandFacade
             .newAssignNameCommand(value,this.getId());
         super.store();
         if(this.getObject() != null){

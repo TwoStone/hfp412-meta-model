@@ -1,7 +1,12 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.EnumerationManagerCommand;
+import persistence.PersistenceException;
+import persistence.PersistentCreateEnumCommand;
+import persistence.PersistentCreateEnumValueCommand;
+import persistence.PersistentDeleteEnumCommand;
+import persistence.PersistentDeleteEnumValueCommand;
 
 public abstract class EnumerationManagerCommandStandardVisitor implements EnumerationManagerCommandVisitor {
     

@@ -33,7 +33,7 @@ public class NotFoundException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -282;
+        return -308;
     }
     
     public long getClassId() {

@@ -1,9 +1,33 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.OperationManagerCommandExceptionVisitor;
+import model.visitor.OperationManagerCommandReturnExceptionVisitor;
+import model.visitor.OperationManagerCommandReturnVisitor;
+import model.visitor.OperationManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateConstantCommand;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentOperation;
+import persistence.PersistentOperationManager;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -59,7 +83,7 @@ public class CreateConstantCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 140;
+        return 167;
     }
     
     public long getClassId() {
@@ -68,7 +92,7 @@ public class CreateConstantCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 140) ConnectionHandler.getTheConnectionHandler().theCreateConstantCommandFacade
+        if (this.getClassId() == 167) ConnectionHandler.getTheConnectionHandler().theCreateConstantCommandFacade
             .newCreateConstantCommand(name,this.getId());
         super.store();
         if(this.getTarget() != null){

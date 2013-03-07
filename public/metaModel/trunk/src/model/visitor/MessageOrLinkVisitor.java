@@ -1,7 +1,9 @@
 
 package model.visitor;
 
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentLink;
+import persistence.PersistentMessage;
 
 public interface MessageOrLinkVisitor {
     

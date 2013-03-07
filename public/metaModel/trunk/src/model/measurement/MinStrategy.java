@@ -98,7 +98,7 @@ public class MinStrategy extends PersistentObject implements PersistentMinStrate
     }
     
     static public long getTypeId() {
-        return 292;
+        return 108;
     }
     
     public long getClassId() {
@@ -107,7 +107,7 @@ public class MinStrategy extends PersistentObject implements PersistentMinStrate
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 292) ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade
+        if (this.getClassId() == 108) ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade
             .newMinStrategy(this.getId());
         super.store();
         if(!this.equals(this.getThis())){

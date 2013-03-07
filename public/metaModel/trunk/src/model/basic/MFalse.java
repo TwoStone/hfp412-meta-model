@@ -88,7 +88,7 @@ public class MFalse extends model.basic.MBoolean implements PersistentMFalse{
     }
     
     static public long getTypeId() {
-        return 185;
+        return 233;
     }
     
     public long getClassId() {

@@ -3,6 +3,11 @@
  */
 package model.quantity;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
@@ -17,11 +22,6 @@ import persistence.PersistentUnitTypeManager;
 import persistence.ReferenceTypeSearchList;
 import util.TestingBase;
 import constants.ExceptionConstants;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Testet den UnitTypeManager

@@ -1,7 +1,11 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentCreateEnumCommand;
+import persistence.PersistentCreateEnumValueCommand;
+import persistence.PersistentDeleteEnumCommand;
+import persistence.PersistentDeleteEnumValueCommand;
 
 public interface EnumerationManagerCommandExceptionVisitor<E extends UserException> {
     

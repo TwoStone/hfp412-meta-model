@@ -1,9 +1,32 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.AspectManagerCommandExceptionVisitor;
+import model.visitor.AspectManagerCommandReturnExceptionVisitor;
+import model.visitor.AspectManagerCommandReturnVisitor;
+import model.visitor.AspectManagerCommandVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentAspectManager;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateAspectCommand;
+import persistence.PersistentMAspect;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */
@@ -57,7 +80,7 @@ public class CreateAspectCommand extends PersistentObject implements PersistentC
     }
     
     static public long getTypeId() {
-        return 105;
+        return 113;
     }
     
     public long getClassId() {
@@ -66,7 +89,7 @@ public class CreateAspectCommand extends PersistentObject implements PersistentC
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 105) ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade
+        if (this.getClassId() == 113) ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade
             .newCreateAspectCommand(name,this.getId());
         super.store();
         if(this.getInvoker() != null){

@@ -1,7 +1,11 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.*;
+import persistence.PersistenceException;
+import persistence.PersistentCreateObsTypeCommand;
+import persistence.PersistentCreateObservationCommand;
+import persistence.PersistentDeleteObsTypeCommand;
+import persistence.PersistentDeleteObservationCommand;
 
 public interface ObservationManagerCommandExceptionVisitor<E extends UserException> {
     

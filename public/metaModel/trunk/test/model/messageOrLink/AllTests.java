@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ LinkManagerTest.class, MessageManagerTest.class })
+@SuiteClasses({ LinkManagerTest.class })
 public class AllTests {
 
 }

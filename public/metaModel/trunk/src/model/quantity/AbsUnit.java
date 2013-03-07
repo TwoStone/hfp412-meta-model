@@ -64,7 +64,7 @@ public abstract class AbsUnit extends PersistentObject implements PersistentAbsU
     }
     
     static public long getTypeId() {
-        return 174;
+        return 214;
     }
     
     public long getClassId() {

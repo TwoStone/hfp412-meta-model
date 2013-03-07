@@ -33,7 +33,7 @@ public class PatternNotMatchException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -266;
+        return -305;
     }
     
     public long getClassId() {

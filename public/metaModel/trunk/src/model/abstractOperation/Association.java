@@ -17,7 +17,6 @@ import persistence.LinkSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsOperation;
 import persistence.PersistentAssociation;
-import persistence.PersistentMBoolean;
 import persistence.PersistentMType;
 import persistence.TDObserver;
 
@@ -104,7 +103,7 @@ public class Association extends model.abstractOperation.AbsOperation implements
     }
     
     static public long getTypeId() {
-        return 117;
+        return 133;
     }
     
     public long getClassId() {
@@ -113,7 +112,7 @@ public class Association extends model.abstractOperation.AbsOperation implements
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 117) ConnectionHandler.getTheConnectionHandler().theAssociationFacade
+        if (this.getClassId() == 133) ConnectionHandler.getTheConnectionHandler().theAssociationFacade
             .newAssociation(name,this.getId());
         super.store();
         this.getHierarchies().store();
