@@ -362,6 +362,7 @@ part quantity {
 		
 		/* Pr?ft, ob Exponenten der Exemplarebene mit Typebene ?bereinstimmen*/
 		void checkExponents() throws ExponentMatchingException;
+		MBoolean hasReferences(Reference** refs);
 	}
 	class Unit extends AbsUnit {	}
 
@@ -384,7 +385,6 @@ part quantity {
 		prior no-view UnitType ref;
 	}
 	class Reference {
-		prior ReferenceType type;
 		prior Integer exponent;
 		prior Unit ref;
 	}
@@ -473,6 +473,7 @@ part quantity {
 		active CompUnit fetchScalar();
 		active void removeUnit(AbsUnit unit);
 		active CompUnit addReference(String name, AbsUnit unit, Unit referenceUnit, Integer exponent) throws DoubleDefinitionException;
+		active CompUnit getExistingCU(Reference** refs);
 		active void setConversion(Unit unit, Fraction factor, Fraction constant) throws ConsistencyException;
 
 		AbsUnit fetchUnitByUnitType(AbsUnitType ut) throws NotFoundException;
