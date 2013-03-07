@@ -1,6 +1,10 @@
 package model.quantity;
 
+import java.util.Iterator;
+
 import model.UserException;
+import model.basic.MFalse;
+import model.basic.MTrue;
 import model.visitor.AbsUnitExceptionVisitor;
 import model.visitor.AbsUnitReturnExceptionVisitor;
 import model.visitor.AbsUnitReturnVisitor;
@@ -18,6 +22,7 @@ import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentCompUnit;
 import persistence.PersistentMBoolean;
+import persistence.PersistentReference;
 import persistence.ReferenceSearchList;
 import persistence.TDObserver;
 
@@ -181,13 +186,32 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
 	}
     public PersistentMBoolean hasReferences(final ReferenceSearchList refs) 
 				throws PersistenceException{
-        //TODO: implement method: hasReferences
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"hasReferences\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+		final Iterator<PersistentReference> refsIterator = refs.iterator();
+
+		// leere ReferenceList ist immer enthalten
+		if (!refsIterator.hasNext()) {
+			return MTrue.getTheMTrue();
+		}
+
+		PersistentMBoolean result = MFalse.getTheMFalse();
+		while (refsIterator.hasNext()) {
+			final PersistentReference ref = refsIterator.next();
+			final Iterator<PersistentReference> myRefIterator = getThis().getRefs().iterator();
+			while (myRefIterator.hasNext()) {
+				final PersistentReference myRef = myRefIterator.next();
+				if (ref.equals(myRef)) {
+					result = MTrue.getTheMTrue();
+					break;
+				} else {
+					result = MFalse.getTheMFalse();
+				}
+			}
+			if (!result.toBoolean()) {
+				break;
+			}
+		}
+
+		return result;
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

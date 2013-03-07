@@ -13,7 +13,6 @@ import persistence.PersistenceException;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentReference;
-import persistence.PersistentReferenceType;
 import persistence.PersistentUnit;
 import persistence.ReferenceProxi;
 import persistence.TDObserver;
@@ -28,11 +27,11 @@ public class Reference extends PersistentObject implements PersistentReference{
         return (PersistentReference)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static PersistentReference createReference(PersistentReferenceType type,long exponent,PersistentUnit ref) throws PersistenceException{
-        return createReference(type,exponent,ref,false);
+    public static PersistentReference createReference(long exponent,PersistentUnit ref) throws PersistenceException{
+        return createReference(exponent,ref,false);
     }
     
-    public static PersistentReference createReference(PersistentReferenceType type,long exponent,PersistentUnit ref,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentReference createReference(long exponent,PersistentUnit ref,boolean delayed$Persistence) throws PersistenceException {
         PersistentReference result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theReferenceFacade
@@ -43,7 +42,6 @@ public class Reference extends PersistentObject implements PersistentReference{
                 .newReference(exponent,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        final$$Fields.put("type", type);
         final$$Fields.put("exponent", exponent);
         final$$Fields.put("ref", ref);
         result.initialize(result, final$$Fields);
@@ -51,7 +49,7 @@ public class Reference extends PersistentObject implements PersistentReference{
         return result;
     }
     
-    public static PersistentReference createReference(PersistentReferenceType type,long exponent,PersistentUnit ref,boolean delayed$Persistence,PersistentReference This) throws PersistenceException {
+    public static PersistentReference createReference(long exponent,PersistentUnit ref,boolean delayed$Persistence,PersistentReference This) throws PersistenceException {
         PersistentReference result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theReferenceFacade
@@ -62,7 +60,6 @@ public class Reference extends PersistentObject implements PersistentReference{
                 .newReference(exponent,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        final$$Fields.put("type", type);
         final$$Fields.put("exponent", exponent);
         final$$Fields.put("ref", ref);
         result.initialize(This, final$$Fields);
@@ -74,15 +71,6 @@ public class Reference extends PersistentObject implements PersistentReference{
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot type = (AbstractPersistentRoot)this.getType();
-            if (type != null) {
-                result.put("type", type.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    type.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && type.hasEssentialFields())type.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             result.put("exponent", new Long(this.getExponent()).toString());
             AbstractPersistentRoot ref = (AbstractPersistentRoot)this.getRef();
             if (ref != null) {
@@ -101,8 +89,7 @@ public class Reference extends PersistentObject implements PersistentReference{
     
     public Reference provideCopy() throws PersistenceException{
         Reference result = this;
-        result = new Reference(this.type, 
-                               this.exponent, 
+        result = new Reference(this.exponent, 
                                this.ref, 
                                this.This, 
                                this.getId());
@@ -113,15 +100,13 @@ public class Reference extends PersistentObject implements PersistentReference{
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentReferenceType type;
     protected long exponent;
     protected PersistentUnit ref;
     protected PersistentReference This;
     
-    public Reference(PersistentReferenceType type,long exponent,PersistentUnit ref,PersistentReference This,long id) throws persistence.PersistenceException {
+    public Reference(long exponent,PersistentUnit ref,PersistentReference This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.type = type;
         this.exponent = exponent;
         this.ref = ref;
         if (This != null && !(this.equals(This))) this.This = This;        
@@ -140,10 +125,6 @@ public class Reference extends PersistentObject implements PersistentReference{
         if (this.getClassId() == 180) ConnectionHandler.getTheConnectionHandler().theReferenceFacade
             .newReference(exponent,this.getId());
         super.store();
-        if(this.getType() != null){
-            this.getType().store();
-            ConnectionHandler.getTheConnectionHandler().theReferenceFacade.typeSet(this.getId(), getType());
-        }
         if(this.getRef() != null){
             this.getRef().store();
             ConnectionHandler.getTheConnectionHandler().theReferenceFacade.refSet(this.getId(), getRef());
@@ -155,20 +136,6 @@ public class Reference extends PersistentObject implements PersistentReference{
         
     }
     
-    public PersistentReferenceType getType() throws PersistenceException {
-        return this.type;
-    }
-    public void setType(PersistentReferenceType newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.type)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.type = (PersistentReferenceType)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theReferenceFacade.typeSet(this.getId(), newValue);
-        }
-    }
     public long getExponent() throws PersistenceException {
         return this.exponent;
     }
@@ -226,7 +193,6 @@ public class Reference extends PersistentObject implements PersistentReference{
          return visitor.handleReference(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getType() != null) return 1;
         if (this.getRef() != null) return 1;
         return 0;
     }
@@ -236,7 +202,6 @@ public class Reference extends PersistentObject implements PersistentReference{
 				throws PersistenceException{
         this.setThis((PersistentReference)This);
 		if(this.equals(This)){
-			this.setType((PersistentReferenceType)final$$Fields.get("type"));
 			this.setExponent((Long)final$$Fields.get("exponent"));
 			this.setRef((PersistentUnit)final$$Fields.get("ref"));
 		}
