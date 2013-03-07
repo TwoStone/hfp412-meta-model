@@ -1,7 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
+import persistence.*;
 
 public interface ConsistencyExceptionVisitor {
     

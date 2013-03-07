@@ -1,8 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentAddFractionCommand;
+import persistence.*;
 
 public interface FractionManagerCommandReturnVisitor<R> {
     

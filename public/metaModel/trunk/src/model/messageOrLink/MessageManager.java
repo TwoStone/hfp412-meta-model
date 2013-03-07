@@ -107,7 +107,7 @@ public class MessageManager extends PersistentObject implements PersistentMessag
     }
     
     static public long getTypeId() {
-        return 209;
+        return 170;
     }
     
     public long getClassId() {

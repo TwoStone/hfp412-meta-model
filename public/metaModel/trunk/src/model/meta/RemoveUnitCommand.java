@@ -77,7 +77,7 @@ public class RemoveUnitCommand extends PersistentObject implements PersistentRem
     }
     
     static public long getTypeId() {
-        return 224;
+        return 273;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class RemoveUnitCommand extends PersistentObject implements PersistentRem
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 224) ConnectionHandler.getTheConnectionHandler().theRemoveUnitCommandFacade
+        if (this.getClassId() == 273) ConnectionHandler.getTheConnectionHandler().theRemoveUnitCommandFacade
             .newRemoveUnitCommand(this.getId());
         super.store();
         if(this.getUnit() != null){

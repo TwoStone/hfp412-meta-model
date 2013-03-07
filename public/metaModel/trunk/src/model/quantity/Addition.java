@@ -96,7 +96,7 @@ public class Addition extends model.quantity.UnitImutabCalc implements Persisten
     }
     
     static public long getTypeId() {
-        return 241;
+        return 332;
     }
     
     public long getClassId() {
@@ -105,7 +105,7 @@ public class Addition extends model.quantity.UnitImutabCalc implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 241) ConnectionHandler.getTheConnectionHandler().theAdditionFacade
+        if (this.getClassId() == 332) ConnectionHandler.getTheConnectionHandler().theAdditionFacade
             .newAddition(this.getId());
         super.store();
         

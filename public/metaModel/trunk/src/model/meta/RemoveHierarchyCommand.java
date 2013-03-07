@@ -77,7 +77,7 @@ public class RemoveHierarchyCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 112;
+        return 341;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class RemoveHierarchyCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 112) ConnectionHandler.getTheConnectionHandler().theRemoveHierarchyCommandFacade
+        if (this.getClassId() == 341) ConnectionHandler.getTheConnectionHandler().theRemoveHierarchyCommandFacade
             .newRemoveHierarchyCommand(this.getId());
         super.store();
         if(this.getH() != null){

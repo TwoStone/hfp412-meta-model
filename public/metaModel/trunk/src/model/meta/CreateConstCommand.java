@@ -83,7 +83,7 @@ public class CreateConstCommand extends PersistentObject implements PersistentCr
     }
     
     static public long getTypeId() {
-        return 220;
+        return 176;
     }
     
     public long getClassId() {
@@ -92,7 +92,7 @@ public class CreateConstCommand extends PersistentObject implements PersistentCr
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 220) ConnectionHandler.getTheConnectionHandler().theCreateConstCommandFacade
+        if (this.getClassId() == 176) ConnectionHandler.getTheConnectionHandler().theCreateConstCommandFacade
             .newCreateConstCommand(name,this.getId());
         super.store();
         if(this.getType() != null){

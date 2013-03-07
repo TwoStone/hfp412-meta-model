@@ -83,7 +83,7 @@ public class CreateObservationCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 227;
+        return 353;
     }
     
     public long getClassId() {
@@ -92,7 +92,7 @@ public class CreateObservationCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 227) ConnectionHandler.getTheConnectionHandler().theCreateObservationCommandFacade
+        if (this.getClassId() == 353) ConnectionHandler.getTheConnectionHandler().theCreateObservationCommandFacade
             .newCreateObservationCommand(name,this.getId());
         super.store();
         if(this.getTheType() != null){

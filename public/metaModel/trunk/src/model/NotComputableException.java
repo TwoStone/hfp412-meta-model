@@ -33,7 +33,7 @@ public class NotComputableException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -309;
+        return -285;
     }
     
     public long getClassId() {

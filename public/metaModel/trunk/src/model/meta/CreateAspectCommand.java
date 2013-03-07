@@ -80,7 +80,7 @@ public class CreateAspectCommand extends PersistentObject implements PersistentC
     }
     
     static public long getTypeId() {
-        return 113;
+        return 105;
     }
     
     public long getClassId() {
@@ -89,7 +89,7 @@ public class CreateAspectCommand extends PersistentObject implements PersistentC
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 113) ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade
+        if (this.getClassId() == 105) ConnectionHandler.getTheConnectionHandler().theCreateAspectCommandFacade
             .newCreateAspectCommand(name,this.getId());
         super.store();
         if(this.getInvoker() != null){

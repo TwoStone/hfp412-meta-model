@@ -56,7 +56,7 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
     }
     
     static public long getTypeId() {
-        return 119;
+        return 305;
     }
     
     public long getClassId() {

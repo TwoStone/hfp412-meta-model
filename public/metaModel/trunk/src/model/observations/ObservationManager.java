@@ -109,7 +109,7 @@ public class ObservationManager extends PersistentObject implements PersistentOb
     }
     
     static public long getTypeId() {
-        return 178;
+        return 347;
     }
     
     public long getClassId() {

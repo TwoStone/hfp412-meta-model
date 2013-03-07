@@ -1,8 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentMAccountType;
+import persistence.*;
 
 public interface MAccountTypeHierarchyHIERARCHYExceptionVisitor<E extends UserException> {
     

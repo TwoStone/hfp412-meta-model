@@ -125,7 +125,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
     }
     
     static public long getTypeId() {
-        return 225;
+        return 179;
     }
     
     public long getClassId() {
@@ -134,7 +134,7 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 225) ConnectionHandler.getTheConnectionHandler().theConversionFacade
+        if (this.getClassId() == 179) ConnectionHandler.getTheConnectionHandler().theConversionFacade
             .newConversion(this.getId());
         super.store();
         if(this.getSource() != null){

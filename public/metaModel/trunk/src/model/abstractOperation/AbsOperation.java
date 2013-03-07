@@ -79,7 +79,7 @@ public abstract class AbsOperation extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 118;
+        return 107;
     }
     
     public long getClassId() {

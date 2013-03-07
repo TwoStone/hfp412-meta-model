@@ -96,7 +96,7 @@ public class FractionWrapper extends PersistentObject implements PersistentFract
     }
     
     static public long getTypeId() {
-        return 258;
+        return 281;
     }
     
     public long getClassId() {
@@ -105,7 +105,7 @@ public class FractionWrapper extends PersistentObject implements PersistentFract
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 258) ConnectionHandler.getTheConnectionHandler().theFractionWrapperFacade
+        if (this.getClassId() == 281) ConnectionHandler.getTheConnectionHandler().theFractionWrapperFacade
             .newFractionWrapper(common.Fraction.Null,this.getId());
         super.store();
         if(!this.equals(this.getThis())){

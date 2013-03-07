@@ -77,7 +77,7 @@ public class FetchScalarTypeCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 218;
+        return 327;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class FetchScalarTypeCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 218) ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade
+        if (this.getClassId() == 327) ConnectionHandler.getTheConnectionHandler().theFetchScalarTypeCommandFacade
             .newFetchScalarTypeCommand(this.getId());
         super.store();
         if(this.getInvoker() != null){

@@ -81,7 +81,7 @@ public class DivCommand extends PersistentObject implements PersistentDivCommand
     }
     
     static public long getTypeId() {
-        return 181;
+        return 336;
     }
     
     public long getClassId() {
@@ -90,7 +90,7 @@ public class DivCommand extends PersistentObject implements PersistentDivCommand
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 181) ConnectionHandler.getTheConnectionHandler().theDivCommandFacade
+        if (this.getClassId() == 336) ConnectionHandler.getTheConnectionHandler().theDivCommandFacade
             .newDivCommand(this.getId());
         super.store();
         if(this.getDividend() != null){

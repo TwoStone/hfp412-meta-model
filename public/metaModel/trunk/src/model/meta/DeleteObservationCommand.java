@@ -77,7 +77,7 @@ public class DeleteObservationCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 234;
+        return 354;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class DeleteObservationCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 234) ConnectionHandler.getTheConnectionHandler().theDeleteObservationCommandFacade
+        if (this.getClassId() == 354) ConnectionHandler.getTheConnectionHandler().theDeleteObservationCommandFacade
             .newDeleteObservationCommand(this.getId());
         super.store();
         if(this.getObservation() != null){

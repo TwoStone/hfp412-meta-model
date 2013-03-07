@@ -105,7 +105,7 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
     }
     
     static public long getTypeId() {
-        return 176;
+        return 145;
     }
     
     public long getClassId() {
@@ -114,7 +114,7 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 176) ConnectionHandler.getTheConnectionHandler().theCompUnitFacade
+        if (this.getClassId() == 145) ConnectionHandler.getTheConnectionHandler().theCompUnitFacade
             .newCompUnit(name,this.getId());
         super.store();
         this.getRefs().store();

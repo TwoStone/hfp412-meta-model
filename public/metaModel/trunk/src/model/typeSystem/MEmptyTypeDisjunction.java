@@ -121,7 +121,7 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
     }
     
     static public long getTypeId() {
-        return 127;
+        return 307;
     }
     
     public long getClassId() {

@@ -83,7 +83,7 @@ public class CreateMeasurementTypeCommand extends PersistentObject implements Pe
     }
     
     static public long getTypeId() {
-        return 144;
+        return 125;
     }
     
     public long getClassId() {
@@ -92,7 +92,7 @@ public class CreateMeasurementTypeCommand extends PersistentObject implements Pe
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 144) ConnectionHandler.getTheConnectionHandler().theCreateMeasurementTypeCommandFacade
+        if (this.getClassId() == 125) ConnectionHandler.getTheConnectionHandler().theCreateMeasurementTypeCommandFacade
             .newCreateMeasurementTypeCommand(name,this.getId());
         super.store();
         if(this.getType() != null){

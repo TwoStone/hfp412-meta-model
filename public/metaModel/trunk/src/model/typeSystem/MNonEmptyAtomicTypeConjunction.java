@@ -136,7 +136,7 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
     }
     
     static public long getTypeId() {
-        return 207;
+        return 318;
     }
     
     public long getClassId() {
@@ -145,7 +145,7 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 207) ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
+        if (this.getClassId() == 318) ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
             .newMNonEmptyAtomicTypeConjunction(this.getId());
         super.store();
         this.getFactors().store();

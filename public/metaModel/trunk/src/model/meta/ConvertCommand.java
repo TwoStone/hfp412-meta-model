@@ -80,7 +80,7 @@ public class ConvertCommand extends PersistentObject implements PersistentConver
     }
     
     static public long getTypeId() {
-        return 245;
+        return 320;
     }
     
     public long getClassId() {
@@ -89,7 +89,7 @@ public class ConvertCommand extends PersistentObject implements PersistentConver
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 245) ConnectionHandler.getTheConnectionHandler().theConvertCommandFacade
+        if (this.getClassId() == 320) ConnectionHandler.getTheConnectionHandler().theConvertCommandFacade
             .newConvertCommand(this.getId());
         super.store();
         if(this.getQuantity() != null){

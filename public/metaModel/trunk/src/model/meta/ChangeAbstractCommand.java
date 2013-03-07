@@ -80,7 +80,7 @@ public class ChangeAbstractCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 195;
+        return 325;
     }
     
     public long getClassId() {
@@ -89,7 +89,7 @@ public class ChangeAbstractCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 195) ConnectionHandler.getTheConnectionHandler().theChangeAbstractCommandFacade
+        if (this.getClassId() == 325) ConnectionHandler.getTheConnectionHandler().theChangeAbstractCommandFacade
             .newChangeAbstractCommand(this.getId());
         super.store();
         if(this.getType() != null){

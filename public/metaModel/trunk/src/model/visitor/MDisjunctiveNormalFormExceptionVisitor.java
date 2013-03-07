@@ -1,9 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentMEmptyTypeDisjunction;
-import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
+import persistence.*;
 
 public interface MDisjunctiveNormalFormExceptionVisitor<E extends UserException> {
     

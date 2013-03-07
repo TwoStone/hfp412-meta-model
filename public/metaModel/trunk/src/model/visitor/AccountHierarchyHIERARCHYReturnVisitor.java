@@ -1,8 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentAccount;
+import persistence.*;
 
 public interface AccountHierarchyHIERARCHYReturnVisitor<R> {
     

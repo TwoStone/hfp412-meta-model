@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentAddEntryCommand;
-import persistence.PersistentAddSubAccountCommand;
+import persistence.*;
 
 public interface AccountCommandVisitor {
     

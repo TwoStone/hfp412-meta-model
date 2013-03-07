@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMObject;
-import persistence.PersistentMSingletonObject;
+import persistence.*;
 
 public interface AbstractObjectReturnVisitor<R> {
     

@@ -171,7 +171,7 @@ public class MObservation extends PersistentObject implements PersistentMObserva
     }
     
     static public long getTypeId() {
-        return 149;
+        return 345;
     }
     
     public long getClassId() {
@@ -180,7 +180,7 @@ public class MObservation extends PersistentObject implements PersistentMObserva
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 149) ConnectionHandler.getTheConnectionHandler().theMObservationFacade
+        if (this.getClassId() == 345) ConnectionHandler.getTheConnectionHandler().theMObservationFacade
             .newMObservation(name,this.getId());
         super.store();
         if(this.getTheType() != null){

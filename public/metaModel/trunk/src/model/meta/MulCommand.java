@@ -81,7 +81,7 @@ public class MulCommand extends PersistentObject implements PersistentMulCommand
     }
     
     static public long getTypeId() {
-        return 142;
+        return 335;
     }
     
     public long getClassId() {
@@ -90,7 +90,7 @@ public class MulCommand extends PersistentObject implements PersistentMulCommand
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 142) ConnectionHandler.getTheConnectionHandler().theMulCommandFacade
+        if (this.getClassId() == 335) ConnectionHandler.getTheConnectionHandler().theMulCommandFacade
             .newMulCommand(this.getId());
         super.store();
         if(this.getFactor1() != null){

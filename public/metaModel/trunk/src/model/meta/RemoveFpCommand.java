@@ -77,7 +77,7 @@ public class RemoveFpCommand extends PersistentObject implements PersistentRemov
     }
     
     static public long getTypeId() {
-        return 153;
+        return 133;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class RemoveFpCommand extends PersistentObject implements PersistentRemov
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 153) ConnectionHandler.getTheConnectionHandler().theRemoveFpCommandFacade
+        if (this.getClassId() == 133) ConnectionHandler.getTheConnectionHandler().theRemoveFpCommandFacade
             .newRemoveFpCommand(this.getId());
         super.store();
         if(this.getFp() != null){

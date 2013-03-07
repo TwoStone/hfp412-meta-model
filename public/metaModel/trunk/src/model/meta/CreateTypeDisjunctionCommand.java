@@ -80,7 +80,7 @@ public class CreateTypeDisjunctionCommand extends PersistentObject implements Pe
     }
     
     static public long getTypeId() {
-        return 116;
+        return 304;
     }
     
     public long getClassId() {
@@ -89,7 +89,7 @@ public class CreateTypeDisjunctionCommand extends PersistentObject implements Pe
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 116) ConnectionHandler.getTheConnectionHandler().theCreateTypeDisjunctionCommandFacade
+        if (this.getClassId() == 304) ConnectionHandler.getTheConnectionHandler().theCreateTypeDisjunctionCommandFacade
             .newCreateTypeDisjunctionCommand(this.getId());
         super.store();
         this.getAddends().store();

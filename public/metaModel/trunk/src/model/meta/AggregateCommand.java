@@ -80,7 +80,7 @@ public class AggregateCommand extends PersistentObject implements PersistentAggr
     }
     
     static public long getTypeId() {
-        return 129;
+        return 300;
     }
     
     public long getClassId() {
@@ -89,7 +89,7 @@ public class AggregateCommand extends PersistentObject implements PersistentAggr
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 129) ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade
+        if (this.getClassId() == 300) ConnectionHandler.getTheConnectionHandler().theAggregateCommandFacade
             .newAggregateCommand(this.getId());
         super.store();
         if(this.getStrategy() != null){

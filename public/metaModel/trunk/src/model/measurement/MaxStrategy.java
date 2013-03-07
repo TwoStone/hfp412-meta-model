@@ -96,7 +96,7 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
     }
     
     static public long getTypeId() {
-        return 229;
+        return 296;
     }
     
     public long getClassId() {
@@ -105,7 +105,7 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 229) ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade
+        if (this.getClassId() == 296) ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade
             .newMaxStrategy(this.getId());
         super.store();
         if(!this.equals(this.getThis())){

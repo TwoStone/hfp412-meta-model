@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.MeasurementTypeManagerCommand;
-import persistence.PersistenceException;
-import persistence.PersistentCreateMeasurementTypeCommand;
+import persistence.*;
 
 public abstract class MeasurementTypeManagerCommandStandardVisitor implements MeasurementTypeManagerCommandVisitor {
     

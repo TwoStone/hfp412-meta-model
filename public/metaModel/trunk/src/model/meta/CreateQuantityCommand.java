@@ -82,7 +82,7 @@ public class CreateQuantityCommand extends PersistentObject implements Persisten
     }
     
     static public long getTypeId() {
-        return 152;
+        return 131;
     }
     
     public long getClassId() {
@@ -91,7 +91,7 @@ public class CreateQuantityCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 152) ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade
+        if (this.getClassId() == 131) ConnectionHandler.getTheConnectionHandler().theCreateQuantityCommandFacade
             .newCreateQuantityCommand(amount,this.getId());
         super.store();
         if(this.getUnit() != null){

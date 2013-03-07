@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMFalse;
-import persistence.PersistentMTrue;
+import persistence.*;
 
 public interface MBooleanVisitor {
     

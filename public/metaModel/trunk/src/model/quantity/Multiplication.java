@@ -107,7 +107,7 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
     }
     
     static public long getTypeId() {
-        return 157;
+        return 328;
     }
     
     public long getClassId() {
@@ -116,7 +116,7 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 157) ConnectionHandler.getTheConnectionHandler().theMultiplicationFacade
+        if (this.getClassId() == 328) ConnectionHandler.getTheConnectionHandler().theMultiplicationFacade
             .newMultiplication(this.getId());
         super.store();
         

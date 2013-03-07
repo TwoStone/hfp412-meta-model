@@ -106,7 +106,7 @@ public class EnumerationManager extends PersistentObject implements PersistentEn
     }
     
     static public long getTypeId() {
-        return 215;
+        return 352;
     }
     
     public long getClassId() {

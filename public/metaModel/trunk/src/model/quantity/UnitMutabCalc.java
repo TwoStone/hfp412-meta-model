@@ -68,7 +68,7 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
     }
     
     static public long getTypeId() {
-        return 261;
+        return 334;
     }
     
     public long getClassId() {

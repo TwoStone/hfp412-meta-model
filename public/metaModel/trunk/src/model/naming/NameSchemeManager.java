@@ -112,7 +112,7 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     }
     
     static public long getTypeId() {
-        return 185;
+        return 252;
     }
     
     public long getClassId() {

@@ -107,7 +107,7 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
     }
     
     static public long getTypeId() {
-        return 232;
+        return 184;
     }
     
     public long getClassId() {
@@ -116,7 +116,7 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 232) ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
+        if (this.getClassId() == 184) ConnectionHandler.getTheConnectionHandler().theUnitTypeFacade
             .newUnitType(name,this.getId());
         super.store();
         if(this.getDefaultUnit() != null){

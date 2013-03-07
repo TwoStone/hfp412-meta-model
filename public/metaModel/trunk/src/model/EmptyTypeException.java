@@ -33,7 +33,7 @@ public class EmptyTypeException extends model.UserException{
     }
     
     static public long getTypeId() {
-        return -306;
+        return -280;
     }
     
     public long getClassId() {

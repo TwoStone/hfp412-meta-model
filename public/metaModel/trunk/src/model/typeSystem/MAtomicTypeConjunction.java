@@ -38,7 +38,7 @@ public abstract class MAtomicTypeConjunction extends model.typeSystem.MAbstractT
     }
     
     static public long getTypeId() {
-        return 160;
+        return 311;
     }
     
     public long getClassId() {

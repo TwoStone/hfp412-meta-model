@@ -88,7 +88,7 @@ public class MTrue extends model.basic.MBoolean implements PersistentMTrue{
     }
     
     static public long getTypeId() {
-        return 243;
+        return 192;
     }
     
     public long getClassId() {

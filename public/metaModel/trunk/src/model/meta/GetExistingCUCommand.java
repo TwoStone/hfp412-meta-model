@@ -80,7 +80,7 @@ public class GetExistingCUCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 174;
+        return 358;
     }
     
     public long getClassId() {
@@ -89,7 +89,7 @@ public class GetExistingCUCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 174) ConnectionHandler.getTheConnectionHandler().theGetExistingCUCommandFacade
+        if (this.getClassId() == 358) ConnectionHandler.getTheConnectionHandler().theGetExistingCUCommandFacade
             .newGetExistingCUCommand(this.getId());
         super.store();
         this.getRefs().store();

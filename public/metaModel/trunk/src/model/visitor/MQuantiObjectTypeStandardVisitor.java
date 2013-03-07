@@ -1,10 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMAccountType;
-import persistence.PersistentMMeasurementType;
-import persistence.PersistentMQuantiObjectType;
+import persistence.*;
 
 public abstract class MQuantiObjectTypeStandardVisitor implements MQuantiObjectTypeVisitor {
     

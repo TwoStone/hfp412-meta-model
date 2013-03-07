@@ -1,11 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentCreateObsTypeCommand;
-import persistence.PersistentCreateObservationCommand;
-import persistence.PersistentDeleteObsTypeCommand;
-import persistence.PersistentDeleteObservationCommand;
+import persistence.*;
 
 public interface ObservationManagerCommandReturnVisitor<R> {
     

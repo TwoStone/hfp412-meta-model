@@ -1,11 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMAbstractTypeDisjunction;
-import persistence.PersistentMEmptyTypeDisjunction;
-import persistence.PersistentMMixedTypeDisjunction;
-import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
+import persistence.*;
 
 public abstract class MAbstractTypeDisjunctionStandardVisitor implements MAbstractTypeDisjunctionVisitor {
     

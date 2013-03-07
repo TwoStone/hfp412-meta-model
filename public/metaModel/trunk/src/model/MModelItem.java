@@ -44,7 +44,7 @@ public abstract class MModelItem extends PersistentObject implements PersistentM
     }
     
     static public long getTypeId() {
-        return 150;
+        return 322;
     }
     
     public long getClassId() {

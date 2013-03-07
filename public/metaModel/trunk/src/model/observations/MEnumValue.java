@@ -142,7 +142,7 @@ public class MEnumValue extends PersistentObject implements PersistentMEnumValue
     }
     
     static public long getTypeId() {
-        return 180;
+        return 348;
     }
     
     public long getClassId() {
@@ -151,7 +151,7 @@ public class MEnumValue extends PersistentObject implements PersistentMEnumValue
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 180) ConnectionHandler.getTheConnectionHandler().theMEnumValueFacade
+        if (this.getClassId() == 348) ConnectionHandler.getTheConnectionHandler().theMEnumValueFacade
             .newMEnumValue(name,this.getId());
         super.store();
         if(this.getTheType() != null){

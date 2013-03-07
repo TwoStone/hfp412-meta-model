@@ -96,7 +96,7 @@ public class Subtraction extends model.quantity.UnitImutabCalc implements Persis
     }
     
     static public long getTypeId() {
-        return 221;
+        return 330;
     }
     
     public long getClassId() {
@@ -105,7 +105,7 @@ public class Subtraction extends model.quantity.UnitImutabCalc implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 221) ConnectionHandler.getTheConnectionHandler().theSubtractionFacade
+        if (this.getClassId() == 330) ConnectionHandler.getTheConnectionHandler().theSubtractionFacade
             .newSubtraction(this.getId());
         super.store();
         

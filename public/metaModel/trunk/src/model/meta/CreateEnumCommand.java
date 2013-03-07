@@ -77,7 +77,7 @@ public class CreateEnumCommand extends PersistentObject implements PersistentCre
     }
     
     static public long getTypeId() {
-        return 104;
+        return 343;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class CreateEnumCommand extends PersistentObject implements PersistentCre
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 104) ConnectionHandler.getTheConnectionHandler().theCreateEnumCommandFacade
+        if (this.getClassId() == 343) ConnectionHandler.getTheConnectionHandler().theCreateEnumCommandFacade
             .newCreateEnumCommand(name,this.getId());
         super.store();
         if(this.getInvoker() != null){

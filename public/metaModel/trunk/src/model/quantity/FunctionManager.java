@@ -92,7 +92,7 @@ public class FunctionManager extends PersistentObject implements PersistentFunct
     }
     
     static public long getTypeId() {
-        return 260;
+        return 271;
     }
     
     public long getClassId() {

@@ -76,7 +76,7 @@ public class AddSubAccountTypeCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 132;
+        return 290;
     }
     
     public long getClassId() {
@@ -85,7 +85,7 @@ public class AddSubAccountTypeCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 132) ConnectionHandler.getTheConnectionHandler().theAddSubAccountTypeCommandFacade
+        if (this.getClassId() == 290) ConnectionHandler.getTheConnectionHandler().theAddSubAccountTypeCommandFacade
             .newAddSubAccountTypeCommand(this.getId());
         super.store();
         if(this.getAccountType() != null){

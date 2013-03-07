@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.AspectManagerCommand;
-import persistence.PersistenceException;
-import persistence.PersistentCreateAspectCommand;
+import persistence.*;
 
 public abstract class AspectManagerCommandStandardVisitor implements AspectManagerCommandVisitor {
     

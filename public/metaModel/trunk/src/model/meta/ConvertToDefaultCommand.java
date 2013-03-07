@@ -77,7 +77,7 @@ public class ConvertToDefaultCommand extends PersistentObject implements Persist
     }
     
     static public long getTypeId() {
-        return 103;
+        return 319;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class ConvertToDefaultCommand extends PersistentObject implements Persist
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 103) ConnectionHandler.getTheConnectionHandler().theConvertToDefaultCommandFacade
+        if (this.getClassId() == 319) ConnectionHandler.getTheConnectionHandler().theConvertToDefaultCommandFacade
             .newConvertToDefaultCommand(this.getId());
         super.store();
         if(this.getQuantity() != null){

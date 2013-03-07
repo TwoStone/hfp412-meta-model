@@ -1,10 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentAccount;
-import persistence.PersistentMeasurement;
-import persistence.PersistentQuantifObject;
+import persistence.*;
 
 public abstract class QuantifObjectStandardVisitor implements QuantifObjectVisitor {
     

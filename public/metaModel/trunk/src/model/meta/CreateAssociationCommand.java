@@ -85,7 +85,7 @@ public class CreateAssociationCommand extends PersistentObject implements Persis
     }
     
     static public long getTypeId() {
-        return 239;
+        return 189;
     }
     
     public long getClassId() {
@@ -94,7 +94,7 @@ public class CreateAssociationCommand extends PersistentObject implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 239) ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade
+        if (this.getClassId() == 189) ConnectionHandler.getTheConnectionHandler().theCreateAssociationCommandFacade
             .newCreateAssociationCommand(name,this.getId());
         super.store();
         if(this.getSource() != null){

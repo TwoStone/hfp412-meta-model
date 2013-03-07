@@ -122,7 +122,7 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
     }
     
     static public long getTypeId() {
-        return 158;
+        return 310;
     }
     
     public long getClassId() {

@@ -67,7 +67,7 @@ public class CONCMModelItem extends model.MModelItem implements PersistentCONCMM
     }
     
     static public long getTypeId() {
-        return 182;
+        return 324;
     }
     
     public long getClassId() {
@@ -76,7 +76,7 @@ public class CONCMModelItem extends model.MModelItem implements PersistentCONCMM
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 182) ConnectionHandler.getTheConnectionHandler().theCONCMModelItemFacade
+        if (this.getClassId() == 324) ConnectionHandler.getTheConnectionHandler().theCONCMModelItemFacade
             .newCONCMModelItem(this.getId());
         super.store();
         

@@ -99,7 +99,7 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
     }
     
     static public long getTypeId() {
-        return 210;
+        return 295;
     }
     
     public long getClassId() {
@@ -108,7 +108,7 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 210) ConnectionHandler.getTheConnectionHandler().theSumStrategyFacade
+        if (this.getClassId() == 295) ConnectionHandler.getTheConnectionHandler().theSumStrategyFacade
             .newSumStrategy(this.getId());
         super.store();
         if(!this.equals(this.getThis())){

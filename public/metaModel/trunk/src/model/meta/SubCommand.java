@@ -81,7 +81,7 @@ public class SubCommand extends PersistentObject implements PersistentSubCommand
     }
     
     static public long getTypeId() {
-        return 208;
+        return 337;
     }
     
     public long getClassId() {
@@ -90,7 +90,7 @@ public class SubCommand extends PersistentObject implements PersistentSubCommand
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 208) ConnectionHandler.getTheConnectionHandler().theSubCommandFacade
+        if (this.getClassId() == 337) ConnectionHandler.getTheConnectionHandler().theSubCommandFacade
             .newSubCommand(this.getId());
         super.store();
         if(this.getMinuend() != null){

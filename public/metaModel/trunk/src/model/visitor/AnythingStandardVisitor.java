@@ -59,11 +59,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleSetConversionCommand(PersistentSetConversionCommand setConversionCommand) throws PersistenceException{
         this.standardHandling(setConversionCommand);
     }
-    public void handleServer(PersistentServer server) throws PersistenceException{
-        this.standardHandling(server);
-    }
     public void handleNameScheme(PersistentNameScheme nameScheme) throws PersistenceException{
         this.standardHandling(nameScheme);
+    }
+    public void handleServer(PersistentServer server) throws PersistenceException{
+        this.standardHandling(server);
     }
     public void handleMAtomicType(PersistentMAtomicType mAtomicType) throws PersistenceException{
         this.standardHandling(mAtomicType);

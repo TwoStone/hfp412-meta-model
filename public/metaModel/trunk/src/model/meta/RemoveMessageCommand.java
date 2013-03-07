@@ -77,7 +77,7 @@ public class RemoveMessageCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 259;
+        return 199;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class RemoveMessageCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 259) ConnectionHandler.getTheConnectionHandler().theRemoveMessageCommandFacade
+        if (this.getClassId() == 199) ConnectionHandler.getTheConnectionHandler().theRemoveMessageCommandFacade
             .newRemoveMessageCommand(this.getId());
         super.store();
         if(this.getM() != null){

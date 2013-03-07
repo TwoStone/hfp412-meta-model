@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentCompUnit;
-import persistence.PersistentUnit;
+import persistence.*;
 
 public interface AbsUnitVisitor {
     

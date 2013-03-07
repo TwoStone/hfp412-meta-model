@@ -86,7 +86,7 @@ public class CreateVoidOperationCommand extends PersistentObject implements Pers
     }
     
     static public long getTypeId() {
-        return 192;
+        return 159;
     }
     
     public long getClassId() {
@@ -95,7 +95,7 @@ public class CreateVoidOperationCommand extends PersistentObject implements Pers
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 192) ConnectionHandler.getTheConnectionHandler().theCreateVoidOperationCommandFacade
+        if (this.getClassId() == 159) ConnectionHandler.getTheConnectionHandler().theCreateVoidOperationCommandFacade
             .newCreateVoidOperationCommand(name,this.getId());
         super.store();
         if(this.getSource() != null){

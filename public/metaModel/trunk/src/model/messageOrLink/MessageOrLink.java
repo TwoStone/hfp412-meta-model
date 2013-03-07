@@ -80,7 +80,7 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 240;
+        return 190;
     }
     
     public long getClassId() {

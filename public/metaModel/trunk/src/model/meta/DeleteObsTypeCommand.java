@@ -77,7 +77,7 @@ public class DeleteObsTypeCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 198;
+        return 350;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class DeleteObsTypeCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 198) ConnectionHandler.getTheConnectionHandler().theDeleteObsTypeCommandFacade
+        if (this.getClassId() == 350) ConnectionHandler.getTheConnectionHandler().theDeleteObsTypeCommandFacade
             .newDeleteObsTypeCommand(this.getId());
         super.store();
         if(this.getTheType() != null){

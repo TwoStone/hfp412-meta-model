@@ -77,7 +77,7 @@ public class DeleteEnumValueCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 247;
+        return 355;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class DeleteEnumValueCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 247) ConnectionHandler.getTheConnectionHandler().theDeleteEnumValueCommandFacade
+        if (this.getClassId() == 355) ConnectionHandler.getTheConnectionHandler().theDeleteEnumValueCommandFacade
             .newDeleteEnumValueCommand(this.getId());
         super.store();
         if(this.getEnumValue() != null){

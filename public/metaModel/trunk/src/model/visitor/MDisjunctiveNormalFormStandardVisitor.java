@@ -1,10 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMDisjunctiveNormalForm;
-import persistence.PersistentMEmptyTypeDisjunction;
-import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
+import persistence.*;
 
 public abstract class MDisjunctiveNormalFormStandardVisitor implements MDisjunctiveNormalFormVisitor {
     

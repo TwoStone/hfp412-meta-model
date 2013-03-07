@@ -1,8 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentMAtomicType;
+import persistence.*;
 
 public interface MTypeReturnVisitor<R> extends MComplexTypeReturnVisitor<R> {
     

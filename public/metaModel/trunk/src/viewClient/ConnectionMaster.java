@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+
 import java.net.MalformedURLException;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -13,10 +14,9 @@ import org.apache.xmlrpc.XmlRpc;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.XmlWriter;
 
-import view.ConnectionNotFoundException;
-import view.ModelException;
-import view.Remote;
+
 import view.objects.ViewProxi;
+import view.*;
 
 
 public abstract class ConnectionMaster extends org.apache.xmlrpc.XmlRpcClient {

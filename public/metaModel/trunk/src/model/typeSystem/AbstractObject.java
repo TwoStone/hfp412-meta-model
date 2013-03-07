@@ -70,7 +70,7 @@ public abstract class AbstractObject extends PersistentObject implements Persist
     }
     
     static public long getTypeId() {
-        return 102;
+        return 286;
     }
     
     public long getClassId() {

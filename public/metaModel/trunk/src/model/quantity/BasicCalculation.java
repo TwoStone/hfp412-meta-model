@@ -81,7 +81,7 @@ public abstract class BasicCalculation extends PersistentObject implements Persi
     }
     
     static public long getTypeId() {
-        return 159;
+        return 329;
     }
     
     public long getClassId() {

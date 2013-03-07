@@ -124,7 +124,7 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
     }
     
     static public long getTypeId() {
-        return 140;
+        return 308;
     }
     
     public long getClassId() {
@@ -133,7 +133,7 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 140) ConnectionHandler.getTheConnectionHandler().theMMixedConjunctionFacade
+        if (this.getClassId() == 308) ConnectionHandler.getTheConnectionHandler().theMMixedConjunctionFacade
             .newMMixedConjunction(this.getId());
         super.store();
         this.getFactors().store();

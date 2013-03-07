@@ -1,14 +1,7 @@
 
 package model.visitor;
 import model.UserException;
-import persistence.PersistenceException;
-import persistence.PersistentAddCommand;
-import persistence.PersistentConvertCommand;
-import persistence.PersistentConvertToDefaultCommand;
-import persistence.PersistentCreateQuantityCommand;
-import persistence.PersistentDivCommand;
-import persistence.PersistentMulCommand;
-import persistence.PersistentSubCommand;
+import persistence.*;
 
 public interface QuantityManagerCommandExceptionVisitor<E extends UserException> {
     

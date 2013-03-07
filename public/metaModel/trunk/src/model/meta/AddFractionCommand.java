@@ -79,7 +79,7 @@ public class AddFractionCommand extends PersistentObject implements PersistentAd
     }
     
     static public long getTypeId() {
-        return 255;
+        return 283;
     }
     
     public long getClassId() {
@@ -88,7 +88,7 @@ public class AddFractionCommand extends PersistentObject implements PersistentAd
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 255) ConnectionHandler.getTheConnectionHandler().theAddFractionCommandFacade
+        if (this.getClassId() == 283) ConnectionHandler.getTheConnectionHandler().theAddFractionCommandFacade
             .newAddFractionCommand(key,newFraction,this.getId());
         super.store();
         if(this.getInvoker() != null){

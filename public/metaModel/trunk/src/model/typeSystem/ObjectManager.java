@@ -105,7 +105,7 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     }
     
     static public long getTypeId() {
-        return 262;
+        return 200;
     }
     
     public long getClassId() {

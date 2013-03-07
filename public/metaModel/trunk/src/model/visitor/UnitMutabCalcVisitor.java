@@ -1,9 +1,7 @@
 
 package model.visitor;
 
-import persistence.PersistenceException;
-import persistence.PersistentDivision;
-import persistence.PersistentMultiplication;
+import persistence.*;
 
 public interface UnitMutabCalcVisitor {
     

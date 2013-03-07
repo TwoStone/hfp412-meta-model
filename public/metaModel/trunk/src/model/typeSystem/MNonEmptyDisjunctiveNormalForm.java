@@ -135,7 +135,7 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
     }
     
     static public long getTypeId() {
-        return 219;
+        return 313;
     }
     
     public long getClassId() {
@@ -144,7 +144,7 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 219) ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
+        if (this.getClassId() == 313) ConnectionHandler.getTheConnectionHandler().theMNonEmptyDisjunctiveNormalFormFacade
             .newMNonEmptyDisjunctiveNormalForm(this.getId());
         super.store();
         this.getAddends().store();

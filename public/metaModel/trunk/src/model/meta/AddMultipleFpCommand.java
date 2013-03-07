@@ -80,7 +80,7 @@ public class AddMultipleFpCommand extends PersistentObject implements Persistent
     }
     
     static public long getTypeId() {
-        return 236;
+        return 267;
     }
     
     public long getClassId() {
@@ -89,7 +89,7 @@ public class AddMultipleFpCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 236) ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade
+        if (this.getClassId() == 267) ConnectionHandler.getTheConnectionHandler().theAddMultipleFpCommandFacade
             .newAddMultipleFpCommand(this.getId());
         super.store();
         if(this.getOp() != null){

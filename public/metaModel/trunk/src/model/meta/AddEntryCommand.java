@@ -77,7 +77,7 @@ public class AddEntryCommand extends PersistentObject implements PersistentAddEn
     }
     
     static public long getTypeId() {
-        return 173;
+        return 321;
     }
     
     public long getClassId() {
@@ -86,7 +86,7 @@ public class AddEntryCommand extends PersistentObject implements PersistentAddEn
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 173) ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade
+        if (this.getClassId() == 321) ConnectionHandler.getTheConnectionHandler().theAddEntryCommandFacade
             .newAddEntryCommand(this.getId());
         super.store();
         if(this.getMeasurement() != null){

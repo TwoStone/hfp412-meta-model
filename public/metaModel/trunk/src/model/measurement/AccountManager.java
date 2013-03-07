@@ -96,7 +96,7 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     }
     
     static public long getTypeId() {
-        return 172;
+        return 143;
     }
     
     public long getClassId() {

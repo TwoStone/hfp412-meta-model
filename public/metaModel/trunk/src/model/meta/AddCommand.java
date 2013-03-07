@@ -81,7 +81,7 @@ public class AddCommand extends PersistentObject implements PersistentAddCommand
     }
     
     static public long getTypeId() {
-        return 244;
+        return 338;
     }
     
     public long getClassId() {
@@ -90,7 +90,7 @@ public class AddCommand extends PersistentObject implements PersistentAddCommand
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 244) ConnectionHandler.getTheConnectionHandler().theAddCommandFacade
+        if (this.getClassId() == 338) ConnectionHandler.getTheConnectionHandler().theAddCommandFacade
             .newAddCommand(this.getId());
         super.store();
         if(this.getSummand1() != null){
