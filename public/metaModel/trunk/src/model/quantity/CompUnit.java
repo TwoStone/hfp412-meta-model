@@ -17,6 +17,8 @@ import persistence.PersistenceException;
 import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentCompUnit;
+import persistence.PersistentMBoolean;
+import persistence.ReferenceSearchList;
 import persistence.TDObserver;
 
 /* Additional import section end */
@@ -177,6 +179,16 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
 		// implement method: copyingPrivateUserAttributes
 
 	}
+    public PersistentMBoolean hasReferences(final ReferenceSearchList refs) 
+				throws PersistenceException{
+        //TODO: implement method: hasReferences
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"hasReferences\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 

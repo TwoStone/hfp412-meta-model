@@ -1,10 +1,13 @@
 package model.quantity;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import model.ConsistencyException;
 import model.DoubleDefinitionException;
 import model.UserException;
+import model.visitor.AbsUnitReturnVisitor;
 import model.visitor.AbsUnitTypeReturnVisitor;
 import model.visitor.AbsUnitTypeVisitor;
 import model.visitor.AnythingExceptionVisitor;
@@ -14,6 +17,7 @@ import model.visitor.AnythingVisitor;
 import persistence.AbsUnitSearchList;
 import persistence.AbsUnitTypeSearchList;
 import persistence.Anything;
+import persistence.CompUnitSearchList;
 import persistence.CompUnitTypeSearchList;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
@@ -29,9 +33,11 @@ import persistence.PersistentCreateUnitCommand;
 import persistence.PersistentCreateUnitTypeCommand;
 import persistence.PersistentFetchScalarCommand;
 import persistence.PersistentFetchScalarTypeCommand;
+import persistence.PersistentGetExistingCUCommand;
 import persistence.PersistentGetExistingCUTCommand;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
+import persistence.PersistentReference;
 import persistence.PersistentReferenceType;
 import persistence.PersistentRemoveUnitCommand;
 import persistence.PersistentRemoveUnitTypeCommand;
@@ -42,6 +48,7 @@ import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
 import persistence.Predcate;
 import persistence.Procdure;
+import persistence.ReferenceSearchList;
 import persistence.ReferenceTypeSearchList;
 import persistence.TDObserver;
 import persistence.UnitTypeManagerProxi;
@@ -279,6 +286,18 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void getExistingCU(final ReferenceSearchList refs, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentGetExistingCUCommand command = model.meta.GetExistingCUCommand.createGetExistingCUCommand(now, now);
+		java.util.Iterator<PersistentReference> refsIterator = refs.iterator();
+		while(refsIterator.hasNext()){
+			command.getRefs().add(refsIterator.next());
+		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentUnitTypeManager)This);
@@ -394,8 +413,44 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public PersistentCompUnit addReference(final String name, final PersistentAbsUnit unit, final PersistentUnit referenceUnit, final long exponent) 
 				throws model.DoubleDefinitionException, PersistenceException{
-		return null;
-		// TODO: implement method: addReference
+
+		// Name schon vorhanden?
+		final AbsUnitSearchList old = AbsUnit.getAbsUnitByName(name);
+		if (old.iterator().hasNext()) {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_DEFINITION + name);
+		}
+
+		final PersistentCompUnit ret = unit.accept(new AbsUnitReturnVisitor<PersistentCompUnit>() {
+
+			@Override
+			public PersistentCompUnit handleUnit(PersistentUnit unit) throws PersistenceException {
+				// Reference mit unit laden bzw. erstellen
+				final ReferenceSearchList refList = new ReferenceSearchList();
+				if (referenceUnit.equals(unit)) {
+					if (exponent + 1 != 0) {
+						refList.add(getReference(unit, exponent + 1));
+						return getCU(name, refList);
+					}
+					return fetchScalar();
+				} else {
+//					final PersistentReference ref = getReference(referenceUnit, exponent);
+//					final PersistentReference ref2 = getReference(unit, 1);
+//					refList.add(ref2);
+//					refList.add(ref);
+//					return getCU(name, refList);
+					return null;
+				}
+			}
+
+			@Override
+			public PersistentCompUnit handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+		});
+		
+		return ret;
 
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -532,6 +587,27 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		}
 
 	}
+    public PersistentCompUnit getExistingCU(final ReferenceSearchList refs) 
+				throws PersistenceException{
+    	//TODO implement
+		if (refs.getLength() == 0) {
+			return this.getThis().fetchScalar();
+		} else {
+
+			final Iterator<PersistentReference> refIterator = refs.iterator();
+			final PersistentReference firstRef = refIterator.next();
+			final CompUnitSearchList compUnits = firstRef.inverseGetRefs();
+			// compUnits durchgehen und vergleichen
+			final Iterator<PersistentCompUnit> cutIterator = compUnits.iterator();
+			while (cutIterator.hasNext()) {
+				final PersistentCompUnit cu = cutIterator.next();
+				if (cu.getRefs().getLength() == refs.getLength() && cu.hasReferences(refs).toBoolean()) {
+					return cu;
+				}
+			}
+			return null;
+		}
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 
@@ -690,6 +766,71 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		return result;
 	}
 
+	
+	protected PersistentReference getReference(final PersistentUnit unit, final long exponent)
+			throws PersistenceException {
+		PersistentReference ref = getThis().getRefs().findFirst(new Predcate<PersistentReference>() {
+			@Override
+			public boolean test(final PersistentReference argument) throws PersistenceException {
+				return argument.getRef().equals(unit) && argument.getExponent() == exponent;
+			}
+		});
+		if (ref == null) {
+			ref = Reference.createReference(exponent, unit);
+//			ref.setExponent(exponent);
+//			ref.setRef(unit);
+//			ref.setType(this.getReferenceType((PersistentUnitType) unit.getType(), exponent));
+			getThis().getRefs().add(ref);
+		}
+		return ref;
+	}
+	/**
+	 * Gibt vorhandene CU mit den References zurück, falls vorhanden, ansonsten wird eine neue erstellt.
+	 * 
+	 * @param name
+	 * @param refTypes
+	 * @return
+	 * @throws PersistenceException
+	 */
+	protected PersistentCompUnit getCU(final String name, final ReferenceSearchList refs)
+			throws PersistenceException {
+		PersistentCompUnit result = getExistingCU(refs);
+		if (result == null) {
+			
+			// Exponenten in Abhängigkeit zum UT aggregieren
+			Iterator<PersistentReference> i = refs.iterator();
+
+			Map<PersistentUnitType, Long> collectedRefTypes = new HashMap<PersistentUnitType, Long>();
+			while (i.hasNext()) {
+				PersistentReference next = (PersistentReference) i.next();
+				PersistentUnitType curUTForRef = (PersistentUnitType) next.getRef().getType();
+				Long aggregatedExpForUT = collectedRefTypes.get(curUTForRef);
+				if(aggregatedExpForUT == null){
+					collectedRefTypes.put(curUTForRef, next.getExponent());
+				} else {
+					collectedRefTypes.put(curUTForRef, next.getExponent() + aggregatedExpForUT);
+				}
+			}
+			
+			// RefTypes anhand der aggregierten Exponenten auf der Exemplarebene holen
+			final ReferenceTypeSearchList refTypeList = new ReferenceTypeSearchList();
+			for (Map.Entry<PersistentUnitType, Long> entry : collectedRefTypes.entrySet()) { 
+				refTypeList.add(getReferenceType(entry.getKey(), entry.getValue()));
+			} 
+			
+			
+//			refTypeList.add(next.getType());
+			result = CompUnit.createCompUnit(getCUT("hä?", refTypeList), name); // TODO woher kommt der Name?!
+			try {
+				result.getRefs().add(refs);
+			} catch (final UserException e) {
+				e.printStackTrace();
+			}
+		}
+		getThis().getUnits().add(result);
+
+		return result;
+	}
 	/* End of protected part that is not overridden by persistence generator */
     
 }
