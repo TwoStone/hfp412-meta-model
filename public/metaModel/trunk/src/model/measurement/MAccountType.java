@@ -19,6 +19,7 @@ import persistence.Invoker;
 import persistence.MAccountTypeHierarchyHIERARCHY;
 import persistence.MAccountTypeHierarchyHIERARCHYStrategy;
 import persistence.MAccountTypeProxi;
+import persistence.MAccountTypeSearchList;
 import persistence.MAccountType_SubAccountTypesProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbsUnitType;
@@ -240,13 +241,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
 
-	
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }
