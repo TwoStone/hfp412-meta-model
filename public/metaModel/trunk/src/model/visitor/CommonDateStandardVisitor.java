@@ -209,6 +209,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException{
         this.standardHandling(addEntryCommand);
     }
+    public void handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException{
+        this.standardHandling(getExistingCUCommand);
+    }
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException{
         this.standardHandling(createMessageCommand);
     }

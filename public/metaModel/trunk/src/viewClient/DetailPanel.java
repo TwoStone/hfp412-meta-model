@@ -1000,6 +1000,7 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Server$$accountManager = "Server$$accountManager";
     protected static final String Server$$objectManager = "Server$$objectManager";
     protected static final String Server$$nameSchemeManager = "Server$$nameSchemeManager";
+    protected static final String Server$$enumManager = "Server$$enumManager";
     protected static final String Server$$associationManager = "Server$$associationManager";
     protected static final String Server$$operationManager = "Server$$operationManager";
     protected static final String Server$$messageManager = "Server$$messageManager";
@@ -2000,7 +2001,6 @@ class ConversionDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class ReferenceDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Reference$$type = "Reference$$type";
     protected static final String Reference$$exponent = "Reference$$exponent";
     protected static final String Reference$$ref = "Reference$$ref";
     

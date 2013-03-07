@@ -268,6 +268,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException{
         this.handleCommonDate(addEntryCommand);
     }
+    public void handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException{
+        this.handleCommonDate(getExistingCUCommand);
+    }
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException{
         this.handleCommonDate(createMessageCommand);
     }

@@ -197,6 +197,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException{
         this.standardHandling(compUnit);
     }
+    public void handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException{
+        this.standardHandling(getExistingCUCommand);
+    }
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException{
         this.standardHandling(createMessageCommand);
     }

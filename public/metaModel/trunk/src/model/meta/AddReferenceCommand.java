@@ -67,12 +67,12 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
     protected long exponent;
     protected Invoker invoker;
     protected PersistentUnitTypeManager commandReceiver;
-    protected PersistentCompUnit commandResult;
+    protected PersistentAbsUnit commandResult;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public AddReferenceCommand(String name,PersistentAbsUnit unit,PersistentUnit referenceUnit,long exponent,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentCompUnit commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public AddReferenceCommand(String name,PersistentAbsUnit unit,PersistentUnit referenceUnit,long exponent,Invoker invoker,PersistentUnitTypeManager commandReceiver,PersistentAbsUnit commandResult,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
@@ -196,15 +196,15 @@ public class AddReferenceCommand extends PersistentObject implements PersistentA
             ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
-    public PersistentCompUnit getCommandResult() throws PersistenceException {
+    public PersistentAbsUnit getCommandResult() throws PersistenceException {
         return this.commandResult;
     }
-    public void setCommandResult(PersistentCompUnit newValue) throws PersistenceException {
+    public void setCommandResult(PersistentAbsUnit newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.commandResult)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandResult = (PersistentCompUnit)PersistentProxi.createProxi(objectId, classId);
+        this.commandResult = (PersistentAbsUnit)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theAddReferenceCommandFacade.commandResultSet(this.getId(), newValue);

@@ -571,7 +571,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleEnumerationManager(final PersistentEnumerationManager enumerationManager)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Liste der Enums und Enum Werte";
 
 	}
 

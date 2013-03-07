@@ -37,6 +37,7 @@ public interface CommonDateVisitor {
     public void handleAddReferenceCommand(PersistentAddReferenceCommand addReferenceCommand) throws PersistenceException;
     public void handleCreateNameSchemeCommand(PersistentCreateNameSchemeCommand createNameSchemeCommand) throws PersistenceException;
     public void handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException;
+    public void handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException;
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException;
     public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException;
     public void handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException;

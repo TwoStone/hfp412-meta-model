@@ -20,6 +20,9 @@ public abstract class UnitTypeManagerCommandStandardVisitor implements UnitTypeM
     public void handleRemoveUnitCommand(PersistentRemoveUnitCommand removeUnitCommand) throws PersistenceException{
         this.standardHandling(removeUnitCommand);
     }
+    public void handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException{
+        this.standardHandling(getExistingCUCommand);
+    }
     public void handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException{
         this.standardHandling(getExistingCUTCommand);
     }

@@ -55,6 +55,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleCreateNameSchemeCommand(PersistentCreateNameSchemeCommand createNameSchemeCommand) throws PersistenceException, E;
     public void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException, E;
     public void handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException, E;
+    public void handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException, E;
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException, E;
     public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException, E;
     public void handleObservationManager(PersistentObservationManager observationManager) throws PersistenceException, E;

@@ -18,6 +18,8 @@ server Server {
 	derived ObjectManager objectManager;
 	derived NameSchemeManager nameSchemeManager;
 
+	derived EnumerationManager enumManager;
+
 	/** Type **/
 	void createAspect(AspectManager aspectManager, String name);
 	void createAtomicRootType(MAspect aspect, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
@@ -33,6 +35,12 @@ server Server {
 	void addType@@Typen_hinzuf?gen(MObject object, MAtomicType newType {typeManager;types});
 	void removeType@@Typen_entfernen(MObject object, MAtomicType oldType {;object;types});
 	void replaceType@@Typen_ersetzen(MObject object, MAtomicType oldType {;object;types}, MAtomicType newType {;oldType;aspect;types});
+
+	/** Enums **/
+	void createEnum@@Enum_erstellen(String name);
+	void createEnumValue@@Enum_Wert_erstellen(MEnum type, String name);
+	void deleteEnum@@Enum_löschen(MEnum type);
+	void deleteEnumValue@@Enum_Wert_löschen(MEnumValue enumValue);
 
 	/** Manager zu AbstractOperation **/
 	derived AssociationManager associationManager;
@@ -291,7 +299,7 @@ part observations {
 		active void createEnumValue(String name, MEnum type) throws DoubleDefinitionException;
 
 		active void deleteEnum(MEnum type) throws ConsistencyException;
-		active void deleteEnumValue(MEnumValue observation) throws ConsistencyException;
+		active void deleteEnumValue(MEnumValue enumValue) throws ConsistencyException;
 	}
 
 	singleton ObservationManager {

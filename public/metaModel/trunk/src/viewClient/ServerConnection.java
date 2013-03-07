@@ -1948,6 +1948,43 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
+    public synchronized void createEnumValue(MEnumView type, String name) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)type).createProxiInformation());
+            parameters.add(name);
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createEnumValue", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized void createEnum(String name) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(name);
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createEnum", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
     public synchronized void createFp(OperationManagerView operationManager, String name, MTypeView ofType) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
@@ -2343,6 +2380,42 @@ public class ServerConnection extends ConnectionMaster {
             }
             parameters.add(fpTrnsprt);
             Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "createVoidOperation", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized void deleteEnumValue(MEnumValueView enumValue) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)enumValue).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "deleteEnumValue", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized void deleteEnum(MEnumView type) throws ModelException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)type).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "deleteEnum", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());

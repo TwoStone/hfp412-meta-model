@@ -37,6 +37,7 @@ public interface CommonDateReturnVisitor<R> {
     public R handleAddReferenceCommand(PersistentAddReferenceCommand addReferenceCommand) throws PersistenceException;
     public R handleCreateNameSchemeCommand(PersistentCreateNameSchemeCommand createNameSchemeCommand) throws PersistenceException;
     public R handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException;
+    public R handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException;
     public R handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException;
     public R handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException;
     public R handleDivCommand(PersistentDivCommand divCommand) throws PersistenceException;

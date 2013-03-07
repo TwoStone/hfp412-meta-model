@@ -209,6 +209,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException{
         this.standardHandling(createMessageCommand);
     }
+    public void handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException{
+        this.standardHandling(getExistingCUCommand);
+    }
     public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException{
         this.standardHandling(createAccountTypeCommand);
     }

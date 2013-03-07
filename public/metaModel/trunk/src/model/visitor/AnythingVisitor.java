@@ -55,6 +55,7 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleCreateNameSchemeCommand(PersistentCreateNameSchemeCommand createNameSchemeCommand) throws PersistenceException;
     public void handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException;
     public void handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException;
+    public void handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException;
     public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException;
     public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException;
     public void handleObservationManager(PersistentObservationManager observationManager) throws PersistenceException;

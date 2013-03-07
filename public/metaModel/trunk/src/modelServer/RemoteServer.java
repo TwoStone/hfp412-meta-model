@@ -659,6 +659,25 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> createEnumValue(String typeProxiString, String name){
+        try {
+            PersistentMEnum type = (PersistentMEnum)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            ((PersistentServer)this.server).createEnumValue(type, name);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createEnum(String name){
+        try {
+            ((PersistentServer)this.server).createEnum(name);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> createFp(String operationManagerProxiString, String name, String ofTypeProxiString){
         try {
             PersistentOperationManager operationManager = (PersistentOperationManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(operationManagerProxiString));
@@ -895,6 +914,26 @@ public  class RemoteServer extends RemoteServerMaster {
 				fp.add(currentProxi);
 			}
             ((PersistentServer)this.server).createVoidOperation(operationManager, source, name, fp);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> deleteEnumValue(String enumValueProxiString){
+        try {
+            PersistentMEnumValue enumValue = (PersistentMEnumValue)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(enumValueProxiString));
+            ((PersistentServer)this.server).deleteEnumValue(enumValue);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> deleteEnum(String typeProxiString){
+        try {
+            PersistentMEnum type = (PersistentMEnum)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            ((PersistentServer)this.server).deleteEnum(type);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

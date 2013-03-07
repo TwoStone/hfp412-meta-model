@@ -55,6 +55,7 @@ public interface AnythingReturnVisitor<R> extends AbstractObjectReturnVisitor<R>
     public R handleCreateNameSchemeCommand(PersistentCreateNameSchemeCommand createNameSchemeCommand) throws PersistenceException;
     public R handleAccountManager(PersistentAccountManager accountManager) throws PersistenceException;
     public R handleAddEntryCommand(PersistentAddEntryCommand addEntryCommand) throws PersistenceException;
+    public R handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException;
     public R handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException;
     public R handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException;
     public R handleObservationManager(PersistentObservationManager observationManager) throws PersistenceException;
