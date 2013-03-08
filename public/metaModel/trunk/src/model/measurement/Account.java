@@ -326,7 +326,8 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 	private boolean hasSameSuperType(final PersistentMAccountType accType) throws PersistenceException {
 		if (accType.equals(this.getThis().getType())) {
 			return true;
-		} else {
+		} else if (accType.inverseGetSubAccountTypes().getLength() > 0) {
+
 			final PersistentMAccountType parent = accType.inverseGetSubAccountTypes().findFirst(
 					new Predcate<PersistentMAccountType>() {
 
@@ -335,13 +336,8 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 							return true;
 						}
 					});
-			if (parent != null) {
-				if (parent.equals(this.getThis().getType())) {
-					return true;
-				} else {
-					return this.hasSameSuperType(parent);
-				}
-			}
+
+			return this.hasSameSuperType(parent);
 		}
 		return false;
 	}
