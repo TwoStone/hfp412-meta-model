@@ -620,7 +620,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public PersistentCompUnit getExistingCU(final ReferenceSearchList refs) 
 				throws PersistenceException{
-    	//TODO implement
 		if (refs.getLength() == 0) {
 			return this.getThis().fetchScalar();
 		} else {
@@ -685,8 +684,9 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 				final PersistentUnit curUnit = (PersistentUnit) absUnit;
 				
 				if (curUnit.getMyConversion() != null) {
+//					curUnit.getMyConversion().setSource(null);
+//					curUnit.getMyConversion().store();
 					curUnit.getMyConversion().delete$Me(); // TODO Das löschen aus dem Cache scheint nicht zu funktionieren?!
-					curUnit.store();
 				}
 			}
 		} else{
@@ -725,6 +725,8 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 
     /* Start of protected part that is not overridden by persistence generator */
 
+	private static final String UNKNOWN_UNIT_TYPE = "Unbekannter Typ";
+	
 	protected PersistentReferenceType getReferenceType(final PersistentUnitType unitType, final long exponent)
 			throws PersistenceException {
 		PersistentReferenceType refType = getThis().getRefTypes().findFirst(new Predcate<PersistentReferenceType>() {
@@ -818,7 +820,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 			
 			
 //			refTypeList.add(next.getType());
-			result = CompUnit.createCompUnit(getCUT("hä?", refTypeList), name); // TODO woher kommt der Name?!
+			result = CompUnit.createCompUnit(getCUT(UNKNOWN_UNIT_TYPE, refTypeList), name);
 			try {
 				result.getRefs().add(refs);
 			} catch (final UserException e) {
