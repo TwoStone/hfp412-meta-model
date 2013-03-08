@@ -19,7 +19,6 @@ import persistence.Invoker;
 import persistence.MAccountTypeHierarchyHIERARCHY;
 import persistence.MAccountTypeHierarchyHIERARCHYStrategy;
 import persistence.MAccountTypeProxi;
-import persistence.MAccountTypeSearchList;
 import persistence.MAccountType_SubAccountTypesProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbsUnitType;

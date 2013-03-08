@@ -16,7 +16,7 @@ import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
  * @author tkoenig
  * 
  */
-public class EmptySumTypeReturnBooleanVisitor implements MTypeReturnVisitor<Boolean> {
+public class EmptyTypeDisjReturnBooleanVisitor implements MTypeReturnVisitor<Boolean> {
 
 	@Override
 	public Boolean handleMMixedTypeDisjunction(final PersistentMMixedTypeDisjunction mMixedTypeDisjunction)

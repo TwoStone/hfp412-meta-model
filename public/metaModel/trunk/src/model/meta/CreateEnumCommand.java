@@ -1,9 +1,31 @@
 
 package model.meta;
 
-import persistence.*;
-import model.*;
-import model.visitor.*;
+import model.UserException;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.CommandExceptionVisitor;
+import model.visitor.CommandReturnExceptionVisitor;
+import model.visitor.CommandReturnVisitor;
+import model.visitor.CommandVisitor;
+import model.visitor.CommonDateExceptionVisitor;
+import model.visitor.CommonDateReturnExceptionVisitor;
+import model.visitor.CommonDateReturnVisitor;
+import model.visitor.CommonDateVisitor;
+import model.visitor.EnumerationManagerCommandExceptionVisitor;
+import model.visitor.EnumerationManagerCommandReturnExceptionVisitor;
+import model.visitor.EnumerationManagerCommandReturnVisitor;
+import model.visitor.EnumerationManagerCommandVisitor;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.PersistenceException;
+import persistence.PersistentCommonDate;
+import persistence.PersistentCreateEnumCommand;
+import persistence.PersistentEnumerationManager;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
 
 
 /* Additional import section end */

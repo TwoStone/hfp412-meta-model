@@ -41,7 +41,7 @@ import persistence.PersistentRemoveFpFromOpCommand;
 import persistence.PersistentRemoveOperationCommand;
 import persistence.Predcate;
 import persistence.TDObserver;
-import utils.EmptySumTypeReturnBooleanVisitor;
+import utils.EmptyTypeDisjReturnBooleanVisitor;
 
 /* Additional import section end */
 
@@ -349,7 +349,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
     public PersistentFormalParameter createFp(final String name, final PersistentMType ofType) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
 
-		final EmptySumTypeReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptySumTypeReturnBooleanVisitor();
+		final EmptyTypeDisjReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptyTypeDisjReturnBooleanVisitor();
 		if (ofType.accept(emptySumTypeReturnBooleanVisitor)) {
 			throw new ConsistencyException("Der Typ eines Formalparameters darf nicht der leeren Summe entsprechen!");
 		}
@@ -377,8 +377,8 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		checkOperationDoubleDefinition(name);
 
 		// Source und Target duerfen nie zur gleichen Zeit der leeren Summe entsprechen
-		final EmptySumTypeReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptySumTypeReturnBooleanVisitor();
-		if (source.accept(emptySumTypeReturnBooleanVisitor) && target.accept(new EmptySumTypeReturnBooleanVisitor())) {
+		final EmptyTypeDisjReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptyTypeDisjReturnBooleanVisitor();
+		if (source.accept(emptySumTypeReturnBooleanVisitor) && target.accept(new EmptyTypeDisjReturnBooleanVisitor())) {
 			throw new ConsistencyException(
 					"Es koennen nicht Source und Target zur gleichen Zeit der leeren Summe entsprechen");
 		}
