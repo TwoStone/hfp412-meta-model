@@ -13,6 +13,7 @@ import persistence.CompUnitTypeProxi;
 import persistence.ConversionProxi;
 import persistence.FractionManagerProxi;
 import persistence.QuantityManagerProxi;
+import persistence.ReferenceProxi;
 import persistence.ReferenceTypeProxi;
 import persistence.TypeManagerProxi;
 import persistence.UnitProxi;
@@ -43,12 +44,15 @@ public class IconResourceManager {
 		this.getIconPaths().put(this.getClassImageId(CompUnitTypeProxi.class), IconConstants.ICON_CUBE_MOLECULE);
 		this.getIconPaths().put(this.getClassImageId(ConversionProxi.class), IconConstants.ICON_NAV_REFRESH_BLUE);
 		this.getIconPaths().put(this.getClassImageId(UnitTypeProxi.class), IconConstants.ICON_BULLET_BALL_RED);
-		this.getIconPaths().put(this.getClassImageId(ReferenceTypeProxi.class), IconConstants.ICON_BULLET_BALL_RED);
+//		this.getIconPaths().put(this.getClassImageId(ReferenceTypeProxi.class), IconConstants.ICON_BULLET_BALL_RED);
 		this.getIconPaths().put(this.getClassImageId(UnitProxi.class), IconConstants.ICON_CUBE_BLUE);
 		this.getIconPaths().put(this.getClassImageId(AssociationManagerProxi.class),
 				IconConstants.ICON_GRAPH_EDGE_DIRECTED);
 		this.getIconPaths().put(this.getClassImageId(AspectManagerProxi.class), IconConstants.ICON_COOKIES);
 		this.getIconPaths().put(this.getClassImageId(TypeManagerProxi.class), IconConstants.ICON_INDEX);
+		this.getIconPaths().put(this.getClassImageId(ReferenceProxi.class)*10000, IconConstants.ICON_UP_PLUS);
+		this.getIconPaths().put(this.getClassImageId(ReferenceProxi.class)*20000, IconConstants.ICON_DOWN_MINUS);
+		this.getIconPaths().put(this.getClassImageId(ReferenceTypeProxi.class), IconConstants.ICON_GRAPH_EDGE_DIRECTED);
 		// ...
 	}
 

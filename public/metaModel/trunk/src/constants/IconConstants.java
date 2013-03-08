@@ -25,6 +25,8 @@ public class IconConstants {
 	public static final String ICON_INDEX = "index.png";
 	public static final String ICON_GRAPH_EDGE_DIRECTED = "graph_edge_directed.png";
 	public static final String ICON_COOKIES = "cookies.png";
+	public static final String ICON_DOWN_MINUS = "down_minus.png";
+	public static final String ICON_UP_PLUS = "up_plus.png";
 
 	public static final String ICON_LARGE_CUBES = "large/cubes.png";
 	public static final String ICON_LARGE_PIE_CHART = "large/pie-chart.png";

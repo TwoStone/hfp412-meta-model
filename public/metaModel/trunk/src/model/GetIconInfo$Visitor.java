@@ -2,6 +2,7 @@ package model;
 
 import persistence.Anything;
 import persistence.PersistenceException;
+import persistence.PersistentReference;
 
 import common.IconResourceManager;
 
@@ -18,5 +19,11 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 		anything.accept(this);
 		return result;
 	}
-
+	@Override
+	public void handleReference(PersistentReference reference) throws PersistenceException {
+		if(reference.getExponent() > 0)
+			result = IconResourceManager.getInstance().getClassImageId(reference.getClass())*10000;
+		else
+			result = IconResourceManager.getInstance().getClassImageId(reference.getClass())*20000;
+	}
 }
