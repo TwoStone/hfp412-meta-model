@@ -178,7 +178,7 @@ part typeSystem {
 	
 	/* Komplexe Typen*/
 	abstract class MComplexType@@ComplexType extends MType {
-		derived MType** containedTypes;
+		MType** fetchContainedTypes();
 		// MType** containedTypes hierarchy MComplexTypeHierarchy;
 		abstract String fetchTypeLinkOperator();
 	}

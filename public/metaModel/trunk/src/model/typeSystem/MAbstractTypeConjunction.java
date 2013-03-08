@@ -111,7 +111,7 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 			return MTrue.getTheMTrue();
 		}
 
-		return MBoolean.createFromBoolean(getThis().getContainedTypes().aggregate(
+		return MBoolean.createFromBoolean(getThis().fetchContainedTypes().aggregate(
 				new Aggregtion<PersistentMType, Boolean>() {
 
 					@Override
@@ -128,8 +128,8 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
-		return getThis().getContainedTypes().getLength() == 0 ? MFalse.getTheMFalse() : MBoolean
-				.createFromBoolean(getThis().getContainedTypes().aggregate(new Aggregtion<PersistentMType, Boolean>() {
+		return getThis().fetchContainedTypes().getLength() == 0 ? MFalse.getTheMFalse() : MBoolean
+				.createFromBoolean(getThis().fetchContainedTypes().aggregate(new Aggregtion<PersistentMType, Boolean>() {
 
 					@Override
 					public Boolean neutral() throws PersistenceException {
@@ -147,8 +147,8 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 				throws PersistenceException{
 		if (other instanceof PersistentMAbstractTypeConjunction) {
 			final PersistentMAbstractTypeConjunction conjOther = (PersistentMAbstractTypeConjunction) other;
-			final Iterator<PersistentMType> iteratorThis = getThis().getContainedTypes().iterator();
-			final Iterator<PersistentMType> iteratorOther = conjOther.getContainedTypes().iterator();
+			final Iterator<PersistentMType> iteratorThis = getThis().fetchContainedTypes().iterator();
+			final Iterator<PersistentMType> iteratorOther = conjOther.fetchContainedTypes().iterator();
 			while (iteratorThis.hasNext()) {
 				if (iteratorOther.hasNext()) {
 					if (!iteratorThis.next().isStructuralEquivalant(iteratorOther.next()).toBoolean()) {

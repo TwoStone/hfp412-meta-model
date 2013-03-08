@@ -28,7 +28,6 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("containedTypes", this.getContainedTypes(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -79,12 +78,6 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public MTypeSearchList getContainedTypes(final TDObserver observer) 
-				throws PersistenceException{
-        MTypeSearchList result = getThis().getContainedTypes();
-		observer.updateTransientDerived(getThis(), "containedTypes", result);
-		return result;
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -98,7 +91,7 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
     public MAspectSearchList fetchAspects() 
 				throws PersistenceException{
 		final MAspectSearchList result = new MAspectSearchList();
-		getContainedTypes().applyToAll(new Procdure<PersistentMType>() {
+		fetchContainedTypes().applyToAll(new Procdure<PersistentMType>() {
 
 			@Override
 			public void doItTo(final PersistentMType argument) throws PersistenceException {
@@ -106,6 +99,10 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 			}
 		});
 		return result;
+	}
+    public MTypeSearchList fetchContainedTypes() 
+				throws PersistenceException{
+		return SearchLists.toMTypeSearchList(obtainContainedTypes());
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
@@ -119,7 +116,7 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 		final StringBuilder builder = new StringBuilder();
 
 		builder.append("(");
-		final Iterator<PersistentMType> iterator = this.getContainedTypes().iterator();
+		final Iterator<PersistentMType> iterator = this.fetchContainedTypes().iterator();
 		if (iterator.hasNext()) {
 			builder.append(iterator.next().fetchName());
 		}
@@ -134,10 +131,6 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 
 		return builder.toString();
 	}
-    public MTypeSearchList getContainedTypes() 
-				throws PersistenceException{
-		return SearchLists.toMTypeSearchList(fetchContainedTypes());
-	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 		// TODO: implement method: prepareForDeletion
@@ -148,8 +141,8 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 
 	protected PersistentMBoolean allChildrenAreStructuralEquivalent(final PersistentMComplexType other)
 			throws PersistenceException {
-		final Iterator<PersistentMType> thisI = getThis().getContainedTypes().iterator();
-		final Iterator<PersistentMType> otherI = other.getContainedTypes().iterator();
+		final Iterator<PersistentMType> thisI = getThis().fetchContainedTypes().iterator();
+		final Iterator<PersistentMType> otherI = other.fetchContainedTypes().iterator();
 		while (thisI.hasNext()) {
 			if (!otherI.hasNext()) {
 				return MFalse.getTheMFalse();
@@ -161,7 +154,7 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 		return MBoolean.createFromBoolean(!otherI.hasNext());
 	}
 
-	public abstract SearchListRoot<? extends PersistentMType> fetchContainedTypes() throws PersistenceException;
+	public abstract SearchListRoot<? extends PersistentMType> obtainContainedTypes() throws PersistenceException;
 
 	/* End of protected part that is not overridden by persistence generator */
     

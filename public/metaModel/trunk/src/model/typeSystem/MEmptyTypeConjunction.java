@@ -228,7 +228,6 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
     public int getLeafInfo() throws PersistenceException{
         if (this.getMTDJContainingMe().getLength() > 0) return 1;
         if (this.getMTCContainingMe().getLength() > 0) return 1;
-        if (this.getContainedTypes().getLength() > 0) return 1;
         if (this.getNEDNFContainingMe().getLength() > 0) return 1;
         return 0;
     }
@@ -307,7 +306,7 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
     
 
 	@Override
-	public SearchListRoot<? extends PersistentMType> fetchContainedTypes() {
+	public SearchListRoot<? extends PersistentMType> obtainContainedTypes() {
 		return new MTypeSearchList();
 	}
 

@@ -98,12 +98,16 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
     
     // Start of section that contains overridden operations only.
     
+    public MTypeSearchList fetchContainedTypes() 
+				throws PersistenceException{
+		return SearchLists.toMTypeSearchList(obtainContainedTypes());
+	}
     public String fetchName() 
 				throws PersistenceException{
 		final StringBuilder builder = new StringBuilder();
 
 		builder.append("{");
-		final Iterator<PersistentMType> iterator = this.getContainedTypes().iterator();
+		final Iterator<PersistentMType> iterator = this.fetchContainedTypes().iterator();
 		if (iterator.hasNext()) {
 			builder.append(iterator.next().fetchName());
 		}
@@ -122,21 +126,17 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 				throws PersistenceException{
 		return MAbstractTypeDisjunction.TYPE_LINK_OP;
 	}
-    public MTypeSearchList getContainedTypes() 
-				throws PersistenceException{
-		return SearchLists.toMTypeSearchList(fetchContainedTypes());
-	}
     public PersistentMBoolean isAbstract() 
 				throws PersistenceException{
-		if (getThis().getContainedTypes().getLength() == 1) {
-			return getThis().getContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isAbstract();
+		if (getThis().fetchContainedTypes().getLength() == 1) {
+			return getThis().fetchContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isAbstract();
 		}
 		return MTrue.getTheMTrue();
 	}
     public PersistentMBoolean isSingleton() 
 				throws PersistenceException{
-		if (getThis().getContainedTypes().getLength() == 1) {
-			return getThis().getContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isSingleton();
+		if (getThis().fetchContainedTypes().getLength() == 1) {
+			return getThis().fetchContainedTypes().findFirst(new TruePredcate<PersistentMType>()).isSingleton();
 		}
 		return MFalse.getTheMFalse();
 	}
@@ -144,8 +144,8 @@ public abstract class MAbstractTypeDisjunction extends model.typeSystem.MComplex
 				throws PersistenceException{
 		if (other instanceof PersistentMAbstractTypeDisjunction) {
 			final PersistentMAbstractTypeDisjunction disjOther = (PersistentMAbstractTypeDisjunction) other;
-			final Iterator<PersistentMType> iteratorThis = getThis().getContainedTypes().iterator();
-			final Iterator<PersistentMType> iteratorOther = disjOther.getContainedTypes().iterator();
+			final Iterator<PersistentMType> iteratorThis = getThis().fetchContainedTypes().iterator();
+			final Iterator<PersistentMType> iteratorOther = disjOther.fetchContainedTypes().iterator();
 			while (iteratorThis.hasNext()) {
 				if (iteratorOther.hasNext()) {
 					if (!iteratorThis.next().isStructuralEquivalant(iteratorOther.next()).toBoolean()) {

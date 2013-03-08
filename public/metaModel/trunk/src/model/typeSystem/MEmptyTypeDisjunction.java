@@ -227,7 +227,6 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
     public int getLeafInfo() throws PersistenceException{
         if (this.getMTDJContainingMe().getLength() > 0) return 1;
         if (this.getMTCContainingMe().getLength() > 0) return 1;
-        if (this.getContainedTypes().getLength() > 0) return 1;
         return 0;
     }
     
@@ -300,7 +299,7 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
     
 
 	@Override
-	public SearchListRoot<? extends PersistentMType> fetchContainedTypes() {
+	public SearchListRoot<? extends PersistentMType> obtainContainedTypes() {
 		return new MTypeSearchList();
 	}
 

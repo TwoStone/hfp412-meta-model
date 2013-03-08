@@ -1115,7 +1115,6 @@ class MEmptyTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     
     protected MEmptyTypeDisjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1270,7 +1269,6 @@ class MMixedConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MMixedConjunction$$factors = "MMixedConjunction$$factors";
     
     protected MMixedConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1451,7 +1449,6 @@ class MEmptyTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MAtomicTypeConjunction$$nEDNFContainingMe = "MAtomicTypeConjunction$$nEDNFContainingMe";
     
     protected MEmptyTypeConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1822,7 +1819,6 @@ class MMixedTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MMixedTypeDisjunction$$addends = "MMixedTypeDisjunction$$addends";
     
     protected MMixedTypeDisjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1857,7 +1853,6 @@ class MNonEmptyAtomicTypeConjunctionDefaultDetailPanel extends DefaultDetailPane
     
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MAtomicTypeConjunction$$nEDNFContainingMe = "MAtomicTypeConjunction$$nEDNFContainingMe";
     protected static final String MNonEmptyAtomicTypeConjunction$$factors = "MNonEmptyAtomicTypeConjunction$$factors";
     
@@ -1940,7 +1935,6 @@ class MNonEmptyDisjunctiveNormalFormDefaultDetailPanel extends DefaultDetailPane
     
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
-    protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
     protected static final String MNonEmptyDisjunctiveNormalForm$$addends = "MNonEmptyDisjunctiveNormalForm$$addends";
     
     protected MNonEmptyDisjunctiveNormalFormDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

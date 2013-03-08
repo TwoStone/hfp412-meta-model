@@ -227,7 +227,6 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
     public int getLeafInfo() throws PersistenceException{
         if (this.getMTDJContainingMe().getLength() > 0) return 1;
         if (this.getMTCContainingMe().getLength() > 0) return 1;
-        if (this.getContainedTypes().getLength() > 0) return 1;
         if (this.getAddends().getLength() > 0) return 1;
         return 0;
     }
@@ -340,7 +339,7 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
     
 
 	@Override
-	public SearchListRoot<? extends PersistentMType> fetchContainedTypes() throws PersistenceException {
+	public SearchListRoot<? extends PersistentMType> obtainContainedTypes() throws PersistenceException {
 		return getThis().getAddends();
 	}
 

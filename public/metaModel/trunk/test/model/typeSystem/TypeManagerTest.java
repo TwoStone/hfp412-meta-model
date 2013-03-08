@@ -166,8 +166,8 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
 		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(at1);
 
-		Assert.assertEquals(1, conj.getContainedTypes().getLength());
-		Assert.assertTrue(SearchLists.contains(conj.getContainedTypes(), at1));
+		Assert.assertEquals(1, conj.fetchContainedTypes().getLength());
+		Assert.assertTrue(SearchLists.contains(conj.fetchContainedTypes(), at1));
 		Assert.assertTrue(typeManagerContaines(conj));
 	}
 
@@ -189,7 +189,7 @@ public class TypeManagerTest extends TestingBase {
 
 		final PersistentMMixedConjunction expected = product(at1, at2, at3, at4);
 
-		Assert.assertEquals(4, conj.getContainedTypes().getLength());
+		Assert.assertEquals(4, conj.fetchContainedTypes().getLength());
 		assertTypeStructureEquals(expected, conj);
 		Assert.assertTrue(typeManagerContaines(conj));
 	}
@@ -352,7 +352,7 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
 		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(at1);
 
-		Assert.assertEquals(1, disj.getContainedTypes().getLength());
+		Assert.assertEquals(1, disj.fetchContainedTypes().getLength());
 		assertTypeSemanticEquals(at1, disj);
 		Assert.assertTrue(typeManagerContaines(disj));
 	}
@@ -375,7 +375,7 @@ public class TypeManagerTest extends TestingBase {
 
 		final PersistentMMixedTypeDisjunction expected = sum(product(at1), product(at2), product(at3), product(at4));
 
-		Assert.assertEquals(4, disj.getContainedTypes().getLength());
+		Assert.assertEquals(4, disj.fetchContainedTypes().getLength());
 		assertTypeStructureEquals(expected, disj);
 		Assert.assertTrue(typeManagerContaines(disj));
 	}
@@ -398,7 +398,7 @@ public class TypeManagerTest extends TestingBase {
 
 		final PersistentMMixedTypeDisjunction expected = sum(product(at1, at2), product(at3), product(at4));
 
-		Assert.assertEquals(3, disj.getContainedTypes().getLength());
+		Assert.assertEquals(3, disj.fetchContainedTypes().getLength());
 		assertTypeStructureEquals(expected, disj);
 		Assert.assertTrue(typeManagerContaines(disj));
 	}
