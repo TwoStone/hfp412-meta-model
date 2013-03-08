@@ -41,9 +41,28 @@ public class SetDefaultUnitTest extends TestingBase {
 		UnitTypeManager.getTheUnitTypeManager().setDefaultUnit(unitTypeGewicht, unitKg);
 		UnitTypeManager.getTheUnitTypeManager().setConversion(unitG, Fraction.parse("1000"), Fraction.parse("0"));
 
-		// TODO fertigstellen
-
 		Assert.assertEquals("", unitTypeGewicht, unitTypeGewicht);
 	}
 
+	@Test
+	public void setDefaultUnit_DeleteConversions() throws PersistenceException, ConsistencyException {
+		PersistentUnitType unitTypeGewicht = UnitType.createUnitType("Gewicht");
+		PersistentUnit unitKg = Unit.createUnit(unitTypeGewicht, "Kg");
+		PersistentUnit unitG = Unit.createUnit(unitTypeGewicht, "g");
+		PersistentUnit unitT = Unit.createUnit(unitTypeGewicht, "T");
+
+		UnitTypeManager.getTheUnitTypeManager().setDefaultUnit(unitTypeGewicht, unitKg);
+		UnitTypeManager.getTheUnitTypeManager().setConversion(unitG, Fraction.parse("1000"), Fraction.parse("0"));
+		
+		UnitTypeManager.getTheUnitTypeManager().setDefaultUnit(unitTypeGewicht, unitT);
+
+		Assert.assertEquals("unitG Conversion sollte null sein", null, unitG.getMyConversion());
+		Assert.assertEquals("unitKg Conversion sollte null sein", null, unitKg.getMyConversion());
+		
+
+		UnitTypeManager.getTheUnitTypeManager().setDefaultUnit(unitTypeGewicht, unitKg);
+
+		Assert.assertEquals("unitT Conversion sollte null sein", null, unitG.getMyConversion());
+		Assert.assertEquals("unitKg Conversion sollte null sein", null, unitT.getMyConversion());
+	}
 }
