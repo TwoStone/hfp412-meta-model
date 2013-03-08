@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Vector;
-
 import model.DBConnectionConstants;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
@@ -31,6 +30,30 @@ public class TestSupport {
 	private static final String SQLStatementSeparator = ";";
 
 	private TestSupport(){}	
+	
+	public static void prepareSingletons(){
+        model.typeSystem.MEmptyTypeDisjunction.reset$For$Test = true;
+        model.abstractOperation.OperationManager.reset$For$Test = true;
+        model.meta.CommandCoordinator.reset$For$Test = true;
+        model.measurement.AccountTypeManager.reset$For$Test = true;
+        model.typeSystem.MEmptyTypeConjunction.reset$For$Test = true;
+        model.typeSystem.AspectManager.reset$For$Test = true;
+        model.measurement.AccountManager.reset$For$Test = true;
+        model.quantity.QuantityManager.reset$For$Test = true;
+        model.naming.NameSchemeManager.reset$For$Test = true;
+        model.abstractOperation.AssociationManager.reset$For$Test = true;
+        model.typeSystem.TypeManager.reset$For$Test = true;
+        model.messageOrLink.MessageManager.reset$For$Test = true;
+        model.quantity.UnitTypeManager.reset$For$Test = true;
+        model.quantity.FractionManager.reset$For$Test = true;
+        model.basic.MFalse.reset$For$Test = true;
+        model.measurement.MeasurementTypeManager.reset$For$Test = true;
+        model.messageOrLink.LinkManager.reset$For$Test = true;
+        model.basic.MTrue.reset$For$Test = true;
+        model.quantity.FunctionManager.reset$For$Test = true;
+        model.typeSystem.ObjectManager.reset$For$Test = true;
+
+	}
 
 	public static void prepareDatabase() throws PersistenceException, SQLException, IOException{
 		initializeConnectionHandler();
