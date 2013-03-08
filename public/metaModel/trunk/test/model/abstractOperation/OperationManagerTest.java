@@ -258,8 +258,6 @@ public class OperationManagerTest extends AbstractTest {
 	@Test(expected = ConsistencyException.class)
 	public void removingFormalParameterFromOperationWithoutTheseParam() throws PersistenceException,
 			DoubleDefinitionException, ConsistencyException {
-		// TODO: Christin: Das muss doch besser gehen!? Erst anlegen und dann den Angelegten mit etwas vergleichen...
-
 		final PersistentFormalParameter param = FormalParameter.createFormalParameter(mat1, "x");
 		final PersistentFormalParameter param2 = FormalParameter.createFormalParameter(mat2, "y");
 

@@ -239,7 +239,7 @@ public class MessageManager extends PersistentObject implements PersistentMessag
 	}
     public void createConst(final PersistentOperation type, final String name, final PersistentMObject target) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-		// TODO: Christin: EmptyType nicht als Object verfügbar
+		// TODO: EmptyType nicht als Object verfügbar
 		// getThis().createMessage(type, MEmptySumType.getTheMEmptySumType(), target, ap);
 	}
     public void createMessage(final PersistentOperation type, final PersistentMObject source, final PersistentMObject target, final ActualParameterSearchList ap) 
@@ -253,7 +253,7 @@ public class MessageManager extends PersistentObject implements PersistentMessag
 		if (consEx) {
 			throw new ConsistencyException("");
 		}
-		// TODO: Christin DDE
+		// TODO: DoubleDefinitionException
 		final PersistentMessage m = Message.createMessage(source, target, type);
 		final Iterator<PersistentActualParameter> it = ap.iterator();
 		while (it.hasNext()) {
@@ -263,12 +263,12 @@ public class MessageManager extends PersistentObject implements PersistentMessag
 	}
     public void createStaticMessage(final PersistentOperation type, final String name, final PersistentMObject target, final ActualParameterSearchList ap) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-		// TODO: Christin: EmptyType nicht als Object verf??gbar
+		// TODO: EmptyType nicht als Object verf??gbar
 		// getThis().createMessage(type, MEmptySumType.getTheMEmptySumType(), target, ap);
 	}
     public void createVoidMessage(final PersistentOperation type, final PersistentMObject source, final ActualParameterSearchList ap) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-		// TODO: Christin: EmptyType nicht als Object verf??gbar
+		// TODO: EmptyType nicht als Object verf??gbar
 		// getThis().createMessage(type, source, MEmptySumType.getTheMEmptySumType(), ap);
 	}
     public void initializeOnCreation() 

@@ -25,4 +25,15 @@ public final class ExceptionConstants {
 	public static final String WRONG_ACCOUNT_TYPE = "Falscher AccountType";
 
 	public static final String UNIT_TYPE_DOES_NOT_MATCH_ADD_OR_SUB = "Addition oder Subtraktion nur mit gleichem Einheitstyp möglich!";
+
+	/* Exceptions für Association, Operation, Link ... */
+
+	public static final String DDE_ASSOC = "Eine Assoziation mit diesem Namen existiert bereits";
+	public static final String CYCLE = "Das Hinzufuegen der Assoziation zu dieser Hierarchie ist nicht möglich, da ein Zyklus entstehen würde. Erster Zyklus durch: ";
+	public static final String CE_ASSOC_ALREADY_IN_HIERARCHY = "Die Assoziation ist bereits in der Hierarchie enthalten";
+	public static final String DDE_HIERARCHY = "Eine Hierarchie mit diesem Namen existiert bereits.";
+	public static final String NA_IN_HIERARCHY = "Die gewählte Assoziation ist nicht in der Hierarchie enthalten";
+	public static final String CE_LAST_ASSOC_IN_HIERARCHY = "Die gewählte Assoziation ist die letzte Assoziation in der gewählten Hierarchie und kann deshalb nicht entfernt werden.";
+	public static final String CE_EXCISTING_LINKS = "Die gewählte Assoziation kann nicht gelöscht werden, solang Exemplare existieren.";
+	public static final String CE_ASSOC_IN_HIERARCHY = "Die gewählte Assoziation kann nicht gelöscht werden, da sie Element mindestens einer Hierarchy ist.";
 }
