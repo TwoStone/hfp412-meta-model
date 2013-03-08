@@ -42,6 +42,7 @@ import persistence.PersistentRemoveOperationCommand;
 import persistence.Predcate;
 import persistence.TDObserver;
 import utils.EmptyTypeDisjReturnBooleanVisitor;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -307,13 +308,13 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
     public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.ConsistencyException, PersistenceException{
 		final FormalParameterSearchList list = new FormalParameterSearchList();
 		list.add(fp);
 		getThis().addMultipleFp(op, list);
 	}
     public void addMultipleFp(final PersistentOperation op, final FormalParameterSearchList fp) 
-				throws model.DoubleDefinitionException, PersistenceException{
+				throws model.ConsistencyException, PersistenceException{
 
 		final Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
 
@@ -324,13 +325,10 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		while (fpIterator.hasNext()) {
 			currentFp = fpIterator.next();
 			otherIterator = op.getParameters().iterator();
-
 			while (otherIterator.hasNext()) {
 				otherCurrent = otherIterator.next();
 				if (otherCurrent.getName().equals(currentFp.getName())) {
-
-					throw new DoubleDefinitionException("Ein Parameter mit dem Namen " + otherCurrent
-							+ " existiert schon in der Parameterliste!");
+					throw new ConsistencyException(ExceptionConstants.CE_FP_ALREADY_IN_OP);
 				}
 			}
 			op.getParameters().add(currentFp);
@@ -351,7 +349,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 
 		final EmptyTypeDisjReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptyTypeDisjReturnBooleanVisitor();
 		if (ofType.accept(emptySumTypeReturnBooleanVisitor)) {
-			throw new ConsistencyException("Der Typ eines Formalparameters darf nicht der leeren Summe entsprechen!");
+			throw new ConsistencyException(ExceptionConstants.CE_WRONG_TYPE_EMPTYTYPEDIS);
 		}
 
 		final PersistentFormalParameter findFirst = getThis().getFormalParameters().findFirst(
@@ -364,7 +362,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 				});
 
 		if (findFirst != null) {
-			throw new DoubleDefinitionException("Ein Formalparameter mit diesem Namen existiert bereits!");
+			throw new DoubleDefinitionException(ExceptionConstants.DDE_FP);
 		}
 
 		final PersistentFormalParameter createFormalParameter = FormalParameter.createFormalParameter(ofType, name);
@@ -379,8 +377,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		// Source und Target duerfen nie zur gleichen Zeit der leeren Summe entsprechen
 		final EmptyTypeDisjReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptyTypeDisjReturnBooleanVisitor();
 		if (source.accept(emptySumTypeReturnBooleanVisitor) && target.accept(new EmptyTypeDisjReturnBooleanVisitor())) {
-			throw new ConsistencyException(
-					"Es koennen nicht Source und Target zur gleichen Zeit der leeren Summe entsprechen");
+			throw new ConsistencyException(ExceptionConstants.CE_OP_SOURCE_AND_TARGET_EMPTYTYPEDISJ);
 		}
 
 		// Operation erstellen
@@ -451,8 +448,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
     public void removeFpFromOp(final PersistentOperation op, final PersistentFormalParameter fp) 
 				throws model.ConsistencyException, PersistenceException{
 		if (op.inverseGetType().getLength() > 0) {
-			throw new ConsistencyException(
-					"Zu dieser Operation existieren Exemplare! Formalparameter kann nicht entfernt werden");
+			throw new ConsistencyException(ExceptionConstants.CE_OP_HAS_MESSAGES_FP);
 		}
 
 		final Iterator<PersistentFormalParameter> iterator = op.getParameters().iterator();
@@ -465,22 +461,16 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		}
 
 		if (!deleted) {
+			// TODO: Thimo: Warum sollte das passieren? Kann man sich die Exc nicht sparen? Wenn doch benötigt: Meldung
+			// in Exc-const auslagern
 			// Wurde offenbar keiner gefunden
 			throw new ConsistencyException("Formalparameter befindet sich nicht in der Parameterliste!");
 		}
-		// op.getParameters().removeFirstSuccess(new Predcate<PersistentFormalParameter>() {
-		//
-		// @Override
-		// public boolean test(PersistentFormalParameter argument) throws PersistenceException {
-		// return fp.equals(argument);
-		// }
-		// });
 	}
     public void removeFp(final PersistentFormalParameter fp) 
 				throws model.ConsistencyException, PersistenceException{
 		if (fp.inverseGetType().getLength() > 0) {
-			throw new ConsistencyException(
-					"Zu diesem Formalparameter existieren Exemplare! Kann nicht geloescht werden.");
+			throw new ConsistencyException(ExceptionConstants.CE_EXISTING_AP);
 		}
 
 		final PersistentOperation findFirst = getThis().getOperations().findFirst(new Predcate<PersistentOperation>() {
@@ -501,8 +491,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		});
 
 		if (findFirst != null) {
-			throw new ConsistencyException(
-					"Mindestens eine Operation benutzt diesen Formalparameter. Parameter konnte nicht geloescht werden.");
+			throw new ConsistencyException(ExceptionConstants.CE_FP_IN_OP);
 		}
 
 		getThis().getFormalParameters().removeFirstSuccess(new Predcate<PersistentFormalParameter>() {
@@ -517,7 +506,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
     public void removeOperation(final PersistentOperation op) 
 				throws model.ConsistencyException, PersistenceException{
 		if (op.inverseGetType().getLength() > 0) {
-			throw new ConsistencyException("Zu dieser Operationen existieren Messages! Loeschen nicht durchgefuehrt");
+			throw new ConsistencyException(ExceptionConstants.CE_OP_HAS_MESSAGES);
 		}
 		getThis().getOperations().removeFirstSuccess(new Predcate<PersistentOperation>() {
 
@@ -543,8 +532,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 				@Override
 				public AbsOperation handleOperation(final PersistentOperation operation) throws PersistenceException,
 						DoubleDefinitionException {
-					throw new DoubleDefinitionException(
-							"Die Namen der Operationen sind eindeutig! Bitte waehlen Sie einen anderen Namen.");
+					throw new DoubleDefinitionException(ExceptionConstants.DDE_OP);
 				}
 
 				@Override

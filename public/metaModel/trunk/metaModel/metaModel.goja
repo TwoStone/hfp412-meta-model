@@ -556,8 +556,8 @@ active Operation createOperation(MType source, MType target, String name, Formal
 active Operation createVoidOperation(MType source, String name, FormalParameter** fp) throws DoubleDefinitionException, ConsistencyException;
 active FormalParameter createFp(String name, MType ofType) throws DoubleDefinitionException, ConsistencyException;
 
-active void addFp(Operation op, FormalParameter fp) throws DoubleDefinitionException;
-active void addMultipleFp(Operation op, FormalParameter** fp) throws DoubleDefinitionException;
+active void addFp(Operation op, FormalParameter fp) throws ConsistencyException;
+active void addMultipleFp(Operation op, FormalParameter** fp) throws ConsistencyException;
 active void removeFpFromOp(Operation op, FormalParameter fp) throws ConsistencyException;
 active void removeFp(FormalParameter fp) throws ConsistencyException;
 active void removeOperation(Operation op) throws ConsistencyException;

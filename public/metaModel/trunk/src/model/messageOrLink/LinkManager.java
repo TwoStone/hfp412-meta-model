@@ -25,6 +25,7 @@ import persistence.PersistentProxi;
 import persistence.PersistentRemoveLinkCommand;
 import persistence.Predcate;
 import persistence.TDObserver;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -194,8 +195,7 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
     public PersistentLink createLink(final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target) 
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
 		if (target.containsInHierarchies(source, type.getHierarchies().getList()).toBoolean()) {
-			throw new CycleException("Es entstuende ein Zyklus, beim anlegen einer des Links von " + source + " nach "
-					+ target);
+			throw new CycleException(ExceptionConstants.CYCLE_CREATE_LINK);
 		}
 
 		final MObjectSearchList possibleSources = ObjectManager.getTheObjectManager().fetchObjectsWithTypeLE(
@@ -212,7 +212,7 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 				return argument.equals(source);
 			}
 		}) == null) {
-			throw new ConsistencyException("Die gewaehlte Source passt nicht zum AssoicationType!");
+			throw new ConsistencyException(ExceptionConstants.CE_LINK_SOURCE_WRONG_TYPE);
 		}
 
 		// Ist das Target gemaess Typebene korrekt?
@@ -223,7 +223,7 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 				return argument.equals(target);
 			}
 		}) == null) {
-			throw new ConsistencyException("Das gewaehlte Target passt nicht zum AssoicationType!");
+			throw new ConsistencyException(ExceptionConstants.CE_LINK_TARGET_WRONG_TYPE);
 		}
 		final PersistentLink createLink = Link.createLink(source, target, type);
 		getThis().getLinks().add(createLink);

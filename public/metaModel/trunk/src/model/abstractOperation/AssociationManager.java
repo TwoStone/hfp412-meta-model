@@ -272,7 +272,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 			}
 		});
 		if (firstCycle != null) {
-			throw new CycleException(ExceptionConstants.CYCLE + firstCycle.toString());
+			throw new CycleException(ExceptionConstants.CYCLE_ADD_ASSOC + firstCycle.toString());
 		}
 
 		a.getHierarchies().add(h);
@@ -377,7 +377,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
 		// Consistency, falls es Links gibt.
 		if (a.inverseGetType().getLength() > 0) {
-			throw new ConsistencyException(ExceptionConstants.CE_EXCISTING_LINKS);
+			throw new ConsistencyException(ExceptionConstants.CE_EXISTING_LINKS);
 		}
 		// Consistency wenn es Element einer Hierarchy ist
 		if (getThis().getHierarchies().getLength() > 0) {
