@@ -91,16 +91,67 @@ public class SetConversionTest extends TestingBase {
 
 		UnitTypeManager.getTheUnitTypeManager().setConversion(unitG, Fraction.parse("1000"), Fraction.parse("0"));
 
-		Assert.assertEquals("Conversion weist einen falschen Factor auf", unitKg.getMyConversion().getMyFunction()
-				.getFactor(), Fraction.parse("1"));
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("1"), unitKg.getMyConversion().getMyFunction()
+				.getFactor());
 
-		Assert.assertEquals("Conversion weist einen falschen Factor auf", unitG.getMyConversion().getMyFunction()
-				.getFactor(), Fraction.parse("1000"));
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("1000"), unitG.getMyConversion().getMyFunction()
+				.getFactor());
 
 		utm.setDefaultUnit(unitTypeGewicht, unitT); // Conversionless Unit
 
 		Assert.assertEquals("Conversion weist einen falschen Factor auf", null, unitKg.getMyConversion());
 		Assert.assertEquals("Conversion weist einen falschen Factor auf", null, unitG.getMyConversion());
 
+	}
+
+	@Test
+	public void testChangeDefaultUnitConstant() throws PersistenceException, ConsistencyException {
+		PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
+
+		PersistentUnitType unitTypeTemp = UnitType.createUnitType("Temperatur");
+		PersistentUnit unitC = Unit.createUnit(unitTypeTemp, "Celsius");
+		PersistentUnit unitK = Unit.createUnit(unitTypeTemp, "Kelvin");
+
+		utm.setDefaultUnit(unitTypeTemp, unitC);
+
+		UnitTypeManager.getTheUnitTypeManager().setConversion(unitK, Fraction.parse("1"), Fraction.parse("273"));
+
+
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("1"), unitK.getMyConversion().getMyFunction()
+				.getFactor());
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("273"), unitK.getMyConversion().getMyFunction()
+				.getConstant());
+
+		utm.setDefaultUnit(unitTypeTemp, unitK); // Conversionless Unit
+
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("1"), unitC.getMyConversion().getMyFunction().getFactor());
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("-273"), unitC.getMyConversion().getMyFunction().getConstant());
+
+	}
+
+	@Test
+	public void testChangeDefaultUnitFactorAndConstant() throws PersistenceException, ConsistencyException {
+		PersistentUnitTypeManager utm = this.getManager(UnitTypeManager.class);
+
+		PersistentUnitType unitType = UnitType.createUnitType("Type");
+		PersistentUnit unitA = Unit.createUnit(unitType, "A");
+		PersistentUnit unitB = Unit.createUnit(unitType, "B");
+		PersistentUnit unitC = Unit.createUnit(unitType, "C");
+
+		utm.setDefaultUnit(unitType, unitA);
+
+		UnitTypeManager.getTheUnitTypeManager().setConversion(unitB, Fraction.parse("2"), Fraction.parse("1"));
+		UnitTypeManager.getTheUnitTypeManager().setConversion(unitC, Fraction.parse("3"), Fraction.parse("2"));
+
+		utm.setDefaultUnit(unitType, unitB);
+
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("1/2"), unitA.getMyConversion().getMyFunction().getFactor());
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("-1/2"), unitA.getMyConversion().getMyFunction().getConstant());
+
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("1"), unitB.getMyConversion().getMyFunction().getFactor());
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("0"), unitB.getMyConversion().getMyFunction().getConstant());
+
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("3/2"), unitC.getMyConversion().getMyFunction().getFactor());
+		Assert.assertEquals("Conversion weist einen falschen Factor auf", Fraction.parse("1/2"), unitC.getMyConversion().getMyFunction().getConstant());
 	}
 }
