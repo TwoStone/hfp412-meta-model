@@ -7,6 +7,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     
+    public abstract void handleObsTypeManager(PersistentObsTypeManager obsTypeManager) throws PersistenceException;
+    
     public abstract void handleMaxStrategy(PersistentMaxStrategy maxStrategy) throws PersistenceException;
     
     public abstract void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException;
@@ -21,9 +23,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCompUnitType(PersistentCompUnitType compUnitType) throws PersistenceException{
         this.handleAbsUnitType(compUnitType);
     }
-    public abstract void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException;
-    
     public abstract void handleNameSchemeManager(PersistentNameSchemeManager nameSchemeManager) throws PersistenceException;
+    
+    public abstract void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException;
     
     public abstract void handleQuantifObject(PersistentQuantifObject quantifObject) throws PersistenceException;
     
@@ -341,6 +343,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleAbsOperation(association);
     }
     public abstract void handleHierarchy(PersistentHierarchy hierarchy) throws PersistenceException;
+    
+    public abstract void handleEnumValueManager(PersistentEnumValueManager enumValueManager) throws PersistenceException;
     
     public abstract void handleMBoolean(PersistentMBoolean mBoolean) throws PersistenceException;
     

@@ -5,12 +5,6 @@ import persistence.*;
 
 public abstract class EnumerationManagerCommandStandardVisitor implements EnumerationManagerCommandVisitor {
     
-    public void handleCreateEnumValueCommand(PersistentCreateEnumValueCommand createEnumValueCommand) throws PersistenceException{
-        this.standardHandling(createEnumValueCommand);
-    }
-    public void handleDeleteEnumValueCommand(PersistentDeleteEnumValueCommand deleteEnumValueCommand) throws PersistenceException{
-        this.standardHandling(deleteEnumValueCommand);
-    }
     public void handleCreateEnumCommand(PersistentCreateEnumCommand createEnumCommand) throws PersistenceException{
         this.standardHandling(createEnumCommand);
     }

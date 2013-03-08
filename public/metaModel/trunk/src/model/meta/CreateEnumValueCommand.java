@@ -1,32 +1,9 @@
 
 package model.meta;
 
-import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.CommandExceptionVisitor;
-import model.visitor.CommandReturnExceptionVisitor;
-import model.visitor.CommandReturnVisitor;
-import model.visitor.CommandVisitor;
-import model.visitor.CommonDateExceptionVisitor;
-import model.visitor.CommonDateReturnExceptionVisitor;
-import model.visitor.CommonDateReturnVisitor;
-import model.visitor.CommonDateVisitor;
-import model.visitor.EnumerationManagerCommandExceptionVisitor;
-import model.visitor.EnumerationManagerCommandReturnExceptionVisitor;
-import model.visitor.EnumerationManagerCommandReturnVisitor;
-import model.visitor.EnumerationManagerCommandVisitor;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentCommonDate;
-import persistence.PersistentCreateEnumValueCommand;
-import persistence.PersistentEnumerationManager;
-import persistence.PersistentMEnum;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -64,12 +41,12 @@ public class CreateEnumValueCommand extends PersistentObject implements Persiste
     protected String name;
     protected PersistentMEnum type;
     protected Invoker invoker;
-    protected PersistentEnumerationManager commandReceiver;
+    protected PersistentEnumValueManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateEnumValueCommand(String name,PersistentMEnum type,Invoker invoker,PersistentEnumerationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateEnumValueCommand(String name,PersistentMEnum type,Invoker invoker,PersistentEnumValueManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
@@ -80,7 +57,7 @@ public class CreateEnumValueCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 351;
+        return 362;
     }
     
     public long getClassId() {
@@ -89,7 +66,7 @@ public class CreateEnumValueCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 351) ConnectionHandler.getTheConnectionHandler().theCreateEnumValueCommandFacade
+        if (this.getClassId() == 362) ConnectionHandler.getTheConnectionHandler().theCreateEnumValueCommandFacade
             .newCreateEnumValueCommand(name,this.getId());
         super.store();
         if(this.getType() != null){
@@ -147,15 +124,15 @@ public class CreateEnumValueCommand extends PersistentObject implements Persiste
             ConnectionHandler.getTheConnectionHandler().theCreateEnumValueCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public PersistentEnumerationManager getCommandReceiver() throws PersistenceException {
+    public PersistentEnumValueManager getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(PersistentEnumerationManager newValue) throws PersistenceException {
+    public void setCommandReceiver(PersistentEnumValueManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentEnumerationManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentEnumValueManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateEnumValueCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -228,16 +205,16 @@ public class CreateEnumValueCommand extends PersistentObject implements Persiste
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateEnumValueCommand(this);
     }
-    public void accept(EnumerationManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(EnumValueManagerCommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateEnumValueCommand(this);
     }
-    public <R> R accept(EnumerationManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(EnumValueManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCreateEnumValueCommand(this);
     }
-    public <E extends UserException>  void accept(EnumerationManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(EnumValueManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCreateEnumValueCommand(this);
     }
-    public <R, E extends UserException> R accept(EnumerationManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(EnumValueManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateEnumValueCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{

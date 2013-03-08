@@ -35,14 +35,15 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException, E;
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException, E;
     public void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException, E;
-    public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
     public void handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException, E;
+    public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException, E;
     public void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException, E;
     public void handleMObservation(PersistentMObservation mObservation) throws PersistenceException, E;
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
     public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException, E;
     public void handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException, E;
+    public void handleEnumValueManager(PersistentEnumValueManager enumValueManager) throws PersistenceException, E;
     public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException, E;
     public void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException, E;
     public void handleDeleteEnumCommand(PersistentDeleteEnumCommand deleteEnumCommand) throws PersistenceException, E;
@@ -98,6 +99,7 @@ public interface AnythingExceptionVisitor<E extends UserException> extends Abstr
     public void handleReference(PersistentReference reference) throws PersistenceException, E;
     public void handleCreateObservationCommand(PersistentCreateObservationCommand createObservationCommand) throws PersistenceException, E;
     public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException, E;
+    public void handleObsTypeManager(PersistentObsTypeManager obsTypeManager) throws PersistenceException, E;
     public void handleMaxStrategy(PersistentMaxStrategy maxStrategy) throws PersistenceException, E;
     public void handleDeleteObservationCommand(PersistentDeleteObservationCommand deleteObservationCommand) throws PersistenceException, E;
     public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException, E;

@@ -110,11 +110,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleMMixedConjunction(PersistentMMixedConjunction mMixedConjunction) throws PersistenceException{
         this.standardHandling(mMixedConjunction);
     }
-    public void handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException{
-        this.standardHandling(mulCommand);
-    }
     public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException{
         this.standardHandling(errorDisplay);
+    }
+    public void handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException{
+        this.standardHandling(mulCommand);
     }
     public void handleUnit(PersistentUnit unit) throws PersistenceException{
         this.standardHandling(unit);
@@ -145,6 +145,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException{
         this.standardHandling(getExistingCUTCommand);
+    }
+    public void handleEnumValueManager(PersistentEnumValueManager enumValueManager) throws PersistenceException{
+        this.standardHandling(enumValueManager);
     }
     public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException{
         this.standardHandling(fetchScalarCommand);
@@ -251,11 +254,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleSetDefaultUnitCommand(PersistentSetDefaultUnitCommand setDefaultUnitCommand) throws PersistenceException{
         this.standardHandling(setDefaultUnitCommand);
     }
-    public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException{
-        this.standardHandling(changeAbstractCommand);
-    }
     public void handleCommonDate(PersistentCommonDate commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
+    }
+    public void handleChangeAbstractCommand(PersistentChangeAbstractCommand changeAbstractCommand) throws PersistenceException{
+        this.standardHandling(changeAbstractCommand);
     }
     public void handleAvgStrategy(PersistentAvgStrategy avgStrategy) throws PersistenceException{
         this.standardHandling(avgStrategy);
@@ -346,6 +349,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleMaxStrategy(PersistentMaxStrategy maxStrategy) throws PersistenceException{
         this.standardHandling(maxStrategy);
+    }
+    public void handleObsTypeManager(PersistentObsTypeManager obsTypeManager) throws PersistenceException{
+        this.standardHandling(obsTypeManager);
     }
     public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException{
         this.standardHandling(referenceType);

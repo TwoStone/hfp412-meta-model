@@ -35,14 +35,15 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException;
     public void handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException;
     public void handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException;
-    public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public void handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException;
+    public void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
     public void handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException;
     public void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
     public void handleMObservation(PersistentMObservation mObservation) throws PersistenceException;
     public void handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException;
     public void handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException;
     public void handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException;
+    public void handleEnumValueManager(PersistentEnumValueManager enumValueManager) throws PersistenceException;
     public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException;
     public void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException;
     public void handleDeleteEnumCommand(PersistentDeleteEnumCommand deleteEnumCommand) throws PersistenceException;
@@ -98,6 +99,7 @@ public interface AnythingVisitor extends AbstractObjectVisitor,AbsOperationVisit
     public void handleReference(PersistentReference reference) throws PersistenceException;
     public void handleCreateObservationCommand(PersistentCreateObservationCommand createObservationCommand) throws PersistenceException;
     public void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
+    public void handleObsTypeManager(PersistentObsTypeManager obsTypeManager) throws PersistenceException;
     public void handleMaxStrategy(PersistentMaxStrategy maxStrategy) throws PersistenceException;
     public void handleDeleteObservationCommand(PersistentDeleteObservationCommand deleteObservationCommand) throws PersistenceException;
     public void handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException;

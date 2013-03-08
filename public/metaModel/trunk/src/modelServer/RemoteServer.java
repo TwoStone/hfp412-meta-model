@@ -773,6 +773,29 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> createObsType(String name, String enumTypeProxiString, String theTypeProxiString){
+        try {
+            PersistentMEnum enumType = (PersistentMEnum)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(enumTypeProxiString));
+            PersistentMType theType = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(theTypeProxiString));
+            ((PersistentServer)this.server).createObsType(name, enumType, theType);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> createObservation(String theTypeProxiString, String name, String theObsObjectProxiString, String enumValueProxiString){
+        try {
+            PersistentMObservationType theType = (PersistentMObservationType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(theTypeProxiString));
+            PersistentMObject theObsObject = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(theObsObjectProxiString));
+            PersistentMEnumValue enumValue = (PersistentMEnumValue)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(enumValueProxiString));
+            ((PersistentServer)this.server).createObservation(theType, name, theObsObject, enumValue);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> createOperation(String sourceProxiString, String targetProxiString, String name, java.util.Vector<String> fpTrnsprt){
         try {
             PersistentMType source = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(sourceProxiString));
@@ -934,6 +957,26 @@ public  class RemoteServer extends RemoteServerMaster {
         try {
             PersistentMEnum type = (PersistentMEnum)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
             ((PersistentServer)this.server).deleteEnum(type);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> deleteObsType(String theTypeProxiString){
+        try {
+            PersistentMObservationType theType = (PersistentMObservationType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(theTypeProxiString));
+            ((PersistentServer)this.server).deleteObsType(theType);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> deleteObservation(String observationProxiString){
+        try {
+            PersistentMObservation observation = (PersistentMObservation)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(observationProxiString));
+            ((PersistentServer)this.server).deleteObservation(observation);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

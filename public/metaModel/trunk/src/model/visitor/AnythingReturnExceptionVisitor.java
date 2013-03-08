@@ -35,14 +35,15 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleFormalParameter(PersistentFormalParameter formalParameter) throws PersistenceException, E;
     public R handleCreateHierarchyCommand(PersistentCreateHierarchyCommand createHierarchyCommand) throws PersistenceException, E;
     public R handleOperationManager(PersistentOperationManager operationManager) throws PersistenceException, E;
-    public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
     public R handleMulCommand(PersistentMulCommand mulCommand) throws PersistenceException, E;
+    public R handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException, E;
     public R handleCreateMeasurementTypeCommand(PersistentCreateMeasurementTypeCommand createMeasurementTypeCommand) throws PersistenceException, E;
     public R handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException, E;
     public R handleMObservation(PersistentMObservation mObservation) throws PersistenceException, E;
     public R handleCreateQuantityCommand(PersistentCreateQuantityCommand createQuantityCommand) throws PersistenceException, E;
     public R handleRemoveFpCommand(PersistentRemoveFpCommand removeFpCommand) throws PersistenceException, E;
     public R handleGetExistingCUTCommand(PersistentGetExistingCUTCommand getExistingCUTCommand) throws PersistenceException, E;
+    public R handleEnumValueManager(PersistentEnumValueManager enumValueManager) throws PersistenceException, E;
     public R handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException, E;
     public R handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException, E;
     public R handleDeleteEnumCommand(PersistentDeleteEnumCommand deleteEnumCommand) throws PersistenceException, E;
@@ -98,6 +99,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends UserException> exte
     public R handleReference(PersistentReference reference) throws PersistenceException, E;
     public R handleCreateObservationCommand(PersistentCreateObservationCommand createObservationCommand) throws PersistenceException, E;
     public R handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException, E;
+    public R handleObsTypeManager(PersistentObsTypeManager obsTypeManager) throws PersistenceException, E;
     public R handleMaxStrategy(PersistentMaxStrategy maxStrategy) throws PersistenceException, E;
     public R handleDeleteObservationCommand(PersistentDeleteObservationCommand deleteObservationCommand) throws PersistenceException, E;
     public R handleMeasurementTypeManager(PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException, E;

@@ -19,6 +19,9 @@ server Server {
 	derived NameSchemeManager nameSchemeManager;
 
 	derived EnumerationManager enumManager;
+	derived EnumValueManager enumValueManager;
+	derived ObsTypeManager obsTypeManager;
+	derived ObservationManager	observationManager;
 
 	/** Type **/
 	void createAspect(AspectManager aspectManager, String name);
@@ -41,6 +44,11 @@ server Server {
 	void createEnumValue@@Enum_Wert_erstellen(MEnum type, String name);
 	void deleteEnum@@Enum_löschen(MEnum type);
 	void deleteEnumValue@@Enum_Wert_löschen(MEnumValue enumValue);
+
+	void createObservation@@Observation_erstellen(MObservationType theType, String name, MObject theObsObject, MEnumValue enumValue);
+	void deleteObservation@@Observation_löschen(MObservation observation);
+	void createObsType@@Observation_Type_erstellen(String name, MEnum enumType, MType theType);
+	void deleteObsType@@Observation_Type_löschen(MObservationType theType);
 
 	/** Manager zu AbstractOperation **/
 	derived AssociationManager associationManager;
@@ -289,29 +297,34 @@ part typeSystem {
 
 part observations {
 
-	singleton EnumerationManager {
-		MEnum ** enumTypes;
+	singleton EnumValueManager {
 		MEnumValue ** enumValues;
-
-		active void createEnum(String name) throws DoubleDefinitionException;
 		
 		//Enum Values have to be unique within observation
 		active void createEnumValue(String name, MEnum type) throws DoubleDefinitionException;
-
-		active void deleteEnum(MEnum type) throws ConsistencyException;
 		active void deleteEnumValue(MEnumValue enumValue) throws ConsistencyException;
 	}
 
-	singleton ObservationManager {
+	singleton EnumerationManager {
+		MEnum ** enumTypes;
+
+		active void createEnum(String name) throws DoubleDefinitionException;
+		active void deleteEnum(MEnum type) throws ConsistencyException;
+	}
+
+	singleton ObsTypeManager {
 		MObservationType ** observationTypes;
+
+		//Observation Types are unique
+		active void createObsType(String name, MEnum enumType, MType theType) throws DoubleDefinitionException;
+		active void deleteObsType(MObservationType theType) throws ConsistencyException;
+	}
+
+	singleton ObservationManager {
 		MObservation ** observations;
 
-		//Observation Types are unique within Enums
-		active void createObsType(String name, MEnum enumType, MType theType) throws DoubleDefinitionException;
-		active void createObservation(String name, MObservationType theType, MObject theObsObject) throws ConsistencyException;
-
-		active void deleteObsType(MObservationType theType) throws ConsistencyException;
-		active void deleteObservation(MObservation observation);
+		active void createObservation(String name, MObservationType theType, MObject theObsObject, MEnumValue enumValue);
+		active void deleteObservation(MObservation observation) throws ConsistencyException;
 	}
 
 	class MEnum covers MModelItem {

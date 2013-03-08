@@ -1,32 +1,9 @@
 
 package model.meta;
 
-import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.CommandExceptionVisitor;
-import model.visitor.CommandReturnExceptionVisitor;
-import model.visitor.CommandReturnVisitor;
-import model.visitor.CommandVisitor;
-import model.visitor.CommonDateExceptionVisitor;
-import model.visitor.CommonDateReturnExceptionVisitor;
-import model.visitor.CommonDateReturnVisitor;
-import model.visitor.CommonDateVisitor;
-import model.visitor.ObservationManagerCommandExceptionVisitor;
-import model.visitor.ObservationManagerCommandReturnExceptionVisitor;
-import model.visitor.ObservationManagerCommandReturnVisitor;
-import model.visitor.ObservationManagerCommandVisitor;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentCommonDate;
-import persistence.PersistentDeleteObsTypeCommand;
-import persistence.PersistentMObservationType;
-import persistence.PersistentObject;
-import persistence.PersistentObservationManager;
-import persistence.PersistentProxi;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -62,12 +39,12 @@ public class DeleteObsTypeCommand extends PersistentObject implements Persistent
     }
     protected PersistentMObservationType theType;
     protected Invoker invoker;
-    protected PersistentObservationManager commandReceiver;
+    protected PersistentObsTypeManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public DeleteObsTypeCommand(PersistentMObservationType theType,Invoker invoker,PersistentObservationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public DeleteObsTypeCommand(PersistentMObservationType theType,Invoker invoker,PersistentObsTypeManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.theType = theType;
@@ -136,15 +113,15 @@ public class DeleteObsTypeCommand extends PersistentObject implements Persistent
             ConnectionHandler.getTheConnectionHandler().theDeleteObsTypeCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public PersistentObservationManager getCommandReceiver() throws PersistenceException {
+    public PersistentObsTypeManager getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(PersistentObservationManager newValue) throws PersistenceException {
+    public void setCommandReceiver(PersistentObsTypeManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentObservationManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentObsTypeManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theDeleteObsTypeCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -217,16 +194,16 @@ public class DeleteObsTypeCommand extends PersistentObject implements Persistent
     public <R, E extends UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleDeleteObsTypeCommand(this);
     }
-    public void accept(ObservationManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(ObsTypeManagerCommandVisitor visitor) throws PersistenceException {
         visitor.handleDeleteObsTypeCommand(this);
     }
-    public <R> R accept(ObservationManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(ObsTypeManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleDeleteObsTypeCommand(this);
     }
-    public <E extends UserException>  void accept(ObservationManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends UserException>  void accept(ObsTypeManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleDeleteObsTypeCommand(this);
     }
-    public <R, E extends UserException> R accept(ObservationManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends UserException> R accept(ObsTypeManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleDeleteObsTypeCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{

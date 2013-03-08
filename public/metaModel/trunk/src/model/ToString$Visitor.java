@@ -19,6 +19,7 @@ import persistence.PersistentCompUnitType;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentConversion;
 import persistence.PersistentDivision;
+import persistence.PersistentEnumValueManager;
 import persistence.PersistentEnumerationManager;
 import persistence.PersistentFormalParameter;
 import persistence.PersistentFractionManager;
@@ -59,6 +60,7 @@ import persistence.PersistentNameScheme;
 import persistence.PersistentNameSchemeInstance;
 import persistence.PersistentNameSchemeManager;
 import persistence.PersistentObjectManager;
+import persistence.PersistentObsTypeManager;
 import persistence.PersistentObservationManager;
 import persistence.PersistentOperation;
 import persistence.PersistentOperationManager;
@@ -539,39 +541,50 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleMEnum(final PersistentMEnum mEnum) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = mEnum.getName();
 
 	}
 
 	@Override
 	public void handleMObservationType(final PersistentMObservationType mObservationType) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = mObservationType.getName();
 
 	}
 
 	@Override
 	public void handleMObservation(final PersistentMObservation mObservation) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = mObservation.getName();
 
 	}
 
 	@Override
 	public void handleObservationManager(final PersistentObservationManager observationManager)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Liste der Observations";
 
 	}
 
 	@Override
 	public void handleMEnumValue(final PersistentMEnumValue mEnumValue) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = mEnumValue.getName();
 
 	}
 
 	@Override
 	public void handleEnumerationManager(final PersistentEnumerationManager enumerationManager)
 			throws PersistenceException {
-		result = "Liste der Enums und Enum Werte";
+		result = "Liste der Enumerations";
+
+	}
+
+	@Override
+	public void handleEnumValueManager(final PersistentEnumValueManager enumValueManager) throws PersistenceException {
+		result = "Liste der Enum Werte";
+	}
+
+	@Override
+	public void handleObsTypeManager(final PersistentObsTypeManager obsTypeManager) throws PersistenceException {
+		result = "Liste der Observation Types";
 
 	}
 

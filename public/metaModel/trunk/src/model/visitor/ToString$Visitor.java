@@ -25,6 +25,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleAccountTypeManager(PersistentAccountTypeManager accountTypeManager) throws PersistenceException;
     public abstract void handleMObservation(PersistentMObservation mObservation) throws PersistenceException;
     public abstract void handleMObject(PersistentMObject mObject) throws PersistenceException;
+    public abstract void handleEnumValueManager(PersistentEnumValueManager enumValueManager) throws PersistenceException;
     public abstract void handleMultiplication(PersistentMultiplication multiplication) throws PersistenceException;
     public abstract void handleMEmptyTypeConjunction(PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException;
     public abstract void handleNameInstance(PersistentNameInstance nameInstance) throws PersistenceException;
@@ -57,6 +58,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleReference(PersistentReference reference) throws PersistenceException;
     public abstract void handleConversion(PersistentConversion conversion) throws PersistenceException;
     public abstract void handleMaxStrategy(PersistentMaxStrategy maxStrategy) throws PersistenceException;
+    public abstract void handleObsTypeManager(PersistentObsTypeManager obsTypeManager) throws PersistenceException;
     public abstract void handleReferenceType(PersistentReferenceType referenceType) throws PersistenceException;
     public abstract void handleAccount(PersistentAccount account) throws PersistenceException;
     public abstract void handleMFalse(PersistentMFalse mFalse) throws PersistenceException;

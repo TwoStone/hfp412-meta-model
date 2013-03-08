@@ -757,6 +757,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMObject(view.MObjectView object){
         result = new MObjectDefaultDetailPanel(handler, object);
     }
+    public void handleEnumValueManager(view.EnumValueManagerView object){
+        result = new EnumValueManagerDefaultDetailPanel(handler, object);
+    }
     public void handleMultiplication(view.MultiplicationView object){
         result = new MultiplicationDefaultDetailPanel(handler, object);
     }
@@ -855,6 +858,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     }
     public void handleReferenceType(view.ReferenceTypeView object){
         result = new ReferenceTypeDefaultDetailPanel(handler, object);
+    }
+    public void handleObsTypeManager(view.ObsTypeManagerView object){
+        result = new ObsTypeManagerDefaultDetailPanel(handler, object);
     }
     public void handleMaxStrategy(view.MaxStrategyView object){
         result = new MaxStrategyDefaultDetailPanel(handler, object);
@@ -1001,6 +1007,9 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Server$$objectManager = "Server$$objectManager";
     protected static final String Server$$nameSchemeManager = "Server$$nameSchemeManager";
     protected static final String Server$$enumManager = "Server$$enumManager";
+    protected static final String Server$$enumValueManager = "Server$$enumValueManager";
+    protected static final String Server$$obsTypeManager = "Server$$obsTypeManager";
+    protected static final String Server$$observationManager = "Server$$observationManager";
     protected static final String Server$$associationManager = "Server$$associationManager";
     protected static final String Server$$operationManager = "Server$$operationManager";
     protected static final String Server$$messageManager = "Server$$messageManager";
@@ -1410,6 +1419,22 @@ class MObjectDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 @SuppressWarnings("serial")
+class EnumValueManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String EnumValueManager$$enumValues = "EnumValueManager$$enumValues";
+    
+    protected EnumValueManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.EnumValueManagerView getAnything(){
+        return (view.EnumValueManagerView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
 class MultiplicationDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String BasicCalculation$$arg1 = "BasicCalculation$$arg1";
@@ -1620,7 +1645,6 @@ class CompUnitDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class ObservationManagerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String ObservationManager$$observationTypes = "ObservationManager$$observationTypes";
     protected static final String ObservationManager$$observations = "ObservationManager$$observations";
     
     protected ObservationManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1915,7 +1939,6 @@ class UnitTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 class EnumerationManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String EnumerationManager$$enumTypes = "EnumerationManager$$enumTypes";
-    protected static final String EnumerationManager$$enumValues = "EnumerationManager$$enumValues";
     
     protected EnumerationManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -2042,6 +2065,22 @@ class ReferenceTypeDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ReferenceTypeView getAnything(){
         return (view.ReferenceTypeView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class ObsTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ObsTypeManager$$observationTypes = "ObsTypeManager$$observationTypes";
+    
+    protected ObsTypeManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ObsTypeManagerView getAnything(){
+        return (view.ObsTypeManagerView)this.anything;
     }
 }
 

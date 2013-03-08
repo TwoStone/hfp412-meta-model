@@ -1,33 +1,9 @@
 
 package model.meta;
 
-import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.CommandExceptionVisitor;
-import model.visitor.CommandReturnExceptionVisitor;
-import model.visitor.CommandReturnVisitor;
-import model.visitor.CommandVisitor;
-import model.visitor.CommonDateExceptionVisitor;
-import model.visitor.CommonDateReturnExceptionVisitor;
-import model.visitor.CommonDateReturnVisitor;
-import model.visitor.CommonDateVisitor;
-import model.visitor.ObservationManagerCommandExceptionVisitor;
-import model.visitor.ObservationManagerCommandReturnExceptionVisitor;
-import model.visitor.ObservationManagerCommandReturnVisitor;
-import model.visitor.ObservationManagerCommandVisitor;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.PersistenceException;
-import persistence.PersistentCommonDate;
-import persistence.PersistentCreateObservationCommand;
-import persistence.PersistentMObject;
-import persistence.PersistentMObservationType;
-import persistence.PersistentObject;
-import persistence.PersistentObservationManager;
-import persistence.PersistentProxi;
+import persistence.*;
+import model.*;
+import model.visitor.*;
 
 
 /* Additional import section end */
@@ -65,18 +41,20 @@ public class CreateObservationCommand extends PersistentObject implements Persis
     protected String name;
     protected PersistentMObservationType theType;
     protected PersistentMObject theObsObject;
+    protected PersistentMEnumValue enumValue;
     protected Invoker invoker;
     protected PersistentObservationManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateObservationCommand(String name,PersistentMObservationType theType,PersistentMObject theObsObject,Invoker invoker,PersistentObservationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
+    public CreateObservationCommand(String name,PersistentMObservationType theType,PersistentMObject theObsObject,PersistentMEnumValue enumValue,Invoker invoker,PersistentObservationManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.theType = theType;
         this.theObsObject = theObsObject;
+        this.enumValue = enumValue;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
@@ -102,6 +80,10 @@ public class CreateObservationCommand extends PersistentObject implements Persis
         if(this.getTheObsObject() != null){
             this.getTheObsObject().store();
             ConnectionHandler.getTheConnectionHandler().theCreateObservationCommandFacade.theObsObjectSet(this.getId(), getTheObsObject());
+        }
+        if(this.getEnumValue() != null){
+            this.getEnumValue().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateObservationCommandFacade.enumValueSet(this.getId(), getEnumValue());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -152,6 +134,20 @@ public class CreateObservationCommand extends PersistentObject implements Persis
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateObservationCommandFacade.theObsObjectSet(this.getId(), newValue);
+        }
+    }
+    public PersistentMEnumValue getEnumValue() throws PersistenceException {
+        return this.enumValue;
+    }
+    public void setEnumValue(PersistentMEnumValue newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.enumValue)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.enumValue = (PersistentMEnumValue)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateObservationCommandFacade.enumValueSet(this.getId(), newValue);
         }
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -264,6 +260,7 @@ public class CreateObservationCommand extends PersistentObject implements Persis
     public int getLeafInfo() throws PersistenceException{
         if (this.getTheType() != null) return 1;
         if (this.getTheObsObject() != null) return 1;
+        if (this.getEnumValue() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
         return 0;
     }
@@ -275,12 +272,8 @@ public class CreateObservationCommand extends PersistentObject implements Persis
     }
     public void execute() 
 				throws PersistenceException{
-        try{
-			this.getCommandReceiver().createObservation(this.getName(), this.getTheType(), this.getTheObsObject());
-		}
-		catch(model.ConsistencyException e){
-			this.commandException = e;
-		}
+        this.getCommandReceiver().createObservation(this.getName(), this.getTheType(), this.getTheObsObject(), this.getEnumValue());
+		
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

@@ -164,11 +164,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleFetchScalarCommand(PersistentFetchScalarCommand fetchScalarCommand) throws PersistenceException{
         this.standardHandling(fetchScalarCommand);
     }
-    public void handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException{
-        this.standardHandling(addCommand);
-    }
     public void handleConvertCommand(PersistentConvertCommand convertCommand) throws PersistenceException{
         this.standardHandling(convertCommand);
+    }
+    public void handleAddCommand(PersistentAddCommand addCommand) throws PersistenceException{
+        this.standardHandling(addCommand);
     }
     public void handleAddReferenceTypeCommand(PersistentAddReferenceTypeCommand addReferenceTypeCommand) throws PersistenceException{
         this.standardHandling(addReferenceTypeCommand);
@@ -206,11 +206,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleRemoveMessageCommand(PersistentRemoveMessageCommand removeMessageCommand) throws PersistenceException{
         this.standardHandling(removeMessageCommand);
     }
-    public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException{
-        this.standardHandling(createMessageCommand);
-    }
     public void handleGetExistingCUCommand(PersistentGetExistingCUCommand getExistingCUCommand) throws PersistenceException{
         this.standardHandling(getExistingCUCommand);
+    }
+    public void handleCreateMessageCommand(PersistentCreateMessageCommand createMessageCommand) throws PersistenceException{
+        this.standardHandling(createMessageCommand);
     }
     public void handleCreateAccountTypeCommand(PersistentCreateAccountTypeCommand createAccountTypeCommand) throws PersistenceException{
         this.standardHandling(createAccountTypeCommand);
