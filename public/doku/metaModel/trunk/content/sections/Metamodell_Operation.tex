@@ -14,17 +14,17 @@ Die Operation \textbf{isStatic()} gibt genau dann true zurück, wenn der Quellty
 Zusätzlich zu der Bedingung aus isStatic gilt für die zweite Operation \textbf{isConstant()}, dass die Operation keine Parameter enthalten darf. 
 
 \subsubsubsection{OperationManager} \newline
-Der OperatioManager bietet 10 transaktionale Operationen und beinhaltet zur Verwaltung zwei Listen.
+Der OperatioManager beinhaltet zwei Listen zur Verwaltung von Operationen und Parametern.
 
 \begin{description}
 \item[Operation** operations] Diese Liste enthält alle Operationen die der Manager verwaltet.
 \item[FormalParameter** formalParameters] Hier werden alle Formalparameter abgelegt die der Manager verwaltet.
 \end{description}
 
+Um diese Listen verwalten zu können, stellt der Operationmanager 10 transaktionale Operationen bereit.
 
 \begin{description}
 \item[createOperation]
-MType source, MType target, String name, FormalParameter** fp
 Diese Operationen dient zum Erstellen einer neuen Operation. Um die Operation modellkonform erstellen zu können, sind vier Parameter notwendig:
 Die ersten zwei Parameter legen fest, welchem Typen diese Operation erstellt werden soll \textbf{(source)} bzw. welcher Typ als Rückgabetyp dient \textbf{(target).}
 Die Bezeichnung der Operation wird über den dritten Parameter \textbf{(name)} festgelegt. 
@@ -42,7 +42,10 @@ Zum erfolreichem Erstellen eines Formalparameters ist es notwendig, diesem einen
 \item[addFormalParameter]
 Um Formalparameter nachträglich zu einer Operation zuzuweisen, benötigt diese Operation zum Einen die \textbf{Operation} an sich und den hinzuzufügenden \textbf{Formalparameter.} Sollte dieser Formalparameter nicht schon in der Formalparameterliste der gewählten Operation sein, wird dieser hinzugefügt. Im anderen Fall wird eine \emph{DoubleDefinitionException} erstellt und der Vorgang wird abgebrochen.
 \item[addMultipleFormalParameter]
-Diese Operation dient dem Zweck eine Liste von Formalparametern der gewählten Operation zuzuweisen. Zu diesem Zweck ist es notwenig die \textbf{Liste von Formalparametern} sowie die gewählte \textbf{Operation} an die addMultipleFormalparameter-Operation zu übergeben. Aufgrund von Delegation gelten auch hier die Konsistenzbedingung der addFormalParamter-Operation.  (TODO: Christin: Testall wenn die Liste selbst schon Parameter doppelt enhält!) 
+Diese Operation dient dem Zweck eine Liste von Formalparametern der gewählten Operation zuzuweisen.
+Zu diesem Zweck ist es notwenig die \textbf{Liste von Formalparametern} sowie 
+die gewählte \textbf{Operation} an die addMultipleFormalparameter-Operation zu übergeben. 
+Aufgrund von Delegation gelten auch hier die Konsistenzbedingung der addFormalParamter-Operation. 
 \item[removeFormalParameterFromOperation]
 Wenn ein Formalparameter aus der Parameterliste einer Operation entfernt werden soll, stellt diese Operation die notwendige Funktionalität bereit. Zum entfernen eines \textbf{Formalparameters} aus einer \textbf{Operation}, sind diese beiden Angaben essentiell. Sofern der zu entfernende Formalparameter in der Formalparameterliste der gewählten Operation ist und es keine Exemplare zu der Operation gibt, wird der Parameter aus der Parameterliste entfernt.
 Sollte der Parameter nicht in der Parameterliste der Operation sein oder es Exemplare zu der Operation geben, wird eine \textbf{ConsistencyException} erzeugt. \newline
