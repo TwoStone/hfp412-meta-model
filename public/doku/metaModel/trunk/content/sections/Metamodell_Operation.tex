@@ -14,18 +14,45 @@ Die Operation \textbf{isStatic()} gibt genau dann true zurück, wenn der Quellty
 Zusätzlich zu der Bedingung aus isStatic gilt für die zweite Operation \textbf{isConstant()}, dass die Operation keine Parameter enthalten darf. 
 
 \subsubsubsection{OperationManager} \newline
-Der OperatioManager bietet 10 transaktionale Operationen und beinhaltet zur Verwaltung vier Listen wobei zwei davon nur abgeleitete Informationen
-enthalten.
+Der OperatioManager bietet 10 transaktionale Operationen und beinhaltet zur Verwaltung zwei Listen.
 
 \begin{description}
 \item[Operation** operations] Diese Liste enthält alle Operationen die der Manager verwaltet.
-\item[derived Operation** staticOperations] Diese Liste enthält ausschließlich statische Operationen: $\forall \, o  \in staticOperations : o.isStatic()==true$ 
-\item[derived Operation** constants] Diese Liste enthält ausschließlich Konstanten. Demnach gilt: $\forall \, o  \in constants : o.isConstant()==true$
 \item[FormalParameter** formalParameters] Hier werden alle Formalparameter abgelegt die der Manager verwaltet.
 \end{description}
 
 
-TODO Operationen beschreiben!
+\begin{description}
+\item[createOperation]
+MType source, MType target, String name, FormalParameter** fp
+Diese Operationen dient zum Erstellen einer neuen Operation. Um die Operation modellkonform erstellen zu können, sind vier Parameter notwendig:
+Die ersten zwei Parameter legen fest, welchem Typen diese Operation erstellt werden soll \textbf{(source)} bzw. welcher Typ als Rückgabetyp dient \textbf{(target).}
+Die Bezeichnung der Operation wird über den dritten Parameter \textbf{(name)} festgelegt. 
+Zur Definition der Parameterliste der zu erstellenden Operation, dient der vierte Parameter \textbf{(fp).}
+Wie bei all den Klassen dieses Projekts, die eine Bezeichnung haben, dürfen auch Operationsnamen nicht mehrfach verwendet werden. Beim versuch zwei Operationen mit identischem Namen anzulegen, wird eine \emph{DoubleDefinitionException} erzeugt und die Erstellung wird abgebrochen. Ein weiterer Grund für den Abbruch der Erzeugung resultiert aus dem Versuch, sowohl Quell- als auch Zieltyp der Operation mit der leeren Summe (EmptyTypeConjunction) zu versehen. Wird ein solcher Versuch unternommen, mündet dies in der Erstellung einer \emph{ConsistencyException.} Wenn nur Quell- oder Zieltyp der leeren Summe entsprechen, existiert dazu eine semantisch Sinnvolle Interpreation und stellt keine Ausnahme dar (siehe unten).
+\item[createStaticOperation]
+Diese Operation bietet dem Anwender eine komfortable Möglichkeit eine statische Opertion zu erstellen. Dazu wird die Quell-Assoziation auf EmptyTypeConjunction gesetzt und es ist nur noch \textbf{der Rückgabetyp, der Name und die Parameterliste} auswählbar. Durch die Delegation gelten exakt die Gleichen Konsistenzbedingungen wie beim Erstellen eine Operation (createOperation).
+\item[createConstant]
+Mithilfe dieser Operation, ist es dem Anwender möglich auf einfache Art eine Konstante zu erstellen. Da eine Konstante eine Operation ist, die eine leere Parameterliste hat und als Quelle auf EmptyTypeConjunction verweist, sind das genau die Parameter die beim Aufruf nicht mehr angegeben werden müssen bzw. können. Auch hierbei handelt es sich um delegation an die createConstant Operation und es gelten genau die Gleichen Konsistenzbedingungen.
+\item[createVoidOperation]
+Die createVoidOperation ist die vorerst letzte Operation zum benutzerfreundlicheren Erstellen einer Operaton. Anders als bei den zwei Operationen zuvor, sind hier Quelle und Parameterliste wählbar. Da die zu erstellende Operation aber keinen Rückgabetypen (bzw. void) haben soll, ist das Ziel vordefiniert und kann vom Anwender beim Aufruf nicht angegeben werden. Genau wie zuvor gelten auch hier die Konsistenzbedingungen der createOperation-Operation.
+\item[createFormalParamater]
+Um Formalparameter für Operationen verwenden zu können, müssen diese zuvor erstellt werden. Genau hierfür wird dem Anwender die createFormalParameter-Operation angeboten.
+Zum erfolreichem Erstellen eines Formalparameters ist es notwendig, diesem einen \textbf{namen} sowie einen \textbf{Typen} zu geben. Nach erfolreicher Erstellung ist der erstellte Formalparameter in der zuvor beschriebenen Formalparameter-Liste zu finden. Zum Abbruch der Erstellung kann zum einen die mehrfache Verwendung des Formalparameter-Namens sein und zum anderen die bestimmung der leeren Summe (EmptyTypeConjunction) als Typ des Parameters. Im ersten Fall wird eine \emph{DoubleDefinitionException} erstellt, im Zweiten eine \emph{ConsistencyException} wobei beide Exceptions zum Abbruch führen.
+\item[addFormalParameter]
+Um Formalparameter nachträglich zu einer Operation zuzuweisen, benötigt diese Operation zum Einen die \textbf{Operation} an sich und den hinzuzufügenden \textbf{Formalparameter.} Sollte dieser Formalparameter nicht schon in der Formalparameterliste der gewählten Operation sein, wird dieser hinzugefügt. Im anderen Fall wird eine \emph{DoubleDefinitionException} erstellt und der Vorgang wird abgebrochen.
+\item[addMultipleFormalParameter]
+Diese Operation dient dem Zweck eine Liste von Formalparametern der gewählten Operation zuzuweisen. Zu diesem Zweck ist es notwenig die \textbf{Liste von Formalparametern} sowie die gewählte \textbf{Operation} an die addMultipleFormalparameter-Operation zu übergeben. Aufgrund von Delegation gelten auch hier die Konsistenzbedingung der addFormalParamter-Operation.  (TODO: Christin: Testall wenn die Liste selbst schon Parameter doppelt enhält!) 
+\item[removeFormalParameterFromOperation]
+Wenn ein Formalparameter aus der Parameterliste einer Operation entfernt werden soll, stellt diese Operation die notwendige Funktionalität bereit. Zum entfernen eines \textbf{Formalparameters} aus einer \textbf{Operation}, sind diese beiden Angaben essentiell. Sofern der zu entfernende Formalparameter in der Formalparameterliste der gewählten Operation ist und es keine Exemplare zu der Operation gibt, wird der Parameter aus der Parameterliste entfernt.
+Sollte der Parameter nicht in der Parameterliste der Operation sein oder es Exemplare zu der Operation geben, wird eine \textbf{ConsistencyException} erzeugt. \newline
+Anmerkung: Zum aktuellen Zeitpunkt kann der zweite Fall nicht eintreten, da sich Message-Objekte nicht an der Oberfläche erstellen lassen.
+\item[removeFormalParameter]
+Um einen Formalparameter vollständig aus dem System zu entfernen, benötigt diese Operation den \textbf{Formalparameter}. Sofern es keine Exemplare zu diesem Parameter gibt und keine Operation diesen Formalparameter in seiner Parameterliste hat, wird der gewählte Formalparameter aus dem System entfern. Im anderen Fall wird eine \emph{ConsistencyException} erstellt und der Löschvorgang abgebrochen.
+\item[removeOperation]
+Mithilfe dieser Operation lassen sich Operationen aus dem System entfernen. Zur erfolgreichen durchführung wird lediglich die zu entfernende \textbf{Operation} benötigt. Das einzige Abbruchkriterium dieser Operation ist die Existenz eines Exemplars zu der gewählten Operation. Da sich zum aktuellen Entwicklungszeitpunkt Messages nicht erzeugen lassen, kann dies nicht auftreten.
+
+\end{description}
 
 \subsubsection{Assoziationen}
 
@@ -84,10 +111,13 @@ Assoziation einer Hierarchie aus der Hierarchie zu entfernen, wird eine \emph{Co
 
 \subsection{Messages und Links}
 
-Messages und Links haben eine gemeinsame Oberklasse MessageOrLink. In der
-ersten Ausbaustufe werden lediglich die Links implementiert. Zu den Messages existiert eine rudimentäre
+Messages und Links haben eine gemeinsame Oberklasse MessageOrLink. In der ersten Ausbaustufe werden lediglich die Links implementiert. Zu den Messages existiert eine rudimentäre
 Implementierung die dem Anwender aber über die Oberfläche nicht bereitgestellt wird, da die 
-Semantik eines Messageexemplars bislang nicht eindeutig geklärt ist. \vspace{15pt}
+Semantik eines Messageexemplars bislang nicht eindeutig geklärt ist.
+Es existiert zum einen die Interpretation, dass Message aufrufe von Methoden sind. Eine weitere Interpretationsmöglichkeit ist, dass eine Message die Methode an sich inklusive ihres Inhalts beschreibt. Dazu müsste aber ein domänenspezifische Sprache (DSL) entwickelt und im Modell verwendet werden.
+
+Da Messages in dieser Ausbaustufe nicht enthalten sind, verlieren auch Actualparameter ihre Daseinsberechtigung. Aus diesem Grund werden auch diese nicht implementiert.
+ \vspace{15pt}
 
 Ein Link ist eine konkrete Ausprägungen einer Assoziation. 
 Folglich ist die Erstellung eines Links nur möglich, wenn eine Assoziation als Typ gewählt wurde und der zu erstellende Link
