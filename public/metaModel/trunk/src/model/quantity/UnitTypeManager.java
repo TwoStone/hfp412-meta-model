@@ -33,6 +33,7 @@ import persistence.PersistentCreateUnitCommand;
 import persistence.PersistentCreateUnitTypeCommand;
 import persistence.PersistentFetchScalarCommand;
 import persistence.PersistentFetchScalarTypeCommand;
+import persistence.PersistentFunction;
 import persistence.PersistentGetExistingCUCommand;
 import persistence.PersistentGetExistingCUTCommand;
 import persistence.PersistentObject;
@@ -677,78 +678,45 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	}
     public void setDefaultUnit(final PersistentUnitType type, final PersistentUnit unit) 
 				throws PersistenceException{
-		final PersistentUnit newDefaultUnit = unit;
-
-		final PersistentUnit oldDefaultUnit = type.getDefaultUnit();
-		// 1. Alle alten Umrechnungen umstellen
-		for (final PersistentAbsUnit absUnit : type.inverseGetType()) {
-			if (absUnit instanceof PersistentUnit) {
+		AbsUnitSearchList allUnitsForType = type.inverseGetType();
+		if (unit.getMyConversion() == null || unit.getMyConversion().getMyFunction() == null) {
+			// Falls die neue Unit keine Conversion kennt, können andere Units das auch nicht mehr.
+			for (final PersistentAbsUnit absUnit : allUnitsForType) {
 				final PersistentUnit curUnit = (PersistentUnit) absUnit;
-				// absUnit.accept(new AbsUnitVisitor() {
-				//
-				// @Override
-				// public void handleUnit(PersistentUnit curUnit) throws PersistenceException {
-				try {
-					// Falls die neue Unit keine Conversion kennt, können andere Units das auch nicht mehr.
-					if (newDefaultUnit.getMyConversion() == null && curUnit.getMyConversion() != null) {
-						curUnit.getMyConversion().delete$Me(); // TODO Das löschen aus dem Cache scheint nicht zu
-																// funktionieren?!
-						curUnit.store();
-					}
-					if (curUnit.getMyConversion() != null && !curUnit.equals(oldDefaultUnit)
-							&& !curUnit.equals(newDefaultUnit)) {
-						final Fraction curFactor = curUnit.getMyConversion().getMyFunction().getFactor();
-						final Fraction curConstant = curUnit.getMyConversion().getMyFunction().getConstant();
-
-						final Fraction newDefUnitFactor = newDefaultUnit.getMyConversion().getMyFunction().getFactor();
-						final Fraction newDefUnitConstant = newDefaultUnit.getMyConversion().getMyFunction()
-								.getConstant();
-						// Set the new factor and constant
-						final Fraction newFactor = curFactor.div(newDefUnitFactor);
-						final Fraction newConstant = curConstant;
-						// TODO Calculate new Constant
-						UnitTypeManager.this.getThis().setConversion(curUnit, newFactor, newConstant);
-
-					}
-				} catch (final ConsistencyException e) {
-					// Consistency should be guaranteed
-				} catch (final Throwable e) {
-					// TODO Hopefully all is fine
+				
+				if (curUnit.getMyConversion() != null) {
+					curUnit.getMyConversion().delete$Me(); // TODO Das löschen aus dem Cache scheint nicht zu funktionieren?!
+					curUnit.store();
 				}
 			}
-			//
-			// @Override
-			// public void handleCompUnit(PersistentCompUnit compUnit) throws PersistenceException {
-			// // CompoundUnits haben keine Conversions
-			// }
-			// });
-		}
-
-		// 2. die Conversion für die alte DefaultUnit ergibt sich aus der alten Conversion der neuen DefaultUnit
-		if (oldDefaultUnit != null && newDefaultUnit.getMyConversion() != null) {
-			Fraction newFactor = null;
-			try {
-				newFactor = Fraction.parse("1").div(newDefaultUnit.getMyConversion().getMyFunction().getFactor());
-			} catch (final Throwable e) {
-				newFactor = Fraction.parse("1"); // TODO 1/1 = error
-			}
-			final Fraction newConstant = newDefaultUnit.getMyConversion().getMyFunction().getConstant();
-			try {
-				getThis().setConversion(oldDefaultUnit, newFactor, newConstant);
-			} catch (final ConsistencyException e) {
-				// Kann nicht passieren, da DefaultUnit zuvor gesetzt wurde
+		} else{
+			// Alle Units zum type anpassen an die neue DefaultUnit
+			Fraction calcFactor = unit.getMyConversion().getMyFunction().getFactor();
+			Fraction calcConstant = unit.getMyConversion().getMyFunction().getConstant();
+			
+			for (final PersistentAbsUnit absUnit : allUnitsForType) {
+				final PersistentUnit curUnit = (PersistentUnit) absUnit;
+	
+				if (curUnit.getMyConversion() != null && curUnit.getMyConversion().getMyFunction() != null) {
+					PersistentFunction curFunction = curUnit.getMyConversion().getMyFunction();
+					try {
+						curFunction.setFactor(curFunction.getFactor().div(calcFactor));
+						curFunction.setConstant(curFunction.getConstant().sub(calcConstant).div(calcFactor));
+					} catch (Throwable e) {
+						e.printStackTrace();
+					}
+				}
+				
 			}
 		}
-
-		// 3. DefaultUnit setzen
-		type.setDefaultUnit(newDefaultUnit);
-		// 4. die Conversion für die neue DefaultUnit kann nur lauten: 1x = 1x (Umkehrbarkeit)
+		
+		// DefaultUnit setzen
+		type.setDefaultUnit(unit);
 		try {
-			getThis().setConversion(newDefaultUnit, Fraction.parse("1"), Fraction.Null);
-		} catch (final ConsistencyException e) {
-			// Kann nicht passieren, da DefaultUnit zuvor gesetzt wurde
+			getThis().setConversion(unit, Fraction.parse("1"), Fraction.Null);
+		} catch (ConsistencyException e) {
+			// defaultUnit ist gesetzt, kein Stress!
 		}
-
 	}
     
     
@@ -790,8 +758,8 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 			} catch (final UserException e) {
 				e.printStackTrace();
 			}
+			getThis().getUnitTypes().add(result);
 		}
-		getThis().getUnitTypes().add(result);
 
 		return result;
 	}
@@ -856,8 +824,8 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 			} catch (final UserException e) {
 				e.printStackTrace();
 			}
+			getThis().getUnits().add(result);
 		}
-		getThis().getUnits().add(result);
 
 		return result;
 	}
