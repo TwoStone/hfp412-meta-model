@@ -126,7 +126,7 @@ server Server {
 }
 
 abstract class MModelItem {
-	derived MModelItem** dependentItems;
+   abstract	MModelItem** fetchDependentItems();
 	// TemplateMethod
 	void delete() throws ConsistencyException;
 	abstract void prepareForDeletion() throws ConsistencyException;
@@ -169,10 +169,10 @@ part typeSystem {
 		prior indexed String name;
 		client-as-string prior MBoolean singletonType;
 		client-as-string prior MBoolean abstractType;
-		void changeAbstract(MBoolean newAbstractType) throws ConsistencyException;
 		no-view prior symmetric(types) MAspect aspect;
 		no-view symmetric(subTypes) MAtomicType superType hierarchy MAtomicTypeHierarchy;
-		
+
+		void changeAbstract(MBoolean newAbstractType) throws ConsistencyException;	
 		MBoolean hasConcreteSubType();	
 	}
 	
@@ -232,7 +232,7 @@ part typeSystem {
 		
 	abstract class AbstractObject##AbsObj covers MModelItem {
 		derived Name ** possibleNames;
-		derived MNonEmptyAtomicTypeConjunction productType;
+		MNonEmptyAtomicTypeConjunction fetchProductType();
 	}
 
 	/* Objekte */

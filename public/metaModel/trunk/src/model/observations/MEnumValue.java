@@ -257,7 +257,6 @@ public class MEnumValue extends PersistentObject implements PersistentMEnumValue
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getTheType() != null) return 1;
-        if (this.getDependentItems().getLength() > 0) return 1;
         return 0;
     }
     
@@ -293,15 +292,15 @@ public class MEnumValue extends PersistentObject implements PersistentMEnumValue
 		// TODO Check delegation to abstract class and overwrite if necessary!
 		this.getMyCONCMModelItem().delete();
 	}
-    public MModelItemSearchList getDependentItems() 
+    public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-		final MModelItemSearchList result = new MModelItemSearchList();
-		SearchLists.addSecondToFirst(result, getThis().inverseGetEnumValue());
-		return result;
-	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
-				throws PersistenceException{
-        return this.getMyCONCMModelItem().getDependentItems(observer);
+        //TODO: implement method: fetchDependentItems
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

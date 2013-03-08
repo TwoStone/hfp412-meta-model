@@ -199,7 +199,6 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
         if (this.getSource() != null) return 1;
         if (this.getTarget() != null) return 1;
         if (this.getType() != null) return 1;
-        if (this.getDependentItems().getLength() > 0) return 1;
         return 0;
     }
     
@@ -222,12 +221,6 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
-				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}

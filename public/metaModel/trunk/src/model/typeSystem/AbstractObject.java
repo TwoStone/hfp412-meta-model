@@ -30,15 +30,6 @@ public abstract class AbstractObject extends PersistentObject implements Persist
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("possibleNames", this.getPossibleNames(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
-            AbstractPersistentRoot productType = (AbstractPersistentRoot)this.getProductType(tdObserver);
-            if (productType != null) {
-                result.put("productType", productType.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    productType.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && productType.hasEssentialFields())productType.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             AbstractPersistentRoot myCONCMModelItem = (AbstractPersistentRoot)this.getMyCONCMModelItem();
             if (myCONCMModelItem != null) {
                 result.put("myCONCMModelItem", myCONCMModelItem.createProxiInformation(false, essentialLevel == 0));
@@ -150,12 +141,6 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 		observer.updateTransientDerived(getThis(), "possibleNames", result);
 		return result;
     }
-    public PersistentMNonEmptyAtomicTypeConjunction getProductType(final TDObserver observer) 
-				throws PersistenceException{
-        PersistentMNonEmptyAtomicTypeConjunction result = getThis().getProductType();
-		observer.updateTransientDerived(getThis(), "productType", result);
-		return result;
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -174,7 +159,7 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 				throws PersistenceException{
 		final NameSearchList list = new NameSearchList();
 
-		this.getThis().getProductType().getFactors().applyToAll(new Procdure<PersistentMAtomicType>() {
+		this.getThis().fetchProductType().getFactors().applyToAll(new Procdure<PersistentMAtomicType>() {
 
 			@Override
 			public void doItTo(final PersistentMAtomicType argument) throws PersistenceException {

@@ -918,7 +918,6 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
 @SuppressWarnings("serial")
 class MEnumDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MEnum$$name = "MEnum$$name";
     
     protected MEnumDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1070,7 +1069,6 @@ class NameSchemeDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MAtomicType$$name = "MAtomicType$$name";
@@ -1115,7 +1113,6 @@ class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MEmptyTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
@@ -1203,7 +1200,6 @@ class AssociationDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MObservationTypeDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MObservationType$$name = "MObservationType$$name";
     protected static final String MObservationType$$enumType = "MObservationType$$enumType";
     protected static final String MObservationType$$theType = "MObservationType$$theType";
@@ -1272,7 +1268,6 @@ class OperationManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MMixedConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
@@ -1372,7 +1367,6 @@ class AccountTypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MObservationDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MObservation$$name = "MObservation$$name";
     protected static final String MObservation$$theType = "MObservation$$theType";
     protected static final String MObservation$$enumValue = "MObservation$$enumValue";
@@ -1399,9 +1393,7 @@ class MObservationDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String AbstractObject$$possibleNames = "AbstractObject$$possibleNames";
-    protected static final String AbstractObject$$productType = "AbstractObject$$productType";
     protected static final String MObject$$types = "MObject$$types";
     protected static final String MObject$$linksFromMe = "MObject$$linksFromMe";
     protected static final String MObject$$linksToMe = "MObject$$linksToMe";
@@ -1457,7 +1449,6 @@ class MultiplicationDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MEmptyTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
@@ -1495,7 +1486,6 @@ class NameInstanceDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MessageDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MessageOrLink$$source = "MessageOrLink$$source";
     protected static final String MessageOrLink$$target = "MessageOrLink$$target";
     protected static final String Message$$type = "Message$$type";
@@ -1562,7 +1552,6 @@ class AspectManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class LinkDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MessageOrLink$$source = "MessageOrLink$$source";
     protected static final String MessageOrLink$$target = "MessageOrLink$$target";
     protected static final String Link$$type = "Link$$type";
@@ -1687,7 +1676,6 @@ class OperationDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MEnumValueDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MEnumValue$$name = "MEnumValue$$name";
     protected static final String MEnumValue$$theType = "MEnumValue$$theType";
     
@@ -1711,8 +1699,6 @@ class MEnumValueDefaultDetailPanel extends DefaultDetailPanel{
 
 @SuppressWarnings("serial")
 class CONCMModelItemDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     
     protected CONCMModelItemDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1834,7 +1820,6 @@ class MAccountTypeDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MMixedTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
@@ -1870,7 +1855,6 @@ class TypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MNonEmptyAtomicTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
@@ -1954,7 +1938,6 @@ class EnumerationManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MNonEmptyDisjunctiveNormalFormDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
     protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MComplexType$$containedTypes = "MComplexType$$containedTypes";
@@ -2280,9 +2263,7 @@ class NameDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MSingletonObjectDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MModelItem$$dependentItems = "MModelItem$$dependentItems";
     protected static final String AbstractObject$$possibleNames = "AbstractObject$$possibleNames";
-    protected static final String AbstractObject$$productType = "AbstractObject$$productType";
     protected static final String MSingletonObject$$type = "MSingletonObject$$type";
     
     protected MSingletonObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

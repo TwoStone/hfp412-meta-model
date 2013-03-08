@@ -56,16 +56,11 @@ public abstract class TestingBase {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Cache.getTheCache().reset$For$Test();
-		// System.out.println("Abstract initializations...");
-		ConnectionHandler connection = ConnectionHandler.getTheConnectionHandler();
+		final ConnectionHandler connection = ConnectionHandler.getTheConnectionHandler();
 		connection.connect(DBConnectionConstants.DataBaseName, DBConnectionConstants.SchemaName,
 				DBConnectionConstants.UserName, DBConnectionConstants.Password, true);
 		ConnectionHandler.initializeMapsForMappedFields();
 
-		/*
-		 * TODO Vielleicht hier den EmptyReporter verwenden, was auch immer der tut! Standardmäßig wird NoReporter
-		 * gesetzt.
-		 */
 		ConnectionServer.startTheConnectionServer(EmptyServerReporter.getTheInstance());
 		Cache.setReporter(EmptyServerReporter.getTheInstance());
 	}
@@ -77,83 +72,83 @@ public abstract class TestingBase {
 		ConnectionServer.stopTheConnectionServer();
 	}
 
-	protected static PersistentMAtomicType atomicType(String name, PersistentMAspect aspect)
+	protected static PersistentMAtomicType atomicType(final String name, final PersistentMAspect aspect)
 			throws PersistenceException {
 		return MAtomicType.createMAtomicType(name, MFalse.getTheMFalse(), MFalse.getTheMFalse(), aspect);
 	}
 
-	protected static PersistentMAtomicType atomicType(String string, PersistentMAspect aspect,
-			PersistentMAtomicType superType) throws PersistenceException, CycleException {
-		PersistentMAtomicType atomicType = atomicType(string, aspect);
+	protected static PersistentMAtomicType atomicType(final String string, final PersistentMAspect aspect,
+			final PersistentMAtomicType superType) throws PersistenceException, CycleException {
+		final PersistentMAtomicType atomicType = atomicType(string, aspect);
 		atomicType.setSuperType(superType);
 
 		return atomicType;
 	}
 
-	protected static PersistentMAspect aspect(String name) throws PersistenceException {
+	protected static PersistentMAspect aspect(final String name) throws PersistenceException {
 		return MAspect.createMAspect(name);
 	}
 
-	protected static PersistentMMixedTypeDisjunction sum(PersistentMType... mTypes) throws PersistenceException,
+	protected static PersistentMMixedTypeDisjunction sum(final PersistentMType... mTypes) throws PersistenceException,
 			CycleException {
-		PersistentMMixedTypeDisjunction disjuntion = MMixedTypeDisjunction.createMMixedTypeDisjunction();
+		final PersistentMMixedTypeDisjunction disjuntion = MMixedTypeDisjunction.createMMixedTypeDisjunction();
 
-		for (PersistentMType persistentMType : mTypes) {
+		for (final PersistentMType persistentMType : mTypes) {
 			disjuntion.getAddends().add(persistentMType);
 		}
 
 		return disjuntion;
 	}
 
-	protected static PersistentMMixedConjunction product(PersistentMType... mTypes) throws PersistenceException,
+	protected static PersistentMMixedConjunction product(final PersistentMType... mTypes) throws PersistenceException,
 			CycleException {
-		PersistentMMixedConjunction conj = MMixedConjunction.createMMixedConjunction();
+		final PersistentMMixedConjunction conj = MMixedConjunction.createMMixedConjunction();
 
-		for (PersistentMType persistentMType : mTypes) {
+		for (final PersistentMType persistentMType : mTypes) {
 			conj.getFactors().add(persistentMType);
 		}
 
 		return conj;
 	}
 
-	public static PersistentMAbstractTypeDisjunction transNormDisj(PersistentMType... mTypes)
+	public static PersistentMAbstractTypeDisjunction transNormDisj(final PersistentMType... mTypes)
 			throws ConsistencyException, PersistenceException {
 		return MAbstractTypeDisjunction.transientCreateAbstrTypeDisj(SearchLists.createMTypeSearchList(mTypes));
 	}
 
-	public static PersistentMAbstractTypeConjunction transNormConj(PersistentMType... mTypes)
+	public static PersistentMAbstractTypeConjunction transNormConj(final PersistentMType... mTypes)
 			throws ConsistencyException, PersistenceException {
 		return MAbstractTypeConjunction.transientCreateAbstractTypeConj(SearchLists.createMTypeSearchList(mTypes));
 	}
 
-	protected static void assertMTrue(PersistentMBoolean persistentMBoolean, String message)
+	protected static void assertMTrue(final PersistentMBoolean persistentMBoolean, final String message)
 			throws PersistenceException {
 		Assert.assertTrue(message, persistentMBoolean.toBoolean());
 	}
 
-	protected static void assertMTrue(PersistentMBoolean value) throws PersistenceException {
+	protected static void assertMTrue(final PersistentMBoolean value) throws PersistenceException {
 		Assert.assertTrue(value.toBoolean());
 	}
 
-	protected static void assertMFalse(PersistentMBoolean value) throws PersistenceException {
+	protected static void assertMFalse(final PersistentMBoolean value) throws PersistenceException {
 		Assert.assertFalse(value.toBoolean());
 	}
 
-	protected static void assertTypeStructureEquals(PersistentMType expected, PersistentMType actual)
+	protected static void assertTypeStructureEquals(final PersistentMType expected, final PersistentMType actual)
 			throws PersistenceException {
 		assertMTrue(expected.isStructuralEquivalant(actual),
 				String.format("Expected %s but was %s", expected.fetchName(), actual.fetchName()));
 	}
 
-	protected static void assertTypeSemanticEquals(PersistentMType expected, PersistentMType actual)
+	protected static void assertTypeSemanticEquals(final PersistentMType expected, final PersistentMType actual)
 			throws PersistenceException {
 		Assert.assertTrue(expected.isLessOrEqual(actual).toBoolean() && actual.isLessOrEqual(expected).toBoolean());
 
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <T extends PersistentRoot> T getManager(Class<? extends T> managerClazz) {
-		String methodName = String.format("getThe%s", managerClazz.getSimpleName());
+	protected <T extends PersistentRoot> T getManager(final Class<? extends T> managerClazz) {
+		final String methodName = String.format("getThe%s", managerClazz.getSimpleName());
 		Method method;
 		try {
 			method = managerClazz.getMethod(methodName);
@@ -163,10 +158,10 @@ public abstract class TestingBase {
 						managerClazz.getName()));
 			}
 
-			T manager = (T) method.invoke(null);
+			final T manager = (T) method.invoke(null);
 			this.manager.add(managerClazz);
 			return manager;
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -176,15 +171,15 @@ public abstract class TestingBase {
 			SecurityException, PersistenceException, SQLException, IOException {
 		Cache.getTheCache().reset$For$Test();
 
-		for (Class<?> managerClazz : manager) {
+		for (final Class<?> managerClazz : manager) {
 			resetSingleton(managerClazz);
 		}
 
 		manager.clear();
 	}
 
-	protected void resetSingleton(Class<?> managerClazz) throws NoSuchFieldException, IllegalAccessException {
-		Field field = managerClazz.getField("reset$For$Test");
+	protected void resetSingleton(final Class<?> managerClazz) throws NoSuchFieldException, IllegalAccessException {
+		final Field field = managerClazz.getField("reset$For$Test");
 		field.set(null, true);
 	}
 

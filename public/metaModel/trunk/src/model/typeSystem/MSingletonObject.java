@@ -193,9 +193,7 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
          return visitor.handleMSingletonObject(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getProductType() != null) return 1;
         if (this.getType() != null) return 1;
-        if (this.getDependentItems().getLength() > 0) return 1;
         if (this.getPossibleNames().getLength() > 0) return 1;
         return 0;
     }
@@ -217,7 +215,7 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public MModelItemSearchList getDependentItems() 
+    public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: getDependentItems
 		try {
@@ -227,12 +225,6 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
 			throw uoe;
 		}
 	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
-				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -253,7 +245,7 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
 		// TODO Auto-generated method stub
 
 	}
-    public PersistentMNonEmptyAtomicTypeConjunction getProductType() 
+    public PersistentMNonEmptyAtomicTypeConjunction fetchProductType() 
 				throws PersistenceException{
 		final MAtomicTypeSearchList sl = new MAtomicTypeSearchList();
 		sl.add(getThis().getType());

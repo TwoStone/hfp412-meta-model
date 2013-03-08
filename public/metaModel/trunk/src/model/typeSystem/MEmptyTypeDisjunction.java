@@ -225,7 +225,6 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
          return visitor.handleMEmptyTypeDisjunction(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getDependentItems().getLength() > 0) return 1;
         if (this.getMTDJContainingMe().getLength() > 0) return 1;
         if (this.getMTCContainingMe().getLength() > 0) return 1;
         if (this.getContainedTypes().getLength() > 0) return 1;
@@ -268,12 +267,6 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
 		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
 		return result;
 	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
-				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}

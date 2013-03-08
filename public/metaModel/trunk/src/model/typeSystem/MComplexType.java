@@ -107,6 +107,13 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 		});
 		return result;
 	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		final MModelItemSearchList result = new MModelItemSearchList();
+		SearchLists.addSecondToFirst(result, getThis().fetchTypesContainingThisDirectly());
+		// FIXME Add other dependencies (associations etc)
+		return result;
+	}
     public String fetchName() 
 				throws PersistenceException{
 		final StringBuilder builder = new StringBuilder();
@@ -131,13 +138,6 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 				throws PersistenceException{
 		return SearchLists.toMTypeSearchList(fetchContainedTypes());
 	}
-    public MModelItemSearchList getDependentItems() 
-				throws PersistenceException{
-		final MModelItemSearchList result = new MModelItemSearchList();
-		SearchLists.addSecondToFirst(result, getThis().fetchTypesContainingThisDirectly());
-		// FIXME Add other dependencies (associations etc)
-		return result;
-	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 		// TODO: implement method: prepareForDeletion
@@ -145,9 +145,6 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
 
 	protected PersistentMBoolean allChildrenAreStructuralEquivalent(final PersistentMComplexType other)
 			throws PersistenceException {
@@ -166,9 +163,6 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 
 	public abstract SearchListRoot<? extends PersistentMType> fetchContainedTypes() throws PersistenceException;
 
-	
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

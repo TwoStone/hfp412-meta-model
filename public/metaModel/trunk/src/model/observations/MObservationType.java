@@ -291,7 +291,6 @@ public class MObservationType extends PersistentObject implements PersistentMObs
     public int getLeafInfo() throws PersistenceException{
         if (this.getEnumType() != null) return 1;
         if (this.getTheType() != null) return 1;
-        if (this.getDependentItems().getLength() > 0) return 1;
         return 0;
     }
     
@@ -328,15 +327,15 @@ public class MObservationType extends PersistentObject implements PersistentMObs
 		// TODO Check delegation to abstract class and overwrite if necessary!
 		this.getMyCONCMModelItem().delete();
 	}
-    public MModelItemSearchList getDependentItems() 
+    public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-		final MModelItemSearchList result = new MModelItemSearchList();
-		SearchLists.addSecondToFirst(result, getThis().inverseGetTheType());
-		return result;
-	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
-				throws PersistenceException{
-        return this.getMyCONCMModelItem().getDependentItems(observer);
+        //TODO: implement method: fetchDependentItems
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

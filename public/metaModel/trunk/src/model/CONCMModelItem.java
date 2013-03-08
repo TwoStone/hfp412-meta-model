@@ -115,7 +115,6 @@ public class CONCMModelItem extends model.MModelItem implements PersistentCONCMM
          return visitor.handleCONCMModelItem(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getDependentItems().getLength() > 0) return 1;
         return 0;
     }
     
@@ -130,9 +129,9 @@ public class CONCMModelItem extends model.MModelItem implements PersistentCONCMM
     
     // Start of section that contains operations that must be implemented.
     
-    public MModelItemSearchList getDependentItems() 
+    public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-        return getThis().getDependentItems();
+        return getThis().fetchDependentItems();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

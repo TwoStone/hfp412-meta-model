@@ -23,7 +23,6 @@ public abstract class MModelItem extends PersistentObject implements PersistentM
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("dependentItems", this.getDependentItems(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -93,12 +92,6 @@ public abstract class MModelItem extends PersistentObject implements PersistentM
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
-				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -111,7 +104,7 @@ public abstract class MModelItem extends PersistentObject implements PersistentM
     
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
-		MModelItemSearchList dependentItems = getThis().getDependentItems();
+		MModelItemSearchList dependentItems = getThis().fetchDependentItems();
 		if (dependentItems.getLength() > 0) {
 			throw new ConsistencyException("Cant delete " + getThis() + " because it has " + dependentItems.getLength()
 					+ " ModelItems");

@@ -206,7 +206,7 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
 		// TODO: Christin: Check delegation to abstract class and overwrite if necessary!
 		this.getMyCONCMModelItem().delete();
 	}
-    public MModelItemSearchList getDependentItems() 
+    public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// Weder Messages noch Links haben dependentItems
 		return new MModelItemSearchList();

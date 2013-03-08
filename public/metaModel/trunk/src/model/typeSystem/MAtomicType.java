@@ -351,7 +351,6 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     public int getLeafInfo() throws PersistenceException{
         if (this.getSingletonType() != null) return 1;
         if (this.getAbstractType() != null) return 1;
-        if (this.getDependentItems().getLength() > 0) return 1;
         if (this.getMTDJContainingMe().getLength() > 0) return 1;
         if (this.getMTCContainingMe().getLength() > 0) return 1;
         if (this.getNEATCContainingMe().getLength() > 0) return 1;
@@ -448,6 +447,14 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		result.add(getThis().getAspect());
 		return result;
 	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		final MModelItemSearchList result = new MModelItemSearchList();
+		SearchLists.addSecondToFirst(result, getThis().fetchTypesContainingThisDirectly());
+		SearchLists.addSecondToFirst(result, getThis().inverseGetTypes());
+		// TODO add other dependencies (assocs, MMTypes, etc)
+		return result;
+	}
     public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
 				throws PersistenceException{
 		return MNonEmptyDisjunctiveNormalForm.transientCreateDNFromAtomicType(getThis());
@@ -464,20 +471,6 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		SearchLists.addSecondToFirst(result, getThis().getNEATCContainingMe());
 		return result;
 	}
-    public MModelItemSearchList getDependentItems() 
-				throws PersistenceException{
-		final MModelItemSearchList result = new MModelItemSearchList();
-		SearchLists.addSecondToFirst(result, getThis().fetchTypesContainingThisDirectly());
-		SearchLists.addSecondToFirst(result, getThis().inverseGetTypes());
-		// TODO add other dependencies (assocs, MMTypes, etc)
-		return result;
-	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
-				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
-    }
     public PersistentMBoolean hasConcreteSubType() 
 				throws PersistenceException{
 		final Iterator<PersistentMAtomicType> subTypesI = getThis().getSubTypes().iterator();
@@ -596,13 +589,7 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
 
-	
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

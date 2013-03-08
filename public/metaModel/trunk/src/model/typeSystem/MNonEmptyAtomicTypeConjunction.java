@@ -248,7 +248,6 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
          return visitor.handleMNonEmptyAtomicTypeConjunction(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getDependentItems().getLength() > 0) return 1;
         if (this.getMTDJContainingMe().getLength() > 0) return 1;
         if (this.getMTCContainingMe().getLength() > 0) return 1;
         if (this.getContainedTypes().getLength() > 0) return 1;
@@ -304,12 +303,6 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 		SearchLists.addSecondToFirst(result, getThis().getNEDNFContainingMe());
 		return result;
 	}
-    public MModelItemSearchList getDependentItems(final TDObserver observer) 
-				throws PersistenceException{
-        MModelItemSearchList result = getThis().getDependentItems();
-		observer.updateTransientDerived(getThis(), "dependentItems", result);
-		return result;
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}

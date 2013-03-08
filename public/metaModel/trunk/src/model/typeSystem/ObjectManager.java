@@ -224,12 +224,12 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     public PersistentMObject createMObject(final PersistentMAtomicType type, final MAtomicTypeSearchList otherTypes) 
 				throws model.ConsistencyException, PersistenceException{
 
-		final PersistentMObject newObject = MObject.createMObject(true);
+		final PersistentMObject newObject = MObject.createMObject();
 		newObject.addType(type);
 		otherTypes.applyToAllException(new ProcdureException<PersistentMAtomicType, ConsistencyException>() {
 
 			@Override
-			public void doItTo(PersistentMAtomicType argument) throws PersistenceException, ConsistencyException {
+			public void doItTo(final PersistentMAtomicType argument) throws PersistenceException, ConsistencyException {
 				newObject.addType(argument);
 			}
 		});
@@ -242,8 +242,8 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
 		return new MObjectSearchList(getThis().getObjects().findAll(new Predcate<PersistentMObject>() {
 
 			@Override
-			public boolean test(PersistentMObject argument) throws PersistenceException {
-				return argument.getProductType().isLessOrEqual(type).toBoolean();
+			public boolean test(final PersistentMObject argument) throws PersistenceException {
+				return argument.fetchProductType().isLessOrEqual(type).toBoolean();
 			}
 		}));
 	}
