@@ -668,7 +668,7 @@ class MMeasurementType@@MeasurementType extends MQuantiObjectType {
 
 
 class MAccountType@@AccountType extends MQuantiObjectType {
-	MAccountType** subAccountTypes hierarchy MAccountTypeHierarchy;
+	symmetric MAccountType** subAccountTypes hierarchy MAccountTypeHierarchy;
 	active void addSubAccountType##addSbAccTyp(MAccountType accountType) throws CycleException;
 }
 hierarchy MAccountTypeHierarchy##MAccTypeHie;
@@ -686,7 +686,7 @@ class Measurement extends QuantifObject {
 
 class Account extends QuantifObject {
 	prior MAccountType type;
-	Account** subAccounts hierarchy AccountHierarchy;
+	symmetric Account** subAccounts hierarchy AccountHierarchy;
 	Measurement** entries;
 	active void addSubAccount(Account account) throws CycleException, ConsistencyException;
 	active void addEntry(Measurement measurement) throws ConsistencyException;

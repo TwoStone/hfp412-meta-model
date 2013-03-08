@@ -18,6 +18,7 @@ import persistence.AbstractPersistentRoot;
 import persistence.AccountHierarchyHIERARCHY;
 import persistence.AccountHierarchyHIERARCHYStrategy;
 import persistence.AccountProxi;
+import persistence.AccountSearchList;
 import persistence.Account_EntriesProxi;
 import persistence.Account_SubAccountsProxi;
 import persistence.AggregationStrategy;
@@ -264,6 +265,13 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 			this.setType((PersistentMAccountType)final$$Fields.get("type"));
 		}
     }
+    public AccountSearchList inverseGetSubAccounts() 
+				throws PersistenceException{
+        AccountSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
+							.inverseGetSubAccounts(this.getId(), this.getClassId());
+		return result;
+    }
     public <T> T strategyAccountHierarchy(final T parameter, final AccountHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$subAccounts$$Account = strategy.initialize$$Account$$subAccounts(getThis(), parameter);
@@ -287,20 +295,11 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 
 		final PersistentMAccountType newAccType = account.getType();
 
-		// FIXME: Hier stimmt noch was nicht... --> rekursion fehlt noch! jetzt aber müde...
-		// Prüfen ob <account> von gleichem bzw. konkreterem AccountType wie <this> ist.
-		if (!newAccType.equals(this.getThis().getType())
-				&& this.getThis().getType().getSubAccountTypes().findFirst(new Predcate<PersistentMAccountType>() {
-
-					@Override
-					public boolean test(final PersistentMAccountType argument) throws PersistenceException {
-						return argument.equals(newAccType);
-					}
-
-				}) == null) {
+		if (this.hasSameSuperType(newAccType)) {
+			this.getThis().getSubAccounts().add(account);
+		} else {
 			throw new ConsistencyException(ExceptionConstants.WRONG_ACCOUNT_TYPE);
 		}
-		this.getThis().getSubAccounts().add(account);
 
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -324,7 +323,28 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+	private boolean hasSameSuperType(final PersistentMAccountType accType) throws PersistenceException {
+		if (accType.equals(this.getThis().getType())) {
+			return true;
+		} else {
+			final PersistentMAccountType parent = accType.inverseGetSubAccountTypes().findFirst(
+					new Predcate<PersistentMAccountType>() {
 
+						@Override
+						public boolean test(final PersistentMAccountType argument) throws PersistenceException {
+							return true;
+						}
+					});
+			if (parent != null) {
+				if (parent.equals(this.getThis().getType())) {
+					return true;
+				} else {
+					return this.hasSameSuperType(parent);
+				}
+			}
+		}
+		return false;
+	}
 	/* End of protected part that is not overridden by persistence generator */
     
 }

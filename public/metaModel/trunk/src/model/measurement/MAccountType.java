@@ -19,6 +19,7 @@ import persistence.Invoker;
 import persistence.MAccountTypeHierarchyHIERARCHY;
 import persistence.MAccountTypeHierarchyHIERARCHYStrategy;
 import persistence.MAccountTypeProxi;
+import persistence.MAccountTypeSearchList;
 import persistence.MAccountType_SubAccountTypesProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbsUnitType;
@@ -206,6 +207,13 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 			this.setType((PersistentMType)final$$Fields.get("type"));
 			this.setUnitType((PersistentAbsUnitType)final$$Fields.get("unitType"));
 		}
+    }
+    public MAccountTypeSearchList inverseGetSubAccountTypes() 
+				throws PersistenceException{
+        MAccountTypeSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
+							.inverseGetSubAccountTypes(this.getId(), this.getClassId());
+		return result;
     }
     public <T> T strategyMAccountTypeHierarchy(final T parameter, final MAccountTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
