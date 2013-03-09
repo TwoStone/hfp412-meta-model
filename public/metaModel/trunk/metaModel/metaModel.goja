@@ -91,11 +91,11 @@ server Server {
 	/** Quantity/Unit **/
 	void createUnitType@@Create_unit_type(UnitTypeManager manager, String name);
 	void fetchScalarType(UnitTypeManager manager);
-	void removeUnitType(AbsUnitType type);
+	void changeUnitTypeName(AbsUnitType unitType, String name);
 	void addReferenceType(AbsUnitType unitType, String name, UnitType referenceUnitType {unitTypeManager;atomicUnitTypes}, Integer exponent);
 	void createUnit@@Create_unit(UnitType type, String name);
 	void fetchScalar(UnitTypeManager manager);
-	void removeUnit(AbsUnit unit);
+	void changeUnitName(AbsUnit unit, String name);
 	void addReference(AbsUnit unit, String name, Unit referenceUnit{unitTypeManager;units}, Integer exponent);
 	void createQuantity@@Create_quantity(QuantityManager manager, AbsUnit unit, Fraction f);
 	void setConversion(Unit unit, Fraction factor, Fraction constant);
@@ -481,21 +481,21 @@ part quantity {
 		AbsUnit ** units;
 	
 		/* Operationen fuer Typebene */
-		active void createUnitType(String name) throws DoubleDefinitionException;
+		active UnitType createUnitType(String name) throws DoubleDefinitionException;
 		active CompUnitType fetchScalarType();
-		active void removeUnitType(AbsUnitType type);
 		active void setDefaultUnit(UnitType type, Unit unit);
 		active AbsUnitType addReferenceType(String name, AbsUnitType unitType, UnitType referenceUnitType, Integer exponent) 
 			throws DoubleDefinitionException;
 		active CompUnitType getExistingCUT(ReferenceType** refTypes);
+		active void changeUTName(AbsUnitType unitType, String name) throws DoubleDefinitionException;
 
 		/* Operationen fuer Exemplarebene */
 		active Unit createUnit(String name, UnitType type) throws DoubleDefinitionException;
 		active CompUnit fetchScalar();
-		active void removeUnit(AbsUnit unit);
 		active AbsUnit addReference(String name, AbsUnit unit, Unit referenceUnit, Integer exponent) throws DoubleDefinitionException;
 		active CompUnit getExistingCU(Reference** refs);
 		active void setConversion(Unit unit, Fraction factor, Fraction constant) throws ConsistencyException;
+		active void changeUName(AbsUnit unit, String name) throws DoubleDefinitionException;
 
 		AbsUnit fetchUnitByUnitType(AbsUnitType ut) throws NotFoundException;
 	}

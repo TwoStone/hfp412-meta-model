@@ -815,6 +815,16 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		getTypeManager().changeAbstract(type, MBoolean.createFromFactoryString(newAbstractType), getThis());
 	}
+    public void changeUnitName(final PersistentAbsUnit unit, final String name) 
+				throws PersistenceException{
+        //TODO: implement method: changeUnitName
+        
+    }
+    public void changeUnitTypeName(final PersistentAbsUnitType unitType, final String name) 
+				throws PersistenceException{
+        //TODO: implement method: changeUnitTypeName
+        
+    }
     public void connected(final String user) 
 				throws PersistenceException{
 	}
@@ -1225,14 +1235,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void removeType(final PersistentMObject object, final PersistentMAtomicType oldType) 
 				throws PersistenceException{
 		getObjectManager().removeType(object, oldType, getThis());
-	}
-    public void removeUnitType(final PersistentAbsUnitType type) 
-				throws PersistenceException{
-		getUnitTypeManager().removeUnitType(type, getThis());
-	}
-    public void removeUnit(final PersistentAbsUnit unit) 
-				throws PersistenceException{
-		getUnitTypeManager().removeUnit(unit, getThis());
 	}
     public void replaceType(final PersistentMObject object, final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
 				throws PersistenceException{

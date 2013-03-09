@@ -3,11 +3,6 @@
  */
 package model.quantity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
@@ -17,11 +12,17 @@ import org.junit.Test;
 import persistence.PersistenceException;
 import persistence.PersistentCompUnitType;
 import persistence.PersistentReferenceType;
+import persistence.PersistentUnit;
 import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
 import persistence.ReferenceTypeSearchList;
 import util.TestingBase;
 import constants.ExceptionConstants;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Testet den UnitTypeManager
@@ -189,12 +190,73 @@ public class UnitTypeManagerTest extends TestingBase {
 		}
 	}
 
+	/**
+	 * Testet die Methode fetchScalarType
+	 */
 	@Test
 	public void testFetchScalarType() {
 		final PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
 		try {
 			final PersistentCompUnitType scalarType = typeManager.fetchScalarType();
 			assertTrue("Referenz-Liste von scalarType sollte leer sein.", scalarType.getRefs().getLength() == 0);
+		} catch (final PersistenceException e) {
+			fail("Exception: " + e.getMessage());
+		}
+
+	}
+
+	/**
+	 * Testet die Methode changeUTName
+	 */
+	@Test
+	public void testChangeUTName() {
+		final PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
+		PersistentUnitType unitType = null;
+		try {
+			unitType = typeManager.createUnitType("bla");
+			typeManager.changeUTName(unitType, "blub");
+		} catch (final DoubleDefinitionException e) {
+			fail("Ungewollte DoubleDefinitionException: " + e.getMessage());
+		} catch (final PersistenceException e) {
+			fail("Exception: " + e.getMessage());
+		}
+		try {
+			final PersistentUnitType unitType2 = typeManager.createUnitType("bla");
+			typeManager.changeUTName(unitType2, "blub");
+			fail("Es sollte eine DoubleDefinitionException kommen, da UnitType mit Namen 'blub' schon vorhanden ist.");
+		} catch (final DoubleDefinitionException e) {
+			// Exception erwartet
+			assertEquals(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + "blub", e.getMessage());
+		} catch (final PersistenceException e) {
+			fail("Exception: " + e.getMessage());
+		}
+
+	}
+
+	/**
+	 * Testet die Methode changeUName
+	 */
+	@Test
+	public void testChangeUName() {
+		final PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
+		PersistentUnitType unitType = null;
+		PersistentUnit unit = null;
+		try {
+			unitType = typeManager.createUnitType("bla");
+			unit = typeManager.createUnit("blaUnit", unitType);
+			typeManager.changeUName(unit, "blubUnit");
+		} catch (final DoubleDefinitionException e) {
+			fail("Ungewollte DoubleDefinitionException: " + e.getMessage());
+		} catch (final PersistenceException e) {
+			fail("Exception: " + e.getMessage());
+		}
+		try {
+			final PersistentUnit unit2 = typeManager.createUnit("blaUnit", unitType);
+			typeManager.changeUName(unit2, "blubUnit");
+			fail("Es sollte eine DoubleDefinitionException kommen, da UnitType mit Namen 'blub' schon vorhanden ist.");
+		} catch (final DoubleDefinitionException e) {
+			// Exception erwartet
+			assertEquals(ExceptionConstants.DOUBLE_UNIT_DEFINITION + "blubUnit", e.getMessage());
 		} catch (final PersistenceException e) {
 			fail("Exception: " + e.getMessage());
 		}

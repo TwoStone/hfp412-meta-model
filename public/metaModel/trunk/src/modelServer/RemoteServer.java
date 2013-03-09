@@ -546,6 +546,26 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> changeUnitName(String unitProxiString, String name){
+        try {
+            PersistentAbsUnit unit = (PersistentAbsUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
+            ((PersistentServer)this.server).changeUnitName(unit, name);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> changeUnitTypeName(String unitTypeProxiString, String name){
+        try {
+            PersistentAbsUnitType unitType = (PersistentAbsUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitTypeProxiString));
+            ((PersistentServer)this.server).changeUnitTypeName(unitType, name);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> convertToDefault(String quantityProxiString){
         try {
             PersistentQuantity quantity = (PersistentQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(quantityProxiString));
@@ -1108,26 +1128,6 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentMObject object = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(objectProxiString));
             PersistentMAtomicType oldType = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(oldTypeProxiString));
             ((PersistentServer)this.server).removeType(object, oldType);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> removeUnitType(String typeProxiString){
-        try {
-            PersistentAbsUnitType type = (PersistentAbsUnitType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
-            ((PersistentServer)this.server).removeUnitType(type);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
-    public synchronized java.util.Hashtable<?,?> removeUnit(String unitProxiString){
-        try {
-            PersistentAbsUnit unit = (PersistentAbsUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
-            ((PersistentServer)this.server).removeUnit(unit);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
