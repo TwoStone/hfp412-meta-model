@@ -4,23 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
-
-import java.util.Iterator;
-
 import model.ConsistencyException;
 import model.DoubleDefinitionException;
 import model.NotAvailableException;
 import model.messageOrLink.MessageManager;
 import model.typeSystem.MEmptyTypeConjunction;
 import model.typeSystem.MEmptyTypeDisjunction;
-import model.visitor.AbsOperationVisitor;
 
 import org.junit.Test;
 
 import persistence.ActualParameterSearchList;
 import persistence.FormalParameterSearchList;
 import persistence.PersistenceException;
-import persistence.PersistentAbsOperation;
+import persistence.PersistentAssociationManager;
 import persistence.PersistentFormalParameter;
 import persistence.PersistentMessageManager;
 import persistence.PersistentOperation;
@@ -34,6 +30,9 @@ public class OperationManagerTest extends AbstractTest {
 
 	@InjectSingleton(OperationManager.class)
 	private PersistentOperationManager manager;
+
+	@InjectSingleton(AssociationManager.class)
+	private PersistentAssociationManager assocManager;
 
 	@InjectSingleton(MessageManager.class)
 	private PersistentMessageManager messageManager;
@@ -289,25 +288,40 @@ public class OperationManagerTest extends AbstractTest {
 		assertEquals(1, manager.getConstants().getLength());
 	}
 
-	/**
-	 * Iteriert durch alle gleichnamigen AbstractOperations (also Operations oder Associations) und wendet auf jedes
-	 * Element den uebergebenen Visitor an.
-	 * 
-	 * @param name
-	 * @param visitor
-	 * @throws PersistenceException
-	 */
-	private void assertEqualsWithNameAndVisitor(final String name, final AbsOperationVisitor visitor)
-			throws PersistenceException {
-		// 1. Wieder aus der Liste fummeln...
-		final SearchListRoot<PersistentAbsOperation> findAll = Operation.getAbsOperationByName(name);
-		/*
-		 * 2. Da es ggf. mehrere gibt (bspw. eine Assoziation und eine Operation), nur die iterieren und nur die
-		 * Operation vergleichen
-		 */
-		final Iterator<PersistentAbsOperation> iterator = findAll.iterator();
-		while (iterator.hasNext()) {
-			iterator.next().accept(visitor);
-		}
+	@Test(expected = ConsistencyException.class)
+	public void addMultipleFp() throws DoubleDefinitionException, ConsistencyException, PersistenceException {
+		final PersistentOperation o = manager.createOperation(mat1, mat6, "a", new FormalParameterSearchList());
+		final PersistentFormalParameter fp = manager.createFp("fp", mat3);
+		manager.addFp(o, fp);
+		manager.addFp(o, fp);
+	}
+
+	@Test
+	public void checkOpDDEWithAssoc() throws DoubleDefinitionException, ConsistencyException, PersistenceException {
+		assocManager.createAssociation(mat1, mat2, "a");
+		final PersistentOperation o = manager.createOperation(mat1, mat2, "a", new FormalParameterSearchList());
+	}
+
+	@Test(expected = ConsistencyException.class)
+	public void createFpWithEmptyTypeDisj() throws DoubleDefinitionException, ConsistencyException,
+			PersistenceException {
+		manager.createFp("f", mstEmpty);
+	}
+
+	@Test(expected = ConsistencyException.class)
+	public void createOpWithBothEmptyTypeDisj() throws DoubleDefinitionException, ConsistencyException,
+			PersistenceException {
+		manager.createOperation(mstEmpty, mstEmpty, "a", new FormalParameterSearchList());
+	}
+
+	@Test
+	public void removeFp() throws DoubleDefinitionException, ConsistencyException, PersistenceException {
+		final PersistentFormalParameter fp = manager.createFp("f", mat1);
+		manager.removeFp(fp);
+	}
+
+	@Test(expected = ConsistencyException.class)
+	public void removeOpWithLink() throws DoubleDefinitionException, ConsistencyException, PersistenceException {
+		manager.createOperation(mstEmpty, mstEmpty, "a", new FormalParameterSearchList());
 	}
 }
