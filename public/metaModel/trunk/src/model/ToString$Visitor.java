@@ -237,8 +237,13 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			return;
 		final Fraction m = conversion.getMyFunction().getFactor();
 		final Fraction b = conversion.getMyFunction().getConstant();
-		this.result = "1" + defaultUnit.getName() + " = (" + m + "* 1 " + " + " + b + ") "
+		if(b.equals(Fraction.Null)){
+			this.result = "1 " + defaultUnit.getName() + " = " + m + " " + conversion.getSource().getName();
+		}
+		else {
+			this.result = "y " + defaultUnit.getName() + " = (" + m + "*x + " + b + ") "
 				+ conversion.getSource().getName();
+		}
 	}
 
 	@Override
