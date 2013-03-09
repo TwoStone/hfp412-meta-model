@@ -45,6 +45,20 @@ public class LinkManagerTest extends AbstractTest {
 		assertEquals(1, linkMan.getLinks().getLength());
 	}
 
+	@Test(expected = ConsistencyException.class)
+	public void createLinkWrongSource() throws PersistenceException, ConsistencyException, CycleException,
+			DoubleDefinitionException {
+		final PersistentAssociation createAssociation = associationMan.createAssociation(mat1, mat6, "testAssociation");
+		this.linkMan.createLink(createAssociation, mao4, mao6);
+	}
+
+	@Test(expected = ConsistencyException.class)
+	public void createLinkWrongTarget() throws PersistenceException, ConsistencyException, CycleException,
+			DoubleDefinitionException {
+		final PersistentAssociation createAssociation = associationMan.createAssociation(mat1, mat6, "testAssociation");
+		this.linkMan.createLink(createAssociation, mao1, mao3);
+	}
+
 	@Test
 	public void createLinkWithHierarchieConstraints() throws PersistenceException, DoubleDefinitionException,
 			CycleException, ConsistencyException {
