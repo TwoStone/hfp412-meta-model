@@ -407,7 +407,7 @@ part quantity {
 	}
 	class Reference {
 		prior Integer exponent;
-		prior Unit ref;
+		prior no-view Unit ref;
 	}
 	
 	class Conversion {
