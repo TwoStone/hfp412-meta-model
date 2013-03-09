@@ -227,8 +227,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleReference(final PersistentReference reference) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		this.result = reference.getRef() + "^" + reference.getExponent();
 	}
 
 	@Override
