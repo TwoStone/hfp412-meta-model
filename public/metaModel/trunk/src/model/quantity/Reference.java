@@ -193,7 +193,6 @@ public class Reference extends PersistentObject implements PersistentReference{
          return visitor.handleReference(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getRef() != null) return 1;
         return 0;
     }
     

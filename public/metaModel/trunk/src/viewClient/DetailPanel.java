@@ -2002,7 +2002,6 @@ class ConversionDefaultDetailPanel extends DefaultDetailPanel{
 class ReferenceDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Reference$$exponent = "Reference$$exponent";
-    protected static final String Reference$$ref = "Reference$$ref";
     
     protected ReferenceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

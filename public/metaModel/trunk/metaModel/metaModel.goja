@@ -494,8 +494,10 @@ part quantity {
 		active CompUnit fetchScalar();
 		active AbsUnit addReference(String name, AbsUnit unit, Unit referenceUnit, Integer exponent) throws DoubleDefinitionException;
 		active CompUnit getExistingCU(Reference** refs);
+		active CompUnit fetchCU(String name, Reference** refs) throws DoubleDefinitionException;
 		active void setConversion(Unit unit, Fraction factor, Fraction constant) throws ConsistencyException;
 		active void changeUName(AbsUnit unit, String name) throws DoubleDefinitionException;
+		active Reference fetchReference(Unit unit, Integer exponent);
 
 		AbsUnit fetchUnitByUnitType(AbsUnitType ut) throws NotFoundException;
 	}
