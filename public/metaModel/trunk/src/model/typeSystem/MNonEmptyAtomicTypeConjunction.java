@@ -38,7 +38,6 @@ import persistence.ConnectionHandler;
 import persistence.MAtomicTypeSearchList;
 import persistence.MComplexTypeHierarchyHIERARCHY;
 import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
-import persistence.MModelItemSearchList;
 import persistence.MNonEmptyAtomicTypeConjunctionProxi;
 import persistence.MNonEmptyAtomicTypeConjunction_FactorsProxi;
 import persistence.MTypeSearchList;

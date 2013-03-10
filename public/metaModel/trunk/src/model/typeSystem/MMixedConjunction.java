@@ -35,7 +35,6 @@ import persistence.MComplexTypeHierarchyHIERARCHY;
 import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
 import persistence.MMixedConjunctionProxi;
 import persistence.MMixedConjunction_FactorsProxi;
-import persistence.MModelItemSearchList;
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentCONCMModelItem;

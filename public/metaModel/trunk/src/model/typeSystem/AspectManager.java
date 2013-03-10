@@ -1,7 +1,5 @@
 package model.typeSystem;
 
-import java.util.Iterator;
-
 import model.ConsistencyException;
 import model.UserException;
 import model.visitor.AnythingExceptionVisitor;

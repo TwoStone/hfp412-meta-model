@@ -7,6 +7,8 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentAbsOperation;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
@@ -46,6 +48,15 @@ public abstract class AbsOperation extends PersistentObject implements Persisten
                 }
             }
             result.put("parameters", this.getParameters().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
+            AbstractPersistentRoot myCONCMModelItem = (AbstractPersistentRoot)this.getMyCONCMModelItem();
+            if (myCONCMModelItem != null) {
+                result.put("myCONCMModelItem", myCONCMModelItem.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    myCONCMModelItem.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    myCONCMModelItem.toHashtable(allResults, depth, essentialLevel + 1, forGUI, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -60,22 +71,24 @@ public abstract class AbsOperation extends PersistentObject implements Persisten
     public abstract AbsOperation provideCopy() throws PersistenceException;
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     protected String name;
     protected PersistentMType source;
     protected PersistentMType target;
     protected AbsOperation_ParametersProxi parameters;
     protected PersistentAbsOperation This;
+    protected PersistentMModelItem myCONCMModelItem;
     
-    public AbsOperation(String name,PersistentMType source,PersistentMType target,PersistentAbsOperation This,long id) throws persistence.PersistenceException {
+    public AbsOperation(String name,PersistentMType source,PersistentMType target,PersistentAbsOperation This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.source = source;
         this.target = target;
         this.parameters = new AbsOperation_ParametersProxi(this);
-        if (This != null && !(this.equals(This))) this.This = This;        
+        if (This != null && !(this.equals(This))) this.This = This;
+        this.myCONCMModelItem = myCONCMModelItem;        
     }
     
     static public long getTypeId() {
@@ -101,6 +114,10 @@ public abstract class AbsOperation extends PersistentObject implements Persisten
         if(!this.equals(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade.ThisSet(this.getId(), getThis());
+        }
+        if(this.getMyCONCMModelItem() != null){
+            this.getMyCONCMModelItem().store();
+            ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade.myCONCMModelItemSet(this.getId(), getMyCONCMModelItem());
         }
         
     }
@@ -159,7 +176,25 @@ public abstract class AbsOperation extends PersistentObject implements Persisten
             ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade.ThisSet(this.getId(), newValue);
         }
     }
+    public PersistentMModelItem getMyCONCMModelItem() throws PersistenceException {
+        return this.myCONCMModelItem;
+    }
+    public void setMyCONCMModelItem(PersistentMModelItem newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.myCONCMModelItem)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.myCONCMModelItem = (PersistentMModelItem)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade.myCONCMModelItemSet(this.getId(), newValue);
+        }
+    }
     public abstract PersistentAbsOperation getThis() throws PersistenceException ;
+    public void delete$Me() throws PersistenceException{
+        super.delete$Me();
+        this.getMyCONCMModelItem().delete$Me();
+    }
     
     
     
@@ -167,6 +202,8 @@ public abstract class AbsOperation extends PersistentObject implements Persisten
 				throws PersistenceException{
         this.setThis((PersistentAbsOperation)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentAbsOperation)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setName((String)final$$Fields.get("name"));
 			this.setSource((PersistentMType)final$$Fields.get("source"));
 			this.setTarget((PersistentMType)final$$Fields.get("target"));
@@ -189,6 +226,10 @@ public abstract class AbsOperation extends PersistentObject implements Persisten
     
     // Start of section that contains overridden operations only.
     
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		getThis().getMyCONCMModelItem().delete();
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

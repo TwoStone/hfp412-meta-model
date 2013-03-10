@@ -9,14 +9,21 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
 import persistence.Anything;
 import persistence.AssociationProxi;
 import persistence.Association_HierarchiesProxi;
 import persistence.ConnectionHandler;
 import persistence.LinkSearchList;
+import persistence.MModelItemSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsOperation;
 import persistence.PersistentAssociation;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMType;
 import persistence.TDObserver;
 
@@ -84,6 +91,7 @@ public class Association extends model.abstractOperation.AbsOperation implements
                                  this.source, 
                                  this.target, 
                                  this.This, 
+                                 this.myCONCMModelItem, 
                                  this.getId());
         result.parameters = this.parameters.copy(result);
         result.hierarchies = this.hierarchies.copy(result);
@@ -92,13 +100,13 @@ public class Association extends model.abstractOperation.AbsOperation implements
     }
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     protected Association_HierarchiesProxi hierarchies;
     
-    public Association(String name,PersistentMType source,PersistentMType target,PersistentAbsOperation This,long id) throws persistence.PersistenceException {
+    public Association(String name,PersistentMType source,PersistentMType target,PersistentAbsOperation This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(PersistentMType)source,(PersistentMType)target,(PersistentAbsOperation)This,id);
+        super((String)name,(PersistentMType)source,(PersistentMType)target,(PersistentAbsOperation)This,(PersistentMModelItem)myCONCMModelItem,id);
         this.hierarchies = new Association_HierarchiesProxi(this);        
     }
     
@@ -142,6 +150,18 @@ public class Association extends model.abstractOperation.AbsOperation implements
     public <R, E extends UserException> R accept(AbsOperationReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAssociation(this);
     }
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleAssociation(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAssociation(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAssociation(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAssociation(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleAssociation(this);
     }
@@ -167,6 +187,8 @@ public class Association extends model.abstractOperation.AbsOperation implements
 				throws PersistenceException{
         this.setThis((PersistentAssociation)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentAssociation)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setName((String)final$$Fields.get("name"));
 			this.setSource((PersistentMType)final$$Fields.get("source"));
 			this.setTarget((PersistentMType)final$$Fields.get("target"));
@@ -186,25 +208,39 @@ public class Association extends model.abstractOperation.AbsOperation implements
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
+
+	}
     
     
     // Start of section that contains overridden operations only.
     
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: delete
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
 
-	
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

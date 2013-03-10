@@ -768,6 +768,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 					// curUnit.getMyConversion().store();
 					curUnit.getMyConversion().delete$Me(); // TODO Das löschen aus dem Cache scheint nicht zu
 															// funktionieren?!
+					// TODO MIT DB JA, sonst nein!
 				}
 			}
 		} else {

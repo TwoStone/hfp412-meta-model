@@ -4,6 +4,7 @@ import persistence.AbsOperationSearchList;
 import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.FormalParameterSearchList;
 import persistence.MMixedConjunctionSearchList;
 import persistence.MMixedTypeDisjunctionSearchList;
 import persistence.MModelItemSearchList;
@@ -36,9 +37,17 @@ public abstract class MType extends PersistentObject implements PersistentMType 
 		if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth) {
 			result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
 			result.put(
+					"inverseOPTarget",
+					this.getInverseOPTarget().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false,
+							essentialLevel == 0));
+			result.put(
 					"mTDJContainingMe",
 					this.getMTDJContainingMe().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false,
 							essentialLevel == 0));
+			result.put(
+					"inverseFormalParameterType",
+					this.getInverseFormalParameterType().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver,
+							false, essentialLevel == 0));
 			result.put(
 					"mTCContainingMe",
 					this.getMTCContainingMe().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false,
@@ -151,14 +160,30 @@ public abstract class MType extends PersistentObject implements PersistentMType 
 	}
 
 	@Override
+	public FormalParameterSearchList getInverseFormalParameterType() throws PersistenceException {
+		FormalParameterSearchList result = null;
+		if (result == null)
+			result = ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade.inverseGetOfType(this.getId(), this.getClassId());
+		return result;
+	}
+
+	// Start of section that contains operations that must be implemented.
+
+	@Override
+	public AbsOperationSearchList getInverseOPTarget() throws PersistenceException {
+		AbsOperationSearchList result = null;
+		if (result == null)
+			result = ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade.inverseGetTarget(this.getId(), this.getClassId());
+		return result;
+	}
+
+	@Override
 	public MMixedConjunctionSearchList getMTCContainingMe() throws PersistenceException {
 		MMixedConjunctionSearchList result = null;
 		if (result == null)
 			result = ConnectionHandler.getTheConnectionHandler().theMMixedConjunctionFacade.inverseGetFactors(this.getId(), this.getClassId());
 		return result;
 	}
-
-	// Start of section that contains operations that must be implemented.
 
 	@Override
 	public MMixedTypeDisjunctionSearchList getMTDJContainingMe() throws PersistenceException {
@@ -206,20 +231,29 @@ public abstract class MType extends PersistentObject implements PersistentMType 
 	public void initializeOnInstantiation() throws PersistenceException {
 	}
 
-	@Override
-	public MModelItemSearchList fetchDependentItems() throws PersistenceException {
-		final MModelItemSearchList result = new MModelItemSearchList();
-		SearchLists.addSecondToFirst(result, getThis().fetchAdditionalDependentItems());
-		SearchLists.addSecondToFirst(result, getThis().filteredFetchTypesContainingThisDirectly());
-		// TODO add other dependencies (assocs, MMTypes, etc)
-		return result;
-	}
-
 	// Start of section that contains overridden operations only.
 
 	@Override
 	public void delete() throws model.ConsistencyException, PersistenceException {
 		this.getMyCONCMModelItem().delete();
+	}
+
+	@Override
+	public MModelItemSearchList fetchDependentItems() throws PersistenceException {
+		final MModelItemSearchList result = new MModelItemSearchList();
+		SearchLists.addSecondToFirst(result, getThis().fetchAdditionalDependentItems());
+		// TYPES
+		SearchLists.addSecondToFirst(result, getThis().filteredFetchTypesContainingThisDirectly());
+		// OBSERVATIONS
+		SearchLists.addSecondToFirst(result, getThis().inverseGetTheType());
+		// PARAMS
+		SearchLists.addSecondToFirst(result, getThis().getInverseFormalParameterType());
+		// OPERATIONS
+		SearchLists.addSecondToFirst(result, getThis().getInverseOPTarget());
+		SearchLists.addSecondToFirst(result, getThis().inverseGetSource());
+
+		// TODO add other dependencies (assocs, MMTypes, etc)
+		return result;
 	}
 
 	@Override

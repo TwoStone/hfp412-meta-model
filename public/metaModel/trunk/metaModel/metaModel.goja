@@ -582,15 +582,15 @@ active void removeFp(FormalParameter fp) throws ConsistencyException;
 active void removeOperation(Operation op) throws ConsistencyException;
 }
 
-class FormalParameter {
-    prior MType ofType;
+class FormalParameter covers MModelItem {
+    prior symmetric(no-view inverseFormalParameterType) MType ofType;
     indexed prior String name;	
 }
 
-abstract class AbsOperation@@AbstractOperation {
+abstract class AbsOperation@@AbstractOperation covers MModelItem {
     indexed prior String name;
     prior symmetric MType source;
-    prior MType target;
+    prior symmetric(no-view inverseOPTarget) MType target;
     FormalParameter ** parameters;
 }
 

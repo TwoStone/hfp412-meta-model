@@ -9,7 +9,6 @@ import persistence.PersistentAbstractObject;
 import persistence.PersistentCONCMModelItem;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMModelItem;
-import persistence.PersistentMNonEmptyAtomicTypeConjunction;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.Procdure;

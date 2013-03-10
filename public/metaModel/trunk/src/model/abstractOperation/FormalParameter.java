@@ -5,14 +5,21 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
 import persistence.AbstractPersistentRoot;
 import persistence.ActualParameterSearchList;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.FormalParameterProxi;
 import persistence.FormalParameterSearchList;
+import persistence.MModelItemSearchList;
 import persistence.PersistenceException;
+import persistence.PersistentCONCMModelItem;
 import persistence.PersistentFormalParameter;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
@@ -84,6 +91,15 @@ public class FormalParameter extends PersistentObject implements PersistentForma
                 }
             }
             result.put("name", this.getName());
+            AbstractPersistentRoot myCONCMModelItem = (AbstractPersistentRoot)this.getMyCONCMModelItem();
+            if (myCONCMModelItem != null) {
+                result.put("myCONCMModelItem", myCONCMModelItem.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    myCONCMModelItem.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    myCONCMModelItem.toHashtable(allResults, depth, essentialLevel + 1, forGUI, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -100,24 +116,27 @@ public class FormalParameter extends PersistentObject implements PersistentForma
         result = new FormalParameter(this.ofType, 
                                      this.name, 
                                      this.This, 
+                                     this.myCONCMModelItem, 
                                      this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
     }
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     protected PersistentMType ofType;
     protected String name;
     protected PersistentFormalParameter This;
+    protected PersistentMModelItem myCONCMModelItem;
     
-    public FormalParameter(PersistentMType ofType,String name,PersistentFormalParameter This,long id) throws persistence.PersistenceException {
+    public FormalParameter(PersistentMType ofType,String name,PersistentFormalParameter This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.ofType = ofType;
         this.name = name;
-        if (This != null && !(this.equals(This))) this.This = This;        
+        if (This != null && !(this.equals(This))) this.This = This;
+        this.myCONCMModelItem = myCONCMModelItem;        
     }
     
     static public long getTypeId() {
@@ -140,6 +159,10 @@ public class FormalParameter extends PersistentObject implements PersistentForma
         if(!this.equals(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade.ThisSet(this.getId(), getThis());
+        }
+        if(this.getMyCONCMModelItem() != null){
+            this.getMyCONCMModelItem().store();
+            ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade.myCONCMModelItemSet(this.getId(), getMyCONCMModelItem());
         }
         
     }
@@ -181,6 +204,20 @@ public class FormalParameter extends PersistentObject implements PersistentForma
             ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade.ThisSet(this.getId(), newValue);
         }
     }
+    public PersistentMModelItem getMyCONCMModelItem() throws PersistenceException {
+        return this.myCONCMModelItem;
+    }
+    public void setMyCONCMModelItem(PersistentMModelItem newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.myCONCMModelItem)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.myCONCMModelItem = (PersistentMModelItem)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade.myCONCMModelItemSet(this.getId(), newValue);
+        }
+    }
     public PersistentFormalParameter getThis() throws PersistenceException {
         if(this.This == null){
             PersistentFormalParameter result = new FormalParameterProxi(this.getId());
@@ -188,7 +225,23 @@ public class FormalParameter extends PersistentObject implements PersistentForma
             return result;
         }return (PersistentFormalParameter)this.This;
     }
+    public void delete$Me() throws PersistenceException{
+        super.delete$Me();
+        this.getMyCONCMModelItem().delete$Me();
+    }
     
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleFormalParameter(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleFormalParameter(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleFormalParameter(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleFormalParameter(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleFormalParameter(this);
     }
@@ -211,6 +264,8 @@ public class FormalParameter extends PersistentObject implements PersistentForma
 				throws PersistenceException{
         this.setThis((PersistentFormalParameter)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentFormalParameter)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setOfType((PersistentMType)final$$Fields.get("ofType"));
 			this.setName((String)final$$Fields.get("name"));
 		}
@@ -229,11 +284,30 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		this.getMyCONCMModelItem().delete();
+	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
+
 	}
     
     
@@ -241,13 +315,7 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
 
-	
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

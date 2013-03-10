@@ -36,7 +36,6 @@ import persistence.ConnectionHandler;
 import persistence.MComplexTypeHierarchyHIERARCHY;
 import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
 import persistence.MEmptyTypeDisjunctionProxi;
-import persistence.MModelItemSearchList;
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentCONCMModelItem;

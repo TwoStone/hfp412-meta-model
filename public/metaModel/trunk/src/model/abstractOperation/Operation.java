@@ -11,13 +11,20 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.MModelItemSearchList;
 import persistence.MessageSearchList;
 import persistence.OperationProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbsOperation;
+import persistence.PersistentCONCMModelItem;
 import persistence.PersistentMBoolean;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMType;
 import persistence.PersistentOperation;
 import persistence.TDObserver;
@@ -85,6 +92,7 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
                                this.source, 
                                this.target, 
                                this.This, 
+                               this.myCONCMModelItem, 
                                this.getId());
         result.parameters = this.parameters.copy(result);
         this.copyingPrivateUserAttributes(result);
@@ -92,12 +100,12 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
     }
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     
-    public Operation(String name,PersistentMType source,PersistentMType target,PersistentAbsOperation This,long id) throws persistence.PersistenceException {
+    public Operation(String name,PersistentMType source,PersistentMType target,PersistentAbsOperation This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(PersistentMType)source,(PersistentMType)target,(PersistentAbsOperation)This,id);        
+        super((String)name,(PersistentMType)source,(PersistentMType)target,(PersistentAbsOperation)This,(PersistentMModelItem)myCONCMModelItem,id);        
     }
     
     static public long getTypeId() {
@@ -136,6 +144,18 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
     public <R, E extends UserException> R accept(AbsOperationReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleOperation(this);
     }
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleOperation(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleOperation(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleOperation(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleOperation(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleOperation(this);
     }
@@ -160,6 +180,8 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
 				throws PersistenceException{
         this.setThis((PersistentOperation)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentOperation)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setName((String)final$$Fields.get("name"));
 			this.setSource((PersistentMType)final$$Fields.get("source"));
 			this.setTarget((PersistentMType)final$$Fields.get("target"));
@@ -179,6 +201,16 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -192,8 +224,12 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
 	}
     public PersistentMBoolean isStatic() 
 				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().getSource().equals(
-				MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction()));
+		return MBoolean.createFromBoolean(getThis().getSource().equals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction()));
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
+
 	}
     
     
