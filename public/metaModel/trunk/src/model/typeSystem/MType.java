@@ -7,12 +7,14 @@ import persistence.ConnectionHandler;
 import persistence.MMixedConjunctionSearchList;
 import persistence.MMixedTypeDisjunctionSearchList;
 import persistence.MObservationTypeSearchList;
+import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentCONCMModelItem;
 import persistence.PersistentMModelItem;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
+import persistence.Predcate;
 import persistence.TDObserver;
 
 /* Additional import section end */
@@ -176,6 +178,21 @@ public abstract class MType extends PersistentObject implements PersistentMType{
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
 		this.getMyCONCMModelItem().delete();
+	}
+    public MTypeSearchList filteredFetchTypesContainingThisDirectly() 
+				throws PersistenceException{
+
+		// Kruecke weil transiente inverse im FW persistiert werden !?
+		final MTypeSearchList result = getThis().fetchTypesContainingThisDirectly();
+		result.filter(new Predcate<PersistentMType>() {
+
+			@Override
+			public boolean test(final PersistentMType argument) throws PersistenceException {
+				return TypeManager.getTheTypeManager().containsType(argument).toBoolean();
+			}
+		});
+
+		return result;
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

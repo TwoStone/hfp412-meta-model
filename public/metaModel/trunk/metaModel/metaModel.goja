@@ -159,6 +159,7 @@ part typeSystem {
 		abstract MDisjunctiveNormalForm fetchDisjunctiveNormalform();
 		abstract MAspect** fetchAspects();
 		abstract MType** fetchTypesContainingThisDirectly();
+		MType** filteredFetchTypesContainingThisDirectly();
 		
 /*
 			MAssociation** fetchAssociations();
@@ -278,7 +279,7 @@ part typeSystem {
 	/* Manager for Types */
 	singleton TypeManager {
 		MType** types;
-		
+		MBoolean containsType(MType type);		
 		active MAtomicType createAtomicRootType(MAspect aspect, String name, MBoolean singletonType, MBoolean abstractType) 
 			throws ConsistencyException;
 		active MAtomicType createAtomicSubType(MAtomicType superType, String name, MBoolean singletonType, MBoolean abstractType) 
@@ -292,6 +293,7 @@ part typeSystem {
 		
 		active void deleteAtomicType(MAtomicType type) throws ConsistencyException
 		active void deleteComplexeType(MComplexType type) throws ConsistencyException
+
 		//active void addSubType(MAtomicType superType, MAtomicType subType) throws CycleException, ConsistencyException;
 	}
 	
