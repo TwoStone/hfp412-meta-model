@@ -19,11 +19,13 @@ import persistence.PersistentCreateAtomicSubTypeCommand;
 import persistence.PersistentCreateTypeConjunctionCommand;
 import persistence.PersistentCreateTypeDisjunctionCommand;
 import persistence.PersistentDeleteAtomicTypeCommand;
+import persistence.PersistentDeleteComplexeTypeCommand;
 import persistence.PersistentMAbstractTypeConjunction;
 import persistence.PersistentMAbstractTypeDisjunction;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
+import persistence.PersistentMComplexType;
 import persistence.PersistentMSingletonObject;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
@@ -36,6 +38,7 @@ import persistence.TDObserver;
 import persistence.TypeManagerProxi;
 import persistence.TypeManager_TypesProxi;
 import utils.Iterables;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -294,6 +297,16 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 	}
 
 	@Override
+	public void deleteComplexeType(final PersistentMComplexType type, final Invoker invoker) throws PersistenceException {
+		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		final PersistentDeleteComplexeTypeCommand command = model.meta.DeleteComplexeTypeCommand.createDeleteComplexeTypeCommand(now, now);
+		command.setType(type);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+	}
+
+	@Override
 	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields) throws PersistenceException {
 		this.setThis((PersistentTypeManager) This);
 		if (this.equals(This)) {
@@ -422,6 +435,19 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 	}
 
 	@Override
+	public void deleteComplexeType(final PersistentMComplexType type) throws model.ConsistencyException, PersistenceException {
+		getThis().getTypes().filter(new Predcate<PersistentMType>() {
+
+			@Override
+			public boolean test(final PersistentMType argument) throws PersistenceException {
+				return !argument.equals(type);
+			}
+		});
+		type.delete();
+
+	}
+
+	@Override
 	public void initializeOnCreation() throws PersistenceException {
 	}
 
@@ -431,8 +457,13 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 
 	@Override
 	public void renameAtomicType(final PersistentMAtomicType type, final String newName) throws model.ConsistencyException, PersistenceException {
-		// TODO: implement method: renameAtomicType
-
+		if (type.getName().equals(newName)) {
+			return;
+		}
+		if (MAtomicType.getMAtomicTypeByName(newName).getLength() > 0) {
+			throw new ConsistencyException(ExceptionConstants.CE_NAME_DOUBLE + newName);
+		}
+		type.setName(newName);
 	}
 
 	// Start of section that contains overridden operations only.
@@ -442,13 +473,13 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 	private static void checkMAtomicTypeNameAndConsitency(final String name, final PersistentMBoolean singletonType,
 			final PersistentMBoolean abstractType) throws PersistenceException, ConsistencyException {
 		if (singletonType.toBoolean() && abstractType.toBoolean()) {
-			throw new ConsistencyException("Singletons may not be abstract");
+			throw new ConsistencyException(ExceptionConstants.CE_AT_SINGLETON_AND_ABSTRACT);
 		}
 		if (name.isEmpty()) {
-			throw new ConsistencyException("Atomic-Type must have a non-empty name");
+			throw new ConsistencyException(ExceptionConstants.CE_AT_NAME_EMPTY);
 		}
 		if (MAtomicType.getMAtomicTypeByName(name).getLength() > 0) {
-			throw new ConsistencyException("AtomicType-names must be unique. An AtomicType with name " + name + " is already existing.");
+			throw new ConsistencyException(ExceptionConstants.CE_NAME_DOUBLE + name);
 		}
 	}
 

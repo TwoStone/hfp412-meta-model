@@ -37,7 +37,8 @@ server Server {
 	void createTypeDisjunction(MType** containees{typeManager;types});
 	void createTypeConjunction(MType** containees{typeManager;types});
 	
-
+	void deleteAtomicType(MAtomicType type);
+	void deleteComplexType(MComplexType type);
 		
 		
 		
@@ -290,7 +291,7 @@ part typeSystem {
 		active void changeSingleton(MAtomicType type, MBoolean newSingletonType) throws ConsistencyException;
 		
 		active void deleteAtomicType(MAtomicType type) throws ConsistencyException
-		
+		active void deleteComplexeType(MComplexType type) throws ConsistencyException
 		//active void addSubType(MAtomicType superType, MAtomicType subType) throws CycleException, ConsistencyException;
 	}
 	

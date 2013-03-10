@@ -983,6 +983,26 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> deleteAtomicType(String typeProxiString){
+        try {
+            PersistentMAtomicType type = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            ((PersistentServer)this.server).deleteAtomicType(type);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> deleteComplexType(String typeProxiString){
+        try {
+            PersistentMComplexType type = (PersistentMComplexType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            ((PersistentServer)this.server).deleteComplexType(type);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> deleteEnumValue(String enumValueProxiString){
         try {
             PersistentMEnumValue enumValue = (PersistentMEnumValue)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(enumValueProxiString));
