@@ -25,33 +25,38 @@ Folgende dieser Operationen sind direkt über die Oberfläche erreichbar:
 
 \begin{description}
 \item[createUnit]
-Diese Operationen dient zum Erstellen einer neuen Unit. Da jede Unit fachlich in einem UnitType typisiert werden und einen Namen haben muss, können dieser Methode diese Werte entsprechend übergeben werden. Eine DoubleDefinitionException wird geworfen, wenn eine Unit mit dem gewählen Nmane bereits existiert.
+Diese Operatione dient zum Erstellen einer neuen Unit. Da jede Unit fachlich in einem UnitType typisiert werden und einen Namen haben muss, können dieser Methode diese Werte entsprechend übergeben werden. Eine DoubleDefinitionException wird geworfen, wenn eine Unit mit dem gewählen Namen bereits existiert.
 \item[changeUName]
-Diese Operationen dient zum umbenennen einer Unit. Auch hier wird die DoubleDefinitionException im doppelten Namensfall geworfen.
+Diese Operatione dient zum Umbenennen einer Unit. Auch hier wird die DoubleDefinitionException im doppelten Namensfall geworfen.
 \item[fetchScalar]
 Liefert die eine CompountUnit, die keine Referenzen zu anderen Units aufweist.
 \item[addReference]
-Diese Operation kann sowohl auf Zusammengesetzten Einheiten, als auch auf atomaren Einheiten angewendet werden. Sie dient zum erstellen von CompoundUnits. Entsprechend der createUnit-Methode wird hier ein Name benötigt. Die entsprechende neue Referenz zur ausgewählten Unit wird durch einen Exponenten definiert. Die DoubleDefinitionException wird auch hier geworfen, dalls es zu Namenskonflikten kommt.
+Diese Operation kann sowohl auf Zusammengesetzten Einheiten, als auch auf atomaren Einheiten angewendet werden. Sie dient zum erstellen von CompoundUnits. Analog zur createUnit-Methode wird hier ein Name benötigt. Die entsprechende neue Referenz zur ausgewählten Unit wird durch einen Exponenten definiert. Die DoubleDefinitionException wird auch hier geworfen, falls es zu Namenskonflikten kommt.
+\item[setConversion]
+Mittels dieser Operation lässt sich für eine Unit eine Conversion zur aktuellen DefaultUnit des entsprechenden UnitTypes angeben. Die Umrechnungsrate besteht immer aus einem Faktor und einer Konstante. Die Conversion werden im Kapitel \ref{ConversionsKapitel} näher erleutert.
 \end{description}
 
-Folgende Operationen sind für die interne Verwarbeitung relevant und können nicht über die Oberfläche aufgerufen werden:
+Folgende Operationen sind für die interne Verarbeitung relevant und können nicht über die Oberfläche aufgerufen werden:
 \begin{description}
 
 \item[getExistingCU]
 Hier wird anhand einer Liste von vorhandenen Referenzen eine CompoundUnit ermittelt, welche durch genau diese Referenzen definiert ist. Sollte diese Unit noch nicht existieren, wird null zurückgeliefert. Diese Operation dient zum vermeiden von Doppelt anlegten CompoundUnits.
 \item[fetchCU]
-Diese Operation ist ähnlich der getExistingCU()-operation. jedoch wird hierbei die CompoundUnit angelegt, falls sie noch nicht existiert. Die Angabe eines Namens ist erforderlich, falls eine neue CompoundUnit zustande kommen sollte. Auch hier wird entsprechend eine DoubleDefinitionException geworfen, falls eine Unit mit dem gewählen Nmane bereits existiert.
+Diese Operation ist ähnlich der getExistingCU()-operation. jedoch wird hierbei die CompoundUnit angelegt, falls sie noch nicht existiert. Die Angabe eines Namens ist erforderlich, falls eine neue CompoundUnit zustande kommen sollte. Auch hier wird entsprechend eine DoubleDefinitionException geworfen, falls eine Unit mit dem gewählen Namen bereits existiert.
 \item[fetchReference]
 Mihilfe dieser Operation kann eine Referenz-Instanz mit einem gewissen Exponenten auf eine bestimmte Unit ermittelt werden. Falls diese Instanz noch nicht existierte, wird sie erzeugt. Das dient zum vermeiden von Doppelt anlegten Referenzen.
 \end{description}
 
 \subsubsubsection{Conversions} \newline
+\label{ConversionsKapitel} 
 Eine Conversion, also die Umrechnung von einer Unit zur entspreched zum UnitTyp gehörigen DefaultUnit, kann über zwei Wege zustande kommen, bzw. verändet werden: Zum einen über die setConversion-Operation und zum anderen über die setDefaultUnit-Operation.
-Conversions sind immer lineare Funktionen, damit eine Umkehrbarkeit gewährleistet ist. Jede Conversion enthält also einen Faktor und eine Konstante um der linearen Funktion mx+b gerecht zu weden.
+Conversions sind immer lineare Funktionen, damit eine Umkehrbarkeit gewährleistet ist. Jede Conversion enthält also einen Faktor und eine Konstante, um der linearen Funktion mx+b gerecht zu weden.
 Mittels setConversion() wird eine bereits gesetzte Conversion für eine Unit überschrieben.
-Bei setDefaultUnit() wird eine Umrechnung von bereits vorhanden Conversions notwendig, da diese ja in Abhängigkeit zu einer nun veralteten DefaultUnit angegeben wurden. Das betrifft alle Umrechnungen für Units zum selben UnitType wie die DefaultUnit. Die folgende Grafik beschreibt die Umrechnungen, falls sich eine DefaultUnit ändert.
+Bei setDefaultUnit() wird eine Umrechnung von bereits vorhanden Conversions notwendig, da diese ja in Abhängigkeit zu einer nun veralteten DefaultUnit angegeben wurden. Das betrifft alle Umrechnungen für Units zum selben UnitType wie die DefaultUnit.
+\ref{setDefaultUnitGrafik} beschreibt die Umrechnungen, falls sich eine DefaultUnit ändert.
 \begin{figure}[setDefaultUnit]
-	\includegraphics{images/quantity/setDefaultUnit}
+	\includegraphics{quantity/setDefaultUnit.png}
+	\label{setDefaultUnitGrafik}
 	\caption{Umrechnung beim Ändern einer DefaultUnit}
 \end{figure}
 
