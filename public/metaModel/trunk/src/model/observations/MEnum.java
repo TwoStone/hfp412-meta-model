@@ -267,14 +267,11 @@ public class MEnum extends PersistentObject implements PersistentMEnum{
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-        //TODO: implement method: fetchDependentItems
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		final MModelItemSearchList result = new MModelItemSearchList();
+		SearchLists.addSecondToFirst(result, getThis().inverseGetTheType());
+		SearchLists.addSecondToFirst(result, getThis().inverseGetEnumType());
+		return result;
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation

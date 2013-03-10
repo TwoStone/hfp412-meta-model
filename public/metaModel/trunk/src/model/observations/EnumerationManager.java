@@ -201,9 +201,9 @@ public class EnumerationManager extends PersistentObject implements PersistentEn
 					return type.equals(argument);
 				}
 			});
+			type.delete();
 		} else {
-			throw new model.ConsistencyException(
-					"Deletion not possible. There are enumeration values connected with the enum type!");
+			throw new model.ConsistencyException("Deletion not possible. There are enumeration values connected with the enum type!");
 		}
 
 	}

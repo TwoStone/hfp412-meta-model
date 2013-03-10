@@ -190,8 +190,15 @@ public class ObservationManager extends PersistentObject implements PersistentOb
 
 	}
     public void createObservation(final String name, final PersistentMObservationType theType, final PersistentMObject theObsObject, final PersistentMEnumValue enumValue) 
-				throws PersistenceException{
-		MObservation.createMObservation(name, theType, enumValue, theObsObject);
+				throws model.ConsistencyException, PersistenceException{
+
+		if (!theType.getEnumType().equals(enumValue.getTheType()))
+			throw new model.ConsistencyException("Enum Value is not of the right Type.");
+
+		if (!theObsObject.fetchProductType().isLessOrEqual(theType.getTheType()).toBoolean())
+			throw new model.ConsistencyException("Object ist not of the right Type.");
+
+		getThis().getObservations().add(MObservation.createMObservation(name, theType, enumValue, theObsObject));
 	}
     public void deleteObservation(final PersistentMObservation observation) 
 				throws model.ConsistencyException, PersistenceException{
@@ -203,6 +210,7 @@ public class ObservationManager extends PersistentObject implements PersistentOb
 					return observation.equals(argument);
 				}
 			});
+			observation.delete();
 		} else {
 			throw new model.ConsistencyException("Cannot delete observation because there are dependent items.");
 		}

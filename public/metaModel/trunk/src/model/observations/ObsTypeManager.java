@@ -1,4 +1,3 @@
-
 package model.observations;
 
 import model.UserException;
@@ -20,8 +19,8 @@ import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentObsTypeManager;
 import persistence.PersistentProxi;
+import persistence.Predcate;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -186,36 +185,47 @@ public class ObsTypeManager extends PersistentObject implements PersistentObsTyp
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+
+	}
     public void createObsType(final String name, final PersistentMEnum enumType, final PersistentMType theType) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: createObsType
-        
-    }
+		if (MObservationType.getMObservationTypeByName(name).getLength() == 0) {
+			getThis().getObservationTypes().add(MObservationType.createMObservationType(name, enumType, theType));
+		} else {
+			throw new model.DoubleDefinitionException("An observation type with name " + name + " already exists.");
+		}
+	}
     public void deleteObsType(final PersistentMObservationType theType) 
 				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: deleteObsType
-        
-    }
+		if (theType.fetchDependentItems().getLength() == 0) {
+			getThis().getObservationTypes().removeFirstSuccess(new Predcate<PersistentMObservationType>() {
+
+				@Override
+				public boolean test(final PersistentMObservationType argument) throws PersistenceException {
+					return theType.equals(argument);
+				}
+			});
+			theType.delete();
+		} else {
+			throw new model.ConsistencyException("Cannot delete Observation Type because there are dependent observations");
+		}
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+
+	}
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

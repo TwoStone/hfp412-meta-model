@@ -327,7 +327,7 @@ part observations {
 	singleton ObservationManager {
 		MObservation ** observations;
 
-		active void createObservation(String name, MObservationType theType, MObject theObsObject, MEnumValue enumValue);
+		active void createObservation(String name, MObservationType theType, MObject theObsObject, MEnumValue enumValue) throws ConsistencyException;
 		active void deleteObservation(MObservation observation) throws ConsistencyException;
 	}
 

@@ -1,4 +1,3 @@
-
 package model.observations;
 
 import model.UserException;
@@ -19,8 +18,8 @@ import persistence.PersistentMEnum;
 import persistence.PersistentMEnumValue;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
+import persistence.Predcate;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -184,36 +183,56 @@ public class EnumValueManager extends PersistentObject implements PersistentEnum
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+	}
     public void createEnumValue(final String name, final PersistentMEnum type) 
 				throws model.DoubleDefinitionException, PersistenceException{
-        //TODO: implement method: createEnumValue
-        
-    }
+		final PersistentMEnumValue enumVal = type.inverseGetTheType().findFirst(new Predcate<PersistentMEnumValue>() {
+
+			@Override
+			public boolean test(final PersistentMEnumValue argument) throws PersistenceException {
+				return argument.getName().equals(name);
+			}
+		});
+
+		if (enumVal == null) {
+			getThis().getEnumValues().add(MEnumValue.createMEnumValue(name, type));
+		} else {
+			throw new model.DoubleDefinitionException("An enum value with name " + name + " already exists for enumeration.");
+		}
+
+	}
     public void deleteEnumValue(final PersistentMEnumValue enumValue) 
 				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: deleteEnumValue
-        
-    }
+		if (enumValue.fetchDependentItems().getLength() == 0) {
+			getThis().getEnumValues().removeFirstSuccess(new Predcate<PersistentMEnumValue>() {
+
+				@Override
+				public boolean test(final PersistentMEnumValue argument) throws PersistenceException {
+					return argument.equals(enumValue);
+				}
+			});
+
+			enumValue.delete();
+		} else {
+			throw new model.ConsistencyException("Deletion not possible. There are observations connected with the enum value!");
+		}
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+
+	}
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

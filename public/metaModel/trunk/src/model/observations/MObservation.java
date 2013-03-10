@@ -355,14 +355,9 @@ public class MObservation extends PersistentObject implements PersistentMObserva
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-        //TODO: implement method: fetchDependentItems
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		final MModelItemSearchList result = new MModelItemSearchList();
+		return result;
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
