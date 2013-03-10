@@ -546,6 +546,16 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> changeSingleton(String typeProxiString, String newSingletonType){
+        try {
+            PersistentMAtomicType type = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            ((PersistentServer)this.server).changeSingleton(type, newSingletonType);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> changeUnitName(String unitProxiString, String name){
         try {
             PersistentAbsUnit unit = (PersistentAbsUnit)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
@@ -1148,6 +1158,16 @@ public  class RemoteServer extends RemoteServerMaster {
         try {
             PersistentMAspect aspect = (PersistentMAspect)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aspectProxiString));
             ((PersistentServer)this.server).renameAspect(aspect, newName);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> renameAtomicType(String typeProxiString, String newName){
+        try {
+            PersistentMAtomicType type = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
+            ((PersistentServer)this.server).renameAtomicType(type, newName);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
