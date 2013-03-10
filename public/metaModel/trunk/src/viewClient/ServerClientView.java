@@ -952,40 +952,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 				});
 				result.add(item);
 			}
-			if (selected instanceof UnitTypeView) {
-				item = new javax.swing.JMenuItem();
-				item.setText("Create unit ... ");
-				item.addActionListener(new java.awt.event.ActionListener() {
-					@Override
-					public void actionPerformed(final java.awt.event.ActionEvent e) {
-						final ServerCreateUnitUnitTypeStringMssgWizard wizard = new ServerCreateUnitUnitTypeStringMssgWizard("Create unit");
-						wizard.setFirstArgument((UnitTypeView) selected);
-						wizard.pack();
-						wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-						wizard.pack();
-						wizard.setLocationRelativeTo(getNavigationPanel());
-						wizard.setVisible(true);
-					}
-
-				});
-				result.add(item);
-				item = new javax.swing.JMenuItem();
-				item.setText("setDefaultUnit ... ");
-				item.addActionListener(new java.awt.event.ActionListener() {
-					@Override
-					public void actionPerformed(final java.awt.event.ActionEvent e) {
-						final ServerSetDefaultUnitUnitTypeUnitMssgWizard wizard = new ServerSetDefaultUnitUnitTypeUnitMssgWizard("setDefaultUnit");
-						wizard.setFirstArgument((UnitTypeView) selected);
-						wizard.pack();
-						wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-						wizard.pack();
-						wizard.setLocationRelativeTo(getNavigationPanel());
-						wizard.setVisible(true);
-					}
-
-				});
-				result.add(item);
-			}
 			if (selected instanceof AssociationManagerView) {
 				item = new javax.swing.JMenuItem();
 				item.setText("createAssociation ... ");
@@ -1012,6 +978,40 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 						final ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard wizard = new ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard(
 								"createHierarchy");
 						wizard.setFirstArgument((AssociationManagerView) selected);
+						wizard.pack();
+						wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+						wizard.pack();
+						wizard.setLocationRelativeTo(getNavigationPanel());
+						wizard.setVisible(true);
+					}
+
+				});
+				result.add(item);
+			}
+			if (selected instanceof UnitTypeView) {
+				item = new javax.swing.JMenuItem();
+				item.setText("Create unit ... ");
+				item.addActionListener(new java.awt.event.ActionListener() {
+					@Override
+					public void actionPerformed(final java.awt.event.ActionEvent e) {
+						final ServerCreateUnitUnitTypeStringMssgWizard wizard = new ServerCreateUnitUnitTypeStringMssgWizard("Create unit");
+						wizard.setFirstArgument((UnitTypeView) selected);
+						wizard.pack();
+						wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+						wizard.pack();
+						wizard.setLocationRelativeTo(getNavigationPanel());
+						wizard.setVisible(true);
+					}
+
+				});
+				result.add(item);
+				item = new javax.swing.JMenuItem();
+				item.setText("setDefaultUnit ... ");
+				item.addActionListener(new java.awt.event.ActionListener() {
+					@Override
+					public void actionPerformed(final java.awt.event.ActionEvent e) {
+						final ServerSetDefaultUnitUnitTypeUnitMssgWizard wizard = new ServerSetDefaultUnitUnitTypeUnitMssgWizard("setDefaultUnit");
+						wizard.setFirstArgument((UnitTypeView) selected);
 						wizard.pack();
 						wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
 						wizard.pack();
