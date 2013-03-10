@@ -7,6 +7,7 @@ import model.CycleException;
 import model.quantity.UnitType;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
+import model.typeSystem.MEmptyTypeConjunction;
 import model.typeSystem.MObject;
 
 import org.junit.Test;
@@ -36,7 +37,8 @@ public class AccountTest extends TestingBase {
 	public void onAccount_test01() throws PersistenceException, CycleException {
 
 		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
-		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1);
+		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1,
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Zeit");
 
 		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type1, unitType1);
@@ -62,7 +64,8 @@ public class AccountTest extends TestingBase {
 	public void onAccount_test02() throws PersistenceException, CycleException {
 
 		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
-		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1);
+		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1,
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Zeit");
 
 		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type1, unitType1);
@@ -87,7 +90,8 @@ public class AccountTest extends TestingBase {
 	public void onAccount_test03() throws PersistenceException, CycleException {
 
 		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
-		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1);
+		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1,
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Zeit");
 
 		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type1, unitType1);
@@ -114,7 +118,8 @@ public class AccountTest extends TestingBase {
 	public void onAccount_test04() throws PersistenceException, CycleException {
 
 		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
-		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1);
+		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1,
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Zeit");
 
 		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type1, unitType1);
@@ -142,7 +147,8 @@ public class AccountTest extends TestingBase {
 	public void onAccount_test05() throws PersistenceException, CycleException {
 
 		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
-		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1);
+		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1,
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Zeit");
 
 		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type1, unitType1);
@@ -174,7 +180,8 @@ public class AccountTest extends TestingBase {
 	public void onAccount_test06() throws PersistenceException, CycleException {
 
 		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
-		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1);
+		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1,
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Zeit");
 
 		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type1, unitType1);

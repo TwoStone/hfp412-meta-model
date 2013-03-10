@@ -114,12 +114,18 @@ public abstract class AbstractTest extends TestingBase {
 		objectMan = ObjectManager.getTheObjectManager();
 
 		// AtomicType
-		mat1 = MAtomicType.createMAtomicType("Typ1", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 1"));
-		mat2 = MAtomicType.createMAtomicType("Typ2", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 2"));
-		mat3 = MAtomicType.createMAtomicType("Typ3", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 3"));
-		mat4 = MAtomicType.createMAtomicType("Typ4", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 4"));
-		mat5 = MAtomicType.createMAtomicType("Typ5", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 5"));
-		mat6 = MAtomicType.createMAtomicType("Typ5", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 6"));
+		mat1 = MAtomicType.createMAtomicType("Typ1", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 1"),
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
+		mat2 = MAtomicType.createMAtomicType("Typ2", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 2"),
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
+		mat3 = MAtomicType.createMAtomicType("Typ3", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 3"),
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
+		mat4 = MAtomicType.createMAtomicType("Typ4", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 4"),
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
+		mat5 = MAtomicType.createMAtomicType("Typ5", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 5"),
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
+		mat6 = MAtomicType.createMAtomicType("Typ5", mFalse, mFalse, MAspect.createMAspect("Aspekt No. 6"),
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 
 		mat1.setSuperType(mat2);
 		mat2.setSuperType(mat3);

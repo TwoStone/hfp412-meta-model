@@ -16,6 +16,7 @@ import model.typeSystem.MAbstractTypeConjunction;
 import model.typeSystem.MAbstractTypeDisjunction;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
+import model.typeSystem.MEmptyTypeConjunction;
 import model.typeSystem.MMixedConjunction;
 import model.typeSystem.MMixedTypeDisjunction;
 import modelServer.ConnectionServer;
@@ -33,6 +34,7 @@ import persistence.PersistentMAbstractTypeDisjunction;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMBoolean;
+import persistence.PersistentMEmptyTypeConjunction;
 import persistence.PersistentMFalse;
 import persistence.PersistentMMixedConjunction;
 import persistence.PersistentMMixedTypeDisjunction;
@@ -51,14 +53,17 @@ public abstract class TestingBase {
 	@InjectSingleton(MTrue.class)
 	protected PersistentMTrue mTrue;
 
+	@InjectSingleton(MEmptyTypeConjunction.class)
+	protected static PersistentMEmptyTypeConjunction anything;
+
 	private final Set<Class<? extends PersistentRoot>> manager = Sets.newHashSet();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Cache.getTheCache().reset$For$Test();
 		final ConnectionHandler connection = ConnectionHandler.getTheConnectionHandler();
-		connection.connect(DBConnectionConstants.DataBaseName, DBConnectionConstants.SchemaName,
-				DBConnectionConstants.UserName, DBConnectionConstants.Password, true);
+		connection.connect(DBConnectionConstants.DataBaseName, DBConnectionConstants.SchemaName, DBConnectionConstants.UserName,
+				DBConnectionConstants.Password, true);
 		ConnectionHandler.initializeMapsForMappedFields();
 
 		ConnectionServer.startTheConnectionServer(EmptyServerReporter.getTheInstance());
@@ -72,25 +77,22 @@ public abstract class TestingBase {
 		ConnectionServer.stopTheConnectionServer();
 	}
 
-	protected static PersistentMAtomicType atomicType(final String name, final PersistentMAspect aspect)
-			throws PersistenceException {
-		return MAtomicType.createMAtomicType(name, MFalse.getTheMFalse(), MFalse.getTheMFalse(), aspect);
+	protected static PersistentMAtomicType atomicType(final String name, final PersistentMAspect aspect) throws PersistenceException, CycleException {
+
+		return MAtomicType.createMAtomicType(name, MFalse.getTheMFalse(), MFalse.getTheMFalse(), aspect, anything);
 	}
 
-	protected static PersistentMAtomicType atomicType(final String string, final PersistentMAspect aspect,
-			final PersistentMAtomicType superType) throws PersistenceException, CycleException {
-		final PersistentMAtomicType atomicType = atomicType(string, aspect);
-		atomicType.setSuperType(superType);
+	protected static PersistentMAtomicType atomicType(final String name, final PersistentMAspect aspect, final PersistentMAtomicType superType)
+			throws PersistenceException, CycleException {
 
-		return atomicType;
+		return MAtomicType.createMAtomicType(name, MFalse.getTheMFalse(), MFalse.getTheMFalse(), aspect, superType);
 	}
 
 	protected static PersistentMAspect aspect(final String name) throws PersistenceException {
 		return MAspect.createMAspect(name);
 	}
 
-	protected static PersistentMMixedTypeDisjunction sum(final PersistentMType... mTypes) throws PersistenceException,
-			CycleException {
+	protected static PersistentMMixedTypeDisjunction sum(final PersistentMType... mTypes) throws PersistenceException, CycleException {
 		final PersistentMMixedTypeDisjunction disjuntion = MMixedTypeDisjunction.createMMixedTypeDisjunction();
 
 		for (final PersistentMType persistentMType : mTypes) {
@@ -100,8 +102,7 @@ public abstract class TestingBase {
 		return disjuntion;
 	}
 
-	protected static PersistentMMixedConjunction product(final PersistentMType... mTypes) throws PersistenceException,
-			CycleException {
+	protected static PersistentMMixedConjunction product(final PersistentMType... mTypes) throws PersistenceException, CycleException {
 		final PersistentMMixedConjunction conj = MMixedConjunction.createMMixedConjunction();
 
 		for (final PersistentMType persistentMType : mTypes) {
@@ -111,18 +112,15 @@ public abstract class TestingBase {
 		return conj;
 	}
 
-	public static PersistentMAbstractTypeDisjunction transNormDisj(final PersistentMType... mTypes)
-			throws ConsistencyException, PersistenceException {
+	public static PersistentMAbstractTypeDisjunction transNormDisj(final PersistentMType... mTypes) throws ConsistencyException, PersistenceException {
 		return MAbstractTypeDisjunction.transientCreateAbstrTypeDisj(SearchLists.createMTypeSearchList(mTypes));
 	}
 
-	public static PersistentMAbstractTypeConjunction transNormConj(final PersistentMType... mTypes)
-			throws ConsistencyException, PersistenceException {
+	public static PersistentMAbstractTypeConjunction transNormConj(final PersistentMType... mTypes) throws ConsistencyException, PersistenceException {
 		return MAbstractTypeConjunction.transientCreateAbstractTypeConj(SearchLists.createMTypeSearchList(mTypes));
 	}
 
-	protected static void assertMTrue(final PersistentMBoolean persistentMBoolean, final String message)
-			throws PersistenceException {
+	protected static void assertMTrue(final PersistentMBoolean persistentMBoolean, final String message) throws PersistenceException {
 		Assert.assertTrue(message, persistentMBoolean.toBoolean());
 	}
 
@@ -134,14 +132,11 @@ public abstract class TestingBase {
 		Assert.assertFalse(value.toBoolean());
 	}
 
-	protected static void assertTypeStructureEquals(final PersistentMType expected, final PersistentMType actual)
-			throws PersistenceException {
-		assertMTrue(expected.isStructuralEquivalant(actual),
-				String.format("Expected %s but was %s", expected.fetchName(), actual.fetchName()));
+	protected static void assertTypeStructureEquals(final PersistentMType expected, final PersistentMType actual) throws PersistenceException {
+		assertMTrue(expected.isStructuralEquivalant(actual), String.format("Expected %s but was %s", expected.fetchName(), actual.fetchName()));
 	}
 
-	protected static void assertTypeSemanticEquals(final PersistentMType expected, final PersistentMType actual)
-			throws PersistenceException {
+	protected static void assertTypeSemanticEquals(final PersistentMType expected, final PersistentMType actual) throws PersistenceException {
 		Assert.assertTrue(expected.isLessOrEqual(actual).toBoolean() && actual.isLessOrEqual(expected).toBoolean());
 
 	}
@@ -154,8 +149,7 @@ public abstract class TestingBase {
 			method = managerClazz.getMethod(methodName);
 
 			if (method == null) {
-				throw new RuntimeException(String.format("The desired class %s is not a singleton!",
-						managerClazz.getName()));
+				throw new RuntimeException(String.format("The desired class %s is not a singleton!", managerClazz.getName()));
 			}
 
 			final T manager = (T) method.invoke(null);
@@ -167,8 +161,8 @@ public abstract class TestingBase {
 	}
 
 	@After
-	public void cleanUpManagerAndCache() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
-			SecurityException, PersistenceException, SQLException, IOException {
+	public void cleanUpManagerAndCache() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException,
+			PersistenceException, SQLException, IOException {
 		Cache.getTheCache().reset$For$Test();
 
 		for (final Class<?> managerClazz : manager) {

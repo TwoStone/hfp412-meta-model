@@ -18,7 +18,6 @@ import persistence.PersistentMAbstractTypeConjunction;
 import persistence.PersistentMAbstractTypeDisjunction;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
-import persistence.PersistentMEmptyTypeConjunction;
 import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMMixedConjunction;
 import persistence.PersistentMMixedTypeDisjunction;
@@ -39,9 +38,9 @@ public class TypeManagerTest extends TestingBase {
 	@InjectSingleton(AspectManager.class)
 	PersistentAspectManager aspectMngr;
 
-	@InjectSingleton(MEmptyTypeConjunction.class)
-	PersistentMEmptyTypeConjunction anything;
-
+	/*
+	 * @InjectSingleton(MEmptyTypeConjunction.class) PersistentMEmptyTypeConjunction anything;
+	 */
 	@InjectSingleton(MEmptyTypeDisjunction.class)
 	PersistentMEmptyTypeDisjunction nothing;
 
@@ -184,8 +183,7 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(1), "AT2", mFalse, mFalse);
 		final PersistentMAtomicType at3 = typeMngr.createAtomicRootType(aspects.get(2), "AT3", mFalse, mFalse);
 		final PersistentMAtomicType at4 = typeMngr.createAtomicRootType(aspects.get(3), "AT4", mFalse, mFalse);
-		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(createTypeConjunction(at1, at2),
-				createTypeConjunction(at3, at4));
+		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(createTypeConjunction(at1, at2), createTypeConjunction(at3, at4));
 
 		final PersistentMMixedConjunction expected = product(at1, at2, at3, at4);
 
@@ -248,8 +246,7 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAtomicType at3 = typeMngr.createAtomicRootType(aspects.get(2), "AT3", mFalse, mFalse);
 		final PersistentMAtomicType at4 = typeMngr.createAtomicRootType(aspects.get(3), "AT4", mFalse, mFalse);
 
-		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(createTypeDisjunction(at3, at1_1),
-				createTypeDisjunction(at4, at1_2));
+		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(createTypeDisjunction(at3, at1_1), createTypeDisjunction(at4, at1_2));
 	}
 
 	/**
@@ -280,8 +277,7 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
 		final PersistentMAtomicType atSingleton1 = typeMngr.createAtomicRootType(aspects.get(1), "AT2", mTrue, mFalse);
 		final PersistentMAtomicType atSingleton2 = typeMngr.createAtomicRootType(aspects.get(2), "AT3", mTrue, mFalse);
-		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(at1,
-				createTypeDisjunction(atSingleton1, atSingleton2));
+		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(at1, createTypeDisjunction(atSingleton1, atSingleton2));
 	}
 
 	/**
@@ -370,8 +366,7 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(1), "AT2", mFalse, mFalse);
 		final PersistentMAtomicType at3 = typeMngr.createAtomicRootType(aspects.get(2), "AT3", mFalse, mFalse);
 		final PersistentMAtomicType at4 = typeMngr.createAtomicRootType(aspects.get(3), "AT4", mFalse, mFalse);
-		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(createTypeDisjunction(at1, at2),
-				createTypeDisjunction(at3, at4));
+		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(createTypeDisjunction(at1, at2), createTypeDisjunction(at3, at4));
 
 		final PersistentMMixedTypeDisjunction expected = sum(product(at1), product(at2), product(at3), product(at4));
 
@@ -393,8 +388,7 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(1), "AT2", mFalse, mFalse);
 		final PersistentMAtomicType at3 = typeMngr.createAtomicRootType(aspects.get(2), "AT3", mFalse, mFalse);
 		final PersistentMAtomicType at4 = typeMngr.createAtomicRootType(aspects.get(3), "AT4", mFalse, mFalse);
-		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(createTypeConjunction(at1, at2),
-				createTypeDisjunction(at3, at4));
+		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(createTypeConjunction(at1, at2), createTypeDisjunction(at3, at4));
 
 		final PersistentMMixedTypeDisjunction expected = sum(product(at1, at2), product(at3), product(at4));
 
@@ -475,13 +469,13 @@ public class TypeManagerTest extends TestingBase {
  * 
  */
 
-	private PersistentMAbstractTypeConjunction createTypeConjunction(final PersistentMType... typeList)
-			throws ConsistencyException, PersistenceException {
+	private PersistentMAbstractTypeConjunction createTypeConjunction(final PersistentMType... typeList) throws ConsistencyException,
+			PersistenceException {
 		return typeMngr.createTypeConjunction(SearchLists.createMTypeSearchList(typeList));
 	}
 
-	private PersistentMAbstractTypeDisjunction createTypeDisjunction(final PersistentMType... typeList)
-			throws ConsistencyException, PersistenceException {
+	private PersistentMAbstractTypeDisjunction createTypeDisjunction(final PersistentMType... typeList) throws ConsistencyException,
+			PersistenceException {
 		return typeMngr.createTypeDisjunction(SearchLists.createMTypeSearchList(typeList));
 	}
 
