@@ -52,7 +52,9 @@ Mihilfe dieser Operation kann eine Referenz-Instanz mit einem gewissen Exponente
 Eine Conversion, also die Umrechnung von einer Unit zur entspreched zum UnitTyp gehörigen DefaultUnit, kann über zwei Wege zustande kommen, bzw. verändet werden: Zum einen über die setConversion-Operation und zum anderen über die setDefaultUnit-Operation.
 Conversions sind immer lineare Funktionen, damit eine Umkehrbarkeit gewährleistet ist. Jede Conversion enthält also einen Faktor und eine Konstante (als Fraction), um der linearen Funktion m*x+b gerecht zu weden. Die Angabe von m und b hat folgende Semantik: y DefaultUnit = m * unitWert + b.
 Am Beispiel von Fahrenheit und Celsius würde für Celsius die Conversion folgendermaßen lauten, wenn Fahrenheit die DefaultUnit darstellt:
-Wert_{°F} = Wert_{°C} * \frac{9}{5} + 32
+
+\( Wert_{°F} = Wert_{°C} * \frac{9}{5} + 32 \)
+
 Mittels setConversion() wird eine bereits gesetzte Conversion für eine Unit überschrieben.
 Bei setDefaultUnit() wird eine Umrechnung von bereits vorhanden Conversions notwendig, da diese ja in Abhängigkeit zu einer nun veralteten DefaultUnit angegeben wurden. Das betrifft alle Umrechnungen für Units zum selben UnitType wie die DefaultUnit.
 \ref{setDefaultUnitGrafik} beschreibt die Umrechnungen, falls sich eine DefaultUnit ändert.
