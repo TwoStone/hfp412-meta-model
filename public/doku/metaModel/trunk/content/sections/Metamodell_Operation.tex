@@ -13,6 +13,7 @@ Die Klasse Operation enthält nur genau zwei Operation.
 Die Operation \textbf{isStatic()} gibt genau dann true zurück, wenn der Quelltyp dieser Operation der leeren Summe entspricht.
 Zusätzlich zu der Bedingung aus isStatic gilt für die zweite Operation \textbf{isConstant()}, dass die Operation keine Parameter enthalten darf. 
 
+
 \subsubsubsection{OperationManager} \newline
 Der OperatioManager beinhaltet zwei Listen zur Verwaltung von Operationen und Parametern.
 
@@ -22,6 +23,7 @@ Der OperatioManager beinhaltet zwei Listen zur Verwaltung von Operationen und Pa
 \end{description}
 
 Um diese Listen verwalten zu können, stellt der Operationmanager 10 transaktionale Operationen bereit.
+Im Folgenden werden diese Operationen kurz beschrieben, wobei sowohl \textbf{Parameter} als auch \emph{Exceptions} durch entsprechende Formatierungen hervorgehoben wurden.
 
 \begin{description}
 \item[createOperation]
@@ -75,7 +77,7 @@ Der AssoziationManager bietet sechs transaktionale Operationen an und beinhaltet
 Die eine Liste beinhaltet alle erstellten Assoziationen und die andere alle Hierarchien. Diese beiden Listen werden dem Anwender an der 
 Oberfläche präsentiert und dienen der Verwaltung der darin enthaltenen Objekte.
 
-Im Folgenden werden die Operationen des Managers kurz beschrieben, wobei sowohl \textbf{Parameter} als auch \emph{Exceptions} durch entsprechende Formatierungen hervorgehoben wurden.
+Wie schon bei dem Operationsmanager, werden \textbf{Parameter} und \emph{Exceptions} durch entsprechende Formatierungen kenntlich gemacht.
 
 \begin{description}
 \item[createAssociation] Bei Aufruf dieser Operation müssen \textbf{Quell- und Zieltyp} sowie der \textbf{Name} der zu erstellenden Assoziation 
@@ -99,9 +101,9 @@ Insbesondere folgende Gründe führen zum Misserfolg:
 \item[removeHierarchy] Nach erfolgreicher Ausführung dieser Operation, wird die übergebene \textbf{Hierarchie} aus dem System entfernt. 
 Es wird lediglich die Hierarchie entfernt, die beinhaltenden Assoziationen an sich bleiben weiterhin bestehen.
 \item[addAssociation] Diese Operation erwartet zum einen die \textbf{Hierarchie} zu der die Assoziation hinzugefügt werden soll und zum Anderen die \textbf{Assoziation} selbst.
-Wenn es auf der Exemplarbene keine zyklischen Links zu dieser Assoziation gibt, wird die Assoziation der Hierarchie zugeordnet. Sollte es zyklische Links
+Wenn es auf der Exemplarebene keine zyklischen Links zu dieser Assoziation gibt, wird die Assoziation der Hierarchie zugeordnet. Sollte es zyklische Links
 zu dieser Assoziation geben oder die Assoziation ist bereits in dieser Hierarchie, werden entsprechende Exceptions (\emph{CycleException,} bzw. \emph{DoubleDefinitionException}) 
-erstellt und die Assoziation wird der Hierarchie nicht zugeordnet. UMSCHREIBEN(wirklich)
+erstellt und die Assoziation wird der Hierarchie nicht zugeordnet.
 \item[removeAssoFrmHier] Zum Entfernen von Assoziationen aus Hierarchien, ist es notwendig dieser Operation sowohl die \textbf{Hierarchie}, als auch die zu entfernende 
 \textbf{Assoziation} anzugeben. Dabei wird lediglich die Assoziation aus der Hierarchie entfernt, die Assoziation an sich bleibt bestehen. 
 Sofern die angegebene Assoziation an dieser Hierarchie teilnimmt, wird diese Verbindung durch die Ausführung dieser Operation entfernt. 
@@ -117,7 +119,8 @@ Assoziation einer Hierarchie aus der Hierarchie zu entfernen, wird eine \emph{Co
 Messages und Links haben eine gemeinsame Oberklasse MessageOrLink. In der ersten Ausbaustufe werden lediglich die Links implementiert. Zu den Messages existiert eine rudimentäre
 Implementierung die dem Anwender aber über die Oberfläche nicht bereitgestellt wird, da die 
 Semantik eines Messageexemplars bislang nicht eindeutig geklärt ist.
-Es existiert zum einen die Interpretation, dass Message aufrufe von Methoden sind. Eine weitere Interpretationsmöglichkeit ist, dass eine Message die Methode an sich inklusive ihres Inhalts beschreibt. Dazu müsste aber ein domänenspezifische Sprache (DSL) entwickelt und im Modell verwendet werden.
+Es existiert zum einen die Interpretation, dass Message aufrufe von Methoden sind. Eine weitere Interpretationsmöglichkeit ist, dass eine Message die Methode an sich inklusive ihres Inhalts beschreibt. 
+Dazu müsste aber ein domänenspezifische Sprache (DSL) entwickelt und im Modell verwendet werden.
 
 Da Messages in dieser Ausbaustufe nicht enthalten sind, verlieren auch Actualparameter ihre Daseinsberechtigung. Aus diesem Grund werden auch diese nicht implementiert.
  \vspace{15pt}
@@ -138,8 +141,8 @@ gestattet sind.
 \end{enumerate}
 
 Desweiteren ist es Assoziationen möglich an mehreren Hierarchien teilzunehmen. Zyklische Assoziationen sind auf der Metaebene möglich, 
-da sich sonst keinerlei Aggregationsbeziehung abbilden ließe.
-Auf der Ebene der Exemplare hingegen, müssen \emph{alle Links, die in Assoziation typisiert sind, welche an einer oder mehreren Hierarchien teilnehmen, zyklenfrei sein.}
+da sich sonst keinerlei Aggregationsbeziehung abbilden ließen.
+Auf der Ebene der Exemplare hingegen, müssen \emph{alle Links, die in Assoziation typisiert sind, in jeder Hierarchie an der diese teilnehmen, zyklenfrei sein.}
 Wenn ein Anwender versucht zyklische Links zu erzeugen, wird eine \emph{CycleException} erzeugt und der jeweilige Link wird nicht erstellt.
 
 \subsubsection{Löschen eines Links - removeLink}
