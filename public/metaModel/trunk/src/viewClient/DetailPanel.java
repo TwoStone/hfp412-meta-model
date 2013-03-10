@@ -2317,6 +2317,7 @@ class FunctionManagerDefaultDetailPanel extends DefaultDetailPanel{
 class ObjectManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ObjectManager$$objects = "ObjectManager$$objects";
+    protected static final String ObjectManager$$singletons = "ObjectManager$$singletons";
     
     protected ObjectManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

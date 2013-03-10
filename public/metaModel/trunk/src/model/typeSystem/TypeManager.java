@@ -267,7 +267,9 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 	}
     public void changeSingleton(final PersistentMAtomicType type, final PersistentMBoolean newSingletonType) 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: changeSingleton
+		if (!newSingletonType.toBoolean()) {
+			// TODO implement
+		}
 
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 

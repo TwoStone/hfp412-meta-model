@@ -76,6 +76,7 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("objects", this.getObjects().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
+            result.put("singletons", this.getSingletons().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -87,6 +88,7 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
         result = new ObjectManager(this.This, 
                                    this.getId());
         result.objects = this.objects.copy(result);
+        result.singletons = this.singletons.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -95,12 +97,14 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
         return false;
     }
     protected ObjectManager_ObjectsProxi objects;
+    protected ObjectManager_SingletonsProxi singletons;
     protected PersistentObjectManager This;
     
     public ObjectManager(PersistentObjectManager This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.objects = new ObjectManager_ObjectsProxi(this);
+        this.singletons = new ObjectManager_SingletonsProxi(this);
         if (This != null && !(this.equals(This))) this.This = This;        
     }
     
@@ -118,6 +122,9 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     
     public ObjectManager_ObjectsProxi getObjects() throws PersistenceException {
         return this.objects;
+    }
+    public ObjectManager_SingletonsProxi getSingletons() throws PersistenceException {
+        return this.singletons;
     }
     protected void setThis(PersistentObjectManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -156,6 +163,7 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getObjects().getLength() > 0) return 1;
+        if (this.getSingletons().getLength() > 0) return 1;
         return 0;
     }
     

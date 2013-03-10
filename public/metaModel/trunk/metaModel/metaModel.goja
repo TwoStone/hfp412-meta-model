@@ -296,14 +296,16 @@ part typeSystem {
 	
 	singleton ObjectManager {
 		MObject** objects;
-		
+		MSingletonObject** singletons; //Werden vom TypeManager verwaltet!!!!
 		active MObject createMObject(MAtomicType type, MAtomicType** otherTypes) throws ConsistencyException		
 		active void addType(MObject object, MAtomicType newType) throws ConsistencyException;
 		active void removeType(MObject object, MAtomicType oldType) throws ConsistencyException;
 		active void replaceType(MObject object, MAtomicType oldType, MAtomicType newType) throws ConsistencyException;
 		
 		MObject** fetchObjectsWithTypeLE(MType type);
+		
 
+		
 	}
 	
 	
