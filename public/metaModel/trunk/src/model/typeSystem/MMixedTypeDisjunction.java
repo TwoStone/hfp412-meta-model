@@ -225,8 +225,6 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
          return visitor.handleMMixedTypeDisjunction(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getMTDJContainingMe().getLength() > 0) return 1;
-        if (this.getMTCContainingMe().getLength() > 0) return 1;
         if (this.getAddends().getLength() > 0) return 1;
         return 0;
     }

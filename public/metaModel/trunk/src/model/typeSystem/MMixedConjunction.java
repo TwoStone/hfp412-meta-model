@@ -224,8 +224,6 @@ public class MMixedConjunction extends model.typeSystem.MAbstractTypeConjunction
          return visitor.handleMMixedConjunction(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getMTDJContainingMe().getLength() > 0) return 1;
-        if (this.getMTCContainingMe().getLength() > 0) return 1;
         if (this.getFactors().getLength() > 0) return 1;
         return 0;
     }

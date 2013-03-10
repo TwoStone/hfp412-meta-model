@@ -963,6 +963,16 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> deleteAspect(String aspectProxiString){
+        try {
+            PersistentMAspect aspect = (PersistentMAspect)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aspectProxiString));
+            ((PersistentServer)this.server).deleteAspect(aspect);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> deleteEnumValue(String enumValueProxiString){
         try {
             PersistentMEnumValue enumValue = (PersistentMEnumValue)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(enumValueProxiString));
@@ -1128,6 +1138,16 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentMObject object = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(objectProxiString));
             PersistentMAtomicType oldType = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(oldTypeProxiString));
             ((PersistentServer)this.server).removeType(object, oldType);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> renameAspect(String aspectProxiString, String newName){
+        try {
+            PersistentMAspect aspect = (PersistentMAspect)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aspectProxiString));
+            ((PersistentServer)this.server).renameAspect(aspect, newName);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

@@ -1069,12 +1069,9 @@ class NameSchemeDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
-    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MAtomicType$$name = "MAtomicType$$name";
     protected static final String MAtomicType$$singletonType = "MAtomicType$$singletonType";
     protected static final String MAtomicType$$abstractType = "MAtomicType$$abstractType";
-    protected static final String MAtomicType$$nEATCContainingMe = "MAtomicType$$nEATCContainingMe";
     protected static final String MAtomicType$$subTypes = "MAtomicType$$subTypes";
     protected static final String MAtomicType$$possibleNames = "MAtomicType$$possibleNames";
     
@@ -1112,9 +1109,6 @@ class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
 
 @SuppressWarnings("serial")
 class MEmptyTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
-    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     
     protected MEmptyTypeDisjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1267,8 +1261,6 @@ class OperationManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MMixedConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
-    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MMixedConjunction$$factors = "MMixedConjunction$$factors";
     
     protected MMixedConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1446,10 +1438,6 @@ class MultiplicationDefaultDetailPanel extends DefaultDetailPanel{
 
 @SuppressWarnings("serial")
 class MEmptyTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
-    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
-    protected static final String MAtomicTypeConjunction$$nEDNFContainingMe = "MAtomicTypeConjunction$$nEDNFContainingMe";
     
     protected MEmptyTypeConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1817,8 +1805,6 @@ class MAccountTypeDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MMixedTypeDisjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
-    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MMixedTypeDisjunction$$addends = "MMixedTypeDisjunction$$addends";
     
     protected MMixedTypeDisjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1851,9 +1837,6 @@ class TypeManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MNonEmptyAtomicTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
-    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
-    protected static final String MAtomicTypeConjunction$$nEDNFContainingMe = "MAtomicTypeConjunction$$nEDNFContainingMe";
     protected static final String MNonEmptyAtomicTypeConjunction$$factors = "MNonEmptyAtomicTypeConjunction$$factors";
     
     protected MNonEmptyAtomicTypeConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1933,8 +1916,6 @@ class EnumerationManagerDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MNonEmptyDisjunctiveNormalFormDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String MType$$mTDJContainingMe = "MType$$mTDJContainingMe";
-    protected static final String MType$$mTCContainingMe = "MType$$mTCContainingMe";
     protected static final String MNonEmptyDisjunctiveNormalForm$$addends = "MNonEmptyDisjunctiveNormalForm$$addends";
     
     protected MNonEmptyDisjunctiveNormalFormDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

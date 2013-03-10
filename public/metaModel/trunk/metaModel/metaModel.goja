@@ -25,6 +25,9 @@ server Server {
 
 	/** Type **/
 	void createAspect(AspectManager aspectManager, String name);
+	void renameAspect(MAspect aspect, String newName);
+	void deleteAspect(MAspect aspect);
+
 	void createAtomicRootType(MAspect aspect, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
 	void createAtomicSubType(MAtomicType superType, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
 	void createTypeDisjunction(MType** containees{typeManager;types});
@@ -158,9 +161,8 @@ part typeSystem {
 	}
 
 	/* Aspekte */
-	class MAspect@@Aspect {
+	class MAspect@@Aspect covers MModelItem{
 		prior indexed String name; 
-
 		derived MAtomicType ** types;
 	}
 	
@@ -198,13 +200,13 @@ part typeSystem {
 	}
 
 	class MNonEmptyDisjunctiveNormalForm##NEDisjNF extends MDisjunctiveNormalForm {
-  		symmetric(nEDNFContainingMe) MAtomicTypeConjunction** addends hierarchy MComplexTypeHierarchy;
+  		symmetric(no-view nEDNFContainingMe) MAtomicTypeConjunction** addends hierarchy MComplexTypeHierarchy;
 		
 		MNonEmptyDisjunctiveNormalForm transientMultiplyNonEmpty(MNonEmptyDisjunctiveNormalForm other);
 	}
 	
 	class MMixedTypeDisjunction##MxdTpDisj@@MixedTypeDisjunction extends MAbstractTypeDisjunction {
-		symmetric(mTDJContainingMe) MType** addends hierarchy MComplexTypeHierarchy;
+		symmetric(no-view mTDJContainingMe) MType** addends hierarchy MComplexTypeHierarchy;
 	}
 	
 
@@ -222,12 +224,12 @@ part typeSystem {
 	singleton MEmptyTypeConjunction##ETpConj@@EmptyTypeConjunction extends MAtomicTypeConjunction {}
 
 	class MNonEmptyAtomicTypeConjunction##NEATConj extends MAtomicTypeConjunction{
-		symmetric(nEATCContainingMe) MAtomicType** factors hierarchy MComplexTypeHierarchy;
+		symmetric(no-view nEATCContainingMe) MAtomicType** factors hierarchy MComplexTypeHierarchy;
 		MNonEmptyAtomicTypeConjunction transientMultiplyNonEmpty(MNonEmptyAtomicTypeConjunction other);
 	}
 
 	class MMixedConjunction extends MAbstractTypeConjunction {
-		symmetric(mTCContainingMe) MType** factors hierarchy MComplexTypeHierarchy;
+		symmetric(no-view mTCContainingMe) MType** factors hierarchy MComplexTypeHierarchy;
 	}
 		
 	abstract class AbstractObject##AbsObj covers MModelItem {
@@ -256,6 +258,8 @@ part typeSystem {
 	singleton AspectManager {
 		MAspect** aspects;
 		active MAspect createAspect(String name) throws ConsistencyException;
+		active void renameAspect(MAspect aspect, String newName) throws ConsistencyException;
+		active void deleteAspect(MAspect aspect) throws ConsistencyException;
 	}
 	/* Manager for Types */
 	singleton TypeManager {

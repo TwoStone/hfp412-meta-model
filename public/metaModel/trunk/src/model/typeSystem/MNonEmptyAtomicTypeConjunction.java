@@ -248,9 +248,6 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
          return visitor.handleMNonEmptyAtomicTypeConjunction(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getMTDJContainingMe().getLength() > 0) return 1;
-        if (this.getMTCContainingMe().getLength() > 0) return 1;
-        if (this.getNEDNFContainingMe().getLength() > 0) return 1;
         if (this.getFactors().getLength() > 0) return 1;
         return 0;
     }

@@ -247,8 +247,6 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
          return visitor.handleMNonEmptyDisjunctiveNormalForm(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getMTDJContainingMe().getLength() > 0) return 1;
-        if (this.getMTCContainingMe().getLength() > 0) return 1;
         if (this.getAddends().getLength() > 0) return 1;
         return 0;
     }
