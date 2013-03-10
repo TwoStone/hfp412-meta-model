@@ -29,6 +29,7 @@ import persistence.PersistentMultiplication;
 import persistence.PersistentQuantity;
 import persistence.PersistentReference;
 import persistence.PersistentUnit;
+import persistence.PersistentUnitType;
 import persistence.TDObserver;
 
 import common.SummableHashMap;
@@ -198,17 +199,22 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
     }
     public common.Fraction calcFraction(final common.Fraction arg1, final common.Fraction arg2) 
 				throws model.NotComputableException, PersistenceException{
-        //TODO: implement method: calcFraction
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"calcFraction\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		try {
+			return arg1.mul(arg2);
+		} catch (final Throwable e) {
+			throw new model.NotComputableException(e.getMessage());
+		}
+	}
     public void calcTargetRefTypes(final PersistentQuantity arg1, final PersistentQuantity arg2) 
 				throws model.NotComputableException, PersistenceException{
-		// TODO: implement method: calcTargetRefTypes
+		// referenzen aus den Einheiten holen
+		final SummableHashMap<PersistentUnit> myReferences = computeReferences(arg1);
+		final SummableHashMap<PersistentUnit> factorReferences = computeReferences(arg2);
+		// Einheitstypen aus den Referenzen konsolidieren
+		final SummableHashMap<PersistentUnitType> myRefTypes = computeReferenceTypes(myReferences);
+		final SummableHashMap<PersistentUnitType> factorRefTypes = computeReferenceTypes(factorReferences);
+		myRefTypes.aggregate_add(factorRefTypes);
+		this.targetRefTypes = myRefTypes;
 
 	}
     public void initializeOnCreation() 
@@ -261,7 +267,26 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
 	private SummableHashMap<PersistentUnit> aggregateReferences(final SummableHashMap<PersistentUnit> myReferences,
 			final SummableHashMap<PersistentUnit> factorReferences) {
 		final SummableHashMap<PersistentUnit> result = myReferences;
-		myReferences.aggregate(factorReferences);
+		myReferences.aggregate_add(factorReferences);
+		return result;
+	}
+
+	/**
+	 * Errechnet aus den als Map abgebildeten Referenzen die Referenztypen und gibt das Ergebnis als Map zurück. Z.B.:
+	 * {(m:Unit,1),(cm:Unit,1)} = {(Strecke:UnitType, 2)}
+	 * 
+	 * @param references
+	 * @return
+	 * @throws PersistenceException
+	 */
+	private SummableHashMap<PersistentUnitType> computeReferenceTypes(final SummableHashMap<PersistentUnit> references)
+			throws PersistenceException {
+		final SummableHashMap<PersistentUnitType> result = new SummableHashMap<PersistentUnitType>();
+		final Iterator<PersistentUnit> i = references.getMap().keySet().iterator();
+		while (i.hasNext()) {
+			final PersistentUnit u = i.next();
+			result.add((PersistentUnitType) u.getType(), references.getMap().get(u));
+		}
 		return result;
 	}
 

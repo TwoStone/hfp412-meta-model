@@ -419,7 +419,7 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 		// Einheitstypen aus den Referenzen konsolidieren
 		final SummableHashMap<PersistentUnitType> myRefTypes = computeReferenceTypes(myReferences);
 		final SummableHashMap<PersistentUnitType> factorRefTypes = computeReferenceTypes(factorReferences);
-		myRefTypes.aggregate(factorRefTypes);
+		myRefTypes.aggregate_add(factorRefTypes);
 		return myRefTypes;
 	}
 
@@ -539,7 +539,7 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 	private SummableHashMap<PersistentUnit> aggregateReferences(final SummableHashMap<PersistentUnit> myReferences,
 			final SummableHashMap<PersistentUnit> factorReferences) {
 		final SummableHashMap<PersistentUnit> result = myReferences;
-		myReferences.aggregate(factorReferences);
+		myReferences.aggregate_add(factorReferences);
 		return result;
 	}
 

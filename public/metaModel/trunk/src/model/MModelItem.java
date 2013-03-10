@@ -79,29 +79,21 @@ public abstract class MModelItem extends PersistentObject implements PersistentM
     
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMModelItem)This);
 		if(this.equals(This)){
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
 		MModelItemSearchList dependentItems = getThis().fetchDependentItems();

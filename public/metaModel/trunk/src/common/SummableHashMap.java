@@ -31,7 +31,7 @@ public class SummableHashMap<K> {
 	 * @param arg
 	 *            SummableHashMap to merge
 	 */
-	public void aggregate(final SummableHashMap<K> arg) {
+	public void aggregate_add(final SummableHashMap<K> arg) {
 		final Iterator<K> i = arg.getMap().keySet().iterator();
 		while (i.hasNext()) {
 			final K key = i.next();
@@ -42,6 +42,27 @@ public class SummableHashMap<K> {
 				this.getMap().put(key, arg.getMap().get(key));
 			}
 		}
+		this.removeEntriesWithValueZero();
+	}
+
+	/**
+	 * merges the argument to the map. values with the same key will be subtracted.
+	 * 
+	 * @param arg
+	 *            SummableHashMap to merge
+	 */
+	public void aggregate_sub(final SummableHashMap<K> arg) {
+		final Iterator<K> i = arg.getMap().keySet().iterator();
+		while (i.hasNext()) {
+			final K key = i.next();
+			if (this.getMap().containsKey(key)) {
+				final Long value = this.getMap().get(key) - arg.getMap().get(key);
+				this.getMap().put(key, value);
+			} else {
+				this.getMap().put(key, arg.getMap().get(key));
+			}
+		}
+		this.removeEntriesWithValueZero();
 	}
 
 	/**
@@ -56,6 +77,19 @@ public class SummableHashMap<K> {
 			concreteValue = value + this.getMap().get(key);
 		this.getMap().put(key, concreteValue);
 
+	}
+
+	/**
+	 * removes all entries with value "0"
+	 */
+	private void removeEntriesWithValueZero() {
+		final Iterator<K> kIterator = this.getMap().keySet().iterator();
+		while (kIterator.hasNext()) {
+			final K currentKey = kIterator.next();
+			if (this.getMap().get(currentKey).equals(new Long(0))) {
+				kIterator.remove();
+			}
+		}
 	}
 
 }
