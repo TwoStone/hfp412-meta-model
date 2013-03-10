@@ -3,6 +3,8 @@
  */
 package model.quantity;
 
+import java.util.Iterator;
+
 import model.ConsistencyException;
 import model.CycleException;
 import model.DoubleDefinitionException;
@@ -16,6 +18,7 @@ import persistence.PersistentReferenceType;
 import persistence.PersistentUnit;
 import persistence.PersistentUnitType;
 import persistence.PersistentUnitTypeManager;
+import persistence.ReferenceTypeList;
 import persistence.ReferenceTypeSearchList;
 import util.TestingBase;
 import constants.ExceptionConstants;
@@ -110,8 +113,10 @@ public class UnitTypeManagerTest extends TestingBase {
 		final PersistentUnitTypeManager typeManager = this.getManager(UnitTypeManager.class);
 		try {
 			PersistentUnitType unitType = null;
+			PersistentUnitType unitType2 = null;
 			try {
 				unitType = typeManager.createUnitType("bla");
+				unitType2 = typeManager.createUnitType("blub");
 			} catch (final DoubleDefinitionException e) {
 				fail("DoubleDefinitionException: " + e.getMessage());
 			}
@@ -143,7 +148,7 @@ public class UnitTypeManagerTest extends TestingBase {
 			// Schon vorhandenen CompUnitType erstellen mit schon vorhandenem Namen
 			try {
 				final PersistentAbsUnitType type = typeManager.addReferenceType("bla", unitType, unitType, 1);
-				assertEquals("Eben erstellter CompUnitType sollte mit zuvor erstellten übereinstimmen.", type, cut);
+				assertEquals("Eben erstellter CompUnitType sollte mit zuvor erstellten übereinstimmen.", cut, type);
 			} catch (final DoubleDefinitionException e) {
 				fail("DoubleDefinitionException sollte nicht kommen, da CompUnitType nicht neu erstellt wird, weil schon vorhanden. "
 						+ e.getMessage());
@@ -162,8 +167,63 @@ public class UnitTypeManagerTest extends TestingBase {
 			// UnitType durch addReference erstellen
 			try {
 				final PersistentAbsUnitType type = typeManager.addReferenceType("bla", unitType, unitType, 0);
-				assertTrue("Sollte ein UnitType sein", type instanceof PersistentUnitType);
-				assertTrue("Sollte mit unitType übereinstimmen.", type.equals(unitType));
+				assertTrue("type sollte ein UnitType sein", type instanceof PersistentUnitType);
+				assertTrue("type sollte mit unitType übereinstimmen.", type.equals(unitType));
+			} catch (final DoubleDefinitionException e) {
+				fail("DoubleDefinitionException: " + e.getMessage());
+			}
+
+			// CompUnitType aus zwei verschiedenen UnitTypes erstellen
+			try {
+				final PersistentAbsUnitType type = typeManager.addReferenceType("cut2", unitType, unitType2, 1);
+				assertTrue("type sollte ein CompUnitType sein.", type instanceof PersistentCompUnitType);
+				final ReferenceTypeList refs = ((PersistentCompUnitType) type).getRefs().getList();
+				assertTrue("type sollte zwei ReferenceTypes haben.", refs.getLength() == 2);
+				final Iterator<PersistentReferenceType> i = refs.iterator();
+				PersistentReferenceType ref = i.next();
+				assertEquals("Exponent sollte 1 sein", ref.getExponent(), 1);
+				assertEquals("ReferenceType sollte auf unitType gehen", unitType, ref.getRef());
+				ref = i.next();
+				assertEquals("Exponent sollte 1 sein", ref.getExponent(), 1);
+				assertEquals("ReferenceType sollte auf unitType gehen", unitType2, ref.getRef());
+			} catch (final DoubleDefinitionException e) {
+				fail("DoubleDefinitionException: " + e.getMessage());
+			}
+
+			// AddReferenceType auf CompUnitType ausführen
+			try {
+				final PersistentAbsUnitType type = typeManager.addReferenceType("cut3", cut, unitType2, 1);
+				assertTrue("type sollte ein CompUnitType sein.", type instanceof PersistentCompUnitType);
+				final ReferenceTypeList refs = ((PersistentCompUnitType) type).getRefs().getList();
+				assertTrue("type sollte zwei ReferenceTypes haben.", refs.getLength() == 2);
+				final Iterator<PersistentReferenceType> i = refs.iterator();
+				PersistentReferenceType ref = i.next();
+				assertEquals("Exponent sollte 1 sein", ref.getExponent(), 2);
+				assertEquals("ReferenceType sollte auf unitType gehen", unitType, ref.getRef());
+				ref = i.next();
+				assertEquals("Exponent sollte 1 sein", ref.getExponent(), 1);
+				assertEquals("ReferenceType sollte auf unitType gehen", unitType2, ref.getRef());
+			} catch (final DoubleDefinitionException e) {
+				fail("DoubleDefinitionException: " + e.getMessage());
+			}
+
+			// gleichen UnitType nochmal zu CompUnitType hinzufügen
+			try {
+				final PersistentAbsUnitType type = typeManager.addReferenceType("cut4", cut, unitType, 1);
+				assertTrue("type sollte CompUnitType sein.", type instanceof PersistentCompUnitType);
+				final ReferenceTypeList refs = ((PersistentCompUnitType) type).getRefs().getList();
+				assertEquals("Es sollte eine Referenz geben", refs.getLength(), 1);
+				final PersistentReferenceType ref = refs.iterator().next();
+				assertEquals("Exponent sollte 3 sein", ref.getExponent(), 3);
+				assertEquals("ReferenceType sollte auf unitType zeigen", ref.getRef(), unitType);
+			} catch (final DoubleDefinitionException e) {
+				fail("DoubleDefinitionException: " + e.getMessage());
+			}
+
+			// UnitType durch Hinzufügen einer Referenz auf CompUnitType erzeugen
+			try {
+				final PersistentAbsUnitType type = typeManager.addReferenceType("123", cut, unitType, -1);
+				assertEquals("type und unitType sollten übereinstimmen.", unitType, type);
 			} catch (final DoubleDefinitionException e) {
 				fail("DoubleDefinitionException: " + e.getMessage());
 			}
