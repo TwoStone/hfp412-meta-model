@@ -201,7 +201,7 @@ public class StrategyTest extends TestingBase {
 		// "2/3 cm"
 		account.addEntry(msmnt3);
 
-		// 0,7777
+		// Was ist der Durchschnitt von 1/3, 4/3 und 2/3? ~0,7777
 		final PersistentQuantity resultQuantity = (PersistentQuantity) account.aggregate(avgStrategy);
 		assertEquals(Fraction.parse("7/1"), resultQuantity.getAmount());
 		assertEquals(unit, resultQuantity.getUnit());
