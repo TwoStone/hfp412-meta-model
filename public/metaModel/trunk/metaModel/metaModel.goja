@@ -308,14 +308,14 @@ part observations {
 		MEnumValue ** enumValues;
 		
 		//Enum Values have to be unique within observation
-		active void createEnumValue(String name, MEnum type) throws DoubleDefinitionException;
+		active MEnumValue createEnumValue(String name, MEnum type) throws DoubleDefinitionException;
 		active void deleteEnumValue(MEnumValue enumValue) throws ConsistencyException;
 	}
 
 	singleton EnumerationManager {
 		MEnum ** enumTypes;
 
-		active void createEnum(String name) throws DoubleDefinitionException;
+		active MEnum createEnum(String name) throws DoubleDefinitionException;
 		active void deleteEnum(MEnum type) throws ConsistencyException;
 	}
 
@@ -323,14 +323,14 @@ part observations {
 		MObservationType ** observationTypes;
 
 		//Observation Types are unique
-		active void createObsType(String name, MEnum enumType, MType theType) throws DoubleDefinitionException;
+		active MObservationType createObsType(String name, MEnum enumType, MType theType) throws DoubleDefinitionException;
 		active void deleteObsType(MObservationType theType) throws ConsistencyException;
 	}
 
 	singleton ObservationManager {
 		MObservation ** observations;
 
-		active void createObservation(String name, MObservationType theType, MObject theObsObject, MEnumValue enumValue) throws ConsistencyException;
+		active MObservation createObservation(String name, MObservationType theType, MObject theObsObject, MEnumValue enumValue) throws ConsistencyException;
 		active void deleteObservation(MObservation observation) throws ConsistencyException;
 	}
 
