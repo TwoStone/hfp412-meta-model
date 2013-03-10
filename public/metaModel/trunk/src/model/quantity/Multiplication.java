@@ -176,16 +176,26 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
     }
     
     
+    public void calcTargetRefs(final PersistentQuantity arg1, final PersistentQuantity arg2) 
+				throws model.NotComputableException, PersistenceException{
+		final SummableHashMap<PersistentUnit> myReferences = computeReferences(arg1);
+		final SummableHashMap<PersistentUnit> factorReferences = computeReferences(arg2);
+		final SummableHashMap<PersistentUnit> aggregatedReferences = aggregateReferences(myReferences, factorReferences);
+		this.targetRefs = aggregatedReferences;
+
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMultiplication)This);
 		if(this.equals(This)){
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public common.Fraction calcFraction(final common.Fraction arg1, final common.Fraction arg2) 
 				throws model.NotComputableException, PersistenceException{
         //TODO: implement method: calcFraction
@@ -201,27 +211,9 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
 		// TODO: implement method: calcTargetRefTypes
 
 	}
-    public void calcTargetRefs(final PersistentQuantity arg1, final PersistentQuantity arg2) 
-				throws model.NotComputableException, PersistenceException{
-		final SummableHashMap<PersistentUnit> myReferences = computeReferences(arg1);
-		final SummableHashMap<PersistentUnit> factorReferences = computeReferences(arg2);
-		final SummableHashMap<PersistentUnit> aggregatedReferences = aggregateReferences(myReferences, factorReferences);
-		this.targetRefs = aggregatedReferences;
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
 

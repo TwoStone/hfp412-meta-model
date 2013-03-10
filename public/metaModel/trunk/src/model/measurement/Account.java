@@ -227,28 +227,13 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     }
     
     
-    public void addEntry(final PersistentMeasurement measurement, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddEntryCommand command = model.meta.AddEntryCommand.createAddEntryCommand(now, now);
-		command.setMeasurement(measurement);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void addSubAccount(final PersistentAccount account, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddSubAccountCommand command = model.meta.AddSubAccountCommand.createAddSubAccountCommand(now, now);
-		command.setAccount(account);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
+    public void addEntry(final PersistentMeasurement measurement) 
+				throws model.ConsistencyException, PersistenceException{
+		if (!measurement.getType().getUnitType().equals(this.getThis().getType().getUnitType())) {
+			throw new ConsistencyException(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_ACCOUNT);
+		}
+		this.getThis().getEntries().add(measurement);
+	}
     public boolean containsAccountHierarchy(final AccountHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -257,39 +242,6 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 			if(((AccountHierarchyHIERARCHY)iterator0.next()).containsAccountHierarchy(part)) return true; 
 		return false;
     }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentAccount)This);
-		if(this.equals(This)){
-			this.setObject((PersistentMObject)final$$Fields.get("object"));
-			this.setType((PersistentMAccountType)final$$Fields.get("type"));
-		}
-    }
-    public AccountSearchList inverseGetSubAccounts() 
-				throws PersistenceException{
-        AccountSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
-							.inverseGetSubAccounts(this.getId(), this.getClassId());
-		return result;
-    }
-    public <T> T strategyAccountHierarchy(final T parameter, final AccountHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        T result$$subAccounts$$Account = strategy.initialize$$Account$$subAccounts(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getSubAccounts().iterator();
-		while (iterator$$.hasNext()){
-			PersistentAccount current$$Field = (PersistentAccount)iterator$$.next();
-			T current$$ = current$$Field.strategyAccountHierarchy(result$$subAccounts$$Account, strategy);
-			result$$subAccounts$$Account = strategy.consolidate$$Account$$subAccounts(getThis(), result$$subAccounts$$Account, current$$);
-		}
-		return strategy.finalize$$Account(getThis(), parameter,result$$subAccounts$$Account);
-    }
-    public void addEntry(final PersistentMeasurement measurement) 
-				throws model.ConsistencyException, PersistenceException{
-		if (!measurement.getType().getUnitType().equals(this.getThis().getType().getUnitType())) {
-			throw new ConsistencyException(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_ACCOUNT);
-		}
-		this.getThis().getEntries().add(measurement);
-	}
     public void addSubAccount(final PersistentAccount account) 
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
 
@@ -302,19 +254,59 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 		}
 
 	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public <T> T strategyAccountHierarchy(final T parameter, final AccountHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$subAccounts$$Account = strategy.initialize$$Account$$subAccounts(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getSubAccounts().iterator();
+		while (iterator$$.hasNext()){
+			PersistentAccount current$$Field = (PersistentAccount)iterator$$.next();
+			T current$$ = current$$Field.strategyAccountHierarchy(result$$subAccounts$$Account, strategy);
+			result$$subAccounts$$Account = strategy.consolidate$$Account$$subAccounts(getThis(), result$$subAccounts$$Account, current$$);
+		}
+		return strategy.finalize$$Account(getThis(), parameter,result$$subAccounts$$Account);
+    }
+    public void addSubAccount(final PersistentAccount account, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddSubAccountCommand command = model.meta.AddSubAccountCommand.createAddSubAccountCommand(now, now);
+		command.setAccount(account);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public AccountSearchList inverseGetSubAccounts() 
+				throws PersistenceException{
+        AccountSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
+							.inverseGetSubAccounts(this.getId(), this.getClassId());
+		return result;
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentAccount)This);
+		if(this.equals(This)){
+			this.setObject((PersistentMObject)final$$Fields.get("object"));
+			this.setType((PersistentMAccountType)final$$Fields.get("type"));
+		}
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void addEntry(final PersistentMeasurement measurement, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddEntryCommand command = model.meta.AddEntryCommand.createAddEntryCommand(now, now);
+		command.setMeasurement(measurement);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
 				throws model.NotComputableException, PersistenceException{
 		// FIXME: So geht das ja nicht...

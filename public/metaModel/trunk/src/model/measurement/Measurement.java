@@ -226,6 +226,12 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     }
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMeasurement)This);
@@ -235,13 +241,6 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 			this.setQuantity((PersistentAbsQuantity)final$$Fields.get("quantity"));
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// Prüfen, ob m aus Measurement : m.quantity.unit.type = m.type.unitType
@@ -268,13 +267,6 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 			throw new Error(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY);
 		}
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
     public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
 				throws model.NotComputableException, PersistenceException{
 		final MeasurementSearchList measurements = new MeasurementSearchList();

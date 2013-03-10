@@ -221,6 +221,23 @@ public class Conversion extends PersistentObject implements PersistentConversion
     }
     
     
+    public PersistentQuantity convert(final common.Fraction amount) 
+				throws PersistenceException{
+		Fraction convertedAmount = this.getThis().getMyFunction().execute(amount);
+		return QuantityManager.getTheQuantityManager().createQuantity(
+				((PersistentUnitType) this.getThis().getSource().getType()).getDefaultUnit(), convertedAmount);
+
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// implement method: initializeOnInstantiation
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentConversion)This);
@@ -229,41 +246,16 @@ public class Conversion extends PersistentObject implements PersistentConversion
 			this.setMyFunction((PersistentFunction)final$$Fields.get("myFunction"));
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public PersistentQuantity convertInverse(final common.Fraction amount) 
 				throws PersistenceException{
 		Fraction convertedAmount = this.getThis().getMyFunction().executeInverse(amount);
 		return QuantityManager.getTheQuantityManager().createQuantity(this.getThis().getSource(), convertedAmount);
-	}
-    public PersistentQuantity convert(final common.Fraction amount) 
-				throws PersistenceException{
-		Fraction convertedAmount = this.getThis().getMyFunction().execute(amount);
-		return QuantityManager.getTheQuantityManager().createQuantity(
-				((PersistentUnitType) this.getThis().getSource().getType()).getDefaultUnit(), convertedAmount);
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
-
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// implement method: initializeOnCreation
 
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// implement method: initializeOnInstantiation
-
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     

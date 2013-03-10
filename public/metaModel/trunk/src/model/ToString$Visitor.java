@@ -79,6 +79,8 @@ import utils.Strings;
 
 import common.Fraction;
 
+import constants.TextConstants;
+
 public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	private static final boolean DEBUG_MODE_ON = true;
@@ -187,13 +189,23 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = quantity.getAmount() + TextConstants.SPACE + quantity.getUnit().getName();
 
 	}
 
 	@Override
 	public void handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
-		// TODO Auto-generated method stub
+		String currentResult = TextConstants.CURLY_BRACKET_OPEN;
+		final Iterator<PersistentQuantity> i = compoundQuantity.getParts().iterator();
+		while (i.hasNext()) {
+			final PersistentQuantity q = i.next();
+			if (!i.hasNext()) {
+				currentResult = currentResult + q.toString() + TextConstants.CURLY_BRACKET_CLOSED;
+			} else {
+				currentResult = currentResult + TextConstants.SPACE + q.toString() + TextConstants.SEMICOLON;
+			}
+		}
+		result = currentResult;
 
 	}
 
@@ -237,12 +249,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 			return;
 		final Fraction m = conversion.getMyFunction().getFactor();
 		final Fraction b = conversion.getMyFunction().getConstant();
-		if(b.equals(Fraction.Null)){
+		if (b.equals(Fraction.Null)) {
 			this.result = "1 " + defaultUnit.getName() + " = " + m + " " + conversion.getSource().getName();
-		}
-		else {
+		} else {
 			this.result = "y " + defaultUnit.getName() + " = (" + m + "*x + " + b + ") "
-				+ conversion.getSource().getName();
+					+ conversion.getSource().getName();
 		}
 	}
 
