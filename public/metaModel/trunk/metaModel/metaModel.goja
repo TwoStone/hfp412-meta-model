@@ -381,8 +381,6 @@ part quantity {
 	class CompUnit extends AbsUnit {
 		symmetric Reference ** refs;
 		
-		/* Pr?ft, ob Exponenten der Exemplarebene mit Typebene ?bereinstimmen*/
-		void checkExponents() throws ExponentMatchingException;
 		MBoolean hasReferences(Reference** refs);
 	}
 	class Unit extends AbsUnit {	}

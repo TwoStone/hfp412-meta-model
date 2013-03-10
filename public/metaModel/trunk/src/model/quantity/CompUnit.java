@@ -174,11 +174,6 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
     
     // Start of section that contains operations that must be implemented.
     
-    public void checkExponents() 
-				throws model.ExponentMatchingException, PersistenceException{
-		// TODO: implement method: checkExponents
-
-	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 		// implement method: copyingPrivateUserAttributes
