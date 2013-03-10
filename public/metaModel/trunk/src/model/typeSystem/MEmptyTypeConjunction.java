@@ -233,12 +233,34 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
     }
     
     
-    public void initializeOnInstantiation() 
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
-	}
+        if(getThis().equals(part)) return true;
+		return false;
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMEmptyTypeConjunction)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMEmptyTypeConjunction)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+		}
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return strategy.finalize$$MEmptyTypeConjunction(getThis(), parameter);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 
+	}
+    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+		return MNonEmptyDisjunctiveNormalForm.transientCreateDNFFromAtomicTypeConjunction(getThis());
 	}
     public MTypeSearchList fetchTypesContainingThisDirectly() 
 				throws PersistenceException{
@@ -248,34 +270,20 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
 		SearchLists.addSecondToFirst(result, getThis().getNEDNFContainingMe());
 		return result;
 	}
-    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+    public void initializeOnCreation() 
 				throws PersistenceException{
-        if(getThis().equals(part)) return true;
-		return false;
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+	}
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
-        this.setThis((PersistentMEmptyTypeConjunction)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMEmptyTypeConjunction)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-		}
-    }
+	}
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(getThis().equals(other));
 	}
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return strategy.finalize$$MEmptyTypeConjunction(getThis(), parameter);
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
-				throws PersistenceException{
-		return MNonEmptyDisjunctiveNormalForm.transientCreateDNFFromAtomicTypeConjunction(getThis());
-	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
 		throw new ConsistencyException("The Anything may not be deleted.");
@@ -284,12 +292,12 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
 				throws PersistenceException{
 		return "Anything";
 	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+	}
     public PersistentMAtomicTypeConjunction transientMultiply(final PersistentMAtomicTypeConjunction other) 
 				throws PersistenceException{
 		return other;
-	}
-    public void prepareForDeletion() 
-				throws model.ConsistencyException, PersistenceException{
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

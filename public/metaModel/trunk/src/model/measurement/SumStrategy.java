@@ -2,6 +2,7 @@ package model.measurement;
 
 import model.NotComputableException;
 import model.UserException;
+import model.quantity.Quantity;
 import model.quantity.QuantityManager;
 import model.visitor.AggregationStrategyExceptionVisitor;
 import model.visitor.AggregationStrategyReturnExceptionVisitor;
@@ -17,12 +18,16 @@ import persistence.ConnectionHandler;
 import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
+import persistence.PersistentAbsUnit;
+import persistence.PersistentAbsUnitType;
 import persistence.PersistentMeasurement;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentSumStrategy;
 import persistence.SumStrategyProxi;
 import persistence.TDObserver;
+
+import common.Fraction;
 
 /* Additional import section end */
 
@@ -171,44 +176,48 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
     }
     
     
-    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsQuantity neutralElement, final MeasurementSearchList measurements) 
-				throws model.NotComputableException, PersistenceException{
-
-		return measurements
-				.aggregateException(new AggregtionException<PersistentMeasurement, PersistentAbsQuantity, NotComputableException>() {
-
-					@Override
-					public PersistentAbsQuantity neutral() throws PersistenceException, NotComputableException {
-						return neutralElement;
-					}
-
-					@Override
-					public PersistentAbsQuantity compose(final PersistentAbsQuantity result,
-							final PersistentMeasurement argument) throws PersistenceException, NotComputableException {
-						// return result.add(argument.getQuantity());
-						return QuantityManager.getTheQuantityManager().add(result, argument.getQuantity());
-					}
-
-				});
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentSumStrategy)This);
 		if(this.equals(This)){
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
+				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
+		final PersistentAbsUnit defaultUnit = defaultUnitType.fetchDefaultUnit();
+		return measurements.aggregateException(new AggregtionException<PersistentMeasurement, PersistentAbsQuantity, NotComputableException>() {
+			@Override
+			public PersistentAbsQuantity neutral() throws PersistenceException, NotComputableException {
+				return Quantity.createQuantity(Fraction.Null, defaultUnit);
+			}
+
+			@Override
+			public PersistentAbsQuantity compose(final PersistentAbsQuantity result, final PersistentMeasurement argument)
+					throws PersistenceException, NotComputableException {
+				return QuantityManager.getTheQuantityManager().add(result, argument.getQuantity());
+			}
+		});
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 
 	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
 

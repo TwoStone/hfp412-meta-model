@@ -151,10 +151,6 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-
-	}
     public void createAccountType(final String name, final PersistentMType type, final PersistentUnitType unitType, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -165,16 +161,20 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-
-	}
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAccountTypeManager)This);
 		if(this.equals(This)){
 		}
     }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+
+	}
     public void createAccountType(final String name, final PersistentMType type, final PersistentUnitType unitType) 
 				throws PersistenceException{
 		this.getThis().getAccountTypes().add(MAccountType.createMAccountType(type, unitType));
@@ -183,6 +183,14 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
 				throws PersistenceException{
 
 	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

@@ -1,6 +1,8 @@
 package model.measurement;
 
 import model.UserException;
+import model.quantity.Quantity;
+import model.quantity.QuantityManager;
 import model.visitor.AggregationStrategyExceptionVisitor;
 import model.visitor.AggregationStrategyReturnExceptionVisitor;
 import model.visitor.AggregationStrategyReturnVisitor;
@@ -15,10 +17,15 @@ import persistence.ConnectionHandler;
 import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
+import persistence.PersistentAbsUnit;
+import persistence.PersistentAbsUnitType;
 import persistence.PersistentAvgStrategy;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
+import persistence.PersistentQuantity;
 import persistence.TDObserver;
+
+import common.Fraction;
 
 /* Additional import section end */
 
@@ -167,48 +174,46 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     }
     
     
-    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsQuantity neutralElement, final MeasurementSearchList measurements) 
-				throws model.NotComputableException, PersistenceException{
-        //TODO: implement method: aggregateMeasurements
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"aggregateMeasurements\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAvgStrategy)This);
 		if(this.equals(This)){
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
+				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
+		final PersistentAbsUnit defaultUnit = defaultUnitType.fetchDefaultUnit();
+		final PersistentAbsQuantity kumulierteSumme = SumStrategy.createSumStrategy().aggregateMeasurements(defaultUnitType, measurements);
+		// TODO : Das ist falsch! Hier muss die Anzahl der Measurements als Skalar hin!
+		final PersistentQuantity numberOfMeasurement = Quantity.createQuantity(Fraction.parse(String.valueOf(measurements.getLength())), defaultUnit);
+		return QuantityManager.getTheQuantityManager().div(kumulierteSumme, numberOfMeasurement);
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
 
 	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
 
-	
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

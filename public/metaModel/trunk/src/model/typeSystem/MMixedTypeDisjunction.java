@@ -232,19 +232,6 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public MTypeSearchList fetchTypesContainingThisDirectly() 
-				throws PersistenceException{
-		final MTypeSearchList result = new MTypeSearchList();
-		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
-		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
-		return result;
-	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -253,6 +240,10 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
 			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMMixedTypeDisjunction)This);
@@ -261,10 +252,6 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
-				throws PersistenceException{
-		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
-	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$addends$$MMixedTypeDisjunction = strategy.initialize$$MMixedTypeDisjunction$$addends(getThis(), parameter);
@@ -276,7 +263,7 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
 		}
 		return strategy.finalize$$MMixedTypeDisjunction(getThis(), parameter,result$$addends$$MMixedTypeDisjunction);
     }
-    public void initializeOnCreation() 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
     public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
@@ -324,6 +311,27 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
 
 		return result.getAddends().getLength() > 0 ? result : MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction();
 	}
+    public MTypeSearchList fetchTypesContainingThisDirectly() 
+				throws PersistenceException{
+		final MTypeSearchList result = new MTypeSearchList();
+		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
+		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
+		return result;
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+		return getThis().fetchDisjunctiveNormalform().isLessOrEqual(other);
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

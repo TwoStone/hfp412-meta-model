@@ -254,42 +254,6 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
     }
     
     
-    public PersistentMNonEmptyDisjunctiveNormalForm transientMultiplyNonEmpty(final PersistentMNonEmptyDisjunctiveNormalForm other) 
-				throws PersistenceException{
-		final PersistentMNonEmptyDisjunctiveNormalForm result = MNonEmptyDisjunctiveNormalForm
-				.createMNonEmptyDisjunctiveNormalForm(true);
-		getThis().getAddends().applyToAll(new Procdure<PersistentMAtomicTypeConjunction>() {
-
-			@Override
-			public void doItTo(final PersistentMAtomicTypeConjunction argument) throws PersistenceException {
-				final PersistentMAtomicTypeConjunction firstFactor = argument;
-				other.getAddends().applyToAll(new Procdure<PersistentMAtomicTypeConjunction>() {
-
-					@Override
-					public void doItTo(final PersistentMAtomicTypeConjunction argument) throws PersistenceException {
-						MNonEmptyDisjunctiveNormalForm.addAddendNormalize(result,
-								firstFactor.transientMultiply(argument));
-					}
-				});
-
-			}
-		});
-		return result;
-
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public MTypeSearchList fetchTypesContainingThisDirectly() 
-				throws PersistenceException{
-		final MTypeSearchList result = new MTypeSearchList();
-		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
-		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
-		return result;
-	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -298,6 +262,10 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
 			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMNonEmptyDisjunctiveNormalForm)This);
@@ -306,6 +274,37 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result$$addends$$MNonEmptyDisjunctiveNormalForm = strategy.initialize$$MNonEmptyDisjunctiveNormalForm$$addends(getThis(), parameter);
+		java.util.Iterator iterator$$ = getThis().getAddends().iterator();
+		while (iterator$$.hasNext()){
+			PersistentMAtomicTypeConjunction current$$Field = (PersistentMAtomicTypeConjunction)iterator$$.next();
+			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$addends$$MNonEmptyDisjunctiveNormalForm, strategy);
+			result$$addends$$MNonEmptyDisjunctiveNormalForm = strategy.consolidate$$MNonEmptyDisjunctiveNormalForm$$addends(getThis(), result$$addends$$MNonEmptyDisjunctiveNormalForm, current$$);
+		}
+		return strategy.finalize$$MNonEmptyDisjunctiveNormalForm(getThis(), parameter,result$$addends$$MNonEmptyDisjunctiveNormalForm);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+		return getThis();
+	}
+    public MTypeSearchList fetchTypesContainingThisDirectly() 
+				throws PersistenceException{
+		final MTypeSearchList result = new MTypeSearchList();
+		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
+		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
+		return result;
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
@@ -372,23 +371,28 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
 			}
 		}));
 	}
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+    public PersistentMNonEmptyDisjunctiveNormalForm transientMultiplyNonEmpty(final PersistentMNonEmptyDisjunctiveNormalForm other) 
 				throws PersistenceException{
-        T result$$addends$$MNonEmptyDisjunctiveNormalForm = strategy.initialize$$MNonEmptyDisjunctiveNormalForm$$addends(getThis(), parameter);
-		java.util.Iterator iterator$$ = getThis().getAddends().iterator();
-		while (iterator$$.hasNext()){
-			PersistentMAtomicTypeConjunction current$$Field = (PersistentMAtomicTypeConjunction)iterator$$.next();
-			T current$$ = current$$Field.strategyMComplexTypeHierarchy(result$$addends$$MNonEmptyDisjunctiveNormalForm, strategy);
-			result$$addends$$MNonEmptyDisjunctiveNormalForm = strategy.consolidate$$MNonEmptyDisjunctiveNormalForm$$addends(getThis(), result$$addends$$MNonEmptyDisjunctiveNormalForm, current$$);
-		}
-		return strategy.finalize$$MNonEmptyDisjunctiveNormalForm(getThis(), parameter,result$$addends$$MNonEmptyDisjunctiveNormalForm);
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
-				throws PersistenceException{
-		return getThis();
+		final PersistentMNonEmptyDisjunctiveNormalForm result = MNonEmptyDisjunctiveNormalForm
+				.createMNonEmptyDisjunctiveNormalForm(true);
+		getThis().getAddends().applyToAll(new Procdure<PersistentMAtomicTypeConjunction>() {
+
+			@Override
+			public void doItTo(final PersistentMAtomicTypeConjunction argument) throws PersistenceException {
+				final PersistentMAtomicTypeConjunction firstFactor = argument;
+				other.getAddends().applyToAll(new Procdure<PersistentMAtomicTypeConjunction>() {
+
+					@Override
+					public void doItTo(final PersistentMAtomicTypeConjunction argument) throws PersistenceException {
+						MNonEmptyDisjunctiveNormalForm.addAddendNormalize(result,
+								firstFactor.transientMultiply(argument));
+					}
+				});
+
+			}
+		});
+		return result;
+
 	}
     public PersistentMDisjunctiveNormalForm transientMultiply(final PersistentMDisjunctiveNormalForm other) 
 				throws PersistenceException{
@@ -408,6 +412,10 @@ public class MNonEmptyDisjunctiveNormalForm extends model.typeSystem.MDisjunctiv
 			}
 		});
 	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

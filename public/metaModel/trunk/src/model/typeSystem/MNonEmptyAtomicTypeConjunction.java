@@ -256,46 +256,6 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public PersistentMNonEmptyAtomicTypeConjunction transientMultiplyNonEmpty(final PersistentMNonEmptyAtomicTypeConjunction other) 
-				throws PersistenceException{
-		final PersistentMNonEmptyAtomicTypeConjunction result = MNonEmptyAtomicTypeConjunction
-				.createMNonEmptyAtomicTypeConjunction(true);
-		try {
-			getThis().getFactors().applyToAllException(new ProcdureException<PersistentMAtomicType, CycleException>() {
-
-				@Override
-				public void doItTo(final PersistentMAtomicType argument) throws PersistenceException, CycleException {
-					result.getFactors().add(argument);
-				}
-			});
-
-			other.getFactors().applyToAllException(new ProcdureException<PersistentMAtomicType, CycleException>() {
-
-				@Override
-				public void doItTo(final PersistentMAtomicType argument) throws PersistenceException, CycleException {
-					result.getFactors().add(argument);
-				}
-			});
-		} catch (final CycleException e) {
-			// TODO Should not occur
-			e.printStackTrace();
-		}
-		return result;
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public MTypeSearchList fetchTypesContainingThisDirectly() 
-				throws PersistenceException{
-		final MTypeSearchList result = new MTypeSearchList();
-		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
-		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
-		SearchLists.addSecondToFirst(result, getThis().getNEDNFContainingMe());
-		return result;
-	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -304,6 +264,10 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 			if(((MComplexTypeHierarchyHIERARCHY)iterator0.next()).containsMComplexTypeHierarchy(part)) return true; 
 		return false;
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMNonEmptyAtomicTypeConjunction)This);
@@ -323,6 +287,27 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 		}
 		return strategy.finalize$$MNonEmptyAtomicTypeConjunction(getThis(), parameter,result$$factors$$MNonEmptyAtomicTypeConjunction);
     }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+		return MNonEmptyDisjunctiveNormalForm.transientCreateDNFFromAtomicTypeConjunction(getThis());
+	}
+    public MTypeSearchList fetchTypesContainingThisDirectly() 
+				throws PersistenceException{
+		final MTypeSearchList result = new MTypeSearchList();
+		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
+		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
+		SearchLists.addSecondToFirst(result, getThis().getNEDNFContainingMe());
+		return result;
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
     public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
@@ -391,13 +376,36 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 			}
 		}));
 	}
-    public void initializeOnCreation() 
+    public PersistentMNonEmptyAtomicTypeConjunction transientMultiplyNonEmpty(final PersistentMNonEmptyAtomicTypeConjunction other) 
 				throws PersistenceException{
+		final PersistentMNonEmptyAtomicTypeConjunction result = MNonEmptyAtomicTypeConjunction
+				.createMNonEmptyAtomicTypeConjunction(true);
+		try {
+			getThis().getFactors().applyToAllException(new ProcdureException<PersistentMAtomicType, CycleException>() {
+
+				@Override
+				public void doItTo(final PersistentMAtomicType argument) throws PersistenceException, CycleException {
+					result.getFactors().add(argument);
+				}
+			});
+
+			other.getFactors().applyToAllException(new ProcdureException<PersistentMAtomicType, CycleException>() {
+
+				@Override
+				public void doItTo(final PersistentMAtomicType argument) throws PersistenceException, CycleException {
+					result.getFactors().add(argument);
+				}
+			});
+		} catch (final CycleException e) {
+			// TODO Should not occur
+			e.printStackTrace();
+		}
+		return result;
 	}
-    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
-				throws PersistenceException{
-		return MNonEmptyDisjunctiveNormalForm.transientCreateDNFFromAtomicTypeConjunction(getThis());
-	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
     public PersistentMAtomicTypeConjunction transientMultiply(final PersistentMAtomicTypeConjunction other) 
 				throws PersistenceException{
 		return other.accept(new MAtomicTypeConjunctionReturnVisitor<PersistentMAtomicTypeConjunction>() {

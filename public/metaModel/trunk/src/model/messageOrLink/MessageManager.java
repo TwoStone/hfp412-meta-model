@@ -162,20 +162,6 @@ public class MessageManager extends PersistentObject implements PersistentMessag
     }
     
     
-    public void createStaticMessage(final PersistentOperation type, final String name, final PersistentMObject target, final ActualParameterSearchList ap) 
-				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-		// TODO: EmptyType nicht als Object verf??gbar
-		// getThis().createMessage(type, MEmptySumType.getTheMEmptySumType(), target, ap);
-	}
-    public void removeMessage(final PersistentMessage m, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveMessageCommand command = model.meta.RemoveMessageCommand.createRemoveMessageCommand(now, now);
-		command.setM(m);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void createConst(final PersistentOperation type, final String name, final PersistentMObject target, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
@@ -186,19 +172,70 @@ public class MessageManager extends PersistentObject implements PersistentMessag
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void removeMessage(final PersistentMessage m) 
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void createMessage(final PersistentOperation type, final PersistentMObject source, final PersistentMObject target, final ActualParameterSearchList ap, final Invoker invoker) 
 				throws PersistenceException{
-		getThis().getMessages().removeFirstSuccess(new Predcate<PersistentMessage>() {
-
-			@Override
-			public boolean test(final PersistentMessage argument) throws PersistenceException {
-				if (argument.equals(m)) {
-					return true;
-				}
-				return false;
-			}
-		});
-
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateMessageCommand command = model.meta.CreateMessageCommand.createCreateMessageCommand(now, now);
+		command.setType(type);
+		command.setSource(source);
+		command.setTarget(target);
+		java.util.Iterator<PersistentActualParameter> apIterator = ap.iterator();
+		while(apIterator.hasNext()){
+			command.getAp().add(apIterator.next());
+		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createStaticMessage(final PersistentOperation type, final String name, final PersistentMObject target, final ActualParameterSearchList ap, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateStaticMessageCommand command = model.meta.CreateStaticMessageCommand.createCreateStaticMessageCommand(name, now, now);
+		command.setType(type);
+		command.setTarget(target);
+		java.util.Iterator<PersistentActualParameter> apIterator = ap.iterator();
+		while(apIterator.hasNext()){
+			command.getAp().add(apIterator.next());
+		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createVoidMessage(final PersistentOperation type, final PersistentMObject source, final ActualParameterSearchList ap, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateVoidMessageCommand command = model.meta.CreateVoidMessageCommand.createCreateVoidMessageCommand(now, now);
+		command.setType(type);
+		command.setSource(source);
+		java.util.Iterator<PersistentActualParameter> apIterator = ap.iterator();
+		while(apIterator.hasNext()){
+			command.getAp().add(apIterator.next());
+		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMessageManager)This);
+		if(this.equals(This)){
+		}
+    }
+    public void removeMessage(final PersistentMessage m, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveMessageCommand command = model.meta.RemoveMessageCommand.createRemoveMessageCommand(now, now);
+		command.setM(m);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
 	}
     public void createConst(final PersistentOperation type, final String name, final PersistentMObject target) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
@@ -224,69 +261,40 @@ public class MessageManager extends PersistentObject implements PersistentMessag
 		}
 		getThis().getMessages().add(m);
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
+    public void createStaticMessage(final PersistentOperation type, final String name, final PersistentMObject target, final ActualParameterSearchList ap) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
+		// TODO: EmptyType nicht als Object verf??gbar
+		// getThis().createMessage(type, MEmptySumType.getTheMEmptySumType(), target, ap);
 	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public void createVoidMessage(final PersistentOperation type, final PersistentMObject source, final ActualParameterSearchList ap, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateVoidMessageCommand command = model.meta.CreateVoidMessageCommand.createCreateVoidMessageCommand(now, now);
-		command.setType(type);
-		command.setSource(source);
-		java.util.Iterator<PersistentActualParameter> apIterator = ap.iterator();
-		while(apIterator.hasNext()){
-			command.getAp().add(apIterator.next());
-		}
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentMessageManager)This);
-		if(this.equals(This)){
-		}
-    }
-    public void createStaticMessage(final PersistentOperation type, final String name, final PersistentMObject target, final ActualParameterSearchList ap, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateStaticMessageCommand command = model.meta.CreateStaticMessageCommand.createCreateStaticMessageCommand(name, now, now);
-		command.setType(type);
-		command.setTarget(target);
-		java.util.Iterator<PersistentActualParameter> apIterator = ap.iterator();
-		while(apIterator.hasNext()){
-			command.getAp().add(apIterator.next());
-		}
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public void createMessage(final PersistentOperation type, final PersistentMObject source, final PersistentMObject target, final ActualParameterSearchList ap, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateMessageCommand command = model.meta.CreateMessageCommand.createCreateMessageCommand(now, now);
-		command.setType(type);
-		command.setSource(source);
-		command.setTarget(target);
-		java.util.Iterator<PersistentActualParameter> apIterator = ap.iterator();
-		while(apIterator.hasNext()){
-			command.getAp().add(apIterator.next());
-		}
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void createVoidMessage(final PersistentOperation type, final PersistentMObject source, final ActualParameterSearchList ap) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
 		// TODO: EmptyType nicht als Object verf??gbar
 		// getThis().createMessage(type, source, MEmptySumType.getTheMEmptySumType(), ap);
 	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void removeMessage(final PersistentMessage m) 
+				throws PersistenceException{
+		getThis().getMessages().removeFirstSuccess(new Predcate<PersistentMessage>() {
+
+			@Override
+			public boolean test(final PersistentMessage argument) throws PersistenceException {
+				if (argument.equals(m)) {
+					return true;
+				}
+				return false;
+			}
+		});
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
 

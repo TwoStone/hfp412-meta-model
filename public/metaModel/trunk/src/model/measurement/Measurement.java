@@ -1,8 +1,6 @@
 package model.measurement;
 
-import model.ConsistencyException;
 import model.UserException;
-import model.quantity.Quantity;
 import model.visitor.AbsQuantityReturnVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
@@ -30,9 +28,6 @@ import persistence.PersistentQuantifObject;
 import persistence.PersistentQuantity;
 import persistence.Predcate;
 import persistence.TDObserver;
-
-import common.Fraction;
-
 import constants.ExceptionConstants;
 
 /* Additional import section end */
@@ -226,12 +221,6 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMeasurement)This);
@@ -241,57 +230,52 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 			this.setQuantity((PersistentAbsQuantity)final$$Fields.get("quantity"));
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// Prüfen, ob m aus Measurement : m.quantity.unit.type = m.type.unitType
-		final PersistentAbsUnitType unitType = this.getThis().getQuantity()
-				.accept(new AbsQuantityReturnVisitor<PersistentAbsUnitType>() {
+		final PersistentAbsUnitType unitType = this.getThis().getQuantity().accept(new AbsQuantityReturnVisitor<PersistentAbsUnitType>() {
+			@Override
+			public PersistentAbsUnitType handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
+				return compoundQuantity.getParts().findFirst(new Predcate<PersistentQuantity>() {
 					@Override
-					public PersistentAbsUnitType handleCompoundQuantity(
-							final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
-						return compoundQuantity.getParts().findFirst(new Predcate<PersistentQuantity>() {
-							@Override
-							public boolean test(final PersistentQuantity argument) throws PersistenceException {
-								return true;
-							}
-						}).getUnit().getType();
+					public boolean test(final PersistentQuantity argument) throws PersistenceException {
+						return true;
 					}
+				}).getUnit().getType();
+			}
 
-					@Override
-					public PersistentAbsUnitType handleQuantity(final PersistentQuantity quantity)
-							throws PersistenceException {
-						return quantity.getUnit().getType();
-					}
-				});
+			@Override
+			public PersistentAbsUnitType handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
+				return quantity.getUnit().getType();
+			}
+		});
 		if (!this.getThis().getType().getUnitType().equals(unitType)) {
 			throw new Error(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY);
 		}
 	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
     public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
-				throws model.NotComputableException, PersistenceException{
+				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
 		final MeasurementSearchList measurements = new MeasurementSearchList();
-		measurements.add(getThis());
-
-		PersistentQuantity neutralElement = null;
-		try {
-			neutralElement = Quantity.createQuantity(Fraction.Null, this.getThis().getType().getUnitType()
-					.fetchDefaultUnit());
-		} catch (final ConsistencyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return strategy.aggregateMeasurements(neutralElement, measurements);
+		measurements.add(this.getThis());
+		return strategy.aggregateMeasurements(this.getThis().getType().getUnitType(), measurements);
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
 
-	
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

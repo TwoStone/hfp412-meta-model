@@ -1,4 +1,3 @@
-
 package model.quantity;
 
 import model.UserException;
@@ -14,7 +13,6 @@ import persistence.PersistentFractionWrapper;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -162,38 +160,38 @@ public class FractionWrapper extends PersistentObject implements PersistentFract
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentFractionWrapper)This);
 		if(this.equals(This)){
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

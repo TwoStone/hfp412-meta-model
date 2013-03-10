@@ -1,6 +1,9 @@
 package model.measurement;
 
+import java.util.Iterator;
+
 import model.UserException;
+import model.quantity.Quantity;
 import model.visitor.AggregationStrategyExceptionVisitor;
 import model.visitor.AggregationStrategyReturnExceptionVisitor;
 import model.visitor.AggregationStrategyReturnVisitor;
@@ -15,10 +18,14 @@ import persistence.MaxStrategyProxi;
 import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
+import persistence.PersistentAbsUnitType;
 import persistence.PersistentMaxStrategy;
+import persistence.PersistentMeasurement;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
+
+import common.Fraction;
 
 /* Additional import section end */
 
@@ -167,48 +174,55 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
     }
     
     
-    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsQuantity neutralElement, final MeasurementSearchList measurements) 
-				throws model.NotComputableException, PersistenceException{
-        //TODO: implement method: aggregateMeasurements
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"aggregateMeasurements\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMaxStrategy)This);
 		if(this.equals(This)){
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
+				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
+		if (measurements.getLength() <= 0) {
+			return Quantity.createQuantity(Fraction.Null, defaultUnitType.fetchDefaultUnit());
+		}
+
+		final Iterator<PersistentMeasurement> i = measurements.iterator();
+		final PersistentAbsQuantity largest = i.next().getQuantity();
+		while (i.hasNext()) {
+			final PersistentAbsQuantity current = i.next().getQuantity();
+			// if (largest.isLessOrEqualThan(current).toBoolean()) {
+			// largest = current;
+			// }
+		}
+
+		return largest;
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
 
 	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
 
-	
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

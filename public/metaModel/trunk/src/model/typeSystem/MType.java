@@ -120,12 +120,6 @@ public abstract class MType extends PersistentObject implements PersistentMType{
     
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public MMixedConjunctionSearchList getMTCContainingMe() 
 				throws PersistenceException{
         MMixedConjunctionSearchList result = null;
@@ -133,6 +127,10 @@ public abstract class MType extends PersistentObject implements PersistentMType{
 							.inverseGetFactors(this.getId(), this.getClassId());
 		return result;
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public MMixedTypeDisjunctionSearchList getMTDJContainingMe() 
 				throws PersistenceException{
         MMixedTypeDisjunctionSearchList result = null;
@@ -148,16 +146,6 @@ public abstract class MType extends PersistentObject implements PersistentMType{
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
-    public MObservationTypeSearchList inverseGetTheType() 
-				throws PersistenceException{
-        MObservationTypeSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMObservationTypeFacade
-							.inverseGetTheType(this.getId(), this.getClassId());
-		return result;
-    }
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
     public AbsOperationSearchList inverseGetSource() 
 				throws PersistenceException{
         AbsOperationSearchList result = null;
@@ -165,6 +153,26 @@ public abstract class MType extends PersistentObject implements PersistentMType{
 							.inverseGetSource(this.getId(), this.getClassId());
 		return result;
     }
+    public MObservationTypeSearchList inverseGetTheType() 
+				throws PersistenceException{
+        MObservationTypeSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMObservationTypeFacade
+							.inverseGetTheType(this.getId(), this.getClassId());
+		return result;
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
 		this.getMyCONCMModelItem().delete();

@@ -63,12 +63,6 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
     
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMComplexType)This);
@@ -77,8 +71,38 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
+    public MAspectSearchList fetchAspects() 
+				throws PersistenceException{
+		final MAspectSearchList result = new MAspectSearchList();
+		fetchContainedTypes().applyToAll(new Procdure<PersistentMType>() {
+
+			@Override
+			public void doItTo(final PersistentMType argument) throws PersistenceException {
+				result.add(argument.fetchAspects());
+			}
+		});
+		return result;
+	}
+    public MTypeSearchList fetchContainedTypes() 
+				throws PersistenceException{
+		return SearchLists.toMTypeSearchList(obtainContainedTypes());
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
@@ -86,10 +110,6 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 		SearchLists.addSecondToFirst(result, getThis().fetchTypesContainingThisDirectly());
 		// FIXME Add other dependencies (associations etc)
 		return result;
-	}
-    public MTypeSearchList fetchContainedTypes() 
-				throws PersistenceException{
-		return SearchLists.toMTypeSearchList(obtainContainedTypes());
 	}
     public String fetchName() 
 				throws PersistenceException{
@@ -110,18 +130,6 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 		builder.append(")");
 
 		return builder.toString();
-	}
-    public MAspectSearchList fetchAspects() 
-				throws PersistenceException{
-		final MAspectSearchList result = new MAspectSearchList();
-		fetchContainedTypes().applyToAll(new Procdure<PersistentMType>() {
-
-			@Override
-			public void doItTo(final PersistentMType argument) throws PersistenceException {
-				result.add(argument.fetchAspects());
-			}
-		});
-		return result;
 	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{

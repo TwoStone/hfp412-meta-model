@@ -202,6 +202,46 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
     }
     
     
+    public NameInstanceSearchList getNames() 
+				throws PersistenceException{
+        NameInstanceSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameInstanceFacade
+							.inverseGetFromObject(this.getId(), this.getClassId());
+		return result;
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMObject)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMObject)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+		}
+    }
+    public QuantifObjectSearchList inverseGetObject() 
+				throws PersistenceException{
+        QuantifObjectSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade
+							.inverseGetObject(this.getId(), this.getClassId());
+		return result;
+    }
+    public MessageOrLinkSearchList inverseGetSource() 
+				throws PersistenceException{
+        MessageOrLinkSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
+							.inverseGetSource(this.getId(), this.getClassId());
+		return result;
+    }
+    public MessageOrLinkSearchList inverseGetTarget() 
+				throws PersistenceException{
+        MessageOrLinkSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
+							.inverseGetTarget(this.getId(), this.getClassId());
+		return result;
+    }
     public MObservationSearchList inverseGetTheObsObject() 
 				throws PersistenceException{
         MObservationSearchList result = null;
@@ -209,20 +249,23 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 							.inverseGetTheObsObject(this.getId(), this.getClassId());
 		return result;
     }
-    public PersistentMBoolean containsInHierarchy(final PersistentMObject obj, final PersistentHierarchy hierac) 
-				throws PersistenceException{
+    public void addType(final PersistentMAtomicType newType) 
+				throws model.ConsistencyException, PersistenceException{
+		if (newType.isAbstract().toBoolean()) {
+			throw new ConsistencyException("Objekte dürfen nur in konkreten Typen klassifiziert werden!");
+		}
 
-		final HierarchySearchList listOfHierarchies = new HierarchySearchList();
-		listOfHierarchies.add(hierac);
+		if (newType.isSingleton().toBoolean()) {
+			throw new ConsistencyException("Objekte dürfen nur in nicht-singleton Typen klassifiziert werden!");
+		}
 
-		return getThis().containsInHierarchies(obj, listOfHierarchies);
+		if (this.getAspects().contains(newType.getAspect())) {
+			throw new ConsistencyException(String.format(
+					"Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s", newType
+							.getAspect().getName()));
+		}
+		this.getThis().getTypes().add(newType);
 	}
-    public LinkSearchList getLinksToMe(final TDObserver observer) 
-				throws PersistenceException{
-        LinkSearchList result = getThis().getLinksToMe();
-		observer.updateTransientDerived(getThis(), "linksToMe", result);
-		return result;
-    }
     public PersistentMBoolean containsInHierarchies(final PersistentMObject obj, final HierarchySearchList hieracs) 
 				throws PersistenceException{
 		if (getThis().equals(obj)) {
@@ -256,39 +299,21 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 		}
 		return MFalse.getTheMFalse();
 	}
+    public PersistentMBoolean containsInHierarchy(final PersistentMObject obj, final PersistentHierarchy hierac) 
+				throws PersistenceException{
+
+		final HierarchySearchList listOfHierarchies = new HierarchySearchList();
+		listOfHierarchies.add(hierac);
+
+		return getThis().containsInHierarchies(obj, listOfHierarchies);
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+
+	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		return new MModelItemSearchList();
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public QuantifObjectSearchList inverseGetObject() 
-				throws PersistenceException{
-        QuantifObjectSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade
-							.inverseGetObject(this.getId(), this.getClassId());
-		return result;
-    }
-    public void addType(final PersistentMAtomicType newType) 
-				throws model.ConsistencyException, PersistenceException{
-		if (newType.isAbstract().toBoolean()) {
-			throw new ConsistencyException("Objekte dürfen nur in konkreten Typen klassifiziert werden!");
-		}
-
-		if (newType.isSingleton().toBoolean()) {
-			throw new ConsistencyException("Objekte dürfen nur in nicht-singleton Typen klassifiziert werden!");
-		}
-
-		if (this.getAspects().contains(newType.getAspect())) {
-			throw new ConsistencyException(String.format(
-					"Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s", newType
-							.getAspect().getName()));
-		}
-		this.getThis().getTypes().add(newType);
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
 	}
     public LinkSearchList getLinksFromMe() 
 				throws PersistenceException{
@@ -310,73 +335,12 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 		}
 		return result;
 	}
-    public void removeType(final PersistentMAtomicType oldType) 
-				throws model.ConsistencyException, PersistenceException{
-		if (this.getThis().getTypes().getLength() <= 1) {
-			throw new ConsistencyException(
-					"Das Objekt muss in mindestens einem Typen klassifiziert! F??gen sie einen weiteren Typen hinzu bevor Sie diesen entfernen!");
-		}
-		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
-
-			@Override
-			public boolean test(final PersistentMAtomicType argument) throws PersistenceException {
-				return argument.equals(oldType);
-			}
-		});
-
-	}
-    public NameInstanceSearchList getNames() 
-				throws PersistenceException{
-        NameInstanceSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameInstanceFacade
-							.inverseGetFromObject(this.getId(), this.getClassId());
-		return result;
-    }
-    public MessageOrLinkSearchList inverseGetTarget() 
-				throws PersistenceException{
-        MessageOrLinkSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
-							.inverseGetTarget(this.getId(), this.getClassId());
-		return result;
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-
-	}
     public LinkSearchList getLinksFromMe(final TDObserver observer) 
 				throws PersistenceException{
         LinkSearchList result = getThis().getLinksFromMe();
 		observer.updateTransientDerived(getThis(), "linksFromMe", result);
 		return result;
     }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentMObject)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMObject)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-		}
-    }
-    public void prepareForDeletion() 
-				throws model.ConsistencyException, PersistenceException{
-	}
-    public void replaceType(final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
-				throws model.ConsistencyException, PersistenceException{
-		if (this.getAspects().contains(newType.getAspect()) && !oldType.getAspect().equals(newType.getAspect())) {
-			throw new ConsistencyException(String.format(
-					"Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s", newType
-							.getAspect().getName()));
-		}
-		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
-
-			@Override
-			public boolean test(final PersistentMAtomicType argument) throws PersistenceException {
-				return argument.equals(oldType);
-			}
-		});
-
-		this.getThis().getTypes().add(newType);
-	}
     public LinkSearchList getLinksToMe() 
 				throws PersistenceException{
 		final LinkSearchList result = new LinkSearchList();
@@ -397,13 +361,61 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 		}
 		return result;
 	}
-    public MessageOrLinkSearchList inverseGetSource() 
+    public LinkSearchList getLinksToMe(final TDObserver observer) 
 				throws PersistenceException{
-        MessageOrLinkSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
-							.inverseGetSource(this.getId(), this.getClassId());
+        LinkSearchList result = getThis().getLinksToMe();
+		observer.updateTransientDerived(getThis(), "linksToMe", result);
 		return result;
     }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+	}
+    public void removeType(final PersistentMAtomicType oldType) 
+				throws model.ConsistencyException, PersistenceException{
+		if (this.getThis().getTypes().getLength() <= 1) {
+			throw new ConsistencyException(
+					"Das Objekt muss in mindestens einem Typen klassifiziert! F??gen sie einen weiteren Typen hinzu bevor Sie diesen entfernen!");
+		}
+		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
+
+			@Override
+			public boolean test(final PersistentMAtomicType argument) throws PersistenceException {
+				return argument.equals(oldType);
+			}
+		});
+
+	}
+    public void replaceType(final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
+				throws model.ConsistencyException, PersistenceException{
+		if (this.getAspects().contains(newType.getAspect()) && !oldType.getAspect().equals(newType.getAspect())) {
+			throw new ConsistencyException(String.format(
+					"Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s", newType
+							.getAspect().getName()));
+		}
+		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
+
+			@Override
+			public boolean test(final PersistentMAtomicType argument) throws PersistenceException {
+				return argument.equals(oldType);
+			}
+		});
+
+		this.getThis().getTypes().add(newType);
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
+    public PersistentMNonEmptyAtomicTypeConjunction fetchProductType() 
+				throws PersistenceException{
+		return MNonEmptyAtomicTypeConjunction.transientCreateNETypeConj(getThis().getTypes().getList());
+	}
     public NameSearchList getPossibleNames() 
 				throws PersistenceException{
 		final NameSearchList list = new NameSearchList();
@@ -417,10 +429,6 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 		});
 
 		return list;
-	}
-    public PersistentMNonEmptyAtomicTypeConjunction fetchProductType() 
-				throws PersistenceException{
-		return MNonEmptyAtomicTypeConjunction.transientCreateNETypeConj(getThis().getTypes().getList());
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

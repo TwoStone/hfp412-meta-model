@@ -119,28 +119,36 @@ public class CONCMModelItem extends model.MModelItem implements PersistentCONCMM
     }
     
     
-    public MModelItemSearchList fetchDependentItems() 
-				throws PersistenceException{
-        return getThis().fetchDependentItems();
-    }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-        super.initializeOnInstantiation();
-    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentCONCMModelItem)This);
 		if(this.equals(This)){
 		}
     }
-    public void prepareForDeletion() 
-				throws model.ConsistencyException, PersistenceException{
-        getThis().prepareForDeletion();
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+        return getThis().fetchDependentItems();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
     }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        super.initializeOnInstantiation();
+    }
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+        getThis().prepareForDeletion();
+    }
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

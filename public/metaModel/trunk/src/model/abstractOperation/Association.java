@@ -163,12 +163,6 @@ public class Association extends model.abstractOperation.AbsOperation implements
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAssociation)This);
@@ -178,6 +172,10 @@ public class Association extends model.abstractOperation.AbsOperation implements
 			this.setTarget((PersistentMType)final$$Fields.get("target"));
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public LinkSearchList inverseGetType() 
 				throws PersistenceException{
         LinkSearchList result = null;
@@ -185,9 +183,19 @@ public class Association extends model.abstractOperation.AbsOperation implements
 							.inverseGetType(this.getId(), this.getClassId());
 		return result;
     }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

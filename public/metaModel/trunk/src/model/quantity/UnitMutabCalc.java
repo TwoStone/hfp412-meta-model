@@ -133,29 +133,119 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
     
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentUnitMutabCalc)This);
 		if(this.equals(This)){
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
+    public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) 
+				throws model.NotComputableException, PersistenceException{
+		getThis().setResultt(this.doCalc1Compound1Atomar(atom, comp));
+	}
+    public void calcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) 
+				throws model.NotComputableException, PersistenceException{
+		getThis().setResultt(this.doCalcAtomar(atom1, atom2));
+
+	}
+    public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) 
+				throws model.NotComputableException, PersistenceException{
+		final PersistentCompoundQuantity result = CompoundQuantity.createCompoundQuantity();
+
+		// über comp1 iterieren
+		final Iterator<PersistentQuantity> i1 = comp1.getParts().iterator();
+		while (i1.hasNext()) {
+			final PersistentQuantity i1_current = i1.next();
+			// über comp2 iterieren
+			final Iterator<PersistentQuantity> i2 = comp2.getParts().iterator();
+			while (i2.hasNext()) {
+				final PersistentQuantity i2_current = i2.next();
+				final PersistentQuantity i1_current_o_i2_current = this.doCalcAtomar(i1_current, i2_current);
+				result.getParts().add(i1_current_o_i2_current);
+			}
+		}
+
 	}
     public void createTargetUnitType() 
 				throws model.NotComputableException, PersistenceException{
 		// TODO Auto-generated method stub
 
+	}
+    public void createTargetUnit() 
+				throws model.NotComputableException, PersistenceException{
+		// TODO Auto-generated method stub
+
+	}
+    public void findTargetUnitType() 
+				throws model.NotComputableException, PersistenceException{
+		PersistentAbsUnitType result = null;
+		if (targetRefTypes.getMap().isEmpty()) {
+			result = null;
+		}
+		if (targetRefTypes.getMap().size() == 1
+				& targetRefTypes.getMap().values().iterator().next().equals(new Long(1))) {
+			result = targetRefTypes.getMap().keySet().iterator().next();
+		}
+
+		result = UnitTypeManager.getTheUnitTypeManager().getUnitTypes()
+				.findFirst(new Predcate<PersistentAbsUnitType>() {
+
+					@Override
+					public boolean test(final PersistentAbsUnitType argument) throws PersistenceException {
+						return argument.accept(new AbsUnitTypeReturnVisitor<Boolean>() {
+
+							@Override
+							public Boolean handleCompUnitType(final PersistentCompUnitType compUnitType)
+									throws PersistenceException {
+								if (!(compUnitType.getRefs().getLength() == targetRefTypes.getMap().size())) {
+									return false;
+								}
+								final Iterator<PersistentReferenceType> i = compUnitType.getRefs().iterator();
+								boolean currentResult = true;
+								while (i.hasNext() & currentResult) {
+									final PersistentReferenceType rt = i.next();
+									final PersistentUnitType ut = rt.getRef();
+									final Long exponent = rt.getExponent();
+
+									if (!targetRefTypes.getMap().containsKey(ut)
+											&& exponent.equals(targetRefTypes.getMap().get(ut))) {
+										currentResult = false;
+									}
+								}
+								return currentResult;
+							}
+
+							@Override
+							public Boolean handleUnitType(final PersistentUnitType unitType)
+									throws PersistenceException {
+								return false;
+							}
+						});
+					}
+				});
+
+		this.targetUnitType = result;
 	}
     public void findTargetUnit() 
 				throws model.NotComputableException, PersistenceException{
@@ -234,88 +324,6 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 		}
 
 		this.targetUnit = result;
-
-	}
-    public void calcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) 
-				throws model.NotComputableException, PersistenceException{
-		getThis().setResultt(this.doCalcAtomar(atom1, atom2));
-
-	}
-    public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) 
-				throws model.NotComputableException, PersistenceException{
-		getThis().setResultt(this.doCalc1Compound1Atomar(atom, comp));
-	}
-    public void findTargetUnitType() 
-				throws model.NotComputableException, PersistenceException{
-		PersistentAbsUnitType result = null;
-		if (targetRefTypes.getMap().isEmpty()) {
-			result = null;
-		}
-		if (targetRefTypes.getMap().size() == 1
-				& targetRefTypes.getMap().values().iterator().next().equals(new Long(1))) {
-			result = targetRefTypes.getMap().keySet().iterator().next();
-		}
-
-		result = UnitTypeManager.getTheUnitTypeManager().getUnitTypes()
-				.findFirst(new Predcate<PersistentAbsUnitType>() {
-
-					@Override
-					public boolean test(final PersistentAbsUnitType argument) throws PersistenceException {
-						return argument.accept(new AbsUnitTypeReturnVisitor<Boolean>() {
-
-							@Override
-							public Boolean handleCompUnitType(final PersistentCompUnitType compUnitType)
-									throws PersistenceException {
-								if (!(compUnitType.getRefs().getLength() == targetRefTypes.getMap().size())) {
-									return false;
-								}
-								final Iterator<PersistentReferenceType> i = compUnitType.getRefs().iterator();
-								boolean currentResult = true;
-								while (i.hasNext() & currentResult) {
-									final PersistentReferenceType rt = i.next();
-									final PersistentUnitType ut = rt.getRef();
-									final Long exponent = rt.getExponent();
-
-									if (!targetRefTypes.getMap().containsKey(ut)
-											&& exponent.equals(targetRefTypes.getMap().get(ut))) {
-										currentResult = false;
-									}
-								}
-								return currentResult;
-							}
-
-							@Override
-							public Boolean handleUnitType(final PersistentUnitType unitType)
-									throws PersistenceException {
-								return false;
-							}
-						});
-					}
-				});
-
-		this.targetUnitType = result;
-	}
-    public void createTargetUnit() 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-
-	}
-    public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) 
-				throws model.NotComputableException, PersistenceException{
-		final PersistentCompoundQuantity result = CompoundQuantity.createCompoundQuantity();
-
-		// über comp1 iterieren
-		final Iterator<PersistentQuantity> i1 = comp1.getParts().iterator();
-		while (i1.hasNext()) {
-			final PersistentQuantity i1_current = i1.next();
-			// über comp2 iterieren
-			final Iterator<PersistentQuantity> i2 = comp2.getParts().iterator();
-			while (i2.hasNext()) {
-				final PersistentQuantity i2_current = i2.next();
-				final PersistentQuantity i1_current_o_i2_current = this.doCalcAtomar(i1_current, i2_current);
-				result.getParts().add(i1_current_o_i2_current);
-			}
-		}
 
 	}
 

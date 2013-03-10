@@ -119,19 +119,6 @@ public abstract class AbstractObject extends PersistentObject implements Persist
     
     
     
-    public NameSearchList getPossibleNames(final TDObserver observer) 
-				throws PersistenceException{
-        NameSearchList result = getThis().getPossibleNames();
-		observer.updateTransientDerived(getThis(), "possibleNames", result);
-		return result;
-    }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAbstractObject)This);
@@ -140,8 +127,33 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+
+	}
+    public NameSearchList getPossibleNames(final TDObserver observer) 
+				throws PersistenceException{
+        NameSearchList result = getThis().getPossibleNames();
+		observer.updateTransientDerived(getThis(), "possibleNames", result);
+		return result;
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		getThis().getMyCONCMModelItem().delete();
 	}
     public NameSearchList getPossibleNames() 
 				throws PersistenceException{
@@ -156,10 +168,6 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 		});
 
 		return list;
-	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		getThis().getMyCONCMModelItem().delete();
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

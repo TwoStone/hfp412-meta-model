@@ -203,12 +203,6 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentLink)This);
@@ -220,14 +214,28 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
 			this.setType((PersistentAssociation)final$$Fields.get("type"));
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 		// TODO: Christin implement method: prepareForDeletion
 
 	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
 

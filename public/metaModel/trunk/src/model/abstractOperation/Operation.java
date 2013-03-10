@@ -156,17 +156,6 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
     }
     
     
-    public PersistentMBoolean isStatic() 
-				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().getSource().equals(
-				MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction()));
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentOperation)This);
@@ -176,6 +165,10 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
 			this.setTarget((PersistentMType)final$$Fields.get("target"));
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public MessageSearchList inverseGetType() 
 				throws PersistenceException{
         MessageSearchList result = null;
@@ -183,14 +176,29 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
 							.inverseGetType(this.getId(), this.getClassId());
 		return result;
     }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
     public PersistentMBoolean isConstant() 
 				throws PersistenceException{
 		return MBoolean.createFromBoolean(this.getSource().equals(MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction())
 				&& getThis().getParameters().getLength() == 0);
 	}
-    public void initializeOnCreation() 
+    public PersistentMBoolean isStatic() 
 				throws PersistenceException{
+		return MBoolean.createFromBoolean(getThis().getSource().equals(
+				MEmptyTypeDisjunction.getTheMEmptyTypeDisjunction()));
 	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
 

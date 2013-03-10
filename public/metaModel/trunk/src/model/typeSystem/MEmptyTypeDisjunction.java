@@ -231,24 +231,15 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
     }
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public MTypeSearchList fetchTypesContainingThisDirectly() 
-				throws PersistenceException{
-		final MTypeSearchList result = new MTypeSearchList();
-		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
-		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
-		return result;
-	}
     public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
 		return false;
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMEmptyTypeDisjunction)This);
@@ -257,25 +248,42 @@ public class MEmptyTypeDisjunction extends model.typeSystem.MDisjunctiveNormalFo
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
-				throws PersistenceException{
-		return MTrue.getTheMTrue();
-	}
     public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return strategy.finalize$$MEmptyTypeDisjunction(getThis(), parameter);
     }
-    public void initializeOnCreation() 
+    public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
     public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
 				throws PersistenceException{
 		return getThis();
 	}
+    public MTypeSearchList fetchTypesContainingThisDirectly() 
+				throws PersistenceException{
+		final MTypeSearchList result = new MTypeSearchList();
+		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
+		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
+		return result;
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+		return MTrue.getTheMTrue();
+	}
     public PersistentMDisjunctiveNormalForm transientMultiply(final PersistentMDisjunctiveNormalForm other) 
 				throws PersistenceException{
 		return getThis();
 	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
 		throw new ConsistencyException("The Nothing may not be deleted.");

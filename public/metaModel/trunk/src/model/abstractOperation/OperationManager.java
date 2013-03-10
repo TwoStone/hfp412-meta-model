@@ -188,17 +188,47 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     
     
-    public OperationSearchList getConstants(final TDObserver observer) 
-				throws PersistenceException{
-        OperationSearchList result = getThis().getConstants();
-		observer.updateTransientDerived(getThis(), "constants", result);
-		return result;
-    }
-    public void removeOperation(final PersistentOperation op, final Invoker invoker) 
+    public void addFp(final PersistentOperation op, final PersistentFormalParameter fp, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveOperationCommand command = model.meta.RemoveOperationCommand.createRemoveOperationCommand(now, now);
+		PersistentAddFpCommand command = model.meta.AddFpCommand.createAddFpCommand(now, now);
 		command.setOp(op);
+		command.setFp(fp);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void addMultipleFp(final PersistentOperation op, final FormalParameterSearchList fp, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddMultipleFpCommand command = model.meta.AddMultipleFpCommand.createAddMultipleFpCommand(now, now);
+		command.setOp(op);
+		java.util.Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
+		while(fpIterator.hasNext()){
+			command.getFp().add(fpIterator.next());
+		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createConstant(final String name, final PersistentMType target, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateConstantCommand command = model.meta.CreateConstantCommand.createCreateConstantCommand(name, now, now);
+		command.setTarget(target);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createFp(final String name, final PersistentMType ofType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateFpCommand command = model.meta.CreateFpCommand.createCreateFpCommand(name, now, now);
+		command.setOfType(ofType);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -217,21 +247,128 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateStaticOpCommand command = model.meta.CreateStaticOpCommand.createCreateStaticOpCommand(name, now, now);
+		command.setTarget(target);
+		java.util.Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
+		while(fpIterator.hasNext()){
+			command.getFp().add(fpIterator.next());
+		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateVoidOperationCommand command = model.meta.CreateVoidOperationCommand.createCreateVoidOperationCommand(name, now, now);
+		command.setSource(source);
+		java.util.Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
+		while(fpIterator.hasNext()){
+			command.getFp().add(fpIterator.next());
+		}
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentOperationManager)This);
+		if(this.equals(This)){
+		}
+    }
+    public void removeFpFromOp(final PersistentOperation op, final PersistentFormalParameter fp, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveFpFromOpCommand command = model.meta.RemoveFpFromOpCommand.createRemoveFpFromOpCommand(now, now);
+		command.setOp(op);
+		command.setFp(fp);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void removeFp(final PersistentFormalParameter fp, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveFpCommand command = model.meta.RemoveFpCommand.createRemoveFpCommand(now, now);
+		command.setFp(fp);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void removeOperation(final PersistentOperation op, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveOperationCommand command = model.meta.RemoveOperationCommand.createRemoveOperationCommand(now, now);
+		command.setOp(op);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
+				throws model.ConsistencyException, PersistenceException{
+		final FormalParameterSearchList list = new FormalParameterSearchList();
+		list.add(fp);
+		getThis().addMultipleFp(op, list);
+	}
+    public void addMultipleFp(final PersistentOperation op, final FormalParameterSearchList fp) 
+				throws model.ConsistencyException, PersistenceException{
+
+		final Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
+
+		Iterator<PersistentFormalParameter> otherIterator = null;
+		PersistentFormalParameter otherCurrent = null;
+		PersistentFormalParameter currentFp = null;
+
+		while (fpIterator.hasNext()) {
+			currentFp = fpIterator.next();
+			otherIterator = op.getParameters().iterator();
+			while (otherIterator.hasNext()) {
+				otherCurrent = otherIterator.next();
+				if (otherCurrent.getName().equals(currentFp.getName())) {
+					throw new ConsistencyException(ExceptionConstants.CE_FP_ALREADY_IN_OP);
+				}
+			}
+			op.getParameters().add(currentFp);
+		}
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public PersistentOperation createConstant(final String name, final PersistentMType target) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
 		final PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction
 				.getTheMEmptyTypeDisjunction();
 		return getThis().createOperation(theMEmptyTypeDisjunction, target, name, new FormalParameterSearchList());
 	}
-    public void createFp(final String name, final PersistentMType ofType, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateFpCommand command = model.meta.CreateFpCommand.createCreateFpCommand(name, now, now);
-		command.setOfType(ofType);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
+    public PersistentFormalParameter createFp(final String name, final PersistentMType ofType) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
+
+		final EmptyTypeDisjReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptyTypeDisjReturnBooleanVisitor();
+		if (ofType.accept(emptySumTypeReturnBooleanVisitor)) {
+			throw new ConsistencyException(ExceptionConstants.CE_WRONG_TYPE_EMPTYTYPEDIS);
+		}
+
+		final PersistentFormalParameter findFirst = getThis().getFormalParameters().findFirst(
+				new Predcate<PersistentFormalParameter>() {
+
+					@Override
+					public boolean test(final PersistentFormalParameter argument) throws PersistenceException {
+						return argument.getName().equals(name);
+					}
+				});
+
+		if (findFirst != null) {
+			throw new DoubleDefinitionException(ExceptionConstants.DDE_FP);
+		}
+
+		final PersistentFormalParameter createFormalParameter = FormalParameter.createFormalParameter(ofType, name);
+		getThis().getFormalParameters().add(createFormalParameter);
+		return createFormalParameter;
+	}
     public PersistentOperation createOperation(final PersistentMType source, final PersistentMType target, final String name, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
 		// DDE Pruefen
@@ -250,41 +387,19 @@ public class OperationManager extends PersistentObject implements PersistentOper
 
 		return createOperation;
 	}
-    public PersistentOperation createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
-				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-
-		final PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction
-				.getTheMEmptyTypeDisjunction();
-		return getThis().createOperation(source, theMEmptyTypeDisjunction, name, fp);
-	}
-    public void removeFp(final PersistentFormalParameter fp, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveFpCommand command = model.meta.RemoveFpCommand.createRemoveFpCommand(now, now);
-		command.setFp(fp);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public void removeFpFromOp(final PersistentOperation op, final PersistentFormalParameter fp, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveFpFromOpCommand command = model.meta.RemoveFpFromOpCommand.createRemoveFpFromOpCommand(now, now);
-		command.setOp(op);
-		command.setFp(fp);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public PersistentOperation createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp) 
 				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
 
 		final PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction
 				.getTheMEmptyTypeDisjunction();
 		return getThis().createOperation(theMEmptyTypeDisjunction, target, name, fp);
+	}
+    public PersistentOperation createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
+
+		final PersistentMEmptyTypeDisjunction theMEmptyTypeDisjunction = MEmptyTypeDisjunction
+				.getTheMEmptyTypeDisjunction();
+		return getThis().createOperation(source, theMEmptyTypeDisjunction, name, fp);
 	}
     public OperationSearchList getConstants() 
 				throws PersistenceException{
@@ -298,14 +413,11 @@ public class OperationManager extends PersistentObject implements PersistentOper
 
 		}));
 	}
-    public void createConstant(final String name, final PersistentMType target, final Invoker invoker) 
+    public OperationSearchList getConstants(final TDObserver observer) 
 				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateConstantCommand command = model.meta.CreateConstantCommand.createCreateConstantCommand(name, now, now);
-		command.setTarget(target);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+        OperationSearchList result = getThis().getConstants();
+		observer.updateTransientDerived(getThis(), "constants", result);
+		return result;
     }
     public OperationSearchList getStaticOperations() 
 				throws PersistenceException{
@@ -319,59 +431,43 @@ public class OperationManager extends PersistentObject implements PersistentOper
 
 		}));
 	}
-    public void removeOperation(final PersistentOperation op) 
-				throws model.ConsistencyException, PersistenceException{
-		if (op.inverseGetType().getLength() > 0) {
-			throw new ConsistencyException(ExceptionConstants.CE_OP_HAS_MESSAGES);
-		}
-		getThis().getOperations().removeFirstSuccess(new Predcate<PersistentOperation>() {
-
-			@Override
-			public boolean test(final PersistentOperation argument) throws PersistenceException {
-				return op.equals(argument);
-			}
-		});
-	}
-    public void createVoidOperation(final PersistentMType source, final String name, final FormalParameterSearchList fp, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateVoidOperationCommand command = model.meta.CreateVoidOperationCommand.createCreateVoidOperationCommand(name, now, now);
-		command.setSource(source);
-		java.util.Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
-		while(fpIterator.hasNext()){
-			command.getFp().add(fpIterator.next());
-		}
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-		getStaticOperations();
-		getConstants();
-	}
     public OperationSearchList getStaticOperations(final TDObserver observer) 
 				throws PersistenceException{
         OperationSearchList result = getThis().getStaticOperations();
 		observer.updateTransientDerived(getThis(), "staticOperations", result);
 		return result;
     }
-    public void createStaticOp(final String name, final PersistentMType target, final FormalParameterSearchList fp, final Invoker invoker) 
+    public void initializeOnCreation() 
 				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateStaticOpCommand command = model.meta.CreateStaticOpCommand.createCreateStaticOpCommand(name, now, now);
-		command.setTarget(target);
-		java.util.Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
-		while(fpIterator.hasNext()){
-			command.getFp().add(fpIterator.next());
+		getStaticOperations();
+		getConstants();
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void removeFpFromOp(final PersistentOperation op, final PersistentFormalParameter fp) 
+				throws model.ConsistencyException, PersistenceException{
+		if (op.inverseGetType().getLength() > 0) {
+			// TODO: Später: Testen, wenn Messages implementiert sind.
+			throw new ConsistencyException(ExceptionConstants.CE_OP_HAS_MESSAGES_FP);
 		}
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
+
+		final Iterator<PersistentFormalParameter> iterator = op.getParameters().iterator();
+		boolean deleted = false;
+		while (iterator.hasNext()) {
+			if (iterator.next().equals(fp)) {
+				iterator.remove();
+				deleted = true;
+			}
+		}
+
+		if (!deleted) {
+			// TODO: Thimo: Warum sollte das passieren? Kann man sich die Exc nicht sparen? Wenn doch benötigt: Meldung
+			// in Exc-const auslagern
+			// Wurde offenbar keiner gefunden
+			throw new ConsistencyException("Formalparameter befindet sich nicht in der Parameterliste!");
+		}
+	}
     public void removeFp(final PersistentFormalParameter fp) 
 				throws model.ConsistencyException, PersistenceException{
 		if (fp.inverseGetType().getLength() > 0) {
@@ -409,111 +505,23 @@ public class OperationManager extends PersistentObject implements PersistentOper
 		});
 
 	}
-    public PersistentFormalParameter createFp(final String name, final PersistentMType ofType) 
-				throws model.DoubleDefinitionException, model.ConsistencyException, PersistenceException{
-
-		final EmptyTypeDisjReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptyTypeDisjReturnBooleanVisitor();
-		if (ofType.accept(emptySumTypeReturnBooleanVisitor)) {
-			throw new ConsistencyException(ExceptionConstants.CE_WRONG_TYPE_EMPTYTYPEDIS);
-		}
-
-		final PersistentFormalParameter findFirst = getThis().getFormalParameters().findFirst(
-				new Predcate<PersistentFormalParameter>() {
-
-					@Override
-					public boolean test(final PersistentFormalParameter argument) throws PersistenceException {
-						return argument.getName().equals(name);
-					}
-				});
-
-		if (findFirst != null) {
-			throw new DoubleDefinitionException(ExceptionConstants.DDE_FP);
-		}
-
-		final PersistentFormalParameter createFormalParameter = FormalParameter.createFormalParameter(ofType, name);
-		getThis().getFormalParameters().add(createFormalParameter);
-		return createFormalParameter;
-	}
-    public void addFp(final PersistentOperation op, final PersistentFormalParameter fp, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddFpCommand command = model.meta.AddFpCommand.createAddFpCommand(now, now);
-		command.setOp(op);
-		command.setFp(fp);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void addFp(final PersistentOperation op, final PersistentFormalParameter fp) 
-				throws model.ConsistencyException, PersistenceException{
-		final FormalParameterSearchList list = new FormalParameterSearchList();
-		list.add(fp);
-		getThis().addMultipleFp(op, list);
-	}
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentOperationManager)This);
-		if(this.equals(This)){
-		}
-    }
-    public void addMultipleFp(final PersistentOperation op, final FormalParameterSearchList fp, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddMultipleFpCommand command = model.meta.AddMultipleFpCommand.createAddMultipleFpCommand(now, now);
-		command.setOp(op);
-		java.util.Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
-		while(fpIterator.hasNext()){
-			command.getFp().add(fpIterator.next());
-		}
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void addMultipleFp(final PersistentOperation op, final FormalParameterSearchList fp) 
-				throws model.ConsistencyException, PersistenceException{
-
-		final Iterator<PersistentFormalParameter> fpIterator = fp.iterator();
-
-		Iterator<PersistentFormalParameter> otherIterator = null;
-		PersistentFormalParameter otherCurrent = null;
-		PersistentFormalParameter currentFp = null;
-
-		while (fpIterator.hasNext()) {
-			currentFp = fpIterator.next();
-			otherIterator = op.getParameters().iterator();
-			while (otherIterator.hasNext()) {
-				otherCurrent = otherIterator.next();
-				if (otherCurrent.getName().equals(currentFp.getName())) {
-					throw new ConsistencyException(ExceptionConstants.CE_FP_ALREADY_IN_OP);
-				}
-			}
-			op.getParameters().add(currentFp);
-		}
-
-	}
-    public void removeFpFromOp(final PersistentOperation op, final PersistentFormalParameter fp) 
+    public void removeOperation(final PersistentOperation op) 
 				throws model.ConsistencyException, PersistenceException{
 		if (op.inverseGetType().getLength() > 0) {
-			// TODO: Später: Testen, wenn Messages implementiert sind.
-			throw new ConsistencyException(ExceptionConstants.CE_OP_HAS_MESSAGES_FP);
+			throw new ConsistencyException(ExceptionConstants.CE_OP_HAS_MESSAGES);
 		}
+		getThis().getOperations().removeFirstSuccess(new Predcate<PersistentOperation>() {
 
-		final Iterator<PersistentFormalParameter> iterator = op.getParameters().iterator();
-		boolean deleted = false;
-		while (iterator.hasNext()) {
-			if (iterator.next().equals(fp)) {
-				iterator.remove();
-				deleted = true;
+			@Override
+			public boolean test(final PersistentOperation argument) throws PersistenceException {
+				return op.equals(argument);
 			}
-		}
-
-		if (!deleted) {
-			// TODO: Thimo: Warum sollte das passieren? Kann man sich die Exc nicht sparen? Wenn doch benötigt: Meldung
-			// in Exc-const auslagern
-			// Wurde offenbar keiner gefunden
-			throw new ConsistencyException("Formalparameter befindet sich nicht in der Parameterliste!");
-		}
+		});
 	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
 

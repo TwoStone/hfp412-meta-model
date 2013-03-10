@@ -172,8 +172,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleAssociationManager(final PersistentAssociationManager associationManager)
-			throws PersistenceException {
+	public void handleAssociationManager(final PersistentAssociationManager associationManager) throws PersistenceException {
 		result = "Liste der Assoziationen";
 	}
 
@@ -252,8 +251,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		if (b.equals(Fraction.Null)) {
 			this.result = "1 " + defaultUnit.getName() + " = " + m + " " + conversion.getSource().getName();
 		} else {
-			this.result = "y " + defaultUnit.getName() + " = (" + m + "*x + " + b + ") "
-					+ conversion.getSource().getName();
+			this.result = "y " + defaultUnit.getName() + " = (" + m + "*x + " + b + ") " + conversion.getSource().getName();
 		}
 	}
 
@@ -376,14 +374,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleMeasurementTypeManager(final PersistentMeasurementTypeManager measurementTypeManager)
-			throws PersistenceException {
+	public void handleMeasurementTypeManager(final PersistentMeasurementTypeManager measurementTypeManager) throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_MEASUREMENT_TYPE_MANAGER;
 	}
 
 	@Override
-	public void handleAccountTypeManager(final PersistentAccountTypeManager accountTypeManager)
-			throws PersistenceException {
+	public void handleAccountTypeManager(final PersistentAccountTypeManager accountTypeManager) throws PersistenceException {
 		this.result = constants.TextConstants.LABEL_ACCOUNT_TYPE_MANAGER;
 	}
 
@@ -410,14 +406,13 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleMObject(final PersistentMObject mObject) throws PersistenceException {
 		result = String.valueOf(mObject.getId());
-		result += Strings.join(", ", mObject.getNames().iterator(),
-				new Strings.ToStringStrategy<PersistentNameInstance>() {
+		result += Strings.join(", ", mObject.getNames().iterator(), new Strings.ToStringStrategy<PersistentNameInstance>() {
 
-					@Override
-					public String getString(final PersistentNameInstance element) throws PersistenceException {
-						return element.toString(true);
-					}
-				});
+			@Override
+			public String getString(final PersistentNameInstance element) throws PersistenceException {
+				return element.toString(true);
+			}
+		});
 	}
 
 	@Override
@@ -426,8 +421,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleNameSchemeInstance(final PersistentNameSchemeInstance nameSchemeInstance)
-			throws PersistenceException {
+	public void handleNameSchemeInstance(final PersistentNameSchemeInstance nameSchemeInstance) throws PersistenceException {
 		result = nameSchemeInstance.getName();
 	}
 
@@ -442,8 +436,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleNameSchemeManager(final PersistentNameSchemeManager nameSchemeManager)
-			throws PersistenceException {
+	public void handleNameSchemeManager(final PersistentNameSchemeManager nameSchemeManager) throws PersistenceException {
 		result = "Liste von Namensschemata";
 	}
 
@@ -495,38 +488,34 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleMEmptyTypeDisjunction(final PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction)
-			throws PersistenceException {
+	public void handleMEmptyTypeDisjunction(final PersistentMEmptyTypeDisjunction mEmptyTypeDisjunction) throws PersistenceException {
 		result = mEmptyTypeDisjunction.fetchName();
 	}
 
 	@Override
-	public void handleMMixedConjunction(final PersistentMMixedConjunction mMixedConjunction)
-			throws PersistenceException {
+	public void handleMMixedConjunction(final PersistentMMixedConjunction mMixedConjunction) throws PersistenceException {
 		result = mMixedConjunction.fetchName();
 	}
 
 	@Override
-	public void handleMEmptyTypeConjunction(final PersistentMEmptyTypeConjunction mEmptyTypeConjunction)
-			throws PersistenceException {
+	public void handleMEmptyTypeConjunction(final PersistentMEmptyTypeConjunction mEmptyTypeConjunction) throws PersistenceException {
 		result = mEmptyTypeConjunction.fetchName();
 	}
 
 	@Override
-	public void handleMMixedTypeDisjunction(final PersistentMMixedTypeDisjunction mMixedTypeDisjunction)
-			throws PersistenceException {
+	public void handleMMixedTypeDisjunction(final PersistentMMixedTypeDisjunction mMixedTypeDisjunction) throws PersistenceException {
 		result = mMixedTypeDisjunction.fetchName();
 	}
 
 	@Override
-	public void handleMNonEmptyAtomicTypeConjunction(
-			final PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction) throws PersistenceException {
+	public void handleMNonEmptyAtomicTypeConjunction(final PersistentMNonEmptyAtomicTypeConjunction mNonEmptyAtomicTypeConjunction)
+			throws PersistenceException {
 		result = mNonEmptyAtomicTypeConjunction.fetchName();
 	}
 
 	@Override
-	public void handleMNonEmptyDisjunctiveNormalForm(
-			final PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm) throws PersistenceException {
+	public void handleMNonEmptyDisjunctiveNormalForm(final PersistentMNonEmptyDisjunctiveNormalForm mNonEmptyDisjunctiveNormalForm)
+			throws PersistenceException {
 		result = mNonEmptyDisjunctiveNormalForm.fetchName();
 	}
 
@@ -573,8 +562,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleObservationManager(final PersistentObservationManager observationManager)
-			throws PersistenceException {
+	public void handleObservationManager(final PersistentObservationManager observationManager) throws PersistenceException {
 		result = "Liste der Observations";
 
 	}
@@ -586,8 +574,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	@Override
-	public void handleEnumerationManager(final PersistentEnumerationManager enumerationManager)
-			throws PersistenceException {
+	public void handleEnumerationManager(final PersistentEnumerationManager enumerationManager) throws PersistenceException {
 		result = "Liste der Enumerations";
 
 	}
