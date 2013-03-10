@@ -172,7 +172,7 @@ part typeSystem {
 		client-as-string prior MBoolean singletonType;
 		client-as-string prior MBoolean abstractType;
 		no-view prior symmetric(types) MAspect aspect;
-		no-view symmetric(subTypes) MAtomicType superType hierarchy MAtomicTypeHierarchy;
+		no-view prior symmetric(subTypes) AnythingORMATomicType superType hierarchy MAtomicTypeHierarchy;
 
 		void changeAbstract(MBoolean newAbstractType) throws ConsistencyException;	
 		MBoolean hasConcreteSubType();	

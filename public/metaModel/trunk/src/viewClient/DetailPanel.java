@@ -1439,6 +1439,8 @@ class MultiplicationDefaultDetailPanel extends DefaultDetailPanel{
 @SuppressWarnings("serial")
 class MEmptyTypeConjunctionDefaultDetailPanel extends DefaultDetailPanel{
     
+    protected static final String MEmptyTypeConjunction$$subTypes = "MEmptyTypeConjunction$$subTypes";
+    
     protected MEmptyTypeConjunctionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
