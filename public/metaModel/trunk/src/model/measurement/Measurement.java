@@ -6,6 +6,10 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
 import model.visitor.QuantifObjectExceptionVisitor;
 import model.visitor.QuantifObjectReturnExceptionVisitor;
 import model.visitor.QuantifObjectReturnVisitor;
@@ -14,13 +18,16 @@ import persistence.AbstractPersistentRoot;
 import persistence.AggregationStrategy;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.MModelItemSearchList;
 import persistence.MeasurementProxi;
 import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnitType;
+import persistence.PersistentCONCMModelItem;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentMMeasurementType;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMObject;
 import persistence.PersistentMeasurement;
 import persistence.PersistentProxi;
@@ -109,6 +116,7 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
         Measurement result = this;
         result = new Measurement(this.object, 
                                  this.This, 
+                                 this.myCONCMModelItem, 
                                  this.type, 
                                  this.quantity, 
                                  this.getId());
@@ -117,14 +125,14 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     }
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     protected PersistentMMeasurementType type;
     protected PersistentAbsQuantity quantity;
     
-    public Measurement(PersistentMObject object,PersistentQuantifObject This,PersistentMMeasurementType type,PersistentAbsQuantity quantity,long id) throws persistence.PersistenceException {
+    public Measurement(PersistentMObject object,PersistentQuantifObject This,PersistentMModelItem myCONCMModelItem,PersistentMMeasurementType type,PersistentAbsQuantity quantity,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMObject)object,(PersistentQuantifObject)This,id);
+        super((PersistentMObject)object,(PersistentQuantifObject)This,(PersistentMModelItem)myCONCMModelItem,id);
         this.type = type;
         this.quantity = quantity;        
     }
@@ -201,6 +209,18 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     public <R, E extends UserException> R accept(QuantifObjectReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMeasurement(this);
     }
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleMeasurement(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMeasurement(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMeasurement(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMeasurement(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleMeasurement(this);
     }
@@ -225,6 +245,8 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 				throws PersistenceException{
         this.setThis((PersistentMeasurement)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMeasurement)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setObject((PersistentMObject)final$$Fields.get("object"));
 			this.setType((PersistentMMeasurementType)final$$Fields.get("type"));
 			this.setQuantity((PersistentAbsQuantity)final$$Fields.get("quantity"));
@@ -236,6 +258,16 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -262,6 +294,11 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
+
 	}
     
     

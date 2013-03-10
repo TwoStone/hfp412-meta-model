@@ -9,6 +9,10 @@ import model.visitor.MAccountTypeHierarchyHIERARCHYExceptionVisitor;
 import model.visitor.MAccountTypeHierarchyHIERARCHYReturnExceptionVisitor;
 import model.visitor.MAccountTypeHierarchyHIERARCHYReturnVisitor;
 import model.visitor.MAccountTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
 import model.visitor.MQuantiObjectTypeExceptionVisitor;
 import model.visitor.MQuantiObjectTypeReturnExceptionVisitor;
 import model.visitor.MQuantiObjectTypeReturnVisitor;
@@ -21,10 +25,13 @@ import persistence.MAccountTypeHierarchyHIERARCHYStrategy;
 import persistence.MAccountTypeProxi;
 import persistence.MAccountTypeSearchList;
 import persistence.MAccountType_SubAccountTypesProxi;
+import persistence.MModelItemSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentAddSubAccountTypeCommand;
+import persistence.PersistentCONCMModelItem;
 import persistence.PersistentMAccountType;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMQuantiObjectType;
 import persistence.PersistentMType;
 import persistence.TDObserver;
@@ -90,6 +97,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
         result = new MAccountType(this.type, 
                                   this.unitType, 
                                   this.This, 
+                                  this.myCONCMModelItem, 
                                   this.getId());
         result.subAccountTypes = this.subAccountTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
@@ -97,13 +105,13 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     }
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     protected MAccountType_SubAccountTypesProxi subAccountTypes;
     
-    public MAccountType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,long id) throws persistence.PersistenceException {
+    public MAccountType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,id);
+        super((PersistentMType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,(PersistentMModelItem)myCONCMModelItem,id);
         this.subAccountTypes = new MAccountType_SubAccountTypesProxi(this);        
     }
     
@@ -145,6 +153,18 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
          visitor.handleMAccountType(this);
     }
     public <R, E extends UserException> R accept(MQuantiObjectTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMAccountType(this);
+    }
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleMAccountType(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMAccountType(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMAccountType(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMAccountType(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -204,6 +224,8 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 				throws PersistenceException{
         this.setThis((PersistentMAccountType)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMAccountType)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setType((PersistentMType)final$$Fields.get("type"));
 			this.setUnitType((PersistentAbsUnitType)final$$Fields.get("unitType"));
 		}
@@ -234,12 +256,27 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 				throws PersistenceException{
 
 	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
 
 	}
     

@@ -10,6 +10,10 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
 import model.visitor.QuantifObjectExceptionVisitor;
 import model.visitor.QuantifObjectReturnExceptionVisitor;
 import model.visitor.QuantifObjectReturnVisitor;
@@ -25,12 +29,15 @@ import persistence.AggregationStrategy;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
+import persistence.MModelItemSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAccount;
 import persistence.PersistentAddEntryCommand;
 import persistence.PersistentAddSubAccountCommand;
+import persistence.PersistentCONCMModelItem;
 import persistence.PersistentMAccountType;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMObject;
 import persistence.PersistentMeasurement;
 import persistence.PersistentProxi;
@@ -109,6 +116,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
         Account result = this;
         result = new Account(this.object, 
                              this.This, 
+                             this.myCONCMModelItem, 
                              this.type, 
                              this.getId());
         result.subAccounts = this.subAccounts.copy(result);
@@ -118,15 +126,15 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     }
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     protected PersistentMAccountType type;
     protected Account_SubAccountsProxi subAccounts;
     protected Account_EntriesProxi entries;
     
-    public Account(PersistentMObject object,PersistentQuantifObject This,PersistentMAccountType type,long id) throws persistence.PersistenceException {
+    public Account(PersistentMObject object,PersistentQuantifObject This,PersistentMModelItem myCONCMModelItem,PersistentMAccountType type,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMObject)object,(PersistentQuantifObject)This,id);
+        super((PersistentMObject)object,(PersistentQuantifObject)This,(PersistentMModelItem)myCONCMModelItem,id);
         this.type = type;
         this.subAccounts = new Account_SubAccountsProxi(this);
         this.entries = new Account_EntriesProxi(this);        
@@ -192,6 +200,18 @@ public class Account extends model.measurement.QuantifObject implements Persiste
          visitor.handleAccount(this);
     }
     public <R, E extends UserException> R accept(QuantifObjectReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAccount(this);
+    }
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleAccount(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAccount(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAccount(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAccount(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -261,6 +281,8 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 				throws PersistenceException{
         this.setThis((PersistentAccount)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentAccount)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setObject((PersistentMObject)final$$Fields.get("object"));
 			this.setType((PersistentMAccountType)final$$Fields.get("type"));
 		}
@@ -306,11 +328,26 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 				throws PersistenceException{
 
 	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
 
 	}
     

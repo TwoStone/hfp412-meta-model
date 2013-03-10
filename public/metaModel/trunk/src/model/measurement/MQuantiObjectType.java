@@ -1,4 +1,3 @@
-
 package model.measurement;
 
 import persistence.AbstractPersistentRoot;
@@ -6,12 +5,13 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentAbsUnitType;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMQuantiObjectType;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -45,6 +45,15 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
                     if(forGUI && unitType.hasEssentialFields())unitType.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            AbstractPersistentRoot myCONCMModelItem = (AbstractPersistentRoot)this.getMyCONCMModelItem();
+            if (myCONCMModelItem != null) {
+                result.put("myCONCMModelItem", myCONCMModelItem.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    myCONCMModelItem.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    myCONCMModelItem.toHashtable(allResults, depth, essentialLevel + 1, forGUI, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -54,18 +63,20 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
     public abstract MQuantiObjectType provideCopy() throws PersistenceException;
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     protected PersistentMType type;
     protected PersistentAbsUnitType unitType;
     protected PersistentMQuantiObjectType This;
+    protected PersistentMModelItem myCONCMModelItem;
     
-    public MQuantiObjectType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,long id) throws persistence.PersistenceException {
+    public MQuantiObjectType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.type = type;
         this.unitType = unitType;
-        if (This != null && !(this.equals(This))) this.This = This;        
+        if (This != null && !(this.equals(This))) this.This = This;
+        this.myCONCMModelItem = myCONCMModelItem;        
     }
     
     static public long getTypeId() {
@@ -90,6 +101,10 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
         if(!this.equals(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theMQuantiObjectTypeFacade.ThisSet(this.getId(), getThis());
+        }
+        if(this.getMyCONCMModelItem() != null){
+            this.getMyCONCMModelItem().store();
+            ConnectionHandler.getTheConnectionHandler().theMQuantiObjectTypeFacade.myCONCMModelItemSet(this.getId(), getMyCONCMModelItem());
         }
         
     }
@@ -137,7 +152,25 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
             ConnectionHandler.getTheConnectionHandler().theMQuantiObjectTypeFacade.ThisSet(this.getId(), newValue);
         }
     }
+    public PersistentMModelItem getMyCONCMModelItem() throws PersistenceException {
+        return this.myCONCMModelItem;
+    }
+    public void setMyCONCMModelItem(PersistentMModelItem newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.myCONCMModelItem)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.myCONCMModelItem = (PersistentMModelItem)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theMQuantiObjectTypeFacade.myCONCMModelItemSet(this.getId(), newValue);
+        }
+    }
     public abstract PersistentMQuantiObjectType getThis() throws PersistenceException ;
+    public void delete$Me() throws PersistenceException{
+        super.delete$Me();
+        this.getMyCONCMModelItem().delete$Me();
+    }
     
     
     
@@ -145,6 +178,8 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
 				throws PersistenceException{
         this.setThis((PersistentMQuantiObjectType)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMQuantiObjectType)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setType((PersistentMType)final$$Fields.get("type"));
 			this.setUnitType((PersistentAbsUnitType)final$$Fields.get("unitType"));
 		}
@@ -155,34 +190,30 @@ public abstract class MQuantiObjectType extends PersistentObject implements Pers
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     
     
     // Start of section that contains overridden operations only.
     
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		getThis().getMyCONCMModelItem().delete();
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

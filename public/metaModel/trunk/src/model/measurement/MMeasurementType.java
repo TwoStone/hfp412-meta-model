@@ -1,4 +1,3 @@
-
 package model.measurement;
 
 import model.UserException;
@@ -6,6 +5,10 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
 import model.visitor.MQuantiObjectTypeExceptionVisitor;
 import model.visitor.MQuantiObjectTypeReturnExceptionVisitor;
 import model.visitor.MQuantiObjectTypeReturnVisitor;
@@ -13,13 +16,15 @@ import model.visitor.MQuantiObjectTypeVisitor;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MMeasurementTypeProxi;
+import persistence.MModelItemSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsUnitType;
+import persistence.PersistentCONCMModelItem;
 import persistence.PersistentMMeasurementType;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMQuantiObjectType;
 import persistence.PersistentMType;
 import persistence.TDObserver;
-
 
 /* Additional import section end */
 
@@ -81,18 +86,19 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
         result = new MMeasurementType(this.type, 
                                       this.unitType, 
                                       this.This, 
+                                      this.myCONCMModelItem, 
                                       this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
     }
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     
-    public MMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,long id) throws persistence.PersistenceException {
+    public MMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,id);        
+        super((PersistentMType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,(PersistentMModelItem)myCONCMModelItem,id);        
     }
     
     static public long getTypeId() {
@@ -131,6 +137,18 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     public <R, E extends UserException> R accept(MQuantiObjectTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleMMeasurementType(this);
     }
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleMMeasurementType(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMMeasurementType(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMMeasurementType(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMMeasurementType(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleMMeasurementType(this);
     }
@@ -154,6 +172,8 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
 				throws PersistenceException{
         this.setThis((PersistentMMeasurementType)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMMeasurementType)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setType((PersistentMType)final$$Fields.get("type"));
 			this.setUnitType((PersistentAbsUnitType)final$$Fields.get("unitType"));
 		}
@@ -164,34 +184,41 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
+
+	}
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

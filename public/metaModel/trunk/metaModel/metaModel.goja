@@ -677,8 +677,8 @@ singleton AccountManager {
 	active void createAccount(String name, MAccountType type, MObject object);
 }
 
-abstract class MQuantiObjectType@@QuantifiedObjectType {
-	prior MType type;
+abstract class MQuantiObjectType@@QuantifiedObjectType covers MModelItem {
+	prior symmetric(no-view quantifiedObjektTypes) MType type;
 	prior AbsUnitType unitType;
 }
 
@@ -692,7 +692,7 @@ class MAccountType@@AccountType extends MQuantiObjectType {
 }
 hierarchy MAccountTypeHierarchy##MAccTypeHie;
 
-abstract class QuantifObject@@QuantifiedObject {
+abstract class QuantifObject@@QuantifiedObject covers MModelItem {
 	symmetric prior MObject object;
 	active AbsQuantity aggregate(AggregationStrategy strategy) throws NotComputableException, ConsistencyException;
 }
@@ -775,4 +775,14 @@ exception NotFoundException{}
 exception ExponentMatchingException{}
 exception NotComputableException{}
 
+part generationErrorWalkArounds {
+	abstract class SearchListGenerationEnsurer##bugfix {
+		MQuantiObjectType** generateASearchlistPlease();
+	}
+
 }
+
+
+
+
+} 
