@@ -2,7 +2,6 @@ package model.measurement;
 
 import model.NotComputableException;
 import model.UserException;
-import model.quantity.Quantity;
 import model.quantity.QuantityManager;
 import model.visitor.AggregationStrategyExceptionVisitor;
 import model.visitor.AggregationStrategyReturnExceptionVisitor;
@@ -192,7 +191,7 @@ public class SumStrategy extends PersistentObject implements PersistentSumStrate
 		return measurements.aggregateException(new AggregtionException<PersistentMeasurement, PersistentAbsQuantity, NotComputableException>() {
 			@Override
 			public PersistentAbsQuantity neutral() throws PersistenceException, NotComputableException {
-				return Quantity.createQuantity(Fraction.Null, defaultUnit);
+				return QuantityManager.getTheQuantityManager().createQuantity(defaultUnit, Fraction.Null);
 			}
 
 			@Override

@@ -1,8 +1,10 @@
 package model.measurement;
 
+import java.math.BigInteger;
+
 import model.UserException;
-import model.quantity.Quantity;
 import model.quantity.QuantityManager;
+import model.quantity.UnitTypeManager;
 import model.visitor.AggregationStrategyExceptionVisitor;
 import model.visitor.AggregationStrategyReturnExceptionVisitor;
 import model.visitor.AggregationStrategyReturnVisitor;
@@ -17,7 +19,6 @@ import persistence.ConnectionHandler;
 import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
-import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentAvgStrategy;
 import persistence.PersistentObject;
@@ -186,10 +187,9 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     
     public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-		final PersistentAbsUnit defaultUnit = defaultUnitType.fetchDefaultUnit();
 		final PersistentAbsQuantity kumulierteSumme = SumStrategy.createSumStrategy().aggregateMeasurements(defaultUnitType, measurements);
-		// TODO : Das ist falsch! Hier muss die Anzahl der Measurements als Skalar hin!
-		final PersistentQuantity numberOfMeasurement = Quantity.createQuantity(Fraction.parse(String.valueOf(measurements.getLength())), defaultUnit);
+		final PersistentQuantity numberOfMeasurement = QuantityManager.getTheQuantityManager().createQuantity(
+				UnitTypeManager.getTheUnitTypeManager().fetchScalar(), new Fraction(BigInteger.valueOf(measurements.getLength()), BigInteger.ONE));
 		return QuantityManager.getTheQuantityManager().div(kumulierteSumme, numberOfMeasurement);
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 

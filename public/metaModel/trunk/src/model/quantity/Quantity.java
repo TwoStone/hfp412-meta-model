@@ -214,7 +214,7 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     // Start of section that contains overridden operations only.
     
     public PersistentMBoolean isLessOrEqualThan(final PersistentAbsQuantity compareValue) 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
 		// TODO Auto-generated method stub
 		return null;
 	}

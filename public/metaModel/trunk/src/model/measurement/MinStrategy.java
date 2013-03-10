@@ -1,6 +1,9 @@
 package model.measurement;
 
+import java.util.Iterator;
+
 import model.UserException;
+import model.quantity.QuantityManager;
 import model.visitor.AggregationStrategyExceptionVisitor;
 import model.visitor.AggregationStrategyReturnExceptionVisitor;
 import model.visitor.AggregationStrategyReturnVisitor;
@@ -16,10 +19,13 @@ import persistence.MinStrategyProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnitType;
+import persistence.PersistentMeasurement;
 import persistence.PersistentMinStrategy;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
+
+import common.Fraction;
 
 /* Additional import section end */
 
@@ -180,13 +186,20 @@ public class MinStrategy extends PersistentObject implements PersistentMinStrate
     
     public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-		// TODO: implement method: aggregateMeasurements
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"aggregateMeasurements\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+		if (measurements.getLength() <= 0) {
+			return QuantityManager.getTheQuantityManager().createQuantity(defaultUnitType.fetchDefaultUnit(), Fraction.Null);
 		}
+
+		final Iterator<PersistentMeasurement> i = measurements.iterator();
+		PersistentAbsQuantity smallest = i.next().getQuantity();
+		while (i.hasNext()) {
+			final PersistentAbsQuantity current = i.next().getQuantity();
+			if (current.isLessOrEqualThan(smallest).toBoolean()) {
+				smallest = current;
+			}
+		}
+
+		return smallest;
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

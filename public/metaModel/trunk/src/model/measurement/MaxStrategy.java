@@ -3,7 +3,7 @@ package model.measurement;
 import java.util.Iterator;
 
 import model.UserException;
-import model.quantity.Quantity;
+import model.quantity.QuantityManager;
 import model.visitor.AggregationStrategyExceptionVisitor;
 import model.visitor.AggregationStrategyReturnExceptionVisitor;
 import model.visitor.AggregationStrategyReturnVisitor;
@@ -187,16 +187,16 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
     public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
 		if (measurements.getLength() <= 0) {
-			return Quantity.createQuantity(Fraction.Null, defaultUnitType.fetchDefaultUnit());
+			return QuantityManager.getTheQuantityManager().createQuantity(defaultUnitType.fetchDefaultUnit(), Fraction.Null);
 		}
 
 		final Iterator<PersistentMeasurement> i = measurements.iterator();
-		final PersistentAbsQuantity largest = i.next().getQuantity();
+		PersistentAbsQuantity largest = i.next().getQuantity();
 		while (i.hasNext()) {
 			final PersistentAbsQuantity current = i.next().getQuantity();
-			// if (largest.isLessOrEqualThan(current).toBoolean()) {
-			// largest = current;
-			// }
+			if (largest.isLessOrEqualThan(current).toBoolean()) {
+				largest = current;
+			}
 		}
 
 		return largest;

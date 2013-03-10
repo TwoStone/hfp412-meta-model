@@ -360,8 +360,7 @@ part observations {
 part quantity {
 
 	abstract class AbsQuantity {
-
-		MBoolean isLessOrEqualThan(AbsQuantity compareValue) throws UserException;
+		MBoolean isLessOrEqualThan(AbsQuantity compareValue);
 	}
 
 	class Quantity extends AbsQuantity {

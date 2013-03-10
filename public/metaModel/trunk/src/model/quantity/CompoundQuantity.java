@@ -173,7 +173,7 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
     // Start of section that contains overridden operations only.
     
     public PersistentMBoolean isLessOrEqualThan(final PersistentAbsQuantity compareValue) 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
 		// TODO Auto-generated method stub
 		return null;
 	}
