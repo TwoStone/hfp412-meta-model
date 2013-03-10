@@ -74,404 +74,532 @@ import constants.ExceptionConstants;
 
 /* Additional import section end */
 
-public class MAtomicType extends model.typeSystem.MType implements PersistentMAtomicType{
-    
-    
-    public static PersistentMAtomicType createMAtomicType(String name,PersistentMBoolean singletonType,PersistentMBoolean abstractType,PersistentMAspect aspect,AnythingORMATomicType superType) throws PersistenceException, CycleException{
-        return createMAtomicType(name,singletonType,abstractType,aspect,superType,false);
-    }
-    
-    public static PersistentMAtomicType createMAtomicType(String name,PersistentMBoolean singletonType,PersistentMBoolean abstractType,PersistentMAspect aspect,AnythingORMATomicType superType,boolean delayed$Persistence) throws PersistenceException, CycleException {
-        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentMAtomicType result = null;
-        if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-                .newDelayedMAtomicType(name);
-            result.setDelayed$Persistence(true);
-        }else{
-            result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-                .newMAtomicType(name,-1);
-        }
-        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        final$$Fields.put("name", name);
-        final$$Fields.put("singletonType", singletonType);
-        final$$Fields.put("abstractType", abstractType);
-        final$$Fields.put("aspect", aspect);
-        final$$Fields.put("superType", superType);
-        try{
-            result.initialize(result, final$$Fields);
-            result.initializeOnCreation();            
-        }catch(persistence.PersistenceExceptionCycleTunnel ce){
-            throw ce.cycleException;
-        }
-        return result;
-    }
-    
-    public static PersistentMAtomicType createMAtomicType(String name,PersistentMBoolean singletonType,PersistentMBoolean abstractType,PersistentMAspect aspect,AnythingORMATomicType superType,boolean delayed$Persistence,PersistentMAtomicType This) throws PersistenceException, CycleException {
-        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentMAtomicType result = null;
-        if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-                .newDelayedMAtomicType(name);
-            result.setDelayed$Persistence(true);
-        }else{
-            result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-                .newMAtomicType(name,-1);
-        }
-        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        final$$Fields.put("name", name);
-        final$$Fields.put("singletonType", singletonType);
-        final$$Fields.put("abstractType", abstractType);
-        final$$Fields.put("aspect", aspect);
-        final$$Fields.put("superType", superType);
-        try{
-            result.initialize(This, final$$Fields);
-            result.initializeOnCreation();            
-        }catch(persistence.PersistenceExceptionCycleTunnel ce){
-            throw ce.cycleException;
-        }
-        return result;
-    }
-    
-    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.Hashtable<String,Object> result = null;
-        if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("name", this.getName());
-            result.put("singletonType", this.singletonTypeAsString());
-            result.put("abstractType", this.abstractTypeAsString());
-            AbstractPersistentRoot aspect = (AbstractPersistentRoot)this.getAspect();
-            if (aspect != null) {
-                result.put("aspect", aspect.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    aspect.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && aspect.hasEssentialFields())aspect.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot superType = (AbstractPersistentRoot)this.getSuperType();
-            if (superType != null) {
-                result.put("superType", superType.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    superType.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && superType.hasEssentialFields())superType.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            result.put("nEATCContainingMe", this.getNEATCContainingMe().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
-            result.put("subTypes", this.getSubTypes().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
-            result.put("possibleNames", this.getPossibleNames().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
-            result.put("singletonObject", this.getSingletonObject().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
-            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
-        }
-        return result;
-    }
-    
-    public static MAtomicTypeSearchList getMAtomicTypeByName(String name) throws PersistenceException{
-        return ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-            .getMAtomicTypeByName(name);
-    }
-    
-    public MAtomicType provideCopy() throws PersistenceException{
-        MAtomicType result = this;
-        result = new MAtomicType(this.This, 
-                                 this.myCONCMModelItem, 
-                                 this.name, 
-                                 this.singletonType, 
-                                 this.abstractType, 
-                                 this.aspect, 
-                                 this.superType, 
-                                 this.getId());
-        this.copyingPrivateUserAttributes(result);
-        return result;
-    }
-    
-    public boolean hasEssentialFields() throws PersistenceException{
-        return true;
-    }
-    protected String name;
-    protected PersistentMBoolean singletonType;
-    protected PersistentMBoolean abstractType;
-    protected PersistentMAspect aspect;
-    protected AnythingORMATomicType superType;
-    
-    public MAtomicType(PersistentMType This,PersistentMModelItem myCONCMModelItem,String name,PersistentMBoolean singletonType,PersistentMBoolean abstractType,PersistentMAspect aspect,AnythingORMATomicType superType,long id) throws persistence.PersistenceException {
-        /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMType)This,(PersistentMModelItem)myCONCMModelItem,id);
-        this.name = name;
-        this.singletonType = singletonType;
-        this.abstractType = abstractType;
-        this.aspect = aspect;
-        this.superType = superType;        
-    }
-    
-    static public long getTypeId() {
-        return 113;
-    }
-    
-    public long getClassId() {
-        return getTypeId();
-    }
-    
-    public void store() throws PersistenceException {
-        if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 113) ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-            .newMAtomicType(name,this.getId());
-        super.store();
-        if(this.getSingletonType() != null){
-            this.getSingletonType().store();
-            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.singletonTypeSet(this.getId(), getSingletonType());
-        }
-        if(this.getAbstractType() != null){
-            this.getAbstractType().store();
-            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.abstractTypeSet(this.getId(), getAbstractType());
-        }
-        if(this.getAspect() != null){
-            this.getAspect().store();
-            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.aspectSet(this.getId(), getAspect());
-        }
-        if(this.getSuperType() != null){
-            this.getSuperType().store();
-            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.superTypeSet(this.getId(), getSuperType());
-        }
-        
-    }
-    
-    public String getName() throws PersistenceException {
-        return this.name;
-    }
-    public void setName(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.nameSet(this.getId(), newValue);
-        this.name = newValue;
-    }
-    public PersistentMBoolean getSingletonType() throws PersistenceException {
-        return this.singletonType;
-    }
-    public void setSingletonType(PersistentMBoolean newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.singletonType)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.singletonType = (PersistentMBoolean)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.singletonTypeSet(this.getId(), newValue);
-        }
-    }
-    public PersistentMBoolean getAbstractType() throws PersistenceException {
-        return this.abstractType;
-    }
-    public void setAbstractType(PersistentMBoolean newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.abstractType)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.abstractType = (PersistentMBoolean)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.abstractTypeSet(this.getId(), newValue);
-        }
-    }
-    public PersistentMAspect getAspect() throws PersistenceException {
-        return this.aspect;
-    }
-    public void setAspect(PersistentMAspect newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.aspect)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.aspect = (PersistentMAspect)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.aspectSet(this.getId(), newValue);
-        }
-    }
-    public AnythingORMATomicType getSuperType() throws PersistenceException {
-        return this.superType;
-    }
-    public void setSuperType(AnythingORMATomicType newValue) throws PersistenceException , model.CycleException{
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if (newValue.containsMAtomicTypeHierarchy(getThis())) throw new model.CycleException("Cycle in MAtomicTypeHierarchy detected!");
-        if(newValue.equals(this.superType)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.superType = (AnythingORMATomicType)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.superTypeSet(this.getId(), newValue);
-        }
-    }
-    public PersistentMAtomicType getThis() throws PersistenceException {
-        if(this.This == null){
-            PersistentMAtomicType result = new MAtomicTypeProxi(this.getId());
-            result.getTheObject();
-            return result;
-        }return (PersistentMAtomicType)this.This;
-    }
-    
-    public void accept(MTypeVisitor visitor) throws PersistenceException {
-        visitor.handleMAtomicType(this);
-    }
-    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAtomicType(this);
-    }
-    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAtomicType(this);
-    }
-    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAtomicType(this);
-    }
-    public void accept(MModelItemVisitor visitor) throws PersistenceException {
-        visitor.handleMAtomicType(this);
-    }
-    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAtomicType(this);
-    }
-    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAtomicType(this);
-    }
-    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAtomicType(this);
-    }
-    public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleMAtomicType(this);
-    }
-    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAtomicType(this);
-    }
-    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAtomicType(this);
-    }
-    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAtomicType(this);
-    }
-    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-        visitor.handleMAtomicType(this);
-    }
-    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAtomicType(this);
-    }
-    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAtomicType(this);
-    }
-    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAtomicType(this);
-    }
-    public void accept(AnythingORMATomicTypeVisitor visitor) throws PersistenceException {
-        visitor.handleMAtomicType(this);
-    }
-    public <R> R accept(AnythingORMATomicTypeReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAtomicType(this);
-    }
-    public <E extends UserException>  void accept(AnythingORMATomicTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAtomicType(this);
-    }
-    public <R, E extends UserException> R accept(AnythingORMATomicTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAtomicType(this);
-    }
-    public void accept(MAtomicTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
-        visitor.handleMAtomicType(this);
-    }
-    public <R> R accept(MAtomicTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleMAtomicType(this);
-    }
-    public <E extends UserException>  void accept(MAtomicTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleMAtomicType(this);
-    }
-    public <R, E extends UserException> R accept(MAtomicTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleMAtomicType(this);
-    }
-    public int getLeafInfo() throws PersistenceException{
-        if (this.getSingletonType() != null) return 1;
-        if (this.getAbstractType() != null) return 1;
-        if (this.getSubTypes().getLength() > 0) return 1;
-        if (this.getPossibleNames().getLength() > 0) return 1;
-        if (this.getSingletonObject().getLength() > 0) return 1;
-        return 0;
-    }
-    
-    
-    public boolean containsMAtomicTypeHierarchy(final MAtomicTypeHierarchyHIERARCHY part) 
-				throws PersistenceException{
-        if(getThis().equals(part)) return true;
-		if(getThis().getSuperType() != null && getThis().getSuperType().containsMAtomicTypeHierarchy(part)) return true;
-		return false;
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
-				throws PersistenceException{
-        if(getThis().equals(part)) return true;
-		return false;
-    }
-    public MNonEmptyAtomicTypeConjunctionSearchList getNEATCContainingMe() 
-				throws PersistenceException{
-        MNonEmptyAtomicTypeConjunctionSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade
-							.inverseGetFactors(this.getId(), this.getClassId());
-		return result;
-    }
-    public NameSearchList getPossibleNames() 
-				throws PersistenceException{
-        NameSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameFacade
-							.inverseGetFromType(this.getId(), this.getClassId());
-		return result;
-    }
-    public MSingletonObjectSearchList getSingletonObject() 
-				throws PersistenceException{
-        MSingletonObjectSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMSingletonObjectFacade
-							.inverseGetType(this.getId(), this.getClassId());
-		return result;
-    }
-    public MAtomicTypeSearchList getSubTypes() 
-				throws PersistenceException{
-        MAtomicTypeSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
-							.inverseGetSuperType(this.getId(), this.getClassId());
-		return result;
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentMAtomicType)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMAtomicType)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-			this.setName((String)final$$Fields.get("name"));
-			this.setSingletonType((PersistentMBoolean)final$$Fields.get("singletonType"));
-			this.setAbstractType((PersistentMBoolean)final$$Fields.get("abstractType"));
-			this.setAspect((PersistentMAspect)final$$Fields.get("aspect"));
-			try { this.setSuperType((AnythingORMATomicType)final$$Fields.get("superType")); } catch (model.CycleException e){throw new persistence.PersistenceExceptionCycleTunnel(e);}
+public class MAtomicType extends model.typeSystem.MType implements PersistentMAtomicType {
+
+	public static PersistentMAtomicType createMAtomicType(final String name, final PersistentMBoolean singletonType,
+			final PersistentMBoolean abstractType, final PersistentMAspect aspect, final AnythingORMATomicType superType)
+			throws PersistenceException, CycleException {
+		return createMAtomicType(name, singletonType, abstractType, aspect, superType, false);
+	}
+
+	public static PersistentMAtomicType createMAtomicType(final String name, final PersistentMBoolean singletonType,
+			final PersistentMBoolean abstractType, final PersistentMAspect aspect, final AnythingORMATomicType superType,
+			final boolean delayed$Persistence) throws PersistenceException, CycleException {
+		if (name == null)
+			throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+		PersistentMAtomicType result = null;
+		if (delayed$Persistence) {
+			result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.newDelayedMAtomicType(name);
+			result.setDelayed$Persistence(true);
+		} else {
+			result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.newMAtomicType(name, -1);
 		}
-    }
-    public MObjectSearchList inverseGetTypes() 
-				throws PersistenceException{
-        MObjectSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMObjectFacade
-							.inverseGetTypes(this.getId(), this.getClassId());
+		final java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
+		final$$Fields.put("name", name);
+		final$$Fields.put("singletonType", singletonType);
+		final$$Fields.put("abstractType", abstractType);
+		final$$Fields.put("aspect", aspect);
+		final$$Fields.put("superType", superType);
+		try {
+			result.initialize(result, final$$Fields);
+			result.initializeOnCreation();
+		} catch (final persistence.PersistenceExceptionCycleTunnel ce) {
+			throw ce.cycleException;
+		}
 		return result;
-    }
-    public <T> T strategyMAtomicTypeHierarchy(final T parameter, final MAtomicTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        T result$$superType$$MAtomicType = strategy.initialize$$MAtomicType$$superType(getThis(), parameter);
+	}
+
+	public static PersistentMAtomicType createMAtomicType(final String name, final PersistentMBoolean singletonType,
+			final PersistentMBoolean abstractType, final PersistentMAspect aspect, final AnythingORMATomicType superType,
+			final boolean delayed$Persistence, final PersistentMAtomicType This) throws PersistenceException, CycleException {
+		if (name == null)
+			throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+		PersistentMAtomicType result = null;
+		if (delayed$Persistence) {
+			result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.newDelayedMAtomicType(name);
+			result.setDelayed$Persistence(true);
+		} else {
+			result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.newMAtomicType(name, -1);
+		}
+		final java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
+		final$$Fields.put("name", name);
+		final$$Fields.put("singletonType", singletonType);
+		final$$Fields.put("abstractType", abstractType);
+		final$$Fields.put("aspect", aspect);
+		final$$Fields.put("superType", superType);
+		try {
+			result.initialize(This, final$$Fields);
+			result.initializeOnCreation();
+		} catch (final persistence.PersistenceExceptionCycleTunnel ce) {
+			throw ce.cycleException;
+		}
+		return result;
+	}
+
+	@Override
+	public java.util.Hashtable<String, Object> toHashtable(final java.util.Hashtable<String, Object> allResults, final int depth,
+			final int essentialLevel, final boolean forGUI, final boolean leaf, final TDObserver tdObserver) throws PersistenceException {
+		java.util.Hashtable<String, Object> result = null;
+		if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth) {
+			result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+			result.put("name", this.getName());
+			result.put("singletonType", this.singletonTypeAsString());
+			result.put("abstractType", this.abstractTypeAsString());
+			final AbstractPersistentRoot aspect = this.getAspect();
+			if (aspect != null) {
+				result.put("aspect", aspect.createProxiInformation(false, essentialLevel == 0));
+				if (depth > 1) {
+					aspect.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true, tdObserver);
+				} else {
+					if (forGUI && aspect.hasEssentialFields())
+						aspect.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+				}
+			}
+			final AbstractPersistentRoot superType = this.getSuperType();
+			if (superType != null) {
+				result.put("superType", superType.createProxiInformation(false, essentialLevel == 0));
+				if (depth > 1) {
+					superType.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true, tdObserver);
+				} else {
+					if (forGUI && superType.hasEssentialFields())
+						superType.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+				}
+			}
+			result.put(
+					"nEATCContainingMe",
+					this.getNEATCContainingMe().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false,
+							essentialLevel == 0));
+			result.put(
+					"subTypes",
+					this.getSubTypes().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false,
+							essentialLevel == 0));
+			result.put(
+					"possibleNames",
+					this.getPossibleNames().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false,
+							essentialLevel == 0));
+			result.put(
+					"singletonObject",
+					this.getSingletonObject().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false,
+							essentialLevel == 0));
+			final String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+			if (leaf && !allResults.contains(uniqueKey))
+				allResults.put(uniqueKey, result);
+		}
+		return result;
+	}
+
+	public static MAtomicTypeSearchList getMAtomicTypeByName(final String name) throws PersistenceException {
+		return ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.getMAtomicTypeByName(name);
+	}
+
+	@Override
+	public MAtomicType provideCopy() throws PersistenceException {
+		MAtomicType result = this;
+		result = new MAtomicType(this.This, this.myCONCMModelItem, this.name, this.singletonType, this.abstractType, this.aspect, this.superType,
+				this.getId());
+		this.copyingPrivateUserAttributes(result);
+		return result;
+	}
+
+	@Override
+	public boolean hasEssentialFields() throws PersistenceException {
+		return true;
+	}
+
+	protected String name;
+	protected PersistentMBoolean singletonType;
+	protected PersistentMBoolean abstractType;
+	protected PersistentMAspect aspect;
+	protected AnythingORMATomicType superType;
+
+	public MAtomicType(final PersistentMType This, final PersistentMModelItem myCONCMModelItem, final String name,
+			final PersistentMBoolean singletonType, final PersistentMBoolean abstractType, final PersistentMAspect aspect,
+			final AnythingORMATomicType superType, final long id) throws persistence.PersistenceException {
+		/* Shall not be used by clients for object construction! Use static create operation instead! */
+		super(This, myCONCMModelItem, id);
+		this.name = name;
+		this.singletonType = singletonType;
+		this.abstractType = abstractType;
+		this.aspect = aspect;
+		this.superType = superType;
+	}
+
+	static public long getTypeId() {
+		return 113;
+	}
+
+	@Override
+	public long getClassId() {
+		return getTypeId();
+	}
+
+	@Override
+	public void store() throws PersistenceException {
+		if (!this.isDelayed$Persistence())
+			return;
+		if (this.getClassId() == 113)
+			ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.newMAtomicType(name, this.getId());
+		super.store();
+		if (this.getSingletonType() != null) {
+			this.getSingletonType().store();
+			ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.singletonTypeSet(this.getId(), getSingletonType());
+		}
+		if (this.getAbstractType() != null) {
+			this.getAbstractType().store();
+			ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.abstractTypeSet(this.getId(), getAbstractType());
+		}
+		if (this.getAspect() != null) {
+			this.getAspect().store();
+			ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.aspectSet(this.getId(), getAspect());
+		}
+		if (this.getSuperType() != null) {
+			this.getSuperType().store();
+			ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.superTypeSet(this.getId(), getSuperType());
+		}
+
+	}
+
+	@Override
+	public String getName() throws PersistenceException {
+		return this.name;
+	}
+
+	@Override
+	public void setName(final String newValue) throws PersistenceException {
+		if (newValue == null)
+			throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+		if (!this.isDelayed$Persistence())
+			ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.nameSet(this.getId(), newValue);
+		this.name = newValue;
+	}
+
+	@Override
+	public PersistentMBoolean getSingletonType() throws PersistenceException {
+		return this.singletonType;
+	}
+
+	@Override
+	public void setSingletonType(final PersistentMBoolean newValue) throws PersistenceException {
+		if (newValue == null)
+			throw new PersistenceException("Null values not allowed!", 0);
+		if (newValue.equals(this.singletonType))
+			return;
+		final long objectId = newValue.getId();
+		final long classId = newValue.getClassId();
+		this.singletonType = (PersistentMBoolean) PersistentProxi.createProxi(objectId, classId);
+		if (!this.isDelayed$Persistence()) {
+			newValue.store();
+			ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.singletonTypeSet(this.getId(), newValue);
+		}
+	}
+
+	@Override
+	public PersistentMBoolean getAbstractType() throws PersistenceException {
+		return this.abstractType;
+	}
+
+	@Override
+	public void setAbstractType(final PersistentMBoolean newValue) throws PersistenceException {
+		if (newValue == null)
+			throw new PersistenceException("Null values not allowed!", 0);
+		if (newValue.equals(this.abstractType))
+			return;
+		final long objectId = newValue.getId();
+		final long classId = newValue.getClassId();
+		this.abstractType = (PersistentMBoolean) PersistentProxi.createProxi(objectId, classId);
+		if (!this.isDelayed$Persistence()) {
+			newValue.store();
+			ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.abstractTypeSet(this.getId(), newValue);
+		}
+	}
+
+	@Override
+	public PersistentMAspect getAspect() throws PersistenceException {
+		return this.aspect;
+	}
+
+	@Override
+	public void setAspect(final PersistentMAspect newValue) throws PersistenceException {
+		if (newValue == null)
+			throw new PersistenceException("Null values not allowed!", 0);
+		if (newValue.equals(this.aspect))
+			return;
+		final long objectId = newValue.getId();
+		final long classId = newValue.getClassId();
+		this.aspect = (PersistentMAspect) PersistentProxi.createProxi(objectId, classId);
+		if (!this.isDelayed$Persistence()) {
+			newValue.store();
+			ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.aspectSet(this.getId(), newValue);
+		}
+	}
+
+	@Override
+	public AnythingORMATomicType getSuperType() throws PersistenceException {
+		return this.superType;
+	}
+
+	@Override
+	public void setSuperType(final AnythingORMATomicType newValue) throws PersistenceException, model.CycleException {
+		if (newValue == null)
+			throw new PersistenceException("Null values not allowed!", 0);
+		if (newValue.containsMAtomicTypeHierarchy(getThis()))
+			throw new model.CycleException("Cycle in MAtomicTypeHierarchy detected!");
+		if (newValue.equals(this.superType))
+			return;
+		final long objectId = newValue.getId();
+		final long classId = newValue.getClassId();
+		this.superType = (AnythingORMATomicType) PersistentProxi.createProxi(objectId, classId);
+		if (!this.isDelayed$Persistence()) {
+			newValue.store();
+			ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.superTypeSet(this.getId(), newValue);
+		}
+	}
+
+	@Override
+	public PersistentMAtomicType getThis() throws PersistenceException {
+		if (this.This == null) {
+			final PersistentMAtomicType result = new MAtomicTypeProxi(this.getId());
+			result.getTheObject();
+			return result;
+		}
+		return (PersistentMAtomicType) this.This;
+	}
+
+	@Override
+	public void accept(final MTypeVisitor visitor) throws PersistenceException {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R> R accept(final MTypeReturnVisitor<R> visitor) throws PersistenceException {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <E extends UserException> void accept(final MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R, E extends UserException> R accept(final MTypeReturnExceptionVisitor<R, E> visitor) throws PersistenceException, E {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public void accept(final MModelItemVisitor visitor) throws PersistenceException {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R> R accept(final MModelItemReturnVisitor<R> visitor) throws PersistenceException {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <E extends UserException> void accept(final MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R, E extends UserException> R accept(final MModelItemReturnExceptionVisitor<R, E> visitor) throws PersistenceException, E {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public void accept(final AnythingVisitor visitor) throws PersistenceException {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R> R accept(final AnythingReturnVisitor<R> visitor) throws PersistenceException {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <E extends UserException> void accept(final AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R, E extends UserException> R accept(final AnythingReturnExceptionVisitor<R, E> visitor) throws PersistenceException, E {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public void accept(final MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R> R accept(final MComplexTypeHierarchyHIERARCHYReturnVisitor<R> visitor) throws PersistenceException {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <E extends UserException> void accept(final MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R, E extends UserException> R accept(final MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E> visitor)
+			throws PersistenceException, E {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public void accept(final AnythingORMATomicTypeVisitor visitor) throws PersistenceException {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R> R accept(final AnythingORMATomicTypeReturnVisitor<R> visitor) throws PersistenceException {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <E extends UserException> void accept(final AnythingORMATomicTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R, E extends UserException> R accept(final AnythingORMATomicTypeReturnExceptionVisitor<R, E> visitor) throws PersistenceException, E {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public void accept(final MAtomicTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R> R accept(final MAtomicTypeHierarchyHIERARCHYReturnVisitor<R> visitor) throws PersistenceException {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <E extends UserException> void accept(final MAtomicTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+		visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public <R, E extends UserException> R accept(final MAtomicTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E> visitor)
+			throws PersistenceException, E {
+		return visitor.handleMAtomicType(this);
+	}
+
+	@Override
+	public int getLeafInfo() throws PersistenceException {
+		if (this.getSingletonType() != null)
+			return 1;
+		if (this.getAbstractType() != null)
+			return 1;
+		if (this.getSubTypes().getLength() > 0)
+			return 1;
+		if (this.getPossibleNames().getLength() > 0)
+			return 1;
+		if (this.getSingletonObject().getLength() > 0)
+			return 1;
+		return 0;
+	}
+
+	@Override
+	public boolean containsMAtomicTypeHierarchy(final MAtomicTypeHierarchyHIERARCHY part) throws PersistenceException {
+		if (getThis().equals(part))
+			return true;
+		if (getThis().getSuperType() != null && getThis().getSuperType().containsMAtomicTypeHierarchy(part))
+			return true;
+		return false;
+	}
+
+	// Start of section that contains operations that must be implemented.
+
+	@Override
+	public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) throws PersistenceException {
+		if (getThis().equals(part))
+			return true;
+		return false;
+	}
+
+	@Override
+	public MNonEmptyAtomicTypeConjunctionSearchList getNEATCContainingMe() throws PersistenceException {
+		MNonEmptyAtomicTypeConjunctionSearchList result = null;
+		if (result == null)
+			result = ConnectionHandler.getTheConnectionHandler().theMNonEmptyAtomicTypeConjunctionFacade.inverseGetFactors(this.getId(),
+					this.getClassId());
+		return result;
+	}
+
+	@Override
+	public NameSearchList getPossibleNames() throws PersistenceException {
+		NameSearchList result = null;
+		if (result == null)
+			result = ConnectionHandler.getTheConnectionHandler().theNameFacade.inverseGetFromType(this.getId(), this.getClassId());
+		return result;
+	}
+
+	@Override
+	public MSingletonObjectSearchList getSingletonObject() throws PersistenceException {
+		MSingletonObjectSearchList result = null;
+		if (result == null)
+			result = ConnectionHandler.getTheConnectionHandler().theMSingletonObjectFacade.inverseGetType(this.getId(), this.getClassId());
+		return result;
+	}
+
+	@Override
+	public MAtomicTypeSearchList getSubTypes() throws PersistenceException {
+		MAtomicTypeSearchList result = null;
+		if (result == null)
+			result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade.inverseGetSuperType(this.getId(), this.getClassId());
+		return result;
+	}
+
+	@Override
+	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields) throws PersistenceException {
+		this.setThis((PersistentMAtomicType) This);
+		if (this.equals(This)) {
+			final PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(),
+					(PersistentMAtomicType) This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+			this.setName((String) final$$Fields.get("name"));
+			this.setSingletonType((PersistentMBoolean) final$$Fields.get("singletonType"));
+			this.setAbstractType((PersistentMBoolean) final$$Fields.get("abstractType"));
+			this.setAspect((PersistentMAspect) final$$Fields.get("aspect"));
+			try {
+				this.setSuperType((AnythingORMATomicType) final$$Fields.get("superType"));
+			} catch (final model.CycleException e) {
+				throw new persistence.PersistenceExceptionCycleTunnel(e);
+			}
+		}
+	}
+
+	@Override
+	public MObjectSearchList inverseGetTypes() throws PersistenceException {
+		MObjectSearchList result = null;
+		if (result == null)
+			result = ConnectionHandler.getTheConnectionHandler().theMObjectFacade.inverseGetTypes(this.getId(), this.getClassId());
+		return result;
+	}
+
+	@Override
+	public <T> T strategyMAtomicTypeHierarchy(final T parameter, final MAtomicTypeHierarchyHIERARCHYStrategy<T> strategy) throws PersistenceException {
+		T result$$superType$$MAtomicType = strategy.initialize$$MAtomicType$$superType(getThis(), parameter);
 		result$$superType$$MAtomicType = this.getSuperType().strategyMAtomicTypeHierarchy(result$$superType$$MAtomicType, strategy);
-		return strategy.finalize$$MAtomicType(getThis(), parameter,result$$superType$$MAtomicType);
-    }
-    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException{
-        return strategy.finalize$$MAtomicType(getThis(), parameter);
-    }
-    public String abstractTypeAsString() 
-				throws PersistenceException{
+		return strategy.finalize$$MAtomicType(getThis(), parameter, result$$superType$$MAtomicType);
+	}
+
+	@Override
+	public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy)
+			throws PersistenceException {
+		return strategy.finalize$$MAtomicType(getThis(), parameter);
+	}
+
+	@Override
+	public String abstractTypeAsString() throws PersistenceException {
 		return getThis().getAbstractType().toString();
 	}
-    public void changeAbstract(final PersistentMBoolean newAbstractType) 
-				throws model.ConsistencyException, PersistenceException{
+
+	@Override
+	public void changeAbstract(final PersistentMBoolean newAbstractType) throws model.ConsistencyException, PersistenceException {
 		if (getThis().getAbstractType().equals(newAbstractType)) {
 			return;
 		}
@@ -486,8 +614,9 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		}
 		getThis().setAbstractType(newAbstractType);
 	}
-    public void changeSingleton(final PersistentMBoolean newSingletonType) 
-				throws model.ConsistencyException, PersistenceException{
+
+	@Override
+	public void changeSingleton(final PersistentMBoolean newSingletonType) throws model.ConsistencyException, PersistenceException {
 		if (getThis().getSingletonType().equals(newSingletonType)) {
 			return;
 		}
@@ -509,35 +638,39 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		}
 		getThis().setSingletonType(newSingletonType);
 	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
+
+	@Override
+	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
 	}
-    public MAspectSearchList fetchAspects() 
-				throws PersistenceException{
+
+	@Override
+	public MAspectSearchList fetchAspects() throws PersistenceException {
 		final MAspectSearchList result = new MAspectSearchList();
 		result.add(getThis().getAspect());
 		return result;
 	}
-    public MModelItemSearchList fetchDependentItems() 
-				throws PersistenceException{
+
+	@Override
+	public MModelItemSearchList fetchAdditionalDependentItems() throws PersistenceException {
 		// SINGLETONS WERDEN HIER NICHT AUFGENOMMEN!!!!
 		// PREPARE FOR DELETION VERSUCHT DIE SingletonInstance zu loeschen.
 		final MModelItemSearchList result = new MModelItemSearchList();
-		SearchLists.addSecondToFirst(result, getThis().filteredFetchTypesContainingThisDirectly());
 		SearchLists.addSecondToFirst(result, getThis().inverseGetTypes());
-		// TODO add other dependencies (assocs, MMTypes, etc)
 		return result;
 	}
-    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
-				throws PersistenceException{
+
+	@Override
+	public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() throws PersistenceException {
 		return MNonEmptyDisjunctiveNormalForm.transientCreateDNFromAtomicType(getThis());
 	}
-    public String fetchName() 
-				throws PersistenceException{
+
+	@Override
+	public String fetchName() throws PersistenceException {
 		return this.getName();
 	}
-    public MTypeSearchList fetchTypesContainingThisDirectly() 
-				throws PersistenceException{
+
+	@Override
+	public MTypeSearchList fetchTypesContainingThisDirectly() throws PersistenceException {
 		final MTypeSearchList result = new MTypeSearchList();
 		SearchLists.addSecondToFirst(result, getThis().getSubTypes());
 		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
@@ -545,8 +678,9 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		SearchLists.addSecondToFirst(result, getThis().getNEATCContainingMe());
 		return result;
 	}
-    public PersistentMBoolean hasConcreteSubType() 
-				throws PersistenceException{
+
+	@Override
+	public PersistentMBoolean hasConcreteSubType() throws PersistenceException {
 		final Iterator<PersistentMAtomicType> subTypesI = getThis().getSubTypes().iterator();
 		while (subTypesI.hasNext()) {
 			final PersistentMAtomicType currentType = subTypesI.next();
@@ -556,22 +690,26 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		}
 		return MFalse.getTheMFalse();
 	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
+
+	@Override
+	public void initializeOnCreation() throws PersistenceException {
 		// Create SingletonType
 		if (getThis().getSingletonType().toBoolean()) {
 			MSingletonObject.createMSingletonObject(getThis());
 		}
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
+
+	@Override
+	public void initializeOnInstantiation() throws PersistenceException {
 	}
-    public PersistentMBoolean isAbstract() 
-				throws PersistenceException{
+
+	@Override
+	public PersistentMBoolean isAbstract() throws PersistenceException {
 		return getThis().getAbstractType();
 	}
-    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
-				throws PersistenceException{
+
+	@Override
+	public PersistentMBoolean isLessOrEqual(final PersistentMType other) throws PersistenceException {
 		return MBoolean.createFromBoolean(other.accept(new MTypeReturnVisitor<Boolean>() {
 
 			@Override
@@ -636,18 +774,21 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 			}
 		}));
 	}
-    public PersistentMBoolean isSingleton() 
-				throws PersistenceException{
+
+	@Override
+	public PersistentMBoolean isSingleton() throws PersistenceException {
 		return getSingletonType();
 		// return MBoolean.createFromBoolean(getThis().getSingletonType().toBoolean()
 		// && !getThis().hasConcreteSubType().toBoolean());
 	}
-    public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) 
-				throws PersistenceException{
+
+	@Override
+	public PersistentMBoolean isStructuralEquivalant(final PersistentMType other) throws PersistenceException {
 		return MBoolean.createFromBoolean(getThis().equals(other));
 	}
-    public void prepareForDeletion() 
-				throws model.ConsistencyException, PersistenceException{
+
+	@Override
+	public void prepareForDeletion() throws model.ConsistencyException, PersistenceException {
 		// Delete Singleton Instances
 		getThis().getSingletonObject().applyToAllException(new ProcdureException<PersistentMSingletonObject, ConsistencyException>() {
 
@@ -657,17 +798,16 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 			}
 		});
 	}
-    public String singletonTypeAsString() 
-				throws PersistenceException{
+
+	@Override
+	public String singletonTypeAsString() throws PersistenceException {
 		return getThis().getSingletonType().toString();
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
-    /* Start of protected part that is not overridden by persistence generator */
+	// Start of section that contains overridden operations only.
+
+	/* Start of protected part that is not overridden by persistence generator */
 
 	/* End of protected part that is not overridden by persistence generator */
-    
+
 }

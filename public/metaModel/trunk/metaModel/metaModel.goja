@@ -160,7 +160,7 @@ part typeSystem {
 		abstract MAspect** fetchAspects();
 		abstract MType** fetchTypesContainingThisDirectly();
 		MType** filteredFetchTypesContainingThisDirectly();
-		
+		MModelItem** fetchAdditionalDependentItems();
 /*
 			MAssociation** fetchAssociations();
 			MBoolean allObjectsOfTypeAreSingleton();
