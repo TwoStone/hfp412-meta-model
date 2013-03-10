@@ -672,6 +672,7 @@ singleton MeasurementTypeManager##MsrmntTpMng {
 singleton AccountTypeManager {
 	MAccountType** accountTypes;
 	active void createAccountType(String name, MType type, UnitType unitType);
+	active void removeAccountType(MAccountType accountType) throws ConsistencyException;
 }
 
 singleton AccountManager {

@@ -24,6 +24,8 @@ public final class ExceptionConstants {
 
 	public static final String WRONG_ACCOUNT_TYPE = "Falscher AccountType";
 
+	public static final String ALREADY_EX_OF_ACCOUNT_TYPE = "Es existieren bereits Exemplare zu diesem AccountType";
+
 	public static final String UNIT_TYPE_DOES_NOT_MATCH_ADD_OR_SUB = "Addition oder Subtraktion nur mit gleichem Einheitstyp möglich!";
 
 	/* Exceptions für Association, Operation, Link ... */

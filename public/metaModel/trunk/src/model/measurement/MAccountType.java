@@ -35,6 +35,7 @@ import persistence.PersistentMModelItem;
 import persistence.PersistentMQuantiObjectType;
 import persistence.PersistentMType;
 import persistence.TDObserver;
+import utils.SearchLists;
 
 /* Additional import section end */
 
@@ -258,13 +259,16 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-		// TODO: implement method: fetchDependentItems
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		final MModelItemSearchList result = new MModelItemSearchList();
+
+		// Subaccount Types
+		SearchLists.addSecondToFirst(result, getThis().getSubAccountTypes());
+
+		// Accounts
+		SearchLists.addSecondToFirst(result, getThis().inverseGetSubAccountTypes());
+
+		// TODO add other dependencies (assocs, MMTypes, etc)
+		return result;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
