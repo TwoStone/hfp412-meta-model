@@ -292,6 +292,16 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 			type.changeSingleton(newSingletonType);
 		}
 	}
+    public PersistentMBoolean containsType(final PersistentMType type) 
+				throws PersistenceException{
+        //TODO: implement method: containsType
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"containsType\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}

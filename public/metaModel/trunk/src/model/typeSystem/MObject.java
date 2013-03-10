@@ -98,9 +98,6 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("types", this.getTypes().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
-            result.put("linksFromMe", this.getLinksFromMe(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
-            result.put("linksToMe", this.getLinksToMe(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
-            result.put("names", this.getNames().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -194,24 +191,13 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getPossibleNames().getLength() > 0) return 1;
-        if (this.getTypes().getLength() > 0) return 1;
         if (this.getLinksFromMe().getLength() > 0) return 1;
         if (this.getLinksToMe().getLength() > 0) return 1;
         if (this.getNames().getLength() > 0) return 1;
+        if (this.getTypes().getLength() > 0) return 1;
         return 0;
     }
     
-    
-    public NameInstanceSearchList getNames() 
-				throws PersistenceException{
-        NameInstanceSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameInstanceFacade
-							.inverseGetFromObject(this.getId(), this.getClassId());
-		return result;
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
     
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -221,25 +207,15 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public QuantifObjectSearchList inverseGetObject() 
 				throws PersistenceException{
         QuantifObjectSearchList result = null;
 		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theQuantifObjectFacade
 							.inverseGetObject(this.getId(), this.getClassId());
-		return result;
-    }
-    public MessageOrLinkSearchList inverseGetSource() 
-				throws PersistenceException{
-        MessageOrLinkSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
-							.inverseGetSource(this.getId(), this.getClassId());
-		return result;
-    }
-    public MessageOrLinkSearchList inverseGetTarget() 
-				throws PersistenceException{
-        MessageOrLinkSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
-							.inverseGetTarget(this.getId(), this.getClassId());
 		return result;
     }
     public MObservationSearchList inverseGetTheObsObject() 
@@ -265,105 +241,10 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 		}
 		this.getThis().getTypes().add(newType);
 	}
-    public PersistentMBoolean containsInHierarchies(final PersistentMObject obj, final HierarchySearchList hieracs) 
-				throws PersistenceException{
-		if (getThis().equals(obj)) {
-			return MTrue.getTheMTrue();
-		}
-		final SearchListRoot<PersistentLink> allHieracLinks = getThis().getLinksFromMe().findAll(new Predcate<PersistentLink>() {
-
-			@Override
-			public boolean test(final PersistentLink argument) throws PersistenceException {
-				final Iterator<PersistentHierarchy> iteratorOuter = hieracs.iterator();
-				while (iteratorOuter.hasNext()) {
-					final PersistentHierarchy nextOuter = iteratorOuter.next();
-					final Iterator<PersistentHierarchy> iteratorInner = argument.getType().getHierarchies().iterator();
-					while (iteratorInner.hasNext()) {
-						if (nextOuter.equals(iteratorInner.next())) {
-							return true;
-						}
-					}
-				}
-
-				return false;
-			}
-		});
-		final Iterator<PersistentLink> iteratorHieracLinks = allHieracLinks.iterator();
-		while (iteratorHieracLinks.hasNext()) {
-			if (iteratorHieracLinks.next().getTarget().containsInHierarchies(obj, hieracs).toBoolean()) {
-				return MTrue.getTheMTrue();
-			}
-		}
-		return MFalse.getTheMFalse();
-	}
-    public PersistentMBoolean containsInHierarchy(final PersistentMObject obj, final PersistentHierarchy hierac) 
-				throws PersistenceException{
-
-		final HierarchySearchList listOfHierarchies = new HierarchySearchList();
-		listOfHierarchies.add(hierac);
-
-		return getThis().containsInHierarchies(obj, listOfHierarchies);
-	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 
 	}
-    public MModelItemSearchList fetchDependentItems() 
-				throws PersistenceException{
-		return new MModelItemSearchList();
-	}
-    public LinkSearchList getLinksFromMe() 
-				throws PersistenceException{
-		final LinkSearchList result = new LinkSearchList();
-		final Iterator<PersistentMessageOrLink> iMOL = getThis().inverseGetSource().iterator();
-		while (iMOL.hasNext()) {
-			iMOL.next().accept(new MessageOrLinkVisitor() {
-
-				@Override
-				public void handleMessage(final PersistentMessage message) throws PersistenceException {
-					// IGNORE
-				}
-
-				@Override
-				public void handleLink(final PersistentLink link) throws PersistenceException {
-					result.add(link);
-				}
-			});
-		}
-		return result;
-	}
-    public LinkSearchList getLinksFromMe(final TDObserver observer) 
-				throws PersistenceException{
-        LinkSearchList result = getThis().getLinksFromMe();
-		observer.updateTransientDerived(getThis(), "linksFromMe", result);
-		return result;
-    }
-    public LinkSearchList getLinksToMe() 
-				throws PersistenceException{
-		final LinkSearchList result = new LinkSearchList();
-		final Iterator<PersistentMessageOrLink> iMOL = getThis().inverseGetTarget().iterator();
-		while (iMOL.hasNext()) {
-			iMOL.next().accept(new MessageOrLinkVisitor() {
-
-				@Override
-				public void handleMessage(final PersistentMessage message) throws PersistenceException {
-					// IGNORE
-				}
-
-				@Override
-				public void handleLink(final PersistentLink link) throws PersistenceException {
-					result.add(link);
-				}
-			});
-		}
-		return result;
-	}
-    public LinkSearchList getLinksToMe(final TDObserver observer) 
-				throws PersistenceException{
-        LinkSearchList result = getThis().getLinksToMe();
-		observer.updateTransientDerived(getThis(), "linksToMe", result);
-		return result;
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -408,10 +289,54 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
     
     // Start of section that contains overridden operations only.
     
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		return new MModelItemSearchList();
+	}
     public PersistentMNonEmptyAtomicTypeConjunction fetchProductType() 
 				throws PersistenceException{
 		System.out.println("Called");
 		return MNonEmptyAtomicTypeConjunction.transientCreateNETypeConj(getThis().getTypes().getList());
+	}
+    public LinkSearchList getLinksFromMe() 
+				throws PersistenceException{
+		final LinkSearchList result = new LinkSearchList();
+		final Iterator<PersistentMessageOrLink> iMOL = getThis().inverseGetSource().iterator();
+		while (iMOL.hasNext()) {
+			iMOL.next().accept(new MessageOrLinkVisitor() {
+
+				@Override
+				public void handleMessage(final PersistentMessage message) throws PersistenceException {
+					// IGNORE
+				}
+
+				@Override
+				public void handleLink(final PersistentLink link) throws PersistenceException {
+					result.add(link);
+				}
+			});
+		}
+		return result;
+	}
+    public LinkSearchList getLinksToMe() 
+				throws PersistenceException{
+		final LinkSearchList result = new LinkSearchList();
+		final Iterator<PersistentMessageOrLink> iMOL = getThis().inverseGetTarget().iterator();
+		while (iMOL.hasNext()) {
+			iMOL.next().accept(new MessageOrLinkVisitor() {
+
+				@Override
+				public void handleMessage(final PersistentMessage message) throws PersistenceException {
+					// IGNORE
+				}
+
+				@Override
+				public void handleLink(final PersistentLink link) throws PersistenceException {
+					result.add(link);
+				}
+			});
+		}
+		return result;
 	}
     public NameSearchList getPossibleNames() 
 				throws PersistenceException{
