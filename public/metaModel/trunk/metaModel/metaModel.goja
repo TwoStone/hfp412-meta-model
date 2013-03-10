@@ -33,6 +33,7 @@ server Server {
 	void renameAtomicType(MAtomicType type, String newName);
 	void changeAbstract(MAtomicType type, MBooleanSUBTYPEName newAbstractType);
 	void changeSingleton(MAtomicType type, MBooleanSUBTYPEName newSingletonType);
+
 	void createTypeDisjunction(MType** containees{typeManager;types});
 	void createTypeConjunction(MType** containees{typeManager;types});
 	
@@ -262,7 +263,7 @@ part typeSystem {
 	}
 
 	class MSingletonObject##SngltnObj extends AbstractObject {
-		prior final MAtomicType type;
+		prior final symmetric(singletonObject) MAtomicType type;
 	}
 
 	/*** MANAGER ***/

@@ -53,5 +53,5 @@ public final class ExceptionConstants {
 	public static final String CE_AT_SINGLETON_AND_ABSTRACT = "Atomare Typen duerfen nicht sowohl abstract als auch Singleton sein.";
 	public static final String CE_AT_ABSTRACT_WITH_OBJECTS = "Atomare Typen mit Objekten duerfen nicht abstract sein.";
 	public static final String CE_AT_SINGLETON_WITH_OBJECTS = "Atomare Typen mit Objekten duerfen nicht Singleton sein.";
-	public static final String CE_AT_SINGLETON_WITH_LINKS = "Singletons zu denen Links existieren duerfen nicht umdeklariert werden.";
+	public static final String CE_AT_SINGLETON_WITH_DEPENDENT_ITEMS = "Singletons zu denen abhaenginge Items existieren duerfen nicht umdeklariert werden.";
 }

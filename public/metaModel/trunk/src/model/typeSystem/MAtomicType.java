@@ -2,6 +2,7 @@ package model.typeSystem;
 
 import java.util.Iterator;
 
+import model.ConsistencyException;
 import model.CycleException;
 import model.UserException;
 import model.basic.MBoolean;
@@ -45,6 +46,7 @@ import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
 import persistence.MModelItemSearchList;
 import persistence.MNonEmptyAtomicTypeConjunctionSearchList;
 import persistence.MObjectSearchList;
+import persistence.MSingletonObjectSearchList;
 import persistence.MTypeSearchList;
 import persistence.NameSearchList;
 import persistence.PersistenceException;
@@ -61,10 +63,13 @@ import persistence.PersistentMMixedTypeDisjunction;
 import persistence.PersistentMModelItem;
 import persistence.PersistentMNonEmptyAtomicTypeConjunction;
 import persistence.PersistentMNonEmptyDisjunctiveNormalForm;
+import persistence.PersistentMSingletonObject;
 import persistence.PersistentMType;
 import persistence.PersistentProxi;
+import persistence.ProcdureException;
 import persistence.TDObserver;
 import utils.SearchLists;
+import utils.TruePredcate;
 import constants.ExceptionConstants;
 
 /* Additional import section end */
@@ -171,6 +176,10 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 			result.put(
 					"possibleNames",
 					this.getPossibleNames().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false,
+							essentialLevel == 0));
+			result.put(
+					"singletonObject",
+					this.getSingletonObject().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false,
 							essentialLevel == 0));
 			final String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
 			if (leaf && !allResults.contains(uniqueKey))
@@ -488,6 +497,8 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 			return 1;
 		if (this.getPossibleNames().getLength() > 0)
 			return 1;
+		if (this.getSingletonObject().getLength() > 0)
+			return 1;
 		return 0;
 	}
 
@@ -523,6 +534,14 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		NameSearchList result = null;
 		if (result == null)
 			result = ConnectionHandler.getTheConnectionHandler().theNameFacade.inverseGetFromType(this.getId(), this.getClassId());
+		return result;
+	}
+
+	@Override
+	public MSingletonObjectSearchList getSingletonObject() throws PersistenceException {
+		MSingletonObjectSearchList result = null;
+		if (result == null)
+			result = ConnectionHandler.getTheConnectionHandler().theMSingletonObjectFacade.inverseGetType(this.getId(), this.getClassId());
 		return result;
 	}
 
@@ -608,10 +627,16 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 			if (getThis().inverseGetTypes().getLength() > 0) {
 				throw new model.ConsistencyException(ExceptionConstants.CE_AT_SINGLETON_WITH_OBJECTS);
 			}
+			MSingletonObject.createMSingletonObject(getThis());
 		} else {
-			// TODO Singleton consistency check
+			final PersistentMSingletonObject sObj = getThis().getSingletonObject().findFirst(new TruePredcate<PersistentMSingletonObject>());
+			try {
+				sObj.delete();
+			} catch (final ConsistencyException e) {
+				throw new ConsistencyException(ExceptionConstants.CE_AT_SINGLETON_WITH_DEPENDENT_ITEMS);
+			}
 		}
-
+		getThis().setSingletonType(newSingletonType);
 	}
 
 	@Override
@@ -627,6 +652,8 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 
 	@Override
 	public MModelItemSearchList fetchDependentItems() throws PersistenceException {
+		// SINGLETONS WERDEN HIER NICHT AUFGENOMMEN!!!!
+		// PREPARE FOR DELETION VERSUCHT DIE SingletonInstance zu loeschen.
 		final MModelItemSearchList result = new MModelItemSearchList();
 		SearchLists.addSecondToFirst(result, getThis().fetchTypesContainingThisDirectly());
 		SearchLists.addSecondToFirst(result, getThis().inverseGetTypes());
@@ -667,6 +694,10 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 
 	@Override
 	public void initializeOnCreation() throws PersistenceException {
+		// Create SingletonType
+		if (getThis().getSingletonType().toBoolean()) {
+			MSingletonObject.createMSingletonObject(getThis());
+		}
 	}
 
 	@Override
@@ -759,7 +790,14 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 
 	@Override
 	public void prepareForDeletion() throws model.ConsistencyException, PersistenceException {
-		// No prep needed
+		// Delete Singleton Instances
+		getThis().getSingletonObject().applyToAllException(new ProcdureException<PersistentMSingletonObject, ConsistencyException>() {
+
+			@Override
+			public void doItTo(final PersistentMSingletonObject argument) throws PersistenceException, ConsistencyException {
+				argument.delete();
+			}
+		});
 	}
 
 	@Override

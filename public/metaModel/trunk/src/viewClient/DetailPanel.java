@@ -1074,6 +1074,7 @@ class MAtomicTypeDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String MAtomicType$$abstractType = "MAtomicType$$abstractType";
     protected static final String MAtomicType$$subTypes = "MAtomicType$$subTypes";
     protected static final String MAtomicType$$possibleNames = "MAtomicType$$possibleNames";
+    protected static final String MAtomicType$$singletonObject = "MAtomicType$$singletonObject";
     
     protected MAtomicTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
