@@ -14,6 +14,11 @@ import persistence.PersistentProxi;
 import persistence.Procdure;
 import persistence.TDObserver;
 
+import model.basic.MFalse;
+import model.basic.MTrue;
+import model.visitor.MessageOrLinkVisitor;
+import persistence.*;
+
 /* Additional import section end */
 
 public abstract class AbstractObject extends PersistentObject implements PersistentAbstractObject{
@@ -29,6 +34,9 @@ public abstract class AbstractObject extends PersistentObject implements Persist
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("possibleNames", this.getPossibleNames(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
+            result.put("linksFromMe", this.getLinksFromMe(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
+            result.put("linksToMe", this.getLinksToMe(tdObserver).getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
+            result.put("names", this.getNames().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
             AbstractPersistentRoot myCONCMModelItem = (AbstractPersistentRoot)this.getMyCONCMModelItem();
             if (myCONCMModelItem != null) {
                 result.put("myCONCMModelItem", myCONCMModelItem.createProxiInformation(false, essentialLevel == 0));
@@ -118,6 +126,17 @@ public abstract class AbstractObject extends PersistentObject implements Persist
     
     
     
+    public NameInstanceSearchList getNames() 
+				throws PersistenceException{
+        NameInstanceSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theNameInstanceFacade
+							.inverseGetFromObject(this.getId(), this.getClassId());
+		return result;
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAbstractObject)This);
@@ -126,14 +145,36 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
+    public MessageOrLinkSearchList inverseGetSource() 
+				throws PersistenceException{
+        MessageOrLinkSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
+							.inverseGetSource(this.getId(), this.getClassId());
+		return result;
+    }
+    public MessageOrLinkSearchList inverseGetTarget() 
+				throws PersistenceException{
+        MessageOrLinkSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade
+							.inverseGetTarget(this.getId(), this.getClassId());
+		return result;
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 
 	}
+    public LinkSearchList getLinksFromMe(final TDObserver observer) 
+				throws PersistenceException{
+        LinkSearchList result = getThis().getLinksFromMe();
+		observer.updateTransientDerived(getThis(), "linksFromMe", result);
+		return result;
+    }
+    public LinkSearchList getLinksToMe(final TDObserver observer) 
+				throws PersistenceException{
+        LinkSearchList result = getThis().getLinksToMe();
+		observer.updateTransientDerived(getThis(), "linksToMe", result);
+		return result;
+    }
     public NameSearchList getPossibleNames(final TDObserver observer) 
 				throws PersistenceException{
         NameSearchList result = getThis().getPossibleNames();
@@ -150,9 +191,92 @@ public abstract class AbstractObject extends PersistentObject implements Persist
     
     // Start of section that contains overridden operations only.
     
+    public PersistentMBoolean containsInHierarchies(final PersistentAbstractObject obj, final HierarchySearchList hieracs) 
+				throws PersistenceException{
+		if (getThis().equals(obj)) {
+			return MTrue.getTheMTrue();
+		}
+		final SearchListRoot<PersistentLink> allHieracLinks = getThis().getLinksFromMe().findAll(new Predcate<PersistentLink>() {
+
+			@Override
+			public boolean test(final PersistentLink argument) throws PersistenceException {
+				final Iterator<PersistentHierarchy> iteratorOuter = hieracs.iterator();
+				while (iteratorOuter.hasNext()) {
+					final PersistentHierarchy nextOuter = iteratorOuter.next();
+					final Iterator<PersistentHierarchy> iteratorInner = argument.getType().getHierarchies().iterator();
+					while (iteratorInner.hasNext()) {
+						if (nextOuter.equals(iteratorInner.next())) {
+							return true;
+						}
+					}
+				}
+
+				return false;
+			}
+		});
+		final Iterator<PersistentLink> iteratorHieracLinks = allHieracLinks.iterator();
+		while (iteratorHieracLinks.hasNext()) {
+			if (iteratorHieracLinks.next().getTarget().containsInHierarchies(obj, hieracs).toBoolean()) {
+				return MTrue.getTheMTrue();
+			}
+		}
+		return MFalse.getTheMFalse();
+	}
+    public PersistentMBoolean containsInHierarchy(final PersistentAbstractObject obj, final PersistentHierarchy hierac) 
+				throws PersistenceException{
+
+		final HierarchySearchList listOfHierarchies = new HierarchySearchList();
+		listOfHierarchies.add(hierac);
+
+		return getThis().containsInHierarchies(obj, listOfHierarchies);
+	}
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
 		getThis().getMyCONCMModelItem().delete();
+	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		return new MModelItemSearchList();
+	}
+    public LinkSearchList getLinksFromMe() 
+				throws PersistenceException{
+		final LinkSearchList result = new LinkSearchList();
+		final Iterator<PersistentMessageOrLink> iMOL = getThis().inverseGetSource().iterator();
+		while (iMOL.hasNext()) {
+			iMOL.next().accept(new MessageOrLinkVisitor() {
+
+				@Override
+				public void handleMessage(final PersistentMessage message) throws PersistenceException {
+					// IGNORE
+				}
+
+				@Override
+				public void handleLink(final PersistentLink link) throws PersistenceException {
+					result.add(link);
+				}
+			});
+		}
+		return result;
+	}
+    public LinkSearchList getLinksToMe() 
+				throws PersistenceException{
+		final LinkSearchList result = new LinkSearchList();
+		final Iterator<PersistentMessageOrLink> iMOL = getThis().inverseGetTarget().iterator();
+		while (iMOL.hasNext()) {
+			iMOL.next().accept(new MessageOrLinkVisitor() {
+
+				@Override
+				public void handleMessage(final PersistentMessage message) throws PersistenceException {
+					// IGNORE
+				}
+
+				@Override
+				public void handleLink(final PersistentLink link) throws PersistenceException {
+					result.add(link);
+				}
+			});
+		}
+		return result;
 	}
     public NameSearchList getPossibleNames() 
 				throws PersistenceException{
@@ -170,13 +294,7 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
 
-	
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

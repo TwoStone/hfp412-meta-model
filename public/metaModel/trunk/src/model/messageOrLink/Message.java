@@ -1,44 +1,19 @@
 package model.messageOrLink;
 
 import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.MModelItemExceptionVisitor;
-import model.visitor.MModelItemReturnExceptionVisitor;
-import model.visitor.MModelItemReturnVisitor;
-import model.visitor.MModelItemVisitor;
-import model.visitor.MessageOrLinkExceptionVisitor;
-import model.visitor.MessageOrLinkReturnExceptionVisitor;
-import model.visitor.MessageOrLinkReturnVisitor;
-import model.visitor.MessageOrLinkVisitor;
-import persistence.AbstractPersistentRoot;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.MModelItemSearchList;
-import persistence.MessageProxi;
-import persistence.Message_ActualParametersProxi;
-import persistence.PersistenceException;
-import persistence.PersistentCONCMModelItem;
-import persistence.PersistentMModelItem;
-import persistence.PersistentMObject;
-import persistence.PersistentMessage;
-import persistence.PersistentMessageOrLink;
-import persistence.PersistentOperation;
-import persistence.PersistentProxi;
-import persistence.TDObserver;
+import model.visitor.*;
+import persistence.*;
 
 /* Additional import section end */
 
 public class Message extends model.messageOrLink.MessageOrLink implements PersistentMessage{
     
     
-    public static PersistentMessage createMessage(PersistentMObject source,PersistentMObject target,PersistentOperation type) throws PersistenceException{
+    public static PersistentMessage createMessage(PersistentAbstractObject source,PersistentAbstractObject target,PersistentOperation type) throws PersistenceException{
         return createMessage(source,target,type,false);
     }
     
-    public static PersistentMessage createMessage(PersistentMObject source,PersistentMObject target,PersistentOperation type,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMessage createMessage(PersistentAbstractObject source,PersistentAbstractObject target,PersistentOperation type,boolean delayed$Persistence) throws PersistenceException {
         PersistentMessage result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMessageFacade
@@ -57,7 +32,7 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
         return result;
     }
     
-    public static PersistentMessage createMessage(PersistentMObject source,PersistentMObject target,PersistentOperation type,boolean delayed$Persistence,PersistentMessage This) throws PersistenceException {
+    public static PersistentMessage createMessage(PersistentAbstractObject source,PersistentAbstractObject target,PersistentOperation type,boolean delayed$Persistence,PersistentMessage This) throws PersistenceException {
         PersistentMessage result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMessageFacade
@@ -115,9 +90,9 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
     protected PersistentOperation type;
     protected Message_ActualParametersProxi actualParameters;
     
-    public Message(PersistentMObject source,PersistentMObject target,PersistentMessageOrLink This,PersistentMModelItem myCONCMModelItem,PersistentOperation type,long id) throws persistence.PersistenceException {
+    public Message(PersistentAbstractObject source,PersistentAbstractObject target,PersistentMessageOrLink This,PersistentMModelItem myCONCMModelItem,PersistentOperation type,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMObject)source,(PersistentMObject)target,(PersistentMessageOrLink)This,(PersistentMModelItem)myCONCMModelItem,id);
+        super((PersistentAbstractObject)source,(PersistentAbstractObject)target,(PersistentMessageOrLink)This,(PersistentMModelItem)myCONCMModelItem,id);
         this.type = type;
         this.actualParameters = new Message_ActualParametersProxi(this);        
     }
@@ -219,8 +194,8 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
 		if(this.equals(This)){
 			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMessage)This);
 			this.setMyCONCMModelItem(myCONCMModelItem);
-			this.setSource((PersistentMObject)final$$Fields.get("source"));
-			this.setTarget((PersistentMObject)final$$Fields.get("target"));
+			this.setSource((PersistentAbstractObject)final$$Fields.get("source"));
+			this.setTarget((PersistentAbstractObject)final$$Fields.get("target"));
 			this.setType((PersistentOperation)final$$Fields.get("type"));
 		}
     }

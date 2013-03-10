@@ -1,17 +1,6 @@
 package model.messageOrLink;
 
-import persistence.AbstractPersistentRoot;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.MModelItemSearchList;
-import persistence.PersistenceException;
-import persistence.PersistentCONCMModelItem;
-import persistence.PersistentMModelItem;
-import persistence.PersistentMObject;
-import persistence.PersistentMessageOrLink;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
-import persistence.TDObserver;
+import persistence.*;
 
 /* Additional import section end */
 
@@ -65,12 +54,12 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected PersistentMObject source;
-    protected PersistentMObject target;
+    protected PersistentAbstractObject source;
+    protected PersistentAbstractObject target;
     protected PersistentMessageOrLink This;
     protected PersistentMModelItem myCONCMModelItem;
     
-    public MessageOrLink(PersistentMObject source,PersistentMObject target,PersistentMessageOrLink This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
+    public MessageOrLink(PersistentAbstractObject source,PersistentAbstractObject target,PersistentMessageOrLink This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.source = source;
@@ -109,29 +98,29 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
         
     }
     
-    public PersistentMObject getSource() throws PersistenceException {
+    public PersistentAbstractObject getSource() throws PersistenceException {
         return this.source;
     }
-    public void setSource(PersistentMObject newValue) throws PersistenceException {
+    public void setSource(PersistentAbstractObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.source)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.source = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
+        this.source = (PersistentAbstractObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade.sourceSet(this.getId(), newValue);
         }
     }
-    public PersistentMObject getTarget() throws PersistenceException {
+    public PersistentAbstractObject getTarget() throws PersistenceException {
         return this.target;
     }
-    public void setTarget(PersistentMObject newValue) throws PersistenceException {
+    public void setTarget(PersistentAbstractObject newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.equals(this.target)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.target = (PersistentMObject)PersistentProxi.createProxi(objectId, classId);
+        this.target = (PersistentAbstractObject)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade.targetSet(this.getId(), newValue);
@@ -180,8 +169,8 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
 		if(this.equals(This)){
 			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMessageOrLink)This);
 			this.setMyCONCMModelItem(myCONCMModelItem);
-			this.setSource((PersistentMObject)final$$Fields.get("source"));
-			this.setTarget((PersistentMObject)final$$Fields.get("target"));
+			this.setSource((PersistentAbstractObject)final$$Fields.get("source"));
+			this.setTarget((PersistentAbstractObject)final$$Fields.get("target"));
 		}
     }
     

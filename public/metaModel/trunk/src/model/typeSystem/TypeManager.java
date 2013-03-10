@@ -3,7 +3,6 @@ package model.typeSystem;
 import model.ConsistencyException;
 import model.CycleException;
 import model.UserException;
-import model.basic.MBoolean;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -292,16 +291,6 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 			removeSingletonInstanceFromManager(type);
 			type.changeSingleton(newSingletonType);
 		}
-	}
-    public PersistentMBoolean containsType(final PersistentMType type) 
-				throws PersistenceException{
-		return MBoolean.createFromBoolean(getThis().getTypes().findFirst(new Predcate<PersistentMType>() {
-
-			@Override
-			public boolean test(final PersistentMType argument) throws PersistenceException {
-				return argument.equals(type);
-			}
-		}) != null);
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

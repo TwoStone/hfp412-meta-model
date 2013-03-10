@@ -195,6 +195,9 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
     public int getLeafInfo() throws PersistenceException{
         if (this.getType() != null) return 1;
         if (this.getPossibleNames().getLength() > 0) return 1;
+        if (this.getLinksFromMe().getLength() > 0) return 1;
+        if (this.getLinksToMe().getLength() > 0) return 1;
+        if (this.getNames().getLength() > 0) return 1;
         return 0;
     }
     
@@ -215,16 +218,6 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public MModelItemSearchList fetchDependentItems() 
-				throws PersistenceException{
-		// TODO: implement method: getDependentItems
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"getDependentItems\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
@@ -244,6 +237,16 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
 				throws model.ConsistencyException, PersistenceException{
 		// TODO Auto-generated method stub
 
+	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: getDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"getDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public PersistentMNonEmptyAtomicTypeConjunction fetchProductType() 
 				throws PersistenceException{

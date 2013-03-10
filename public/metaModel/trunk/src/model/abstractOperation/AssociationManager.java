@@ -12,33 +12,7 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.AbsOperationSearchList;
-import persistence.Anything;
-import persistence.AssociationManagerProxi;
-import persistence.AssociationManager_AssociationsProxi;
-import persistence.AssociationManager_HierarchiesProxi;
-import persistence.ConnectionHandler;
-import persistence.Invoker;
-import persistence.LinkSearchList;
-import persistence.PersistenceException;
-import persistence.PersistentAbsOperation;
-import persistence.PersistentAddAssociationCommand;
-import persistence.PersistentAssociation;
-import persistence.PersistentAssociationManager;
-import persistence.PersistentCreateAssociationCommand;
-import persistence.PersistentCreateHierarchyCommand;
-import persistence.PersistentHierarchy;
-import persistence.PersistentLink;
-import persistence.PersistentMBoolean;
-import persistence.PersistentMType;
-import persistence.PersistentObject;
-import persistence.PersistentOperation;
-import persistence.PersistentProxi;
-import persistence.PersistentRemoveAssoFrmHierCommand;
-import persistence.PersistentRemoveAssociationCommand;
-import persistence.PersistentRemoveHierarchyCommand;
-import persistence.Predcate;
-import persistence.TDObserver;
+import persistence.*;
 import utils.EmptyTypeDisjReturnBooleanVisitor;
 import constants.ExceptionConstants;
 
@@ -293,14 +267,12 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 					return argument.accept(new AbsOperationReturnVisitor<PersistentMBoolean>() {
 
 						@Override
-						public PersistentMBoolean handleOperation(final PersistentOperation operation)
-								throws PersistenceException {
+						public PersistentMBoolean handleOperation(final PersistentOperation operation) throws PersistenceException {
 							return MFalse.getTheMFalse();
 						}
 
 						@Override
-						public PersistentMBoolean handleAssociation(final PersistentAssociation association)
-								throws PersistenceException {
+						public PersistentMBoolean handleAssociation(final PersistentAssociation association) throws PersistenceException {
 							return MTrue.getTheMTrue();
 						}
 					}).toBoolean();

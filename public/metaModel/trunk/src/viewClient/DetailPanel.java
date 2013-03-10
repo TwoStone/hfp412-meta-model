@@ -1385,10 +1385,10 @@ class MObservationDefaultDetailPanel extends DefaultDetailPanel{
 class MObjectDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String AbstractObject$$possibleNames = "AbstractObject$$possibleNames";
+    protected static final String AbstractObject$$linksFromMe = "AbstractObject$$linksFromMe";
+    protected static final String AbstractObject$$linksToMe = "AbstractObject$$linksToMe";
+    protected static final String AbstractObject$$names = "AbstractObject$$names";
     protected static final String MObject$$types = "MObject$$types";
-    protected static final String MObject$$linksFromMe = "MObject$$linksFromMe";
-    protected static final String MObject$$linksToMe = "MObject$$linksToMe";
-    protected static final String MObject$$names = "MObject$$names";
     
     protected MObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -2241,6 +2241,9 @@ class NameDefaultDetailPanel extends DefaultDetailPanel{
 class MSingletonObjectDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String AbstractObject$$possibleNames = "AbstractObject$$possibleNames";
+    protected static final String AbstractObject$$linksFromMe = "AbstractObject$$linksFromMe";
+    protected static final String AbstractObject$$linksToMe = "AbstractObject$$linksToMe";
+    protected static final String AbstractObject$$names = "AbstractObject$$names";
     protected static final String MSingletonObject$$type = "MSingletonObject$$type";
     
     protected MSingletonObjectDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

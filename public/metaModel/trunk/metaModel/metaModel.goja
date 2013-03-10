@@ -249,19 +249,21 @@ part typeSystem {
 
 	abstract class AbstractObject##AbsObj covers MModelItem {
 		derived Name ** possibleNames;
+		derived Link** linksFromMe;
+		derived Link** linksToMe;
 		MNonEmptyAtomicTypeConjunction fetchProductType();
+		MBoolean containsInHierarchies(AbstractObject obj, Hierarchy** hieracs);
+		MBoolean containsInHierarchy(AbstractObject obj, Hierarchy hierac);
 	}
 
 	/* Objekte */
 	class MObject extends AbstractObject {
 		symmetric MAtomicType ** types;
-		derived Link** linksFromMe;
-		derived Link** linksToMe;
+
 		void addType(MAtomicType newType) throws ConsistencyException;
 		void removeType(MAtomicType oldType) throws ConsistencyException;
 		void replaceType(MAtomicType oldType, MAtomicType newType) throws ConsistencyException; 
-		MBoolean containsInHierarchies(MObject obj, Hierarchy** hieracs);
-		MBoolean containsInHierarchy(MObject obj, Hierarchy hierac);
+
 	}
 
 	class MSingletonObject##SngltnObj extends AbstractObject {
@@ -630,8 +632,8 @@ active void removeLink(Link link);
 }
 
 abstract class MessageOrLink covers MModelItem{
-    prior symmetric MObject source;
-    prior symmetric MObject target;
+    prior symmetric AbstractObject source;
+    prior symmetric AbstractObject target;
 }
 
 // TODO: Was ist mit statische Methoden und Methoden die void zurueck geben sollen? Source/Target 0..1? Eventuell noch mal spezialisieren
@@ -724,19 +726,19 @@ class SumStrategy implements AggregationStrategy {}
 }
 
 part naming {
-	class Name {
+	class Name covers MModelItem{
 		prior symmetric (possibleNames) MAtomicType fromType;
 		prior NameScheme nameScheme;
 	}
 	
-	class NameInstance {
-		prior Name type;
-		prior symmetric(names) MObject fromObject;
+	class NameInstance covers MModelItem{
+		prior symmetric Name type;
+		prior symmetric(names) AbstractObject fromObject;
 		prior NameSchemeInstance nameScheme;
 	}
 
 
-	class NameScheme {
+	class NameScheme covers MModelItem {
 		prior String regExpPattern;
 		prior indexed String name;	
 		prior MBoolean isIterable;
@@ -745,7 +747,7 @@ part naming {
 	}
 
 
-	class NameSchemeInstance##NSInst {
+	class NameSchemeInstance##NSInst covers MModelItem {
 		prior String name;
 		prior symmetric (names) NameScheme type;
 	}

@@ -1,43 +1,19 @@
 package model.messageOrLink;
 
 import model.UserException;
-import model.visitor.AnythingExceptionVisitor;
-import model.visitor.AnythingReturnExceptionVisitor;
-import model.visitor.AnythingReturnVisitor;
-import model.visitor.AnythingVisitor;
-import model.visitor.MModelItemExceptionVisitor;
-import model.visitor.MModelItemReturnExceptionVisitor;
-import model.visitor.MModelItemReturnVisitor;
-import model.visitor.MModelItemVisitor;
-import model.visitor.MessageOrLinkExceptionVisitor;
-import model.visitor.MessageOrLinkReturnExceptionVisitor;
-import model.visitor.MessageOrLinkReturnVisitor;
-import model.visitor.MessageOrLinkVisitor;
-import persistence.AbstractPersistentRoot;
-import persistence.Anything;
-import persistence.ConnectionHandler;
-import persistence.LinkProxi;
-import persistence.MModelItemSearchList;
-import persistence.PersistenceException;
-import persistence.PersistentAssociation;
-import persistence.PersistentCONCMModelItem;
-import persistence.PersistentLink;
-import persistence.PersistentMModelItem;
-import persistence.PersistentMObject;
-import persistence.PersistentMessageOrLink;
-import persistence.PersistentProxi;
-import persistence.TDObserver;
+import model.visitor.*;
+import persistence.*;
 
 /* Additional import section end */
 
 public class Link extends model.messageOrLink.MessageOrLink implements PersistentLink{
     
     
-    public static PersistentLink createLink(PersistentMObject source,PersistentMObject target,PersistentAssociation type) throws PersistenceException{
+    public static PersistentLink createLink(PersistentAbstractObject source,PersistentAbstractObject target,PersistentAssociation type) throws PersistenceException{
         return createLink(source,target,type,false);
     }
     
-    public static PersistentLink createLink(PersistentMObject source,PersistentMObject target,PersistentAssociation type,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentLink createLink(PersistentAbstractObject source,PersistentAbstractObject target,PersistentAssociation type,boolean delayed$Persistence) throws PersistenceException {
         PersistentLink result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theLinkFacade
@@ -56,7 +32,7 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
         return result;
     }
     
-    public static PersistentLink createLink(PersistentMObject source,PersistentMObject target,PersistentAssociation type,boolean delayed$Persistence,PersistentLink This) throws PersistenceException {
+    public static PersistentLink createLink(PersistentAbstractObject source,PersistentAbstractObject target,PersistentAssociation type,boolean delayed$Persistence,PersistentLink This) throws PersistenceException {
         PersistentLink result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theLinkFacade
@@ -111,9 +87,9 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
     }
     protected PersistentAssociation type;
     
-    public Link(PersistentMObject source,PersistentMObject target,PersistentMessageOrLink This,PersistentMModelItem myCONCMModelItem,PersistentAssociation type,long id) throws persistence.PersistenceException {
+    public Link(PersistentAbstractObject source,PersistentAbstractObject target,PersistentMessageOrLink This,PersistentMModelItem myCONCMModelItem,PersistentAssociation type,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMObject)source,(PersistentMObject)target,(PersistentMessageOrLink)This,(PersistentMModelItem)myCONCMModelItem,id);
+        super((PersistentAbstractObject)source,(PersistentAbstractObject)target,(PersistentMessageOrLink)This,(PersistentMModelItem)myCONCMModelItem,id);
         this.type = type;        
     }
     
@@ -209,8 +185,8 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
 		if(this.equals(This)){
 			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentLink)This);
 			this.setMyCONCMModelItem(myCONCMModelItem);
-			this.setSource((PersistentMObject)final$$Fields.get("source"));
-			this.setTarget((PersistentMObject)final$$Fields.get("target"));
+			this.setSource((PersistentAbstractObject)final$$Fields.get("source"));
+			this.setTarget((PersistentAbstractObject)final$$Fields.get("target"));
 			this.setType((PersistentAssociation)final$$Fields.get("type"));
 		}
     }
