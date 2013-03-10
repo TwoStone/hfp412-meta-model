@@ -92,4 +92,17 @@ public class SummableHashMap<K> {
 		}
 	}
 
+	/**
+	 * dreht bei allen werten die vorzeichen um. Macht neue HashMap
+	 */
+	public SummableHashMap<K> invertSign() {
+		final Iterator<K> i = this.getMap().keySet().iterator();
+		final SummableHashMap<K> result = new SummableHashMap<K>();
+		while (i.hasNext()) {
+			final K key = i.next();
+			result.getMap().put(key, this.getMap().get(key) * (-1));
+		}
+		return result;
+	}
+
 }

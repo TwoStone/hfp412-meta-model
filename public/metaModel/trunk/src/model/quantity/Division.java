@@ -177,16 +177,31 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
     }
     
     
+    public void calcTargetRefs(final PersistentQuantity arg1, final PersistentQuantity arg2) 
+				throws model.NotComputableException, PersistenceException{
+		final SummableHashMap<PersistentUnit> myReferences = computeReferences(arg1);
+		SummableHashMap<PersistentUnit> factorReferences = computeReferences(arg2);
+		factorReferences = factorReferences.invertSign();
+		final SummableHashMap<PersistentUnit> aggregatedReferences = aggregateReferences(myReferences, factorReferences);
+		this.targetRefs = aggregatedReferences;
+
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentDivision)This);
 		if(this.equals(This)){
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public common.Fraction calcFraction(final common.Fraction arg1, final common.Fraction arg2) 
 				throws model.NotComputableException, PersistenceException{
 		try {
@@ -207,33 +222,11 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
 		this.targetRefTypes = myRefTypes;
 
 	}
-    public void calcTargetRefs(final PersistentQuantity arg1, final PersistentQuantity arg2) 
-				throws model.NotComputableException, PersistenceException{
-		final SummableHashMap<PersistentUnit> myReferences = computeReferences(arg1);
-		final SummableHashMap<PersistentUnit> factorReferences = computeReferences(arg2);
-		final SummableHashMap<PersistentUnit> aggregatedReferences = aggregateReferences(myReferences, factorReferences);
-		this.targetRefs = aggregatedReferences;
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
-
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 		// TODO: implement method: initializeOnCreation
 
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
-
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
 
@@ -258,8 +251,7 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
 			}
 
 			@Override
-			public SummableHashMap<PersistentUnit> handleCompUnit(final PersistentCompUnit compUnit)
-					throws PersistenceException {
+			public SummableHashMap<PersistentUnit> handleCompUnit(final PersistentCompUnit compUnit) throws PersistenceException {
 				final SummableHashMap<PersistentUnit> result = new SummableHashMap<PersistentUnit>();
 				final Iterator<PersistentReference> i = compUnit.getRefs().iterator();
 				while (i.hasNext()) {
@@ -281,7 +273,7 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
 	private SummableHashMap<PersistentUnit> aggregateReferences(final SummableHashMap<PersistentUnit> myReferences,
 			final SummableHashMap<PersistentUnit> factorReferences) {
 		final SummableHashMap<PersistentUnit> result = myReferences;
-		myReferences.aggregate_sub((factorReferences));
+		myReferences.aggregate_add((factorReferences));
 		return result;
 	}
 
@@ -293,8 +285,7 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
 	 * @return
 	 * @throws PersistenceException
 	 */
-	private SummableHashMap<PersistentUnitType> computeReferenceTypes(final SummableHashMap<PersistentUnit> references)
-			throws PersistenceException {
+	private SummableHashMap<PersistentUnitType> computeReferenceTypes(final SummableHashMap<PersistentUnit> references) throws PersistenceException {
 		final SummableHashMap<PersistentUnitType> result = new SummableHashMap<PersistentUnitType>();
 		final Iterator<PersistentUnit> i = references.getMap().keySet().iterator();
 		while (i.hasNext()) {

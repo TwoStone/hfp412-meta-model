@@ -162,21 +162,9 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
     }
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
-        this.setThis((PersistentCompUnit)This);
-		if(this.equals(This)){
-			this.setType((PersistentAbsUnitType)final$$Fields.get("type"));
-			this.setName((String)final$$Fields.get("name"));
-		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
+		// implement method: initializeOnInstantiation
 
 	}
     public PersistentMBoolean hasReferences(final ReferenceSearchList refs) 
@@ -208,19 +196,23 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
 
 		return result;
     }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentCompUnit)This);
+		if(this.equals(This)){
+			this.setType((PersistentAbsUnitType)final$$Fields.get("type"));
+			this.setName((String)final$$Fields.get("name"));
+		}
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// implement method: initializeOnInstantiation
-
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     
