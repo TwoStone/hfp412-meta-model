@@ -167,7 +167,7 @@ part typeSystem {
 	}
 	
 	/* Atomare Typen */
-	class MAtomicType@@AtomicType extends MType {
+	class MAtomicType@@AtomicType extends MType implements AnythingORMATomicType {
 		prior indexed String name;
 		client-as-string prior MBoolean singletonType;
 		client-as-string prior MBoolean abstractType;
@@ -221,7 +221,7 @@ part typeSystem {
 	}
 	
 			/* Anything */
-	singleton MEmptyTypeConjunction##ETpConj@@EmptyTypeConjunction extends MAtomicTypeConjunction {}
+	singleton MEmptyTypeConjunction##ETpConj@@EmptyTypeConjunction extends MAtomicTypeConjunction implements AnythingORMATomicType {}
 
 	class MNonEmptyAtomicTypeConjunction##NEATConj extends MAtomicTypeConjunction{
 		symmetric(no-view nEATCContainingMe) MAtomicType** factors hierarchy MComplexTypeHierarchy;
@@ -232,6 +232,9 @@ part typeSystem {
 		symmetric(no-view mTCContainingMe) MType** factors hierarchy MComplexTypeHierarchy;
 	}
 		
+	interface AnythingORMATomicType##AnthngORMAT {}
+
+
 	abstract class AbstractObject##AbsObj covers MModelItem {
 		derived Name ** possibleNames;
 		MNonEmptyAtomicTypeConjunction fetchProductType();
