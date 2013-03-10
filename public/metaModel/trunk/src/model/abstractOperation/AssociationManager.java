@@ -182,102 +182,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     
     
-    public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentAddAssociationCommand command = model.meta.AddAssociationCommand.createAddAssociationCommand(now, now);
-		command.setH(h);
-		command.setA(a);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void createAssociation(final PersistentMType source, final PersistentMType target, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateAssociationCommand command = model.meta.CreateAssociationCommand.createCreateAssociationCommand(name, now, now);
-		command.setSource(source);
-		command.setTarget(target);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void createHierarchy(final PersistentAssociation a, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateHierarchyCommand command = model.meta.CreateHierarchyCommand.createCreateHierarchyCommand(name, now, now);
-		command.setA(a);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentAssociationManager)This);
-		if(this.equals(This)){
-		}
-    }
-    public void removeAssoFrmHier(final PersistentHierarchy h, final PersistentAssociation a, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveAssoFrmHierCommand command = model.meta.RemoveAssoFrmHierCommand.createRemoveAssoFrmHierCommand(now, now);
-		command.setH(h);
-		command.setA(a);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void removeAssociation(final PersistentAssociation a, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveAssociationCommand command = model.meta.RemoveAssociationCommand.createRemoveAssociationCommand(now, now);
-		command.setA(a);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void removeHierarchy(final PersistentHierarchy h, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveHierarchyCommand command = model.meta.RemoveHierarchyCommand.createRemoveHierarchyCommand(now, now);
-		command.setH(h);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
-				throws model.ConsistencyException, model.CycleException, PersistenceException{
-		// Consistency, wenn Assoc schon in Hierarchy
-		if (h.getAssociations().findFirst(new Predcate<PersistentAssociation>() {
-			@Override
-			public boolean test(final PersistentAssociation argument) throws PersistenceException {
-				return argument.equals(a);
-			}
-		}) != null) {
-			throw new ConsistencyException(ExceptionConstants.CE_ASSOC_ALREADY_IN_HIERARCHY);
-		}
-
-		// Pruefen ob durch bestehende Links ein Zyklus entstehen wuerde
-		final LinkSearchList allLinksOfAssociation = a.inverseGetType();
-
-		final PersistentLink firstCycle = allLinksOfAssociation.findFirst(new Predcate<PersistentLink>() {
-
-			@Override
-			public boolean test(final PersistentLink argument) throws PersistenceException {
-				return argument.getTarget().containsInHierarchy(argument.getSource(), h).toBoolean();
-			}
-		});
-		if (firstCycle != null) {
-			throw new CycleException(ExceptionConstants.CYCLE_ADD_ASSOC + firstCycle.toString());
-		}
-
-		a.getHierarchies().add(h);
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
     public PersistentAssociation createAssociation(final PersistentMType source, final PersistentMType target, final String name) 
@@ -324,27 +229,62 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		getThis().getAssociations().add(a);
 		return a;
 	}
-    public PersistentHierarchy createHierarchy(final PersistentAssociation a, final String name) 
-				throws model.DoubleDefinitionException, model.ConsistencyException, model.CycleException, PersistenceException{
-		if (getThis().getHierarchies().findFirst(new Predcate<PersistentHierarchy>() {
+    public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentAddAssociationCommand command = model.meta.AddAssociationCommand.createAddAssociationCommand(now, now);
+		command.setH(h);
+		command.setA(a);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void removeHierarchy(final PersistentHierarchy h, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveHierarchyCommand command = model.meta.RemoveHierarchyCommand.createRemoveHierarchyCommand(now, now);
+		command.setH(h);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void removeHierarchy(final PersistentHierarchy h) 
+				throws PersistenceException{
+		getThis().getHierarchies().removeFirstSuccess(new Predcate<PersistentHierarchy>() {
+
 			@Override
 			public boolean test(final PersistentHierarchy argument) throws PersistenceException {
-				return argument.getName().equals(name);
+				return argument.equals(h);
+			}
+		});
+	}
+    public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
+				throws model.ConsistencyException, model.CycleException, PersistenceException{
+		// Consistency, wenn Assoc schon in Hierarchy
+		if (h.getAssociations().findFirst(new Predcate<PersistentAssociation>() {
+			@Override
+			public boolean test(final PersistentAssociation argument) throws PersistenceException {
+				return argument.equals(a);
 			}
 		}) != null) {
-			throw new DoubleDefinitionException(ExceptionConstants.DDE_HIERARCHY);
+			throw new ConsistencyException(ExceptionConstants.CE_ASSOC_ALREADY_IN_HIERARCHY);
 		}
 
-		final PersistentHierarchy h = Hierarchy.createHierarchy(name);
-		getThis().addAssociation(h, a);
-		getThis().getHierarchies().add(h);
-		return h;
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
+		// Pruefen ob durch bestehende Links ein Zyklus entstehen wuerde
+		final LinkSearchList allLinksOfAssociation = a.inverseGetType();
+
+		final PersistentLink firstCycle = allLinksOfAssociation.findFirst(new Predcate<PersistentLink>() {
+
+			@Override
+			public boolean test(final PersistentLink argument) throws PersistenceException {
+				return argument.getTarget().containsInHierarchy(argument.getSource(), h).toBoolean();
+			}
+		});
+		if (firstCycle != null) {
+			throw new CycleException(ExceptionConstants.CYCLE_ADD_ASSOC + firstCycle.toString());
+		}
+
+		a.getHierarchies().add(h);
 	}
     public void removeAssoFrmHier(final PersistentHierarchy h, final PersistentAssociation a) 
 				throws model.NotAvailableException, model.ConsistencyException, model.CycleException, PersistenceException{
@@ -373,6 +313,19 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 			}
 		});
 	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void removeAssoFrmHier(final PersistentHierarchy h, final PersistentAssociation a, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveAssoFrmHierCommand command = model.meta.RemoveAssoFrmHierCommand.createRemoveAssoFrmHierCommand(now, now);
+		command.setH(h);
+		command.setA(a);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void removeAssociation(final PersistentAssociation a) 
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
 		// Consistency, falls es Links gibt.
@@ -391,20 +344,59 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 			}
 		});
 	}
-    public void removeHierarchy(final PersistentHierarchy h) 
+    public void createAssociation(final PersistentMType source, final PersistentMType target, final String name, final Invoker invoker) 
 				throws PersistenceException{
-		getThis().getHierarchies().removeFirstSuccess(new Predcate<PersistentHierarchy>() {
-
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateAssociationCommand command = model.meta.CreateAssociationCommand.createCreateAssociationCommand(name, now, now);
+		command.setSource(source);
+		command.setTarget(target);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentAssociationManager)This);
+		if(this.equals(This)){
+		}
+    }
+    public void createHierarchy(final PersistentAssociation a, final String name, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateHierarchyCommand command = model.meta.CreateHierarchyCommand.createCreateHierarchyCommand(name, now, now);
+		command.setA(a);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void removeAssociation(final PersistentAssociation a, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveAssociationCommand command = model.meta.RemoveAssociationCommand.createRemoveAssociationCommand(now, now);
+		command.setA(a);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public PersistentHierarchy createHierarchy(final PersistentAssociation a, final String name) 
+				throws model.DoubleDefinitionException, model.ConsistencyException, model.CycleException, PersistenceException{
+		if (getThis().getHierarchies().findFirst(new Predcate<PersistentHierarchy>() {
 			@Override
 			public boolean test(final PersistentHierarchy argument) throws PersistenceException {
-				return argument.equals(h);
+				return argument.getName().equals(name);
 			}
-		});
+		}) != null) {
+			throw new DoubleDefinitionException(ExceptionConstants.DDE_HIERARCHY);
+		}
+
+		final PersistentHierarchy h = Hierarchy.createHierarchy(name);
+		getThis().addAssociation(h, a);
+		getThis().getHierarchies().add(h);
+		return h;
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
 	/* End of protected part that is not overridden by persistence generator */

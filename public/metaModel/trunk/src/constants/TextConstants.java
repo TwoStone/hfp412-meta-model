@@ -54,6 +54,8 @@ public final class TextConstants {
 	 * Konstante für Leerzeichen " "
 	 */
 	public static final String SPACE = " ";
+
+	public static final String POWER = "^";
 	/*
 	 * 2 To-String-Schemata für Boolsche Werte
 	 */

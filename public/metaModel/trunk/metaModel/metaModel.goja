@@ -356,11 +356,7 @@ part observations {
 part quantity {
 
 	abstract class AbsQuantity {
-	
-		AbsQuantity add(AbsQuantity summand) throws NotComputableException;
-		AbsQuantity sub(AbsQuantity subtrahend) throws NotComputableException;
-		AbsQuantity mul(AbsQuantity factor) throws NotComputableException, DoubleDefinitionException;
-		AbsQuantity div(AbsQuantity divisor) throws NotComputableException;
+
 		MBoolean isLessOrEqualThan(AbsQuantity compareValue) throws UserException;
 	}
 

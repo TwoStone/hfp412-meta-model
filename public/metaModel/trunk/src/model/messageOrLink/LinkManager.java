@@ -159,39 +159,6 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
     }
     
     
-    public void createLink(final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentCreateLinkCommand command = model.meta.CreateLinkCommand.createCreateLinkCommand(now, now);
-		command.setType(type);
-		command.setSource(source);
-		command.setTarget(target);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentLinkManager)This);
-		if(this.equals(This)){
-		}
-    }
-    public void removeLink(final PersistentLink link, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveLinkCommand command = model.meta.RemoveLinkCommand.createRemoveLinkCommand(now, now);
-		command.setLink(link);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public PersistentLink createLink(final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target) 
 				throws model.ConsistencyException, model.CycleException, PersistenceException{
 		if (target.containsInHierarchies(source, type.getHierarchies().getList()).toBoolean()) {
@@ -229,10 +196,39 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 		getThis().getLinks().add(createLink);
 		return createLink;
 	}
-    public void initializeOnCreation() 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentLinkManager)This);
+		if(this.equals(This)){
+		}
+    }
+    public void removeLink(final PersistentLink link, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentRemoveLinkCommand command = model.meta.RemoveLinkCommand.createRemoveLinkCommand(now, now);
+		command.setLink(link);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createLink(final PersistentAssociation type, final PersistentMObject source, final PersistentMObject target, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentCreateLinkCommand command = model.meta.CreateLinkCommand.createCreateLinkCommand(now, now);
+		command.setType(type);
+		command.setSource(source);
+		command.setTarget(target);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void initializeOnCreation() 
 				throws PersistenceException{
 	}
     public void removeLink(final PersistentLink link) 
@@ -245,10 +241,6 @@ public class LinkManager extends PersistentObject implements PersistentLinkManag
 			}
 		});
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
 

@@ -120,6 +120,12 @@ public abstract class MType extends PersistentObject implements PersistentMType{
     
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
     public MMixedConjunctionSearchList getMTCContainingMe() 
 				throws PersistenceException{
         MMixedConjunctionSearchList result = null;
@@ -127,10 +133,6 @@ public abstract class MType extends PersistentObject implements PersistentMType{
 							.inverseGetFactors(this.getId(), this.getClassId());
 		return result;
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public MMixedTypeDisjunctionSearchList getMTDJContainingMe() 
 				throws PersistenceException{
         MMixedTypeDisjunctionSearchList result = null;
@@ -146,13 +148,6 @@ public abstract class MType extends PersistentObject implements PersistentMType{
 			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
-    public AbsOperationSearchList inverseGetSource() 
-				throws PersistenceException{
-        AbsOperationSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade
-							.inverseGetSource(this.getId(), this.getClassId());
-		return result;
-    }
     public MObservationTypeSearchList inverseGetTheType() 
 				throws PersistenceException{
         MObservationTypeSearchList result = null;
@@ -160,19 +155,16 @@ public abstract class MType extends PersistentObject implements PersistentMType{
 							.inverseGetTheType(this.getId(), this.getClassId());
 		return result;
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public void initializeOnInstantiation() 
+    public AbsOperationSearchList inverseGetSource() 
 				throws PersistenceException{
-	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+        AbsOperationSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade
+							.inverseGetSource(this.getId(), this.getClassId());
+		return result;
+    }
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
 		this.getMyCONCMModelItem().delete();

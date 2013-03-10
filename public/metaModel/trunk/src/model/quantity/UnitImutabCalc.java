@@ -100,9 +100,9 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
 				}
 			}
 			// add q to comp
-			comp.add(q);
+			comp.getParts().add(q);
 		} else {
-			comp.add(positiveOrNegative(atom));
+			comp.getParts().add((PersistentQuantity) positiveOrNegative(atom));
 		}
 
 	}
@@ -127,7 +127,7 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
 				readElements.add(counterPart);
 				counterPart = null;
 			} else {
-				cp.add(positiveOrNegative(current));
+				cp.getParts().add((PersistentQuantity) positiveOrNegative(current));
 			}
 		}
 		// iterate over 2nd comp quantity
@@ -135,7 +135,7 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
 		while (i.hasNext()) {
 			final PersistentQuantity current = i.next();
 			if (!(readElements.contains(current))) {
-				cp.add(positiveOrNegative(current));
+				cp.getParts().add((PersistentQuantity) positiveOrNegative(current));
 			}
 		}
 	}

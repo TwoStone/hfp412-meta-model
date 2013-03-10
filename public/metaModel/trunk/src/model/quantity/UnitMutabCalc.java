@@ -333,10 +333,12 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 			String currentUnitReferenceString = "";
 			final PersistentUnit current = i.next();
 			if (!i.hasNext()) {
-				currentUnitReferenceString = current.toString() + TextConstants.CURLY_BRACKET_CLOSED
+				currentUnitReferenceString = current.toString() + TextConstants.POWER
+						+ referenceMap.getMap().get(current).toString() + TextConstants.CURLY_BRACKET_CLOSED
 						+ TextConstants.SPACE;
 			} else {
-				currentUnitReferenceString = current.toString() + TextConstants.SEMICOLON + TextConstants.SPACE;
+				currentUnitReferenceString = current.toString() + TextConstants.POWER
+						+ referenceMap.getMap().get(current).toString() + TextConstants.SEMICOLON + TextConstants.SPACE;
 			}
 			unitReferenceSet = unitReferenceSet + currentUnitReferenceString;
 		}
@@ -354,10 +356,13 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 			String currentUnitReferenceTypeString = "";
 			final PersistentUnitType current = i.next();
 			if (!i.hasNext()) {
-				currentUnitReferenceTypeString = current.toString() + TextConstants.CURLY_BRACKET_CLOSED
+				currentUnitReferenceTypeString = current.toString() + TextConstants.POWER
+						+ referenceTypeMap.getMap().get(current).toString() + TextConstants.CURLY_BRACKET_CLOSED
 						+ TextConstants.SPACE;
 			} else {
-				currentUnitReferenceTypeString = current.toString() + TextConstants.SEMICOLON + TextConstants.SPACE;
+				currentUnitReferenceTypeString = current.toString() + TextConstants.POWER
+						+ referenceTypeMap.getMap().get(current).toString() + TextConstants.SEMICOLON
+						+ TextConstants.SPACE;
 			}
 			unitReferenceTypeSet = unitReferenceTypeSet + currentUnitReferenceTypeString;
 		}

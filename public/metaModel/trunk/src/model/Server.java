@@ -614,7 +614,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2) 
 				throws model.DoubleDefinitionException, model.NotComputableException, PersistenceException{
-		// TODO: implement method: mul
+		getThis().getQuantityManager().mul(factor1, factor2, getThis());
 
 	}
     public PersistentEnumValueManager getEnumValueManager() 
@@ -709,7 +709,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) 
 				throws model.NotComputableException, PersistenceException{
-		// TODO: implement method: div
+		getThis().getQuantityManager().div(dividend, divisor, getThis());
 
 	}
     public void changeUnitName(final PersistentAbsUnit unit, final String name) 
@@ -1218,8 +1218,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void sub(final PersistentAbsQuantity minuend, final PersistentAbsQuantity subtrahend) 
 				throws model.NotComputableException, PersistenceException{
-		// TODO: implement method: sub
-
+		getThis().getQuantityManager().sub(minuend, subtrahend, getThis());
 	}
     public void assignName(final PersistentMObject object, final PersistentName scheme, final String name) 
 				throws PersistenceException{

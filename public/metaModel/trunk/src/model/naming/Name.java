@@ -220,6 +220,16 @@ public class Name extends PersistentObject implements PersistentName{
     }
     
     
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        //TODO: implement method: initializeOnInstantiation
+        
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        //TODO: implement method: copyingPrivateUserAttributes
+        
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentName)This);
@@ -228,29 +238,11 @@ public class Name extends PersistentObject implements PersistentName{
 			this.setNameScheme((PersistentNameScheme)final$$Fields.get("nameScheme"));
 		}
     }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         //TODO: implement method: initializeOnCreation
         
     }
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
-    
-    
-    // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     

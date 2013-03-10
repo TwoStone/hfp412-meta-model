@@ -164,26 +164,6 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
-    public PersistentAbsQuantity sub(final PersistentAbsQuantity subtrahend) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-    public PersistentAbsQuantity mul(final PersistentAbsQuantity factor) 
-				throws model.DoubleDefinitionException, model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-    public PersistentAbsQuantity div(final PersistentAbsQuantity divisor) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-    public PersistentAbsQuantity add(final PersistentAbsQuantity summand) 
-				throws model.NotComputableException, PersistenceException{
-		// TODO Auto-generated method stub hugo ist da
-		return null;
-	}
     public PersistentMBoolean isLessOrEqualThan(final PersistentAbsQuantity compareValue) 
 				throws model.UserException, PersistenceException{
 		// TODO Auto-generated method stub
