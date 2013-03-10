@@ -8,6 +8,7 @@ import model.ConsistencyException;
 import model.DoubleDefinitionException;
 import model.UserException;
 import model.visitor.AbsUnitReturnExceptionVisitor;
+import model.visitor.AbsUnitTypeReturnExceptionVisitor;
 import model.visitor.AbsUnitTypeReturnVisitor;
 import model.visitor.AbsUnitTypeVisitor;
 import model.visitor.AnythingExceptionVisitor;
@@ -468,69 +469,68 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 			final PersistentUnitType referenceUnitType, final long exponent) throws model.DoubleDefinitionException,
 			PersistenceException {
 
-		// Name schon vorhanden?
-		final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
-		if (old.iterator().hasNext()) {
-			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
-		}
+		final PersistentAbsUnitType cut = unitType
+				.accept(new AbsUnitTypeReturnExceptionVisitor<PersistentAbsUnitType, DoubleDefinitionException>() {
 
-		final PersistentAbsUnitType cut = unitType.accept(new AbsUnitTypeReturnVisitor<PersistentAbsUnitType>() {
+					@Override
+					public PersistentAbsUnitType handleCompUnitType(final PersistentCompUnitType compUnitType)
+							throws PersistenceException, DoubleDefinitionException {
+						// Referenzen von compUnitType auf referenceUnitType überprüfen
+						PersistentReferenceType refType = null;
+						final ReferenceTypeSearchList refTypeList = new ReferenceTypeSearchList();
+						final Iterator<PersistentReferenceType> i = compUnitType.getRefs().iterator();
+						while (i.hasNext()) {
+							final PersistentReferenceType next = i.next();
+							if (next.getRef().equals(referenceUnitType)) {
+								refType = next;
+							} else {
+								refTypeList.add(next);
+							}
+						}
 
-			@Override
-			public PersistentAbsUnitType handleCompUnitType(final PersistentCompUnitType compUnitType)
-					throws PersistenceException {
-				// Referenzen von compUnitType auf referenceUnitType überprüfen
-				PersistentReferenceType refType = null;
-				final ReferenceTypeSearchList refTypeList = new ReferenceTypeSearchList();
-				final Iterator<PersistentReferenceType> i = compUnitType.getRefs().iterator();
-				while (i.hasNext()) {
-					final PersistentReferenceType next = i.next();
-					if (next.getRef().equals(referenceUnitType)) {
-						refType = next;
-					} else {
-						refTypeList.add(next);
+						if (refType == null) {
+							refType = getReferenceType(referenceUnitType, exponent);
+							refTypeList.add(refType);
+						} else {
+							if (exponent + refType.getExponent() != 0) {
+								refType = getReferenceType(referenceUnitType, exponent + refType.getExponent());
+								refTypeList.add(refType);
+							} else {
+								if (refTypeList.getLength() == 1 && refTypeList.iterator().next().getExponent() == 1) {
+
+									return referenceUnitType;
+								}
+							}
+						}
+
+						return getCUT(name, refTypeList);
+
 					}
-				}
 
-				if (refType == null) {
-					refType = getReferenceType(referenceUnitType, exponent);
-					refTypeList.add(refType);
-				} else {
-					if (exponent + refType.getExponent() != 0) {
-						refType = getReferenceType(referenceUnitType, exponent + refType.getExponent());
-						refTypeList.add(refType);
-					} else {
-						if (refTypeList.getLength() == 1 && refTypeList.iterator().next().getExponent() == 1) {
-
-							return referenceUnitType;
+					@Override
+					public PersistentAbsUnitType handleUnitType(final PersistentUnitType unitType)
+							throws PersistenceException, DoubleDefinitionException {
+						// ReferenceType mit unitType laden bzw. erstellen
+						final ReferenceTypeSearchList refTypeList = new ReferenceTypeSearchList();
+						if (referenceUnitType.equals(unitType)) {
+							if (exponent + 1 == 1) {
+								return unitType;
+							}
+							if (exponent + 1 != 0) {
+								refTypeList.add(getReferenceType(unitType, exponent + 1));
+								return getCUT(name, refTypeList);
+							}
+							return fetchScalarType();
+						} else {
+							final PersistentReferenceType refType = getReferenceType(referenceUnitType, exponent);
+							final PersistentReferenceType refType2 = getReferenceType(unitType, 1);
+							refTypeList.add(refType2);
+							refTypeList.add(refType);
+							return getCUT(name, refTypeList);
 						}
 					}
-				}
 
-				return getCUT(name, refTypeList);
-
-			}
-
-			@Override
-			public PersistentAbsUnitType handleUnitType(final PersistentUnitType unitType) throws PersistenceException {
-				// ReferenceType mit unitType laden bzw. erstellen
-				final ReferenceTypeSearchList refTypeList = new ReferenceTypeSearchList();
-				if (referenceUnitType.equals(unitType)) {
-					if (exponent + 1 != 0) {
-						refTypeList.add(getReferenceType(unitType, exponent + 1));
-						return getCUT(name, refTypeList);
-					}
-					return fetchScalarType();
-				} else {
-					final PersistentReferenceType refType = getReferenceType(referenceUnitType, exponent);
-					final PersistentReferenceType refType2 = getReferenceType(unitType, 1);
-					refTypeList.add(refType2);
-					refTypeList.add(refType);
-					return getCUT(name, refTypeList);
-				}
-			}
-
-		});
+				});
 
 		return cut;
 
@@ -968,11 +968,18 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 	 * @param refTypes
 	 * @return
 	 * @throws PersistenceException
+	 * @throws DoubleDefinitionException
 	 */
 	protected PersistentCompUnitType getCUT(final String name, final ReferenceTypeSearchList refTypes)
-			throws PersistenceException {
+			throws PersistenceException, DoubleDefinitionException {
 		PersistentCompUnitType result = getExistingCUT(refTypes);
 		if (result == null) {
+
+			// Name schon vorhanden?
+			final AbsUnitTypeSearchList old = AbsUnitType.getAbsUnitTypeByName(name);
+			if (old.iterator().hasNext()) {
+				throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_UNIT_TYPE_DEFINITION + name);
+			}
 			result = CompUnitType.createCompUnitType(name);
 			try {
 				result.getRefs().add(refTypes);

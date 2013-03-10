@@ -134,8 +134,7 @@ public class CompUnitTypeTest extends TestingBase {
 			}
 
 		} catch (final DoubleDefinitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail("Exception: " + e.getMessage());
 		} catch (final PersistenceException e) {
 			fail("Exception: " + e.getMessage());
 		}
