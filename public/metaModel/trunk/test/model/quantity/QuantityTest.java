@@ -34,9 +34,9 @@ public class QuantityTest {
 	 */
 	@Test
 	public void testMergeMaps() {
-		SummableHashMap<String> map1 = new SummableHashMap<String>();
-		SummableHashMap<String> map2 = new SummableHashMap<String>();
-		SummableHashMap<String> exp = new SummableHashMap<String>();
+		final SummableHashMap<String> map1 = new SummableHashMap<String>();
+		final SummableHashMap<String> map2 = new SummableHashMap<String>();
+		final SummableHashMap<String> exp = new SummableHashMap<String>();
 
 		map1.getMap().put("a", (long) 1);
 		map1.getMap().put("b", (long) 2);
@@ -49,7 +49,7 @@ public class QuantityTest {
 		exp.getMap().put("b", (long) -3);
 		exp.getMap().put("c", (long) 7);
 
-		map1.aggregate(map2);
+		map1.aggregate_add(map2);
 
 		assertEquals(exp.getMap(), map1.getMap());
 	}
