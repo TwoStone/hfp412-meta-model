@@ -1,15 +1,127 @@
 \subsection{Measurement}
 
-Hier beschreiben\ldots
+Auf der Modellebene befinden sich im Bereich \term{Measurement} zunächst drei Klassen: \term{MeasurementType}, \term{AccountType}
+und deren gemeinsame Oberklasse \term{QuantifiedObjectType}. Auf der Exemplarebene finden sich deren Pendants als \term{Measurement},
+\term{Account} und \term{QuantifiedObject}.
+
+Die Operation \term{aggregate} des \term{QuantifiedObjects} fordert zudem eine sogenannte \term{AggregationStrategy},
+die in vier Unterklassen konkret ausgeprägt werden kann.
+Zusätzlich existieren drei Manager: der \term{MeasurementTypeManager}, der \term{AccountTypeManager} und der \term{AccountManager}.
+Diese Klassen werden im Folgenden nach Themengebieten beschrieben.
 
 
-\subsubsection{Attribute und Assoziationen}
+\subsubsection{Account}
 
-Hier Fliesstext mit Aufzaehlung der Parameter sovie JavaDoc
+\TODO[Kapitel schreiben]
+
+-- Attribute: MAccountType type, Account** subAccounts hierarchy AccountHierarchy, Measurement** entries
+
+-- Operationen:
+
+\begin{description}
+	\item[addEntry] Beschreiben
+	\item[addSubAccount] Beschreiben
+\end{description}
 
 
-\subsubsection{Operationen}
+\subsubsection{AccountType}
 
-\subsubsubsection{Derived, Get und DependentItems}
+\TODO[Kapitel schreiben]
 
-Hier Fliesstext mit Aufzaehlung der Parameter sovie JavaDoc
+-- Attribute: MAccountType** subAccountTypes hierarchy MAccountTypeHierarchy
+
+-- Operationen:
+
+\begin{description}
+	\item[addSubAccountType] Beschreiben
+\end{description}
+
+
+\subsubsection{AccountManager}
+
+\TODO[Kapitel schreiben]
+
+-- Attribute: Account** accounts
+
+-- Operationen:
+
+\begin{description}
+	\item[createAccount] Beschreiben
+\end{description}
+
+
+\subsubsection{AccountTypeManager}
+
+\TODO[Kapitel schreiben]
+
+-- Attribute: MAccountType** accountTypes
+
+-- Operationen:
+
+\begin{description}
+	\item[createAccountType] Beschreiben
+\end{description}
+
+
+\TODO[Überleitung via account.entries]
+
+
+\subsubsection{Measurement}
+
+\TODO[Kapitel schreiben]
+
+-- Attribute: MMeasurementType type, AbsQuantity quantity
+
+-- Keine Operationen
+
+
+\subsubsection{MeasurementType}
+
+\TODO[Kapitel schreiben]
+
+-- Keine Attribute
+
+-- Keine Operationen
+
+
+\subsubsection{MeasurementTypeManager}
+
+\TODO[Kapitel schreiben]
+
+-- Attribute: MMeasurementType** measurementTypes
+
+-- Operationen:
+
+\begin{description}
+	\item[createMeasurementType] Beschreiben
+\end{description}
+
+
+\subsubsection{QuantifiedObject}
+
+\TODO[Kapitel schreiben]
+
+-- Attribute: MObject object
+
+-- Nur Operation aggregate
+
+
+\subsubsection{QuantifiedObjectType}
+
+\TODO[Kapitel schreiben]
+
+-- Attribute: MType type, AbsUnitType unitType
+
+-- Keine Operationen
+
+
+\subsubsection{AggregationStrategy}
+
+\TODO[Kapitel schreiben]
+
+-- Keine Attribute
+
+-- Nur Operation aggregateMeasurements
+
+
+
