@@ -1,6 +1,12 @@
 \subsection{Measurement}
+Martin Fowler unterscheidet in seinem Werk \refLibLiteratur{fowler1997analysis} zwischen qualitativen und quantitativen Messungen. 
+Wird beispielsweise die Blutgruppen (A, B, AB und 0) eines Menschen typisiert, so handelt es sich um eine qualitative Messung. 
+Im Kontext dieses Projekts wird diese Art von Messung als \term{Observation} (siehe Abschnitt \ref{Operation:Associationen}) bezeichnet. 
+Unter quantitativen Messungen, bezeichnet als \term{Measurement}, wird beispielsweise das Feststellen der Körpergröße eines Menschen verstanden.
+Measurements (beispielsweise Körpergröße von Hugo Egon Balder: 190cm) werden in Form von Quantitäten bzw. \term{Quantities} auf Konten (Accounts) erfasst.
+Des Weiteren gibt es \term{MeasurementTypes} und \term{AccountTypes}, welche in diesem Abschnitt noch genauer erläutert werden.
 
-\TODO[Measurement fachlich beschreiben]
+\TODO[Alex: noch Ergänzungen? Bzw. 'ne bessere Überleitung zum folgenden Absatz?]
 
 Auf der Modellebene befinden sich im Bereich \term{Measurement} zunächst drei Klassen: \term{MeasurementType}, \term{AccountType}
 und deren gemeinsame Oberklasse \term{QuantifiedObjectType}. Auf der Exemplarebene finden sich deren Pendants als \term{Measurement},
@@ -31,19 +37,24 @@ Diese Klassen werden im Folgenden nach Themengebieten beschrieben.
 
 
 \subsubsection{Account}
+Ein Konto (Account) gehört zu einem bestimmten Objekt (Object) und beinhaltet Einträge (entries) in Form von quantitativen Messungen (Measurements). 
+Jedes Konto ist in einem Typ (AccountType) klassifiziert und kann außerdem mehrere Unterkonten (Komposition von subAccounts) besitzen.
+Auf einem Konto kann auf Basis einer definierten Strategie (AggregationStrategy) aggregiert werden. 
+Beispielsweise kann so Summe, Durchschnitt, Maximum oder Minimum der Einträge errechnet werden. 
 
-\TODO[Kapitel schreiben]
-
--- Attribute: MAccountType type, Account** subAccounts hierarchy AccountHierarchy, Measurement** entries
-
--- Operationen:
-
+Im Metamodell besitzt ein Account die folgenden Assoziationen.
 \begin{description}
-	\item[addEntry] Beschreiben
-	\item[addSubAccount] Beschreiben
+	\item[MAccountType type] Typ des Accounts.
+	\item[Account** subAccounts hierarchy AccountHierarchy] Liste von Unterkonten.
+	\item[Measurement** entries] Liste von Einträgen.
+	\item[MObject object] Von QuantifiedObject geerbt.
 \end{description}
 
-\img[width=\relWidth{0.8}]{measurement/bild.png}{Bildunterschrift}{Measurement:EindeutigesLabel}
+Hinzu kommen die folgenden Operationen, welche zum Befüllen der o.g. Listen dienen.
+\begin{description}
+	\item[addEntry] Fügt einen neues Measurement in die entries-Liste hinzu. Das Element muss vom selben Typ sein wie die anderen Einträge der Liste (Konsistenzbedingungen folgen weiter unten).  
+	\item[addSubAccount] Fügt einem Konto ein neues Unterkonto hinzu. Hierbei muss der Typ des neuen Unterkontos $\leq$ dem Typ des Hauptkontos sein (Konsistenzbedingungen folgen weiter unten).
+\end{description}
 
 
 \subsubsection{AccountType}
@@ -60,15 +71,28 @@ Diese Klassen werden im Folgenden nach Themengebieten beschrieben.
 
 
 \subsubsection{Account \& AccountType}
+Wie bereits beschrieben, ist ein Account in einem AccountType klassifiziert. Dieser Typ ist unter anderem relevant, wenn dem Konto ein neues Unterkonto hinzugefügt werden soll.  
 
-\TODO[Kapitel schreiben]
+
+\img[width=\relWidth{0.8}]{measurement/bild.png}{Account \& AccountType}{Measurement:EindeutigesLabel}
+
+
+Daraus ergibt sich die folgende Konsistenzbedingung, welche bei Nichteinhaltung zu einer \term{ConsistencyException} führt.
+\begin{equation} \forall \, a \in Account: \forall s \in a.subaccounts: s.type \leq a.type
+\end{equation}
+
+
 
 
 \subsubsection{AccountManager}
 
 \TODO[Kapitel schreiben]
 
--- Attribute: Account** accounts
+-- Attribute: 
+
+\begin{description}
+	\item[Account** accounts] Beschreiben
+\end{description}
 
 -- Operationen:
 
@@ -81,7 +105,11 @@ Diese Klassen werden im Folgenden nach Themengebieten beschrieben.
 
 \TODO[Kapitel schreiben]
 
--- Attribute: MAccountType** accountTypes
+-- Attribute: 
+
+\begin{description}
+	\item[MAccountType** accountTypes] Beschreiben
+\end{description}
 
 -- Operationen:
 
@@ -89,8 +117,9 @@ Diese Klassen werden im Folgenden nach Themengebieten beschrieben.
 	\item[createAccountType] Beschreiben
 \end{description}
 
-
-\TODO[Überleitung via account.entries]
+Wie bereits beschrieben werden in Accounts Messungen in Form von Measurements erfasst. 
+Im folgenden Abschnitt wird auf die Assoziationen und Operationen von Measurements genauer eingegangen.
+\TODO[Überleitung via account.entries - passt so?]
 
 
 \subsubsection{Measurement}
@@ -109,6 +138,13 @@ Diese Klassen werden im Folgenden nach Themengebieten beschrieben.
 -- Keine Attribute
 
 -- Keine Operationen
+
+
+\subsubsection{Measurement \& MeasurementType}
+
+\TODO[Alex: passt das? Oder denk ich da falsch herum?]
+\begin{equation} \forall \, m_1, m_2 \in Account.entries: m_1.type = m_2.type
+\end{equation}
 
 
 \subsubsection{MeasurementTypeManager}
