@@ -8,13 +8,32 @@ Der UnitTypeManager beinhaltet zwei auf der Oberfläche sichtbare und zwei nicht
 \begin{description}
 \item[AbsUnitType** unitTypes] Diese Liste enthält alle Einheitentypen, die der Manager verwaltet.
 \item[AbsUnit ** units] Hier werden alle Einheiten abgelegt, die der Manager verwaltet.
-\item[ReferenceType** refTypes] Diese Liste enthält alle ReferenzTypen, die der Manager verwaltet. Sie ist nicht sichtbar und dient nur zur internen Verarbeitung von zusammengesetzten Einheitentypen (CompoundUnitTypes)
+\item[ReferenceType** refTypes] Diese Liste enthält alle Referenz-Typen, die der Manager verwaltet. Sie ist nicht sichtbar und dient nur zur internen Verarbeitung von zusammengesetzten Einheitentypen (CompoundUnitTypes)
 \item[Reference** refs] Hier werden alle Referenzen abgelegt, die der Manager verwaltet. Sie ist nicht sichtbar und dient nur zur internen Verarbeitung von zusammengesetzten Einheiten (CompoundUnits)
 \end{description}
 
 \subsubsubsection{QuantityManager} \newline
 
 \subsubsection{Einheitentypen} \newline
+Die Einheitentypen (UnitTypes) geben an, welche verschiedenen Einheiten fachlich zusammen gehören. Beispielsweise sind Dollar und Euro beides Währungen und können damit zusammengerechnet werden. In diesem Fall ist der Einheitentyp Währung und die beiden zugehörigen Einheiten sind Dollar und Euro. Bei Euro und Kilometer hingegen macht es wenig Sinn, diese zu Addieren oder zu Subtrahieren, denn das eine ist eine Währung und das andere eine Strecken-Angabe. Die Multiplikation und Division hingegen können auch auf unterschiedlichen Einheitentypen geschehen, wodurch dann zusammengesetzte Einheitentypen (CompoundUnitTypes) wie Geschwindigkeit (Strecke/Zeit) entstehen.
+
+Zur Verwaltung von UnitTypes und CompoundUnitTypes stellt der UnitTypeManager 7 transaktionale Operationen bereit. Folgende dieser Operationen sind direkt über die Oberfläche erreichbar:
+
+\begin{description}
+\item[createUnitType]
+\item[fetchScalarType]
+\item[changeUTName]
+\item[addReferenceType]
+\end{description}
+
+Folgende Operationen sind für die interne Verarbeitung relevant und können nicht über die Oberfläche aufgerufen werden:
+
+\begin{description}
+\item[getExistingCUT]
+\item[fetchCUT]
+\item[fetchReferenceType]
+\end{description}
+
 
 \subsubsection{Einheiten} \newline
 Fachlich gesehen können Einheiten (Units) von Quantitäten angenommen werden und sind in Einheitentypen typisiert.
@@ -25,7 +44,7 @@ Folgende dieser Operationen sind direkt über die Oberfläche erreichbar:
 
 \begin{description}
 \item[createUnit]
-Diese Operatione dient zum Erstellen einer neuen Unit. Da jede Unit fachlich in einem UnitType typisiert werden und einen Namen haben muss, können dieser Methode diese Werte entsprechend übergeben werden. Eine DoubleDefinitionException wird geworfen, wenn eine Unit mit dem gewählen Namen bereits existiert.
+Diese Operatione dient zum Erstellen einer neuen Unit. Da jede Unit fachlich in einem UnitType typisiert werden und einen Namen haben muss, können dieser Methode diese Werte entsprechend übergeben werden. Eine DoubleDefinitionException wird geworfen, wenn eine Unit mit dem gewählten Namen bereits existiert.
 \item[changeUName]
 Diese Operatione dient zum Umbenennen einer Unit. Auch hier wird die DoubleDefinitionException im doppelten Namensfall geworfen.
 \item[fetchScalar]
@@ -33,7 +52,7 @@ Liefert die eine CompountUnit, die keine Referenzen zu anderen Units aufweist.
 \item[addReference]
 Diese Operation kann sowohl auf Zusammengesetzten Einheiten, als auch auf atomaren Einheiten angewendet werden. Sie dient zum erstellen von CompoundUnits. Analog zur createUnit-Methode wird hier ein Name benötigt. Die entsprechende neue Referenz zur ausgewählten Unit wird durch einen Exponenten definiert. Die DoubleDefinitionException wird auch hier geworfen, falls es zu Namenskonflikten kommt.
 \item[setConversion]
-Mittels dieser Operation lässt sich für eine Unit eine Conversion zur aktuellen DefaultUnit des entsprechenden UnitTypes angeben. Die Umrechnungsrate besteht immer aus einem Faktor und einer Konstante. Die Conversion werden im Kapitel \ref{ConversionsKapitel} näher erleutert.
+Mittels dieser Operation lässt sich für eine Unit eine Conversion zur aktuellen DefaultUnit des entsprechenden UnitTypes angeben. Die Umrechnungsrate besteht immer aus einem Faktor und einer Konstante. Die Conversion werden im Kapitel \ref{ConversionsKapitel} näher erläutert.
 \end{description}
 
 Folgende Operationen sind für die interne Verarbeitung relevant und können nicht über die Oberfläche aufgerufen werden:
@@ -42,14 +61,14 @@ Folgende Operationen sind für die interne Verarbeitung relevant und können nic
 \item[getExistingCU]
 Hier wird anhand einer Liste von vorhandenen Referenzen eine CompoundUnit ermittelt, welche durch genau diese Referenzen definiert ist. Sollte diese Unit noch nicht existieren, wird null zurückgeliefert. Diese Operation dient zum vermeiden von Doppelt anlegten CompoundUnits.
 \item[fetchCU]
-Diese Operation ist ähnlich der getExistingCU()-operation. jedoch wird hierbei die CompoundUnit angelegt, falls sie noch nicht existiert. Die Angabe eines Namens ist erforderlich, falls eine neue CompoundUnit zustande kommen sollte. Auch hier wird entsprechend eine DoubleDefinitionException geworfen, falls eine Unit mit dem gewählen Namen bereits existiert.
+Diese Operation ist ähnlich der getExistingCU()-operation. jedoch wird hierbei die CompoundUnit angelegt, falls sie noch nicht existiert. Die Angabe eines Namens ist erforderlich, falls eine neue CompoundUnit zustande kommen sollte. Auch hier wird entsprechend eine DoubleDefinitionException geworfen, falls eine Unit mit dem gewählten Namen bereits existiert.
 \item[fetchReference]
-Mihilfe dieser Operation kann eine Referenz-Instanz mit einem gewissen Exponenten auf eine bestimmte Unit ermittelt werden. Falls diese Instanz noch nicht existierte, wird sie erzeugt. Das dient zum vermeiden von Doppelt anlegten Referenzen.
+Mithilfe dieser Operation kann eine Referenz-Instanz mit einem gewissen Exponenten auf eine bestimmte Unit ermittelt werden. Falls diese Instanz noch nicht existierte, wird sie erzeugt. Das dient zum vermeiden von Doppelt anlegten Referenzen.
 \end{description}
 
 \subsubsubsection{Conversions} \newline
 \label{ConversionsKapitel} 
-Eine Conversion, also die Umrechnung von einer Unit zur entspreched zum UnitTyp gehörigen DefaultUnit, kann über zwei Wege zustande kommen, bzw. verändet werden: Zum einen über die setConversion-Operation und zum anderen über die setDefaultUnit-Operation.
+Eine Conversion, also die Umrechnung von einer Unit zur entsprechend zum UnitType gehörigen DefaultUnit, kann über zwei Wege zustande kommen, bzw. verändert werden: Zum einen über die setConversion-Operation und zum anderen über die setDefaultUnit-Operation.
 Conversions sind immer lineare Funktionen, damit eine Umkehrbarkeit gewährleistet ist. Jede Conversion enthält also einen Faktor und eine Konstante (als Fraction), um der linearen Funktion m*x+b gerecht zu weden. Die Angabe von m und b hat folgende Semantik: y DefaultUnit = m * unitWert + b.
 Am Beispiel von Fahrenheit und Celsius würde für Celsius die Conversion folgendermaßen lauten, wenn Fahrenheit die DefaultUnit darstellt:
 
@@ -59,7 +78,7 @@ Mittels setConversion() wird eine bereits gesetzte Conversion für eine Unit üb
 Bei setDefaultUnit() wird eine Umrechnung von bereits vorhanden Conversions notwendig, da diese ja in Abhängigkeit zu einer nun veralteten DefaultUnit angegeben wurden. Das betrifft alle Umrechnungen für Units zum selben UnitType wie die DefaultUnit.
 \ref{setDefaultUnitGrafik} beschreibt die Umrechnungen, falls sich eine DefaultUnit ändert.
 \begin{figure}[setDefaultUnit]
-	\includegraphics{quantity/setDefaultUnit.png}
+	\includegraphics{../quantity/setDefaultUnit.png}
 	\label{setDefaultUnitGrafik}
 	\caption{Umrechnung beim Ändern einer DefaultUnit}
 \end{figure}
