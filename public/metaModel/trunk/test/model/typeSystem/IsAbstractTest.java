@@ -42,7 +42,7 @@ public class IsAbstractTest extends TestingBase {
 
 	@Test
 	public void onEmtpyProduct() throws PersistenceException {
-		org.junit.Assert.assertEquals(mFalse, emptyTypeConjunction.isAbstract());
+		org.junit.Assert.assertEquals(mTrue, emptyTypeConjunction.isAbstract());
 	}
 
 	@Test

@@ -43,14 +43,13 @@ public class IsSingeltonTest extends TestingBase {
 	@Test
 	public void onEmtpyProduct() throws PersistenceException {
 		MEmptyTypeDisjunction.reset$For$Test = true;
-		org.junit.Assert.assertEquals(mTrue, emptyTypeConjunction.isSingleton());
+		org.junit.Assert.assertEquals(mFalse, emptyTypeConjunction.isSingleton());
 	}
 
 	@Test
 	public void onEmtpySum() throws PersistenceException {
 		MEmptyTypeDisjunction.reset$For$Test = true;
-		// Wirklich? Löwe hatte doch was anderes gesagt, oder?
-		org.junit.Assert.assertEquals(mTrue, emptyTypeDisjunction.isSingleton());
+		org.junit.Assert.assertEquals(mFalse, emptyTypeDisjunction.isSingleton());
 	}
 
 	@Test
