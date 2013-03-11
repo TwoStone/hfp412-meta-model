@@ -27,6 +27,7 @@ import persistence.PersistentFractionWrapper;
 import persistence.PersistentFunction;
 import persistence.PersistentFunctionManager;
 import persistence.PersistentHierarchy;
+import persistence.PersistentLessOrEqualComparison;
 import persistence.PersistentLink;
 import persistence.PersistentLinkManager;
 import persistence.PersistentMAccountType;
@@ -587,6 +588,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleObsTypeManager(final PersistentObsTypeManager obsTypeManager) throws PersistenceException {
 		result = "Liste der Observation Types";
+
+	}
+
+	@Override
+	public void handleLessOrEqualComparison(final PersistentLessOrEqualComparison lessOrEqualComparison) throws PersistenceException {
+		// TODO Auto-generated method stub
 
 	}
 

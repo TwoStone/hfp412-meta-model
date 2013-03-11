@@ -194,7 +194,7 @@ public class MinStrategy extends PersistentObject implements PersistentMinStrate
 		PersistentAbsQuantity smallest = i.next().getQuantity();
 		while (i.hasNext()) {
 			final PersistentAbsQuantity current = i.next().getQuantity();
-			if (current.isLessOrEqualThan(smallest).toBoolean()) {
+			if (QuantityManager.getTheQuantityManager().isLessOrEqual(current, smallest).toBoolean()) {
 				smallest = current;
 			}
 		}

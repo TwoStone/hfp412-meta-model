@@ -24,6 +24,7 @@ import persistence.PersistentConvertToDefaultCommand;
 import persistence.PersistentCreateQuantityCommand;
 import persistence.PersistentDivCommand;
 import persistence.PersistentDivision;
+import persistence.PersistentMBoolean;
 import persistence.PersistentMulCommand;
 import persistence.PersistentMultiplication;
 import persistence.PersistentObject;
@@ -315,8 +316,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 		return absQuantity.accept(new AbsQuantityReturnVisitor<PersistentAbsQuantity>() {
 
 			@Override
-			public PersistentAbsQuantity handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
-					throws PersistenceException {
+			public PersistentAbsQuantity handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
 				return QuantityManager.this.doInvertSign(compoundQuantity);
 			}
 
@@ -325,6 +325,16 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 				return QuantityManager.this.doInvertSign(quantity);
 			}
 		});
+	}
+    public PersistentMBoolean isLessOrEqual(final PersistentAbsQuantity arg1, final PersistentAbsQuantity arg2) 
+				throws model.NotComputableException, PersistenceException{
+		// TODO: implement method: isLessOrEqual
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"isLessOrEqual\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public PersistentAbsQuantity mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2) 
 				throws model.NotComputableException, PersistenceException{

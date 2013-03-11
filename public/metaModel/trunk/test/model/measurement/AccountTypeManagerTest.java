@@ -1,6 +1,5 @@
 package model.measurement;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import model.ConsistencyException;
 import model.CycleException;
@@ -13,7 +12,6 @@ import model.typeSystem.MObject;
 import org.junit.Test;
 
 import persistence.PersistenceException;
-import persistence.PersistentAccount;
 import persistence.PersistentAccountManager;
 import persistence.PersistentAccountTypeManager;
 import persistence.PersistentMAccountType;
@@ -32,9 +30,8 @@ public class AccountTypeManagerTest extends TestingBase {
 	@InjectSingleton(AccountTypeManager.class)
 	private PersistentAccountTypeManager accountTypeMan;
 
-	@Test
-	public void onAccount_test01() throws PersistenceException, CycleException {
-
+	@Test(expected = ConsistencyException.class)
+	public void onAccount_test01() throws PersistenceException, CycleException, ConsistencyException {
 		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
 		final PersistentMAtomicType type1 = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1,
 				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
@@ -44,18 +41,10 @@ public class AccountTypeManagerTest extends TestingBase {
 
 		final PersistentMObject obj1 = MObject.createMObject();
 
-		final PersistentAccount a1 = Account.createAccount(obj1, accType1);
-		final PersistentAccount a2 = Account.createAccount(obj1, accType1);
+		Account.createAccount(obj1, accType1);
 
-		System.out.println(accType1.inverseGetType().getLength());
-
-		try {
-			accType1.delete();
-			fail("Es existieren Exemplare!");
-		} catch (final ConsistencyException ex) {
-			// Exception korrekt!
-			assertEquals(ConsistencyException.class, ex.getClass());
-		}
+		accType1.delete();
+		fail("Es existieren Exemplare!");
 	}
 
 }

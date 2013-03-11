@@ -194,7 +194,7 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
 		PersistentAbsQuantity largest = i.next().getQuantity();
 		while (i.hasNext()) {
 			final PersistentAbsQuantity current = i.next().getQuantity();
-			if (largest.isLessOrEqualThan(current).toBoolean()) {
+			if (QuantityManager.getTheQuantityManager().isLessOrEqual(largest, current).toBoolean()) {
 				largest = current;
 			}
 		}

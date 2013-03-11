@@ -697,6 +697,9 @@ class DetailPanelFactory implements view.visitor.AnythingVisitor {
     public void handleMEnum(view.MEnumView object){
         result = new MEnumDefaultDetailPanel(handler, object);
     }
+    public void handleLessOrEqualComparison(view.LessOrEqualComparisonView object){
+        result = new LessOrEqualComparisonDefaultDetailPanel(handler, object);
+    }
     public void handleMinStrategy(view.MinStrategyView object){
         result = new MinStrategyDefaultDetailPanel(handler, object);
     }
@@ -935,6 +938,23 @@ class MEnumDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.MEnumView getAnything(){
         return (view.MEnumView)this.anything;
+    }
+}
+
+@SuppressWarnings("serial")
+class LessOrEqualComparisonDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String LessOrEqualComparison$$arg1 = "LessOrEqualComparison$$arg1";
+    protected static final String LessOrEqualComparison$$arg2 = "LessOrEqualComparison$$arg2";
+    
+    protected LessOrEqualComparisonDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.LessOrEqualComparisonView getAnything(){
+        return (view.LessOrEqualComparisonView)this.anything;
     }
 }
 
