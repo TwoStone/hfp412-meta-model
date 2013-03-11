@@ -507,6 +507,8 @@ part quantity {
 			throws DoubleDefinitionException;
 		active CompUnitType getExistingCUT(ReferenceType** refTypes);
 		active void changeUTName(AbsUnitType unitType, String name) throws DoubleDefinitionException;
+		active ReferenceType fetchReferenceType(UnitType unitType, Integer exponent);
+		active CompUnitType fetchCUT(String name, ReferenceType** refTypes) throws DoubleDefinitionException;
 
 		/* Operationen fuer Exemplarebene */
 		active Unit createUnit(String name, UnitType type) throws DoubleDefinitionException;
