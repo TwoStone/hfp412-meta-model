@@ -382,7 +382,6 @@ part observations {
 part quantity {
 
 	abstract class AbsQuantity {
-		MBoolean isLessOrEqualThan(AbsQuantity compareValue);
 	}
 
 	class Quantity extends AbsQuantity {
@@ -451,7 +450,7 @@ part quantity {
 	}
 
 
-	// Basic Calculation Operations Abstraction / Refactoring
+	// Basic Calculations as objects
 	abstract class BasicCalculation {
 		AbsQuantity arg1;
 		AbsQuantity arg2;
@@ -486,6 +485,19 @@ part quantity {
 	}
 	class Multiplication extends UnitMutabCalc {}
 	class Division extends UnitMutabCalc {}
+
+	//Comparison
+
+	transient class LessOrEqualComparison {
+		transient AbsQuantity arg1;
+		transient AbsQuantity arg2;
+		
+		MBoolean compare() throws NotComputableException;
+		MBoolean	compareAtomar(Quantity arg1, Quantity arg2) throws NotComputableException;
+		MBoolean compareMixed(CompoundQuantity comp, Quantity atom) throws NotComputableException;
+		MBoolean compareComp(CompoundQuantity comp1, CompoundQuantity comp2) throws NotComputableException;
+	
+	}
 
 
 	/*
@@ -535,7 +547,7 @@ part quantity {
 		active AbsQuantity mul(AbsQuantity factor1, AbsQuantity factor2) throws NotComputableException;
 		active AbsQuantity div(AbsQuantity dividend, AbsQuantity divisor) throws NotComputableException;
 		
-		
+		MBoolean isLessOrEqual(AbsQuantity arg1, AbsQuantity arg2) throws NotComputableException;
 	}
 
 	/*Jeder Bruch nur einmal vorhanden*/
