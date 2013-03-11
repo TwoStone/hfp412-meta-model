@@ -1,5 +1,7 @@
 package model.quantity;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -208,4 +210,29 @@ public class FractionTest extends TestingBase {
 	public void testInvertSign_1() {
 		// TODO: implement testcase
 	}
+
+	@Test
+	public void testIsLessOrEqual_positive() throws PersistenceException, Throwable {
+		final Fraction arg1 = Fraction.parse("1/4");
+		final Fraction arg2 = Fraction.parse("1/2");
+		assertTrue(arg1.isLessOrEqual(arg2).toBoolean());
+		assertFalse(arg2.isLessOrEqual(arg1).toBoolean());
+	}
+
+	@Test
+	public void testIsLessOrEqual_negative() throws PersistenceException, Throwable {
+		final Fraction arg1 = Fraction.parse("1/4");
+		final Fraction arg2 = Fraction.parse("-1/2");
+		assertFalse(arg1.isLessOrEqual(arg2).toBoolean());
+		assertTrue(arg2.isLessOrEqual(arg2).toBoolean());
+	}
+
+	@Test
+	public void testIsLessOrEqual_equal() throws PersistenceException, Throwable {
+		final Fraction arg1 = Fraction.parse("2/4");
+		final Fraction arg2 = Fraction.parse("1/2");
+		assertTrue(arg1.isLessOrEqual(arg2).toBoolean());
+		assertTrue(arg2.isLessOrEqual(arg1).toBoolean());
+	}
+
 }

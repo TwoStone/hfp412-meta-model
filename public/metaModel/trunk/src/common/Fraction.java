@@ -2,6 +2,10 @@ package common;
 
 import java.math.BigInteger;
 
+import model.basic.MFalse;
+import model.basic.MTrue;
+import persistence.PersistentMBoolean;
+
 public class Fraction {
 
 	private static final BigInteger BIMinusOne = new BigInteger("-1");
@@ -115,5 +119,33 @@ public class Fraction {
 		final Fraction result = new Fraction(this.getEnumerator().multiply(minuend.getDenominator())
 				.subtract(minuend.getEnumerator().multiply(this.getDenominator())), this.getDenominator().multiply(minuend.getDenominator()));
 		return result;
+	}
+
+	/**
+	 * Returns true, if the Fraction is less or equal than Fraction arg.
+	 */
+	public PersistentMBoolean isLessOrEqual(final Fraction arg) throws Throwable {
+		PersistentMBoolean result = MFalse.getTheMFalse();
+		final BigInteger kgv = kgv(this.getDenominator(), arg.getDenominator());
+		final int compareResult = this.getEnumerator().multiply(arg.getDenominator()).compareTo(arg.getEnumerator().multiply(this.getDenominator()));
+		// final int compareResult = (this.getEnumerator().multiply(kgv)).compareTo(arg.getEnumerator().multiply(kgv));
+		// TODO: wie macht man das mit kgv?
+		if (compareResult == -1 || compareResult == 0) {
+			result = MTrue.getTheMTrue();
+		}
+		return result;
+	}
+
+	/**
+	 * kleinstes gemeinsames vielfaches
+	 * 
+	 * @param m
+	 * @param n
+	 * @return
+	 */
+	public static BigInteger kgv(final BigInteger m, final BigInteger n) {
+		final BigInteger o = m.gcd(n);
+		final BigInteger p = (m.multiply(n)).divide(o);
+		return p;
 	}
 }
