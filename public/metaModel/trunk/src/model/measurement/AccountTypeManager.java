@@ -1,8 +1,5 @@
 package model.measurement;
 
-import java.util.Iterator;
-
-import model.ConsistencyException;
 import model.UserException;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
@@ -14,18 +11,13 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
 import persistence.PersistenceException;
-import persistence.PersistentAccount;
 import persistence.PersistentAccountTypeManager;
 import persistence.PersistentCreateAccountTypeCommand;
-import persistence.PersistentMAccountType;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
-import persistence.PersistentRemoveAccountTypeCommand;
 import persistence.PersistentUnitType;
-import persistence.Predcate;
 import persistence.TDObserver;
-import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -179,15 +171,6 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
 		if(this.equals(This)){
 		}
     }
-    public void removeAccountType(final PersistentMAccountType accountType, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		PersistentRemoveAccountTypeCommand command = model.meta.RemoveAccountTypeCommand.createRemoveAccountTypeCommand(now, now);
-		command.setAccountType(accountType);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 
@@ -202,30 +185,6 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-
-	}
-    public void removeAccountType(final PersistentMAccountType accountType) 
-				throws model.ConsistencyException, PersistenceException{
-
-		final Iterator<PersistentAccount> i = AccountManager.getTheAccountManager().getAccounts().iterator();
-		while (i.hasNext()) {
-			final PersistentAccount current = i.next();
-			if (current.getType().equals(accountType)) {
-				throw new ConsistencyException(ExceptionConstants.ALREADY_EX_OF_ACCOUNT_TYPE);
-			}
-		}
-
-		// FIXME: Das ist so noch nich richtig...
-		AccountTypeManager.theAccountTypeManager.getAccountTypes().removeFirstSuccess(new Predcate<PersistentMAccountType>() {
-
-			@Override
-			public boolean test(final PersistentMAccountType argument) throws PersistenceException {
-				if (argument.equals(accountType)) {
-					return true;
-				}
-				return false;
-			}
-		});
 
 	}
     

@@ -17,6 +17,7 @@ import model.visitor.MQuantiObjectTypeExceptionVisitor;
 import model.visitor.MQuantiObjectTypeReturnExceptionVisitor;
 import model.visitor.MQuantiObjectTypeReturnVisitor;
 import model.visitor.MQuantiObjectTypeVisitor;
+import persistence.AccountSearchList;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
@@ -238,6 +239,13 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 							.inverseGetSubAccountTypes(this.getId(), this.getClassId());
 		return result;
     }
+    public AccountSearchList inverseGetType() 
+				throws PersistenceException{
+        AccountSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
+							.inverseGetType(this.getId(), this.getClassId());
+		return result;
+    }
     public <T> T strategyMAccountTypeHierarchy(final T parameter, final MAccountTypeHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result$$subAccountTypes$$MAccountType = strategy.initialize$$MAccountType$$subAccountTypes(getThis(), parameter);
@@ -265,7 +273,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 		SearchLists.addSecondToFirst(result, getThis().getSubAccountTypes());
 
 		// Accounts
-		SearchLists.addSecondToFirst(result, getThis().inverseGetSubAccountTypes());
+		SearchLists.addSecondToFirst(result, getThis().inverseGetType());
 
 		// TODO add other dependencies (assocs, MMTypes, etc)
 		return result;

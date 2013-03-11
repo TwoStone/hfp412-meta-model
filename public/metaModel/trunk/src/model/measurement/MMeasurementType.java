@@ -17,6 +17,7 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MMeasurementTypeProxi;
 import persistence.MModelItemSearchList;
+import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentCONCMModelItem;
@@ -182,6 +183,13 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     
     // Start of section that contains operations that must be implemented.
     
+    public MeasurementSearchList inverseGetType() 
+				throws PersistenceException{
+        MeasurementSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMeasurementFacade
+							.inverseGetType(this.getId(), this.getClassId());
+		return result;
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 		// TODO: implement method: copyingPrivateUserAttributes

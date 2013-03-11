@@ -23,7 +23,6 @@ import persistence.PersistentMObject;
 import persistence.PersistentUnitType;
 import util.InjectSingleton;
 import util.TestingBase;
-import constants.ExceptionConstants;
 
 public class AccountTypeManagerTest extends TestingBase {
 
@@ -48,14 +47,14 @@ public class AccountTypeManagerTest extends TestingBase {
 		final PersistentAccount a1 = Account.createAccount(obj1, accType1);
 		final PersistentAccount a2 = Account.createAccount(obj1, accType1);
 
-		System.out.println(accType1.inverseGetSubAccountTypes().getLength());
+		System.out.println(accType1.inverseGetType().getLength());
 
 		try {
-			accountTypeMan.removeAccountType(accType1);
+			accType1.delete();
 			fail("Es existieren Exemplare!");
 		} catch (final ConsistencyException ex) {
 			// Exception korrekt!
-			assertEquals(ExceptionConstants.ALREADY_EX_OF_ACCOUNT_TYPE, ex.getMessage());
+			assertEquals(ConsistencyException.class, ex.getClass());
 		}
 	}
 

@@ -672,7 +672,6 @@ singleton MeasurementTypeManager##MsrmntTpMng {
 singleton AccountTypeManager {
 	MAccountType** accountTypes;
 	active void createAccountType(String name, MType type, UnitType unitType);
-	active void removeAccountType(MAccountType accountType) throws ConsistencyException;
 }
 
 singleton AccountManager {
@@ -701,13 +700,13 @@ abstract class QuantifObject@@QuantifiedObject covers MModelItem {
 }
 
 class Measurement extends QuantifObject {
-	prior MMeasurementType type;
+	symmetric prior MMeasurementType type;
 	// TODO: Eventuell erst spaeter, wenn der Type feststeht, die Quantitaet setzen?
 	prior AbsQuantity quantity;
 }
 
 class Account extends QuantifObject {
-	prior MAccountType type;
+	symmetric prior MAccountType type;
 	symmetric Account** subAccounts hierarchy AccountHierarchy;
 	Measurement** entries;
 	active void addSubAccount(Account account) throws CycleException, ConsistencyException;
