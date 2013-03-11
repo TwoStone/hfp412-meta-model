@@ -1,11 +1,32 @@
 \subsection{ModelItem}
 
-\term{ModelItem} ist als abstrakte Oberklasse für alle Modellelemente konzeptioniert. 
+\term{ModelItem} ist als Abstraktion für alle Modellelemente konzeptioniert. 
 Zentrale Aufgabe dieser Klasse ist es, einen Abhängigkeitsgraphen über Modellelemente erstellen zu können und 
-das Löschen dieser zu vereinheitlichen. 
+das Löschen dieser zu vereinheitlichen. Der Abhängigkeitsgraph ist durch die Modellierung bedingt azyklisch.
+Die in der Implementierung angewandte Pragmatik verbietet das Löschen von Modellelementen, von denen weitere Elemente 
+abhängig sind. Der Entwurf ermöglicht es auch nachträglich dieses Vorgehen mit geringem Aufwand durch ein kaskadierendes Löschen zu 
+ersetzen. 
+
+\img[width=\relWidth{0.5}]{modelItem/modelItem.png}{Klasse ModelItem}{img_modelItem}
+
 
 \subsubsection{Operationen}
+\begin{description}
+\item[fetchDependentItems()] 
+liefert alle Modellelemente zurück, die vom Element auf dem sie aufgerufen wird, direkt abhängig sind.
+Ein Element \emph{A} ist von einem Element \emph{B} abhängig, wenn \emph{A} eine Referenz auf \emph{B} hält, also z.b.   
+\emph{A} in \emph{B} klassifiziert ist oder u.a. aus einem \emph{B}-Objekt besteht.
+ 
+\item[delete()] vereinheitlich das Löschen von ModelItems. ModelItem stellt eine \term{Template-Method} für das 
+Standardverhalten bereit. Es wird zuerst \term{fetchDependentItems()} aufgerufen und geprüft ob abhängige Modellelemente 
+existieren. Werden Abhänigkeiten gefunden, so wird eine \term{ConsistencyException} ausgelöst. Andernfalls wird anschließend 
+die abstrakte Operation \emph{prepareForDeletion()} aufgerufen. Lässt sich diese ohne Ausnahme ausführen wird das Modellelement 
+abschließend durch den Aufruf von \emph{getThis().delete\$ME} gelöscht.
 
+\item[prepareForDeletion()] ist als Analogon zu \term{initializeOnCreation()} entworfen worden und ermöglicht ein 
+\qq{Aufräumen} vor dem tatsächlichen Löschen. Ein Singleton-Type erstellt z.B. im \term{initializeOnCreation()} sein zugehöriges 
+Singleton-Objekt und löscht dies in \emph{prepareForDeletion()}. 
 
-
+\end{description}
+\subsubsection{Weitere Ideen}
 \TODO[Kapitel schreiben]
