@@ -120,6 +120,39 @@ Dies wird definiert die parts-Assoziation zwischen CompoundQuantity und Quantity
 \subsubsubsection{Berechnungen und Vergleiche}
 \label{Berechnungen}
 
+Die Addition, Subtraktion, Division und Multiplikation sind als Grundrechenarten (BasicCalculation) im Klassenmodell dargestellt. Man unterscheidet zwischen Grundrechenarten, die die Referenzen der Einheit verändern, und solchen, die dies nicht tun. Z.B. ergibt die Addition zweier Längenangaben (z.B. Meter) wieder eine Längenangabe. Also nennen wir eine solche Rechnung \emph{einheitstypbewahrend}. Im Klassenmodell ist diese Generalisierung als die Klasse \textit{UnitImutabCalc} zu erkennen. Im Gegensatz dazu ergibt z.B. die Multiplikation zweier Längenangaben eine Flächenangabe (z.B. Quadratmeter). Wir nennen diese Rechnungen \emph{einheitstypverändernd} - im Klassenmodell als \textit{UnitMutabCalc} zu sehen. Diese Implementierung besitzt Ansätze eines \emph{Kommando-Entwurfsmusters}.
+
+\subsubsubsection{Berechnungslogik}
+Werden zweistellige Operationen zwischen AbsQuantity-Exemplaren ausgeführt, treten abhängig vom Typ der Quantität 3 Fälle auf:
+\begin{enumerate}
+\item \textit{op(vektor, vektor)}
+\item \textit{op(vektor, element)}
+\item \textit{op(element, element)}
+\end{enumerate}
+
+Die Methode der Operation \textit{calculate} der Klasse \textit{BasicCalculation} ermittelt mit Hilfe von \emph{Visitoren} die auszuführende Logik und ruft nach dem Template-Entwurfsmuster die entsprechende Methode auf, die in der zweiten Stufe der Klassenhierarchie implementiert werden, nämlich in \textit{UnitImutabCalc} und \textit{UnitMutabCalc}:
+\begin{itemize}
+\item \textit{calc1Compound1Atomar}
+\item \textit{calcAtomar}
+\item \textit{calcComp}
+\end{itemize}
+
+Das Rechnen mit zusammengesetzten Quantitäten folgt den allgemeinen Gesetzten der Vektorenrechnung. \newline
+
+Die Addition und Subtraktion funktioniert nur mit \emph{einheitstypgleichen} Quantitäten. Dagegen funktioniert die Multiplikation und Division mit allen Quantitäten, vorausgesetzt, es wird eine \emph{Zieleinheit}, bzw. ein \emph{Zieleinheitstyp} gefunden. Ist dies nicht der Fall wird eine \emph{Ausnahme} ausgelöst. Die Signatur der Klasse 
+\textit{UnitMutabCalc} ist bereits darauf vorbereitet, automatisch Einheiten und Typen zu generieren, sollte noch keine Zieleinheit als \emph{Unit-Stammsatz} angelegt sein. Zum Zeitpunkt der Fertigstellung dieser Dokumentation ist dieser Automatismus noch nicht implementiert. \newline
+
+Der einzige bisher implementierte logische Verglich \emph{isLessOrEqual} folgt genau dem gleichen Schema, ist jedoch nur als eine Klasse \textit{LessOrEqualComparison} realisiert.
+
+\label{Quantitäten}
+
+\subsubsubsection{Einfache und zusammengesetzte Quantitäten}
+Quantitäten können sowohl atomar als auch zusammengesetzt sein.
+Dies wird definiert die parts-Assoziation zwischen CompoundQuantity und Quantity. Dabei kann man zusammengesetzte Quantitäten als Vektoren auffassen, deren Elemente einfacehe Quantitäten sind. \emph{In einem Vektor dürfen nur solche Quantiäten enthalten sein, die mit dem gleichen UnitType assoziiert sind}. 
+
+\subsubsubsection{Berechnungen und Vergleiche}
+\label{Berechnungen}
+
 \paragraph{Allgemein}
 Die Addition, Subtraktion, Division und Multiplikation sind als Grundrechenarten (BasicCalculation) im Klassenmodell dargestellt. Man unterscheidet zwischen Grundrechenarten, die die Referenzen der Einheit verändern, und solchen, die dies nicht tun. Z.B. ergibt die Addition zweier Längenangaben (z.B. Meter) wieder eine Längenangabe. Also nennen wir eine solche Rechnung \emph{einheitstypbewahrend}. Im Klassenmodell ist diese Generalisierung als die Klasse \textit{UnitImutabCalc} zu erkennen. Im Gegensatz dazu ergibt z.B. die Multiplikation zweier Längenangaben eine Flächenangabe (z.B. Quadratmeter). Wir nennen diese Rechnungen \emph{einheitstypverändernd} - im Klassenmodell als \textit{UnitMutabCalc} zu sehen. Diese Implementierung besitzt Ansätze eines \emph{Kommando-Entwurfsmusters}
 
