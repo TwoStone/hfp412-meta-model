@@ -4,7 +4,7 @@ cd %~f0\..\..
 REM ##### KONSTANTEN ######
 
 REM Bin-Verzeichnis von MiKTeX. Standard: "C:\Programme\MiKTeX 2.9\miktex\bin\".
-set miktexBinDir="C:\Program Files\MiKTeX 2.9\miktex\bin\x64\"
+set miktexBinDir="C:\Programme\MiKTeX 2.9\miktex\bin\"
 
 REM Name des Hauptdokuments ohne die Dateiendung. Standard: "document".
 set document=document

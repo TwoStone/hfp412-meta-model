@@ -1,30 +1,38 @@
 \subsection{Measurement}
-Martin Fowler unterscheidet in seinem Werk \refLibLiteratur{fowler1997analysis} zwischen qualitativen und quantitativen Messungen. 
-Wird beispielsweise die Blutgruppen (A, B, AB und 0) eines Menschen typisiert, so handelt es sich um eine qualitative Messung. 
-Im Kontext dieses Projekts wird diese Art von Messung als \term{Observation} (siehe Abschnitt \ref{Operation:Associationen}) bezeichnet. 
-Unter quantitativen Messungen, bezeichnet als \term{Measurement}, wird beispielsweise das Feststellen der Körpergröße eines Menschen verstanden.
-Measurements (beispielsweise Körpergröße von Hugo Egon Balder: 190cm) werden in Form von Quantitäten bzw. \term{Quantities} auf Konten (Accounts) erfasst.
-Des Weiteren gibt es \term{MeasurementTypes} und \term{AccountTypes}, welche in diesem Abschnitt noch genauer erläutert werden.
 
-\TODO[Alex: noch Ergänzungen? Bzw. 'ne bessere Überleitung zum folgenden Absatz?]
+Martin Fowler unterscheidet in seinem Werk \refLibLiteratur{fowler1997analysis} zwischen qualitativen und quantitativen
+Messungen. Wird beispielsweise die Blutgruppe (A, B, AB und 0) eines Menschen typisiert, so handelt es sich um
+eine qualitative Messung. Im Kontext dieses Projekts wird diese Art von Messung als \term{Observation} (siehe Abschnitt
+\ref{Operation:Associationen}) bezeichnet. Unter quantitativen Messungen, bezeichnet als \term{Measurement}, wird
+beispielsweise das Feststellen der Körpergröße eines Menschen verstanden.
 
-Auf der Modellebene befinden sich im Bereich \term{Measurement} zunächst drei Klassen: \term{MeasurementType}, \term{AccountType}
-und deren gemeinsame Oberklasse \term{QuantifiedObjectType}. Auf der Exemplarebene finden sich deren Pendants als \term{Measurement},
-\term{Account} und \term{QuantifiedObject}.
+\term{Measurements} (beispielsweise Körpergröße von Hugo Egon Balder: 190cm) werden in Form von Quantitäten bzw.
+\term{Quantities} auf Konten (\term{Accounts}) erfasst. Des Weiteren gibt es \term{MeasurementTypes} und
+\term{AccountTypes}, welche in diesem Abschnitt noch genauer erläutert werden.
+
+Technisch gesehen befinden sich auf der Modellebene im Bereich \term{Measurement} zunächst drei Klassen:
+\term{MeasurementType}, \term{AccountType} und deren gemeinsame Oberklasse \term{QuantifiedObjectType}. Auf der
+Exemplarebene finden sich deren Pendants als \term{Measurement}, \term{Account} und \term{QuantifiedObject}.
 
 Die Operation \term{aggregate} des \term{QuantifiedObjects} fordert zudem eine sogenannte \term{AggregationStrategy},
 die in vier Unterklassen konkret ausgeprägt werden kann.
-Zusätzlich existieren drei Manager: der \term{MeasurementTypeManager}, der \term{AccountTypeManager} und der \term{AccountManager}.
-Diese Klassen werden im Folgenden nach Themengebieten beschrieben.
+Zusätzlich existieren drei Manager: der \term{MeasurementTypeManager}, der \term{AccountTypeManager} und der
+\term{AccountManager}. Diese Klassen werden im Folgenden nach Themengebieten beschrieben.
 
 
 \subsubsection{QuantifiedObject}
 
-\TODO[Kapitel schreiben]
+Das \term{QuantifiedObject} repräsentiert zunächst einmal ganz abstrakt ein Objekt, das mit einer Quantität versehen
+ist. Zu diesem Zweck kennt es ein \term{Object}, auf das es sich bezieht und direkt oder indirekt eine \term{Quantity}.
+Als konkrete Unterklassen hat es \term{Measurement} und \term{Account}. Ein \term{Measurement} ist dabei die
+direkte Ausprägung eines quantifizierten Objekts, es kennt seine \term{Quantity}. 
 
--- Attribute: MObject object
+Der \term{Account} kennt seine \term{Quantity} hingegen nur indirekt. Sie ergibt sich aus dem Aggregieren der Einträge
+\term{entries} des \term{Accounts}. Auf welche Art und Weise aggregiert wird, bestimmt dabei eine
+\term{AggregationStrategy}. Diese kann durch Ausführen der Operation \term{aggregate} auf ein \term{QuantifiedObject}
+angewandt werden.
 
--- Nur Operation aggregate
+Ein \term{QuantifiedObject} ist zudem in der Modellebene in einem \term{QuantifiedObjectType} typisiert.
 
 
 \subsubsection{QuantifiedObjectType}
