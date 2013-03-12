@@ -169,7 +169,9 @@ public class AssociationManagerTest extends AbstractTest {
 	public void removeHierarchy() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		final PersistentHierarchy h = manager.createHierarchy(a, "h");
+		assertEquals(1, manager.getHierarchies().getLength());
 		manager.removeHierarchy(h);
+		assertEquals(0, manager.getHierarchies().getLength());
 	}
 
 	@Test

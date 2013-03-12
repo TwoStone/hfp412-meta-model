@@ -253,18 +253,11 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
 	}
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO Check delegation to abstract class and overwrite if necessary!
 		this.getMyCONCMModelItem().delete();
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-		// TODO: implement method: fetchDependentItems
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return new MModelItemSearchList();
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -274,8 +267,6 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
 	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: prepareForDeletion
-
 	}
     
     

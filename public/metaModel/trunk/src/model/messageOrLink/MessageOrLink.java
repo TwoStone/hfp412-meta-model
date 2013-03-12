@@ -4,6 +4,7 @@ import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MModelItemSearchList;
+import persistence.MessageOrLink_ActualParametersProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbstractObject;
 import persistence.PersistentCONCMModelItem;
@@ -45,6 +46,7 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
                     if(forGUI && target.hasEssentialFields())target.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            result.put("actualParameters", this.getActualParameters().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
             AbstractPersistentRoot myCONCMModelItem = (AbstractPersistentRoot)this.getMyCONCMModelItem();
             if (myCONCMModelItem != null) {
                 result.put("myCONCMModelItem", myCONCMModelItem.createProxiInformation(false, essentialLevel == 0));
@@ -67,6 +69,7 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
     }
     protected PersistentAbstractObject source;
     protected PersistentAbstractObject target;
+    protected MessageOrLink_ActualParametersProxi actualParameters;
     protected PersistentMessageOrLink This;
     protected PersistentMModelItem myCONCMModelItem;
     
@@ -75,6 +78,7 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
         super(id);
         this.source = source;
         this.target = target;
+        this.actualParameters = new MessageOrLink_ActualParametersProxi(this);
         if (This != null && !(this.equals(This))) this.This = This;
         this.myCONCMModelItem = myCONCMModelItem;        
     }
@@ -98,6 +102,7 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
             this.getTarget().store();
             ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade.targetSet(this.getId(), getTarget());
         }
+        this.getActualParameters().store();
         if(!this.equals(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade.ThisSet(this.getId(), getThis());
@@ -136,6 +141,9 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMessageOrLinkFacade.targetSet(this.getId(), newValue);
         }
+    }
+    public MessageOrLink_ActualParametersProxi getActualParameters() throws PersistenceException {
+        return this.actualParameters;
     }
     protected void setThis(PersistentMessageOrLink newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -203,13 +211,15 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
     
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: Christin: Check delegation to abstract class and overwrite if necessary!
 		this.getMyCONCMModelItem().delete();
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// Weder Messages noch Links haben dependentItems
 		return new MModelItemSearchList();
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

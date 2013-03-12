@@ -382,14 +382,14 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		a.delete();
 	}
     public void removeHierarchy(final PersistentHierarchy h) 
-				throws PersistenceException{
+				throws model.ConsistencyException, PersistenceException{
 		getThis().getHierarchies().removeFirstSuccess(new Predcate<PersistentHierarchy>() {
-
 			@Override
 			public boolean test(final PersistentHierarchy argument) throws PersistenceException {
 				return argument.equals(h);
 			}
 		});
+		h.delete();
 	}
     
     

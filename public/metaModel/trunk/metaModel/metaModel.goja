@@ -573,7 +573,7 @@ singleton AssociationManager {
 active Association createAssociation(MType source, MType target, String name) throws DoubleDefinitionException, ConsistencyException;
 active void removeAssociation(Association a) throws ConsistencyException;
 active Hierarchy createHierarchy(Association a, String name) throws CycleException, DoubleDefinitionException, ConsistencyException;
-active void removeHierarchy(Hierarchy h);
+active void removeHierarchy(Hierarchy h) throws ConsistencyException;
 
 active void addAssociation(Hierarchy h, Association a) throws CycleException, ConsistencyException;
 active void removeAssoFrmHier(Hierarchy h, Association a) throws NotAvailableException, ConsistencyException;
@@ -646,14 +646,14 @@ active void removeLink(Link link);
 }
 
 abstract class MessageOrLink covers MModelItem{
-    prior symmetric AbstractObject source;
-    prior symmetric AbstractObject target;
+	prior symmetric AbstractObject source;
+	prior symmetric AbstractObject target;
+	symmetric ActualParameter** actualParameters;
 }
 
 // TODO: Was ist mit statische Methoden und Methoden die void zurueck geben sollen? Source/Target 0..1? Eventuell noch mal spezialisieren
 class Message extends MessageOrLink {
    prior symmetric Operation type;
-	ActualParameter** actualParameters;
 }
 
 class ActualParameter covers MModelItem {

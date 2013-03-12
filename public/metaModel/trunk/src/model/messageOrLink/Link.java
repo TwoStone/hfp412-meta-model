@@ -101,6 +101,7 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
                           this.myCONCMModelItem, 
                           this.type, 
                           this.getId());
+        result.actualParameters = this.actualParameters.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -198,6 +199,7 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
         if (this.getSource() != null) return 1;
         if (this.getTarget() != null) return 1;
         if (this.getType() != null) return 1;
+        if (this.getActualParameters().getLength() > 0) return 1;
         return 0;
     }
     
@@ -225,11 +227,6 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-	}
-    public void prepareForDeletion() 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: Christin implement method: prepareForDeletion
-
 	}
     
     

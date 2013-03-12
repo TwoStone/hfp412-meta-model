@@ -17,7 +17,6 @@ import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MessageProxi;
-import persistence.Message_ActualParametersProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbstractObject;
 import persistence.PersistentCONCMModelItem;
@@ -88,7 +87,6 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
                     if(forGUI && type.hasEssentialFields())type.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            result.put("actualParameters", this.getActualParameters().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -112,13 +110,11 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
         return true;
     }
     protected PersistentOperation type;
-    protected Message_ActualParametersProxi actualParameters;
     
     public Message(PersistentAbstractObject source,PersistentAbstractObject target,PersistentMessageOrLink This,PersistentMModelItem myCONCMModelItem,PersistentOperation type,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((PersistentAbstractObject)source,(PersistentAbstractObject)target,(PersistentMessageOrLink)This,(PersistentMModelItem)myCONCMModelItem,id);
-        this.type = type;
-        this.actualParameters = new Message_ActualParametersProxi(this);        
+        this.type = type;        
     }
     
     static public long getTypeId() {
@@ -138,7 +134,6 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
             this.getType().store();
             ConnectionHandler.getTheConnectionHandler().theMessageFacade.typeSet(this.getId(), getType());
         }
-        this.getActualParameters().store();
         
     }
     
@@ -155,9 +150,6 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theMessageFacade.typeSet(this.getId(), newValue);
         }
-    }
-    public Message_ActualParametersProxi getActualParameters() throws PersistenceException {
-        return this.actualParameters;
     }
     public PersistentMessage getThis() throws PersistenceException {
         if(this.This == null){
@@ -235,11 +227,6 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-	}
-    public void prepareForDeletion() 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: später: implement method: prepareForDeletion
-
 	}
     
     
