@@ -4,6 +4,7 @@ TODO Dient zum Abbilden von Werten mit Einheit
 \subsubsection{Die Manager}
 
 \subsubsubsection{UnitTypeManager}
+
 Der UnitTypeManager beinhaltet zwei auf der Oberfläche sichtbare und zwei nicht sichtbare Listen zur Verwaltung von Einheiten (Units) und Einheitentypen (UnitTypes).
 
 \begin{description}
@@ -14,6 +15,7 @@ Der UnitTypeManager beinhaltet zwei auf der Oberfläche sichtbare und zwei nicht
 \end{description}
 
 \subsubsubsection{FractionManager}\label{FractionManager}
+
 Der FractionManager verwaltet alle Brüche so, dass jede Rationale Zahl als Bruch nur einmal durchgekürzt (als \emph{Repräsentant}) vorkommt.
 Über die Operation \textit{getFraction(key:String):Fraction} wird auf einen vorhandenen Bruch zugegriffen, wobei der Schlüssel die \textit{toString-Ausgabe} des Bruchs ist.
 Die Operation \textit{addFraction} wird ein neuer Bruch publiziert, wenn er erstmalig benötigt wird. Die Operation \textit{invertSign(f:Fraction):Fraction} sucht das Negativkomplement zu der Zahl und erstellt es, falls nötig.
@@ -22,6 +24,7 @@ GOJA unterstütz keine 3-stelligen Assoziationen bei denen der Wert eines Wert-S
 
 
 \subsubsubsection{QuantityManager}\label{QuantityManager}
+
 Der QuantityManager verwaltet die Zugriffe auf Quantitäten und ist die Schnittstelle zum Erstellen neuer Exemplare.
 Zudem wird der FractionManager als zentrale Fassade für das arithmetische und logische Operieren auf Quantitäten verwendet (siehe dazu Abschnitt \ref{Berechnungen}).
 
@@ -62,7 +65,9 @@ Diese Operation ermittelt, ob es schon eine Referenz auf einen Einheitentyp mit 
 Fachlich gesehen können Einheiten (Units) von Quantitäten angenommen werden und sind in Einheitentypen typisiert.
 Dabei wird zwischen atomaren Einheiten (z.B. Meter [m]) und zusammengesetzten Einheiten (z.B. Kilometer pro Stunde [km/h]) unterschieden.
 
+
 \subsubsubsection{Verwalten von Units}
+
 Für die Verwaltung von Units und CompoundUnits stellt der UnitTypeManager acht transaktionale Operationen bereit.
 Folgende dieser Operationen sind direkt über die Oberfläche erreichbar:
 
@@ -90,8 +95,8 @@ Diese Operation ist ähnlich der getExistingCU()-operation. jedoch wird hierbei 
 Mithilfe dieser Operation kann eine Referenz-Instanz mit einem gewissen Exponenten auf eine bestimmte Unit ermittelt werden. Falls diese Instanz noch nicht existierte, wird sie erzeugt. Das dient zum vermeiden von Doppelt anlegten Referenzen.
 \end{description}
 
-\subsubsubsection{Conversions}
-\label{ConversionsKapitel} 
+\subsubsubsection{Conversions}\label{ConversionsKapitel} 
+
 Eine Conversion, also die Umrechnung von einer Unit zur entsprechend zum UnitType gehörigen DefaultUnit, kann über zwei Wege zustande kommen, bzw. verändert werden: Zum einen über die setConversion-Operation und zum anderen über die setDefaultUnit-Operation.
 Conversions sind immer lineare Funktionen, damit eine Umkehrbarkeit gewährleistet ist. Jede Conversion enthält also einen Faktor und eine Konstante (als Fraction), um der linearen Funktion m*x+b gerecht zu weden. Die Angabe von m und b hat folgende Semantik: y DefaultUnit = m * unitWert + b.
 Am Beispiel von Fahrenheit und Celsius würde für Celsius die Conversion folgendermaßen lauten, wenn Fahrenheit die DefaultUnit darstellt:
@@ -107,6 +112,7 @@ Bei setDefaultUnit() wird eine Umrechnung von bereits vorhanden Conversions notw
 \subsubsection{Quantitäten}\label{Quantitaeten}
 
 \subsubsubsection{Einfache und zusammengesetzte Quantitäten}
+
 Quantitäten können sowohl atomar als auch zusammengesetzt sein.
 Dies wird definiert die parts-Assoziation zwischen CompoundQuantity und Quantity. Dabei kann man zusammengesetzte Quantitäten als Vektoren auffassen, deren Elemente einfacehe Quantitäten sind. \emph{In einem Vektor dürfen nur solche Quantiäten enthalten sein, die mit dem gleichen UnitType assoziiert sind}. 
 
@@ -115,6 +121,7 @@ Dies wird definiert die parts-Assoziation zwischen CompoundQuantity und Quantity
 Die Addition, Subtraktion, Division und Multiplikation sind als Grundrechenarten (BasicCalculation) im Klassenmodell dargestellt. Man unterscheidet zwischen Grundrechenarten, die die Referenzen der Einheit verändern, und solchen, die dies nicht tun. Z.B. ergibt die Addition zweier Längenangaben (z.B. Meter) wieder eine Längenangabe. Also nennen wir eine solche Rechnung \emph{einheitstypbewahrend}. Im Klassenmodell ist diese Generalisierung als die Klasse \textit{UnitImutabCalc} zu erkennen. Im Gegensatz dazu ergibt z.B. die Multiplikation zweier Längenangaben eine Flächenangabe (z.B. Quadratmeter). Wir nennen diese Rechnungen \emph{einheitstypverändernd} - im Klassenmodell als \textit{UnitMutabCalc} zu sehen. Diese Implementierung besitzt Ansätze eines \emph{Kommando-Entwurfsmusters}.
 
 \subsubsubsection{Berechnungslogik}
+
 Werden zweistellige Operationen zwischen AbsQuantity-Exemplaren ausgeführt, treten abhängig vom Typ der Quantität 3 Fälle auf:
 \begin{enumerate}
 \item \textit{op(vektor, vektor)}
