@@ -17,12 +17,16 @@ Der UnitTypeManager beinhaltet zwei auf der Oberfläche sichtbare und zwei nicht
 Der FractionManager verwaltet alle Brüche so, dass jede Rationale Zahl als Bruch nur einmal durchgekürzt (als \emph{Repräsentant}) vorkommt.
 Über die Operation \textit{getFraction(key:String):Fraction} wird auf einen vorhandenen Bruch zugegriffen, wobei der Schlüssel die \textit{toString-Ausgabe} des Bruchs ist.
 Die Operation \textit{addFraction} wird ein neuer Bruch publiziert, wenn er erstmalig benötigt wird. Die Operation \textit{invertSign(f:Fraction):Fraction} sucht das Negativkomplement zu der Zahl und erstellt es, falls nötig.
+\newline
+
+GOJA unterstütz keine 3-stelligen Assoziationen bei denen der Wert eines Wert-Schlüssel-Paares ein in GOJA primitiver Typ ist. Deswegen wurde die Klasse \textit{FractionWrapper} erstellt, die den Wert des Bruchs umhüllt. Somit wird das Problem umgangen: \texttt{FractionWrapper **String** managedFractions;}
+
 
 \subsubsubsection{QuantityManager} \newline
 
 Der QuantityManager verwaltet die Zugriffe auf Quantitäten und ist die Schnittstelle zum Erstellen neuer Exemplare.
-Beim Erstellen einer atomaren Quantität referenziert die amount-Assoziation ein Fraction-Objekt aus dem FractionManager. Wird beim Anlegen der Quantität festgestellt, dass es diesen Bruch noch nicht gibt,
-wird sie neu Erstellt und im FractionManager publiziert.
+Beim Erstellen einer atomaren Quantität referenziert die \textit{amount}-Assoziation ein Fraction-Objekt aus dem FractionManager. Wird beim Anlegen der Quantität festgestellt, dass es diesen Bruch noch nicht gibt,
+wird sie neu erstellt und im FractionManager publiziert.
 
 \subsubsection{Einheitentypen}
 Die Einheitentypen (UnitTypes) geben an, welche verschiedenen Einheiten fachlich zusammen gehören. Beispielsweise sind Dollar und Euro beides Währungen und können damit zusammengerechnet werden. In diesem Fall ist der Einheitentyp Währung und die beiden zugehörigen Einheiten sind Dollar und Euro. Bei Euro und Kilometer hingegen macht es wenig Sinn, diese zu Addieren oder zu Subtrahieren, denn das eine ist eine Währung und das andere eine Strecken-Angabe. Die Multiplikation und Division hingegen können auch auf unterschiedlichen Einheitentypen geschehen, wodurch dann zusammengesetzte Einheitentypen (CompoundUnitTypes) wie Geschwindigkeit (Strecke/Zeit) entstehen.
