@@ -1,10 +1,10 @@
 \subsection{Observations}\label{Observations}
 Im Gegensatz zum ursprünglichen Modell haben wir uns nach längerer Diskussion dazu entschlossen Observations auszulagern. 
 Das soll zum einen der Übersicht und Transparenz des Modells zu gute kommen und zum anderen, 
-die aufwändige Handhabung von Singletons für Observation vermeiden. 
+die aufwändige Handhabung von Singletons für Observations vermeiden.
+ 
 Ursprünglich handelte es sich fachlich um eine Observation, wenn ein Typ nur aus Singletons bestand. 
-Dabei stellten sich folgende Fragestellungen, welche nach unserer Ansicht, 
-die Verwendung von Observations in der ursprünglichen Variante unnötig verkompliziert haben:
+Dabei stellten sich folgende Fragestellungen, welche die Verwendung von Observations in der ursprünglichen Variante unnötig verkompliziert haben:
 
 \todo[Patrick: Gruende]
 \img[width=\relWidth{1}]{observation/observation.png}{Ausschnitt Observations}{img_observations}
@@ -26,7 +26,7 @@ Die Klasse Observation definiert eine konkrete Observation.
 Sie ist typisiert in einem ObservationType und hat jeweils eine zu-Eins Assoziation zu einem konkreten Enumeration Wert 
 und einem konkreten Objekt.
 
-\textbf{Konsistenzbedingungen} \newline
+\textbf{Konsistenzbedingungen}
 \begin{itemize}
   \item Enum Objekte dürfen nur gelöscht werden wenn weder EnumValue noch ObservationType Objekte diese referenzieren.
   \item ObservationType Objekte dürfen nur gelöscht werden, wenn es keine Ausprägungen auf der Instanzebene gibt (Observation).
