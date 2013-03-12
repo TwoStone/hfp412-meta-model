@@ -135,11 +135,10 @@ Für Links stehen dem Anwender nur zwei Operationen zur Verfügung.
 Wie zuvor erwähnt, ist es für einen Link zwingend notwendig sich an die Konsistenzbedingungen der Assoziation zu halten.
 Bei der Erstellung eines Links wird eine \emph{ConsistencyException} erzeugt, wenn die Quell- und/oder Zielobjekte gemäß der Typebene nicht 
 gestattet sind.
-
-\begin{enumerate}
-\item $\forall \, l \in Link: l.source.type.isLessOrEqual(l.type.source)$
-\item $\forall \, l \in Link: l.target.type.isLessOrEqual(l.type.target)$
-\end{enumerate}
+\begin{equation} \forall \, l \in Link: l.source.type.isLessOrEqual(l.type.source)
+\end{equation} 
+\begin{equation} \forall \, l \in Link: l.target.type.isLessOrEqual(l.type.target)
+\end{equation}
 
 Desweiteren ist es Assoziationen möglich an mehreren Hierarchien teilzunehmen. Zyklische Assoziationen sind auf der Metaebene möglich, 
 da sich sonst keinerlei Aggregationsbeziehung abbilden ließen.
