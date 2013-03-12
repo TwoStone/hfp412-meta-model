@@ -27,5 +27,63 @@ da es ohnehin Obertyp eines jeden Typen ist. Dies ist insofern unsauber, als das
 Weitere Nachteile sind bisher nicht ersichtlich.
 
 
+\subsubsubsection{Aspekte}
+
+\textbf{Zusätzliche Konsistenzbedinungen} \newline
+Die einzige Konsistenzbedingung von Aspekten ist, dass sie paarweise verschiedene Namen tragen müssen. 
+
+\textbf{Manager} \newline
+Aspekte werden vom \emph{AspectManager} verwaltet. Alle Operation werden transaktional aufgerufen und prüfen die Konsistenzbedingung. 
+
+\begin{description}
+\item[createAspect] legt einen neuen Aspekt an.
+\item[renameAspect] benennt einen Aspekt um.
+\item[deleteAspect] loescht einen Aspekt, wenn keine abhängingen Modellelemente existieren.
+\end{description}
+
+\textbf{Abhängige Elemente}
+\begin{enumerate}
+  		\item Atomare Typen, die in diesem Aspekt angelegt sind.
+\end{enumerate}
+
+
+\subsubsubsection{Atomare Typen}
+
+\textbf{Zusätzliche Konsistenzbedinungen}
+\begin{enumerate}
+  		\item Paarweise verschiedene Namen in einem Aspekt
+  		\item \(\forall a \in AT : !(a.singleton \land a.abstract) \)
+\end{enumerate}
+
+\textbf{Manager} \newline
+Atomare Typen werden vom \emph{TypeManager} verwaltet. 
+
+\begin{description}
+\item[createAtomicRootType] legt einen neuen atomaren Typen mit Obertyp \emph{Anything} an. 
+\item[createAtomicSubType] legt einen neuen atomaren Typen unter einem andern an. 
+\item[renameAtomicType] benennt einen atomaren Typen um. 
+\item[changeAbstract] ist eine modifizierte Set-Methode. Kann einen konkreten Typen nur abstrakt umdeklarieren, wenn er weder Singletons ist, noch 
+Objekte in ihm klassifiziert sind.
+\item[changeSingleton] ist eine modifizierte Set-Methode. Kann die Singletoneigenschaft nur wiederrufen, wenn das \emph{SingletonObject} gelöscht werden kann. 
+ Kann die Singletoneigenschaft nur gewähren, wenn keine Objekte existieren und der Typ nicht abstrakt ist. 
+\end{description}
+
+\textbf{Singletons} \newline
+Die Singletoneigenschaft eines atomaren Typen A bedeutet ausschließlich, dass genau ein Objekt existiert, dessen konkretester Typ A ist.
+Von Singletons darf beliebig abgeleitet werden. 
+In der \emph{initializeOnCreation}-Operation des atomaren Typen wird, falls er über die Singletoneigenschaft verfügt, 
+sein \emph{SingletonObject} erstellt. In der \emph{prepareForDeletion}-Operation wird - falls vorhanden - das \emph{SingeletonObject}
+mitgelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{SingletonObject}s. 
+ 
+\textbf{Abhängige Elemente}
+\begin{enumerate}
+  		\item Atomare Typen: direkte Untertypen
+  		\item bei Singletons: Abhängige Objekte des \emph{SingletonObject}s
+  		\item \ldots siehe Typabstraktion
+\end{enumerate}
+
+\subsubsection{Komplexe Typen}
+
+
 
 \TODO[Kapitel schreiben]
