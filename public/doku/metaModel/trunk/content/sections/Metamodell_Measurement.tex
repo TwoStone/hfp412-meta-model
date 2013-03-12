@@ -5,7 +5,7 @@ eine qualitative Messung. Im Kontext dieses Projekts wird diese Art von Messung 
 \ref{Observations}) bezeichnet. Unter quantitativen Messungen, bezeichnet als \term{Measurement}, wird
 beispielsweise das Feststellen der Körpergröße eines Menschen verstanden.
 
-\term{Measurements} (beispielsweise Körpergröße von Hugo Egon Balder: 190cm) werden in Form von Quantitäten bzw.
+\term{Measurements} (beispielsweise die \qq{Körpergröße von Hugo Egon Balder: 190cm}) werden in Form von Quantitäten bzw.
 \term{Quantities} auf Konten (\term{Accounts}) erfasst. Des Weiteren gibt es \term{MeasurementTypes} und
 \term{AccountTypes}, welche in diesem Abschnitt noch genauer erläutert werden.
 
@@ -48,9 +48,9 @@ Beispielsweise kann so Summe, Durchschnitt, Maximum oder Minimum der Einträge e
 
 Im Metamodell besitzt ein Account die folgenden Assoziationen.
 \begin{description}
-	\item[MAccountType type] Typ des Accounts.
+	\item[MAccountType type] Jeder Accounts ist in einem AccountType klassifiziert.
 	\item[Account** subAccounts (AccountHierarchy)] Liste bzw. Komposition von Unterkonten.
-	\item[Measurement** entries] Liste von Einträgen.
+	\item[Measurement** entries] Liste von Einträgen bzw. Messungen (Measurements).
 	\item[MObject object] Von QuantifiedObject geerbt.
 \end{description}
 
