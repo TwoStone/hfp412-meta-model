@@ -2,7 +2,7 @@
 
 \term{ModelItem} ist als Abstraktion für alle Modellelemente konzeptioniert. 
 Zentrale Aufgabe dieser Klasse ist es, einen Abhängigkeitsgraphen über Modellelemente erstellen zu können und 
-das Löschen dieser zu vereinheitlichen. Der Abhängigkeitsgraph ist durch die Modellierung bedingt azyklisch.
+das Löschen dieser zu vereinheitlichen. Der Abhängigkeitsgraph ist, durch die Modellierung bedingt, azyklisch.
 Die in der Implementierung angewandte Pragmatik verbietet das Löschen von Modellelementen, von denen weitere Elemente 
 abhängig sind. Der Entwurf ermöglicht es auch nachträglich dieses Vorgehen mit geringem Aufwand durch ein kaskadierendes Löschen zu 
 ersetzen. 
@@ -29,4 +29,5 @@ Singleton-Objekt und löscht dies in \emph{prepareForDeletion()}.
 
 \end{description}
 \subsubsection{Weitere Ideen}
+
 \TODO[Kapitel schreiben]

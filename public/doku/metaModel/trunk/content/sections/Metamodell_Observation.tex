@@ -1,0 +1,50 @@
+\subsection{Observations}
+Im Gegensatz zum ursprünglichen Modell haben wir uns nach längerer Diskussion dazu entschlossen Observation auszulagern. 
+Das soll zum einen der Übersicht und Transparenz des Modells zu gute kommen und zum anderen, was viel wichtiger ist, 
+die aufwändige Handhabung von Singletons für Observation vermeiden. 
+Ursprünglich handelte es sich fachlich um eine Observation wenn ein Typ nur aus Singletons bestand. 
+Dabei stellten sich folgende Fragestellungen, welche nach unserer Ansicht, 
+die Verwendung von Observations in der ursprünglichen Variante unnötig verkompliziert haben:
+
+\todo[Patrick: Gruende]
+\img[width=\relWidth{1}]{observation/observation.png}{Ausschnitt Observations}{img_observations}
+
+Observations werden auf Modellebene durch die Klassen \emph{Enum} und \emph{ObservationType} repräsentiert. 
+Wie man daran bereits erkennen kann, werden Observations mithilfe von Enumerationen interpretiert. 
+Dass bedeutet dass jeder konkreten Observation ein Wert einer Enumeration zugewiesen wird. 
+Die Klasse \emph{Enum} typisiert dabei die Enumeration. 
+Ein Beispiel für einen Enum Typ ist „Blutgruppe“. Die Klasse ObservationType stellt auf Modellebene die 
+Typisierung einer Observation dar. Dabei haben wir festgelegt, dass jede Observation genau einer Enumeration 
+und genau einem Typen zugeordnet sein muss. Man kann sich an dieser Stelle nun fragen, warum nicht mehrere Typen 
+zugeordnet werden können. Der Grund dafür ist, dass wir dies bereits über komplexe Typen definieren können und somit 
+an dieser Stelle darauf verzichtet werden kann.
+
+
+Auf der Instanzebene werden Observations mit den Klassen \emph{EnumValue} und \emph{Observation} abgebildet. 
+Die Klasse \emph{EnumValue} spiegelt dabei einen konkreten Enumeration Wert (z. B. Blutgruppe A) wieder, 
+wobei die Zuordnung zur Enumeration über die theType Assoziation erfolgt. 
+Die Klasse Observation definiert eine konkrete Observation. 
+Sie ist typisiert in einem ObservationType und hat jeweils eine zu-Eins Assoziation zu einem konkreten Enumeration Wert 
+und einem konkreten Objekt.
+
+\textbf{Konsistenzbedingungen} \newline
+-	Enum Objekte dürfen nur gelöscht werden wenn weder EnumValue noch ObservationType Objekte diese referenzieren.
+-	ObservationType Objekte dürfen nur gelöscht werden, wenn es keine Ausprägungen auf der Instanzebene gibt (Observation).
+-	Der Name von EnumValue Objekte muss innerhalb des gleichen Typs (Enum) eindeutig sein. Somit soll verhindert werden, dass beispielsweise 2x der Wert „Blutgruppe A“ einer Enumeration „Blutgruppe“ zugewiesen werden kann.
+-	Für die Observation Objekte müssen folgende Bedingungen gelten:
+o	Für alle o vom Typ Observation gilt:
+o.theType.enumType = o.enumValue.theType
+o	Für alle o vom Typ Observation gilt:
+o.theObsObject.type <= o.theType.theType
+
+\textbf{Manager} \newline
+Für die Erzeugung, das Löschen und der Verwaltung von Observations wurden die folgenden Manager definiert:
+-	EnumerationManager:
+Erzeugen und löschen von Enumerations.
+-	ObsTypeManager:
+Erzeugen und löschen von Observation Types
+-	ObservationManager:
+Erzeugen und löschen von Observations.
+-	EnumValueManager:
+Erzeugen und löschen von Enumeration Werten
+

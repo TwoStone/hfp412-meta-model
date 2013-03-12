@@ -6,7 +6,7 @@ Aspekte stellen gemäß ursprünglichen Modellierung eine Dimension dar, in dere
 Atomare Typen der Klasse \emph{AtomicType} werden genau einem Aspekt zugeordnet. Durch die \emph{lessThan}-Assoziation lässt sich aspektintern eine 
 partielle Ordnung \emph{isLessOrEqualThan} ableiten.  
 
-\img[width=\relWidth{0.5}]{type/Aspekte.png}{Umarrangierter Ausschnitt Aspekte}{img_aspekts}
+\img[width=\relWidth{0.75}]{type/Aspekte.png}{Umarrangierter Ausschnitt Aspekte}{img_aspekts}
 
 Das Interface \emph{AnythingORMATomicType} ist als Zieltyp der \emph{lessThan}-Assoziation ergänzt worden, 
 um die Möglichkeit zu schaffen einen atomaren Typen mit Obertyp so zu ändern, dass er anschließend keinen 
@@ -83,6 +83,11 @@ mitgelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{Sin
 \end{enumerate}
 
 \subsubsection{Komplexe Typen}
+
+Komplexe Typen bieten die Möglichkeit Und- und Oder-Typen zu bilden. Zyklenfreiheit wird hierbei dadurch gewährleistet, 
+dass \emph{containedTypes} und alle Spezialisierungen Teil einer Hierarchie sind. 
+
+\img[width=\relWidth{1}]{type/ComplexTypes.png}{Ergänzter Ausschnitt: Komplexe Typen}{img_complexTypes}
 
 
 
