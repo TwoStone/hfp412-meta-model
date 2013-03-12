@@ -1,30 +1,30 @@
 \subsection{Objektwelt}
 Im Folgenden werden die Anpassungen der Klasse \term{Object} und deren Methoden im Vergleich zum Modell aus der Vorlesung betrachtet.
-\subsubsection{Änderungen und neue Methoden}
-Die Klasse \term{Object} wurde wie viele Klassen im Modell um den Präfix \qq{M} erweitert um Verwechselungen mit der Klasse \term{java.lang.Object} zu vermeiden.
-Desweiteren wurde der Klasse die Methode \term{getProductType()} hinzugefügt, die ein MTypeConjunction liefert.
-Diese TypeConjunction repräsentiert die Produkttypen des Objekts, der implizit durch die Assoziation \term{types} dargestellt wird.
+\subsubsection{Ã„nderungen und neue Methoden}
+Die Klasse \term{Object} wurde wie viele Klassen im Modell um den PrÃ¤fix \qq{M} erweitert um Verwechselungen mit der Klasse \term{java.lang.Object} zu vermeiden.
+Desweiteren wurde der Klasse die Methode \term{getProductType()} hinzugefÃ¼gt, die ein MTypeConjunction liefert.
+Diese TypeConjunction reprÃ¤sentiert die Produkttypen des Objekts, der implizit durch die Assoziation \term{types} dargestellt wird.
 
-\subsubsection{Löschen}
-Das Löschen von \term{MObject}-Exemplaren funktioniert wie auch sonst im System über die Klasse \term{MModelItem}.
-Die Abhängigkeiten eines \term{MObject}s sind hierbei 
+\subsubsection{LÃ¶schen}
+Das LÃ¶schen von \term{MObject}-Exemplaren funktioniert wie auch sonst im System Ã¼ber die Klasse \term{MModelItem}.
+Die AbhÃ¤ngigkeiten eines \term{MObject}s sind hierbei 
 \begin{itemize}
 \item \term{Links} die entweder mit \term{source} oder \term{target} auf das Objekt zeigen,
 \item \term{Measurement}s und \term{Account}s
 \item \term{Observation}s
 \item und \term{NameInstance}s
 \end{itemize}
-Das Löschen eines Objekts ist zur Zeit nur möglich, wenn keine Exemplare dieser Klassen im System vorhanden sind, dié von dem Objekt abhängen.
+Das LÃ¶schen eines Objekts ist zur Zeit nur mÃ¶glich, wenn keine Exemplare dieser Klassen im System vorhanden sind, die von dem Objekt abhÃ¤ngen.
 
 \subsubsection{Singletons und \qq{normale} Objekte}
-Für die Unterscheidung von Exemplaren von Singleton-Typen und \qq{normalen} Objekte, wurden eine Vererbungshierarchie eingeführt, welche Objekte in \term{MObject} (\qq{normale} Objekte)
-und \term{MSingletonObject} (Exemplare von Singleton Typen) partitioniert. Die dazu eingeführte Oberklasse \term{AbstractObject} abstrahiert die Gemeinsamkeiten der beiden Klassen. 
-Durch die Partitionierung ist es möglich die unterschiedlichen geltenden Konsistenzbedingungen in den jeweiligen Klassen zu implementieren.
-Dazu wurde die Types Assoziation in den konkreten Klassen hinterlegt, wobei SingletonExemplare nur einen Typen haben können.
-Entsprechend sind auch die Operationen zum hinzufügen, ändern und entfernen von Typen nur in der Klasse \term{MObject} zu finden.
+FÃ¼r die Unterscheidung von Exemplaren von Singleton-Typen und \qq{normalen} Objekte, wurden eine Vererbungshierarchie eingefÃ¼hrt, welche Objekte in \term{MObject} (\qq{normale} Objekte)
+und \term{MSingletonObject} (Exemplare von Singleton Typen) partitioniert. Die dazu eingefÃ¼hrte Oberklasse \term{AbstractObject} abstrahiert die Gemeinsamkeiten der beiden Klassen. 
+Durch die Partitionierung ist es mÃ¶glich die unterschiedlichen geltenden Konsistenzbedingungen in den jeweiligen Klassen zu implementieren.
+Dazu wurde die Types Assoziation in den konkreten Klassen hinterlegt, wobei SingletonExemplare nur einen Typen haben kÃ¶nnen.
+Entsprechend sind auch die Operationen zum HinzufÃ¼gen, Ã„ndern und Entfernen von Typen nur in der Klasse \term{MObject} zu finden.
 
 Kritik:
-Diese Designentscheidung ist kritisch zu betrachten. Dadurch, dass Objekte in der späteren Anwendung immer Exeplare entweder von MObject oder MSingeltonObject sind,
-ist ein Ändern des Attributs \qq{singleton} an Exemplaren des Typs MAtomicTypes kritisch. Dies führt dazu, dass die Exemplare der Objekte weggeschmissen werden müssen.
-Dies ist ins besondere bei Refactorings, die Singletons entfernen (wie z.B. beim Implemetieren von Mandantenfähigkeit) problematisch.
-Es ist ratsam in eine späteren Version dieses Problem etwa mit einem \qq{State}-Pattern zu vermeiden.
+Diese Designentscheidung ist kritisch zu betrachten. Dadurch, dass Objekte in der spÃ¤teren Anwendung immer Exeplare entweder von MObject oder MSingeltonObject sind,
+ist ein Ã„ndern des Attributs \qq{singleton} an Exemplaren des Typs MAtomicTypes kritisch. Dies fÃ¼hrt dazu, dass die Exemplare der Objekte weggeschmissen werden mÃ¼ssen.
+Dies ist ins besondere bei Refactorings, die Singletons entfernen (wie z.B. beim Implemetieren von MandantenfÃ¤higkeit) problematisch.
+Es ist ratsam in einer spÃ¤teren Version dieses Problem etwa mit einem \qq{State}-Pattern zu vermeiden.

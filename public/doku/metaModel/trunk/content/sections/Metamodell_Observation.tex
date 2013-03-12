@@ -1,8 +1,8 @@
 \subsection{Observations}\label{Observations}
-Im Gegensatz zum ursprünglichen Modell haben wir uns nach längerer Diskussion dazu entschlossen Observation auszulagern. 
-Das soll zum einen der Übersicht und Transparenz des Modells zu gute kommen und zum anderen, was viel wichtiger ist, 
+Im Gegensatz zum ursprünglichen Modell haben wir uns nach längerer Diskussion dazu entschlossen Observations auszulagern. 
+Das soll zum einen der Übersicht und Transparenz des Modells zu gute kommen und zum anderen, 
 die aufwändige Handhabung von Singletons für Observation vermeiden. 
-Ursprünglich handelte es sich fachlich um eine Observation wenn ein Typ nur aus Singletons bestand. 
+Ursprünglich handelte es sich fachlich um eine Observation, wenn ein Typ nur aus Singletons bestand. 
 Dabei stellten sich folgende Fragestellungen, welche nach unserer Ansicht, 
 die Verwendung von Observations in der ursprünglichen Variante unnötig verkompliziert haben:
 
@@ -19,7 +19,6 @@ und genau einem Typen zugeordnet sein muss. Man kann sich an dieser Stelle nun f
 zugeordnet werden können. Der Grund dafür ist, dass wir dies bereits über komplexe Typen definieren können und somit 
 an dieser Stelle darauf verzichtet werden kann.
 
-
 Auf der Instanzebene werden Observations mit den Klassen \emph{EnumValue} und \emph{Observation} abgebildet. 
 Die Klasse \emph{EnumValue} spiegelt dabei einen konkreten Enumeration Wert (z. B. Blutgruppe A) wieder, 
 wobei die Zuordnung zur Enumeration über die theType Assoziation erfolgt. 
@@ -28,14 +27,17 @@ Sie ist typisiert in einem ObservationType und hat jeweils eine zu-Eins Assoziat
 und einem konkreten Objekt.
 
 \textbf{Konsistenzbedingungen} \newline
--	Enum Objekte dürfen nur gelöscht werden wenn weder EnumValue noch ObservationType Objekte diese referenzieren.
--	ObservationType Objekte dürfen nur gelöscht werden, wenn es keine Ausprägungen auf der Instanzebene gibt (Observation).
--	Der Name von EnumValue Objekte muss innerhalb des gleichen Typs (Enum) eindeutig sein. Somit soll verhindert werden, dass beispielsweise 2x der Wert „Blutgruppe A“ einer Enumeration „Blutgruppe“ zugewiesen werden kann.
--	Für die Observation Objekte müssen folgende Bedingungen gelten:
-o	Für alle o vom Typ Observation gilt:
-o.theType.enumType = o.enumValue.theType
-o	Für alle o vom Typ Observation gilt:
-o.theObsObject.type <= o.theType.theType
+\begin{itemize}
+  \item Enum Objekte dürfen nur gelöscht werden wenn weder EnumValue noch ObservationType Objekte diese referenzieren.
+  \item ObservationType Objekte dürfen nur gelöscht werden, wenn es keine Ausprägungen auf der Instanzebene gibt (Observation).
+  \item Der Name von EnumValue Objekte muss innerhalb des gleichen Typs (Enum) eindeutig sein. Somit soll verhindert werden, dass beispielsweise 2x der Wert \qq{Blutgruppe A} einer Enumeration \qq{Blutgruppe} zugewiesen werden kann.
+\end{itemize}
+
+Für die Observation Objekte müssen folgende Bedingungen gelten:
+\begin{equation}\forall o \in Observation: o.theType.enumType = o.enumValue.theType
+\end{equation}
+\begin{equation}\forall o \in Observation: o.theObsObject.type \leq o.theType.theType
+\end{equation}
 
 \textbf{Manager} \newline
 Für die Erzeugung, das Löschen und der Verwaltung von Observations wurden die folgenden Manager definiert:
