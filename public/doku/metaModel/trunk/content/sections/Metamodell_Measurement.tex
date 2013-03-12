@@ -20,7 +20,7 @@ Zusätzlich existieren drei Manager: der \term{MeasurementTypeManager}, der \ter
 \term{AccountManager}. Diese Klassen werden im Folgenden nach Themengebieten beschrieben.
 
 
-\subsubsection{QuantifiedObject}
+\subsubsection{QuantifiedObject}\lblSec{Measurement:QuantifiedObject}
 
 Das \term{QuantifiedObject} repräsentiert zunächst einmal ganz abstrakt ein Objekt, das mit einer Quantität versehen
 ist. Zu diesem Zweck kennt es ein \term{Object}, auf das es sich bezieht und direkt oder indirekt eine \term{Quantity}.
@@ -35,16 +35,16 @@ angewandt werden.
 Ein \term{QuantifiedObject} ist zudem in der Modellebene in einem \term{QuantifiedObjectType} typisiert.
 
 
-\subsubsection{QuantifiedObjectType}
+\subsubsection{QuantifiedObjectType}\lblSec{Measurement:QuantifiedObjectType}
 
-\TODO[Kapitel schreiben]
-
--- Attribute: MType type, AbsUnitType unitType
-
--- Keine Operationen
+Ein \term{QuantifiedObjectType} kategorisiert \term{QuantifiedObjects} nach zwei Kriterien: dem \term{Type}, in dem das
+zum \term{QuantifiedObject} gehörende \term{Object} typisiert ist, und dem \term{AbstractUnitType}, in dem die \term{AbstractUnit}
+der zum \term{QuantifiedObject} gehörenden \term{Quantity} typisiert ist. Er bildet somit die abstrakte Oberklasse des
+\term{MeasurementTypes} und des \term{AccountTypes} und hat keine Operationen.
 
 
 \subsubsection{Account}
+
 Ein Konto (Account) gehört zu einem bestimmten Objekt (Object) und beinhaltet Einträge (entries) in Form von quantitativen Messungen (Measurements). 
 Jedes Konto ist in einem Typ (AccountType) klassifiziert und kann außerdem mehrere Unterkonten (Komposition von subAccounts) besitzen.
 Auf einem Konto kann auf Basis einer definierten Strategie (AggregationStrategy) aggregiert werden. 
@@ -66,6 +66,7 @@ Hinzu kommen die folgenden Operationen, welche zum Befüllen der o.g. Listen die
 
 
 \subsubsection{AccountType}
+
 Der Typ eines Accounts (AccountType) dient zur Klassifizieren eines Kontos. Beispielsweise kann ein Konto als Bankkonto klassifiziert werden. Untertyp (SubAccountType) kann an dieser Stelle z.B. ein Giro- oder Kreditkartenkonto sein.
 Sobald ein AccountType Exemplare besitzt, kann dieser nicht mehr gelöscht werden (siehe folgender Abschnitt). Um Hierarchien dieser Art abbilden zu können sind die folgenden Assoziationen und Operationen notwendig. 
 
@@ -81,6 +82,7 @@ Hinzu kommt die folgende Operation, welche zum Befüllen der o.g. Liste dient.
 
 
 \subsubsection{Account \& AccountType}
+
 Wie bereits beschrieben, ist ein Account in einem AccountType klassifiziert. Dieser Typ ist unter anderem relevant, wenn dem Konto ein neues Unterkonto hinzugefügt werden soll.  
 In \refImg{Measurement:AccTypeHier} wird eine AccountType Hierarchie dargestellt. \term{A} ist in diesem Beispiel der oberste AccountType, welcher die darunterliegenden SubAccountTypes referenziert. 
 Auf \term{F} wird von keinem AccountType referenziert und refernziert auch selbst keine anderen AccountTypes.  
@@ -99,6 +101,7 @@ Daraus ergibt sich die folgende Konsistenzbedingung, welche bei Nichteinhaltung 
 
 
 \subsubsection{AccountManager}
+
 Der AccountManager dient zur Erstellung von Accounts und beinhaltet alle Accounts des Modells.
 
 Im Metamodell besitzt der AccountManager die folgende Assoziation.
@@ -115,6 +118,7 @@ Neben den Accounts werden auch die \term{AccountTypes} zentral verwaltet. Dazu d
 
 
 \subsubsection{AccountTypeManager}
+
 Der AccountTypeManager dient zur Erstellung von \term{AccountTypes} und beinhaltet alle \term{AccountTypes} des Modells.
 
 Im Metamodell besitzt der \term{AccountTypeManager} die folgende Assoziation.
@@ -135,49 +139,47 @@ Im folgenden Abschnitt wird auf die Assoziationen und Operationen von Measuremen
 
 \subsubsection{Measurement}
 
-\TODO[Kapitel schreiben]
+Ein \term{Measurement} repräsentiert eine quantitative Messung eines \term{Objects}. So kann mit ihr zum Beispiel die Regensäule des gestrigen Tages
+oder eine Buchung auf ein Konto festgehalten werden. Damit dies funktioniert, benötigt ein \term{Measurement} zunächst ein \term{Object}, auf das es
+sich beziehen kann. Dieses erbt es von \term{QuantifiedObject} (s.~\refSec{Measurement:QuantifiedObject}).
 
--- Attribute: MMeasurementType type, AbsQuantity quantity
-
--- Keine Operationen
+Zum anderen benötigt es die Höhe des Betrages und die Einheit, in der die Messung durchgeführt wurde. Diese Informationen speichert das \term{Measurement}
+in einer \term{AbstractQuantity}. Alle \term{Units} dieser \term{AbstractQuantity} sind dabei im \term{UnitType} des \term{MeasurementTypes} typsiert,
+auf den das \term{Measurement} zeigt. Das \term{Measurement} selbst hat keine nicht"=geerbten Operationen.
 
 
 \subsubsection{MeasurementType}
 
-\TODO[Kapitel schreiben]
-
--- Keine Attribute
-
--- Keine Operationen
+Ein \term{MeasurementType} kategorisiert mehrere \term{Measurements}. Dabei greift er auf dieselben Kriterien wie die Oberklasse \term{QuantifiedObjectType}
+zurück (s.~\refSec{Measurement:QuantifiedObjectType}). Er hat keine nicht"=geerbten Assoziationen oder Operationen.
 
 
 \subsubsection{Measurement \& MeasurementType}
 
-\TODO[Alex: passt das? Oder denk ich da falsch herum?]
+\TODO[Bj: Verschieben wa? :)]
 \begin{equation} \forall \, m_1, m_2 \in Account.entries: m_1.type = m_2.type
 \end{equation}
 
 
 \subsubsection{MeasurementTypeManager}
 
-\TODO[Kapitel schreiben]
-
--- Attribute: MMeasurementType** measurementTypes
-
--- Operationen:
+Der \term{MeasurementTypeManager} dient zur Verwaltung und Erstellung aller \term{MeasurementTypes}. Er besitzt dazu eine Liste \term{measurementTypes},
+in der er die existierenden \term{MeasurementTypes} vorhält. Zusätzlich hat er folgende Operation:
 
 \begin{description}
-	\item[createMeasurementType] Beschreiben
+	\item[createMeasurementType] Erzeugt einen neuen \term{MeasurementType} anhand der übergebenen Parameter und gibt ihn zurück.
 \end{description}
 
 
 \subsubsection{AggregationStrategy}
 
-\TODO[Kapitel schreiben]
+Die \term{AggregationStrategy} wird -- wie bereits in \refSec{Measurement:QuantifiedObject} angedeutet -- von der Operation \term{aggregate} benutzt,
+um die \term{AbstractQuantity} eines \term{QuantifiedObjects} zu bestimmen. Dazu besitzt sie die abstrakte Operation \term{aggregateMeasurements}, die eine 
+berechnete \term{AbstractQuantity} zurückliefert. Hierzu benötigt die Operation als Parameter die Liste der zu aggregierenden \term{Measurements} und
+zusätzlich einen \term{AbstractUnitType}, dessen \term{defaultUnit} für das neutrale Element der Aggregation benutzt wird. 
 
--- Keine Attribute
-
--- Nur Operation aggregateMeasurements
+\term{AggregationStrategy} besitzt vier vorgefertigte, konkrete Strategien zur Aggregation: \term{SumAggregationStrategy}, \term{MinAggregationStrategy},
+\term{MaxAggregationStrategy} und \term{AvgAggregationStrategy}. \TODO[Konkrete Strategien beschreiben]
 
 
 \subsubsection{Löschen im Bereich Measurement}
