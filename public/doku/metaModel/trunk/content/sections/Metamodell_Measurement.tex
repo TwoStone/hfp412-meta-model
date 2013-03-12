@@ -90,7 +90,9 @@ In den anderen drei Fällen ist der AccountType vom SubAccount entweder nicht $\
 
 \img[width=\relWidth{0.5}]{measurement/SubAccounts.png}{SubAccount Exemplare}{Measurement:SubAccounts}
 
-Des Weiteren ist zu beachten, dass die im Account referenzierten Einträge (\term{Measurements}) vom selben \term{MeasurementType} sein müssen. Daraus ergeben sich die folgenden Konsistenzbedingungen, welche bei Nichteinhaltung zu einer \term{ConsistencyException} führen.
+Des Weiteren ist zu beachten, dass die im Account referenzierten Einträge (\term{Measurements}) vom selben 
+\term{MeasurementType} sein müssen. Daraus ergeben sich die folgenden Konsistenzbedingungen, 
+welche bei Nichteinhaltung zu einer \term{ConsistencyException} führen.
 \begin{equation} \forall a \in Account: \forall s \in a.subaccounts: s.type \leq a.type
 \end{equation}
 \begin{equation} \forall a \in Account: \forall m_1, m_2 \in a.entries: m_1.type = m_2.type
