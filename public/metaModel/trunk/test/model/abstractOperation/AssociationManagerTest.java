@@ -1,5 +1,6 @@
 package model.abstractOperation;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import model.ConsistencyException;
 import model.CycleException;
@@ -40,8 +41,7 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void createAssociationSuccessful() throws PersistenceException, DoubleDefinitionException,
-			ConsistencyException {
+	public void createAssociationSuccessful() throws PersistenceException, DoubleDefinitionException, ConsistencyException {
 		manager.createAssociation(mat4, mat5, "a");
 		manager.createAssociation(mat4, mat5, "b");
 		manager.createAssociation(mat2, mat3, "c");
@@ -122,8 +122,7 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void removeAssociationSuccessful() throws PersistenceException, DoubleDefinitionException,
-			ConsistencyException, CycleException {
+	public void removeAssociationSuccessful() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		final PersistentAssociation b = manager.createAssociation(mptSingle2, mat5, "b");
 		final PersistentAssociation c = manager.createAssociation(mptMultiple2And4, mat5, "c");
@@ -131,7 +130,7 @@ public class AssociationManagerTest extends AbstractTest {
 		final PersistentAssociation e = manager.createAssociation(mstMultiple2And4, mat5, "e");
 		final PersistentAssociation f = manager.createAssociation(mstMixed2And4Or5And6, mat5, "f");
 		final PersistentAssociation g = manager.createAssociation(mptMixed2Or4And5Or6, mat5, "g");
-
+		assertEquals(7, manager.getAssociations().getLength());
 		manager.removeAssociation(a);
 		manager.removeAssociation(b);
 		manager.removeAssociation(c);
@@ -139,11 +138,11 @@ public class AssociationManagerTest extends AbstractTest {
 		manager.removeAssociation(e);
 		manager.removeAssociation(f);
 		manager.removeAssociation(g);
+		assertEquals(0, manager.getAssociations().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void removeAssociationCE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
-			CycleException {
+	public void removeAssociationCE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		manager.getAssociations().add(a);
 		linkManager.createLink(a, mao4, mao5);
@@ -151,16 +150,15 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void removeAssociationCE02() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
-			CycleException {
+	public void removeAssociationCE02() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		manager.createHierarchy(a, "h");
 		manager.removeAssociation(a);
 	}
 
 	@Test(expected = NotAvailableException.class)
-	public void removeAssoFromHierarchyCE01() throws PersistenceException, DoubleDefinitionException,
-			ConsistencyException, CycleException, NotAvailableException {
+	public void removeAssoFromHierarchyCE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException,
+			NotAvailableException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		final PersistentAssociation b = manager.createAssociation(mat4, mat5, "b");
 		final PersistentHierarchy h = manager.createHierarchy(a, "h");
@@ -168,16 +166,14 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void removeHierarchy() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
-			CycleException {
+	public void removeHierarchy() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		final PersistentHierarchy h = manager.createHierarchy(a, "h");
 		manager.removeHierarchy(h);
 	}
 
 	@Test
-	public void createHierarchySuccessful() throws PersistenceException, DoubleDefinitionException,
-			ConsistencyException, CycleException {
+	public void createHierarchySuccessful() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		final PersistentAssociation b = manager.createAssociation(mptSingle2, mat5, "b");
 		final PersistentAssociation c = manager.createAssociation(mptMultiple2And4, mat5, "c");
@@ -211,8 +207,7 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test(expected = DoubleDefinitionException.class)
-	public void createHierarchyDDE() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
-			CycleException {
+	public void createHierarchyDDE() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		final PersistentAssociation b = manager.createAssociation(mptSingle2, mat5, "b");
 		manager.createHierarchy(a, "a");
@@ -220,16 +215,15 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test(expected = CycleException.class)
-	public void createHierarchyCE() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
-			CycleException {
+	public void createHierarchyCE() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat4, "a");
 		linkManager.createLink(a, mao4, mao4);
 		manager.createHierarchy(a, "a");
 	}
 
 	@Test
-	public void removeAssoFormHierarchy() throws PersistenceException, NotAvailableException, CycleException,
-			ConsistencyException, DoubleDefinitionException {
+	public void removeAssoFormHierarchy() throws PersistenceException, NotAvailableException, CycleException, ConsistencyException,
+			DoubleDefinitionException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		final PersistentAssociation b = manager.createAssociation(mat3, mat5, "b");
 		final PersistentHierarchy h = manager.createHierarchy(a, "h");
@@ -238,16 +232,15 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void removeAssoFormHierarchyCE02() throws PersistenceException, NotAvailableException, CycleException,
-			ConsistencyException, DoubleDefinitionException {
+	public void removeAssoFormHierarchyCE02() throws PersistenceException, NotAvailableException, CycleException, ConsistencyException,
+			DoubleDefinitionException {
 		final PersistentAssociation a = manager.createAssociation(mat4, mat5, "a");
 		final PersistentHierarchy h = manager.createHierarchy(a, "h");
 		manager.removeAssoFrmHier(h, a);
 	}
 
 	@Test
-	public void addAssoicationWithoutCycleE01() throws PersistenceException, DoubleDefinitionException,
-			ConsistencyException, CycleException {
+	public void addAssoicationWithoutCycleE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation a = manager.createAssociation(mat1, mat3, "a");
 		final PersistentAssociation b = manager.createAssociation(mat3, mat1, "b");
 		linkManager.createLink(a, mao1, mao3);
@@ -256,8 +249,7 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test(expected = CycleException.class)
-	public void addAssoicationCycleE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
-			CycleException {
+	public void addAssoicationCycleE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation firstAsso = manager.createAssociation(mat1, mat3, "a");
 		final PersistentAssociation secondAsso = manager.createAssociation(mat3, mat1, "b");
 		linkManager.createLink(firstAsso, mao1, mao3);
@@ -267,16 +259,14 @@ public class AssociationManagerTest extends AbstractTest {
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void addAssoicationCE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException,
-			CycleException {
+	public void addAssoicationCE01() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		final PersistentAssociation a = manager.createAssociation(mat1, mat3, "a");
 		final PersistentHierarchy h = manager.createHierarchy(a, "h");
 		manager.addAssociation(h, a);
 	}
 
 	@Test
-	public void createAssoicationAndOpWithSameName() throws PersistenceException, DoubleDefinitionException,
-			ConsistencyException, CycleException {
+	public void createAssoicationAndOpWithSameName() throws PersistenceException, DoubleDefinitionException, ConsistencyException, CycleException {
 		opManager.createFp("x", mat6);
 		opManager.createOperation(mat1, mat3, "a", opManager.getFormalParameters().getList());
 		final PersistentAssociation a = manager.createAssociation(mat1, mat3, "a");

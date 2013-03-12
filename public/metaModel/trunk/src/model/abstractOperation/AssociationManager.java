@@ -12,7 +12,33 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.*;
+import persistence.AbsOperationSearchList;
+import persistence.Anything;
+import persistence.AssociationManagerProxi;
+import persistence.AssociationManager_AssociationsProxi;
+import persistence.AssociationManager_HierarchiesProxi;
+import persistence.ConnectionHandler;
+import persistence.Invoker;
+import persistence.LinkSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentAbsOperation;
+import persistence.PersistentAddAssociationCommand;
+import persistence.PersistentAssociation;
+import persistence.PersistentAssociationManager;
+import persistence.PersistentCreateAssociationCommand;
+import persistence.PersistentCreateHierarchyCommand;
+import persistence.PersistentHierarchy;
+import persistence.PersistentLink;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMType;
+import persistence.PersistentObject;
+import persistence.PersistentOperation;
+import persistence.PersistentProxi;
+import persistence.PersistentRemoveAssoFrmHierCommand;
+import persistence.PersistentRemoveAssociationCommand;
+import persistence.PersistentRemoveHierarchyCommand;
+import persistence.Predcate;
+import persistence.TDObserver;
 import utils.EmptyTypeDisjReturnBooleanVisitor;
 import constants.ExceptionConstants;
 
@@ -97,7 +123,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     
     static public long getTypeId() {
-        return 154;
+        return 197;
     }
     
     public long getClassId() {
@@ -319,7 +345,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 				throws PersistenceException{
 	}
     public void removeAssoFrmHier(final PersistentHierarchy h, final PersistentAssociation a) 
-				throws model.NotAvailableException, model.ConsistencyException, model.CycleException, PersistenceException{
+				throws model.NotAvailableException, model.ConsistencyException, PersistenceException{
 
 		// Wenn die Assoziation gar nicht in der Hierarchy ist => Exception
 		final PersistentAssociation findFirst = h.getAssociations().findFirst(new Predcate<PersistentAssociation>() {
@@ -346,22 +372,14 @@ public class AssociationManager extends PersistentObject implements PersistentAs
 		});
 	}
     public void removeAssociation(final PersistentAssociation a) 
-				throws model.ConsistencyException, model.CycleException, PersistenceException{
-		// Consistency, falls es Links gibt.
-		if (a.inverseGetType().getLength() > 0) {
-			throw new ConsistencyException(ExceptionConstants.CE_EXISTING_LINKS);
-		}
-		// Consistency wenn es Element einer Hierarchy ist
-		if (getThis().getHierarchies().getLength() > 0) {
-			throw new ConsistencyException(ExceptionConstants.CE_ASSOC_IN_HIERARCHY);
-		}
-
+				throws model.ConsistencyException, PersistenceException{
 		getThis().getAssociations().removeFirstSuccess(new Predcate<PersistentAssociation>() {
 			@Override
 			public boolean test(final PersistentAssociation argument) throws PersistenceException {
 				return a.equals(argument);
 			}
 		});
+		a.delete();
 	}
     public void removeHierarchy(final PersistentHierarchy h) 
 				throws PersistenceException{

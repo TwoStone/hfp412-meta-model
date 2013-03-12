@@ -1,8 +1,31 @@
 package model.messageOrLink;
 
 import model.UserException;
-import model.visitor.*;
-import persistence.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
+import model.visitor.MessageOrLinkExceptionVisitor;
+import model.visitor.MessageOrLinkReturnExceptionVisitor;
+import model.visitor.MessageOrLinkReturnVisitor;
+import model.visitor.MessageOrLinkVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.LinkProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAbstractObject;
+import persistence.PersistentAssociation;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentLink;
+import persistence.PersistentMModelItem;
+import persistence.PersistentMessageOrLink;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -94,7 +117,7 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
     }
     
     static public long getTypeId() {
-        return 141;
+        return 179;
     }
     
     public long getClassId() {
@@ -103,7 +126,7 @@ public class Link extends model.messageOrLink.MessageOrLink implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 141) ConnectionHandler.getTheConnectionHandler().theLinkFacade
+        if (this.getClassId() == 179) ConnectionHandler.getTheConnectionHandler().theLinkFacade
             .newLink(this.getId());
         super.store();
         if(this.getType() != null){

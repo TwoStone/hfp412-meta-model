@@ -1,6 +1,17 @@
 package model.messageOrLink;
 
-import persistence.*;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MModelItemSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentAbstractObject;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentMModelItem;
+import persistence.PersistentMessageOrLink;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
@@ -69,7 +80,7 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 190;
+        return 253;
     }
     
     public long getClassId() {

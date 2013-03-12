@@ -32,8 +32,6 @@ public final class ExceptionConstants {
 	public static final String DDE_HIERARCHY = "Eine Hierarchie mit diesem Namen existiert bereits.";
 	public static final String NA_IN_HIERARCHY = "Die gewählte Assoziation ist nicht in der Hierarchie enthalten.";
 	public static final String CE_LAST_ASSOC_IN_HIERARCHY = "Die gewählte Assoziation ist die letzte Assoziation in der gewählten Hierarchie und kann deshalb nicht entfernt werden.";
-	public static final String CE_EXISTING_LINKS = "Die gewählte Assoziation kann nicht gelöscht werden, solang Exemplare existieren.";
-	public static final String CE_ASSOC_IN_HIERARCHY = "Die gewählte Assoziation kann nicht gelöscht werden, da sie Element mindestens einer Hierarchy ist.";
 
 	public static final String CE_FP_ALREADY_IN_OP = "Die Operation enthält bereits den gewählten Formalparameter.";
 	public static final String DDE_FP = "Ein Formalparameter mit diesem Namen existiert bereits.";

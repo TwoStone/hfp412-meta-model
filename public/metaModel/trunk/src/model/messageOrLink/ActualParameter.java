@@ -5,13 +5,20 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
 import persistence.AbstractPersistentRoot;
 import persistence.ActualParameterProxi;
 import persistence.Anything;
 import persistence.ConnectionHandler;
+import persistence.MModelItemSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentActualParameter;
+import persistence.PersistentCONCMModelItem;
 import persistence.PersistentFormalParameter;
+import persistence.PersistentMModelItem;
 import persistence.PersistentMObject;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
@@ -89,6 +96,15 @@ public class ActualParameter extends PersistentObject implements PersistentActua
                     if(forGUI && value.hasEssentialFields())value.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            AbstractPersistentRoot myCONCMModelItem = (AbstractPersistentRoot)this.getMyCONCMModelItem();
+            if (myCONCMModelItem != null) {
+                result.put("myCONCMModelItem", myCONCMModelItem.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    myCONCMModelItem.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    myCONCMModelItem.toHashtable(allResults, depth, essentialLevel + 1, forGUI, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -100,28 +116,31 @@ public class ActualParameter extends PersistentObject implements PersistentActua
         result = new ActualParameter(this.type, 
                                      this.value, 
                                      this.This, 
+                                     this.myCONCMModelItem, 
                                      this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
     }
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     protected PersistentFormalParameter type;
     protected PersistentMObject value;
     protected PersistentActualParameter This;
+    protected PersistentMModelItem myCONCMModelItem;
     
-    public ActualParameter(PersistentFormalParameter type,PersistentMObject value,PersistentActualParameter This,long id) throws persistence.PersistenceException {
+    public ActualParameter(PersistentFormalParameter type,PersistentMObject value,PersistentActualParameter This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.type = type;
         this.value = value;
-        if (This != null && !(this.equals(This))) this.This = This;        
+        if (This != null && !(this.equals(This))) this.This = This;
+        this.myCONCMModelItem = myCONCMModelItem;        
     }
     
     static public long getTypeId() {
-        return 196;
+        return 264;
     }
     
     public long getClassId() {
@@ -130,7 +149,7 @@ public class ActualParameter extends PersistentObject implements PersistentActua
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 196) ConnectionHandler.getTheConnectionHandler().theActualParameterFacade
+        if (this.getClassId() == 264) ConnectionHandler.getTheConnectionHandler().theActualParameterFacade
             .newActualParameter(this.getId());
         super.store();
         if(this.getType() != null){
@@ -144,6 +163,10 @@ public class ActualParameter extends PersistentObject implements PersistentActua
         if(!this.equals(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theActualParameterFacade.ThisSet(this.getId(), getThis());
+        }
+        if(this.getMyCONCMModelItem() != null){
+            this.getMyCONCMModelItem().store();
+            ConnectionHandler.getTheConnectionHandler().theActualParameterFacade.myCONCMModelItemSet(this.getId(), getMyCONCMModelItem());
         }
         
     }
@@ -191,6 +214,20 @@ public class ActualParameter extends PersistentObject implements PersistentActua
             ConnectionHandler.getTheConnectionHandler().theActualParameterFacade.ThisSet(this.getId(), newValue);
         }
     }
+    public PersistentMModelItem getMyCONCMModelItem() throws PersistenceException {
+        return this.myCONCMModelItem;
+    }
+    public void setMyCONCMModelItem(PersistentMModelItem newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.myCONCMModelItem)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.myCONCMModelItem = (PersistentMModelItem)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theActualParameterFacade.myCONCMModelItemSet(this.getId(), newValue);
+        }
+    }
     public PersistentActualParameter getThis() throws PersistenceException {
         if(this.This == null){
             PersistentActualParameter result = new ActualParameterProxi(this.getId());
@@ -198,7 +235,23 @@ public class ActualParameter extends PersistentObject implements PersistentActua
             return result;
         }return (PersistentActualParameter)this.This;
     }
+    public void delete$Me() throws PersistenceException{
+        super.delete$Me();
+        this.getMyCONCMModelItem().delete$Me();
+    }
     
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleActualParameter(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleActualParameter(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleActualParameter(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleActualParameter(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleActualParameter(this);
     }
@@ -222,6 +275,8 @@ public class ActualParameter extends PersistentObject implements PersistentActua
 				throws PersistenceException{
         this.setThis((PersistentActualParameter)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentActualParameter)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setType((PersistentFormalParameter)final$$Fields.get("type"));
 			this.setValue((PersistentMObject)final$$Fields.get("value"));
 		}
@@ -233,11 +288,31 @@ public class ActualParameter extends PersistentObject implements PersistentActua
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO Check delegation to abstract class and overwrite if necessary!
+		this.getMyCONCMModelItem().delete();
+	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
+
 	}
     
     

@@ -127,7 +127,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
     }
     
     static public long getTypeId() {
-        return 121;
+        return 146;
     }
     
     public long getClassId() {

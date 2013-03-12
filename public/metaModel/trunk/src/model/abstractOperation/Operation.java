@@ -109,7 +109,7 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
     }
     
     static public long getTypeId() {
-        return 148;
+        return 189;
     }
     
     public long getClassId() {
@@ -118,7 +118,7 @@ public class Operation extends model.abstractOperation.AbsOperation implements P
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 148) ConnectionHandler.getTheConnectionHandler().theOperationFacade
+        if (this.getClassId() == 189) ConnectionHandler.getTheConnectionHandler().theOperationFacade
             .newOperation(name,this.getId());
         super.store();
         

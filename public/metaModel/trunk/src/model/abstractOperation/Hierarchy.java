@@ -5,13 +5,21 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
+import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.AssociationSearchList;
 import persistence.ConnectionHandler;
 import persistence.HierarchyProxi;
 import persistence.HierarchySearchList;
+import persistence.MModelItemSearchList;
 import persistence.PersistenceException;
+import persistence.PersistentCONCMModelItem;
 import persistence.PersistentHierarchy;
+import persistence.PersistentMModelItem;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
@@ -72,6 +80,15 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("name", this.getName());
             result.put("associations", this.getAssociations().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
+            AbstractPersistentRoot myCONCMModelItem = (AbstractPersistentRoot)this.getMyCONCMModelItem();
+            if (myCONCMModelItem != null) {
+                result.put("myCONCMModelItem", myCONCMModelItem.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    myCONCMModelItem.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    myCONCMModelItem.toHashtable(allResults, depth, essentialLevel + 1, forGUI, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -87,26 +104,29 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
         Hierarchy result = this;
         result = new Hierarchy(this.name, 
                                this.This, 
+                               this.myCONCMModelItem, 
                                this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
     }
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     protected String name;
     protected PersistentHierarchy This;
+    protected PersistentMModelItem myCONCMModelItem;
     
-    public Hierarchy(String name,PersistentHierarchy This,long id) throws persistence.PersistenceException {
+    public Hierarchy(String name,PersistentHierarchy This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
-        if (This != null && !(this.equals(This))) this.This = This;        
+        if (This != null && !(this.equals(This))) this.This = This;
+        this.myCONCMModelItem = myCONCMModelItem;        
     }
     
     static public long getTypeId() {
-        return 165;
+        return 210;
     }
     
     public long getClassId() {
@@ -115,12 +135,16 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 165) ConnectionHandler.getTheConnectionHandler().theHierarchyFacade
+        if (this.getClassId() == 210) ConnectionHandler.getTheConnectionHandler().theHierarchyFacade
             .newHierarchy(name,this.getId());
         super.store();
         if(!this.equals(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theHierarchyFacade.ThisSet(this.getId(), getThis());
+        }
+        if(this.getMyCONCMModelItem() != null){
+            this.getMyCONCMModelItem().store();
+            ConnectionHandler.getTheConnectionHandler().theHierarchyFacade.myCONCMModelItemSet(this.getId(), getMyCONCMModelItem());
         }
         
     }
@@ -148,6 +172,20 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
             ConnectionHandler.getTheConnectionHandler().theHierarchyFacade.ThisSet(this.getId(), newValue);
         }
     }
+    public PersistentMModelItem getMyCONCMModelItem() throws PersistenceException {
+        return this.myCONCMModelItem;
+    }
+    public void setMyCONCMModelItem(PersistentMModelItem newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.myCONCMModelItem)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.myCONCMModelItem = (PersistentMModelItem)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theHierarchyFacade.myCONCMModelItemSet(this.getId(), newValue);
+        }
+    }
     public PersistentHierarchy getThis() throws PersistenceException {
         if(this.This == null){
             PersistentHierarchy result = new HierarchyProxi(this.getId());
@@ -155,7 +193,23 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
             return result;
         }return (PersistentHierarchy)this.This;
     }
+    public void delete$Me() throws PersistenceException{
+        super.delete$Me();
+        this.getMyCONCMModelItem().delete$Me();
+    }
     
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleHierarchy(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleHierarchy(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleHierarchy(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleHierarchy(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleHierarchy(this);
     }
@@ -189,11 +243,28 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
 				throws PersistenceException{
         this.setThis((PersistentHierarchy)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentHierarchy)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+	}
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO Check delegation to abstract class and overwrite if necessary!
+		this.getMyCONCMModelItem().delete();
+	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -201,19 +272,18 @@ public class Hierarchy extends PersistentObject implements PersistentHierarchy{
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
+
+	}
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
 
-	
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

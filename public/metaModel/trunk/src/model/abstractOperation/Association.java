@@ -26,6 +26,7 @@ import persistence.PersistentCONCMModelItem;
 import persistence.PersistentMModelItem;
 import persistence.PersistentMType;
 import persistence.TDObserver;
+import utils.SearchLists;
 
 /* Additional import section end */
 
@@ -111,7 +112,7 @@ public class Association extends model.abstractOperation.AbsOperation implements
     }
     
     static public long getTypeId() {
-        return 117;
+        return 141;
     }
     
     public long getClassId() {
@@ -120,7 +121,7 @@ public class Association extends model.abstractOperation.AbsOperation implements
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 117) ConnectionHandler.getTheConnectionHandler().theAssociationFacade
+        if (this.getClassId() == 141) ConnectionHandler.getTheConnectionHandler().theAssociationFacade
             .newAssociation(name,this.getId());
         super.store();
         this.getHierarchies().store();
@@ -210,13 +211,10 @@ public class Association extends model.abstractOperation.AbsOperation implements
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-		// TODO: implement method: fetchDependentItems
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		final MModelItemSearchList result = new MModelItemSearchList();
+		SearchLists.addSecondToFirst(result, getThis().getHierarchies());
+		SearchLists.addSecondToFirst(result, getThis().inverseGetType());
+		return result;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -226,8 +224,6 @@ public class Association extends model.abstractOperation.AbsOperation implements
 	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: prepareForDeletion
-
 	}
     
     
@@ -235,8 +231,7 @@ public class Association extends model.abstractOperation.AbsOperation implements
     
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: delete
-
+		getThis().getMyCONCMModelItem().delete();
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
