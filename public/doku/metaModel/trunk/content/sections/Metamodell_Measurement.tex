@@ -96,7 +96,9 @@ In den anderen drei Fällen ist der AccountType vom SubAccount entweder nicht $\
 \img[width=\relWidth{0.5}]{measurement/SubAccounts.png}{SubAccount Exemplare}{Measurement:SubAccounts}
 
 Daraus ergibt sich die folgende Konsistenzbedingung, welche bei Nichteinhaltung zu einer \term{ConsistencyException} führt.
-\begin{equation} \forall \, a \in Account: \forall s \in a.subaccounts: s.type \leq a.type
+\begin{equation} \forall a \in Account: \forall s \in a.subaccounts: s.type \leq a.type
+\end{equation}
+\begin{equation} \forall a \in Account: \forall m_1, m_2 \in a.entries: m_1.type = m_2.type
 \end{equation}
 
 
@@ -153,12 +155,6 @@ auf den das \term{Measurement} zeigt. Das \term{Measurement} selbst hat keine ni
 Ein \term{MeasurementType} kategorisiert mehrere \term{Measurements}. Dabei greift er auf dieselben Kriterien wie die Oberklasse \term{QuantifiedObjectType}
 zurück (s.~\refSec{Measurement:QuantifiedObjectType}). Er hat keine nicht"=geerbten Assoziationen oder Operationen.
 
-
-\subsubsection{Measurement \& MeasurementType}
-
-\TODO[Bj: Verschieben wa? :)]
-\begin{equation} \forall \, m_1, m_2 \in Account.entries: m_1.type = m_2.type
-\end{equation}
 
 
 \subsubsection{MeasurementTypeManager}
