@@ -13,7 +13,7 @@ Observations werden auf Modellebene durch die Klassen \emph{Enum} und \emph{Obse
 Wie man daran bereits erkennen kann, werden Observations mithilfe von Enumerationen interpretiert. 
 Dass bedeutet dass jeder konkreten Observation ein Wert einer Enumeration zugewiesen wird. 
 Die Klasse \emph{Enum} typisiert dabei die Enumeration. 
-Ein Beispiel für einen Enum Typ ist „Blutgruppe“. Die Klasse ObservationType stellt auf Modellebene die 
+Ein Beispiel für einen Enum Typ ist \qq{Blutgruppe}. Die Klasse ObservationType stellt auf Modellebene die 
 Typisierung einer Observation dar. Dabei haben wir festgelegt, dass jede Observation genau einer Enumeration 
 und genau einem Typen zugeordnet sein muss. Man kann sich an dieser Stelle nun fragen, warum nicht mehrere Typen 
 zugeordnet werden können. Der Grund dafür ist, dass wir dies bereits über komplexe Typen definieren können und somit 
@@ -41,12 +41,9 @@ Für die Observation Objekte müssen folgende Bedingungen gelten:
 
 \textbf{Manager} \newline
 Für die Erzeugung, das Löschen und der Verwaltung von Observations wurden die folgenden Manager definiert:
--	EnumerationManager:
-Erzeugen und löschen von Enumerations.
--	ObsTypeManager:
-Erzeugen und löschen von Observation Types
--	ObservationManager:
-Erzeugen und löschen von Observations.
--	EnumValueManager:
-Erzeugen und löschen von Enumeration Werten
-
+\begin{description}
+\item[EnumerationManager] Erzeugen und Löschen von Enumerations.
+\item[ObsTypeManager] Erzeugen und Löschen von Observation Types.
+\item[ObservationManager] Erzeugen und Löschen von Observations.
+\item[EnumValueManager] Erzeugen und Löschen von Enumeration Werten.
+\end{description}
