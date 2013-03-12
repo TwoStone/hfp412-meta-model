@@ -593,7 +593,7 @@ active FormalParameter createFp(String name, MType ofType) throws DoubleDefiniti
 
 active void addFp(Operation op, FormalParameter fp) throws ConsistencyException;
 active void addMultipleFp(Operation op, FormalParameter** fp) throws ConsistencyException;
-active void removeFpFromOp(Operation op, FormalParameter fp) throws ConsistencyException;
+active void removeFpFromOp(Operation op, FormalParameter fp) throws NotAvailableException, ConsistencyException;
 active void removeFp(FormalParameter fp) throws ConsistencyException;
 active void removeOperation(Operation op) throws ConsistencyException;
 }

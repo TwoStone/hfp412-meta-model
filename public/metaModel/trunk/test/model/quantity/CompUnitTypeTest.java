@@ -3,6 +3,10 @@
  */
 package model.quantity;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Iterator;
 
 import model.ConsistencyException;
@@ -25,9 +29,6 @@ import persistence.PersistentUnitTypeManager;
 import persistence.ReferenceList;
 import persistence.ReferenceTypeSearchList;
 import util.TestingBase;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Testet die Klasse CompUnitType.

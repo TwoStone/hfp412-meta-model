@@ -1,7 +1,13 @@
 
 package model.generationErrorWalkArounds;
 
-import persistence.*;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.PersistenceException;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentSearchListGenerationEnsurer;
+import persistence.TDObserver;
 
 
 /* Additional import section end */

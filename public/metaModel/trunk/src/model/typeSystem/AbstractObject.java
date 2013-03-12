@@ -5,7 +5,31 @@ import java.util.Iterator;
 import model.basic.MFalse;
 import model.basic.MTrue;
 import model.visitor.MessageOrLinkVisitor;
-import persistence.*;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.HierarchySearchList;
+import persistence.LinkSearchList;
+import persistence.MModelItemSearchList;
+import persistence.MessageOrLinkSearchList;
+import persistence.NameInstanceSearchList;
+import persistence.NameSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentAbstractObject;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentHierarchy;
+import persistence.PersistentLink;
+import persistence.PersistentMAtomicType;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMModelItem;
+import persistence.PersistentMessage;
+import persistence.PersistentMessageOrLink;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.Predcate;
+import persistence.Procdure;
+import persistence.SearchListRoot;
+import persistence.TDObserver;
 
 /* Additional import section end */
 

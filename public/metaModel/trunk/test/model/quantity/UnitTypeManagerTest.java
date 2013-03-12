@@ -3,6 +3,12 @@
  */
 package model.quantity;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Iterator;
 
 import model.ConsistencyException;
@@ -22,11 +28,6 @@ import persistence.ReferenceTypeList;
 import persistence.ReferenceTypeSearchList;
 import util.TestingBase;
 import constants.ExceptionConstants;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Testet den UnitTypeManager

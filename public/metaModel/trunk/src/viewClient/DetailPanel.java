@@ -1496,8 +1496,8 @@ class MessageDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MessageOrLink$$source = "MessageOrLink$$source";
     protected static final String MessageOrLink$$target = "MessageOrLink$$target";
+    protected static final String MessageOrLink$$actualParameters = "MessageOrLink$$actualParameters";
     protected static final String Message$$type = "Message$$type";
-    protected static final String Message$$actualParameters = "Message$$actualParameters";
     
     protected MessageDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1562,6 +1562,7 @@ class LinkDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MessageOrLink$$source = "MessageOrLink$$source";
     protected static final String MessageOrLink$$target = "MessageOrLink$$target";
+    protected static final String MessageOrLink$$actualParameters = "MessageOrLink$$actualParameters";
     protected static final String Link$$type = "Link$$type";
     
     protected LinkDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

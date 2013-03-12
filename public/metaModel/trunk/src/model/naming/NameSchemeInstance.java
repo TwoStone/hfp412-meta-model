@@ -9,7 +9,19 @@ import model.visitor.MModelItemExceptionVisitor;
 import model.visitor.MModelItemReturnExceptionVisitor;
 import model.visitor.MModelItemReturnVisitor;
 import model.visitor.MModelItemVisitor;
-import persistence.*;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MModelItemSearchList;
+import persistence.NameSchemeInstanceProxi;
+import persistence.PersistenceException;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentMModelItem;
+import persistence.PersistentNameScheme;
+import persistence.PersistentNameSchemeInstance;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
 /* Additional import section end */
 
