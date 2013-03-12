@@ -11,6 +11,8 @@ public final class ExceptionConstants {
 
 	public static final String DONT_DELETE_UNITTYPE = "Einheitentypen können nicht gelöscht werden.";
 	public static final String DONT_DELETE_UNIT = "Einheiten können nicht gelöscht werden.";
+	public static final String DONT_DELETE_REFERENCE_TYPE = "Referenz-Typen können nicht gelöscht werden.";
+	public static final String DONT_DELETE_REFERENCE = "Referenzen können nicht gelöscht werden.";
 
 	public static final String UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_ACCOUNT = "UnitType des Measurements passt nicht zum UnitType des Accounts.";
 	public static final String UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY = "UnitType des Measurements passt nicht zum UnitType der Quantity.";

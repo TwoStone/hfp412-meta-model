@@ -73,17 +73,17 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-		// TODO: implement method: copyingPrivateUserAttributes
+		// implement method: copyingPrivateUserAttributes
 
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnCreation
+		// implement method: initializeOnCreation
 
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-		// TODO: implement method: initializeOnInstantiation
+		// implement method: initializeOnInstantiation
 
 	}
     
@@ -150,8 +150,8 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
 
     /* Start of protected part that is not overridden by persistence generator */
 
-	private PersistentQuantity getQuantityWithSameUnit(final PersistentCompoundQuantity comp,
-			final PersistentQuantity argument) throws PersistenceException {
+	private PersistentQuantity getQuantityWithSameUnit(final PersistentCompoundQuantity comp, final PersistentQuantity argument)
+			throws PersistenceException {
 		PersistentQuantity result = null;
 
 		final Iterator<PersistentQuantity> i = comp.getParts().iterator();
@@ -178,16 +178,15 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
 				return true;
 			}
 		})) {
-			final PersistentQuantity currentInverted = (PersistentQuantity) QuantityManager.getTheQuantityManager()
-					.invertSign(current);
+			final PersistentQuantity currentInverted = (PersistentQuantity) QuantityManager.getTheQuantityManager().invertSign(current);
 			return currentInverted;
 		} else {
 			return current;
 		}
 	}
 
-	private PersistentAbsQuantity doCalcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2)
-			throws model.NotComputableException, PersistenceException {
+	private PersistentAbsQuantity doCalcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) throws model.NotComputableException,
+			PersistenceException {
 		if (atom1.getUnit().equals(atom2.getUnit())) {
 
 			final PersistentQuantity result = QuantityManager.getTheQuantityManager().createQuantity(atom1.getUnit(),
