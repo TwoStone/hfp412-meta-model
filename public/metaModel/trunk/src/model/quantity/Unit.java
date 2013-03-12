@@ -1,5 +1,6 @@
 package model.quantity;
 
+import model.ConsistencyException;
 import model.UserException;
 import model.visitor.AbsUnitExceptionVisitor;
 import model.visitor.AbsUnitReturnExceptionVisitor;
@@ -26,6 +27,7 @@ import persistence.PersistentMModelItem;
 import persistence.PersistentUnit;
 import persistence.TDObserver;
 import persistence.UnitProxi;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -241,8 +243,7 @@ public class Unit extends model.quantity.AbsUnit implements PersistentUnit {
 
 	@Override
 	public void delete() throws model.ConsistencyException, PersistenceException {
-		// TODO: implement method: delete
-
+		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_UNIT);
 	}
 
 	@Override

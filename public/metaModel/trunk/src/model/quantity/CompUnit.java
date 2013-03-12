@@ -2,6 +2,7 @@ package model.quantity;
 
 import java.util.Iterator;
 
+import model.ConsistencyException;
 import model.UserException;
 import model.basic.MFalse;
 import model.basic.MTrue;
@@ -32,6 +33,7 @@ import persistence.PersistentMModelItem;
 import persistence.PersistentReference;
 import persistence.ReferenceSearchList;
 import persistence.TDObserver;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -236,8 +238,7 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
 
 	@Override
 	public void delete() throws model.ConsistencyException, PersistenceException {
-		// TODO: implement method: delete
-
+		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_UNIT);
 	}
 
 	@Override

@@ -51,8 +51,7 @@ public class UnitTypeManagerTest extends TestingBase {
 			final long currentLength = typeManager.getUnitTypes().getLength();
 			try {
 				typeManager.createUnitType(name);
-				assertEquals("Es sollte nur einen UnitType geben.", currentLength + 1, typeManager.getUnitTypes()
-						.getLength());
+				assertEquals("Es sollte nur einen UnitType geben.", currentLength + 1, typeManager.getUnitTypes().getLength());
 			} catch (final DoubleDefinitionException e) {
 				fail("Es sollte keine DoubleDefinitionException geben.");
 			}
@@ -82,8 +81,7 @@ public class UnitTypeManagerTest extends TestingBase {
 			} catch (final DoubleDefinitionException e) {
 				// UnitType Laenge ggf. schon aus vorherigem Testfall vorhanden.
 			}
-			final PersistentUnitType unitType = (PersistentUnitType) AbsUnitType.getAbsUnitTypeByName(unitTypeName)
-					.iterator().next();
+			final PersistentUnitType unitType = (PersistentUnitType) AbsUnitType.getAbsUnitTypeByName(unitTypeName).iterator().next();
 			final String unitName = "Meter";
 			try {
 				typeManager.createUnit(unitName, unitType);
@@ -134,8 +132,7 @@ public class UnitTypeManagerTest extends TestingBase {
 			PersistentCompUnitType cut = null;
 			try {
 				final PersistentAbsUnitType type = typeManager.addReferenceType("cut", unitType, unitType, 1);
-				assertTrue("Erstellter UnitType sollte vom Typ CompUnitType sein.",
-						type instanceof PersistentCompUnitType);
+				assertTrue("Erstellter UnitType sollte vom Typ CompUnitType sein.", type instanceof PersistentCompUnitType);
 				cut = (PersistentCompUnitType) type;
 				assertTrue("Cut sollte einen ReferenceType haben", cut.getRefs().getLength() == 1);
 				final PersistentReferenceType referenceType = cut.getRefs().iterator().next();
@@ -158,8 +155,7 @@ public class UnitTypeManagerTest extends TestingBase {
 			try {
 				final PersistentAbsUnitType scalarType = typeManager.addReferenceType("bla", unitType, unitType, -1);
 				assertTrue("scalarType sollte ein CompUnitType sein.", scalarType instanceof PersistentCompUnitType);
-				assertTrue("scalarType sollte keine ReferenceTypes haben.", ((PersistentCompUnitType) scalarType)
-						.getRefs().getLength() == 0);
+				assertTrue("scalarType sollte keine ReferenceTypes haben.", ((PersistentCompUnitType) scalarType).getRefs().getLength() == 0);
 			} catch (final DoubleDefinitionException e) {
 				fail("DoubleDefinitionException: " + e.getMessage());
 			}
@@ -234,14 +230,6 @@ public class UnitTypeManagerTest extends TestingBase {
 	}
 
 	/**
-	 * Testet das Erstellen eines CompoundUnitTypes. Eine CompoundUnit darf erstellt werden k�nnen.
-	 */
-	@Test
-	public void testCreateCompoundUnit() {
-		// TODO : Test schreiben!
-	}
-
-	/**
 	 * Testet die Methode fetchCompUnitTypeWithReferenceTypes
 	 */
 	@Test
@@ -256,8 +244,7 @@ public class UnitTypeManagerTest extends TestingBase {
 
 			// Testen mit leerer Referenz-Liste
 			PersistentCompUnitType existingCompUnitType = typeManager.getExistingCUT(refTypes);
-			assertTrue("Referenzliste des gefundenen CompUnitType sollte leer sein.", existingCompUnitType.getRefs()
-					.getLength() == 0);
+			assertTrue("Referenzliste des gefundenen CompUnitType sollte leer sein.", existingCompUnitType.getRefs().getLength() == 0);
 
 			refTypes.add(timeRef);
 			refTypes.add(lengthRef);

@@ -255,8 +255,7 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
 
 	@Override
 	public void delete() throws model.ConsistencyException, PersistenceException {
-		// TODO: implement method: delete
-
+		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_UNITTYPE);
 	}
 
 	@Override
