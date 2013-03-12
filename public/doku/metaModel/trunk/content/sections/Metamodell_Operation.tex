@@ -3,23 +3,23 @@
 \subsubsection{Operationen}
 
 Die Klasse Operation repräsentiert die Abbildung von Operationen in dem erarbeiteten Modell.
-Wie in dem Modell aus Abbildung XXX ersichtlich, hat die Oberklasse (AbstractOperation) zwei direkte Assoziationen zu Type. 
-Im Kontext von Operationenen ist die Quelle (source) der Typ, welcher die Operation enthält. 
+Wie in dem Modell aus Abbildung XXX ersichtlich, hat die Oberklasse AbstractOperation zwei  Assoziationen zu MType. 
+Im Kontext von Operationen ist die Quelle (source) der Typ, welcher die Operation enthält. 
 Das Ziel (target) einer Operation entspricht dem Rückgabetypen.
-Neben Quell und Zieltypen enthält eine Operation eine Menge von Formalparametern welche 
-wiederum über die Klasse Type typisiert sind.
+Neben Quell- und Zieltypen besitzt eine Operation eine Liste von Formalparametern, welche 
+wiederum über die Klasse MType typisiert sind.
 
-Die Klasse Operation enthält nur genau zwei Operation.
+Die Klasse Operation enthält nur genau zwei Operationen.
 Die Operation \textbf{isStatic()} gibt genau dann true zurück, wenn der Quelltyp dieser Operation der leeren Summe entspricht.
 Zusätzlich zu der Bedingung aus isStatic gilt für die zweite Operation \textbf{isConstant()}, dass die Operation keine Parameter enthalten darf. 
 
 
 \subsubsubsection{OperationManager} \newline
-Der OperatioManager beinhaltet zwei Listen zur Verwaltung von Operationen und Parametern.
+Der OperationManager beinhaltet zwei Listen zur Verwaltung von Operationen und Parametern.
 
 \begin{description}
-\item[Operation** operations] Diese Liste enthält alle Operationen die der Manager verwaltet.
-\item[FormalParameter** formalParameters] Hier werden alle Formalparameter abgelegt die der Manager verwaltet.
+\item[Operation** operations] Diese Liste enthält alle Operationen, die der Manager verwaltet.
+\item[FormalParameter** formalParameters] Hier werden alle Formalparameter abgelegt, die der Manager verwaltet.
 \end{description}
 
 Um diese Listen verwalten zu können, stellt der Operationmanager 10 transaktionale Operationen bereit.
@@ -28,34 +28,34 @@ Im Folgenden werden diese Operationen kurz beschrieben, wobei sowohl \textbf{Par
 \begin{description}
 \item[createOperation]
 Diese Operationen dient zum Erstellen einer neuen Operation. Um die Operation modellkonform erstellen zu können, sind vier Parameter notwendig:
-Die ersten zwei Parameter legen fest, welchem Typen diese Operation erstellt werden soll \textbf{(source)} bzw. welcher Typ als Rückgabetyp dient \textbf{(target).}
+Die ersten zwei Parameter legen fest, zu welchem Typen diese Operation erstellt werden soll \textbf{(source)} bzw. welcher Typ als Rückgabetyp dient \textbf{(target).}
 Die Bezeichnung der Operation wird über den dritten Parameter \textbf{(name)} festgelegt. 
-Zur Definition der Parameterliste der zu erstellenden Operation, dient der vierte Parameter \textbf{(fp).}
-Wie bei all den Klassen dieses Projekts, die eine Bezeichnung haben, dürfen auch Operationsnamen nicht mehrfach verwendet werden. Beim versuch zwei Operationen mit identischem Namen anzulegen, wird eine \emph{DoubleDefinitionException} erzeugt und die Erstellung wird abgebrochen. Ein weiterer Grund für den Abbruch der Erzeugung resultiert aus dem Versuch, sowohl Quell- als auch Zieltyp der Operation mit der leeren Summe (EmptyTypeConjunction) zu versehen. Wird ein solcher Versuch unternommen, mündet dies in der Erstellung einer \emph{ConsistencyException.} Wenn nur Quell- oder Zieltyp der leeren Summe entsprechen, existiert dazu eine semantisch Sinnvolle Interpreation und stellt keine Ausnahme dar (siehe unten).
+Zur Definition der Parameterliste der zu erstellenden Operation dient der vierte Parameter \textbf{(fp).}
+Wie bei den meisten Klassen dieses Projekts, die eine Bezeichnung haben, dürfen auch Operationsnamen nicht mehrfach verwendet werden. Beim Versuch zwei Operationen mit identischem Namen anzulegen, wird eine \emph{DoubleDefinitionException} erzeugt und die Erstellung wird abgebrochen. Es ist außerdem nicht möglich, sowohl Quell- als auch Zieltyp der Operation mit der leeren Summe (EmptyTypeDisjunction) zu versehen. Wird ein solcher Versuch unternommen, mündet dies in der Erstellung einer \emph{ConsistencyException.} Wenn nur Quell- oder Zieltyp der leeren Summe entsprechen, existiert dazu eine semantisch sinnvolle Interpretation und stellt keine Ausnahme dar (siehe unten).
 \item[createStaticOperation]
-Diese Operation bietet dem Anwender eine komfortable Möglichkeit eine statische Opertion zu erstellen. Dazu wird die Quell-Assoziation auf EmptyTypeConjunction gesetzt und es ist nur noch \textbf{der Rückgabetyp, der Name und die Parameterliste} auswählbar. Durch die Delegation gelten exakt die Gleichen Konsistenzbedingungen wie beim Erstellen eine Operation (createOperation).
+Diese Operation bietet dem Anwender eine komfortable Möglichkeit eine statische Operation zu erstellen. Dazu wird die Quell-Assoziation auf EmptyTypeDisjunction gesetzt und es ist nur noch \textbf{der Rückgabetyp, der Name und die Parameterliste} auswählbar. Durch die Delegation gelten exakt die gleichen Konsistenzbedingungen wie beim Erstellen eine Operation (createOperation).
 \item[createConstant]
-Mithilfe dieser Operation, ist es dem Anwender möglich auf einfache Art eine Konstante zu erstellen. Da eine Konstante eine Operation ist, die eine leere Parameterliste hat und als Quelle auf EmptyTypeConjunction verweist, sind das genau die Parameter die beim Aufruf nicht mehr angegeben werden müssen bzw. können. Auch hierbei handelt es sich um delegation an die createConstant Operation und es gelten genau die Gleichen Konsistenzbedingungen.
+Mithilfe dieser Operation, ist es dem Anwender möglich auf einfache Art eine Konstante zu erstellen. Da eine Konstante eine Operation ist, die eine leere Parameterliste hat und als Quelle auf EmptyTypeDisjunction verweist, sind das genau die Parameter die beim Aufruf nicht mehr angegeben werden müssen bzw. können. Auch hierbei handelt es sich um Delegation an die createOperation-Operation und es gelten genau die gleichen Konsistenzbedingungen.
 \item[createVoidOperation]
-Die createVoidOperation ist die vorerst letzte Operation zum benutzerfreundlicheren Erstellen einer Operaton. Anders als bei den zwei Operationen zuvor, sind hier Quelle und Parameterliste wählbar. Da die zu erstellende Operation aber keinen Rückgabetypen (bzw. void) haben soll, ist das Ziel vordefiniert und kann vom Anwender beim Aufruf nicht angegeben werden. Genau wie zuvor gelten auch hier die Konsistenzbedingungen der createOperation-Operation.
+Die createVoidOperation ist die vorerst letzte Operation zum benutzerfreundlicheren Erstellen einer Operation. Anders als bei den zwei Operationen zuvor, sind hier Quelle und Parameterliste wählbar. Da die zu erstellende Operation aber keinen Rückgabetypen haben soll, ist das Ziel vordefiniert und kann vom Anwender beim Aufruf nicht angegeben werden. Genau wie zuvor gelten auch hier die Konsistenzbedingungen der createOperation-Operation.
 \item[createFormalParamater]
 Um Formalparameter für Operationen verwenden zu können, müssen diese zuvor erstellt werden. Genau hierfür wird dem Anwender die createFormalParameter-Operation angeboten.
-Zum erfolreichem Erstellen eines Formalparameters ist es notwendig, diesem einen \textbf{namen} sowie einen \textbf{Typen} zu geben. Nach erfolreicher Erstellung ist der erstellte Formalparameter in der zuvor beschriebenen Formalparameter-Liste zu finden. Zum Abbruch der Erstellung kann zum einen die mehrfache Verwendung des Formalparameter-Namens sein und zum anderen die bestimmung der leeren Summe (EmptyTypeConjunction) als Typ des Parameters. Im ersten Fall wird eine \emph{DoubleDefinitionException} erstellt, im Zweiten eine \emph{ConsistencyException} wobei beide Exceptions zum Abbruch führen.
+Zum erfolgreichem Erstellen eines Formalparameters ist es notwendig, diesem einen \textbf{Namen} sowie einen \textbf{Typen} zu geben. Nach erfolgreicher Erstellung ist der erstellte Formalparameter in der zuvor beschriebenen Formalparameter-Liste zu finden. Die Erstellung kann entweder an der mehrfachen Verwendung des Formalparameter-Namens oder der Typisierung des Parameters in EmptyTypeDisjunktion scheitern. Im ersten Fall wird eine \emph{DoubleDefinitionException} erstellt, im Zweiten eine \emph{ConsistencyException} wobei beide Exceptions zum Abbruch führen.
 \item[addFormalParameter]
-Um Formalparameter nachträglich zu einer Operation zuzuweisen, benötigt diese Operation zum Einen die \textbf{Operation} an sich und den hinzuzufügenden \textbf{Formalparameter.} Sollte dieser Formalparameter nicht schon in der Formalparameterliste der gewählten Operation sein, wird dieser hinzugefügt. Im anderen Fall wird eine \emph{DoubleDefinitionException} erstellt und der Vorgang wird abgebrochen.
+Um Formalparameter nachträglich einer Operation zuzuweisen, benötigt diese Operation sowohl die \textbf{Operation} an sich als auch den hinzuzufügenden \textbf{Formalparameter.} Sollte dieser Formalparameter nicht schon in der Formalparameterliste der gewählten Operation sein, wird dieser hinzugefügt. Im anderen Fall wird eine \emph{DoubleDefinitionException} erstellt und der Vorgang wird abgebrochen.
 \item[addMultipleFormalParameter]
 Diese Operation dient dem Zweck eine Liste von Formalparametern der gewählten Operation zuzuweisen.
 Zu diesem Zweck ist es notwenig die \textbf{Liste von Formalparametern} sowie 
 die gewählte \textbf{Operation} an die addMultipleFormalparameter-Operation zu übergeben. 
 Aufgrund von Delegation gelten auch hier die Konsistenzbedingung der addFormalParamter-Operation. 
 \item[removeFormalParameterFromOperation]
-Wenn ein Formalparameter aus der Parameterliste einer Operation entfernt werden soll, stellt diese Operation die notwendige Funktionalität bereit. Zum entfernen eines \textbf{Formalparameters} aus einer \textbf{Operation}, sind diese beiden Angaben essentiell. Sofern der zu entfernende Formalparameter in der Formalparameterliste der gewählten Operation ist und es keine Exemplare zu der Operation gibt, wird der Parameter aus der Parameterliste entfernt.
+Wenn ein Formalparameter aus der Parameterliste einer Operation entfernt werden soll, stellt diese Operation die notwendige Funktionalität bereit. Zum Entfernen eines \textbf{Formalparameters} aus einer \textbf{Operation} sind diese beiden Angaben essentiell. Sofern der zu entfernende Formalparameter in der Formalparameterliste der gewählten Operation ist und es keine Exemplare zu der Operation gibt, wird der Parameter aus der Parameterliste entfernt.
 Sollte der Parameter nicht in der Parameterliste der Operation sein oder es Exemplare zu der Operation geben, wird eine \textbf{ConsistencyException} erzeugt. \newline
 Anmerkung: Zum aktuellen Zeitpunkt kann der zweite Fall nicht eintreten, da sich Message-Objekte nicht an der Oberfläche erstellen lassen.
 \item[removeFormalParameter]
-Um einen Formalparameter vollständig aus dem System zu entfernen, benötigt diese Operation den \textbf{Formalparameter}. Sofern es keine Exemplare zu diesem Parameter gibt und keine Operation diesen Formalparameter in seiner Parameterliste hat, wird der gewählte Formalparameter aus dem System entfern. Im anderen Fall wird eine \emph{ConsistencyException} erstellt und der Löschvorgang abgebrochen.
+Um einen Formalparameter vollständig aus dem System zu entfernen, benötigt diese Operation den \textbf{Formalparameter}. Sofern es keine Exemplare zu diesem Parameter gibt und keine Operation diesen Formalparameter in seiner Parameterliste hat, wird der gewählte Formalparameter aus dem System entfernt. Im anderen Fall wird eine \emph{ConsistencyException} erstellt und der Löschvorgang abgebrochen.
 \item[removeOperation]
-Mithilfe dieser Operation lassen sich Operationen aus dem System entfernen. Zur erfolgreichen durchführung wird lediglich die zu entfernende \textbf{Operation} benötigt. Das einzige Abbruchkriterium dieser Operation ist die Existenz eines Exemplars zu der gewählten Operation. Da sich zum aktuellen Entwicklungszeitpunkt Messages nicht erzeugen lassen, kann dies nicht auftreten.
+Mithilfe dieser Operation lassen sich Operationen aus dem System entfernen. Zur erfolgreichen Durchführung wird lediglich die zu entfernende \textbf{Operation} benötigt. Das einzige Abbruchkriterium dieser Operation ist die Existenz eines Exemplars zu der gewählten Operation. Da sich zum aktuellen Entwicklungszeitpunkt Messages nicht erzeugen lassen, kann dies nicht auftreten.
 
 \end{description}
 
