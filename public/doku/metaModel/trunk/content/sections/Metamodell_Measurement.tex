@@ -82,12 +82,12 @@ Hinzu kommt die folgende Operation, welche zum Befüllen der o.g. Liste dient.
 
 \subsubsection{Account \& AccountType}
 Wie bereits beschrieben, ist ein Account in einem AccountType klassifiziert. Dieser Typ ist unter anderem relevant, wenn dem Konto ein neues Unterkonto hinzugefügt werden soll.  
-In Abbildung \refImg{Measurement:AccTypeHier} wird eine AccountType Hierarchie dargestellt. \term{A} ist in diesem Beispiel der oberste AccountType, welcher die darunterliegenden SubAccountTypes referenziert. 
+In \refImg{Measurement:AccTypeHier} wird eine AccountType Hierarchie dargestellt. \term{A} ist in diesem Beispiel der oberste AccountType, welcher die darunterliegenden SubAccountTypes referenziert. 
 Auf \term{F} wird von keinem AccountType referenziert und refernziert auch selbst keine anderen AccountTypes.  
 
 \img[width=\relWidth{0.4}]{measurement/AccountTypeHierarchy.png}{AccountType Hierarchie}{Measurement:AccTypeHier}
 
-Nun sollen Exemplare (also Accounts) erstellt werden, welche SubAccounts enthalten. In Abbildung \refImg{Measurement:SubAccounts} können die im Folgenden beschriebenen Fälle nachvollzogen werden.
+Nun sollen Exemplare (also Accounts) erstellt werden, welche SubAccounts enthalten. In \refImg{Measurement:SubAccounts} können die im Folgenden beschriebenen Fälle nachvollzogen werden.
 Der Einfachheit halber wird mit \term{K1:A} ein Account \term{K1} mit AccountType \term{A} bezeichnet. Da $C \leq A$ ist, darf \term{K2} als SubAccount zu \term{K1} hinzugefügt werden.
 In den anderen drei Fällen ist der AccountType vom SubAccount entweder nicht $\leq$ dem Typen des Hauptkontos (Beispiel 2 und 4, von links) oder aber der AccountType ist in einer anderen Hierarchie (Beispiel 3, von links).
 
@@ -96,8 +96,6 @@ In den anderen drei Fällen ist der AccountType vom SubAccount entweder nicht $\
 Daraus ergibt sich die folgende Konsistenzbedingung, welche bei Nichteinhaltung zu einer \term{ConsistencyException} führt.
 \begin{equation} \forall \, a \in Account: \forall s \in a.subaccounts: s.type \leq a.type
 \end{equation}
-
-
 
 
 \subsubsection{AccountManager}
