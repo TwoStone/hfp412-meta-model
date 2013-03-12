@@ -13,22 +13,15 @@ Der UnitTypeManager beinhaltet zwei auf der Oberfläche sichtbare und zwei nicht
 \item[Reference** refs] Hier werden alle Referenzen abgelegt, die der Manager verwaltet. Sie ist nicht sichtbar und dient nur zur internen Verarbeitung von zusammengesetzten Einheiten (CompoundUnits)
 \end{description}
 
-\subsubsubsection{FractionManager}
-\label{FractionManager}
- 
-\newline
+\subsubsubsection{FractionManager}\label{FractionManager}
 Der FractionManager verwaltet alle Brüche so, dass jede Rationale Zahl als Bruch nur einmal durchgekürzt (als \emph{Repräsentant}) vorkommt.
 Über die Operation \textit{getFraction(key:String):Fraction} wird auf einen vorhandenen Bruch zugegriffen, wobei der Schlüssel die \textit{toString-Ausgabe} des Bruchs ist.
 Die Operation \textit{addFraction} wird ein neuer Bruch publiziert, wenn er erstmalig benötigt wird. Die Operation \textit{invertSign(f:Fraction):Fraction} sucht das Negativkomplement zu der Zahl und erstellt es, falls nötig.
-\newline
 
 GOJA unterstütz keine 3-stelligen Assoziationen bei denen der Wert eines Wert-Schlüssel-Paares ein in GOJA primitiver Typ ist. Deswegen wurde die Klasse \textit{FractionWrapper} erstellt, die den Wert des Bruchs umhüllt. Somit wird das Problem umgangen: \texttt{FractionWrapper **String** managedFractions;}
 
 
-\subsubsubsection{QuantityManager}
-\label{QuantityManager}
-\newline
-
+\subsubsubsection{QuantityManager}\label{QuantityManager}
 Der QuantityManager verwaltet die Zugriffe auf Quantitäten und ist die Schnittstelle zum Erstellen neuer Exemplare.
 Zudem wird der FractionManager als zentrale Fassade für das arithmetische und logische Operieren auf Quantitäten verwendet (siehe dazu Abschnitt \ref{Berechnungen}).
 

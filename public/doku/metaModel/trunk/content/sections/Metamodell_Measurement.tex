@@ -1,5 +1,4 @@
 \subsection{Measurement}
-
 Martin Fowler unterscheidet in seinem Werk \refLibLiteratur{fowler1997analysis} zwischen qualitativen und quantitativen
 Messungen. Wird beispielsweise die Blutgruppe (A, B, AB und 0) eines Menschen typisiert, so handelt es sich um
 eine qualitative Messung. Im Kontext dieses Projekts wird diese Art von Messung als \term{Observation} (siehe Abschnitt
@@ -21,7 +20,6 @@ Zusätzlich existieren drei Manager: der \term{MeasurementTypeManager}, der \ter
 
 
 \subsubsection{QuantifiedObject}\lblSec{Measurement:QuantifiedObject}
-
 Das \term{QuantifiedObject} repräsentiert zunächst einmal ganz abstrakt ein Objekt, das mit einer Quantität versehen
 ist. Zu diesem Zweck kennt es ein \term{Object}, auf das es sich bezieht und direkt oder indirekt eine \term{Quantity}.
 Als konkrete Unterklassen hat es \term{Measurement} und \term{Account}. Ein \term{Measurement} ist dabei die
@@ -36,7 +34,6 @@ Ein \term{QuantifiedObject} ist zudem in der Modellebene in einem \term{Quantifi
 
 
 \subsubsection{QuantifiedObjectType}\lblSec{Measurement:QuantifiedObjectType}
-
 Ein \term{QuantifiedObjectType} kategorisiert \term{QuantifiedObjects} nach zwei Kriterien: dem \term{Type}, in dem das
 zum \term{QuantifiedObject} gehörende \term{Object} typisiert ist, und dem \term{AbstractUnitType}, in dem die \term{AbstractUnit}
 der zum \term{QuantifiedObject} gehörenden \term{Quantity} typisiert ist. Er bildet somit die abstrakte Oberklasse des
@@ -44,7 +41,6 @@ der zum \term{QuantifiedObject} gehörenden \term{Quantity} typisiert ist. Er bi
 
 
 \subsubsection{Account}
-
 Ein Konto (Account) gehört zu einem bestimmten Objekt (Object) und beinhaltet Einträge (entries) in Form von quantitativen Messungen (Measurements). 
 Jedes Konto ist in einem Typ (AccountType) klassifiziert und kann außerdem mehrere Unterkonten (Komposition von subAccounts) besitzen.
 Auf einem Konto kann auf Basis einer definierten Strategie (AggregationStrategy) aggregiert werden. 
@@ -53,7 +49,7 @@ Beispielsweise kann so Summe, Durchschnitt, Maximum oder Minimum der Einträge e
 Im Metamodell besitzt ein Account die folgenden Assoziationen.
 \begin{description}
 	\item[MAccountType type] Typ des Accounts.
-	\item[Account** subAccounts hierarchy AccountHierarchy] Liste von Unterkonten.
+	\item[Account** subAccounts (AccountHierarchy)] Liste bzw. Komposition von Unterkonten.
 	\item[Measurement** entries] Liste von Einträgen.
 	\item[MObject object] Von QuantifiedObject geerbt.
 \end{description}
@@ -66,23 +62,22 @@ Hinzu kommen die folgenden Operationen, welche zum Befüllen der o.g. Listen die
 
 
 \subsubsection{AccountType}
-
 Der Typ eines Accounts (AccountType) dient zur Klassifizieren eines Kontos. Beispielsweise kann ein Konto als Bankkonto klassifiziert werden. Untertyp (SubAccountType) kann an dieser Stelle z.B. ein Giro- oder Kreditkartenkonto sein.
 Sobald ein AccountType Exemplare besitzt, kann dieser nicht mehr gelöscht werden (siehe folgender Abschnitt). Um Hierarchien dieser Art abbilden zu können sind die folgenden Assoziationen und Operationen notwendig. 
 
 Im Metamodell besitzt ein AccountType (neben der vom \term{QuantifiedObjectType} geerbten) die folgende Assoziation.
 \begin{description}
-	\item[MAccountType** subAccountTypes hierarchy MAccountTypeHierarchy] Diese Liste verbindet AccountTypes in Form einer Hierachie. Besonders bei dem Hinzufügen von SubAccounts ist diese Hierarchie relevant (dazu mehr im folgenden Abschnitt).
+	\item[MAccountType** subAccountTypes (MAccountTypeHierarchy)] Durch diese \\Liste bzw. Komposition werden AccountTypes in Relation gesetzt.
 \end{description}
 
 Hinzu kommt die folgende Operation, welche zum Befüllen der o.g. Liste dient.
 \begin{description}
-	\item[addSubAccountType] Fügt einen neuen AccountType der subAccountTypes Liste eines AccountTypes hinzu.
+	\item[addSubAccountType] Fügt einen neuen AccountType der subAccountTypes Liste eines AccountTypes hinzu. Besonders relevant ist beim Hinzufügen 
+	von SubAccounts die Eigenschaft der Komposition (siehe Abschnitt \ref{Measurement:accUndAccType}).
 \end{description}
 
 
-\subsubsection{Account \& AccountType}
-
+\subsubsection{Account, AccountType, Measurement \& MeasurementType}\label{Measurement:accUndAccType}
 Wie bereits beschrieben, ist ein Account in einem AccountType klassifiziert. Dieser Typ ist unter anderem relevant, wenn dem Konto ein neues Unterkonto hinzugefügt werden soll.  
 In \refImg{Measurement:AccTypeHier} wird eine AccountType Hierarchie dargestellt. \term{A} ist in diesem Beispiel der oberste AccountType, welcher die darunterliegenden SubAccountTypes referenziert. 
 Auf \term{F} wird von keinem AccountType referenziert und refernziert auch selbst keine anderen AccountTypes.  
@@ -95,15 +90,22 @@ In den anderen drei Fällen ist der AccountType vom SubAccount entweder nicht $\
 
 \img[width=\relWidth{0.5}]{measurement/SubAccounts.png}{SubAccount Exemplare}{Measurement:SubAccounts}
 
-Daraus ergibt sich die folgende Konsistenzbedingung, welche bei Nichteinhaltung zu einer \term{ConsistencyException} führt.
+Des Weiteren ist zu beachten, dass die im Account referenzierten Einträge (\term{Measurements}) vom selben \term{MeasurementType} sein müssen. Daraus ergeben sich die folgenden Konsistenzbedingungen, welche bei Nichteinhaltung zu einer \term{ConsistencyException} führen.
 \begin{equation} \forall a \in Account: \forall s \in a.subaccounts: s.type \leq a.type
 \end{equation}
 \begin{equation} \forall a \in Account: \forall m_1, m_2 \in a.entries: m_1.type = m_2.type
 \end{equation}
 
+\TODO[Alex: Bitte angucken! Und soll das wirklich hier hin??]
+\TODO[Ggf. Abschnitt umbenennen in Account, AccountType \& Measurement? Geht das überhaupt so??]
+\begin{equation}  
+	\begin{split}
+      \forall a \in Account, m \in a.entries: \\
+      m.quantity.unit.type = m.type.unitType = a.type.unitType
+	\end{split}
+\end{equation}
 
 \subsubsection{AccountManager}
-
 Der AccountManager dient zur Erstellung von Accounts und beinhaltet alle Accounts des Modells.
 
 Im Metamodell besitzt der AccountManager die folgende Assoziation.
@@ -120,7 +122,6 @@ Neben den Accounts werden auch die \term{AccountTypes} zentral verwaltet. Dazu d
 
 
 \subsubsection{AccountTypeManager}
-
 Der AccountTypeManager dient zur Erstellung von \term{AccountTypes} und beinhaltet alle \term{AccountTypes} des Modells.
 
 Im Metamodell besitzt der \term{AccountTypeManager} die folgende Assoziation.
@@ -130,17 +131,15 @@ Im Metamodell besitzt der \term{AccountTypeManager} die folgende Assoziation.
 
 Hinzu kommt die folgende Operation, welche zum Befüllen der o.g. Liste dient.
 \begin{description}
-	\item[createAccountType] Dient zum Erstellen von \term{AccountTypes}. Es wird ein Name, ein \term{MType} und ein \term{UnitType} übergeben.
+	\item[createAccountType] Dient zum Erstellen von \term{AccountTypes}. 
+	Es wird ein Name, ein \term{MType} und ein \term{UnitType} übergeben.
 \end{description}
-\TODO[Alex: Brauchen wir hier noch eine Konsistenzbedingung bzgl. Account-AccountType-UnitType = Account.entries-Measurement.Quantity-Type???]
 
 Wie bereits beschrieben werden in Accounts Messungen in Form von Measurements erfasst. 
 Im folgenden Abschnitt wird auf die Assoziationen und Operationen von Measurements genauer eingegangen.
-\TODO[Überleitung via account.entries - passt so?]
 
 
 \subsubsection{Measurement}
-
 Ein \term{Measurement} repräsentiert eine quantitative Messung eines \term{Objects}. So kann mit ihr zum Beispiel die Regensäule des gestrigen Tages
 oder eine Buchung auf ein Konto festgehalten werden. Damit dies funktioniert, benötigt ein \term{Measurement} zunächst ein \term{Object}, auf das es
 sich beziehen kann. Dieses erbt es von \term{QuantifiedObject} (s.~\refSec{Measurement:QuantifiedObject}).
@@ -151,24 +150,21 @@ auf den das \term{Measurement} zeigt. Das \term{Measurement} selbst hat keine ni
 
 
 \subsubsection{MeasurementType}
-
 Ein \term{MeasurementType} kategorisiert mehrere \term{Measurements}. Dabei greift er auf dieselben Kriterien wie die Oberklasse \term{QuantifiedObjectType}
 zurück (s.~\refSec{Measurement:QuantifiedObjectType}). Er hat keine nicht"=geerbten Assoziationen oder Operationen.
 
 
 
 \subsubsection{MeasurementTypeManager}
-
 Der \term{MeasurementTypeManager} dient zur Verwaltung und Erstellung aller \term{MeasurementTypes}. Er besitzt dazu eine Liste \term{measurementTypes},
 in der er die existierenden \term{MeasurementTypes} vorhält. Zusätzlich hat er folgende Operation:
 
 \begin{description}
-	\item[createMeasurementType] Erzeugt einen neuen \term{MeasurementType} anhand der übergebenen Parameter und gibt ihn zurück.
+	\item[createMeasurementType] Erzeugt anhand der übergebenen Parameter einen neuen \term{MeasurementType} und gibt ihn zurück.
 \end{description}
 
 
 \subsubsection{AggregationStrategy}
-
 Die \term{AggregationStrategy} wird -- wie bereits in \refSec{Measurement:QuantifiedObject} angedeutet -- von der Operation \term{aggregate} benutzt,
 um die \term{AbstractQuantity} eines \term{QuantifiedObjects} zu bestimmen. Dazu besitzt sie die abstrakte Operation \term{aggregateMeasurements}, die eine 
 berechnete \term{AbstractQuantity} zurückliefert. Hierzu benötigt die Operation als Parameter die Liste der zu aggregierenden \term{Measurements} und
@@ -179,7 +175,6 @@ zusätzlich einen \term{AbstractUnitType}, dessen \term{defaultUnit} für das ne
 
 
 \subsubsection{Löschen im Bereich Measurement}
-
 \TODO[Kapitel schreiben]
 
 -- Was ist löschbar?
