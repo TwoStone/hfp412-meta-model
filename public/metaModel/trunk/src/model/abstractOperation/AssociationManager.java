@@ -123,7 +123,7 @@ public class AssociationManager extends PersistentObject implements PersistentAs
     }
     
     static public long getTypeId() {
-        return 197;
+        return 154;
     }
     
     public long getClassId() {

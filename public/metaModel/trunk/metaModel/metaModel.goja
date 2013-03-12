@@ -607,7 +607,7 @@ abstract class AbsOperation@@AbstractOperation covers MModelItem {
     indexed prior String name;
     prior symmetric MType source;
     prior symmetric(no-view inverseOPTarget) MType target;
-    FormalParameter ** parameters;
+    symmetric FormalParameter ** parameters;
 }
 
 class Association extends AbsOperation {

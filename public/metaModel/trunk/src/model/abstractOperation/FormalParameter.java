@@ -9,6 +9,7 @@ import model.visitor.MModelItemExceptionVisitor;
 import model.visitor.MModelItemReturnExceptionVisitor;
 import model.visitor.MModelItemReturnVisitor;
 import model.visitor.MModelItemVisitor;
+import persistence.AbsOperationSearchList;
 import persistence.AbstractPersistentRoot;
 import persistence.ActualParameterSearchList;
 import persistence.Anything;
@@ -24,6 +25,7 @@ import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
+import utils.SearchLists;
 
 /* Additional import section end */
 
@@ -140,7 +142,7 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     }
     
     static public long getTypeId() {
-        return 144;
+        return 119;
     }
     
     public long getClassId() {
@@ -149,7 +151,7 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 144) ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade
+        if (this.getClassId() == 119) ConnectionHandler.getTheConnectionHandler().theFormalParameterFacade
             .newFormalParameter(name,this.getId());
         super.store();
         if(this.getOfType() != null){
@@ -274,6 +276,13 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     
     // Start of section that contains operations that must be implemented.
     
+    public AbsOperationSearchList inverseGetParameters() 
+				throws PersistenceException{
+        AbsOperationSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAbsOperationFacade
+							.inverseGetParameters(this.getId(), this.getClassId());
+		return result;
+    }
     public ActualParameterSearchList inverseGetType() 
 				throws PersistenceException{
         ActualParameterSearchList result = null;
@@ -290,13 +299,10 @@ public class FormalParameter extends PersistentObject implements PersistentForma
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-		// TODO: implement method: fetchDependentItems
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		final MModelItemSearchList result = new MModelItemSearchList();
+		SearchLists.addSecondToFirst(result, getThis().inverseGetParameters());
+		SearchLists.addSecondToFirst(result, getThis().inverseGetType());
+		return result;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -306,8 +312,6 @@ public class FormalParameter extends PersistentObject implements PersistentForma
 	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: prepareForDeletion
-
 	}
     
     

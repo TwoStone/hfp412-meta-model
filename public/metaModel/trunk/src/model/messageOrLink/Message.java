@@ -122,7 +122,7 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
     }
     
     static public long getTypeId() {
-        return 171;
+        return 135;
     }
     
     public long getClassId() {
@@ -131,7 +131,7 @@ public class Message extends model.messageOrLink.MessageOrLink implements Persis
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 171) ConnectionHandler.getTheConnectionHandler().theMessageFacade
+        if (this.getClassId() == 135) ConnectionHandler.getTheConnectionHandler().theMessageFacade
             .newMessage(this.getId());
         super.store();
         if(this.getType() != null){

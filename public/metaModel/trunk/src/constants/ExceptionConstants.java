@@ -38,9 +38,6 @@ public final class ExceptionConstants {
 	public static final String CE_WRONG_TYPE_EMPTYTYPEDIS = "Der Typ eines Formalparameters darf nicht der leeren Disjunktion entsprechen.";
 	public static final String CE_OP_SOURCE_AND_TARGET_EMPTYTYPEDISJ = "Quelle und Ziel könnn nicht gleichhzeitig leere Disjunktion sein.";
 	public static final String CE_OP_HAS_MESSAGES_FP = "Zu dieser Operation existieren Exemplare, daher darf der Formalparameter nicht entfernt werden.";
-	public static final String CE_EXISTING_AP = "Der gewählte Formalparameter kann nicht gelöscht werden, solang Exemplare existieren.";
-	public static final String CE_FP_IN_OP = "Der gewählte Formalparameter kann nicht gelöcht werden, solang er Teil einer Operation ist.";
-	public static final String CE_OP_HAS_MESSAGES = "Die gewählte Operationen kann nicht gelöscht werden, solang Exemplare existieren.";
 	public static final String DDE_OP = "Eine Operation mit diesem Namen existiert bereits.";
 
 	public static final String CYCLE_CREATE_LINK = "Das Erstellen des Links ist nicht möglich, da ein Zyklus entstehen würde.";
