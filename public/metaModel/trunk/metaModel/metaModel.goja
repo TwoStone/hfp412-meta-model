@@ -381,7 +381,7 @@ part observations {
 
 part quantity {
 
-	abstract class AbsQuantity {
+	abstract class AbsQuantity covers MModelItem{
 	}
 
 	class Quantity extends AbsQuantity {
@@ -393,7 +393,7 @@ part quantity {
 		Quantity ** parts; // +
 	}
 
-	abstract class AbsUnit {
+	abstract class AbsUnit covers MModelItem{
 		symmetric no-view prior AbsUnitType type; // 1
 		indexed prior String name;
 	}
@@ -405,7 +405,7 @@ part quantity {
 	}
 	class Unit extends AbsUnit {	}
 
-	abstract class AbsUnitType {
+	abstract class AbsUnitType covers MModelItem{
 		indexed prior String name;
 		abstract AbsUnit fetchDefaultUnit() throws ConsistencyException;
 	}
@@ -419,16 +419,16 @@ part quantity {
 		Unit defaultUnit;
 	}
 
-	class ReferenceType {
+	class ReferenceType covers MModelItem{
 		prior Integer exponent;
 		prior no-view UnitType ref;
 	}
-	class Reference {
+	class Reference covers MModelItem{
 		prior Integer exponent;
 		prior no-view Unit ref;
 	}
 	
-	class Conversion {
+	class Conversion covers MModelItem{
 		// from und to sind Oracle-Schluesselwoerter.
 		prior no-view one-to-one (myConversion) Unit source;
 		prior Function myFunction;
@@ -437,7 +437,7 @@ part quantity {
 		Quantity convertInverse(Fraction amount);
 	}
 
-	class Function {
+	class Function covers MModelItem{
 		prior Fraction factor;
 		prior Fraction constant;
 		//indexed String name; factor*x+constant

@@ -1,10 +1,13 @@
 
 package model.quantity;
 
+import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentMModelItem;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
@@ -24,6 +27,15 @@ public abstract class AbsQuantity extends PersistentObject implements Persistent
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            AbstractPersistentRoot myCONCMModelItem = (AbstractPersistentRoot)this.getMyCONCMModelItem();
+            if (myCONCMModelItem != null) {
+                result.put("myCONCMModelItem", myCONCMModelItem.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    myCONCMModelItem.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    myCONCMModelItem.toHashtable(allResults, depth, essentialLevel + 1, forGUI, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -33,14 +45,16 @@ public abstract class AbsQuantity extends PersistentObject implements Persistent
     public abstract AbsQuantity provideCopy() throws PersistenceException;
     
     public boolean hasEssentialFields() throws PersistenceException{
-        return false;
+        return true;
     }
     protected PersistentAbsQuantity This;
+    protected PersistentMModelItem myCONCMModelItem;
     
-    public AbsQuantity(PersistentAbsQuantity This,long id) throws persistence.PersistenceException {
+    public AbsQuantity(PersistentAbsQuantity This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        if (This != null && !(this.equals(This))) this.This = This;        
+        if (This != null && !(this.equals(This))) this.This = This;
+        this.myCONCMModelItem = myCONCMModelItem;        
     }
     
     static public long getTypeId() {
@@ -57,6 +71,10 @@ public abstract class AbsQuantity extends PersistentObject implements Persistent
         if(!this.equals(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.ThisSet(this.getId(), getThis());
+        }
+        if(this.getMyCONCMModelItem() != null){
+            this.getMyCONCMModelItem().store();
+            ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.myCONCMModelItemSet(this.getId(), getMyCONCMModelItem());
         }
         
     }
@@ -76,7 +94,25 @@ public abstract class AbsQuantity extends PersistentObject implements Persistent
             ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.ThisSet(this.getId(), newValue);
         }
     }
+    public PersistentMModelItem getMyCONCMModelItem() throws PersistenceException {
+        return this.myCONCMModelItem;
+    }
+    public void setMyCONCMModelItem(PersistentMModelItem newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.equals(this.myCONCMModelItem)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.myCONCMModelItem = (PersistentMModelItem)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAbsQuantityFacade.myCONCMModelItemSet(this.getId(), newValue);
+        }
+    }
     public abstract PersistentAbsQuantity getThis() throws PersistenceException ;
+    public void delete$Me() throws PersistenceException{
+        super.delete$Me();
+        this.getMyCONCMModelItem().delete$Me();
+    }
     
     
     
@@ -84,6 +120,8 @@ public abstract class AbsQuantity extends PersistentObject implements Persistent
 				throws PersistenceException{
         this.setThis((PersistentAbsQuantity)This);
 		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentAbsQuantity)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
 		}
     }
     

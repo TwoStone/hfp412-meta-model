@@ -1,9 +1,24 @@
 
 package model.quantity;
 
-import persistence.*;
 import model.UserException;
-import model.visitor.*;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import persistence.AbstractPersistentRoot;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.LessOrEqualComparisonProxi;
+import persistence.PersistenceException;
+import persistence.PersistentAbsQuantity;
+import persistence.PersistentCompoundQuantity;
+import persistence.PersistentLessOrEqualComparison;
+import persistence.PersistentMBoolean;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.PersistentQuantity;
+import persistence.TDObserver;
 
 
 /* Additional import section end */
