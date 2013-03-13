@@ -25,6 +25,11 @@ Bevor Messages umgesetzt werden können, muss sich geeinigt werden, welche der g
   \item[Path] \TODO[Noch schreiben\ldots]
   \item[Posting Rules] \TODO[Noch schreiben\ldots]
   \item[Versionierung] \TODO[Noch schreiben\ldots]
-  \item[Zentrale Ablage der Constraints] \TODO[Noch schreiben\ldots]
+  \item[Zentrale Ablage der Constraints] Durch die durch die Einführung von \term{ModelItem} geschaffene Möglichkeit einen Abhängigkeitsgraphen 
+		auszuwerten, können alle Modellelemente ermittelt werden, deren Konsistenz nach einer Änderung zu prüfen ist. Wenn alle Konsistenzbedingungen 
+		in einer zentralen Komponente abgelegt sind, ist es möglich nach einer Änderung einfach die Konsistenz aller (transitiv) abhängigen Modellelemente zu überprüfen. 
+		Da alle Änderungen in Transaktionen geschehen, kann bei einem inkonsistenten Folgezustand ein Rollback eingeleitet werden.
+		Großer Vorteil ist, dass veränderliche Elemente keinerlei Kenntnis über die Konsistenzbedingungen ihrer abhängigen Modellobjekte mehr benötigen.
 \end{description}
+
   
