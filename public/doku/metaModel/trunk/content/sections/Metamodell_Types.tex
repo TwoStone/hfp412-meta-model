@@ -4,7 +4,7 @@ Das Typsystem ist die zentrale Komponente des Metamodells. Im folgenden Abschnit
 
 \subsubsection{Aspekte und atomare Typen}
 
-Aspekte stellen gemäß ursprünglichen Modellierung eine Dimension dar, in deren Elementen sich Objekte dynamisch klassifizieren lassen. 
+Aspekte stellen gemäß der ursprünglichen Modellierung eine Dimension dar, in deren Elementen sich Objekte dynamisch klassifizieren lassen. 
 Atomare Typen der Klasse \emph{AtomicType} werden genau einem Aspekt zugeordnet. Durch die \emph{lessThan}-Assoziation lässt sich aspektintern eine 
 partielle Ordnung \emph{isLessOrEqualThan} ableiten.  
 
@@ -21,7 +21,7 @@ Obertypen mehr besitzt. Folgende Möglichkeiten wurden in der Entwurfsphase betr
 \end{enumerate}
 
 Die erste Variante lässt sich in GOJA aufgrund der restriktiven Set-Methoden nicht realisieren, da diese keine NULL-Werte akzeptieren.
-Ein State-Pattern wäre die sauberste Implementierung gewesen, ist aber wegen fehlenden Mehrwertes ausgeschieden. 
+Ein State-Pattern ist die sauberste Implementierung, ist aber wegen fehlenden Mehrwertes ausgeschieden. 
 Variante drei hat den Nachteil, dass die mitgenerierten Typen die Semantik \qq{unkategorisiert} im zugehörigen Aspekt besitzen.
 Damit wird pro Aspekt ein Platzhalter für Null generiert und sorgt für zusätzliche Komplexität ohne Mehrwert. 
 Da ohne State-Pattern aber eine Repräsentation für keinen atomaren Obertypen benötigt wird, wird an dieser Stelle \emph{Anything} verwendet 
@@ -76,7 +76,7 @@ Die Singletoneigenschaft eines atomaren Typen A bedeutet ausschließlich, dass g
 Von Singletons darf beliebig abgeleitet werden. 
 In der \emph{initializeOnCreation}-Operation des atomaren Typen wird, falls er über die Singletoneigenschaft verfügt, 
 sein \emph{SingletonObject} erstellt. In der \emph{prepareForDeletion}-Operation wird - falls vorhanden - das \emph{SingeletonObject}
-mit gelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{SingletonObject}s. In den den entsprechenden Operationen im 
+mit gelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{SingletonObject}s. In den entsprechenden Operationen im 
 \term{TypeManager} werden \term{SingeltonObject}s beim \term{ObjectManager} registriert bzw. entfernt.
  
 \textbf{Abhängige Elemente}
@@ -98,7 +98,7 @@ Um für Unterklassen von \emph{ComplexType} die Assoziation \emph{containedTypes
 können, ist sie spezialisiert worden. Ursprünglich ist \emph{containedTypes} abgeleitetes Attribut gewesen,
 ist aber wegen Problemen in GOJA zu einer \emph{fetch}-Operation refaktoriert worden. 
 Ziel ist, z.B. in den leeren Typen keine Änderungen an der Assoziation zu erlauben und diese für die Bereitstellung 
-der disjunktiven Normalform mit weiteren Contraints zu versehen (siehe z.B. \emph{NonEmptyAtomicTypeConjunction}) 
+der disjunktiven Normalform mit weiteren Constraints zu versehen (siehe z.B. \emph{NonEmptyAtomicTypeConjunction}) 
 
 Bei Komplexen Typen wird zwischen struktureller und semantischer Äquivalenz unterschieden. Zwei Typen sind strukturell 
 äquivalent, wenn sie identisch aufgebaut sind. Zwei Typen A,B sind semantisch äquivalent, wenn nach den in der Vorlesung 
@@ -150,7 +150,7 @@ In den \term{create}-Operationen werden die Typen normalisiert.
 \end{enumerate} 
 
 \textbf{Persistenz} \newline
-Komplexe Typen werden grundsätzlich transient erstellt und erst wenn vom im \term{TypeManager} verwaltet werden persistiert. 
+Komplexe Typen werden grundsätzlich transient erstellt und erst wenn vom \term{TypeManager} verwaltet werden persistiert. 
 Operationen auf \emph{ModelItem}s (z.B. \term{fetchProductType} auf \emph{AbstractObject}) erzeugen ausschließlich transiente Typen.
 Hierzu wird in GOJA \term{delayedPersistence} verwendet. Es scheinen allerdings zumindest bei der Generierung ohne Datenbank
 durch die Oberfläche Typen persistiert zu werden. Gleiches Verhalten bei der Generierung mit Datenbank wäre höchst problematisch.  
