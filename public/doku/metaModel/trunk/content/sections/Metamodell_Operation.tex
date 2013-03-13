@@ -51,7 +51,8 @@ die gewählte \textbf{Operation} an die addMultipleFormalparameter-Operation zu 
 Aufgrund von Delegation gelten auch hier die Konsistenzbedingung der addFormalParamter-Operation. 
 \item[removeFormalParameterFromOperation]
 Wenn ein Formalparameter aus der Parameterliste einer Operation entfernt werden soll, stellt diese Operation die notwendige Funktionalität bereit. Zum Entfernen eines \textbf{Formalparameters} aus einer \textbf{Operation} sind diese beiden Angaben essentiell. Sofern der zu entfernende Formalparameter in der Formalparameterliste der gewählten Operation ist und es keine Exemplare zu der Operation gibt, wird der Parameter aus der Parameterliste entfernt.
-Sollte der Parameter nicht in der Parameterliste der Operation sein oder es Exemplare zu der Operation geben, wird eine \textbf{ConsistencyException} erzeugt. \newline
+Sollte der Parameter nicht in der Parameterliste der Operation sein oder es Exemplare zu der Operation geben, wird eine \emph{ConsistencyException} erzeugt.
+
 Anmerkung: Zum aktuellen Zeitpunkt kann der zweite Fall nicht eintreten, da sich Message-Objekte nicht an der Oberfläche erstellen lassen.
 \item[removeFormalParameter]
 Um einen Formalparameter vollständig aus dem System zu entfernen, benötigt diese Operation den \textbf{Formalparameter}. Sofern es keine Exemplare zu diesem Parameter gibt und keine Operation diesen Formalparameter in seiner Parameterliste hat, wird der gewählte Formalparameter aus dem System entfernt. Im anderen Fall wird eine \emph{ConsistencyException} erstellt und der Löschvorgang abgebrochen.
@@ -95,19 +96,20 @@ Wenn keine der genannten Exceptions aufgetreten ist, wird die Assoziation erstel
 Bei erfolgreicher Durchführung dieser Operation, wird die
 angegebene Assoziation aus dem System entfernt.
 Sollte es ein oder mehrere Exemplare (Links) zu dieser Assoziation geben oder sich die zu löschende Assoziation in mindestens einer Hierarchie befinden, wird eine \emph{ConsistencyException} erzeugt und die Assoziation wird nicht entfernt. 
-\item[createHierarchy] Da es in dem erarbeiteten Modell keine leeren Hierarchien geben darf, wird neben dem Namen der zu erstellenden \textbf{Hierarchie} auch eine 
+\item[createHierarchy] Da es in dem erarbeiteten Modell keine leeren Hierarchien geben darf, wird neben dem \textbf{Namen} der zu erstellenden Hierarchie auch eine 
 \textbf{Assoziation} erwartet. Nach erfolgreicher Durchführung, wird die Hierarchie erstellt und die angegebene Assoziation der neuen Hierarchie zugeordnet.
 Insbesondere folgende Gründe führen zum Misserfolg:
 \begin{itemize}
 \item Es exisitiert bereits eine Hierarchie mit diesem Namen. Das hat zur Folge, dass eine \emph{DoubleDefinitionException} erzeugt wird.
 \item Es existiert auf der Exemplarebene ein Zyklus. Wie in der Beschreibung zu addAssociation erläutert, ist dieser Umstand für Hierarchien untersagt.
  Es resultiert eine \emph{CycleException.}
+ \item Durch den internen Aufruf von addAssociation, kann es bei dieser Operation außerdem zu einer \emph{ConsistencyException} kommen.
 \end{itemize}
 \item[removeHierarchy] Nach erfolgreicher Ausführung dieser Operation, wird die übergebene \textbf{Hierarchie} aus dem System entfernt. 
-Es wird lediglich die Hierarchie entfernt. Die Assoziationen, welche an der gelöschten Hierarchie teilnehmen, bleiben weiterhin bestehen.
+Es wird lediglich die Hierarchie entfernt. Die Assoziationen, welche an der gelöschten Hierarchie teilnehmen, bleiben weiterhin bestehen. Durch den Template-Mechanismus von ModelItem kann diese Operation außerdem eine \emph{ConsistencyException} erzeugen. Aufgrund der Tatsache, dass Hierarchien in der aktuellen Implementierungsstufe keine abhängigen Objekte haben, kann es nie zu dieser Exception kommen.
 \item[addAssociation] Diese Operation erwartet zum einen die \textbf{Hierarchie} zu der die Assoziation hinzugefügt werden soll und zum anderen die \textbf{Assoziation} selbst.
 Wenn es auf der Exemplarebene keine zyklischen Links zu dieser Assoziation gibt, wird die Assoziation der Hierarchie zugeordnet. Sollte es zyklische Links
-zu dieser Assoziation geben oder die Assoziation ist bereits in dieser Hierarchie, werden entsprechende Exceptions (\emph{CycleException,} bzw. \emph{DoubleDefinitionException}) 
+zu dieser Assoziation geben oder die Assoziation ist bereits in dieser Hierarchie, werden entsprechende Exceptions (\emph{CycleException,} bzw. \emph{ConsistencyException}) 
 erstellt und die Assoziation wird der Hierarchie nicht zugeordnet.
 \item[removeAssoFrmHier] Zum Entfernen von Assoziationen aus Hierarchien, ist es notwendig dieser Operation sowohl die \textbf{Hierarchie}, als auch die zu entfernende 
 \textbf{Assoziation} anzugeben. Dabei wird lediglich die Assoziation aus der Hierarchie entfernt, die Assoziation an sich bleibt bestehen. 

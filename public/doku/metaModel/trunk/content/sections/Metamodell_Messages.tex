@@ -12,7 +12,7 @@ Ein Link ist eine konkrete Ausprägung einer Assoziation. Folglich ist die Erste
 
 \begin{description}
 \item[createLink]
-Wie zuvor erwähnt, ist es für einen Link zwingend notwendig sich an die Konsistenzbedingungen der Assoziation zu halten.
+Wie zuvor erwähnt, ist es für einen Link zwingend notwendig sich an die Konsistenzbedingungen der Assoziation zu halten. Um einen Link aufbauen zu können muss die zugrundeliegende  \textbf{Assoziation} in welcher der Link typisiert sein soll, sowie das \textbf{Quell-} und \textbf{Zielobjekt} angegeben werden.
 Bei der Erstellung eines Links wird eine \emph{ConsistencyException} erzeugt, wenn die Quell- und/oder Zielobjekte gemäß der Typebene nicht 
 gestattet sind.
 \begin{equation} \forall \, l \in Link: l.source.type.isLessOrEqual(l.type.source)
@@ -24,5 +24,5 @@ da sich sonst keinerlei Aggregationsbeziehung abbilden ließen.
 Auf der Ebene der Exemplare hingegen, müssen \emph{alle Links, die in Assoziation typisiert sind, in jeder Hierarchie an der diese teilnehmen, zyklenfrei sein.}
 Wenn ein Anwender versucht zyklische Links zu erzeugen, wird eine \emph{CycleException} erzeugt und der jeweilige Link wird nicht erstellt.
 \item[removeLink]
-Beim Entfernen eines bestehenden Links gibt es keinerlei Restriktionen zu beachten. Der Anwender kann bestehende Links beliebig löschen.
+Beim Entfernen eines bestehenden Links gibt es keinerlei Restriktionen zu beachten. Nach Wahl des zu löschenden \textbf{Links,} kann dieser ohne weitere Prüfung entfernt werden.
 \end{description}
