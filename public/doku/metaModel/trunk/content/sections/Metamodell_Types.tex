@@ -1,4 +1,6 @@
 \subsection{Typesystem}
+Das Typsystem ist die zentrale Komponente des Metamodells. Im folgenden Abschnitt sind die 
+Änderungen bezüglich des in der Vorlesung erarbeiteten Modells kurz zusammengefasst.
 
 \subsubsection{Aspekte und atomare Typen}
 
@@ -73,7 +75,8 @@ Die Singletoneigenschaft eines atomaren Typen A bedeutet ausschließlich, dass g
 Von Singletons darf beliebig abgeleitet werden. 
 In der \emph{initializeOnCreation}-Operation des atomaren Typen wird, falls er über die Singletoneigenschaft verfügt, 
 sein \emph{SingletonObject} erstellt. In der \emph{prepareForDeletion}-Operation wird - falls vorhanden - das \emph{SingeletonObject}
-mitgelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{SingletonObject}s. 
+mitgelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{SingletonObject}s. In den den entsprechenden Operationen im 
+\term{TypeManager} werden \term{SingeltonObject}s beim \term{ObjectManager} registriert bzw. entfernt.
  
 \textbf{Abhängige Elemente}
 \begin{enumerate}
@@ -95,6 +98,41 @@ können, ist sie spezialisiert worden. Ursprünglich ist \emph{containedTypes} a
 ist aber wegen Problemen in GOJA zu einer \emph{fetch}-Operation refaktoriert worden. 
 Ziel ist, z.B. in den leeren Typen keine Änderungen an der Assoziation zu erlauben und diese für die Bereitstellung 
 der disjunktiven Normalform mit weiteren Contraints zu versehen (siehe z.B. \emph{NonEmptyAtomicTypeConjunction}) 
+
+Bei Komplexen Typen wird zwischen struktureller und semantischer Äquivalenz unterschieden. Zwei Typen sind strukturell 
+äquivalent, wenn sie identisch aufgebaut sind. Zwei Typen A,B sind semantisch äquivalent, wenn nach den in der Vorlesung 
+aufgestellten Regeln für \term{isLessOrEqual} gilt: 
+
+\[A.isLessOrEqual(B) \land B.isLessOrEqual(A) \]
+
+
+\textbf{Zusätzliche Konsistenzbedinungen} \newline
+\begin{equation}\forall t \in NEATConjunction : 
+	\forall ct \in t.containedTypes : ct.instanceOf AT
+\end{equation}
+\begin{equation}\forall t \in NEATConjunction : 
+	t.containedTypes.legth > 0
+\end{equation}
+\begin{equation}\forall t \in NEDisjunctiveNF : 
+	\forall ct \in t.containedTypes : ct.instanceOf ATConjunction
+\end{equation}
+\begin{equation}\forall t \in NEDisjunctiveNF : 
+	t.containedTypes.legth > 0
+\end{equation}
+
+\textbf{Manager} \newline
+Komplexe Typen werden vom \emph{TypeManager} verwaltet. 
+
+\begin{description}
+\item[createAtomicRootType] legt einen neuen atomaren Typen mit Obertyp \emph{Anything} an. 
+\item[createAtomicSubType] legt einen neuen atomaren Typen unter einem andern an. 
+\item[renameAtomicType] benennt einen atomaren Typen um. 
+\item[changeAbstract] ist eine modifizierte Set-Methode. Kann einen konkreten Typen nur abstrakt umdeklarieren, wenn er weder Singletons ist, noch 
+Objekte in ihm klassifiziert sind.
+\item[changeSingleton] ist eine modifizierte Set-Methode. Kann die Singletoneigenschaft nur wiederrufen, wenn das \emph{SingletonObject} gelöscht werden kann. 
+ Kann die Singletoneigenschaft nur gewähren, wenn keine Objekte existieren und der Typ nicht abstrakt ist. 
+\end{description}
+
 
 
 
