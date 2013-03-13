@@ -136,7 +136,11 @@ Mittels setConversion() wird eine bereits gesetzte Conversion für eine Unit üb
 Bei setDefaultUnit() wird eine Umrechnung von bereits vorhanden Conversions notwendig, da diese ja in Abhängigkeit zu einer nun veralteten DefaultUnit angegeben wurden. Das betrifft alle Umrechnungen für Units zum selben UnitType wie die DefaultUnit.
 \refImg{setDefaultUnitGrafik} beschreibt die Umrechnungen, falls sich eine DefaultUnit ändert.
 \img[width=\relWidth{0.8}]{quantity/setDefaultUnit.png}{Umrechnung beim Ändern einer DefaultUnit}{setDefaultUnitGrafik}
-Im gezeigten Beispiel gibt es drei Einheiten a, b und c, wobei zunächst a die DefaultUnit zum gemeinsamen UnitType darstellt (oberer Bereich). Die Defaultunit kann nur den Umrechnungsfaktor 1 haben, da die Funktion immer umkehrbar ist (1a=1a). Für den unteren Bereich der Abbildung wird dann die DefaultUnit auf b gesetzt. Die jeweils neuen Conversions ergeben sich, indem die jeweilige Funktion der Unit mit der noch aktuellen Funktion der neuen DefaultUnit (also b) gleich gesetzt wird und mittels Äquivalenzumformung zur neuen DefaultUnit hin umgestellt wird (rechter Bereich). Für die neue DefaultUnit ist danach der Umrechnungsfaktor dann entsprechend wieder 1.
+Im gezeigten Beispiel gibt es drei Einheiten a, b und c, wobei zunächst a die DefaultUnit zum gemeinsamen UnitType darstellt (oberer Bereich). Die DefaultUnit kann nur den Umrechnungsfaktor 1 haben, da die Funktion immer umkehrbar ist (1a=1a). Für den unteren Bereich der Abbildung wird dann die DefaultUnit auf b gesetzt. Die jeweils neuen Conversions ergeben sich, indem die jeweilige Funktion der Unit mit der noch aktuellen Funktion der neuen DefaultUnit (also b) gleich gesetzt wird und mittels Äquivalenzumformung zur neuen DefaultUnit hin umgestellt wird (rechter Bereich). Für die neue DefaultUnit ist danach der Umrechnungsfaktor dann entsprechend wieder 1.
+
+Die entsprechende Konsistenzbedingung für diesen Fall lautet wie folgt:
+
+\begin{equation} \forall ut \in UnitType : ut.defaultUnit.from^{-1}.myFunction.factor = 1 \wedge ut.defaultUnit.from^{-1}.myFunction.constant = 1 \end{equation}
 
 \subsubsection{Quantitäten}\label{Quantitaeten}
 
