@@ -14,7 +14,7 @@ Das Interface \emph{AnythingORMATomicType} ist als Zieltyp der \emph{lessThan}-A
 um die Möglichkeit zu schaffen einen atomaren Typen mit Obertyp so zu ändern, dass er anschließend keinen 
 Obertypen mehr besitzt. Folgende Möglichkeiten wurden in der Entwurfsphase betrachtet: 
 \begin{enumerate}
-  		\item superType Assoziation mit Multiplizität 0..1
+  		\item superType Assoziation mit Multiplizität $0..1$
 		\item State-Pattern für atomare Typen \(state \in \{rootType, subType\}\)
         \item automatisch mitgenerierte Obertypen für Aspekte
         \item Interface über Anything und AtomicType
@@ -81,9 +81,9 @@ mit gelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{Si
  
 \textbf{Abhängige Elemente}
 \begin{enumerate}
-  		\item direkte atomare Untertypen
-  		\item bei Singletons: Abhängige Objekte des \emph{SingletonObject}s
-  		\item \ldots siehe Typabstraktion
+  		\item Direkte atomare Untertypen.
+  		\item Bei Singletons: Abhängige Objekte des \emph{SingletonObject}s.
+  		\item \ldots siehe Typabstraktion.
 \end{enumerate}
 
 \subsubsection{Komplexe Typen}

@@ -22,9 +22,6 @@ Dies zieht u.a. einige Konsistenzbedingungen nach sich, welche beim Anlegen von 
 Bevor Messages umgesetzt werden können, muss sich geeinigt werden, welche der genannten Interpretationen für ein Message-Exemplars zutrifft. 
   \item[ActualParameter] Da aus genannten Gründen weder Message-Exemplare erzeugt, noch mehrstellige Assoziationen/Links angelegt werden können, 
   haben Aktualparameter derzeit keinerlei Daseinsberechtigung. Aus diesen Gründen wird die Verwaltung von Aktualparametern dem Anwender nicht angeboten.
-  \item[Path] \TODO[Noch schreiben\ldots]
-  \item[Posting Rules] \TODO[Noch schreiben\ldots]
-  \item[Versionierung] \TODO[Noch schreiben\ldots]
   \item[Zentrale Ablage der Constraints] Durch die durch die Einführung von \term{ModelItem} geschaffene Möglichkeit einen Abhängigkeitsgraphen 
 		auszuwerten, können alle Modellelemente ermittelt werden, deren Konsistenz nach einer Änderung zu prüfen ist. Wenn alle Konsistenzbedingungen 
 		in einer zentralen Komponente abgelegt sind, ist es möglich nach einer Änderung einfach die Konsistenz aller (transitiv) abhängigen Modellelemente zu überprüfen. 
@@ -32,4 +29,4 @@ Bevor Messages umgesetzt werden können, muss sich geeinigt werden, welche der g
 		Großer Vorteil ist, dass veränderliche Elemente keinerlei Kenntnis über die Konsistenzbedingungen ihrer abhängigen Modellobjekte mehr benötigen.
 \end{description}
 
-  
+Weitere Themen neben den o.g. sind beispielsweise Versionierung, Posting Rules, Path. Diese werden in diesem Dokument jedoch nicht weiter ausgeführt.
