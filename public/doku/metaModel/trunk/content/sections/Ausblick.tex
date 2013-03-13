@@ -1,7 +1,21 @@
 \section{Ausblick}
 
 \TODO[Ideen Formulieren]
-- Path
-- Posting Rules
-- Versionierung
-- Zentrale Ablage der Constraints
+
+
+\begin{description}
+  \item[Multiplizitäten] Zurzeit besitzen Assoziationen keine Einschränkungen. 
+Es werden sozusagen überall $0..n$-Multiplizitäten verwendet. 
+Mit der Einführung von Multiplizitäten können Assoziationen eingeschränkt werden.
+ 
+Es bietet sich beispielsweise an, eine Klasse Multiplicity zwischen \term{O++A} und \term{Type} zu hängen,
+welche zwei boolsche Attribute $\leq$ und $\geq$ enthält. 
+Damit lassen sich die vier Multiplizitäten $0..n$, $1..n$, $1$ und $0..1$ darstellen.
+Dies zieht u.a. einige Konsistenzbedingungen nach sich, welche beim Anlegen von Links beachtet werden müssen. 
+  \item[Path]
+  \item[Posting Rules]
+  \item[Versionierung]
+  \item[Zentrale Ablage der Constraints]
+  \item[Mehrstellige Assoziationen]
+\end{description}
+  
