@@ -38,7 +38,7 @@ Die Bezeichnung der Operation wird über den dritten Parameter \textbf{(name)} f
 Zur Definition der Parameterliste der zu erstellenden Operation dient der vierte Parameter \textbf{(fp).}
 Wie bei den meisten Klassen dieses Projekts, die eine Bezeichnung haben, dürfen auch Operationsnamen nicht mehrfach verwendet werden. Beim Versuch zwei Operationen mit identischem Namen anzulegen, wird eine \emph{DoubleDefinitionException} erzeugt und die Erstellung wird abgebrochen. Es ist außerdem nicht möglich, sowohl Quell- als auch Zieltyp der Operation mit der leeren Summe (EmptyTypeDisjunction) zu versehen. Wird ein solcher Versuch unternommen, mündet dies in der Erstellung einer \emph{ConsistencyException.} Wenn nur Quell- oder Zieltyp der leeren Summe entsprechen, existiert dazu eine semantisch sinnvolle Interpretation und stellt keine Ausnahme dar (siehe unten).
 \item[createStaticOperation]
-Diese Operation bietet dem Anwender eine komfortable Möglichkeit eine statische Operation zu erstellen. Dazu wird die Quell-Assoziation auf EmptyTypeDisjunction gesetzt und es ist nur noch \textbf{der Rückgabetyp, der Name und die Parameterliste} auswählbar. Durch die Delegation gelten exakt die gleichen Konsistenzbedingungen wie beim Erstellen eine Operation (createOperation).
+Diese Operation bietet dem Anwender eine komfortable Möglichkeit eine statische Operation zu erstellen. Die Quell-Assoziation wird dazu auf EmptyTypeDisjunction gesetzt und es ist nur noch \textbf{der Rückgabetyp, der Name und die Parameterliste} auswählbar. Durch die Delegation gelten exakt die gleichen Konsistenzbedingungen wie beim Erstellen eine Operation (createOperation).
 \item[createConstant]
 Mithilfe dieser Operation ist es dem Anwender möglich auf einfache Art eine Konstante zu erstellen. Da eine Konstante eine Operation ist, die eine leere Parameterliste hat und als Quelle auf EmptyTypeDisjunction verweist, sind das genau die Parameter die beim Aufruf nicht mehr angegeben werden müssen bzw. können. Auch hierbei handelt es sich um Delegation an die createOperation-Operation und es gelten genau die gleichen Konsistenzbedingungen.
 \item[createVoidOperation]
@@ -65,6 +65,7 @@ Mithilfe dieser Operation lassen sich Operationen aus dem System entfernen. Zur 
 
 \end{description}
 
+\newpage
 \subsubsection{Assoziationen}\label{Operation:Associationen}
 
 Die Klasse Association repräsentiert die Möglichkeit Assoziationen zwischen zwei beliebigen Typen abzubilden.
