@@ -19,7 +19,7 @@ Zusätzlich existieren drei Manager: der \term{MeasurementTypeManager}, der \ter
 \term{AccountManager}. Diese Klassen werden im Folgenden nach Themengebieten beschrieben.
 
 
-\subsubsection{QuantifiedObject}\lblSec{Measurement:QuantifiedObject}
+\subsubsection{QuantifiedObject}\label{Measurement:QuantifiedObject}
 Das \term{QuantifiedObject} repräsentiert zunächst einmal ganz abstrakt ein Objekt, das mit einer Quantität versehen
 ist. Zu diesem Zweck kennt es ein \term{Object}, auf das es sich bezieht und direkt oder indirekt eine \term{Quantity}.
 Als konkrete Unterklassen hat es \term{Measurement} und \term{Account}. Ein \term{Measurement} ist dabei die
@@ -41,17 +41,17 @@ der zum \term{QuantifiedObject} gehörenden \term{Quantity} typisiert ist. Er bi
 
 
 \subsubsection{Account}
-Ein Konto (Account) gehört zu einem bestimmten Objekt (Object) und beinhaltet Einträge (entries) in Form von quantitativen Messungen (Measurements). 
-Jedes Konto ist in einem Typ (AccountType) klassifiziert und kann außerdem mehrere Unterkonten (Komposition von subAccounts) besitzen.
-Auf einem Konto kann auf Basis einer definierten Strategie (AggregationStrategy) aggregiert werden. 
+Ein Konto (\term{Account}) gehört zu einem bestimmten Objekt (\term{Object}) und beinhaltet Einträge (entries) in Form von quantitativen Messungen (\term{Measurements}). 
+Jedes Konto ist in einem Typ (\term{AccountType}) klassifiziert und kann außerdem mehrere Unterkonten (Komposition von subAccounts) besitzen.
+Auf einem Konto kann auf Basis einer definierten Strategie (\term{AggregationStrategy}) aggregiert werden. 
 Beispielsweise kann so Summe, Durchschnitt, Maximum oder Minimum der Einträge errechnet werden. 
 
 Im \MM besitzt ein Account die folgenden Assoziationen.
 \begin{description}
-	\item[MAccountType type] Jeder Accounts ist in einem AccountType klassifiziert.
+	\item[MAccountType type] Jeder Accounts ist in einem \term{AccountType} klassifiziert.
 	\item[Account** subAccounts (AccountHierarchy)] Liste bzw. Komposition von Unterkonten.
-	\item[Measurement** entries] Liste von Einträgen bzw. Messungen (Measurements).
-	\item[MObject object] Von QuantifiedObject geerbt.
+	\item[Measurement** entries] Liste von Einträgen bzw. Messungen (\term{Measurements}).
+	\item[MObject object] Von \term{QuantifiedObject} geerbt (siehe Abschnitt \ref{Measurement:QuantifiedObject}).
 \end{description}
 
 Hinzu kommen die folgenden Operationen, welche zum Befüllen der o.g. Listen dienen.
@@ -138,7 +138,7 @@ Im folgenden Abschnitt wird auf die Assoziationen und Operationen von Measuremen
 \subsubsection{Measurement}
 Ein \term{Measurement} repräsentiert eine quantitative Messung eines \term{Objects}. So kann mit ihr zum Beispiel die Regensäule des gestrigen Tages
 oder eine Buchung auf ein Konto festgehalten werden. Damit dies funktioniert, benötigt ein \term{Measurement} zunächst ein \term{Object}, auf das es
-sich beziehen kann. Dieses erbt es von \term{QuantifiedObject} (s.~\refSec{Measurement:QuantifiedObject}).
+sich beziehen kann. Dieses erbt es von \term{QuantifiedObject} (siehe Abschnitt \ref{Measurement:QuantifiedObject}).
 
 Zum anderen benötigt es die Höhe des Betrages und die Einheit, in der die Messung durchgeführt wurde. Diese Informationen speichert das \term{Measurement}
 in einer \term{AbstractQuantity}. Alle \term{Units} dieser \term{AbstractQuantity} sind dabei im \term{UnitType} des \term{MeasurementTypes} typsiert,
@@ -160,7 +160,7 @@ in der er die existierenden \term{MeasurementTypes} vorhält. Zusätzlich hat er
 
 
 \subsubsection{AggregationStrategy}
-Die \term{AggregationStrategy} wird -- wie bereits in \refSec{Measurement:QuantifiedObject} angedeutet -- von der Operation \term{aggregate} benutzt,
+Die \term{AggregationStrategy} wird -- wie bereits in Abschnitt \ref{Measurement:QuantifiedObject} angedeutet -- von der Operation \term{aggregate} benutzt,
 um die \term{AbstractQuantity} eines \term{QuantifiedObjects} zu bestimmen. Dazu besitzt sie die abstrakte Operation \term{aggregateMeasurements}, die eine 
 berechnete \term{AbstractQuantity} zurückliefert. Hierzu benötigt die Operation als Parameter die Liste der zu aggregierenden \term{Measurements} und
 zusätzlich einen \term{AbstractUnitType}, dessen \term{defaultUnit} für das neutrale Element der Aggregation benutzt wird. 
