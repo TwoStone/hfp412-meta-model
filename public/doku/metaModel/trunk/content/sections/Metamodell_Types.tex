@@ -68,6 +68,7 @@ Atomare Typen werden vom \emph{TypeManager} verwaltet.
 Objekte in ihm klassifiziert sind.
 \item[changeSingleton] ist eine modifizierte Set-Methode. Kann die Singletoneigenschaft nur wiederrufen, wenn das \emph{SingletonObject} gelöscht werden kann. 
  Kann die Singletoneigenschaft nur gewähren, wenn keine Objekte existieren und der Typ nicht abstrakt ist. 
+ \item[delteAtomicType] löscht einen atomaren Typen, falls keine Abhängigkeiten bestehen.
 \end{description}
 
 \textbf{Singletons} \newline
@@ -80,7 +81,7 @@ mitgelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{Sin
  
 \textbf{Abhängige Elemente}
 \begin{enumerate}
-  		\item Atomare Typen: direkte Untertypen
+  		\item direkte atomare Untertypen
   		\item bei Singletons: Abhängige Objekte des \emph{SingletonObject}s
   		\item \ldots siehe Typabstraktion
 \end{enumerate}
@@ -102,9 +103,10 @@ der disjunktiven Normalform mit weiteren Contraints zu versehen (siehe z.B. \emp
 Bei Komplexen Typen wird zwischen struktureller und semantischer Äquivalenz unterschieden. Zwei Typen sind strukturell 
 äquivalent, wenn sie identisch aufgebaut sind. Zwei Typen A,B sind semantisch äquivalent, wenn nach den in der Vorlesung 
 aufgestellten Regeln für \term{isLessOrEqual} gilt: 
-
 \[A.isLessOrEqual(B) \land B.isLessOrEqual(A) \]
 
+Die strukturelle Äquivalenzrelation ist Teilmenge der semantische Äquivalenzrelation.
+So sind die beiden Typkonjunktionen A**B und B**A zwar semantischt äquivalent, aber nicht strukturell.
 
 \textbf{Zusätzliche Konsistenzbedinungen} \newline
 \begin{equation}\forall t \in NEATConjunction : 
@@ -113,6 +115,9 @@ aufgestellten Regeln für \term{isLessOrEqual} gilt:
 \begin{equation}\forall t \in NEATConjunction : 
 	t.containedTypes.legth > 0
 \end{equation}
+\begin{equation}\forall t \in AbsTConjunction : 
+	\forall a,b \in t.containedTypes : a.Aspects \cap b.Aspects = \emptyset
+\end{equation}
 \begin{equation}\forall t \in NEDisjunctiveNF : 
 	\forall ct \in t.containedTypes : ct.instanceOf ATConjunction
 \end{equation}
@@ -120,20 +125,51 @@ aufgestellten Regeln für \term{isLessOrEqual} gilt:
 	t.containedTypes.legth > 0
 \end{equation}
 
+
+
 \textbf{Manager} \newline
-Komplexe Typen werden vom \emph{TypeManager} verwaltet. 
+Komplexe Typen werden vom \emph{TypeManager} verwaltet. Es wird sichergestellt, dass 
+die angelegten komplexen Typen paarweise nicht strukturell äquivalent sind. 
 
 \begin{description}
-\item[createAtomicRootType] legt einen neuen atomaren Typen mit Obertyp \emph{Anything} an. 
-\item[createAtomicSubType] legt einen neuen atomaren Typen unter einem andern an. 
-\item[renameAtomicType] benennt einen atomaren Typen um. 
-\item[changeAbstract] ist eine modifizierte Set-Methode. Kann einen konkreten Typen nur abstrakt umdeklarieren, wenn er weder Singletons ist, noch 
-Objekte in ihm klassifiziert sind.
-\item[changeSingleton] ist eine modifizierte Set-Methode. Kann die Singletoneigenschaft nur wiederrufen, wenn das \emph{SingletonObject} gelöscht werden kann. 
- Kann die Singletoneigenschaft nur gewähren, wenn keine Objekte existieren und der Typ nicht abstrakt ist. 
+\item[createTypeConjunction] legt einen normalisierten \qq{UND-Typen} an, falls noch kein strukturell äquivalenter Typ verwaltet wird. Andernfalls wird dieser zurückgegen.
+\item[createTypeDisjunction] legt einen normalisierten \qq{ODER-Typen} an, falls noch kein strukturell äquivalenter Typ verwaltet wird. Andernfalls wird dieser zurückgegen.
+\item[deleteComplexType] löscht einen komplexen Typen, falls keine Abhängigkeiten bestehen.
 \end{description}
 
 
+\textbf{Typnormalisierung} \newline
+In den \term{create}-Operationen werden die Typen normalisiert. 
+\begin{enumerate}
+\item \textbf{Überflüssige Verschachtelungen auflösen:}  \newline 
+	Wird eine Konjunktion erstellt, so werden alle als Argument übergebenen Konjunktionen (rekursiv) entpackt und deren Bestandteile direkt verwendet.
+	Bei Disjunktionen wird analog verfahren. 
+\item \textbf{Überflüssige Elemente entfernen}  \newline 
+	Die in Schritt 1 erstellte Menge an Argumenten wird nun paarweise verglichen. Stehen zwei Argumente bzgl. \term{lessOrEqual} in Relation, so wird 
+	bei Konjunktionen ausschließlich der speziellere und bei Disjunktionen ausschließlich der allgemeinere Typ übernommen. Neutrale Elemente werden 
+	entfernt. 
+\end{enumerate} 
 
+\textbf{Persistenz} \newline
+Komplexe Typen werden grundsätzlich transient erstellt und erst wenn vom im \term{TypeManager} verwaltet werden persistiert. 
+Operationen auf \emph{ModelItem}s (z.B. \term{fetchProductType} auf \emph{AbstractObject}) erzeugen ausschließlich transiente Typen.
+Hierzu wird in GOJA \term{delayedPersistence} verwendet. Es scheinen allerdings zumindest bei der Generierung ohne Datenbank
+durch die Oberfläche Typen persistiert zu werden. Gleiches Verhalten bei der Generierung mit Datenbank wäre höchst problematisch.  
 
-\TODO[Kapitel schreiben]
+\textbf{Abhängige Elemente}
+\begin{enumerate}
+  		\item siehe Typabstraktion
+\end{enumerate}
+
+\subsubsection{Typabstraktion}
+Die Klasse \term{Type} abstrahiert von atomaren und komplexen Typen. Um die inverse Richtung der spezialisierten Assoziation 
+\term{containedTypes} nutzen zu können, wurde eine Operation \term{fetchTypesContainingMe} implementiert. 
+
+\textbf{Abhängige Elemente}
+\begin{enumerate}
+  		\item Komplexe Typen, die diesen Typen direkt beinhalten
+  		\item ObservationTypes, die Observationen für Objekte dieses Typs typisieren.
+  		\item Formalparamter, die in diesem Typ typisiert sind.
+  		\item Operationen, die diesen Typ als Quelle oder als Ziel besitzen.
+  		\item QuantifiedObjectTypes, die auf diesen Typen verweisen. 
+\end{enumerate}
