@@ -1321,7 +1321,7 @@ delete(): void </y:MethodLabel>
       <data key="d4"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="28.0" width="148.0" x="623.2479680811296" y="877.8440589161212"/>
+          <y:Geometry height="28.0" width="148.0" x="857.2872431804906" y="877.8440589161212"/>
           <y:Fill color="#BADCFE" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="44.45361328125" x="51.773193359375" y="3.0">Object<y:LabelModel>
@@ -1342,7 +1342,7 @@ delete(): void </y:MethodLabel>
       <data key="d4"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="28.0" width="148.0" x="857.2872431804906" y="877.8440589161212"/>
+          <y:Geometry height="28.0" width="148.0" x="648.8738481956938" y="877.8440589161212"/>
           <y:Fill color="#BADCFE" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="custom" textColor="#000000" visible="true" width="103.6708984375" x="22.16455078125" y="3.0">SingletonObject<y:LabelModel>
@@ -1667,13 +1667,15 @@ delete(): void </y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e20" source="n16" target="n0">
+    <edge id="e20" source="n16" target="n61">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="-123.85914232870027" sy="0.0" tx="51.239542857142965" ty="-0.4649702930952344">
+          <y:Path sx="-123.85914232870027" sy="0.0" tx="51.23135961434616" ty="3.2577254977113626">
             <y:Point x="1884.6991771723985" y="719.277506226133"/>
-            <y:Point x="1884.6991771723985" y="719.277506226133"/>
-            <y:Point x="982.5267860376337" y="719.277506226133"/>
+            <y:Point x="1884.6991771723985" y="720.1280819359122"/>
+            <y:Point x="1028.6996502701347" y="720.1280819359122"/>
+            <y:Point x="1028.6996502701347" y="831.3684210526314"/>
+            <y:Point x="982.5186027948367" y="831.3684210526314"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
@@ -2694,10 +2696,12 @@ also nochmal spezialisieren. <y:LabelModel>
       </data>
     </edge>
     <edge id="e83" source="n62" target="n0">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+            <y:Point x="722.8738481956938" y="841.2521027188939"/>
+            <y:Point x="931.2872431804906" y="841.2521027188939"/>
+          </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="white_delta"/>
           <y:BendStyle smoothed="false"/>
@@ -2705,13 +2709,9 @@ also nochmal spezialisieren. <y:LabelModel>
       </data>
     </edge>
     <edge id="e84" source="n61" target="n0">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="697.2479680811296" y="841.2521027188939"/>
-            <y:Point x="931.2872431804906" y="841.2521027188939"/>
-          </y:Path>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="white_delta"/>
           <y:BendStyle smoothed="false"/>
