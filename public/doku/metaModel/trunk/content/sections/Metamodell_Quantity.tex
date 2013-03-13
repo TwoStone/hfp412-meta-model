@@ -140,7 +140,8 @@ Im gezeigten Beispiel gibt es drei Einheiten a, b und c, wobei zunächst a die D
 
 Die entsprechende Konsistenzbedingung für diesen Fall lautet wie folgt:
 
-\begin{equation} \forall ut \in UnitType : ut.defaultUnit.from^{-1}.myFunction.factor = 1 \wedge ut.defaultUnit.from^{-1}.myFunction.constant = 1 \end{equation}
+\begin{equation} \forall ut \in UnitType : 
+\forall f \in ut.defaultUnit.from^{-1}.myFunction: f.factor = 1 \wedge f.constant = 1 \end{equation}
 
 \subsubsection{Quantitäten}\label{Quantitaeten}
 
