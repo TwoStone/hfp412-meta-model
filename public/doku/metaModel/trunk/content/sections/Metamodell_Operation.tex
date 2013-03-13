@@ -70,22 +70,26 @@ Assoziationen geben darf.
 
 Wie in der Abbildung XXX zu sehen ist, können sowohl Operationen als auch Assoziationen Formalparameter beinhalten. Die Möglichkeit der Zuweisung von
 Formalparametern an Assoziationen, wird dem Anwender über die Oberfläche nicht bereitgestellt. 
-Eine Mögliche zur Interpretation von Formalparametern für Assoziationen sind die n-stelligen Assoziationen
-welche in der ersten Implementierungsstufe nicht umgesetzt wurden.
+Formalparameter für Assoziationen können als n-stellige Assoziationen interpretiert werden.
+Die Möglichkeit der Zuweisung von Formalparametern an Assoziationen wird dem Anwender über die Oberfläche nicht zur Verfügung gestellt, da sie nicht Teil der ersten Implementierungsstufe sind.
 
 \subsubsubsection{AssociationManager}
 
 Der AssoziationManager bietet sechs transaktionale Operationen an und beinhaltet zwei Listen, welche er verwaltet.
-Die eine Liste beinhaltet alle erstellten Assoziationen und die andere alle Hierarchien. Diese beiden Listen werden dem Anwender an der 
-Oberfläche präsentiert und dienen der Verwaltung der darin enthaltenen Objekte.
+\begin{description}
+\item[Association ** associations] In dieser Liste werden alle erstellten Assoziationen aufbewahrt und durch entsprechende Operationen verwaltet.
+\item[Hierarchy ** hierarchies] Alle erstellten Hierarchien werden in dieser Liste abgelegt.
+\end{description}
+Diese beiden Listen werden dem Anwender an der 
+Oberfläche präsentiert. Über entsprechende Operationen kann der Anwender die Elemente dieser Listen verwalten.
 
 Wie schon bei dem Operationsmanager, werden \textbf{Parameter} und \emph{Exceptions} durch entsprechende Formatierungen kenntlich gemacht.
 
 \begin{description}
 \item[createAssociation] Bei Aufruf dieser Operation müssen \textbf{Quell- und Zieltyp} sowie der \textbf{Name} der zu erstellenden Assoziation 
 angegeben werden.
-Sollte der Name schon von einer anderen Assoziation verwendet werden, wirft die Operation eine \emph{DoubleDefinitionException} und die Assoziation wird nicht
-erstellt. Ein weiterer Grund für das nicht Erstellen einer Assoziation ist, wenn Quell- oder Zieltyp der leeren Summe entsprechen. In einem solchen Fall
+Sollte der Name schon von einer anderen Assoziation verwendet werden, erzeugt die Operation eine \emph{DoubleDefinitionException} und die Assoziation wird nicht
+erstellt. Außerdem darf eine Assoziation nie in der leeren Disjunktion als Quelle oder Ziel typisiert sein. In einem solchen Fall
 wird eine \emph{ConsistencyException} erstellt.
 Wenn keine der genannten Exceptions aufgetreten ist, wird die Assoziation erstellt und zur Liste der bekannten Assoziationen hingefügt. 
 \item[removeAssociation] Diese Operation erwartet beim Aufruf nur die zu entfernende \textbf{Assoziation}. 
@@ -97,21 +101,21 @@ Sollte es ein oder mehrere Exemplare (Links) zu dieser Assoziation geben oder si
 Insbesondere folgende Gründe führen zum Misserfolg:
 \begin{itemize}
 \item Es exisitiert bereits eine Hierarchie mit diesem Namen. Das hat zur Folge, dass eine \emph{DoubleDefinitionException} erzeugt wird.
-\item Es existiert auf der Exemplarebene ein Zyklus. Wie in der Beschreibung zu addAssociation erläutert, ist dieser Umstand ist für Hierarchien untersagt.
+\item Es existiert auf der Exemplarebene ein Zyklus. Wie in der Beschreibung zu addAssociation erläutert, ist dieser Umstand für Hierarchien untersagt.
  Es resultiert eine \emph{CycleException.}
 \end{itemize}
 \item[removeHierarchy] Nach erfolgreicher Ausführung dieser Operation, wird die übergebene \textbf{Hierarchie} aus dem System entfernt. 
-Es wird lediglich die Hierarchie entfernt, die beinhaltenden Assoziationen an sich bleiben weiterhin bestehen.
-\item[addAssociation] Diese Operation erwartet zum einen die \textbf{Hierarchie} zu der die Assoziation hinzugefügt werden soll und zum Anderen die \textbf{Assoziation} selbst.
+Es wird lediglich die Hierarchie entfernt. Die Assoziationen, welche an der gelöschten Hierarchie teilnehmen, bleiben weiterhin bestehen.
+\item[addAssociation] Diese Operation erwartet zum einen die \textbf{Hierarchie} zu der die Assoziation hinzugefügt werden soll und zum anderen die \textbf{Assoziation} selbst.
 Wenn es auf der Exemplarebene keine zyklischen Links zu dieser Assoziation gibt, wird die Assoziation der Hierarchie zugeordnet. Sollte es zyklische Links
 zu dieser Assoziation geben oder die Assoziation ist bereits in dieser Hierarchie, werden entsprechende Exceptions (\emph{CycleException,} bzw. \emph{DoubleDefinitionException}) 
 erstellt und die Assoziation wird der Hierarchie nicht zugeordnet.
 \item[removeAssoFrmHier] Zum Entfernen von Assoziationen aus Hierarchien, ist es notwendig dieser Operation sowohl die \textbf{Hierarchie}, als auch die zu entfernende 
 \textbf{Assoziation} anzugeben. Dabei wird lediglich die Assoziation aus der Hierarchie entfernt, die Assoziation an sich bleibt bestehen. 
 Sofern die angegebene Assoziation an dieser Hierarchie teilnimmt, wird diese Verbindung durch die Ausführung dieser Operation entfernt. 
-Sollte dies nicht der Fall sein, wird eine \emph{NotAvailableException} geworfen. Ein Sonderfall bildet sie letzte Assoziation einer
-Hierarchie. Diese darf gemäß des Modells nicht entfernt werden, da leere Hierarchien nicht zuläßig sind. Beim Versucht die letzte
-Assoziation einer Hierarchie aus der Hierarchie zu entfernen, wird eine \emph{ConsistencyException} erzeugt und der Versucht wird abgebrochen. 
+Sollte dies nicht der Fall sein, wird eine \emph{NotAvailableException} geworfen. Einen Sonderfall bildet die letzte Assoziation einer
+Hierarchie. Diese darf gemäß des Modells nicht entfernt werden, da leere Hierarchien nicht zulässig sind. Beim Versucht die letzte
+Assoziation einer Hierarchie aus der Hierarchie zu entfernen, wird eine \emph{ConsistencyException} erzeugt und der Versuch wird abgebrochen. 
 \end{description}
 
 
@@ -121,18 +125,16 @@ Assoziation einer Hierarchie aus der Hierarchie zu entfernen, wird eine \emph{Co
 Messages und Links haben eine gemeinsame Oberklasse MessageOrLink. In der ersten Ausbaustufe werden lediglich die Links implementiert. Zu den Messages existiert eine rudimentäre
 Implementierung die dem Anwender aber über die Oberfläche nicht bereitgestellt wird, da die 
 Semantik eines Messageexemplars bislang nicht eindeutig geklärt ist.
-Es existiert zum einen die Interpretation, dass Message aufrufe von Methoden sind. Eine weitere Interpretationsmöglichkeit ist, dass eine Message die Methode an sich inklusive ihres Inhalts beschreibt. 
+Es existiert zum einen die Interpretation, dass Message Aufrufe von Methoden sind. Eine weitere Interpretationsmöglichkeit ist, dass eine Message die Methode an sich inklusive ihres Inhalts beschreibt. 
 Dazu müsste aber ein domänenspezifische Sprache (DSL) entwickelt und im Modell verwendet werden.
 
 Da Messages in dieser Ausbaustufe nicht enthalten sind, verlieren auch Actualparameter ihre Daseinsberechtigung. Aus diesem Grund werden auch diese nicht implementiert.
  \vspace{15pt}
 
-Ein Link ist eine konkrete Ausprägungen einer Assoziation. 
-Folglich ist die Erstellung eines Links nur möglich, wenn eine Assoziation als Typ gewählt wurde und der zu erstellende Link
-sich an die  daraus ergebenden Konsistenzbedingungen hält.
-Für Links stehen dem Anwender nur zwei Operationen zur Verfügung.
+Ein Link ist eine konkrete Ausprägung einer Assoziation. Folglich ist die Erstellung eines Links nur möglich, wenn der zu erstellende Link sich an die aus der Assoziation resultierenden Konsistenzbedingungen hält. Für Links stehen dem Anwender zwei Operationen zur Verfügung.
 
-\subsubsection{Einen Link erstellen - createLink}
+\begin{description}
+\item[createLink]
 Wie zuvor erwähnt, ist es für einen Link zwingend notwendig sich an die Konsistenzbedingungen der Assoziation zu halten.
 Bei der Erstellung eines Links wird eine \emph{ConsistencyException} erzeugt, wenn die Quell- und/oder Zielobjekte gemäß der Typebene nicht 
 gestattet sind.
@@ -145,6 +147,6 @@ Desweiteren ist es Assoziationen möglich an mehreren Hierarchien teilzunehmen. 
 da sich sonst keinerlei Aggregationsbeziehung abbilden ließen.
 Auf der Ebene der Exemplare hingegen, müssen \emph{alle Links, die in Assoziation typisiert sind, in jeder Hierarchie an der diese teilnehmen, zyklenfrei sein.}
 Wenn ein Anwender versucht zyklische Links zu erzeugen, wird eine \emph{CycleException} erzeugt und der jeweilige Link wird nicht erstellt.
-
-\subsubsection{Löschen eines Links - removeLink}
+\item[removeLink]
 Beim Entfernen eines bestehenden Links gibt es keinerlei Restriktionen zu beachten. Der Anwender kann bestehende Links beliebig löschen.
+\end{description}
