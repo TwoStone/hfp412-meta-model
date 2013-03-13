@@ -1,12 +1,19 @@
 \subsection{Observations}\label{Observations}
-Im Gegensatz zum ursprünglichen Modell haben wir uns nach längerer Diskussion dazu entschlossen Observations auszulagern. 
-Das soll zum einen der Übersicht und Transparenz des Modells zu gute kommen und zum anderen, 
-die aufwändige Handhabung von Singletons für Observations vermeiden.
- 
-Ursprünglich handelte es sich fachlich um eine Observation, wenn ein Typ nur aus Singletons bestand. 
-Dabei stellten sich folgende Fragestellungen, welche die Verwendung von Observations in der ursprünglichen Variante unnötig verkompliziert haben:
+Im Gegensatz zum ursprünglichen Modell haben wir uns nach längerer Diskussion
+dazu entschlossen Observations auszulagern. Das soll zum einen der Übersicht
+und Transparenz des Modells zu gute kommen und zum anderen, die aufwändige
+Handhabung von Singletons für Observations vermeiden.
 
-\todo[Patrick: Gruende]
+Ursprünglich handelte es sich fachlich um eine Observation, wenn ein Typ nur aus
+Singletons bestand. Dabei stellten sich folgende Fragestellungen, welche die Verwendung
+von Observations in der ursprünglichen Variante unnötig verkompliziert
+haben:
+
+In der ursprünglichen Modellierung handelte es sich bei einer Observation um eine Assoziation bei der das Ziel auf einen 
+Typ zeigte, der nur aus Singletons bestand. Damit dies aber möglich ist, müssen in der Typ-Hierarchie alle Knoten 
+abstrakt und alle Blätter Singletons sein. Diese Bedingung muss aber für allgemeine Singletons nicht gelten. Um an dieser 
+Stelle eine klare Trennung zu erreichen und die Transparenz des Modells zu erhöhen, wurden Observations als eigener Modell-Abschnitt ausgelagert.
+
 \img[width=\relWidth{1}]{observation/observation.png}{Ausschnitt Observations}{img_observations}
 
 Observations werden auf Modellebene durch die Klassen \emph{Enum} und \emph{ObservationType} repräsentiert. 
