@@ -1,5 +1,5 @@
 \subsection{Quantity}
-TODO Dient zum Abbilden von Werten mit Einheit
+\TODO[Dient zum Abbilden von Werten mit Einheit]
 
 \subsubsection{Die Manager}
 
@@ -81,7 +81,7 @@ Liefert die eine CompountUnit, die keine Referenzen zu anderen Units aufweist.
 \item[addReference]
 Diese Operation kann sowohl auf zusammengesetzten Einheiten, als auch auf atomaren Einheiten angewendet werden. Sie dient zum erstellen von CompoundUnits. Analog zur createUnit-Methode wird hier ein Name benötigt. Die entsprechende neue Referenz zur ausgewählten Unit wird durch einen Exponenten definiert. Die DoubleDefinitionException wird auch hier geworfen, falls es zu Namenskonflikten kommt.
 \item[setConversion]
-Mittels dieser Operation lässt sich für eine Unit eine Conversion zur aktuellen DefaultUnit des entsprechenden UnitTypes angeben. Die Umrechnungsrate besteht immer aus einem Faktor und einer Konstante. Die Conversion werden im Kapitel \ref{ConversionsKapitel} näher erläutert.
+Mittels dieser Operation lässt sich für eine Unit eine Conversion zur aktuellen DefaultUnit des entsprechenden UnitTypes angeben. Die Umrechnungsrate besteht immer aus einem Faktor und einer Konstante. Die Conversions werden im Kapitel \ref{ConversionsKapitel} näher erläutert.
 \end{description}
 
 Folgende Operationen sind für die interne Verarbeitung relevant und können nicht über die Oberfläche aufgerufen werden:

@@ -1,0 +1,28 @@
+\subsection{Messages und Links}
+
+Messages und Links haben eine gemeinsame Oberklasse MessageOrLink. In der ersten Ausbaustufe werden lediglich die Links implementiert. Zu den Messages existiert eine rudimentäre
+Implementierung die dem Anwender aber über die Oberfläche nicht bereitgestellt wird, da die 
+Semantik eines Messageexemplars bislang nicht eindeutig geklärt ist.
+Es existiert zum einen die Interpretation, dass Message Aufrufe von Methoden sind. Eine weitere Interpretationsmöglichkeit ist, dass eine Message die Methode an sich inklusive ihres Inhalts beschreibt. 
+Dazu müsste aber ein domänenspezifische Sprache (DSL) entwickelt und im Modell verwendet werden.
+
+Da Messages in dieser Ausbaustufe nicht enthalten sind, verlieren auch Actualparameter ihre Daseinsberechtigung. Aus diesem Grund werden auch diese nicht implementiert.
+
+Ein Link ist eine konkrete Ausprägung einer Assoziation. Folglich ist die Erstellung eines Links nur möglich, wenn der zu erstellende Link sich an die aus der Assoziation resultierenden Konsistenzbedingungen hält. Für Links stehen dem Anwender zwei Operationen zur Verfügung.
+
+\begin{description}
+\item[createLink]
+Wie zuvor erwähnt, ist es für einen Link zwingend notwendig sich an die Konsistenzbedingungen der Assoziation zu halten.
+Bei der Erstellung eines Links wird eine \emph{ConsistencyException} erzeugt, wenn die Quell- und/oder Zielobjekte gemäß der Typebene nicht 
+gestattet sind.
+\begin{equation} \forall \, l \in Link: l.source.type.isLessOrEqual(l.type.source)
+\end{equation} 
+\begin{equation} \forall \, l \in Link: l.target.type.isLessOrEqual(l.type.target)
+\end{equation}
+Desweiteren ist es Assoziationen möglich an mehreren Hierarchien teilzunehmen. Zyklische Assoziationen sind auf der Metaebene möglich, 
+da sich sonst keinerlei Aggregationsbeziehung abbilden ließen.
+Auf der Ebene der Exemplare hingegen, müssen \emph{alle Links, die in Assoziation typisiert sind, in jeder Hierarchie an der diese teilnehmen, zyklenfrei sein.}
+Wenn ein Anwender versucht zyklische Links zu erzeugen, wird eine \emph{CycleException} erzeugt und der jeweilige Link wird nicht erstellt.
+\item[removeLink]
+Beim Entfernen eines bestehenden Links gibt es keinerlei Restriktionen zu beachten. Der Anwender kann bestehende Links beliebig löschen.
+\end{description}

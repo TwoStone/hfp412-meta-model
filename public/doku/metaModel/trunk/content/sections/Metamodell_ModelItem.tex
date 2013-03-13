@@ -7,7 +7,7 @@ Die in der Implementierung angewandte Pragmatik verbietet das Löschen von Model
 abhängig sind. Der Entwurf ermöglicht es auch nachträglich dieses Vorgehen mit geringem Aufwand durch ein kaskadierendes Löschen zu 
 ersetzen. 
 
-\img[width=\relWidth{0.5}]{modelItem/modelItem.png}{Klasse ModelItem}{img_modelItem}
+\img[width=\relWidth{0.46}]{modelItem/modelItem.png}{Klasse ModelItem}{img_modelItem}
 
 
 \subsubsection{Operationen}
@@ -28,8 +28,3 @@ abschließend durch den Aufruf von \emph{getThis().delete\$ME} gelöscht.
 \qq{Aufräumen} vor dem tatsächlichen Löschen. Ein Singleton-Type erstellt z.B. im \term{initializeOnCreation()} sein zugehöriges 
 Singleton-Objekt und löscht dies in \emph{prepareForDeletion()}. 
 \end{description}
-
-
-\subsubsection{Weitere Ideen}
-
-\TODO[Bitte in Kapitel Ausblick verschieben]
