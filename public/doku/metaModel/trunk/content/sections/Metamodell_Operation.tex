@@ -3,7 +3,7 @@
 \subsubsection{Operationen}
 
 Die Klasse Operation repräsentiert die Abbildung von Operationen in dem erarbeiteten Modell.
-Wie in dem Modell aus Abbildung XXX ersichtlich, hat die Oberklasse AbstractOperation zwei  Assoziationen zu MType. 
+Wie in dem Modell aus dem digitalen Anhang ersichtlich, hat die Oberklasse AbstractOperation zwei  Assoziationen zu MType. 
 Im Kontext von Operationen ist die Quelle (source) der Typ, welcher die Operation enthält. 
 Das Ziel (target) einer Operation entspricht dem Rückgabetypen.
 Neben Quell- und Zieltypen besitzt eine Operation eine Liste von Formalparametern, welche 
@@ -36,9 +36,9 @@ Wie bei den meisten Klassen dieses Projekts, die eine Bezeichnung haben, dürfen
 \item[createStaticOperation]
 Diese Operation bietet dem Anwender eine komfortable Möglichkeit eine statische Operation zu erstellen. Dazu wird die Quell-Assoziation auf EmptyTypeDisjunction gesetzt und es ist nur noch \textbf{der Rückgabetyp, der Name und die Parameterliste} auswählbar. Durch die Delegation gelten exakt die gleichen Konsistenzbedingungen wie beim Erstellen eine Operation (createOperation).
 \item[createConstant]
-Mithilfe dieser Operation, ist es dem Anwender möglich auf einfache Art eine Konstante zu erstellen. Da eine Konstante eine Operation ist, die eine leere Parameterliste hat und als Quelle auf EmptyTypeDisjunction verweist, sind das genau die Parameter die beim Aufruf nicht mehr angegeben werden müssen bzw. können. Auch hierbei handelt es sich um Delegation an die createOperation-Operation und es gelten genau die gleichen Konsistenzbedingungen.
+Mithilfe dieser Operation ist es dem Anwender möglich auf einfache Art eine Konstante zu erstellen. Da eine Konstante eine Operation ist, die eine leere Parameterliste hat und als Quelle auf EmptyTypeDisjunction verweist, sind das genau die Parameter die beim Aufruf nicht mehr angegeben werden müssen bzw. können. Auch hierbei handelt es sich um Delegation an die createOperation-Operation und es gelten genau die gleichen Konsistenzbedingungen.
 \item[createVoidOperation]
-Die createVoidOperation ist die vorerst letzte Operation zum benutzerfreundlicheren Erstellen einer Operation. Anders als bei den zwei Operationen zuvor, sind hier Quelle und Parameterliste wählbar. Da die zu erstellende Operation aber keinen Rückgabetypen haben soll, ist das Ziel vordefiniert und kann vom Anwender beim Aufruf nicht angegeben werden. Genau wie zuvor gelten auch hier die Konsistenzbedingungen der createOperation-Operation.
+Die createVoid-Operation ist die vorerst letzte Operation zum benutzerfreundlicheren Erstellen einer Operation. Anders als bei den zwei Operationen zuvor, sind hier Quelle und Parameterliste wählbar. Da die zu erstellende Operation aber keinen Rückgabetypen haben soll, ist das Ziel vordefiniert und kann vom Anwender beim Aufruf nicht angegeben werden. Genau wie zuvor gelten auch hier die Konsistenzbedingungen der createOperation-Operation.
 \item[createFormalParamater]
 Um Formalparameter für Operationen verwenden zu können, müssen diese zuvor erstellt werden. Genau hierfür wird dem Anwender die createFormalParameter-Operation angeboten.
 Zum erfolgreichem Erstellen eines Formalparameters ist es notwendig, diesem einen \textbf{Namen} sowie einen \textbf{Typen} zu geben. Nach erfolgreicher Erstellung ist der erstellte Formalparameter in der zuvor beschriebenen Formalparameter-Liste zu finden. Die Erstellung kann entweder an der mehrfachen Verwendung des Formalparameter-Namens oder der Typisierung des Parameters in EmptyTypeDisjunktion scheitern. Im ersten Fall wird eine \emph{DoubleDefinitionException} erstellt, im Zweiten eine \emph{ConsistencyException} wobei beide Exceptions zum Abbruch führen.
@@ -64,11 +64,10 @@ Mithilfe dieser Operation lassen sich Operationen aus dem System entfernen. Zur 
 
 Die Klasse Association repräsentiert die Möglichkeit Assoziationen zwischen zwei beliebigen Typen abzubilden.
 Neben dem Quell- und Zieltypen, kann eine Assoziation an beliebig vielen Hierarchien teilnehmen.
-Eine Assoziation entspricht der Interpretation einer Observation, wenn alle Zieltypen entweder singleton sind oder abstrakt und als Unterklassen nur singletons enthalten.
 Wie bei vielen anderen Modellbestandteilen, sind auch die Namen der Assoziation indiziert. Daraus folgt auch, dass es keine gleichnamigen 
 Assoziationen geben darf.
 
-Wie in der Abbildung XXX zu sehen ist, können sowohl Operationen als auch Assoziationen Formalparameter beinhalten. Die Möglichkeit der Zuweisung von
+Wie im digitalen Anhang dieser Dokumentation zu sehen ist, können sowohl Operationen als auch Assoziationen Formalparameter beinhalten. Die Möglichkeit der Zuweisung von
 Formalparametern an Assoziationen, wird dem Anwender über die Oberfläche nicht bereitgestellt. 
 Formalparameter für Assoziationen können als n-stellige Assoziationen interpretiert werden.
 Die Möglichkeit der Zuweisung von Formalparametern an Assoziationen wird dem Anwender über die Oberfläche nicht zur Verfügung gestellt, da sie nicht Teil der ersten Implementierungsstufe sind.
@@ -83,7 +82,7 @@ Der AssoziationManager bietet sechs transaktionale Operationen an und beinhaltet
 Diese beiden Listen werden dem Anwender an der 
 Oberfläche präsentiert. Über entsprechende Operationen kann der Anwender die Elemente dieser Listen verwalten.
 
-Wie schon bei dem Operationsmanager, werden \textbf{Parameter} und \emph{Exceptions} durch entsprechende Formatierungen kenntlich gemacht.
+Wie schon bei dem OperationManager, werden \textbf{Parameter} und \emph{Exceptions} durch entsprechende Formatierungen kenntlich gemacht.
 
 \begin{description}
 \item[createAssociation] Bei Aufruf dieser Operation müssen \textbf{Quell- und Zieltyp} sowie der \textbf{Name} der zu erstellenden Assoziation 
@@ -114,6 +113,6 @@ erstellt und die Assoziation wird der Hierarchie nicht zugeordnet.
 \textbf{Assoziation} anzugeben. Dabei wird lediglich die Assoziation aus der Hierarchie entfernt, die Assoziation an sich bleibt bestehen. 
 Sofern die angegebene Assoziation an dieser Hierarchie teilnimmt, wird diese Verbindung durch die Ausführung dieser Operation entfernt. 
 Sollte dies nicht der Fall sein, wird eine \emph{NotAvailableException} geworfen. Einen Sonderfall bildet die letzte Assoziation einer
-Hierarchie. Diese darf gemäß des Modells nicht entfernt werden, da leere Hierarchien nicht zulässig sind. Beim Versucht die letzte
+Hierarchie. Diese darf gemäß des Modells nicht entfernt werden, da leere Hierarchien nicht zulässig sind. Beim Versuch die letzte
 Assoziation einer Hierarchie aus der Hierarchie zu entfernen, wird eine \emph{ConsistencyException} erzeugt und der Versuch wird abgebrochen. 
 \end{description}

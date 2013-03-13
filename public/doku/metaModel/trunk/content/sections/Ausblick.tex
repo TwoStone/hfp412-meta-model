@@ -12,9 +12,10 @@ Es bietet sich beispielsweise an, eine Klasse Multiplicity zwischen \term{O++A} 
 welche zwei boolsche Attribute $\leq$ und $\geq$ enthält. 
 Damit lassen sich die vier Multiplizitäten $0..n$, $1..n$, $1$ und $0..1$ darstellen.
 Dies zieht u.a. einige Konsistenzbedingungen nach sich, welche beim Anlegen von Links beachtet werden müssen. 
-  \item[Mehrstellige Assoziationen]
-  \item[Messages] Wie bereits im Abschnitt \ref{Messages} beschrieben, sind Messages zwar im Metamodell enthalten, 
-  eine Implementierung wurde in dieser Ausbaustufe allerdings nicht umgesetzt. 
+  \item[Mehrstellige Assoziationen] Aktuell gibt es für eine Assoziation nur genau ein Quell- und genau ein Zieltypen. Um Mehrstellige Assoziationen und Links zu implementieren, könnten die Formal- und Aktualparameter verwendet werden. Eine Assoziation bestünde dann aus den zwei explizit genannten Quell- und Zieltypen sowie einer Liste von Formalparametern wobei jeder Formalparameter eine weitere Quelle darstellen würde. Um dies adäquat auf der Exemplarebene abzubilden, würden die Links sich ihrer Aktualparameter bedienen. Das aktuelle \MM sieht diese Implementierung schon vor, da sowohl Formal- als auch Aktualparameter von den jeweiligen Oberklassen AbstractOperation und Message++Link ausgehen.
+  \item[Messages] Wie schon im Kapitel \ref{Message:Message} erläutert wurden Messages in der ersten Implementierungsstufe nicht umgesetzt. Zum gegenwärtigen Zeitpunkt existiert für ein Message-Exemplar sowohl die Interpretation des Nachrichtenaufrufs, als auch des Nachrichteninhalts.
+Bevor Messages umgesetzt werden können muss sich geeinigt werden, welche der genannten Interpretationen für ein Message-Exemplars zutrifft. 
+  \item[ActualParameter] Da aus genannten Gründen weder Message-Exemplare erzeugt, noch mehrstellige Assoziationen/Links angelegt werden können, haben Aktualparameter derzeit keinerlei Daseinsberechtigung. Aus diesen Gründen wird die Verwaltung von Aktualparametern dem Anwender nicht angeboten.
   \item[Path]
   \item[Posting Rules]
   \item[Versionierung]
