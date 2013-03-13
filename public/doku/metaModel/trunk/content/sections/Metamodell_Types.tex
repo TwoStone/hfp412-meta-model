@@ -85,9 +85,16 @@ mitgelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{Sin
 \subsubsection{Komplexe Typen}
 
 Komplexe Typen bieten die Möglichkeit Und- und Oder-Typen zu bilden. Zyklenfreiheit wird hierbei dadurch gewährleistet, 
-dass \emph{containedTypes} und alle Spezialisierungen Teil einer Hierarchie sind. 
+dass \emph{containedTypes} und alle Spezialisierungen Teil einer Hierarchie sind. Komplexe Typen sind immutable,
+lassen sich aber (bis auf \emph{Anything} und \emph{Nothing}) löschen, falls keine Abhängigkeiten existieren.
 
 \img[width=\relWidth{1}]{type/ComplexTypes.png}{Ergänzter Ausschnitt: Komplexe Typen}{img_complexTypes}
+
+Um für Unterklassen von \emph{ComplexType} die Assoziation \emph{containedTypes} weiter einschränken zu 
+können, ist sie spezialisiert worden. Ursprünglich ist \emph{containedTypes} abgeleitetes Attribut gewesen,
+ist aber wegen Problemen in GOJA zu einer \emph{fetch}-Operation refaktoriert worden. 
+Ziel ist, z.B. in den leeren Typen keine Änderungen an der Assoziation zu erlauben und diese für die Bereitstellung 
+der disjunktiven Normalform mit weiteren Contraints zu versehen (siehe z.B. \emph{NonEmptyAtomicTypeConjunction}) 
 
 
 
