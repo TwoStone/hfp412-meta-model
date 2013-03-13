@@ -46,7 +46,7 @@ Mit dieser Operation kann der Name eines Einheitentypen geändert werden. Ebenso
 \item[addReferenceType]
 Mit dieser Operation kann einem Einheitentypen, egal ob zusammengesetzt oder atomar, eine Referenz auf einen atomaren Einheitentypen hinzugefügt werden. Hierdurch entsteht dann ein zusammengesetzter Einheitentyp. Zusätzlich zu dem zu referenzierenden Einheitentypen muss noch der Exponent der Referenz und der Name des neu entstehenden zusammengesetzten Einheitentypen übergeben werden. Wie bei den anderen beiden Methoden gilt auch hier: ist der Name schon vorhanden, gibt es eine DoubleDefinitionException. Existiert schon ein Einheitentyp mit genau den selben Referenzen, wird kein neuer Einheitentyp erstellt, sondern der vorhandene zurückgegeben.
 \item[setDefaultUnit]
-Diese Methode weist einem atomaren Einheitentypen eine Standard-Einheit zu, die für Umrechnungen in andere Einheiten benötigt wird.
+Diese Methode weist einem atomaren Einheitentypen eine Standard-Einheit zu, die für Umrechnungen in andere Einheiten benötigt wird. Die Umrechnungen werden im Kapitel \ref{ConversionsKapitel} genauer erläutert.
 \end{description}
 
 Folgende Operationen sind für die interne Verarbeitung relevant und können nicht über die Oberfläche aufgerufen werden:
@@ -68,8 +68,12 @@ Dabei wird zwischen atomaren Einheiten (z.B. Meter [m]) und zusammengesetzten Ei
 \subsubsubsection{Objektmodell}
 
 Die Zusammenhänge zwischen Units und UnitTypes sollen an dieser Stelle anhand eines beispielhaften Objektmodells in \refImg{unit_unittypes_objektmodell} verdeutlicht werden.
-\img[width=\relWidth{0.8}]{quantity/unit_unittypes_objektmodell.png}{Objektmodell: Geschwindigkeit und Beschleunigung}{unit_unittypes_objektmodell}
 
+\img[width=\relWidth{1}]{quantity/unit_unittypes_objektmodell.png}{Objektmodell: Geschwindigkeit und Beschleunigung}{unit_unittypes_objektmodell}
+
+Auf der Typebene gibt es die beiden atomaren UnitTypes "`Strecke"' und "`Zeit"', außerdem zwei CompoundUnitTypes "`Geschwindigkeit"' und "`Beschleunigung"'. Geschwindigkeit hat zwei Referenzen (RefTypes), eine mit dem Exponent 1 auf Strecke und eine mit dem Exponenten -1 auf Zeit. Beschleunigung hat ebenfalls eine Referenz mit dem Exponenten 1 auf Strecke. Hierbei wird das selbe RefType-Objekt verwendet, welches auch Geschwindigkeit nutzt. Außerdem besitzt Beschleunigung noch eine Referenz auf Zeit. Da diese jedoch den Exponenten -2 hat, wird hierbei ein anderes RefType-Objekt verwendet als bei Geschwindigkeit.
+
+Auf der Exemplarebene gibt es die atomaren Units "`km"', typisiert in "`Strecke"', und "`h" und "'s"`, beide typisiert in "'Zeit"'. Außerdem gibt es die CompoundUnits "`km/h"', welche als Einheitentyp "`Geschwindigkeit"' hat, und "`km/(s*h)"', welche zum Einheitentyp "`Beschleunigung"' gehört. Auf km gibt es eine Referenz mit Exponent 1, welche sowohl von km/h als auch von km/(s*h) verwendet wird. Die Referenz mit Exponent -1 auf h wird ebenfalls von km/h und km/(s*h) benutzt. Außerdem geht von km/(s*h) aus noch eine Referenz mit Exponenten -1 auf s. Somit gibt es auf der Exemplarebene von der Beschleunigungs-Einheit zwei Referenzen auf Zeit-Einheiten. Summiert man jedoch ihre Exponenten, erhält man den auf der Typebene geforderten Exponenten -2.
 
 \subsubsubsection{Verwalten von Units}
 
