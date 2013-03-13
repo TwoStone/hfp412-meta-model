@@ -1,5 +1,9 @@
 \subsection{Operations und Associations}
 
+Zur Abbildung von Operationen und Assoziationen wurde im Zuge der Projektarbeit die Klasse \term{AbstractOperation} entwickelt von der sowohl Operation als auch Assoziation erben. 
+Da es sich bei Assoziationen um spezielle, parameterlose Operationen handelt, wurde eine gemeinsame Oberklasse gewählt.
+Sowohl Operationen als auch Assoziationen haben genau ein Quell- und Zieltyp wobei diese in den unterschiedlichen Kontexten (Operation oder Assoziation) semantisch unterschiedlich interpretiert werden. Im folgenden werden sowohl die Meta- als auch Exemplarebene erläutert und alle Operationen beschrieben, die es dem Anwender erlauben Operationen und Assoziationen sowie Messages\footnote{Wie im folgenden erläutert wird, sind Messages nicht Bestandteil der ersten Implementierungsstufe. Sie wurden nur aus Gründen der Vollständigkeit mit aufgeführt.} und Links zu verwalten.  
+
 \subsubsection{Operationen}
 
 Die Klasse Operation repräsentiert die Abbildung von Operationen in dem erarbeiteten Modell.
