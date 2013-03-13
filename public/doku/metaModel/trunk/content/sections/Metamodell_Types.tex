@@ -40,7 +40,7 @@ Aspekte werden vom \emph{AspectManager} verwaltet. Alle Operation werden transak
 \begin{description}
 \item[createAspect] legt einen neuen Aspekt an.
 \item[renameAspect] benennt einen Aspekt um.
-\item[deleteAspect] loescht einen Aspekt, wenn keine abhängingen Modellelemente existieren.
+\item[deleteAspect] löscht einen Aspekt, wenn keine abhängigen Modellelemente existieren.
 \end{description}
 
 \textbf{Abhängige Elemente}
@@ -76,7 +76,7 @@ Die Singletoneigenschaft eines atomaren Typen A bedeutet ausschließlich, dass g
 Von Singletons darf beliebig abgeleitet werden. 
 In der \emph{initializeOnCreation}-Operation des atomaren Typen wird, falls er über die Singletoneigenschaft verfügt, 
 sein \emph{SingletonObject} erstellt. In der \emph{prepareForDeletion}-Operation wird - falls vorhanden - das \emph{SingeletonObject}
-mitgelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{SingletonObject}s. In den den entsprechenden Operationen im 
+mit gelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{SingletonObject}s. In den den entsprechenden Operationen im 
 \term{TypeManager} werden \term{SingeltonObject}s beim \term{ObjectManager} registriert bzw. entfernt.
  
 \textbf{Abhängige Elemente}
