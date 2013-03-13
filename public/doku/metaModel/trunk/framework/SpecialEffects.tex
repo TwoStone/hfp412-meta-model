@@ -64,8 +64,8 @@
 \newcommand*{\appendixattoc}{ % Trennanweisung im Inhaltsverzeichnis
 }
 \g@addto@macro\appendix{ % \appendix erweitern
-  \newpage % Neue Seite
-  \phantomsection % Sprungmarke korrigieren
+  %\newpage % Neue Seite
+  %\phantomsection % Sprungmarke korrigieren
   \addcontentsline{toc}{section}{\appendixname} % Eintrag ins Hauptverzeichnis
   \addtocontents{toc}{\protect\appendixattoc} % Trennanweisung in die toc-Datei
 }

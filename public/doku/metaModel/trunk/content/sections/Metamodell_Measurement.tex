@@ -46,7 +46,7 @@ Jedes Konto ist in einem Typ (AccountType) klassifiziert und kann außerdem mehr
 Auf einem Konto kann auf Basis einer definierten Strategie (AggregationStrategy) aggregiert werden. 
 Beispielsweise kann so Summe, Durchschnitt, Maximum oder Minimum der Einträge errechnet werden. 
 
-Im Metamodell besitzt ein Account die folgenden Assoziationen.
+Im \MM besitzt ein Account die folgenden Assoziationen.
 \begin{description}
 	\item[MAccountType type] Jeder Accounts ist in einem AccountType klassifiziert.
 	\item[Account** subAccounts (AccountHierarchy)] Liste bzw. Komposition von Unterkonten.
@@ -65,7 +65,7 @@ Hinzu kommen die folgenden Operationen, welche zum Befüllen der o.g. Listen die
 Der Typ eines Accounts (AccountType) dient zur Klassifizieren eines Kontos. Beispielsweise kann ein Konto als Bankkonto klassifiziert werden. Untertyp (SubAccountType) kann an dieser Stelle z.B. ein Giro- oder Kreditkartenkonto sein.
 Sobald ein AccountType Exemplare besitzt, kann dieser nicht mehr gelöscht werden (siehe folgender Abschnitt). Um Hierarchien dieser Art abbilden zu können sind die folgenden Assoziationen und Operationen notwendig. 
 
-Im Metamodell besitzt ein AccountType (neben der vom \term{QuantifiedObjectType} geerbten) die folgende Assoziation.
+Im \MM besitzt ein AccountType (neben der vom \term{QuantifiedObjectType} geerbten) die folgende Assoziation.
 \begin{description}
 	\item[MAccountType** subAccountTypes (MAccountTypeHierarchy)] Durch diese \\Liste bzw. Komposition werden AccountTypes in Relation gesetzt.
 \end{description}
@@ -93,24 +93,18 @@ In den anderen drei Fällen ist der AccountType vom SubAccount entweder nicht $\
 Des Weiteren ist zu beachten, dass die im Account referenzierten Einträge (\term{Measurements}) vom selben 
 \term{MeasurementType} sein müssen. Daraus ergeben sich die folgenden Konsistenzbedingungen, 
 welche bei Nichteinhaltung zu einer \term{ConsistencyException} führen.
-\begin{equation} \forall a \in Account: \forall s \in a.subaccounts: s.type \leq a.type
+\begin{equation}
+	\forall a \in Account: \forall s \in a.subaccounts: s.type \leq a.type
 \end{equation}
-\begin{equation} \forall a \in Account: \forall m_1, m_2 \in a.entries: m_1.type = m_2.type
+\begin{equation}
+	\forall a \in Account: \forall m_1, m_2 \in a.entries: m_1.type = m_2.type
 \end{equation}
 
-\TODO[Alex: Bitte angucken! Und soll das wirklich hier hin??]
-\TODO[Ggf. Abschnitt umbenennen in Account, AccountType \& Measurement? Geht das überhaupt so??]
-\begin{equation}  
-	\begin{split}
-      \forall a \in Account, m \in a.entries: \\
-      m.quantity.unit.type = m.type.unitType = a.type.unitType
-	\end{split}
-\end{equation}
 
 \subsubsection{AccountManager}
 Der AccountManager dient zur Erstellung von Accounts und beinhaltet alle Accounts des Modells.
 
-Im Metamodell besitzt der AccountManager die folgende Assoziation.
+Im \MM besitzt der AccountManager die folgende Assoziation.
 \begin{description}
 	\item[Account** accounts] Diese Liste beinhaltet alle Accounts des Modells.
 \end{description}
@@ -126,7 +120,7 @@ Neben den Accounts werden auch die \term{AccountTypes} zentral verwaltet. Dazu d
 \subsubsection{AccountTypeManager}
 Der AccountTypeManager dient zur Erstellung von \term{AccountTypes} und beinhaltet alle \term{AccountTypes} des Modells.
 
-Im Metamodell besitzt der \term{AccountTypeManager} die folgende Assoziation.
+Im \MM besitzt der \term{AccountTypeManager} die folgende Assoziation.
 \begin{description}
 	\item[MAccountType** accountTypes] Beschreiben
 \end{description}
@@ -156,7 +150,6 @@ Ein \term{MeasurementType} kategorisiert mehrere \term{Measurements}. Dabei grei
 zurück (s.~\refSec{Measurement:QuantifiedObjectType}). Er hat keine nicht"=geerbten Assoziationen oder Operationen.
 
 
-
 \subsubsection{MeasurementTypeManager}
 Der \term{MeasurementTypeManager} dient zur Verwaltung und Erstellung aller \term{MeasurementTypes}. Er besitzt dazu eine Liste \term{measurementTypes},
 in der er die existierenden \term{MeasurementTypes} vorhält. Zusätzlich hat er folgende Operation:
@@ -172,8 +165,25 @@ um die \term{AbstractQuantity} eines \term{QuantifiedObjects} zu bestimmen. Dazu
 berechnete \term{AbstractQuantity} zurückliefert. Hierzu benötigt die Operation als Parameter die Liste der zu aggregierenden \term{Measurements} und
 zusätzlich einen \term{AbstractUnitType}, dessen \term{defaultUnit} für das neutrale Element der Aggregation benutzt wird. 
 
-\term{AggregationStrategy} besitzt vier vorgefertigte, konkrete Strategien zur Aggregation: \term{SumAggregationStrategy}, \term{MinAggregationStrategy},
-\term{MaxAggregationStrategy} und \term{AvgAggregationStrategy}. \TODO[Konkrete Strategien beschreiben]
+\term{AggregationStrategy} besitzt vier vorgefertigte, konkrete Strategien zur Aggregation:
+\term{SumAggregationStrategy}, \term{MinAggregationStrategy}, \term{MaxAggregationStrategy} und
+\term{AvgAggregationStrategy}. Diese haben bereits eine Methode zur Operation \term{aggregateMeasurements}. Alternativ
+kann der Benutzer eine eigene Unterklasse von \term{AggregationStrategy} erstellen und diese Methode selbst definieren.
+
+Die konkreten Strategien aggregieren auf die Art und Weise, wie es ihre Namen suggerieren: Die
+\term{SumAggregationStrategy} summiert die \term{Quantities} der \term{entries} auf und gibt diese Summe zurück. Die
+\term{MinAggregationStrategy} sucht die kleinste und die \term{MaxAggregationStrategy} die größte vorhandene
+\term{Quantity} und gibt diese zurück. Die \term{AvgAggregationStrategy} schließlich zieht das arithmetische Mittel der
+\term{Quantities} und gibt dieses zurück.
+
+Eine Besonderheit bei diesen \term{AggregationStrategies} tritt auf, wenn kein Element in \term{entries} vorhanden ist.
+Zunächst wird in allen Fällen der Wert 0 zurückgegeben, die Einheit ist jedoch nicht eindeutig, da sie nicht anhand
+eines \term{Measurements} bestimmt werden kann. Aus diesem Grund wird auf die \term{DefaultUnit} zurückgegriffen.
+
+Diese hängt nicht direkt an \term{Account} oder \term{Measurement}, sondern deren jeweiliger \term{Type} erbt eine
+Assoziation zum \term{AbstractUnitType} vom \term{QuantifiedObjectType}. Die Klasse \term{AbstractUnitType} wiederum
+bietet eine Operation \term{fetchDefaultUnit} an, die in die Exemplarebene navigiert und sich dort ihre Standardeinheit
+(\term{DefaultUnit}) organisiert.
 
 
 \subsubsection{Löschen im Bereich Measurement}
