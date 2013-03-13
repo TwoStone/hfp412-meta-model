@@ -75,6 +75,25 @@ Auf der Typebene gibt es die beiden atomaren UnitTypes \textit{Strecke} und \tex
 
 Auf der Exemplarebene gibt es die atomaren Units \textit{km}, typisiert in \textit{Strecke}, und \textit{h} und \textit{s}, beide typisiert in \textit{Zeit}. Außerdem gibt es die CompoundUnits \textit{km/h}, welche als Einheitentyp \textit{Geschwindigkeit} hat, und \textit{km/(s*h)}, welche zum Einheitentyp \textit{Beschleunigung} gehört. Auf \textit{km} gibt es eine Referenz mit Exponent 1, welche sowohl von \textit{km/h} als auch von \textit{km/(s*h)} verwendet wird. Die Referenz mit Exponent -1 auf \textit{h} wird ebenfalls von \textit{km/h} und \textit{km/(s*h)} benutzt. Außerdem geht von \textit{km/(s*h)} aus noch eine Referenz mit Exponenten -1 auf \textit{s}. Somit gibt es auf der Exemplarebene von der \textit{Beschleunigungs}-Einheit zwei Referenzen auf \textit{Zeit}-Einheiten. Summiert man jedoch ihre Exponenten, erhält man den auf der Typebene geforderten Exponenten -2.
 
+\subsubsubsection{Konsistenzbedingungen}
+
+Folgende konsistenzbedingungen stellen sicher, dass sich Einheiten und Einheitentypen Konsistent zueinander verhalten:
+
+\begin{equation} \forall ut \in UnitType : ut.defaultUnit.type = ut \end{equation}
+
+\begin{equation} \forall cut \in CompUnitType, r_1, r_2 \in cut.refs : r_1.ref = r_2.ref \Rightarrow r_1 = r_2 \end{equation}
+
+\begin{equation} \forall r \in RefType : r.exponent \ne 0 \end{equation}
+
+\begin{equation} \forall r \in Ref : r.exponent \ne 0 \end{equation}
+
+\begin{equation} \forall cu \in CompUnit:
+\forall rt \in cu.types.refs:
+ut \in rt.ref \rightarrow rt.exp = \sum_{s \in \bigcup \{ x \in cu.refs | x.ref.type = ut \}} s.exp \end{equation}
+
+\begin{equation} \forall cu \in CompUnit :
+\forall u \in cu.refs.ref \exists ut \in cu.type.refs.ref : u.type = ut \end{equation}
+
 \subsubsubsection{Verwalten von Units}
 
 Für die Verwaltung von Units und CompoundUnits stellt der UnitTypeManager acht transaktionale Operationen bereit.
@@ -82,11 +101,11 @@ Folgende dieser Operationen sind direkt über die Oberfläche erreichbar:
 
 \begin{description}
 \item[createUnit]
-Diese Operatione dient zum Erstellen einer neuen Unit. Da jede Unit fachlich in einem UnitType typisiert werden und einen Namen haben muss, können dieser Methode diese Werte entsprechend übergeben werden. Eine DoubleDefinitionException wird geworfen, wenn eine Unit mit dem gewählten Namen bereits existiert.
+Diese Operation dient zum Erstellen einer neuen Unit. Da jede Unit fachlich in einem UnitType typisiert werden und einen Namen haben muss, können dieser Methode diese Werte entsprechend übergeben werden. Eine DoubleDefinitionException wird geworfen, wenn eine Unit mit dem gewählten Namen bereits existiert.
 \item[changeUName]
 Diese Operation dient zum Umbenennen einer Unit. Auch hier wird die DoubleDefinitionException im doppelten Namensfall geworfen.
 \item[fetchScalar]
-Liefert die eine CompountUnit, die keine Referenzen zu anderen Units aufweist.
+Liefert die eine CompoundUnit, die keine Referenzen zu anderen Units aufweist.
 \item[addReference]
 Diese Operation kann sowohl auf zusammengesetzten Einheiten, als auch auf atomaren Einheiten angewendet werden. Sie dient zum erstellen von CompoundUnits. Analog zur createUnit-Methode wird hier ein Name benötigt. Die entsprechende neue Referenz zur ausgewählten Unit wird durch einen Exponenten definiert. Die DoubleDefinitionException wird auch hier geworfen, falls es zu Namenskonflikten kommt.
 \item[setConversion]
