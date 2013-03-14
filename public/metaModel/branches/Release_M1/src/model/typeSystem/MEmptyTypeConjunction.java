@@ -1,0 +1,361 @@
+package model.typeSystem;
+
+import model.ConsistencyException;
+import model.UserException;
+import model.basic.MBoolean;
+import model.visitor.AnythingExceptionVisitor;
+import model.visitor.AnythingORMATomicTypeExceptionVisitor;
+import model.visitor.AnythingORMATomicTypeReturnExceptionVisitor;
+import model.visitor.AnythingORMATomicTypeReturnVisitor;
+import model.visitor.AnythingORMATomicTypeVisitor;
+import model.visitor.AnythingReturnExceptionVisitor;
+import model.visitor.AnythingReturnVisitor;
+import model.visitor.AnythingVisitor;
+import model.visitor.MAbstractTypeConjunctionExceptionVisitor;
+import model.visitor.MAbstractTypeConjunctionReturnExceptionVisitor;
+import model.visitor.MAbstractTypeConjunctionReturnVisitor;
+import model.visitor.MAbstractTypeConjunctionVisitor;
+import model.visitor.MAtomicTypeConjunctionExceptionVisitor;
+import model.visitor.MAtomicTypeConjunctionReturnExceptionVisitor;
+import model.visitor.MAtomicTypeConjunctionReturnVisitor;
+import model.visitor.MAtomicTypeConjunctionVisitor;
+import model.visitor.MAtomicTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MAtomicTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MAtomicTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MAtomicTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MComplexTypeExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYReturnVisitor;
+import model.visitor.MComplexTypeHierarchyHIERARCHYVisitor;
+import model.visitor.MComplexTypeReturnExceptionVisitor;
+import model.visitor.MComplexTypeReturnVisitor;
+import model.visitor.MComplexTypeVisitor;
+import model.visitor.MModelItemExceptionVisitor;
+import model.visitor.MModelItemReturnExceptionVisitor;
+import model.visitor.MModelItemReturnVisitor;
+import model.visitor.MModelItemVisitor;
+import model.visitor.MTypeExceptionVisitor;
+import model.visitor.MTypeReturnExceptionVisitor;
+import model.visitor.MTypeReturnVisitor;
+import model.visitor.MTypeVisitor;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MAtomicTypeHierarchyHIERARCHY;
+import persistence.MAtomicTypeHierarchyHIERARCHYStrategy;
+import persistence.MAtomicTypeSearchList;
+import persistence.MComplexTypeHierarchyHIERARCHY;
+import persistence.MComplexTypeHierarchyHIERARCHYStrategy;
+import persistence.MEmptyTypeConjunctionProxi;
+import persistence.MTypeSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentCONCMModelItem;
+import persistence.PersistentMAtomicTypeConjunction;
+import persistence.PersistentMBoolean;
+import persistence.PersistentMDisjunctiveNormalForm;
+import persistence.PersistentMEmptyTypeConjunction;
+import persistence.PersistentMModelItem;
+import persistence.PersistentMType;
+import persistence.SearchListRoot;
+import persistence.TDObserver;
+import utils.SearchLists;
+
+/* Additional import section end */
+
+public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjunction implements PersistentMEmptyTypeConjunction{
+    
+    private static PersistentMEmptyTypeConjunction theMEmptyTypeConjunction = null;
+    public static boolean reset$For$Test = false;
+    private static final Object $$lock = new Object();
+    public static PersistentMEmptyTypeConjunction getTheMEmptyTypeConjunction() throws PersistenceException{
+        if (theMEmptyTypeConjunction == null || reset$For$Test){
+            class Initializer implements Runnable {
+                PersistenceException exception = null;
+                public void run(){
+                    try {
+                        MEmptyTypeConjunctionProxi proxi = null;
+                        synchronized ($$lock){
+                            proxi = ConnectionHandler.getTheConnectionHandler().theMEmptyTypeConjunctionFacade.getTheMEmptyTypeConjunction();
+                            theMEmptyTypeConjunction = proxi;
+                        }
+                        if(proxi.getId() < 0) {
+                            proxi.setId(proxi.getId() * -1);
+                            proxi.initialize(proxi, new java.util.Hashtable<String,Object>());
+                            proxi.initializeOnCreation();
+                        }
+                    } catch (PersistenceException e){
+                        exception = e;
+                    }
+                    synchronized ($$lock){$$lock.notify();}
+                }
+                PersistentMEmptyTypeConjunction getResult() throws PersistenceException{
+                    if(exception != null) throw exception;
+                    return theMEmptyTypeConjunction;
+                }
+            }
+            synchronized ($$lock) {
+                reset$For$Test = false;
+                Initializer initializer = new Initializer();
+                new Thread(initializer).start();
+                try {$$lock.wait();}catch (InterruptedException e) {} //Need not to be interrupted
+                return initializer.getResult();
+            }
+        }
+        return theMEmptyTypeConjunction;
+    }
+    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    java.util.Hashtable<String,Object> result = null;
+        if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("subTypes", this.getSubTypes().getVector(allResults, (depth > 1 ? depth : depth + 1), essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
+            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+            if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
+        }
+        return result;
+    }
+    
+    public MEmptyTypeConjunction provideCopy() throws PersistenceException{
+        MEmptyTypeConjunction result = this;
+        result = new MEmptyTypeConjunction(this.This, 
+                                           this.myCONCMModelItem, 
+                                           this.getId());
+        this.copyingPrivateUserAttributes(result);
+        return result;
+    }
+    
+    public boolean hasEssentialFields() throws PersistenceException{
+        return true;
+    }
+    
+    public MEmptyTypeConjunction(PersistentMType This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
+        /* Shall not be used by clients for object construction! Use static create operation instead! */
+        super((PersistentMType)This,(PersistentMModelItem)myCONCMModelItem,id);        
+    }
+    
+    static public long getTypeId() {
+        return 310;
+    }
+    
+    public long getClassId() {
+        return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        // Singletons cannot be delayed!
+    }
+    
+    public PersistentMEmptyTypeConjunction getThis() throws PersistenceException {
+        if(this.This == null){
+            PersistentMEmptyTypeConjunction result = new MEmptyTypeConjunctionProxi(this.getId());
+            result.getTheObject();
+            return result;
+        }return (PersistentMEmptyTypeConjunction)this.This;
+    }
+    
+    public void accept(MAtomicTypeConjunctionVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R> R accept(MAtomicTypeConjunctionReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MAtomicTypeConjunctionExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MAtomicTypeConjunctionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public void accept(MAbstractTypeConjunctionVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R> R accept(MAbstractTypeConjunctionReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MAbstractTypeConjunctionExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MAbstractTypeConjunctionReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public void accept(MComplexTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R> R accept(MComplexTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public void accept(MTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R> R accept(MTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public void accept(MModelItemVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R> R accept(MModelItemReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MModelItemExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MModelItemReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public void accept(MComplexTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R> R accept(MComplexTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MComplexTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MComplexTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public void accept(AnythingORMATomicTypeVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R> R accept(AnythingORMATomicTypeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(AnythingORMATomicTypeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(AnythingORMATomicTypeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public void accept(MAtomicTypeHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R> R accept(MAtomicTypeHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <E extends UserException>  void accept(MAtomicTypeHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleMEmptyTypeConjunction(this);
+    }
+    public <R, E extends UserException> R accept(MAtomicTypeHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleMEmptyTypeConjunction(this);
+    }
+    public int getLeafInfo() throws PersistenceException{
+        if (this.getSubTypes().getLength() > 0) return 1;
+        return 0;
+    }
+    
+    
+    public boolean containsMAtomicTypeHierarchy(final MAtomicTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		return false;
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public boolean containsMComplexTypeHierarchy(final MComplexTypeHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		return false;
+    }
+    public MAtomicTypeSearchList getSubTypes() 
+				throws PersistenceException{
+        MAtomicTypeSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theMAtomicTypeFacade
+							.inverseGetSuperType(this.getId(), this.getClassId());
+		return result;
+    }
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentMEmptyTypeConjunction)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentMEmptyTypeConjunction)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+		}
+    }
+    public <T> T strategyMAtomicTypeHierarchy(final T parameter, final MAtomicTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return strategy.finalize$$MEmptyTypeConjunction(getThis(), parameter);
+    }
+    public <T> T strategyMComplexTypeHierarchy(final T parameter, final MComplexTypeHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return strategy.finalize$$MEmptyTypeConjunction(getThis(), parameter);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+
+	}
+    public PersistentMDisjunctiveNormalForm fetchDisjunctiveNormalform() 
+				throws PersistenceException{
+		return MNonEmptyDisjunctiveNormalForm.transientCreateDNFFromAtomicTypeConjunction(getThis());
+	}
+    public MTypeSearchList fetchTypesContainingThisDirectly() 
+				throws PersistenceException{
+		final MTypeSearchList result = new MTypeSearchList();
+		SearchLists.addSecondToFirst(result, getThis().getMTCContainingMe());
+		SearchLists.addSecondToFirst(result, getThis().getMTDJContainingMe());
+		SearchLists.addSecondToFirst(result, getThis().getNEDNFContainingMe());
+		return result;
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public PersistentMBoolean isLessOrEqual(final PersistentMType other) 
+				throws PersistenceException{
+		return MBoolean.createFromBoolean(getThis().equals(other));
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		throw new ConsistencyException("The Anything may not be deleted.");
+	}
+    public String fetchName() 
+				throws PersistenceException{
+		return "Anything";
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+	}
+    public PersistentMAtomicTypeConjunction transientMultiply(final PersistentMAtomicTypeConjunction other) 
+				throws PersistenceException{
+		return other;
+	}
+
+    /* Start of protected part that is not overridden by persistence generator */
+
+	@Override
+	public SearchListRoot<? extends PersistentMType> obtainContainedTypes() {
+		return new MTypeSearchList();
+	}
+
+	/* End of protected part that is not overridden by persistence generator */
+    
+}
