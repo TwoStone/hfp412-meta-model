@@ -38,30 +38,26 @@ public class LinkManagerTest extends AbstractTest {
 	private PersistentObjectManager objectMan;
 
 	@Test
-	public void createLink() throws PersistenceException, ConsistencyException, CycleException,
-			DoubleDefinitionException {
+	public void createLink() throws PersistenceException, ConsistencyException, CycleException, DoubleDefinitionException {
 		final PersistentAssociation createAssociation = associationMan.createAssociation(mat1, mat6, "testAssociation");
 		this.linkMan.createLink(createAssociation, mao1, mao6);
 		assertEquals(1, linkMan.getLinks().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void createLinkWrongSource() throws PersistenceException, ConsistencyException, CycleException,
-			DoubleDefinitionException {
+	public void createLinkWrongSource() throws PersistenceException, ConsistencyException, CycleException, DoubleDefinitionException {
 		final PersistentAssociation createAssociation = associationMan.createAssociation(mat1, mat6, "testAssociation");
 		this.linkMan.createLink(createAssociation, mao4, mao6);
 	}
 
 	@Test(expected = ConsistencyException.class)
-	public void createLinkWrongTarget() throws PersistenceException, ConsistencyException, CycleException,
-			DoubleDefinitionException {
+	public void createLinkWrongTarget() throws PersistenceException, ConsistencyException, CycleException, DoubleDefinitionException {
 		final PersistentAssociation createAssociation = associationMan.createAssociation(mat1, mat6, "testAssociation");
 		this.linkMan.createLink(createAssociation, mao1, mao3);
 	}
 
 	@Test
-	public void createLinkWithHierarchieConstraints() throws PersistenceException, DoubleDefinitionException,
-			CycleException, ConsistencyException {
+	public void createLinkWithHierarchieConstraints() throws PersistenceException, DoubleDefinitionException, CycleException, ConsistencyException {
 		final PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
 		final PersistentAssociation createAssociation = associationMan.createAssociation(mat1, mat6, "testAssociation");
 		this.associationMan.addAssociation(createHierarchy, createAssociation);
@@ -76,13 +72,12 @@ public class LinkManagerTest extends AbstractTest {
 	 * @throws ConsistencyException
 	 */
 	@Test(expected = CycleException.class)
-	public void createLinkWithHierarchieConstraintsViolation01() throws PersistenceException,
-			DoubleDefinitionException, CycleException, ConsistencyException {
+	public void createLinkWithHierarchieConstraintsViolation01() throws PersistenceException, DoubleDefinitionException, CycleException,
+			ConsistencyException {
 
 		final PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
 		final PersistentAssociation firstAssociation = associationMan.createAssociation(mat1, mat1, "firstAssociation");
-		final PersistentAssociation secondAssociation = associationMan.createAssociation(mat1, mat1,
-				"secondAssociation");
+		final PersistentAssociation secondAssociation = associationMan.createAssociation(mat1, mat1, "secondAssociation");
 
 		this.associationMan.addAssociation(createHierarchy, firstAssociation);
 		this.associationMan.addAssociation(createHierarchy, secondAssociation);
@@ -93,18 +88,30 @@ public class LinkManagerTest extends AbstractTest {
 	}
 
 	/**
+	 * Ohne Hierarchy darf es nicht zur CycleException kommen
+	 * 
+	 * @throws ConsistencyException
+	 */
+	@Test
+	public void createLinkWithCycleWithoutHierarchy01() throws PersistenceException, DoubleDefinitionException, CycleException, ConsistencyException {
+
+		final PersistentAssociation firstAssociation = associationMan.createAssociation(mat1, mat1, "firstAssociation");
+
+		this.linkMan.createLink(firstAssociation, mao1, mao1);
+	}
+
+	/**
 	 * Hierarchieverletzung: mao1 -> mao6; mao6 -> mao1
 	 * 
 	 * @throws ConsistencyException
 	 */
 	@Test(expected = CycleException.class)
-	public void createLinkWithHierarchieConstraintsViolation02() throws PersistenceException,
-			DoubleDefinitionException, CycleException, ConsistencyException {
+	public void createLinkWithHierarchieConstraintsViolation02() throws PersistenceException, DoubleDefinitionException, CycleException,
+			ConsistencyException {
 
 		final PersistentHierarchy createHierarchy = Hierarchy.createHierarchy("hierarchie1");
 		final PersistentAssociation firstAssociation = associationMan.createAssociation(mat1, mat6, "firstAssociation");
-		final PersistentAssociation secondAssociation = associationMan.createAssociation(mat6, mat1,
-				"secondAssociation");
+		final PersistentAssociation secondAssociation = associationMan.createAssociation(mat6, mat1, "secondAssociation");
 
 		this.associationMan.addAssociation(createHierarchy, firstAssociation);
 		this.associationMan.addAssociation(createHierarchy, secondAssociation);
@@ -124,14 +131,12 @@ public class LinkManagerTest extends AbstractTest {
 	 * 
 	 * @throws ConsistencyException
 	 */
-	public void createLinkWithHierarchieConstraints03() throws PersistenceException, DoubleDefinitionException,
-			CycleException, ConsistencyException {
+	public void createLinkWithHierarchieConstraints03() throws PersistenceException, DoubleDefinitionException, CycleException, ConsistencyException {
 
 		final PersistentHierarchy createHierarchy1 = Hierarchy.createHierarchy("hierarchie1");
 
 		final PersistentAssociation firstAssociation = associationMan.createAssociation(mat1, mat6, "firstAssociation");
-		final PersistentAssociation secondAssociation = associationMan.createAssociation(mat6, mat1,
-				"secondAssociation");
+		final PersistentAssociation secondAssociation = associationMan.createAssociation(mat6, mat1, "secondAssociation");
 		final PersistentAssociation thirdAssociation = associationMan.createAssociation(mat5, mat1, "thirdAssociation");
 
 		this.associationMan.addAssociation(createHierarchy1, firstAssociation);
@@ -151,15 +156,13 @@ public class LinkManagerTest extends AbstractTest {
 	 * 
 	 * @throws ConsistencyException
 	 */
-	public void createLinkWithHierarchieConstraints02() throws PersistenceException, DoubleDefinitionException,
-			CycleException, ConsistencyException {
+	public void createLinkWithHierarchieConstraints02() throws PersistenceException, DoubleDefinitionException, CycleException, ConsistencyException {
 
 		final PersistentHierarchy createHierarchy1 = Hierarchy.createHierarchy("hierarchie1");
 		final PersistentHierarchy createHierarchy2 = Hierarchy.createHierarchy("hierarchie2");
 
 		final PersistentAssociation firstAssociation = associationMan.createAssociation(mat1, mat6, "firstAssociation");
-		final PersistentAssociation secondAssociation = associationMan.createAssociation(mat6, mat1,
-				"secondAssociation");
+		final PersistentAssociation secondAssociation = associationMan.createAssociation(mat6, mat1, "secondAssociation");
 		final PersistentAssociation thirdAssociation = associationMan.createAssociation(mat5, mat1, "thirdAssociation");
 
 		this.associationMan.addAssociation(createHierarchy1, firstAssociation);
@@ -173,8 +176,7 @@ public class LinkManagerTest extends AbstractTest {
 	}
 
 	@Test
-	public void removeLinkSuccess01() throws DoubleDefinitionException, ConsistencyException, CycleException,
-			PersistenceException {
+	public void removeLinkSuccess01() throws DoubleDefinitionException, ConsistencyException, CycleException, PersistenceException {
 		final PersistentAssociation firstAssociation = associationMan.createAssociation(mat1, mat6, "firstAssociation");
 		final PersistentHierarchy createHierarchy1 = Hierarchy.createHierarchy("hierarchie1");
 		this.associationMan.addAssociation(createHierarchy1, firstAssociation);
