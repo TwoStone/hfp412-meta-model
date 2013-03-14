@@ -216,4 +216,38 @@ public class IsLessOrEqualTest extends AbstractTest {
 		qman.isLessOrEqual(Mquantity2, Mquantity1).toBoolean();
 	}
 
+	/**
+	 * 
+	 * @throws NotComputableException
+	 * @throws ConsistencyException
+	 */
+	@Test(expected = NotComputableException.class)
+	public void without_conversion_negative_1() throws PersistenceException, DoubleDefinitionException,
+			NotComputableException, ConsistencyException {
+		final PersistentUnitType unitTypeStrecke = UnitType.createUnitType("Strecke");
+		final PersistentUnit unitM = Unit.createUnit(unitTypeStrecke, "m");
+		final PersistentUnit unitKm = Unit.createUnit(unitTypeStrecke, "km");
+
+		final PersistentQuantity Mquantity2 = Quantity.createQuantity(Fraction.parse("1"), unitM);
+		final PersistentQuantity Mquantity1 = Quantity.createQuantity(Fraction.parse("1"), unitKm);
+
+		Assert.assertTrue(qman.isLessOrEqual(Mquantity1, Mquantity2).toBoolean());
+	}
+
+	/**
+	 * 
+	 * @throws NotComputableException
+	 * @throws ConsistencyException
+	 */
+	@Test
+	public void without_conversion_positive_1() throws PersistenceException, DoubleDefinitionException,
+			NotComputableException, ConsistencyException {
+		final PersistentUnitType unitTypeStrecke = UnitType.createUnitType("Strecke");
+		final PersistentUnit unitM = Unit.createUnit(unitTypeStrecke, "m");
+
+		final PersistentQuantity Mquantity2 = Quantity.createQuantity(Fraction.parse("5"), unitM);
+		final PersistentQuantity Mquantity1 = Quantity.createQuantity(Fraction.parse("3"), unitM);
+
+		Assert.assertTrue(qman.isLessOrEqual(Mquantity1, Mquantity2).toBoolean());
+	}
 }

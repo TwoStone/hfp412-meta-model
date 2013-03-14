@@ -2,6 +2,7 @@ package model.quantity;
 
 import java.util.Iterator;
 
+import model.ConsistencyException;
 import model.NotComputableException;
 import model.UserException;
 import model.visitor.AbsQuantityReturnExceptionVisitor;
@@ -320,11 +321,13 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 		final PersistentAbsQuantity myArg1 = getThis().getArg1();
 		final PersistentAbsQuantity myArg2 = getThis().getArg2();
 
-		if (!myArg1.accept(new FetchQuantityUnitTypeVisitor())
-				.equals(myArg2.accept(new FetchQuantityUnitTypeVisitor()))) {
+		// Prüfen, ob die Typen übereinstimmen
+		final FetchQuantityUnitTypeVisitor fetchQuantityUnitTypeVisitor = new FetchQuantityUnitTypeVisitor();
+		if (!myArg1.accept(fetchQuantityUnitTypeVisitor).equals(myArg2.accept(fetchQuantityUnitTypeVisitor))) {
 			throw new model.NotComputableException("Die Typen stimmen nicht überein"); // TODO Fehlertext
 		}
-		final boolean convertUnits = true;
+
+		final boolean convertUnits = !checkForSameUnits(myArg1, myArg2);
 
 		// TODO compare the units of the quantities - in case of a full match, no conversions to defUnit is necessary
 		final FetchQuantityAmountVisitor fetchQuantityAmountVisitor = new FetchQuantityAmountVisitor(convertUnits);
@@ -499,7 +502,16 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 		}
 
 		@Override
-		public Fraction handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
+		public Fraction handleQuantity(final PersistentQuantity quantity) throws PersistenceException,
+				NotComputableException {
+			if (this.convertUnits) {
+				try {
+					return QuantityManager.getTheQuantityManager().convertAmount(quantity,
+							quantity.getUnit().getType().fetchDefaultUnit());
+				} catch (final ConsistencyException e) {
+					throw new NotComputableException(e.getMessage());
+				}
+			}
 			return quantity.getAmount();
 		}
 	}
@@ -516,6 +528,39 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 		public PersistentAbsUnitType handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
 			return quantity.getUnit().getType();
 		}
+	}
+
+	private boolean checkForSameUnits(final PersistentAbsQuantity myArg1, final PersistentAbsQuantity myArg2)
+			throws PersistenceException {
+		final PersistentQuantity quantity1 = myArg1.accept(new AbsQuantityReturnVisitor<PersistentQuantity>() {
+
+			@Override
+			public PersistentQuantity handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
+					throws PersistenceException {
+				return null;
+			}
+
+			@Override
+			public PersistentQuantity handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
+				return quantity;
+			}
+		});
+		if (quantity1 == null)
+			return false;
+
+		return myArg2.accept(new AbsQuantityReturnVisitor<Boolean>() {
+
+			@Override
+			public Boolean handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
+					throws PersistenceException {
+				return false;
+			}
+
+			@Override
+			public Boolean handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
+				return quantity1.getUnit().equals(quantity.getUnit());
+			}
+		});
 	}
 	/* End of protected part that is not overridden by persistence generator */
 
