@@ -51,6 +51,7 @@ server Server {
 	void addType@@Typen_hinzuf?gen(MObject object, MAtomicType newType {typeManager;types});
 	void removeType@@Typen_entfernen(MObject object, MAtomicType oldType {;object;types});
 	void replaceType@@Typen_ersetzen(MObject object, MAtomicType oldType {;object;types}, MAtomicType newType {;oldType;aspect;types});
+	void deleteObject@@Loeschen(MObject object);
 
 	/** Enums **/
 	void createEnum@@Enum_erstellen(String name);
@@ -307,6 +308,7 @@ part typeSystem {
 		active void addType(MObject object, MAtomicType newType) throws ConsistencyException;
 		active void removeType(MObject object, MAtomicType oldType) throws ConsistencyException;
 		active void replaceType(MObject object, MAtomicType oldType, MAtomicType newType) throws ConsistencyException;
+		active void deleteObject(MObject object) throws ConsistencyException;
 		
 		MObject** fetchObjectsWithTypeLE(MType type);
 		

@@ -42,6 +42,7 @@ import persistence.Procdure;
 import persistence.QuantifObjectSearchList;
 import persistence.TDObserver;
 import utils.Lists;
+import utils.SearchLists;
 import utils.Sets;
 
 /* Additional import section end */
@@ -283,7 +284,11 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
     
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-		return new MModelItemSearchList();
+		final MModelItemSearchList result = super.fetchDependentItems();
+		SearchLists.addSecondToFirst(result, getThis().inverseGetObject());
+		SearchLists.addSecondToFirst(result, getThis().inverseGetTheObsObject());
+
+		return result;
 	}
     public PersistentMNonEmptyAtomicTypeConjunction fetchProductType() 
 				throws PersistenceException{

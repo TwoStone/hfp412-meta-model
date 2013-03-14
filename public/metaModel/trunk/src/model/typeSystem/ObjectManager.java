@@ -17,6 +17,7 @@ import persistence.ObjectManager_SingletonsProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAddTypeCommand;
 import persistence.PersistentCreateMObjectCommand;
+import persistence.PersistentDeleteObjectCommand;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMObject;
 import persistence.PersistentMType;
@@ -196,6 +197,15 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void deleteObject(final PersistentMObject object, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentDeleteObjectCommand command = model.meta.DeleteObjectCommand.createDeleteObjectCommand(now, now);
+		command.setObject(object);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentObjectManager)This);
@@ -245,6 +255,16 @@ public class ObjectManager extends PersistentObject implements PersistentObjectM
 
 		this.getThis().getObjects().add(newObject);
 		return newObject;
+	}
+    public void deleteObject(final PersistentMObject object) 
+				throws model.ConsistencyException, PersistenceException{
+		object.delete();
+		getThis().getObjects().filter(new Predcate<PersistentMObject>() {
+			@Override
+			public boolean test(final PersistentMObject argument) throws PersistenceException {
+				return !argument.equals(object);
+			}
+		});
 	}
     public MObjectSearchList fetchObjectsWithTypeLE(final PersistentMType type) 
 				throws PersistenceException{

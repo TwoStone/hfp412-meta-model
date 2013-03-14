@@ -870,8 +870,14 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public PersistentAbsQuantity aggregateByStrategy(final PersistentAccount account, final String strategy) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-		return account.aggregate(StringFACTORY.createObjectBySubTypeNameForAggregationStrategy(strategy));
-	}
+        //TODO: implement method: aggregateByStrategy
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"aggregateByStrategy\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void assignNameScheme(final PersistentMAtomicType type, final PersistentNameScheme scheme) 
 				throws PersistenceException{
 		getNameSchemeManager().assignType(scheme, type, getThis());
@@ -1064,6 +1070,10 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		EnumerationManager.getTheEnumerationManager().deleteEnum(type, getThis());
 
+	}
+    public void deleteObject(final PersistentMObject object) 
+				throws PersistenceException{
+		getThis().getObjectManager().deleteObject(object, getThis());
 	}
     public void deleteObsType(final PersistentMObservationType theType) 
 				throws PersistenceException{

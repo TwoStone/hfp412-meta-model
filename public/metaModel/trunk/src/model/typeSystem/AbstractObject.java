@@ -2,6 +2,7 @@ package model.typeSystem;
 
 import java.util.Iterator;
 
+import model.ConsistencyException;
 import model.basic.MFalse;
 import model.basic.MTrue;
 import model.visitor.MessageOrLinkVisitor;
@@ -30,6 +31,7 @@ import persistence.Predcate;
 import persistence.Procdure;
 import persistence.SearchListRoot;
 import persistence.TDObserver;
+import utils.SearchLists;
 
 /* Additional import section end */
 
@@ -248,7 +250,12 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-		return new MModelItemSearchList();
+		final MModelItemSearchList result = new MModelItemSearchList();
+		SearchLists.addSecondToFirst(result, getThis().getLinksFromMe());
+		SearchLists.addSecondToFirst(result, getThis().getLinksFromMe());
+		SearchLists.addSecondToFirst(result, getThis().getNames());
+
+		return result;
 	}
     public LinkSearchList getLinksFromMe() 
 				throws PersistenceException{

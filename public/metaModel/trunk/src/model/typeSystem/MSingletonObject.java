@@ -17,7 +17,6 @@ import persistence.AbstractPersistentRoot;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MAtomicTypeSearchList;
-import persistence.MModelItemSearchList;
 import persistence.MSingletonObjectProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbstractObject;
@@ -233,21 +232,6 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
     
     // Start of section that contains overridden operations only.
     
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO Auto-generated method stub
-
-	}
-    public MModelItemSearchList fetchDependentItems() 
-				throws PersistenceException{
-		// TODO: implement method: getDependentItems
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"getDependentItems\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
     public PersistentMNonEmptyAtomicTypeConjunction fetchProductType() 
 				throws PersistenceException{
 		final MAtomicTypeSearchList sl = new MAtomicTypeSearchList();
