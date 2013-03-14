@@ -646,7 +646,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Aggregationsstrategie anwenden ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAggregateByStrategyAccountAggregationStrategyMssgWizard wizard = new ServerAggregateByStrategyAccountAggregationStrategyMssgWizard("Aggregationsstrategie anwenden");
+                        ServerAggregateByStrategyAccountAggregationStrategySUBTYPENameMssgWizard wizard = new ServerAggregateByStrategyAccountAggregationStrategySUBTYPENameMssgWizard("Aggregationsstrategie anwenden");
                         wizard.setFirstArgument((AccountView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -2030,20 +2030,20 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerAggregateByStrategyAccountAggregationStrategyMssgWizard extends Wizard {
+	class ServerAggregateByStrategyAccountAggregationStrategySUBTYPENameMssgWizard extends Wizard {
 
-		protected ServerAggregateByStrategyAccountAggregationStrategyMssgWizard(String operationName){
+		protected ServerAggregateByStrategyAccountAggregationStrategySUBTYPENameMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerAggregateByStrategyAccountAggregationStrategyMssgWizard.help";
+			this.helpFileName = "ServerAggregateByStrategyAccountAggregationStrategySUBTYPENameMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				ViewRoot result = (ViewRoot) getConnection().aggregateByStrategy(firstArgument, (AggregationStrategyView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				ViewRoot result = (ViewRoot) getConnection().aggregateByStrategy(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				ReturnValueView view = new ReturnValueView(result, new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
 				view.setLocationRelativeTo(getNavigationScrollPane());
 				getConnection().setEagerRefresh();
@@ -2070,7 +2070,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("strategy", "view.AggregationStrategyView", (ViewRoot) getConnection().getServerView(), this));		
+			getParametersPanel().add(new RegExprSelectionPanel("strategy", this, common.RegularExpressionManager.aggregationStrategySUBTYPEName.getRegExpr()));		
 		}	
 		protected void handleDependencies(int i) {
 		}

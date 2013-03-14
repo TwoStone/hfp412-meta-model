@@ -128,24 +128,59 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
     
     
     
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// implement method: initializeOnInstantiation
-
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
-
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentUnitMutabCalc)This);
 		if(this.equals(This)){
 		}
     }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
+	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+		// implement method: initializeOnInstantiation
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
+    public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) 
+				throws model.NotComputableException, PersistenceException{
+		getThis().setResultt(this.doCalc1Compound1Atomar(atom, comp));
+	}
+    public void calcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) 
+				throws model.NotComputableException, PersistenceException{
+		getThis().setResultt(this.doCalcAtomar(atom1, atom2));
+
+	}
+    public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) 
+				throws model.NotComputableException, PersistenceException{
+		final PersistentCompoundQuantity result = CompoundQuantity.createCompoundQuantity();
+
+		// über comp1 iterieren
+		final Iterator<PersistentQuantity> i1 = comp1.getParts().iterator();
+		while (i1.hasNext()) {
+			final PersistentQuantity i1_current = i1.next();
+			// über comp2 iterieren
+			final Iterator<PersistentQuantity> i2 = comp2.getParts().iterator();
+			while (i2.hasNext()) {
+				final PersistentQuantity i2_current = i2.next();
+				final PersistentQuantity i1_current_o_i2_current = this.doCalcAtomar(i1_current, i2_current);
+				result.getParts().add(i1_current_o_i2_current);
+			}
+		}
+
 	}
     public void findTargetUnit() 
 				throws model.NotComputableException, PersistenceException{
@@ -237,33 +272,6 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 		}
 
 		this.targetUnit = result;
-
-	}
-    public void calcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) 
-				throws model.NotComputableException, PersistenceException{
-		getThis().setResultt(this.doCalcAtomar(atom1, atom2));
-
-	}
-    public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) 
-				throws model.NotComputableException, PersistenceException{
-		getThis().setResultt(this.doCalc1Compound1Atomar(atom, comp));
-	}
-    public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) 
-				throws model.NotComputableException, PersistenceException{
-		final PersistentCompoundQuantity result = CompoundQuantity.createCompoundQuantity();
-
-		// über comp1 iterieren
-		final Iterator<PersistentQuantity> i1 = comp1.getParts().iterator();
-		while (i1.hasNext()) {
-			final PersistentQuantity i1_current = i1.next();
-			// über comp2 iterieren
-			final Iterator<PersistentQuantity> i2 = comp2.getParts().iterator();
-			while (i2.hasNext()) {
-				final PersistentQuantity i2_current = i2.next();
-				final PersistentQuantity i1_current_o_i2_current = this.doCalcAtomar(i1_current, i2_current);
-				result.getParts().add(i1_current_o_i2_current);
-			}
-		}
 
 	}
 

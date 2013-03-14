@@ -2139,11 +2139,11 @@ public class ServerConnection extends ConnectionMaster {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized AbsQuantityView aggregateByStrategy(AccountView account, AggregationStrategyView strategy) throws ModelException, ConsistencyException, NotComputableException{
+    public synchronized AbsQuantityView aggregateByStrategy(AccountView account, String strategy) throws ModelException, ConsistencyException, NotComputableException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(((view.objects.ViewProxi)account).createProxiInformation());
-            parameters.add(((view.objects.ViewProxi)strategy).createProxiInformation());
+            parameters.add(strategy);
             Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "aggregateByStrategy", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)

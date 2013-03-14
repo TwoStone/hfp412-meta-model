@@ -184,6 +184,29 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
     }
     
     
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentCompUnit)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentCompUnit)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+			this.setType((PersistentAbsUnitType)final$$Fields.get("type"));
+			this.setName((String)final$$Fields.get("name"));
+		}
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_UNIT);
+	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: fetchDependentItems
@@ -193,11 +216,6 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
 			uoe.printStackTrace();
 			throw uoe;
 		}
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-		// implement method: initializeOnInstantiation
-
 	}
     public PersistentMBoolean hasReferences(final ReferenceSearchList refs) 
 				throws PersistenceException{
@@ -228,34 +246,24 @@ public class CompUnit extends model.quantity.AbsUnit implements PersistentCompUn
 
 		return result;
 	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
+    public void initializeOnCreation() 
 				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
 
 	}
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+    public void initializeOnInstantiation() 
 				throws PersistenceException{
-        this.setThis((PersistentCompUnit)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentCompUnit)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-			this.setType((PersistentAbsUnitType)final$$Fields.get("type"));
-			this.setName((String)final$$Fields.get("name"));
-		}
-    }
+		// implement method: initializeOnInstantiation
+
+	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 		//
 
 	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_UNIT);
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-
-	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
 

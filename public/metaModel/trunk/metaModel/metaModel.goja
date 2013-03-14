@@ -129,7 +129,7 @@ server Server {
 	void createAccount@@Konto_anlegen(AccountManager accountManager, String name, MAccountType type {accountTypeManager;accountTypes}, MObject object {objectManager;objects});
 	void addSubAccount@@Konto_unterordnen(Account parent, Account child) throws CycleException;
 	void createEntry@@Eintrag_anlegen(Account account, MObject object{objectManager;objects}, MMeasurementType measurementType{measurementTypeManager;measurementTypes}, Quantity quantity{quantityManager;quantities}) throws ConsistencyException;
-	AbsQuantity aggregateByStrategy@@Aggregationsstrategie_anwenden(Account account, AggregationStrategy strategy) throws NotComputableException, ConsistencyException;
+	AbsQuantity aggregateByStrategy@@Aggregationsstrategie_anwenden(Account account, AggregationStrategySUBTYPEName strategy) throws NotComputableException, ConsistencyException;
 
 
  	/** Naming **/
@@ -728,7 +728,7 @@ class Account extends QuantifObject {
 }
 hierarchy AccountHierarchy##AccountHie;
 
-abstract class AggregationStrategy##AggrStrtgy (MinStrategy, MaxStrategy, AvgStrategy, SumStrategy) {
+string-factory abstract class AggregationStrategy##AggrStrtgy (MinStrategy, MaxStrategy, AvgStrategy, SumStrategy) {
 	AbsQuantity aggregateMeasurements##aggrtMsmnt(AbsUnitType defaultUnitType, Measurement** measurements) throws NotComputableException, ConsistencyException;
 }
 

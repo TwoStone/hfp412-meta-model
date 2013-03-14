@@ -168,6 +168,26 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
     }
     
     
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentCompoundQuantity)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentCompoundQuantity)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+		}
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: delete
+
+	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: fetchDependentItems
@@ -178,33 +198,21 @@ public class CompoundQuantity extends model.quantity.AbsQuantity implements Pers
 			throw uoe;
 		}
 	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentCompoundQuantity)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentCompoundQuantity)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-		}
-    }
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 		// TODO: implement method: prepareForDeletion
 
 	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: delete
-
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
 

@@ -6,6 +6,7 @@ import model.measurement.AccountManager;
 import model.measurement.AccountTypeManager;
 import model.measurement.Measurement;
 import model.measurement.MeasurementTypeManager;
+import model.meta.StringFACTORY;
 import model.observations.EnumValueManager;
 import model.observations.EnumerationManager;
 import model.observations.ObsTypeManager;
@@ -50,7 +51,6 @@ import persistence.PersistentAbsUnitType;
 import persistence.PersistentAccount;
 import persistence.PersistentAccountManager;
 import persistence.PersistentAccountTypeManager;
-import persistence.PersistentAggregationStrategy;
 import persistence.PersistentAspectManager;
 import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
@@ -868,9 +868,9 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws model.NotComputableException, PersistenceException{
 		getThis().getQuantityManager().add(summand1, summand2, getThis());
 	}
-    public PersistentAbsQuantity aggregateByStrategy(final PersistentAccount account, final PersistentAggregationStrategy strategy) 
+    public PersistentAbsQuantity aggregateByStrategy(final PersistentAccount account, final String strategy) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-		return account.aggregate(strategy);
+		return account.aggregate(StringFACTORY.createObjectBySubTypeNameForAggregationStrategy(strategy));
 	}
     public void assignNameScheme(final PersistentMAtomicType type, final PersistentNameScheme scheme) 
 				throws PersistenceException{

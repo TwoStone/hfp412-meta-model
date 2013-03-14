@@ -217,13 +217,38 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
-	public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) throws model.NotComputableException,
-			PersistenceException {
-		final PersistentAddition addi = Addition.createAddition();
-		addi.setArg1(summand1);
-		addi.setArg2(summand2);
-		addi.calculate();
-		return addi.getResultt();
+	public void add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2, final Invoker invoker) throws PersistenceException {
+		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		final PersistentAddCommand command = model.meta.AddCommand.createAddCommand(now, now);
+		command.setSummand1(summand1);
+		command.setSummand2(summand2);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+	}
+
+	// Start of section that contains operations that must be implemented.
+
+	@Override
+	public void convertAmount(final PersistentQuantity quantity, final PersistentAbsUnit unit, final Invoker invoker) throws PersistenceException {
+		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		final PersistentConvertAmountCommand command = model.meta.ConvertAmountCommand.createConvertAmountCommand(common.Fraction.Null, now, now);
+		command.setQuantity(quantity);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+	}
+
+	@Override
+	public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit, final Invoker invoker) throws PersistenceException {
+		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		final PersistentConvertCommand command = model.meta.ConvertCommand.createConvertCommand(now, now);
+		command.setQuantity(quantity);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
 	}
 
 	@Override
@@ -237,7 +262,32 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
-	public void initializeOnInstantiation() throws PersistenceException {
+	public void div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor, final Invoker invoker) throws PersistenceException {
+		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		final PersistentDivCommand command = model.meta.DivCommand.createDivCommand(now, now);
+		command.setDividend(dividend);
+		command.setDivisor(divisor);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+	}
+
+	@Override
+	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields) throws PersistenceException {
+		this.setThis((PersistentQuantityManager) This);
+		if (this.equals(This)) {
+		}
+	}
+
+	@Override
+	public void mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2, final Invoker invoker) throws PersistenceException {
+		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		final PersistentMulCommand command = model.meta.MulCommand.createMulCommand(now, now);
+		command.setFactor1(factor1);
+		command.setFactor2(factor2);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
 	}
 
 	@Override
@@ -249,6 +299,16 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+	}
+
+	@Override
+	public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) throws model.NotComputableException,
+			PersistenceException {
+		final PersistentAddition addi = Addition.createAddition();
+		addi.setArg1(summand1);
+		addi.setArg2(summand2);
+		addi.calculate();
+		return addi.getResultt();
 	}
 
 	@Override
@@ -315,6 +375,17 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
+	public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) throws model.NotComputableException, PersistenceException {
+		final Fraction resultAmount = getThis().convertAmount(quantity, unit);
+		quantity.setAmount(resultAmount);
+		quantity.setUnit(unit);
+	}
+
+	@Override
+	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
+	}
+
+	@Override
 	public PersistentQuantity createQuantity(final PersistentAbsUnit unit, final common.Fraction amount) throws PersistenceException {
 		// amount in FractionManager suchen oder neu erstellen.
 		final String fractionStroke = "/";
@@ -342,10 +413,14 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
-	public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) throws model.NotComputableException, PersistenceException {
-		final Fraction resultAmount = getThis().convertAmount(quantity, unit);
-		quantity.setAmount(resultAmount);
-		quantity.setUnit(unit);
+	public PersistentAbsQuantity div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) throws model.NotComputableException,
+			PersistenceException {
+		final PersistentDivision div = Division.createDivision();
+		div.setArg1(dividend);
+		div.setArg2(divisor);
+		div.calculate();
+		return div.getResultt();
+
 	}
 
 	@Override
@@ -353,24 +428,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
-	public void mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2, final Invoker invoker) throws PersistenceException {
-		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		final PersistentMulCommand command = model.meta.MulCommand.createMulCommand(now, now);
-		command.setFactor1(factor1);
-		command.setFactor2(factor2);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-	}
-
-	@Override
-	public PersistentAbsQuantity mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2) throws model.NotComputableException,
-			PersistenceException {
-		final PersistentMultiplication multi = Multiplication.createMultiplication();
-		multi.setArg1(factor1);
-		multi.setArg2(factor2);
-		multi.calculate();
-		return multi.getResultt();
+	public void initializeOnInstantiation() throws PersistenceException {
 	}
 
 	@Override
@@ -390,39 +448,6 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
-	public void convertAmount(final PersistentQuantity quantity, final PersistentAbsUnit unit, final Invoker invoker) throws PersistenceException {
-		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		final PersistentConvertAmountCommand command = model.meta.ConvertAmountCommand.createConvertAmountCommand(common.Fraction.Null, now, now);
-		command.setQuantity(quantity);
-		command.setUnit(unit);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-	}
-
-	@Override
-	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-	}
-
-	@Override
-	public PersistentAbsQuantity div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor) throws model.NotComputableException,
-			PersistenceException {
-		final PersistentDivision div = Division.createDivision();
-		div.setArg1(dividend);
-		div.setArg2(divisor);
-		div.calculate();
-		return div.getResultt();
-
-	}
-
-	@Override
-	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields) throws PersistenceException {
-		this.setThis((PersistentQuantityManager) This);
-		if (this.equals(This)) {
-		}
-	}
-
-	@Override
 	public PersistentMBoolean isLessOrEqual(final PersistentAbsQuantity arg1, final PersistentAbsQuantity arg2) throws model.NotComputableException,
 			PersistenceException {
 		final PersistentLessOrEqualComparison comparison = LessOrEqualComparison.createLessOrEqualComparison();
@@ -432,14 +457,13 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
-	public void add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2, final Invoker invoker) throws PersistenceException {
-		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		final PersistentAddCommand command = model.meta.AddCommand.createAddCommand(now, now);
-		command.setSummand1(summand1);
-		command.setSummand2(summand2);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+	public PersistentAbsQuantity mul(final PersistentAbsQuantity factor1, final PersistentAbsQuantity factor2) throws model.NotComputableException,
+			PersistenceException {
+		final PersistentMultiplication multi = Multiplication.createMultiplication();
+		multi.setArg1(factor1);
+		multi.setArg2(factor2);
+		multi.calculate();
+		return multi.getResultt();
 	}
 
 	@Override
@@ -452,27 +476,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 		return sub.getResultt();
 	}
 
-	@Override
-	public void div(final PersistentAbsQuantity dividend, final PersistentAbsQuantity divisor, final Invoker invoker) throws PersistenceException {
-		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		final PersistentDivCommand command = model.meta.DivCommand.createDivCommand(now, now);
-		command.setDividend(dividend);
-		command.setDivisor(divisor);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-	}
-
-	@Override
-	public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit, final Invoker invoker) throws PersistenceException {
-		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
-		final PersistentConvertCommand command = model.meta.ConvertCommand.createConvertCommand(now, now);
-		command.setQuantity(quantity);
-		command.setUnit(unit);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-	}
+	// Start of section that contains overridden operations only.
 
 	/* Start of protected part that is not overridden by persistence generator */
 	protected PersistentQuantity doInvertSign(final PersistentQuantity q) throws PersistenceException {

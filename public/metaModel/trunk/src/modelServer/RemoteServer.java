@@ -625,10 +625,9 @@ public  class RemoteServer extends RemoteServerMaster {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized java.util.Hashtable<?,?> aggregateByStrategy(String accountProxiString, String strategyProxiString){
+    public synchronized java.util.Hashtable<?,?> aggregateByStrategy(String accountProxiString, String strategy){
         try {
             PersistentAccount account = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(accountProxiString));
-            PersistentAggregationStrategy strategy = (PersistentAggregationStrategy)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(strategyProxiString));
             PersistentAbsQuantity result = ((PersistentServer)this.server).aggregateByStrategy(account, strategy);
             return createOKResult(result, 1, this);
         }catch(PersistenceException pe){

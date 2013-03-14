@@ -207,22 +207,6 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     }
     
     
-    public MModelItemSearchList fetchDependentItems() 
-				throws PersistenceException{
-		// TODO: implement method: fetchDependentItems
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
-	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentQuantity)This);
@@ -233,19 +217,43 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 			this.setUnit((PersistentAbsUnit)final$$Fields.get("unit"));
 		}
     }
-    public void prepareForDeletion() 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: prepareForDeletion
-
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
 	}
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
 		// TODO: implement method: delete
 
 	}
+    public MModelItemSearchList fetchDependentItems() 
+				throws PersistenceException{
+		// TODO: implement method: fetchDependentItems
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 	}
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+	}
+    public void prepareForDeletion() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: prepareForDeletion
+
+	}
+    
+    
+    // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
 
