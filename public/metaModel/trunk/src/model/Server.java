@@ -50,6 +50,7 @@ import persistence.PersistentAbsUnitType;
 import persistence.PersistentAccount;
 import persistence.PersistentAccountManager;
 import persistence.PersistentAccountTypeManager;
+import persistence.PersistentAggregationStrategy;
 import persistence.PersistentAspectManager;
 import persistence.PersistentAssociation;
 import persistence.PersistentAssociationManager;
@@ -866,6 +867,10 @@ public class Server extends PersistentObject implements PersistentServer{
     public void add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) 
 				throws model.NotComputableException, PersistenceException{
 		getThis().getQuantityManager().add(summand1, summand2, getThis());
+	}
+    public PersistentAbsQuantity aggregateByStrategy(final PersistentAccount account, final PersistentAggregationStrategy strategy) 
+				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
+		return account.aggregate(strategy);
 	}
     public void assignNameScheme(final PersistentMAtomicType type, final PersistentNameScheme scheme) 
 				throws PersistenceException{

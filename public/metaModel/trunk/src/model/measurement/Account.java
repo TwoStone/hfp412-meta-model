@@ -1,6 +1,7 @@
 package model.measurement;
 
 import model.ConsistencyException;
+import model.NotComputableException;
 import model.UserException;
 import model.visitor.AccountHierarchyHIERARCHYExceptionVisitor;
 import model.visitor.AccountHierarchyHIERARCHYReturnExceptionVisitor;
@@ -25,7 +26,6 @@ import persistence.AccountProxi;
 import persistence.AccountSearchList;
 import persistence.Account_EntriesProxi;
 import persistence.Account_SubAccountsProxi;
-import persistence.AggregationStrategy;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
@@ -35,6 +35,7 @@ import persistence.PersistentAbsQuantity;
 import persistence.PersistentAccount;
 import persistence.PersistentAddEntryCommand;
 import persistence.PersistentAddSubAccountCommand;
+import persistence.PersistentAggregationStrategy;
 import persistence.PersistentCONCMModelItem;
 import persistence.PersistentMAccountType;
 import persistence.PersistentMModelItem;
@@ -376,7 +377,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     
     // Start of section that contains overridden operations only.
     
-    public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
+    public PersistentAbsQuantity aggregate(final PersistentAggregationStrategy strategy) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
 		return strategy.aggregateMeasurements(this.getThis().getType().getUnitType(), this.getThis().getEntries().getList());
 	}
@@ -399,6 +400,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 		}
 		return false;
 	}
+
 	/* End of protected part that is not overridden by persistence generator */
     
 }

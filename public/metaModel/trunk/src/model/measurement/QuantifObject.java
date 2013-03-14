@@ -1,12 +1,12 @@
 package model.measurement;
 
 import persistence.AbstractPersistentRoot;
-import persistence.AggregationStrategy;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
 import persistence.PersistenceException;
 import persistence.PersistentAggregateCommand;
+import persistence.PersistentAggregationStrategy;
 import persistence.PersistentCONCMModelItem;
 import persistence.PersistentMModelItem;
 import persistence.PersistentMObject;
@@ -147,7 +147,7 @@ public abstract class QuantifObject extends PersistentObject implements Persiste
     
     
     
-    public void aggregate(final AggregationStrategy strategy, final Invoker invoker) 
+    public void aggregate(final PersistentAggregationStrategy strategy, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		PersistentAggregateCommand command = model.meta.AggregateCommand.createAggregateCommand(now, now);

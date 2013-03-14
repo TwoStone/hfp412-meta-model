@@ -1,5 +1,7 @@
 package model.measurement;
 
+import model.ConsistencyException;
+import model.NotComputableException;
 import model.UserException;
 import model.visitor.AbsQuantityReturnVisitor;
 import model.visitor.AnythingExceptionVisitor;
@@ -15,7 +17,6 @@ import model.visitor.QuantifObjectReturnExceptionVisitor;
 import model.visitor.QuantifObjectReturnVisitor;
 import model.visitor.QuantifObjectVisitor;
 import persistence.AbstractPersistentRoot;
-import persistence.AggregationStrategy;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MModelItemSearchList;
@@ -24,6 +25,7 @@ import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnitType;
+import persistence.PersistentAggregationStrategy;
 import persistence.PersistentCONCMModelItem;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentMMeasurementType;
@@ -304,7 +306,7 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     
     // Start of section that contains overridden operations only.
     
-    public PersistentAbsQuantity aggregate(final AggregationStrategy strategy) 
+    public PersistentAbsQuantity aggregate(final PersistentAggregationStrategy strategy) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
 		final MeasurementSearchList measurements = new MeasurementSearchList();
 		measurements.add(this.getThis());

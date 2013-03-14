@@ -57,7 +57,7 @@ public class StrategyTest extends TestingBase {
 
 		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
 
-		final PersistentSumStrategy sumStrategy = SumStrategy.createSumStrategy();
+		final PersistentSumStrategy sumStrategy = SumStrategy.getTheSumStrategy();
 
 		final PersistentMObject obj1 = MObject.createMObject();
 		final PersistentMObject obj2 = MObject.createMObject();
@@ -97,7 +97,7 @@ public class StrategyTest extends TestingBase {
 
 		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
 
-		final PersistentMinStrategy minStrategy = MinStrategy.createMinStrategy();
+		final PersistentMinStrategy minStrategy = MinStrategy.getTheMinStrategy();
 
 		final PersistentMObject obj1 = MObject.createMObject();
 		final PersistentMObject obj2 = MObject.createMObject();
@@ -137,7 +137,7 @@ public class StrategyTest extends TestingBase {
 
 		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
 
-		final PersistentMaxStrategy maxStrategy = MaxStrategy.createMaxStrategy();
+		final PersistentMaxStrategy maxStrategy = MaxStrategy.getTheMaxStrategy();
 
 		final PersistentMObject obj1 = MObject.createMObject();
 		final PersistentMObject obj2 = MObject.createMObject();
@@ -176,7 +176,7 @@ public class StrategyTest extends TestingBase {
 
 		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
 
-		final PersistentAvgStrategy avgStrategy = AvgStrategy.createAvgStrategy();
+		final PersistentAvgStrategy avgStrategy = AvgStrategy.getTheAvgStrategy();
 
 		final PersistentMObject obj1 = MObject.createMObject();
 		final PersistentMObject obj2 = MObject.createMObject();

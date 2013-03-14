@@ -2138,6 +2138,41 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
+    @SuppressWarnings("unchecked")
+    public synchronized AbsQuantityView aggregateByStrategy(AccountView account, AggregationStrategyView strategy) throws ModelException, ConsistencyException, NotComputableException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            parameters.add(((view.objects.ViewProxi)account).createProxiInformation());
+            parameters.add(((view.objects.ViewProxi)strategy).createProxiInformation());
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "aggregateByStrategy", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
+                    throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
+                    throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                java.util.Hashtable<String, Object> allResults = (java.util.Hashtable<String, Object>) success.get(common.RPCConstantsAndServices.ResultFieldName);
+                view.objects.ViewProxi.resolveReferences(allResults, this.getHandler());
+                common.ProxiInformation proxiInformation = common.RPCConstantsAndServices.createProxiInformation((String) success.get(common.RPCConstantsAndServices.RootFieldName));
+                AbsQuantityView result = (AbsQuantityView) view.objects.ViewProxi.createProxi(proxiInformation, this.getHandler());
+                if (result != null) ((view.objects.ViewRoot)result).setToString(proxiInformation.getToString());
+                view.objects.ViewObject root = (view.objects.ViewObject) allResults.get(proxiInformation.getHashKey());
+                if (root != null) ((view.objects.ViewProxi)result).setObject(root);
+                return result;
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
     public synchronized void assignNameScheme(MAtomicTypeView type, NameSchemeView scheme) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();

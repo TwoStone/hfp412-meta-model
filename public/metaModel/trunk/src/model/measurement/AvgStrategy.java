@@ -20,9 +20,8 @@ import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnitType;
+import persistence.PersistentAggregationStrategy;
 import persistence.PersistentAvgStrategy;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
 import persistence.PersistentQuantity;
 import persistence.TDObserver;
 
@@ -30,50 +29,47 @@ import common.Fraction;
 
 /* Additional import section end */
 
-public class AvgStrategy extends PersistentObject implements PersistentAvgStrategy{
+public class AvgStrategy extends model.measurement.AggregationStrategy implements PersistentAvgStrategy{
     
-    /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentAvgStrategy getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade.getClass(objectId);
-        return (PersistentAvgStrategy)PersistentProxi.createProxi(objectId, classId);
-    }
-    
-    public static PersistentAvgStrategy createAvgStrategy() throws PersistenceException{
-        return createAvgStrategy(false);
-    }
-    
-    public static PersistentAvgStrategy createAvgStrategy(boolean delayed$Persistence) throws PersistenceException {
-        PersistentAvgStrategy result = null;
-        if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade
-                .newDelayedAvgStrategy();
-            result.setDelayed$Persistence(true);
-        }else{
-            result = ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade
-                .newAvgStrategy(-1);
+    private static PersistentAvgStrategy theAvgStrategy = null;
+    public static boolean reset$For$Test = false;
+    private static final Object $$lock = new Object();
+    public static PersistentAvgStrategy getTheAvgStrategy() throws PersistenceException{
+        if (theAvgStrategy == null || reset$For$Test){
+            class Initializer implements Runnable {
+                PersistenceException exception = null;
+                public void run(){
+                    try {
+                        AvgStrategyProxi proxi = null;
+                        synchronized ($$lock){
+                            proxi = ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade.getTheAvgStrategy();
+                            theAvgStrategy = proxi;
+                        }
+                        if(proxi.getId() < 0) {
+                            proxi.setId(proxi.getId() * -1);
+                            proxi.initialize(proxi, new java.util.Hashtable<String,Object>());
+                            proxi.initializeOnCreation();
+                        }
+                    } catch (PersistenceException e){
+                        exception = e;
+                    }
+                    synchronized ($$lock){$$lock.notify();}
+                }
+                PersistentAvgStrategy getResult() throws PersistenceException{
+                    if(exception != null) throw exception;
+                    return theAvgStrategy;
+                }
+            }
+            synchronized ($$lock) {
+                reset$For$Test = false;
+                Initializer initializer = new Initializer();
+                new Thread(initializer).start();
+                try {$$lock.wait();}catch (InterruptedException e) {} //Need not to be interrupted
+                return initializer.getResult();
+            }
         }
-        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        result.initialize(result, final$$Fields);
-        result.initializeOnCreation();
-        return result;
+        return theAvgStrategy;
     }
-    
-    public static PersistentAvgStrategy createAvgStrategy(boolean delayed$Persistence,PersistentAvgStrategy This) throws PersistenceException {
-        PersistentAvgStrategy result = null;
-        if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade
-                .newDelayedAvgStrategy();
-            result.setDelayed$Persistence(true);
-        }else{
-            result = ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade
-                .newAvgStrategy(-1);
-        }
-        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        result.initialize(This, final$$Fields);
-        result.initializeOnCreation();
-        return result;
-    }
-    
     public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
@@ -95,12 +91,10 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentAvgStrategy This;
     
-    public AvgStrategy(PersistentAvgStrategy This,long id) throws persistence.PersistenceException {
+    public AvgStrategy(PersistentAggregationStrategy This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super(id);
-        if (This != null && !(this.equals(This))) this.This = This;        
+        super((PersistentAggregationStrategy)This,id);        
     }
     
     static public long getTypeId() {
@@ -112,32 +106,9 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     }
     
     public void store() throws PersistenceException {
-        if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 294) ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade
-            .newAvgStrategy(this.getId());
-        super.store();
-        if(!this.equals(this.getThis())){
-            this.getThis().store();
-            ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade.ThisSet(this.getId(), getThis());
-        }
-        
+        // Singletons cannot be delayed!
     }
     
-    protected void setThis(PersistentAvgStrategy newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if (newValue.equals(this)){
-            this.This = null;
-            return;
-        }
-        if(newValue.equals(this.This)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.This = (PersistentAvgStrategy)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theAvgStrategyFacade.ThisSet(this.getId(), newValue);
-        }
-    }
     public PersistentAvgStrategy getThis() throws PersistenceException {
         if(this.This == null){
             PersistentAvgStrategy result = new AvgStrategyProxi(this.getId());
@@ -185,13 +156,6 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     
     // Start of section that contains operations that must be implemented.
     
-    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
-				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-		final PersistentAbsQuantity kumulierteSumme = SumStrategy.createSumStrategy().aggregateMeasurements(defaultUnitType, measurements);
-		final PersistentQuantity numberOfMeasurement = QuantityManager.getTheQuantityManager().createQuantity(
-				UnitTypeManager.getTheUnitTypeManager().fetchScalar(), new Fraction(BigInteger.valueOf(measurements.getLength()), BigInteger.ONE));
-		return QuantityManager.getTheQuantityManager().div(kumulierteSumme, numberOfMeasurement);
-	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 		// TODO: implement method: copyingPrivateUserAttributes
@@ -211,6 +175,13 @@ public class AvgStrategy extends PersistentObject implements PersistentAvgStrate
     
     // Start of section that contains overridden operations only.
     
+    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
+				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
+		final PersistentAbsQuantity kumulierteSumme = SumStrategy.getTheSumStrategy().aggregateMeasurements(defaultUnitType, measurements);
+		final PersistentQuantity numberOfMeasurement = QuantityManager.getTheQuantityManager().createQuantity(
+				UnitTypeManager.getTheUnitTypeManager().fetchScalar(), new Fraction(BigInteger.valueOf(measurements.getLength()), BigInteger.ONE));
+		return QuantityManager.getTheQuantityManager().div(kumulierteSumme, numberOfMeasurement);
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

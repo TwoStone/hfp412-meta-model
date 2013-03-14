@@ -643,6 +643,21 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
             }
             if (selected instanceof AccountView){
                 item = new javax.swing.JMenuItem();
+                item.setText("Aggregationsstrategie anwenden ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerAggregateByStrategyAccountAggregationStrategyMssgWizard wizard = new ServerAggregateByStrategyAccountAggregationStrategyMssgWizard("Aggregationsstrategie anwenden");
+                        wizard.setFirstArgument((AccountView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
                 item.setText("Eintrag anlegen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -2007,6 +2022,63 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private AbsQuantityView firstArgument; 
 	
 		public void setFirstArgument(AbsQuantityView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerAggregateByStrategyAccountAggregationStrategyMssgWizard extends Wizard {
+
+		protected ServerAggregateByStrategyAccountAggregationStrategyMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAggregateByStrategyAccountAggregationStrategyMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				ViewRoot result = (ViewRoot) getConnection().aggregateByStrategy(firstArgument, (AggregationStrategyView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				ReturnValueView view = new ReturnValueView(result, new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
+				view.setLocationRelativeTo(getNavigationScrollPane());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();
+				view.setVisible(true);
+				view.repaint();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			catch(ConsistencyException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			catch(NotComputableException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			getParametersPanel().add(new ObjectSelectionPanel("strategy", "view.AggregationStrategyView", (ViewRoot) getConnection().getServerView(), this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AccountView firstArgument; 
+	
+		public void setFirstArgument(AccountView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();

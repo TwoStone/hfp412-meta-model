@@ -19,60 +19,56 @@ import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnitType;
+import persistence.PersistentAggregationStrategy;
 import persistence.PersistentMaxStrategy;
 import persistence.PersistentMeasurement;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
 import persistence.TDObserver;
 
 import common.Fraction;
 
 /* Additional import section end */
 
-public class MaxStrategy extends PersistentObject implements PersistentMaxStrategy{
+public class MaxStrategy extends model.measurement.AggregationStrategy implements PersistentMaxStrategy{
     
-    /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentMaxStrategy getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade.getClass(objectId);
-        return (PersistentMaxStrategy)PersistentProxi.createProxi(objectId, classId);
-    }
-    
-    public static PersistentMaxStrategy createMaxStrategy() throws PersistenceException{
-        return createMaxStrategy(false);
-    }
-    
-    public static PersistentMaxStrategy createMaxStrategy(boolean delayed$Persistence) throws PersistenceException {
-        PersistentMaxStrategy result = null;
-        if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade
-                .newDelayedMaxStrategy();
-            result.setDelayed$Persistence(true);
-        }else{
-            result = ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade
-                .newMaxStrategy(-1);
+    private static PersistentMaxStrategy theMaxStrategy = null;
+    public static boolean reset$For$Test = false;
+    private static final Object $$lock = new Object();
+    public static PersistentMaxStrategy getTheMaxStrategy() throws PersistenceException{
+        if (theMaxStrategy == null || reset$For$Test){
+            class Initializer implements Runnable {
+                PersistenceException exception = null;
+                public void run(){
+                    try {
+                        MaxStrategyProxi proxi = null;
+                        synchronized ($$lock){
+                            proxi = ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade.getTheMaxStrategy();
+                            theMaxStrategy = proxi;
+                        }
+                        if(proxi.getId() < 0) {
+                            proxi.setId(proxi.getId() * -1);
+                            proxi.initialize(proxi, new java.util.Hashtable<String,Object>());
+                            proxi.initializeOnCreation();
+                        }
+                    } catch (PersistenceException e){
+                        exception = e;
+                    }
+                    synchronized ($$lock){$$lock.notify();}
+                }
+                PersistentMaxStrategy getResult() throws PersistenceException{
+                    if(exception != null) throw exception;
+                    return theMaxStrategy;
+                }
+            }
+            synchronized ($$lock) {
+                reset$For$Test = false;
+                Initializer initializer = new Initializer();
+                new Thread(initializer).start();
+                try {$$lock.wait();}catch (InterruptedException e) {} //Need not to be interrupted
+                return initializer.getResult();
+            }
         }
-        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        result.initialize(result, final$$Fields);
-        result.initializeOnCreation();
-        return result;
+        return theMaxStrategy;
     }
-    
-    public static PersistentMaxStrategy createMaxStrategy(boolean delayed$Persistence,PersistentMaxStrategy This) throws PersistenceException {
-        PersistentMaxStrategy result = null;
-        if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade
-                .newDelayedMaxStrategy();
-            result.setDelayed$Persistence(true);
-        }else{
-            result = ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade
-                .newMaxStrategy(-1);
-        }
-        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        result.initialize(This, final$$Fields);
-        result.initializeOnCreation();
-        return result;
-    }
-    
     public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
@@ -94,12 +90,10 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentMaxStrategy This;
     
-    public MaxStrategy(PersistentMaxStrategy This,long id) throws persistence.PersistenceException {
+    public MaxStrategy(PersistentAggregationStrategy This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super(id);
-        if (This != null && !(this.equals(This))) this.This = This;        
+        super((PersistentAggregationStrategy)This,id);        
     }
     
     static public long getTypeId() {
@@ -111,32 +105,9 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
     }
     
     public void store() throws PersistenceException {
-        if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 296) ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade
-            .newMaxStrategy(this.getId());
-        super.store();
-        if(!this.equals(this.getThis())){
-            this.getThis().store();
-            ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade.ThisSet(this.getId(), getThis());
-        }
-        
+        // Singletons cannot be delayed!
     }
     
-    protected void setThis(PersistentMaxStrategy newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if (newValue.equals(this)){
-            this.This = null;
-            return;
-        }
-        if(newValue.equals(this.This)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.This = (PersistentMaxStrategy)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theMaxStrategyFacade.ThisSet(this.getId(), newValue);
-        }
-    }
     public PersistentMaxStrategy getThis() throws PersistenceException {
         if(this.This == null){
             PersistentMaxStrategy result = new MaxStrategyProxi(this.getId());
@@ -184,23 +155,6 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
     
     // Start of section that contains operations that must be implemented.
     
-    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
-				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-		if (measurements.getLength() <= 0) {
-			return QuantityManager.getTheQuantityManager().createQuantity(defaultUnitType.fetchDefaultUnit(), Fraction.Null);
-		}
-
-		final Iterator<PersistentMeasurement> i = measurements.iterator();
-		PersistentAbsQuantity largest = i.next().getQuantity();
-		while (i.hasNext()) {
-			final PersistentAbsQuantity current = i.next().getQuantity();
-			if (QuantityManager.getTheQuantityManager().isLessOrEqual(largest, current).toBoolean()) {
-				largest = current;
-			}
-		}
-
-		return largest;
-	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 		// TODO: implement method: copyingPrivateUserAttributes
@@ -220,6 +174,23 @@ public class MaxStrategy extends PersistentObject implements PersistentMaxStrate
     
     // Start of section that contains overridden operations only.
     
+    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
+				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
+		if (measurements.getLength() <= 0) {
+			return QuantityManager.getTheQuantityManager().createQuantity(defaultUnitType.fetchDefaultUnit(), Fraction.Null);
+		}
+
+		final Iterator<PersistentMeasurement> i = measurements.iterator();
+		PersistentAbsQuantity largest = i.next().getQuantity();
+		while (i.hasNext()) {
+			final PersistentAbsQuantity current = i.next().getQuantity();
+			if (QuantityManager.getTheQuantityManager().isLessOrEqual(largest, current).toBoolean()) {
+				largest = current;
+			}
+		}
+
+		return largest;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

@@ -19,60 +19,56 @@ import persistence.MinStrategyProxi;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnitType;
+import persistence.PersistentAggregationStrategy;
 import persistence.PersistentMeasurement;
 import persistence.PersistentMinStrategy;
-import persistence.PersistentObject;
-import persistence.PersistentProxi;
 import persistence.TDObserver;
 
 import common.Fraction;
 
 /* Additional import section end */
 
-public class MinStrategy extends PersistentObject implements PersistentMinStrategy{
+public class MinStrategy extends model.measurement.AggregationStrategy implements PersistentMinStrategy{
     
-    /** Throws persistence exception if the object with the given id does not exist. */
-    public static PersistentMinStrategy getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade.getClass(objectId);
-        return (PersistentMinStrategy)PersistentProxi.createProxi(objectId, classId);
-    }
-    
-    public static PersistentMinStrategy createMinStrategy() throws PersistenceException{
-        return createMinStrategy(false);
-    }
-    
-    public static PersistentMinStrategy createMinStrategy(boolean delayed$Persistence) throws PersistenceException {
-        PersistentMinStrategy result = null;
-        if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade
-                .newDelayedMinStrategy();
-            result.setDelayed$Persistence(true);
-        }else{
-            result = ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade
-                .newMinStrategy(-1);
+    private static PersistentMinStrategy theMinStrategy = null;
+    public static boolean reset$For$Test = false;
+    private static final Object $$lock = new Object();
+    public static PersistentMinStrategy getTheMinStrategy() throws PersistenceException{
+        if (theMinStrategy == null || reset$For$Test){
+            class Initializer implements Runnable {
+                PersistenceException exception = null;
+                public void run(){
+                    try {
+                        MinStrategyProxi proxi = null;
+                        synchronized ($$lock){
+                            proxi = ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade.getTheMinStrategy();
+                            theMinStrategy = proxi;
+                        }
+                        if(proxi.getId() < 0) {
+                            proxi.setId(proxi.getId() * -1);
+                            proxi.initialize(proxi, new java.util.Hashtable<String,Object>());
+                            proxi.initializeOnCreation();
+                        }
+                    } catch (PersistenceException e){
+                        exception = e;
+                    }
+                    synchronized ($$lock){$$lock.notify();}
+                }
+                PersistentMinStrategy getResult() throws PersistenceException{
+                    if(exception != null) throw exception;
+                    return theMinStrategy;
+                }
+            }
+            synchronized ($$lock) {
+                reset$For$Test = false;
+                Initializer initializer = new Initializer();
+                new Thread(initializer).start();
+                try {$$lock.wait();}catch (InterruptedException e) {} //Need not to be interrupted
+                return initializer.getResult();
+            }
         }
-        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        result.initialize(result, final$$Fields);
-        result.initializeOnCreation();
-        return result;
+        return theMinStrategy;
     }
-    
-    public static PersistentMinStrategy createMinStrategy(boolean delayed$Persistence,PersistentMinStrategy This) throws PersistenceException {
-        PersistentMinStrategy result = null;
-        if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade
-                .newDelayedMinStrategy();
-            result.setDelayed$Persistence(true);
-        }else{
-            result = ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade
-                .newMinStrategy(-1);
-        }
-        java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
-        result.initialize(This, final$$Fields);
-        result.initializeOnCreation();
-        return result;
-    }
-    
     public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
@@ -94,12 +90,10 @@ public class MinStrategy extends PersistentObject implements PersistentMinStrate
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentMinStrategy This;
     
-    public MinStrategy(PersistentMinStrategy This,long id) throws persistence.PersistenceException {
+    public MinStrategy(PersistentAggregationStrategy This,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super(id);
-        if (This != null && !(this.equals(This))) this.This = This;        
+        super((PersistentAggregationStrategy)This,id);        
     }
     
     static public long getTypeId() {
@@ -111,32 +105,9 @@ public class MinStrategy extends PersistentObject implements PersistentMinStrate
     }
     
     public void store() throws PersistenceException {
-        if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 292) ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade
-            .newMinStrategy(this.getId());
-        super.store();
-        if(!this.equals(this.getThis())){
-            this.getThis().store();
-            ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade.ThisSet(this.getId(), getThis());
-        }
-        
+        // Singletons cannot be delayed!
     }
     
-    protected void setThis(PersistentMinStrategy newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if (newValue.equals(this)){
-            this.This = null;
-            return;
-        }
-        if(newValue.equals(this.This)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.This = (PersistentMinStrategy)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theMinStrategyFacade.ThisSet(this.getId(), newValue);
-        }
-    }
     public PersistentMinStrategy getThis() throws PersistenceException {
         if(this.This == null){
             PersistentMinStrategy result = new MinStrategyProxi(this.getId());
@@ -184,23 +155,6 @@ public class MinStrategy extends PersistentObject implements PersistentMinStrate
     
     // Start of section that contains operations that must be implemented.
     
-    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
-				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-		if (measurements.getLength() <= 0) {
-			return QuantityManager.getTheQuantityManager().createQuantity(defaultUnitType.fetchDefaultUnit(), Fraction.Null);
-		}
-
-		final Iterator<PersistentMeasurement> i = measurements.iterator();
-		PersistentAbsQuantity smallest = i.next().getQuantity();
-		while (i.hasNext()) {
-			final PersistentAbsQuantity current = i.next().getQuantity();
-			if (QuantityManager.getTheQuantityManager().isLessOrEqual(current, smallest).toBoolean()) {
-				smallest = current;
-			}
-		}
-
-		return smallest;
-	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 		// TODO: implement method: copyingPrivateUserAttributes
@@ -220,6 +174,23 @@ public class MinStrategy extends PersistentObject implements PersistentMinStrate
     
     // Start of section that contains overridden operations only.
     
+    public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
+				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
+		if (measurements.getLength() <= 0) {
+			return QuantityManager.getTheQuantityManager().createQuantity(defaultUnitType.fetchDefaultUnit(), Fraction.Null);
+		}
+
+		final Iterator<PersistentMeasurement> i = measurements.iterator();
+		PersistentAbsQuantity smallest = i.next().getQuantity();
+		while (i.hasNext()) {
+			final PersistentAbsQuantity current = i.next().getQuantity();
+			if (QuantityManager.getTheQuantityManager().isLessOrEqual(current, smallest).toBoolean()) {
+				smallest = current;
+			}
+		}
+
+		return smallest;
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

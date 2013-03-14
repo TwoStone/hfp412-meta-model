@@ -624,6 +624,22 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    @SuppressWarnings("unchecked")
+    public synchronized java.util.Hashtable<?,?> aggregateByStrategy(String accountProxiString, String strategyProxiString){
+        try {
+            PersistentAccount account = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(accountProxiString));
+            PersistentAggregationStrategy strategy = (PersistentAggregationStrategy)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(strategyProxiString));
+            PersistentAbsQuantity result = ((PersistentServer)this.server).aggregateByStrategy(account, strategy);
+            return createOKResult(result, 1, this);
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.ConsistencyException e0){
+            return createExceptionResult(e0, this);
+        }catch(model.NotComputableException e1){
+            return createExceptionResult(e1, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> assignNameScheme(String typeProxiString, String schemeProxiString){
         try {
             PersistentMAtomicType type = (PersistentMAtomicType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeProxiString));
