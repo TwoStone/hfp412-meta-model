@@ -388,7 +388,6 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
         if (this.getAbstractType() != null) return 1;
         if (this.getSubTypes().getLength() > 0) return 1;
         if (this.getPossibleNames().getLength() > 0) return 1;
-        if (this.getSingletonObject().getLength() > 0) return 1;
         return 0;
     }
     

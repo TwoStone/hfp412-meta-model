@@ -21,6 +21,7 @@ import persistence.PersistentMAtomicType;
 import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMMixedConjunction;
 import persistence.PersistentMMixedTypeDisjunction;
+import persistence.PersistentMObject;
 import persistence.PersistentMType;
 import persistence.PersistentTypeManager;
 import persistence.Predcate;
@@ -136,7 +137,24 @@ public class TypeManagerTest extends TestingBase {
 		// TODO auf SingletonInstance pruefen
 		assertMFalse(at1.isAbstract());
 		assertMTrue(at1.isSingleton());
+		Assert.assertEquals(1, at1.getSingletonObject().getLength());
 		Assert.assertTrue(typeManagerContaines(at1));
+	}
+
+	/**
+	 * AtomicTypes gleiche Namen in unterschiedlichen Aspekten
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 */
+	@Test
+	public void createAtomicType_test7() throws ConsistencyException, PersistenceException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mTrue, mFalse);
+		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(1), "AT1", mTrue, mFalse);
+
+		Assert.assertEquals(at1.getName(), at2.getName());
+		Assert.assertTrue(typeManagerContaines(at1));
+		Assert.assertTrue(typeManagerContaines(at2));
 	}
 
 	/**
@@ -323,7 +341,7 @@ public class TypeManagerTest extends TestingBase {
 	}
 
 	/**
-	 * Disjunction of Disjunction wird aufgeloest. Ergebnis DNF (NUR AT)
+	 * Disjunction of Disjunction wird aufgeloest.
 	 * 
 	 * @throws ConsistencyException
 	 * @throws PersistenceException
@@ -337,7 +355,7 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAtomicType at4 = typeMngr.createAtomicRootType(aspects.get(3), "AT4", mFalse, mFalse);
 		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(createTypeDisjunction(at1, at2), createTypeDisjunction(at3, at4));
 
-		final PersistentMMixedTypeDisjunction expected = sum(product(at1), product(at2), product(at3), product(at4));
+		final PersistentMMixedTypeDisjunction expected = sum(at1, at2, at3, at4);
 
 		Assert.assertEquals(4, disj.fetchContainedTypes().getLength());
 		assertTypeStructureEquals(expected, disj);
@@ -345,7 +363,7 @@ public class TypeManagerTest extends TestingBase {
 	}
 
 	/**
-	 * Disjunction of Disjunction wird aufgeloest. Ergebnis DNF (NUR AT + ATC)
+	 * Disjunction of Disjunction wird aufgeloest.
 	 * 
 	 * @throws ConsistencyException
 	 * @throws PersistenceException
@@ -359,7 +377,7 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAtomicType at4 = typeMngr.createAtomicRootType(aspects.get(3), "AT4", mFalse, mFalse);
 		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(createTypeConjunction(at1, at2), createTypeDisjunction(at3, at4));
 
-		final PersistentMMixedTypeDisjunction expected = sum(product(at1, at2), product(at3), product(at4));
+		final PersistentMMixedTypeDisjunction expected = sum(product(at1, at2), at3, at4);
 
 		Assert.assertEquals(3, disj.fetchContainedTypes().getLength());
 		assertTypeStructureEquals(expected, disj);
@@ -382,8 +400,7 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(createTypeDisjunction(at1, at2),
 				createTypeDisjunction(at3, at4, nothing));
 
-		final PersistentMMixedTypeDisjunction expected = sum(product(at1), product(at2), product(at3), product(at4));
-
+		final PersistentMMixedTypeDisjunction expected = sum(at1, at2, at3, at4);
 		assertTypeStructureEquals(expected, disj);
 		Assert.assertTrue(typeManagerContaines(disj));
 	}
@@ -419,7 +436,93 @@ public class TypeManagerTest extends TestingBase {
 				createTypeDisjunction(at3, at4, anything));
 
 		assertTypeStructureEquals(sum(anything), disj);
-		Assert.assertFalse(typeManagerContaines(disj));
+	}
+
+	/**
+	 * Rename AT if same named AT in other Aspect exists
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test
+	public void renameAT_test1() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1_1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMAtomicType at2_2 = typeMngr.createAtomicRootType(aspects.get(1), "AT2", mFalse, mFalse);
+
+		typeMngr.renameAtomicType(at1_1, "AT2");
+		Assert.assertEquals("AT2", at1_1.getName());
+	}
+
+	/**
+	 * Rename AT if same named AT in same Aspect exists
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void renameAT_test2() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1_1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMAtomicType at2_2 = typeMngr.createAtomicRootType(aspects.get(0), "AT2", mFalse, mFalse);
+
+		typeMngr.renameAtomicType(at1_1, "AT2");
+	}
+
+	/**
+	 * Change abstract, fine cases
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test()
+	public void changeAbstract_test1() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(0), "AT2", mFalse, mTrue);
+
+		typeMngr.changeAbstract(at1, mFalse);
+		assertMFalse(at1.getAbstractType());
+		typeMngr.changeAbstract(at1, mTrue);
+		assertMTrue(at1.getAbstractType());
+
+		typeMngr.changeAbstract(at2, mTrue);
+		assertMTrue(at2.getAbstractType());
+		typeMngr.changeAbstract(at2, mFalse);
+		assertMFalse(at2.getAbstractType());
+	}
+
+	/**
+	 * Change abstract Singleton
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void changeAbstract_test2() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mTrue, mFalse);
+
+		typeMngr.changeAbstract(at1, mFalse);
+		assertMFalse(at1.getAbstractType());
+		typeMngr.changeAbstract(at1, mTrue);
+	}
+
+	/**
+	 * Change abstract mit Object
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void changeAbstract_test3() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMObject obj1 = MObject.createMObject();
+		obj1.getTypes().add(at1);
+		typeMngr.changeAbstract(at1, mFalse);
+		assertMFalse(at1.getAbstractType());
+		typeMngr.changeAbstract(at1, mTrue);
 	}
 
 	/*
@@ -436,7 +539,7 @@ public class TypeManagerTest extends TestingBase {
  * 
  * 
  * 
- */
+ 	*/
 
 	private PersistentMAbstractTypeConjunction createTypeConjunction(final PersistentMType... typeList) throws ConsistencyException,
 			PersistenceException {

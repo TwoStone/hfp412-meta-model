@@ -267,7 +267,7 @@ part typeSystem {
 	}
 
 	class MSingletonObject##SngltnObj extends AbstractObject {
-		prior final symmetric(singletonObject) MAtomicType type;
+		prior final symmetric(no-view singletonObject) MAtomicType type;
 	}
 
 	/*** MANAGER ***/

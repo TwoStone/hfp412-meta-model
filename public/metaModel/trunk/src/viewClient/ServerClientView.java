@@ -1,109 +1,61 @@
 package viewClient;
 
+import view.*;
+import view.objects.ViewRoot;
+
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.tree.DefaultTreeSelectionModel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeSelectionModel;
+import javax.swing.tree.DefaultTreeSelectionModel;
 
-import view.AbsQuantityView;
-import view.AbsUnitTypeView;
-import view.AbsUnitView;
-import view.AccountManagerView;
-import view.AccountTypeManagerView;
-import view.AccountView;
-import view.Anything;
-import view.AspectManagerView;
-import view.AssociationManagerView;
-import view.AssociationView;
-import view.ConsistencyException;
-import view.CycleException;
-import view.DoubleDefinitionException;
-import view.FormalParameterView;
-import view.HierarchyView;
-import view.LinkManagerView;
-import view.LinkView;
-import view.MAccountTypeView;
-import view.MAspectView;
-import view.MAtomicTypeView;
-import view.MComplexTypeView;
-import view.MEnumValueView;
-import view.MEnumView;
-import view.MMeasurementTypeView;
-import view.MObjectView;
-import view.MObservationTypeView;
-import view.MObservationView;
-import view.MTypeView;
-import view.MeasurementTypeManagerView;
-import view.ModelException;
-import view.NameSchemeManagerView;
-import view.NameSchemeView;
-import view.NameView;
-import view.NotComputableException;
-import view.OperationManagerView;
-import view.OperationView;
-import view.QuantityManagerView;
-import view.QuantityView;
-import view.ServerView;
-import view.UnitTypeManagerView;
-import view.UnitTypeView;
-import view.UnitView;
-import view.UserException;
-import view.objects.ViewRoot;
 
 @SuppressWarnings("serial")
-public class ServerClientView extends JPanel implements ExceptionAndEventHandler {
+public class ServerClientView extends JPanel implements ExceptionAndEventHandler{
 
 	ConnectionMaster connection;
 	ExceptionAndEventHandler parent;
-
+	
 	private JSplitPane mainSplitPane = null;
 	private JPanel treePanel = null;
 	private JTreeRefresh navigationTree = null;
 	private JScrollPane navigationScrollPane = null;
 	private JPanel detailsPanel = null;
 
-	private final ServerView service;
+	private ServerView service;
 
 	/**
 	 * This is the default constructor
 	 */
-	public ServerClientView(final ExceptionAndEventHandler parent, final ServerView service) {
+	public ServerClientView(ExceptionAndEventHandler parent, ServerView service) {
 		super();
 		this.parent = parent;
 		this.service = service;
 		initialize();
 	}
-
 	@SuppressWarnings("unused")
-	private ServerView getService() {
+	private ServerView getService(){
 		return this.service;
 	}
-
 	private void initialize() {
-		this.setLayout(new BorderLayout());
-		this.add(getMainSplitPane(), BorderLayout.CENTER);
-		final javax.swing.JToolBar mainToolBar = getMainToolBar();
-		if (!WithStaticOperations && mainToolBar.getComponentCount() > 0)
-			this.add(mainToolBar, BorderLayout.NORTH);
+        this.setLayout(new BorderLayout());
+        this.add(getMainSplitPane(), BorderLayout.CENTER);
+        javax.swing.JToolBar mainToolBar = getMainToolBar();
+        if (!WithStaticOperations && mainToolBar.getComponentCount() > 0) this.add(mainToolBar, BorderLayout.NORTH);
 	}
-
 	private javax.swing.JToolBar mainToolBar = null;
-
 	private javax.swing.JToolBar getMainToolBar() {
-		if (this.mainToolBar == null) {
+		if (this.mainToolBar == null){
 			this.mainToolBar = new javax.swing.JToolBar();
-			for (final javax.swing.JButton current : this.getToolButtonsForStaticOperations())
-				this.mainToolBar.add(current);
+			for (javax.swing.JButton current : this.getToolButtonsForStaticOperations()) this.mainToolBar.add(current);
 		}
 		return this.mainToolBar;
 	}
-
 	private JSplitPane getMainSplitPane() {
 		if (mainSplitPane == null) {
 			mainSplitPane = new JSplitPane();
@@ -113,11 +65,9 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		return mainSplitPane;
 	}
-
 	private JSplitPane navigationSplitPane = null;
-
-	private JSplitPane getNavigationSplitPane() {
-		if (this.navigationSplitPane == null) {
+	private JSplitPane getNavigationSplitPane(){
+		if (this.navigationSplitPane == null){
 			this.navigationSplitPane = new JSplitPane();
 			navigationSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 			navigationSplitPane.setLeftComponent(getNavigationPanel());
@@ -126,66 +76,54 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		return this.navigationSplitPane;
 	}
-
 	private JPanel errorPanel = null;
-
-	private JPanel getErrorPanel() {
-		if (this.errorPanel == null) {
+	private JPanel getErrorPanel(){
+		if (this.errorPanel == null){
 			this.errorPanel = new JPanel();
 			errorPanel.setBorder(new javax.swing.border.TitledBorder(Wizard.ErrorTitle));
 			errorPanel.setLayout(new BorderLayout());
-			errorPanel.add(getErrorScrollPane(), BorderLayout.CENTER);
+			errorPanel.add(getErrorScrollPane(),BorderLayout.CENTER);
 			errorPanel.setVisible(false);
 		}
 		return this.errorPanel;
 	}
-
 	private JScrollPane errorScrollPane = null;
-
-	private JScrollPane getErrorScrollPane() {
-		if (this.errorScrollPane == null) {
+	private JScrollPane getErrorScrollPane(){
+		if (this.errorScrollPane == null){
 			this.errorScrollPane = new JScrollPane();
 			this.errorScrollPane.setViewportView(getErrorJTree());
 		}
 		return this.errorScrollPane;
 	}
-
 	private JTreeRefresh errorJTree = null;
-
-	private JTreeRefresh getErrorJTree() {
-		if (this.errorJTree == null) {
+	private JTreeRefresh getErrorJTree(){
+		if (this.errorJTree == null){
 			this.errorJTree = new JTreeRefresh();
-			final DefaultTreeSelectionModel selectionModel = new DefaultTreeSelectionModel();
+			DefaultTreeSelectionModel selectionModel = new DefaultTreeSelectionModel();
 			selectionModel.setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 			this.errorJTree.setSelectionModel(selectionModel);
-			this.errorJTree.addMouseListener(new java.awt.event.MouseAdapter() {
-				@Override
-				public void mouseReleased(final MouseEvent e) {
-					tryShowContextMenu(e, errorJTree, false);
+			this.errorJTree.addMouseListener(new java.awt.event.MouseAdapter() {   
+				public void mouseReleased(MouseEvent e) {    
+					tryShowContextMenu(e,errorJTree,false);
 				}
-
-				@Override
-				public void mousePressed(final MouseEvent e) {
-					tryShowContextMenu(e, errorJTree, false);
+				public void mousePressed(MouseEvent e) {
+					tryShowContextMenu(e,errorJTree,false);
 				}
 			});
 		}
 		return this.errorJTree;
 	}
-
-	private void setErrors(final TreeModel errors) {
+	private void setErrors(TreeModel errors){
 		this.getErrorPanel().setVisible(true);
 		this.getErrorJTree().setModel(null);
 		this.getErrorJTree().setModel(errors);
-		this.getNavigationSplitPane().setDividerLocation(550.0 / 700.0);
+		this.getNavigationSplitPane().setDividerLocation(550.0/700.0);
 		this.getNavigationSplitPane().setDividerSize(5);
 	}
-
-	private void setNoErrors() {
+	private void setNoErrors(){
 		this.getErrorPanel().setVisible(false);
 		this.getNavigationSplitPane().setDividerSize(0);
 	}
-
 	private JPanel getNavigationPanel() {
 		if (treePanel == null) {
 			treePanel = new JPanel();
@@ -195,7 +133,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		return treePanel;
 	}
-
 	private JPanel getDetailsPanel() {
 		if (detailsPanel == null) {
 			detailsPanel = new JPanel();
@@ -205,56 +142,47 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		return detailsPanel;
 	}
-
 	private JTreeRefresh getNavigationTree() {
 		if (navigationTree == null) {
 			navigationTree = new JTreeRefresh();
-			final DefaultTreeSelectionModel selectionModel = new DefaultTreeSelectionModel();
+			DefaultTreeSelectionModel selectionModel = new DefaultTreeSelectionModel();
 			selectionModel.setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 			navigationTree.setSelectionModel(selectionModel);
-			navigationTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
-				@Override
-				public void valueChanged(final javax.swing.event.TreeSelectionEvent e) {
-					final Anything selected = (Anything) getNavigationTree().getSelectedObject();
-					setDetailsTable(selected);
+			navigationTree
+					.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+						public void valueChanged(javax.swing.event.TreeSelectionEvent e) {
+							Anything selected = (Anything) getNavigationTree().getSelectedObject();
+							setDetailsTable(selected);
+						}
+					});
+			navigationTree.addMouseListener(new java.awt.event.MouseAdapter() {   
+				public void mouseReleased(MouseEvent e) {    
+					tryShowContextMenu(e,navigationTree,WithStaticOperations);
 				}
-			});
-			navigationTree.addMouseListener(new java.awt.event.MouseAdapter() {
-				@Override
-				public void mouseReleased(final MouseEvent e) {
-					tryShowContextMenu(e, navigationTree, WithStaticOperations);
-				}
-
-				@Override
-				public void mousePressed(final MouseEvent e) {
-					tryShowContextMenu(e, navigationTree, WithStaticOperations);
+				public void mousePressed(MouseEvent e) {
+					tryShowContextMenu(e,navigationTree,WithStaticOperations);
 				}
 			});
 		}
 		return navigationTree;
 	}
-
 	private DetailPanel currentDetails = null;
-
 	protected void setDetailsTable(Anything object) {
 		this.getDetailsPanel().setVisible(false);
-		if (currentDetails != null)
-			this.getDetailsPanel().remove(currentDetails);
-		if (object == null && this.getConnection() != null)
-			object = this.getConnection().getServerView();
-		if (object == null) {
+		if (currentDetails != null) this.getDetailsPanel().remove(currentDetails);
+		if (object == null && this.getConnection() != null) object = this.getConnection().getServerView();
+		if (object == null){
 			this.currentDetails = getNoDetailsPanel();
-		} else {
+		}else{
 			try {
 				this.currentDetails = this.getDetailView(object);
-			} catch (final ModelException e) {
+			} catch (ModelException e) {
 				this.handleException(e);
 				this.currentDetails = null;
 			}
-			if (this.currentDetails == null)
-				this.currentDetails = getStandardDetailsTable(object);
+			if(this.currentDetails == null) this.currentDetails = getStandardDetailsTable(object);
 		}
-		this.getDetailsPanel().add(currentDetails, BorderLayout.CENTER);
+		this.getDetailsPanel().add(currentDetails,BorderLayout.CENTER);
 		this.getDetailsPanel().setVisible(true);
 	}
 
@@ -262,39 +190,31 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		class PanelDecider extends view.visitor.AnythingStandardVisitor {
 
 			private DetailPanel result;
-
+			
 			public DetailPanel getResult() {
 				return this.result;
 			}
-
-			@Override
-			protected void standardHandling(final Anything Anything) throws ModelException {
+			protected void standardHandling(Anything Anything) throws ModelException {
 				this.result = null;
 			}
-			// TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
+			//TODO Overwrite all handle methods for the types for which you intend to provide a special panel!
 		}
-		final PanelDecider decider = new PanelDecider();
+		PanelDecider decider = new PanelDecider();
 		anything.accept(decider);
 		return decider.getResult();
 	}
-
 	private NoDetailPanel noDetailPanel = null;
-
 	public DetailPanel getNoDetailsPanel() {
-		if (noDetailPanel == null)
-			noDetailPanel = new NoDetailPanel(this);
+		if(noDetailPanel == null) noDetailPanel = new NoDetailPanel(this);
 		return noDetailPanel;
 	}
-
-	protected void tryShowContextMenu(final MouseEvent e, final JTreeRefresh tree, final boolean withStaticOperations) {
-		if (e.isPopupTrigger()) {
-			final ViewRoot selected = tree.getSelectedObject();
-			final JPopupMenu popup = this.getContextMenu(selected, withStaticOperations);
-			if (popup.getComponentCount() != 0)
-				popup.show(tree, e.getX(), e.getY());
+	protected void tryShowContextMenu(MouseEvent e, JTreeRefresh tree, boolean withStaticOperations) {
+		if(e.isPopupTrigger()){
+			ViewRoot selected = tree.getSelectedObject();
+			JPopupMenu popup = this.getContextMenu(selected, withStaticOperations);
+			if(popup.getComponentCount() != 0)popup.show(tree, e.getX(), e.getY());
 		}
 	}
-
 	private JScrollPane getNavigationScrollPane() {
 		if (navigationScrollPane == null) {
 			navigationScrollPane = new JScrollPane();
@@ -303,77 +223,59 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		return navigationScrollPane;
 	}
 
-	private DetailPanel getStandardDetailsTable(final Anything object) {
+	private DetailPanel getStandardDetailsTable(Anything object) {
 		try {
-			return DefaultDetailPanel.getStandardDetailPanel(object, this);
-		} catch (final ModelException e) {
+			return DefaultDetailPanel.getStandardDetailPanel(object,this);
+		} catch (ModelException e) {
 			this.handleException(e);
 			return new NoDetailPanel(this);
 		}
 	}
 
-	@Override
-	public void setConnection(final ConnectionMaster connection) {
+	public void setConnection(ConnectionMaster connection){
 		this.connection = connection;
 	}
-
-	public ServerConnection getConnection() {
-		return (ServerConnection) this.connection;
+	public ServerConnection getConnection(){
+        	return (ServerConnection)this.connection;
 	}
-
-	/**
-	 * Is called by the refresher thread if the server object has changed
-	 **/
-	@Override
-	public void handleRefresh() {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
+	/** Is called by the refresher thread if the server object has changed
+	**/
+	public void handleRefresh(){
+		java.awt.EventQueue.invokeLater(new Runnable(){
+			public void run(){
 				try {
 					getNavigationTree().refresh();
-					final java.util.Vector<?> errors = getConnection().getServerView().getErrors();
-					if (errors.size() > 0)
-						setErrors(new ListRoot(errors));
-					else
-						setNoErrors();
-				} catch (final ModelException e) {
+					java.util.Vector<?> errors = getConnection().getServerView().getErrors();
+					if (errors.size() >0 )setErrors(new ListRoot(errors));
+					else setNoErrors();
+				} catch (ModelException e) {
 					handleException(e);
-				}
+				}			
 			}
 		});
-		// TODO adjust implementation: handleRefresh()!
+		//TODO adjust implementation: handleRefresh()!
 	}
-
-	/**
-	 * Is called only once after the connection has been established
-	 **/
-	@Override
-	public void initializeConnection() {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				getNavigationTree().setModel((TreeModel) getConnection().getServerView());
+	/** Is called only once after the connection has been established
+	**/
+	public void initializeConnection(){
+		java.awt.EventQueue.invokeLater(new Runnable(){
+			public void run(){
+				getNavigationTree().setModel((TreeModel) getConnection().getServerView());			
 				getNavigationTree().setSelectionPath(new javax.swing.tree.TreePath(getNavigationTree().getModel().getRoot()));
 			}
 		});
-		// TODO adjust implementation: initializeConnection
+		//TODO adjust implementation: initializeConnection
 	}
-
-	@Override
-	public void handleException(final ModelException exception) {
+	public void handleException(ModelException exception) {
 		this.parent.handleException(exception);
 	}
-
-	@Override
-	public void handleOKMessage(final String message) {
+	public void handleOKMessage(String message) {
 		this.parent.handleOKMessage(message);
 	}
-
-	@Override
-	public void handleUserException(final UserException exception) {
-		this.parent.handleUserException(exception);
-	}
-
+	public void handleUserException(UserException exception) {
+		this.parent.handleUserException(exception);	
+	}	
+	
 	/* Menu and wizard section start */
 
 	static boolean WithStaticOperations = false;
@@ -512,7 +414,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Enum lï¿½schen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum lï¿½schen" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteEnum((MEnumView)selected);
                                 getConnection().setEagerRefresh();
@@ -560,7 +462,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeOperation");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeOperation" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeOperation" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeOperation((OperationView)selected);
                                 getConnection().setEagerRefresh();
@@ -578,7 +480,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Enum Wert lï¿½schen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum Wert lï¿½schen" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum Wert lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteEnumValue((MEnumValueView)selected);
                                 getConnection().setEagerRefresh();
@@ -626,7 +528,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeAssociation");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeAssociation" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeAssociation" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeAssociation((AssociationView)selected);
                                 getConnection().setEagerRefresh();
@@ -644,7 +546,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Observation Type lï¿½schen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation Type lï¿½schen" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation Type lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteObsType((MObservationTypeView)selected);
                                 getConnection().setEagerRefresh();
@@ -677,7 +579,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeFormalParameter");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeFormalParameter" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeFormalParameter" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeFp((FormalParameterView)selected);
                                 getConnection().setEagerRefresh();
@@ -882,38 +784,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
-            if (selected instanceof AssociationManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("createAssociation ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard wizard = new ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard("createAssociation");
-                        wizard.setFirstArgument((AssociationManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-                item = new javax.swing.JMenuItem();
-                item.setText("createHierarchy ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard wizard = new ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard("createHierarchy");
-                        wizard.setFirstArgument((AssociationManagerView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
             if (selected instanceof UnitTypeView){
                 item = new javax.swing.JMenuItem();
                 item.setText("Create unit ... ");
@@ -946,12 +816,44 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
+            if (selected instanceof AssociationManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createAssociation ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard wizard = new ServerCreateAssociationAssociationManagerMTypeMTypeStringMssgWizard("createAssociation");
+                        wizard.setFirstArgument((AssociationManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createHierarchy ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard wizard = new ServerCreateHierarchyAssociationManagerAssociationStringMssgWizard("createHierarchy");
+                        wizard.setFirstArgument((AssociationManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             if (selected instanceof MComplexTypeView){
                 item = new javax.swing.JMenuItem();
                 item.setText("deleteComplexType");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteComplexType" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteComplexType" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteComplexType((MComplexTypeView)selected);
                                 getConnection().setEagerRefresh();
@@ -1159,7 +1061,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Observation lï¿½schen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation lï¿½schen" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteObservation((MObservationView)selected);
                                 getConnection().setEagerRefresh();
@@ -1207,7 +1109,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeHierarchy");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeHierarchy" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeHierarchy" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeHierarchy((HierarchyView)selected);
                                 getConnection().setEagerRefresh();
@@ -1306,7 +1208,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("fetchScalarType");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "fetchScalarType" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "fetchScalarType" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().fetchScalarType((UnitTypeManagerView)selected);
                                 getConnection().setEagerRefresh();
@@ -1322,7 +1224,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("fetchScalar");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "fetchScalar" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "fetchScalar" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().fetchScalar((UnitTypeManagerView)selected);
                                 getConnection().setEagerRefresh();
@@ -1481,7 +1383,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("deleteAtomicType");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteAtomicType" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteAtomicType" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteAtomicType((MAtomicTypeView)selected);
                                 getConnection().setEagerRefresh();
@@ -1514,7 +1416,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeLink");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeLink" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeLink" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeLink((LinkView)selected);
                                 getConnection().setEagerRefresh();
@@ -1547,7 +1449,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("deleteAspect");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteAspect" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteAspect" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteAspect((MAspectView)selected);
                                 getConnection().setEagerRefresh();
@@ -4992,9 +4894,9 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 	}
 
 	/* Menu and wizard section end */
-
-	private void addNotGeneratedItems(final JPopupMenu result, final ViewRoot selected) {
+	
+	private void addNotGeneratedItems(JPopupMenu result, ViewRoot selected) {
 		// TODO Add items if you have not generated service calls!!!
 	}
-
+	
 }
