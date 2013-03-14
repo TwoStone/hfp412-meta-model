@@ -26,8 +26,6 @@ import persistence.TDObserver;
 import common.Fraction;
 import common.SummableHashMap;
 
-import constants.TextConstants;
-
 /* Additional import section end */
 
 public abstract class UnitMutabCalc extends model.quantity.BasicCalculation implements PersistentUnitMutabCalc {
@@ -384,48 +382,53 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 	protected SummableHashMap<PersistentUnit> targetRefs;
 	protected SummableHashMap<PersistentUnitType> targetRefTypes;
 
-	private String errorMessageNoUnitFound(final SummableHashMap<PersistentUnit> referenceMap, final PersistentAbsUnitType unitType) {
-		final String s1 = "Es wurde keine Einheit mit folgender Ausprägung gefunden: ";
-		String unitReferenceSet = TextConstants.CURLY_BRACKET_OPEN;
-		final Iterator<PersistentUnit> i = referenceMap.getMap().keySet().iterator();
-		while (i.hasNext()) {
-			String currentUnitReferenceString = "";
-			final PersistentUnit current = i.next();
-			if (!i.hasNext()) {
-				currentUnitReferenceString = current.toString() + TextConstants.POWER + referenceMap.getMap().get(current).toString()
-						+ TextConstants.CURLY_BRACKET_CLOSED + TextConstants.SPACE;
-			} else {
-				currentUnitReferenceString = current.toString() + TextConstants.POWER + referenceMap.getMap().get(current).toString()
-						+ TextConstants.SEMICOLON + TextConstants.SPACE;
-			}
-			unitReferenceSet = unitReferenceSet + currentUnitReferenceString;
-		}
-		final String s2 = "Bitte Einheit mit dieser Ausprägung erstellen, welche in " + unitType.toString()
-				+ " typisiert ist. Noch keine Automatische Einheits-Generierung verfügbar.";
-
-		return s1 + unitReferenceSet + s2;
-	}
-
-	private String errorMessageNoUnitTypeFound(final SummableHashMap<PersistentUnitType> referenceTypeMap) {
-		final String s1 = "Es existiert kein Einheitstyp mit folgender Ausprägung: ";
-		String unitReferenceTypeSet = TextConstants.CURLY_BRACKET_OPEN;
-		final Iterator<PersistentUnitType> i = referenceTypeMap.getMap().keySet().iterator();
-		while (i.hasNext()) {
-			String currentUnitReferenceTypeString = "";
-			final PersistentUnitType current = i.next();
-			if (!i.hasNext()) {
-				currentUnitReferenceTypeString = current.toString() + TextConstants.POWER + referenceTypeMap.getMap().get(current).toString()
-						+ TextConstants.CURLY_BRACKET_CLOSED + TextConstants.SPACE;
-			} else {
-				currentUnitReferenceTypeString = current.toString() + TextConstants.POWER + referenceTypeMap.getMap().get(current).toString()
-						+ TextConstants.SEMICOLON + TextConstants.SPACE;
-			}
-			unitReferenceTypeSet = unitReferenceTypeSet + currentUnitReferenceTypeString;
-		}
-		final String s2 = " Bitte Einheitstyp und Einheit anlegen";
-		return s1 + unitReferenceTypeSet + s2;
-
-	}
+	// private String errorMessageNoUnitFound(final SummableHashMap<PersistentUnit> referenceMap, final
+	// PersistentAbsUnitType unitType) {
+	// final String s1 = "Es wurde keine Einheit mit folgender Ausprägung gefunden: ";
+	// String unitReferenceSet = TextConstants.CURLY_BRACKET_OPEN;
+	// final Iterator<PersistentUnit> i = referenceMap.getMap().keySet().iterator();
+	// while (i.hasNext()) {
+	// String currentUnitReferenceString = "";
+	// final PersistentUnit current = i.next();
+	// if (!i.hasNext()) {
+	// currentUnitReferenceString = current.toString() + TextConstants.POWER +
+	// referenceMap.getMap().get(current).toString()
+	// + TextConstants.CURLY_BRACKET_CLOSED + TextConstants.SPACE;
+	// } else {
+	// currentUnitReferenceString = current.toString() + TextConstants.POWER +
+	// referenceMap.getMap().get(current).toString()
+	// + TextConstants.SEMICOLON + TextConstants.SPACE;
+	// }
+	// unitReferenceSet = unitReferenceSet + currentUnitReferenceString;
+	// }
+	// final String s2 = "Bitte Einheit mit dieser Ausprägung erstellen, welche in " + unitType.toString()
+	// + " typisiert ist. Noch keine Automatische Einheits-Generierung verfügbar.";
+	//
+	// return s1 + unitReferenceSet + s2;
+	// }
+	//
+	// private String errorMessageNoUnitTypeFound(final SummableHashMap<PersistentUnitType> referenceTypeMap) {
+	// final String s1 = "Es existiert kein Einheitstyp mit folgender Ausprägung: ";
+	// String unitReferenceTypeSet = TextConstants.CURLY_BRACKET_OPEN;
+	// final Iterator<PersistentUnitType> i = referenceTypeMap.getMap().keySet().iterator();
+	// while (i.hasNext()) {
+	// String currentUnitReferenceTypeString = "";
+	// final PersistentUnitType current = i.next();
+	// if (!i.hasNext()) {
+	// currentUnitReferenceTypeString = current.toString() + TextConstants.POWER +
+	// referenceTypeMap.getMap().get(current).toString()
+	// + TextConstants.CURLY_BRACKET_CLOSED + TextConstants.SPACE;
+	// } else {
+	// currentUnitReferenceTypeString = current.toString() + TextConstants.POWER +
+	// referenceTypeMap.getMap().get(current).toString()
+	// + TextConstants.SEMICOLON + TextConstants.SPACE;
+	// }
+	// unitReferenceTypeSet = unitReferenceTypeSet + currentUnitReferenceTypeString;
+	// }
+	// final String s2 = " Bitte Einheitstyp und Einheit anlegen";
+	// return s1 + unitReferenceTypeSet + s2;
+	//
+	// }
 
 	private PersistentQuantity doCalcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) throws NotComputableException,
 			PersistenceException {
