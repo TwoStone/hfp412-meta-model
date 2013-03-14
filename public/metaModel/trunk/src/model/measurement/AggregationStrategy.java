@@ -1,8 +1,23 @@
-
 package model.measurement;
 
-import persistence.*;
+import model.ConsistencyException;
+import model.NotComputableException;
+import model.quantity.QuantityManager;
+import persistence.AggregtionException;
+import persistence.Anything;
+import persistence.ConnectionHandler;
+import persistence.MeasurementSearchList;
+import persistence.PersistenceException;
+import persistence.PersistentAbsQuantity;
+import persistence.PersistentAbsUnit;
+import persistence.PersistentAbsUnitType;
+import persistence.PersistentAggregationStrategy;
+import persistence.PersistentMeasurement;
+import persistence.PersistentObject;
+import persistence.PersistentProxi;
+import persistence.TDObserver;
 
+import common.Fraction;
 
 /* Additional import section end */
 
@@ -86,28 +101,43 @@ public abstract class AggregationStrategy extends PersistentObject implements Pe
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
-    }
+		// TODO: implement method: copyingPrivateUserAttributes
+
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
-    }
+		// TODO: implement method: initializeOnCreation
+
+	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
-    }
+		// TODO: implement method: initializeOnInstantiation
+
+	}
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+
+	protected PersistentAbsQuantity computeKumSum(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements)
+			throws ConsistencyException, PersistenceException, NotComputableException {
+		final PersistentAbsUnit defaultUnit = defaultUnitType.fetchDefaultUnit();
+		return measurements.aggregateException(new AggregtionException<PersistentMeasurement, PersistentAbsQuantity, NotComputableException>() {
+			@Override
+			public PersistentAbsQuantity neutral() throws PersistenceException, NotComputableException {
+				return QuantityManager.getTheQuantityManager().createQuantity(defaultUnit, Fraction.Null);
+			}
+
+			@Override
+			public PersistentAbsQuantity compose(final PersistentAbsQuantity result, final PersistentMeasurement argument)
+					throws PersistenceException, NotComputableException {
+				return QuantityManager.getTheQuantityManager().add(result, argument.getQuantity());
+			}
+		});
+	}
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

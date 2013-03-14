@@ -1149,6 +1149,16 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> deleteObject(String objectProxiString){
+        try {
+            PersistentMObject object = (PersistentMObject)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(objectProxiString));
+            ((PersistentServer)this.server).deleteObject(object);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> deleteObsType(String theTypeProxiString){
         try {
             PersistentMObservationType theType = (PersistentMObservationType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(theTypeProxiString));

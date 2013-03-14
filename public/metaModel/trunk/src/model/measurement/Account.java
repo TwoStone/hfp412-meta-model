@@ -1,7 +1,6 @@
 package model.measurement;
 
 import model.ConsistencyException;
-import model.NotComputableException;
 import model.UserException;
 import model.visitor.AccountHierarchyHIERARCHYExceptionVisitor;
 import model.visitor.AccountHierarchyHIERARCHYReturnExceptionVisitor;
@@ -351,11 +350,6 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 				throws PersistenceException{
 
 	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: delete
-        
-    }
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: fetchDependentItems
@@ -386,9 +380,14 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
 		return strategy.aggregateMeasurements(this.getThis().getType().getUnitType(), this.getThis().getEntries().getList());
 	}
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: delete
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
+
 	private boolean hasSameSuperType(final PersistentMAccountType accType) throws PersistenceException {
 		if (accType.equals(this.getThis().getType())) {
 			return true;
@@ -407,7 +406,6 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 		return false;
 	}
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

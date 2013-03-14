@@ -261,11 +261,6 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: delete
-        
-    }
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: fetchDependentItems
@@ -317,6 +312,11 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 		measurements.add(this.getThis());
 		return strategy.aggregateMeasurements(this.getThis().getType().getUnitType(), measurements);
 	}
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+        //TODO: implement method: delete
+        
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     

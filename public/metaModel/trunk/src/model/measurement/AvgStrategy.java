@@ -177,16 +177,15 @@ public class AvgStrategy extends model.measurement.AggregationStrategy implement
     
     public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-		final PersistentAbsQuantity kumulierteSumme = SumStrategy.getTheSumStrategy().aggregateMeasurements(defaultUnitType, measurements);
+		final PersistentAbsQuantity kumulierteSumme = this.computeKumSum(defaultUnitType, measurements);
 		final PersistentQuantity numberOfMeasurement = QuantityManager.getTheQuantityManager().createQuantity(
 				UnitTypeManager.getTheUnitTypeManager().fetchScalar(), new Fraction(BigInteger.valueOf(measurements.getLength()), BigInteger.ONE));
+		// FIXME Hier entsteht ein NullPointer in div!!
 		return QuantityManager.getTheQuantityManager().div(kumulierteSumme, numberOfMeasurement);
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

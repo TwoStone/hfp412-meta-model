@@ -218,11 +218,6 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
 		// TODO: implement method: copyingPrivateUserAttributes
 
 	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: delete
-        
-    }
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: fetchDependentItems
@@ -252,6 +247,11 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     
     // Start of section that contains overridden operations only.
     
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+        //TODO: implement method: delete
+        
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     

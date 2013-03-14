@@ -1,8 +1,6 @@
 package model.measurement;
 
-import model.NotComputableException;
 import model.UserException;
-import model.quantity.QuantityManager;
 import model.visitor.AggregationStrategyExceptionVisitor;
 import model.visitor.AggregationStrategyReturnExceptionVisitor;
 import model.visitor.AggregationStrategyReturnVisitor;
@@ -11,21 +9,16 @@ import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
-import persistence.AggregtionException;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
-import persistence.PersistentAbsUnit;
 import persistence.PersistentAbsUnitType;
 import persistence.PersistentAggregationStrategy;
-import persistence.PersistentMeasurement;
 import persistence.PersistentSumStrategy;
 import persistence.SumStrategyProxi;
 import persistence.TDObserver;
-
-import common.Fraction;
 
 /* Additional import section end */
 
@@ -174,25 +167,11 @@ public class SumStrategy extends model.measurement.AggregationStrategy implement
     
     public PersistentAbsQuantity aggregateMeasurements(final PersistentAbsUnitType defaultUnitType, final MeasurementSearchList measurements) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-		final PersistentAbsUnit defaultUnit = defaultUnitType.fetchDefaultUnit();
-		return measurements.aggregateException(new AggregtionException<PersistentMeasurement, PersistentAbsQuantity, NotComputableException>() {
-			@Override
-			public PersistentAbsQuantity neutral() throws PersistenceException, NotComputableException {
-				return QuantityManager.getTheQuantityManager().createQuantity(defaultUnit, Fraction.Null);
-			}
-
-			@Override
-			public PersistentAbsQuantity compose(final PersistentAbsQuantity result, final PersistentMeasurement argument)
-					throws PersistenceException, NotComputableException {
-				return QuantityManager.getTheQuantityManager().add(result, argument.getQuantity());
-			}
-		});
+		return this.computeKumSum(defaultUnitType, measurements);
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }
