@@ -147,6 +147,178 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
+    public synchronized java.util.Vector<?> dividend_Path_In_Div() throws ModelException, UserException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "dividend_Path_In_Div", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
+                    throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
+                    throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
+                    throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
+                    throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
+                    throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
+                    throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                return view.objects.ViewProxi.getProxiVector((Vector<String>)success.get(common.RPCConstantsAndServices.ResultListFieldName),this.getHandler());
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized java.util.Vector<?> divisor_Path_In_Div() throws ModelException, UserException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "divisor_Path_In_Div", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
+                    throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
+                    throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
+                    throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
+                    throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
+                    throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
+                    throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                return view.objects.ViewProxi.getProxiVector((Vector<String>)success.get(common.RPCConstantsAndServices.ResultListFieldName),this.getHandler());
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized java.util.Vector<?> factor1_Path_In_Mul() throws ModelException, UserException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "factor1_Path_In_Mul", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
+                    throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
+                    throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
+                    throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
+                    throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
+                    throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
+                    throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                return view.objects.ViewProxi.getProxiVector((Vector<String>)success.get(common.RPCConstantsAndServices.ResultListFieldName),this.getHandler());
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized java.util.Vector<?> factor2_Path_In_Mul() throws ModelException, UserException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "factor2_Path_In_Mul", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
+                    throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
+                    throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
+                    throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
+                    throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
+                    throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
+                    throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                return view.objects.ViewProxi.getProxiVector((Vector<String>)success.get(common.RPCConstantsAndServices.ResultListFieldName),this.getHandler());
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
     public synchronized java.util.Vector<?> fp_Path_In_AddFp() throws ModelException, UserException{
         try {
             Vector<Object> parameters = new Vector<Object>();
@@ -323,6 +495,49 @@ public class ServerConnection extends ConnectionMaster {
         try {
             Vector<Object> parameters = new Vector<Object>();
             Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "measurementType_Path_In_CreateEntry", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
+                    throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
+                    throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
+                    throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
+                    throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
+                    throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
+                    throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                return view.objects.ViewProxi.getProxiVector((Vector<String>)success.get(common.RPCConstantsAndServices.ResultListFieldName),this.getHandler());
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized java.util.Vector<?> minuend_Path_In_Sub() throws ModelException, UserException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "minuend_Path_In_Sub", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -972,6 +1187,135 @@ public class ServerConnection extends ConnectionMaster {
         try {
             Vector<Object> parameters = new Vector<Object>();
             Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "source_Path_In_CreateVoidOperation", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
+                    throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
+                    throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
+                    throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
+                    throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
+                    throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
+                    throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                return view.objects.ViewProxi.getProxiVector((Vector<String>)success.get(common.RPCConstantsAndServices.ResultListFieldName),this.getHandler());
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized java.util.Vector<?> subtrahend_Path_In_Sub() throws ModelException, UserException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "subtrahend_Path_In_Sub", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
+                    throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
+                    throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
+                    throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
+                    throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
+                    throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
+                    throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                return view.objects.ViewProxi.getProxiVector((Vector<String>)success.get(common.RPCConstantsAndServices.ResultListFieldName),this.getHandler());
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized java.util.Vector<?> summand1_Path_In_Add() throws ModelException, UserException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "summand1_Path_In_Add", parameters);
+            if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
+                if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
+                    throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -228)
+                    throw ExponentMatchingException.fromHashtableToExponentMatchingException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -229)
+                    throw WrongSubTypeAspectException.fromHashtableToWrongSubTypeAspectException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -323)
+                    throw DeletedException.fromHashtableToDeletedException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -230)
+                    throw ConsistencyException.fromHashtableToConsistencyException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -231)
+                    throw CycleException.fromHashtableToCycleException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -266)
+                    throw PatternNotMatchException.fromHashtableToPatternNotMatchException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -234)
+                    throw NotAvailableException.fromHashtableToNotAvailableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -280)
+                    throw EmptyTypeException.fromHashtableToEmptyTypeException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -282)
+                    throw NotFoundException.fromHashtableToNotFoundException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -235)
+                    throw DoubleDefinitionException.fromHashtableToDoubleDefinitionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -237)
+                    throw RestrictionException.fromHashtableToRestrictionException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -285)
+                    throw NotComputableException.fromHashtableToNotComputableException((Hashtable)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                throw new Error("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")");
+            }else{
+                return view.objects.ViewProxi.getProxiVector((Vector<String>)success.get(common.RPCConstantsAndServices.ResultListFieldName),this.getHandler());
+            }
+        }catch(IOException ioe){
+            throw new ModelException(ioe.getMessage(),0);
+        }catch(XmlRpcException xre){
+            throw new ModelException(xre.getMessage(),0);
+        }
+        
+    }
+    
+    public synchronized java.util.Vector<?> summand2_Path_In_Add() throws ModelException, UserException{
+        try {
+            Vector<Object> parameters = new Vector<Object>();
+            Hashtable<?,?> success = (Hashtable<?,?>)this.execute(this.connectionName, "summand2_Path_In_Add", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());

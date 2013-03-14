@@ -117,10 +117,10 @@ server Server {
 	void convert(Quantity quantity, AbsUnit unit);
 
 	/** computing **/
-	void add(AbsQuantity summand1, AbsQuantity summand2) throws NotComputableException;
-	void sub(AbsQuantity minuend, AbsQuantity subtrahend) throws NotComputableException;
-	void mul(AbsQuantity factor1, AbsQuantity factor2) throws NotComputableException, DoubleDefinitionException;
-	void div(AbsQuantity dividend, AbsQuantity divisor) throws NotComputableException;
+	void add(AbsQuantity summand1{quantityManager;quantities}, AbsQuantity summand2{quantityManager;quantities}) throws NotComputableException;
+	void sub(AbsQuantity minuend{quantityManager;quantities}, AbsQuantity subtrahend{quantityManager;quantities}) throws NotComputableException;
+	void mul(AbsQuantity factor1{quantityManager;quantities}, AbsQuantity factor2{quantityManager;quantities}) throws NotComputableException, DoubleDefinitionException;
+	void div(AbsQuantity dividend{quantityManager;quantities}, AbsQuantity divisor{quantityManager;quantities}) throws NotComputableException;
 
 	/** Measurement/Account **/
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});

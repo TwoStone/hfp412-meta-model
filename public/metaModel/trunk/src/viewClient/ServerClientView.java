@@ -2084,7 +2084,19 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("summand2", "view.AbsQuantityView", (ViewRoot) getConnection().getServerView(), this));		
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("summand2", "view.AbsQuantityView", new ListRoot(getConnection().summand2_Path_In_Add()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -4366,7 +4378,19 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("divisor", "view.AbsQuantityView", (ViewRoot) getConnection().getServerView(), this));		
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("divisor", "view.AbsQuantityView", new ListRoot(getConnection().divisor_Path_In_Div()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -4419,7 +4443,19 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("factor2", "view.AbsQuantityView", (ViewRoot) getConnection().getServerView(), this));		
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("factor2", "view.AbsQuantityView", new ListRoot(getConnection().factor2_Path_In_Mul()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -4902,7 +4938,19 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("subtrahend", "view.AbsQuantityView", (ViewRoot) getConnection().getServerView(), this));		
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("subtrahend", "view.AbsQuantityView", new ListRoot(getConnection().subtrahend_Path_In_Sub()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
 		}

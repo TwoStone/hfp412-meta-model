@@ -518,6 +518,26 @@ public class Server extends PersistentObject implements PersistentServer{
         		return new AbsUnitSearchList(getThis().getUnitTypeManager().
 				getUnits().getList());
     }
+    public AbsQuantitySearchList dividend_Path_In_Div() 
+				throws model.UserException, PersistenceException{
+        		return new AbsQuantitySearchList(getThis().getQuantityManager().
+				getQuantities().getList());
+    }
+    public AbsQuantitySearchList divisor_Path_In_Div() 
+				throws model.UserException, PersistenceException{
+        		return new AbsQuantitySearchList(getThis().getQuantityManager().
+				getQuantities().getList());
+    }
+    public AbsQuantitySearchList factor1_Path_In_Mul() 
+				throws model.UserException, PersistenceException{
+        		return new AbsQuantitySearchList(getThis().getQuantityManager().
+				getQuantities().getList());
+    }
+    public AbsQuantitySearchList factor2_Path_In_Mul() 
+				throws model.UserException, PersistenceException{
+        		return new AbsQuantitySearchList(getThis().getQuantityManager().
+				getQuantities().getList());
+    }
     public FormalParameterSearchList fp_Path_In_AddFp() 
 				throws model.UserException, PersistenceException{
         		return new FormalParameterSearchList(getThis().getOperationManager().
@@ -625,6 +645,11 @@ public class Server extends PersistentObject implements PersistentServer{
         		return new MMeasurementTypeSearchList(getThis().getMeasurementTypeManager().
 				getMeasurementTypes().getList());
     }
+    public AbsQuantitySearchList minuend_Path_In_Sub() 
+				throws model.UserException, PersistenceException{
+        		return new AbsQuantitySearchList(getThis().getQuantityManager().
+				getQuantities().getList());
+    }
     public MTypeSearchList newType_Path_In_AddType() 
 				throws model.UserException, PersistenceException{
         		return new MTypeSearchList(getThis().getTypeManager().
@@ -704,6 +729,21 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws model.UserException, PersistenceException{
         		return new MTypeSearchList(getThis().getTypeManager().
 				getTypes().getList());
+    }
+    public AbsQuantitySearchList subtrahend_Path_In_Sub() 
+				throws model.UserException, PersistenceException{
+        		return new AbsQuantitySearchList(getThis().getQuantityManager().
+				getQuantities().getList());
+    }
+    public AbsQuantitySearchList summand1_Path_In_Add() 
+				throws model.UserException, PersistenceException{
+        		return new AbsQuantitySearchList(getThis().getQuantityManager().
+				getQuantities().getList());
+    }
+    public AbsQuantitySearchList summand2_Path_In_Add() 
+				throws model.UserException, PersistenceException{
+        		return new AbsQuantitySearchList(getThis().getQuantityManager().
+				getQuantities().getList());
     }
     public MTypeSearchList target_Path_In_CreateConstant() 
 				throws model.UserException, PersistenceException{

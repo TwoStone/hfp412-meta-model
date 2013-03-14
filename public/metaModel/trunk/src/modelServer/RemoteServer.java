@@ -51,6 +51,50 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> dividend_Path_In_Div(){
+        try {
+            AbsQuantitySearchList result = ((PersistentServer)this.server).dividend_Path_In_Div();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> divisor_Path_In_Div(){
+        try {
+            AbsQuantitySearchList result = ((PersistentServer)this.server).divisor_Path_In_Div();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> factor1_Path_In_Mul(){
+        try {
+            AbsQuantitySearchList result = ((PersistentServer)this.server).factor1_Path_In_Mul();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> factor2_Path_In_Mul(){
+        try {
+            AbsQuantitySearchList result = ((PersistentServer)this.server).factor2_Path_In_Mul();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> fp_Path_In_AddFp(){
         try {
             FormalParameterSearchList result = ((PersistentServer)this.server).fp_Path_In_AddFp();
@@ -98,6 +142,17 @@ public  class RemoteServer extends RemoteServerMaster {
     public synchronized java.util.Hashtable<?,?> measurementType_Path_In_CreateEntry(){
         try {
             MMeasurementTypeSearchList result = ((PersistentServer)this.server).measurementType_Path_In_CreateEntry();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> minuend_Path_In_Sub(){
+        try {
+            AbsQuantitySearchList result = ((PersistentServer)this.server).minuend_Path_In_Sub();
             return createOKResult(result.getVector(1, 0, false, this, false, true));
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -267,6 +322,39 @@ public  class RemoteServer extends RemoteServerMaster {
     public synchronized java.util.Hashtable<?,?> source_Path_In_CreateVoidOperation(){
         try {
             MTypeSearchList result = ((PersistentServer)this.server).source_Path_In_CreateVoidOperation();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> subtrahend_Path_In_Sub(){
+        try {
+            AbsQuantitySearchList result = ((PersistentServer)this.server).subtrahend_Path_In_Sub();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> summand1_Path_In_Add(){
+        try {
+            AbsQuantitySearchList result = ((PersistentServer)this.server).summand1_Path_In_Add();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> summand2_Path_In_Add(){
+        try {
+            AbsQuantitySearchList result = ((PersistentServer)this.server).summand2_Path_In_Add();
             return createOKResult(result.getVector(1, 0, false, this, false, true));
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
