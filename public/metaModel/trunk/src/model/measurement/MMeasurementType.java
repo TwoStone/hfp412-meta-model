@@ -16,6 +16,7 @@ import model.visitor.MQuantiObjectTypeVisitor;
 import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.MMeasurementTypeProxi;
+import persistence.MMeasurementTypeSearchList;
 import persistence.MModelItemSearchList;
 import persistence.MeasurementSearchList;
 import persistence.PersistenceException;
@@ -32,41 +33,45 @@ import persistence.TDObserver;
 public class MMeasurementType extends model.measurement.MQuantiObjectType implements PersistentMMeasurementType{
     
     
-    public static PersistentMMeasurementType createMMeasurementType(PersistentMType type,PersistentAbsUnitType unitType) throws PersistenceException{
-        return createMMeasurementType(type,unitType,false);
+    public static PersistentMMeasurementType createMMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,String name) throws PersistenceException{
+        return createMMeasurementType(type,unitType,name,false);
     }
     
-    public static PersistentMMeasurementType createMMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMMeasurementType createMMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,String name,boolean delayed$Persistence) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMMeasurementType result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
-                .newDelayedMMeasurementType();
+                .newDelayedMMeasurementType(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
-                .newMMeasurementType(-1);
+                .newMMeasurementType(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("type", type);
         final$$Fields.put("unitType", unitType);
+        final$$Fields.put("name", name);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentMMeasurementType createMMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,boolean delayed$Persistence,PersistentMMeasurementType This) throws PersistenceException {
+    public static PersistentMMeasurementType createMMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,String name,boolean delayed$Persistence,PersistentMMeasurementType This) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMMeasurementType result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
-                .newDelayedMMeasurementType();
+                .newDelayedMMeasurementType(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
-                .newMMeasurementType(-1);
+                .newMMeasurementType(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("type", type);
         final$$Fields.put("unitType", unitType);
+        final$$Fields.put("name", name);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -76,10 +81,16 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("name", this.getName());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
         return result;
+    }
+    
+    public static MMeasurementTypeSearchList getMMeasurementTypeByName(String name) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
+            .getMMeasurementTypeByName(name);
     }
     
     public MMeasurementType provideCopy() throws PersistenceException{
@@ -88,6 +99,7 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
                                       this.unitType, 
                                       this.This, 
                                       this.myCONCMModelItem, 
+                                      this.name, 
                                       this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -96,10 +108,12 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected String name;
     
-    public MMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
+    public MMeasurementType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,PersistentMModelItem myCONCMModelItem,String name,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentMType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,(PersistentMModelItem)myCONCMModelItem,id);        
+        super((PersistentMType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,(PersistentMModelItem)myCONCMModelItem,id);
+        this.name = name;        
     }
     
     static public long getTypeId() {
@@ -113,11 +127,19 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 126) ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade
-            .newMMeasurementType(this.getId());
+            .newMMeasurementType(name,this.getId());
         super.store();
         
     }
     
+    public String getName() throws PersistenceException {
+        return this.name;
+    }
+    public void setName(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theMMeasurementTypeFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
+    }
     public PersistentMMeasurementType getThis() throws PersistenceException {
         if(this.This == null){
             PersistentMMeasurementType result = new MMeasurementTypeProxi(this.getId());
@@ -177,6 +199,7 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
 			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setType((PersistentMType)final$$Fields.get("type"));
 			this.setUnitType((PersistentAbsUnitType)final$$Fields.get("unitType"));
+			this.setName((String)final$$Fields.get("name"));
 		}
     }
     

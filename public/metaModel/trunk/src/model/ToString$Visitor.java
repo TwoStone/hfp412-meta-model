@@ -287,14 +287,13 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleMAccountType(final PersistentMAccountType mAccountType) throws PersistenceException {
-		// TODO Auto-generated method stub
+		this.result = mAccountType.getName();
 
 	}
 
 	@Override
 	public void handleMeasurement(final PersistentMeasurement measurement) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		this.result = measurement.getQuantity().toString();
 	}
 
 	@Override
@@ -317,19 +316,17 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleAccount(final PersistentAccount account) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		this.result = account.getName();
 	}
 
 	@Override
 	public void handleMMeasurementType(final PersistentMMeasurementType mMeasurementType) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		this.result = mMeasurementType.getName();
 	}
 
 	@Override
 	public void handleFormalParameter(final PersistentFormalParameter formalParameter) throws PersistenceException {
-		result = formalParameter.getName();
+		this.result = formalParameter.getName();
 	}
 
 	@Override
@@ -366,12 +363,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleActualParameter(final PersistentActualParameter actualParameter) throws PersistenceException {
-		result = actualParameter.getType().toString() + "=" + actualParameter.getValue().toString();
+		this.result = actualParameter.getType().toString() + "=" + actualParameter.getValue().toString();
 	}
 
 	@Override
 	public void handleLink(final PersistentLink link) throws PersistenceException {
-		result = link.getSource().toString() + "." + link.getType().getName() + ">>" + link.getTarget().toString();
+		this.result = link.getSource().toString() + "." + link.getType().getName() + ">>" + link.getTarget().toString();
 	}
 
 	@Override
@@ -391,17 +388,17 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleMessageManager(final PersistentMessageManager messageManager) throws PersistenceException {
-		result = "Liste der Nachrichten";
+		this.result = "Liste der Nachrichten";
 	}
 
 	@Override
 	public void handleOperationManager(final PersistentOperationManager operationManager) throws PersistenceException {
-		result = "Liste der Operationen";
+		this.result = "Liste der Operationen";
 	}
 
 	@Override
 	public void handleLinkManager(final PersistentLinkManager linkManager) throws PersistenceException {
-		result = "Liste der Links";
+		this.result = "Liste der Links";
 	}
 
 	@Override
@@ -418,32 +415,32 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleObjectManager(final PersistentObjectManager objectManager) throws PersistenceException {
-		result = "Objektwelt";
+		this.result = "Objektwelt";
 	}
 
 	@Override
 	public void handleNameSchemeInstance(final PersistentNameSchemeInstance nameSchemeInstance) throws PersistenceException {
-		result = nameSchemeInstance.getName();
+		this.result = nameSchemeInstance.getName();
 	}
 
 	@Override
 	public void handleNameScheme(final PersistentNameScheme nameScheme) throws PersistenceException {
-		result = nameScheme.getName();
+		this.result = nameScheme.getName();
 	}
 
 	@Override
 	public void handleNameInstance(final PersistentNameInstance nameInstance) throws PersistenceException {
-		result = nameInstance.getNameScheme().getName() + "(" + nameInstance.getNameScheme().getType().getName() + ")";
+		this.result = nameInstance.getNameScheme().getName() + "(" + nameInstance.getNameScheme().getType().getName() + ")";
 	}
 
 	@Override
 	public void handleNameSchemeManager(final PersistentNameSchemeManager nameSchemeManager) throws PersistenceException {
-		result = "Liste von Namensschemata";
+		this.result = "Liste von Namensschemata";
 	}
 
 	@Override
 	public void handleName(final PersistentName name) throws PersistenceException {
-		result = name.getFromType().getName() + "->" + name.getNameScheme().getName();
+		this.result = name.getFromType().getName() + "->" + name.getNameScheme().getName();
 	}
 
 	@Override
@@ -466,26 +463,22 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleMinStrategy(final PersistentMinStrategy minStrategy) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		this.result = "Minimum-Aggregations-Strategie";
 	}
 
 	@Override
 	public void handleAvgStrategy(final PersistentAvgStrategy avgStrategy) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		this.result = "Arithmetisches-Mittel-Aggregations-Strategie";
 	}
 
 	@Override
 	public void handleSumStrategy(final PersistentSumStrategy sumStrategy) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		this.result = "Summen-Aggregations-Strategie";
 	}
 
 	@Override
 	public void handleMaxStrategy(final PersistentMaxStrategy maxStrategy) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		this.result = "Maximum-Aggregations-Strategie";
 	}
 
 	@Override

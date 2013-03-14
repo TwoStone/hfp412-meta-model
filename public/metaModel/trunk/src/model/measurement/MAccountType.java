@@ -43,41 +43,45 @@ import utils.SearchLists;
 public class MAccountType extends model.measurement.MQuantiObjectType implements PersistentMAccountType{
     
     
-    public static PersistentMAccountType createMAccountType(PersistentMType type,PersistentAbsUnitType unitType) throws PersistenceException{
-        return createMAccountType(type,unitType,false);
+    public static PersistentMAccountType createMAccountType(PersistentMType type,PersistentAbsUnitType unitType,String name) throws PersistenceException{
+        return createMAccountType(type,unitType,name,false);
     }
     
-    public static PersistentMAccountType createMAccountType(PersistentMType type,PersistentAbsUnitType unitType,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentMAccountType createMAccountType(PersistentMType type,PersistentAbsUnitType unitType,String name,boolean delayed$Persistence) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMAccountType result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
-                .newDelayedMAccountType();
+                .newDelayedMAccountType(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
-                .newMAccountType(-1);
+                .newMAccountType(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("type", type);
         final$$Fields.put("unitType", unitType);
+        final$$Fields.put("name", name);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentMAccountType createMAccountType(PersistentMType type,PersistentAbsUnitType unitType,boolean delayed$Persistence,PersistentMAccountType This) throws PersistenceException {
+    public static PersistentMAccountType createMAccountType(PersistentMType type,PersistentAbsUnitType unitType,String name,boolean delayed$Persistence,PersistentMAccountType This) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentMAccountType result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
-                .newDelayedMAccountType();
+                .newDelayedMAccountType(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
-                .newMAccountType(-1);
+                .newMAccountType(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("type", type);
         final$$Fields.put("unitType", unitType);
+        final$$Fields.put("name", name);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -87,11 +91,17 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     java.util.Hashtable<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("name", this.getName());
             result.put("subAccountTypes", this.getSubAccountTypes().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
         return result;
+    }
+    
+    public static MAccountTypeSearchList getMAccountTypeByName(String name) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
+            .getMAccountTypeByName(name);
     }
     
     public MAccountType provideCopy() throws PersistenceException{
@@ -100,6 +110,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
                                   this.unitType, 
                                   this.This, 
                                   this.myCONCMModelItem, 
+                                  this.name, 
                                   this.getId());
         result.subAccountTypes = this.subAccountTypes.copy(result);
         this.copyingPrivateUserAttributes(result);
@@ -109,11 +120,13 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected String name;
     protected MAccountType_SubAccountTypesProxi subAccountTypes;
     
-    public MAccountType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,PersistentMModelItem myCONCMModelItem,long id) throws persistence.PersistenceException {
+    public MAccountType(PersistentMType type,PersistentAbsUnitType unitType,PersistentMQuantiObjectType This,PersistentMModelItem myCONCMModelItem,String name,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((PersistentMType)type,(PersistentAbsUnitType)unitType,(PersistentMQuantiObjectType)This,(PersistentMModelItem)myCONCMModelItem,id);
+        this.name = name;
         this.subAccountTypes = new MAccountType_SubAccountTypesProxi(this);        
     }
     
@@ -128,12 +141,20 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 166) ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade
-            .newMAccountType(this.getId());
+            .newMAccountType(name,this.getId());
         super.store();
         this.getSubAccountTypes().store();
         
     }
     
+    public String getName() throws PersistenceException {
+        return this.name;
+    }
+    public void setName(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theMAccountTypeFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
+    }
     public MAccountType_SubAccountTypesProxi getSubAccountTypes() throws PersistenceException {
         return this.subAccountTypes;
     }
@@ -230,6 +251,7 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
 			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setType((PersistentMType)final$$Fields.get("type"));
 			this.setUnitType((PersistentAbsUnitType)final$$Fields.get("unitType"));
+			this.setName((String)final$$Fields.get("name"));
 		}
     }
     public MAccountTypeSearchList inverseGetSubAccountTypes() 

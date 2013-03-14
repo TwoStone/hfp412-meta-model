@@ -51,41 +51,45 @@ import constants.ExceptionConstants;
 public class Account extends model.measurement.QuantifObject implements PersistentAccount{
     
     
-    public static PersistentAccount createAccount(PersistentMObject object,PersistentMAccountType type) throws PersistenceException{
-        return createAccount(object,type,false);
+    public static PersistentAccount createAccount(PersistentMObject object,PersistentMAccountType type,String name) throws PersistenceException{
+        return createAccount(object,type,name,false);
     }
     
-    public static PersistentAccount createAccount(PersistentMObject object,PersistentMAccountType type,boolean delayed$Persistence) throws PersistenceException {
+    public static PersistentAccount createAccount(PersistentMObject object,PersistentMAccountType type,String name,boolean delayed$Persistence) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentAccount result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
-                .newDelayedAccount();
+                .newDelayedAccount(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
-                .newAccount(-1);
+                .newAccount(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("object", object);
         final$$Fields.put("type", type);
+        final$$Fields.put("name", name);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static PersistentAccount createAccount(PersistentMObject object,PersistentMAccountType type,boolean delayed$Persistence,PersistentAccount This) throws PersistenceException {
+    public static PersistentAccount createAccount(PersistentMObject object,PersistentMAccountType type,String name,boolean delayed$Persistence,PersistentAccount This) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentAccount result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
-                .newDelayedAccount();
+                .newDelayedAccount(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
-                .newAccount(-1);
+                .newAccount(name,-1);
         }
         java.util.Hashtable<String,Object> final$$Fields = new java.util.Hashtable<String,Object>();
         final$$Fields.put("object", object);
         final$$Fields.put("type", type);
+        final$$Fields.put("name", name);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -106,10 +110,16 @@ public class Account extends model.measurement.QuantifObject implements Persiste
             }
             result.put("subAccounts", this.getSubAccounts().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
             result.put("entries", this.getEntries().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
+            result.put("name", this.getName());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
         }
         return result;
+    }
+    
+    public static AccountSearchList getAccountByName(String name) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theAccountFacade
+            .getAccountByName(name);
     }
     
     public Account provideCopy() throws PersistenceException{
@@ -118,6 +128,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
                              this.This, 
                              this.myCONCMModelItem, 
                              this.type, 
+                             this.name, 
                              this.getId());
         result.subAccounts = this.subAccounts.copy(result);
         result.entries = this.entries.copy(result);
@@ -131,13 +142,15 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     protected PersistentMAccountType type;
     protected Account_SubAccountsProxi subAccounts;
     protected Account_EntriesProxi entries;
+    protected String name;
     
-    public Account(PersistentMObject object,PersistentQuantifObject This,PersistentMModelItem myCONCMModelItem,PersistentMAccountType type,long id) throws persistence.PersistenceException {
+    public Account(PersistentMObject object,PersistentQuantifObject This,PersistentMModelItem myCONCMModelItem,PersistentMAccountType type,String name,long id) throws persistence.PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((PersistentMObject)object,(PersistentQuantifObject)This,(PersistentMModelItem)myCONCMModelItem,id);
         this.type = type;
         this.subAccounts = new Account_SubAccountsProxi(this);
-        this.entries = new Account_EntriesProxi(this);        
+        this.entries = new Account_EntriesProxi(this);
+        this.name = name;        
     }
     
     static public long getTypeId() {
@@ -151,7 +164,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 183) ConnectionHandler.getTheConnectionHandler().theAccountFacade
-            .newAccount(this.getId());
+            .newAccount(name,this.getId());
         super.store();
         if(this.getType() != null){
             this.getType().store();
@@ -181,6 +194,14 @@ public class Account extends model.measurement.QuantifObject implements Persiste
     }
     public Account_EntriesProxi getEntries() throws PersistenceException {
         return this.entries;
+    }
+    public String getName() throws PersistenceException {
+        return this.name;
+    }
+    public void setName(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theAccountFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
     }
     public PersistentAccount getThis() throws PersistenceException {
         if(this.This == null){
@@ -285,6 +306,7 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 			this.setMyCONCMModelItem(myCONCMModelItem);
 			this.setObject((PersistentMObject)final$$Fields.get("object"));
 			this.setType((PersistentMAccountType)final$$Fields.get("type"));
+			this.setName((String)final$$Fields.get("name"));
 		}
     }
     public AccountSearchList inverseGetSubAccounts() 

@@ -2,11 +2,21 @@ package model;
 
 import model.basic.MBoolean;
 import model.basic.MFalse;
+import model.measurement.AccountManager;
+import model.measurement.AccountTypeManager;
+import model.measurement.Measurement;
+import model.measurement.MeasurementTypeManager;
 import model.observations.EnumValueManager;
 import model.observations.EnumerationManager;
 import model.observations.ObsTypeManager;
 import model.observations.ObservationManager;
 import model.quantity.QuantityManager;
+import model.quantity.Unit;
+import model.quantity.UnitTypeManager;
+import model.typeSystem.MAspect;
+import model.typeSystem.MAtomicType;
+import model.typeSystem.MEmptyTypeConjunction;
+import model.typeSystem.ObjectManager;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -61,6 +71,7 @@ import persistence.PersistentMObject;
 import persistence.PersistentMObservation;
 import persistence.PersistentMObservationType;
 import persistence.PersistentMType;
+import persistence.PersistentMeasurement;
 import persistence.PersistentMeasurementTypeManager;
 import persistence.PersistentMessageManager;
 import persistence.PersistentName;
@@ -661,6 +672,11 @@ public class Server extends PersistentObject implements PersistentServer{
 				getAspect().
 				getTypes());
     }
+    public MObjectSearchList object_Path_In_CreateAccount() 
+				throws model.UserException, PersistenceException{
+        		return new MObjectSearchList(getThis().getObjectManager().
+				getObjects().getList());
+    }
     public MObjectSearchList object_Path_In_CreateEntry() 
 				throws model.UserException, PersistenceException{
         		return new MObjectSearchList(getThis().getObjectManager().
@@ -925,7 +941,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createEntry(final PersistentAccount account, final PersistentMObject object, final PersistentMMeasurementType measurementType, final PersistentQuantity quantity) 
 				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: createEntry
+		account.addEntry(Measurement.createMeasurement(object, measurementType, quantity));
 	}
     public void createEnumValue(final PersistentMEnum type, final String name) 
 				throws PersistenceException{
@@ -1218,51 +1234,18 @@ public class Server extends PersistentObject implements PersistentServer{
     public void initializeOnCreation() 
 				throws PersistenceException{
 		try {
-			demoUnits();
-			demoTypes();
+			this.demoUnits();
+			this.demoTypes();
+			this.demoMeasurement();
 		} catch (final DoubleDefinitionException e) {
-			System.err.println("Fehler bei der Initialisierung des Servers!");
-		}
-		/*
-		 * try { final String weightUnitTypeText = "Gewicht"; final String kilogramText = "kg";
-		 * 
-		 * getThis().getUnitTypeManager().createUnitType(weightUnitTypeText);
-		 * getThis().getUnitTypeManager().createUnitType("Währung");
-		 * getThis().getUnitTypeManager().createUnitType("Strecke");
-		 * getThis().getUnitTypeManager().createUnitType("Zeit");
-		 * 
-		 * PersistentAbsUnitType weight = UnitType.getAbsUnitTypeByName(weightUnitTypeText).iterator().next();
-		 * getThis().getUnitTypeManager().createUnit(kilogramText, (PersistentUnitType) weight);
-		 * 
-		 * PersistentAbsUnit kilogram = Unit.getAbsUnitByName(kilogramText).iterator().next();
-		 * getThis().getQuantityManager().createQuantity(kilogram, Fraction.parse("10/1"));
-		 * getThis().getQuantityManager().createQuantity(kilogram, Fraction.parse("2/1"));
-		 * 
-		 * } catch (DoubleDefinitionException e1) { System.err.println("Fehler bei der Initialisierung des Servers!"); }
-		 * 
-		 * try { PersistentMAspect aspect1 = getThis().getAspectManager().createAspect("Aspekt1"); PersistentMAtomicType
-		 * a = getThis().getTypeManager().createAtomicRootType(aspect1, "A", MFalse.getTheMFalse(),
-		 * MFalse.getTheMFalse()); PersistentMAtomicType b = getThis().getTypeManager().createAtomicRootType(aspect1,
-		 * "B", MFalse.getTheMFalse(), MFalse.getTheMFalse());
-		 * 
-		 * PersistentMAtomicType c = getThis().getTypeManager().createAtomicSubType(a, "C", MFalse.getTheMFalse(),
-		 * MFalse.getTheMFalse()); PersistentMAspect aspect2 = getThis().getAspectManager().createAspect("Aspekt2");
-		 * 
-		 * PersistentMAspect genderAspect = getThis().getAspectManager().createAspect("Geschlecht");
-		 * 
-		 * getThis().getTypeManager().createAtomicRootType(genderAspect, "maennlich", MTrue.getTheMTrue(),
-		 * MFalse.getTheMFalse()); getThis().getTypeManager().createAtomicRootType(genderAspect, "weiblich",
-		 * MTrue.getTheMTrue(), MFalse.getTheMFalse());
-		 * 
-		 * MTypeSearchList addends = new MTypeSearchList(); addends.add(a); addends.add(b);
-		 * 
-		 * getThis().getTypeManager().createTypeDisjunction(addends); // TODO TEST Das sollte jetzt eigentlich nicht
-		 * gehen! // TODO getThis().getTypeManager().createProductType(addends);
-		 * 
-		 * } catch (ConsistencyException e) { System.err.println("Fehler bei der Initialisierung des Servers!"); }
-		 */catch (final ConsistencyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.err.println("Fehler bei der Initialisierung des Servers!");
+		} catch (final ConsistencyException e) {
+			e.printStackTrace();
+			System.err.println("Fehler bei der Initialisierung des Servers!");
+		} catch (final CycleException e) {
+			e.printStackTrace();
+			System.err.println("Fehler bei der Initialisierung des Servers!");
 		}
 
 	}
@@ -1342,14 +1325,43 @@ public class Server extends PersistentObject implements PersistentServer{
 		final PersistentUnitType distance = getThis().getUnitTypeManager().createUnitType("Strecke");
 		final PersistentUnit meter = getThis().getUnitTypeManager().createUnit("m", distance);
 
-		final PersistentQuantity q_3_m = QuantityManager.getTheQuantityManager().createQuantity(meter, Fraction.parse("3"));
-		final PersistentQuantity q_2_m = QuantityManager.getTheQuantityManager().createQuantity(meter, Fraction.parse("2"));
-
+		QuantityManager.getTheQuantityManager().createQuantity(meter, Fraction.parse("3"));
+		QuantityManager.getTheQuantityManager().createQuantity(meter, Fraction.parse("2"));
 	}
 
 	private void demoTypes() throws ConsistencyException, PersistenceException {
 		final PersistentMAspect aspect = getAspectManager().createAspect("Aspect1");
 		getTypeManager().createAtomicRootType(aspect, "AT1", MFalse.getTheMFalse(), MFalse.getTheMFalse());
+	}
+
+	private void demoMeasurement() throws CycleException, PersistenceException, ConsistencyException, DoubleDefinitionException {
+		final PersistentMAspect aspect1 = MAspect.createMAspect("Bankkunde");
+		final PersistentMAtomicType type = MAtomicType.createMAtomicType("Person", MFalse.getTheMFalse(), MFalse.getTheMFalse(), aspect1,
+				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
+		final PersistentUnitType unitType1 = UnitTypeManager.getTheUnitTypeManager().createUnitType("Währung");
+
+		final PersistentMAccountType accType1 = AccountTypeManager.getTheAccountTypeManager().createAccountType("Bankkonto", type, unitType1);
+
+		final PersistentMObject obj1 = ObjectManager.getTheObjectManager().createMObject(type, new MAtomicTypeSearchList());
+		final PersistentMObject obj2 = ObjectManager.getTheObjectManager().createMObject(type, new MAtomicTypeSearchList());
+
+		final PersistentAccount account = AccountManager.getTheAccountManager().createAccount("Björns Konto", accType1, obj1);
+
+		final PersistentUnit unit = Unit.createUnit(unitType1, "Euro");
+		unitType1.setDefaultUnit(unit);
+		final PersistentQuantity quantity1_3Euro = QuantityManager.getTheQuantityManager().createQuantity(unit, Fraction.parse("1/3"));
+		final PersistentQuantity quantity4_3Euro = QuantityManager.getTheQuantityManager().createQuantity(unit, Fraction.parse("4/3"));
+		final PersistentQuantity quantity2_3Euro = QuantityManager.getTheQuantityManager().createQuantity(unit, Fraction.parse("2/3"));
+
+		final PersistentMMeasurementType msmntType1 = MeasurementTypeManager.getTheMeasurementTypeManager().createMeasurementType("Buchung", type,
+				unitType1);
+		final PersistentMeasurement measurement1_3Euro = Measurement.createMeasurement(obj2, msmntType1, quantity1_3Euro);
+		final PersistentMeasurement measurement4_3Euro = Measurement.createMeasurement(obj2, msmntType1, quantity4_3Euro);
+		final PersistentMeasurement measurement2_3Euro = Measurement.createMeasurement(obj2, msmntType1, quantity2_3Euro);
+
+		account.addEntry(measurement1_3Euro);
+		account.addEntry(measurement4_3Euro);
+		account.addEntry(measurement2_3Euro);
 	}
 
 	/* End of protected part that is not overridden by persistence generator */

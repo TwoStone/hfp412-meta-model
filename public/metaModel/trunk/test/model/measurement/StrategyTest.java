@@ -55,14 +55,14 @@ public class StrategyTest extends TestingBase {
 		final PersistentMType type = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1, MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Strecke");
 
-		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1);
+		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
 
 		final PersistentSumStrategy sumStrategy = SumStrategy.createSumStrategy();
 
 		final PersistentMObject obj1 = MObject.createMObject();
 		final PersistentMObject obj2 = MObject.createMObject();
 
-		final PersistentAccount account = Account.createAccount(obj1, accType1);
+		final PersistentAccount account = Account.createAccount(obj1, accType1, "jau");
 
 		final PersistentUnit unit = Unit.createUnit(unitType1, "cm");
 		unitType1.setDefaultUnit(unit);
@@ -70,7 +70,7 @@ public class StrategyTest extends TestingBase {
 		final PersistentQuantity quantity2 = Quantity.createQuantity(Fraction.parse("4/3"), unit);
 		final PersistentQuantity quantity3 = Quantity.createQuantity(Fraction.parse("2/3"), unit);
 
-		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1);
+		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1, "jau");
 		final PersistentMeasurement msmnt1 = Measurement.createMeasurement(obj2, msmntType1, quantity1);
 		final PersistentMeasurement msmnt2 = Measurement.createMeasurement(obj2, msmntType1, quantity2);
 		final PersistentMeasurement msmnt3 = Measurement.createMeasurement(obj2, msmntType1, quantity3);
@@ -95,14 +95,14 @@ public class StrategyTest extends TestingBase {
 		final PersistentMType type = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1, MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Strecke");
 
-		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1);
+		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
 
 		final PersistentMinStrategy minStrategy = MinStrategy.createMinStrategy();
 
 		final PersistentMObject obj1 = MObject.createMObject();
 		final PersistentMObject obj2 = MObject.createMObject();
 
-		final PersistentAccount account = Account.createAccount(obj1, accType1);
+		final PersistentAccount account = Account.createAccount(obj1, accType1, "jau");
 
 		final PersistentUnit unit = Unit.createUnit(unitType1, "cm");
 		unitType1.setDefaultUnit(unit);
@@ -110,7 +110,7 @@ public class StrategyTest extends TestingBase {
 		final PersistentQuantity quantity2 = Quantity.createQuantity(Fraction.parse("4/3"), unit);
 		final PersistentQuantity quantity3 = Quantity.createQuantity(Fraction.parse("2/3"), unit);
 
-		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1);
+		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1, "jau");
 		final PersistentMeasurement msmnt1 = Measurement.createMeasurement(obj2, msmntType1, quantity1);
 		final PersistentMeasurement msmnt2 = Measurement.createMeasurement(obj2, msmntType1, quantity2);
 		final PersistentMeasurement msmnt3 = Measurement.createMeasurement(obj2, msmntType1, quantity3);
@@ -135,14 +135,14 @@ public class StrategyTest extends TestingBase {
 		final PersistentMType type = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1, MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Strecke");
 
-		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1);
+		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
 
 		final PersistentMaxStrategy maxStrategy = MaxStrategy.createMaxStrategy();
 
 		final PersistentMObject obj1 = MObject.createMObject();
 		final PersistentMObject obj2 = MObject.createMObject();
 
-		final PersistentAccount account = Account.createAccount(obj1, accType1);
+		final PersistentAccount account = Account.createAccount(obj1, accType1, "jau");
 
 		final PersistentUnit unit = Unit.createUnit(unitType1, "cm");
 		unitType1.setDefaultUnit(unit);
@@ -150,7 +150,7 @@ public class StrategyTest extends TestingBase {
 		final PersistentQuantity quantity2 = Quantity.createQuantity(Fraction.parse("4/3"), unit);
 		final PersistentQuantity quantity3 = Quantity.createQuantity(Fraction.parse("2/3"), unit);
 
-		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1);
+		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1, "jau");
 		final PersistentMeasurement msmnt1 = Measurement.createMeasurement(obj2, msmntType1, quantity1);
 		final PersistentMeasurement msmnt2 = Measurement.createMeasurement(obj2, msmntType1, quantity2);
 		final PersistentMeasurement msmnt3 = Measurement.createMeasurement(obj2, msmntType1, quantity3);
@@ -174,14 +174,14 @@ public class StrategyTest extends TestingBase {
 		final PersistentMType type = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1, MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Strecke");
 
-		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1);
+		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
 
 		final PersistentAvgStrategy avgStrategy = AvgStrategy.createAvgStrategy();
 
 		final PersistentMObject obj1 = MObject.createMObject();
 		final PersistentMObject obj2 = MObject.createMObject();
 
-		final PersistentAccount account = Account.createAccount(obj1, accType1);
+		final PersistentAccount account = Account.createAccount(obj1, accType1, "jau");
 
 		final PersistentUnit unit = Unit.createUnit(unitType1, "cm");
 		unitType1.setDefaultUnit(unit);
@@ -189,7 +189,7 @@ public class StrategyTest extends TestingBase {
 		final PersistentQuantity quantity2 = Quantity.createQuantity(Fraction.parse("4/3"), unit);
 		final PersistentQuantity quantity3 = Quantity.createQuantity(Fraction.parse("2/3"), unit);
 
-		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1);
+		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1, "jau");
 		final PersistentMeasurement msmnt1 = Measurement.createMeasurement(obj2, msmntType1, quantity1);
 		final PersistentMeasurement msmnt2 = Measurement.createMeasurement(obj2, msmntType1, quantity2);
 		final PersistentMeasurement msmnt3 = Measurement.createMeasurement(obj2, msmntType1, quantity3);

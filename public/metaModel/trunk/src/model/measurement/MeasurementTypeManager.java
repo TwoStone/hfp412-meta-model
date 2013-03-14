@@ -12,6 +12,7 @@ import persistence.MeasurementTypeManagerProxi;
 import persistence.MeasurementTypeManager_MeasurementTypesProxi;
 import persistence.PersistenceException;
 import persistence.PersistentCreateMeasurementTypeCommand;
+import persistence.PersistentMMeasurementType;
 import persistence.PersistentMType;
 import persistence.PersistentMeasurementTypeManager;
 import persistence.PersistentObject;
@@ -174,9 +175,11 @@ public class MeasurementTypeManager extends PersistentObject implements Persiste
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public void createMeasurementType(final String name, final PersistentMType type, final PersistentUnitType unitType) 
+    public PersistentMMeasurementType createMeasurementType(final String name, final PersistentMType type, final PersistentUnitType unitType) 
 				throws PersistenceException{
-		this.getThis().getMeasurementTypes().add(MMeasurementType.createMMeasurementType(type, unitType));
+		final PersistentMMeasurementType result = MMeasurementType.createMMeasurementType(type, unitType, name);
+		this.getThis().getMeasurementTypes().add(result);
+		return result;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -192,15 +195,7 @@ public class MeasurementTypeManager extends PersistentObject implements Persiste
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
 
-	
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

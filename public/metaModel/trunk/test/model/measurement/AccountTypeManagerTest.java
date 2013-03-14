@@ -37,11 +37,11 @@ public class AccountTypeManagerTest extends TestingBase {
 				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
 		final PersistentUnitType unitType1 = UnitType.createUnitType("Zeit");
 
-		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type1, unitType1);
+		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type1, unitType1, "jau");
 
 		final PersistentMObject obj1 = MObject.createMObject();
 
-		Account.createAccount(obj1, accType1);
+		Account.createAccount(obj1, accType1, "jau");
 
 		accType1.delete();
 		fail("Es existieren Exemplare!");

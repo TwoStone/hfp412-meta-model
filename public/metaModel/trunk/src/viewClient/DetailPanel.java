@@ -1346,11 +1346,19 @@ class MMeasurementTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MQuantiObjectType$$type = "MQuantiObjectType$$type";
     protected static final String MQuantiObjectType$$unitType = "MQuantiObjectType$$unitType";
+    protected static final String MMeasurementType$$name = "MMeasurementType$$name";
     
     protected MMeasurementTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MMeasurementType$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
         
     }
     protected view.MMeasurementTypeView getAnything(){
@@ -1812,12 +1820,20 @@ class MAccountTypeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String MQuantiObjectType$$type = "MQuantiObjectType$$type";
     protected static final String MQuantiObjectType$$unitType = "MQuantiObjectType$$unitType";
+    protected static final String MAccountType$$name = "MAccountType$$name";
     protected static final String MAccountType$$subAccountTypes = "MAccountType$$subAccountTypes";
     
     protected MAccountTypeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(MAccountType$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
         
     }
     protected view.MAccountTypeView getAnything(){
@@ -2085,11 +2101,19 @@ class AccountDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Account$$type = "Account$$type";
     protected static final String Account$$subAccounts = "Account$$subAccounts";
     protected static final String Account$$entries = "Account$$entries";
+    protected static final String Account$$name = "Account$$name";
     
     protected AccountDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().add(panel);
+            this.panels.put(Account$$name, panel);
+        }catch(view.ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
         
     }
     protected view.AccountView getAnything(){

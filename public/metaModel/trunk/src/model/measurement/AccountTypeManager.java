@@ -13,6 +13,7 @@ import persistence.Invoker;
 import persistence.PersistenceException;
 import persistence.PersistentAccountTypeManager;
 import persistence.PersistentCreateAccountTypeCommand;
+import persistence.PersistentMAccountType;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
@@ -175,9 +176,11 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
 				throws PersistenceException{
 
 	}
-    public void createAccountType(final String name, final PersistentMType type, final PersistentUnitType unitType) 
+    public PersistentMAccountType createAccountType(final String name, final PersistentMType type, final PersistentUnitType unitType) 
 				throws PersistenceException{
-		this.getThis().getAccountTypes().add(MAccountType.createMAccountType(type, unitType));
+		final PersistentMAccountType result = MAccountType.createMAccountType(type, unitType, name);
+		this.getThis().getAccountTypes().add(result);
+		return result;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{

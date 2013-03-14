@@ -126,7 +126,7 @@ server Server {
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
 	void createAccountType@@Kontotyp_anlegen(AccountTypeManager accountTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
 	void addSubAccountType@@Kontotyp_unterordnen(MAccountType parent, MAccountType child) throws CycleException;
-	void createAccount@@Konto_anlegen(AccountManager accountManager, String name, MAccountType type {accountTypeManager;accountTypes}, MObject object);
+	void createAccount@@Konto_anlegen(AccountManager accountManager, String name, MAccountType type {accountTypeManager;accountTypes}, MObject object {objectManager;objects});
 	void addSubAccount@@Konto_unterordnen(Account parent, Account child) throws CycleException;
 	void createEntry@@Eintrag_anlegen(Account account, MObject object{objectManager;objects}, MMeasurementType measurementType{measurementTypeManager;measurementTypes}, Quantity quantity{quantityManager;quantities}) throws ConsistencyException;
 
@@ -677,17 +677,17 @@ part measurement {
 
 singleton MeasurementTypeManager##MsrmntTpMng {
 	MMeasurementType** measurementTypes;
-	active void createMeasurementType(String name, MType type, UnitType unitType);
+	active MMeasurementType createMeasurementType(String name, MType type, UnitType unitType);
 }
 
 singleton AccountTypeManager {
 	MAccountType** accountTypes;
-	active void createAccountType(String name, MType type, UnitType unitType);
+	active MAccountType createAccountType(String name, MType type, UnitType unitType);
 }
 
 singleton AccountManager {
 	Account** accounts;
-	active void createAccount(String name, MAccountType type, MObject object);
+	active Account createAccount(String name, MAccountType type, MObject object);
 }
 
 abstract class MQuantiObjectType@@QuantifiedObjectType covers MModelItem {
@@ -696,10 +696,12 @@ abstract class MQuantiObjectType@@QuantifiedObjectType covers MModelItem {
 }
 
 class MMeasurementType@@MeasurementType extends MQuantiObjectType {
+	prior indexed String name; 
 }
 
 
 class MAccountType@@AccountType extends MQuantiObjectType {
+	prior indexed String name; 
 	symmetric MAccountType** subAccountTypes hierarchy MAccountTypeHierarchy;
 	active void addSubAccountType##addSbAccTyp(MAccountType accountType) throws CycleException;
 }
@@ -712,7 +714,6 @@ abstract class QuantifObject@@QuantifiedObject covers MModelItem {
 
 class Measurement extends QuantifObject {
 	symmetric prior MMeasurementType type;
-	// TODO: Eventuell erst spaeter, wenn der Type feststeht, die Quantitaet setzen?
 	prior AbsQuantity quantity;
 }
 
@@ -720,6 +721,7 @@ class Account extends QuantifObject {
 	symmetric prior MAccountType type;
 	symmetric Account** subAccounts hierarchy AccountHierarchy;
 	Measurement** entries;
+	prior indexed String name; 
 	active void addSubAccount(Account account) throws CycleException, ConsistencyException;
 	active void addEntry(Measurement measurement) throws ConsistencyException;
 }

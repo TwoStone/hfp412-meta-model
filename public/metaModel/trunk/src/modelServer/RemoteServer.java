@@ -184,6 +184,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> object_Path_In_CreateAccount(){
+        try {
+            MObjectSearchList result = ((PersistentServer)this.server).object_Path_In_CreateAccount();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> object_Path_In_CreateEntry(){
         try {
             MObjectSearchList result = ((PersistentServer)this.server).object_Path_In_CreateEntry();

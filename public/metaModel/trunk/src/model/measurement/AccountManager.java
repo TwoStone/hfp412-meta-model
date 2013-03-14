@@ -11,6 +11,7 @@ import persistence.Anything;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
 import persistence.PersistenceException;
+import persistence.PersistentAccount;
 import persistence.PersistentAccountManager;
 import persistence.PersistentCreateAccountCommand;
 import persistence.PersistentMAccountType;
@@ -174,9 +175,11 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
 	}
-    public void createAccount(final String name, final PersistentMAccountType type, final PersistentMObject object) 
+    public PersistentAccount createAccount(final String name, final PersistentMAccountType type, final PersistentMObject object) 
 				throws PersistenceException{
-		this.getThis().getAccounts().add(Account.createAccount(object, type));
+		final PersistentAccount result = Account.createAccount(object, type, name);
+		this.getThis().getAccounts().add(result);
+		return result;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -192,15 +195,7 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
 
-	
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }
