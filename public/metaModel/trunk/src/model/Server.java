@@ -11,7 +11,6 @@ import model.observations.EnumerationManager;
 import model.observations.ObsTypeManager;
 import model.observations.ObservationManager;
 import model.quantity.QuantityManager;
-import model.quantity.Unit;
 import model.quantity.UnitTypeManager;
 import model.typeSystem.MAspect;
 import model.typeSystem.MAtomicType;
@@ -951,7 +950,11 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createEntry(final PersistentAccount account, final PersistentMObject object, final PersistentMMeasurementType measurementType, final PersistentQuantity quantity) 
 				throws model.ConsistencyException, PersistenceException{
-		account.addEntry(Measurement.createMeasurement(object, measurementType, quantity));
+		// try {
+		account.addEntry(Measurement.createMeasurement(object, measurementType, quantity), getThis());
+		// } catch (final Throwable e) {
+		// e.printStackTrace();
+		// }
 	}
     public void createEnumValue(final PersistentMEnum type, final String name) 
 				throws PersistenceException{
@@ -1361,8 +1364,8 @@ public class Server extends PersistentObject implements PersistentServer{
 
 		final PersistentAccount account = AccountManager.getTheAccountManager().createAccount("Hugos Konto", accType1, obj1);
 
-		final PersistentUnit unit = Unit.createUnit(unitType1, "Euro");
-		unitType1.setDefaultUnit(unit);
+		final PersistentUnit unit = UnitTypeManager.getTheUnitTypeManager().createUnit("Euro", unitType1);
+		this.getThis().getUnitTypeManager().setDefaultUnit(unitType1, unit);
 		final PersistentQuantity quantity1_3Euro = QuantityManager.getTheQuantityManager().createQuantity(unit, Fraction.parse("1/3"));
 		final PersistentQuantity quantity4_3Euro = QuantityManager.getTheQuantityManager().createQuantity(unit, Fraction.parse("4/3"));
 		final PersistentQuantity quantity2_3Euro = QuantityManager.getTheQuantityManager().createQuantity(unit, Fraction.parse("2/3"));

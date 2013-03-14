@@ -1,7 +1,5 @@
 package model.measurement;
 
-import model.ConsistencyException;
-import model.NotComputableException;
 import model.UserException;
 import model.visitor.AbsQuantityReturnVisitor;
 import model.visitor.AnythingExceptionVisitor;
@@ -273,7 +271,7 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-		// PrÃ¼fen, ob m aus Measurement : m.quantity.unit.type = m.type.unitType
+		// Prüfen, ob m aus Measurement : m.quantity.unit.type = m.type.unitType
 		final PersistentAbsUnitType unitType = this.getThis().getQuantity().accept(new AbsQuantityReturnVisitor<PersistentAbsUnitType>() {
 			@Override
 			public PersistentAbsUnitType handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
@@ -291,7 +289,7 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 			}
 		});
 		if (!this.getThis().getType().getUnitType().equals(unitType)) {
-			throw new Error(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY);
+			throw new PersistenceException(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY, 0);
 		}
 	}
     public void initializeOnInstantiation() 
@@ -314,14 +312,12 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 	}
     public void delete() 
 				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: delete
-        
-    }
+		// TODO: implement method: delete
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }
