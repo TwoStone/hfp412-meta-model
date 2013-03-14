@@ -23,6 +23,7 @@ import persistence.PersistentAddition;
 import persistence.PersistentCompUnit;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentConversion;
+import persistence.PersistentConvertAmountCommand;
 import persistence.PersistentConvertCommand;
 import persistence.PersistentCreateQuantityCommand;
 import persistence.PersistentDivCommand;
@@ -228,6 +229,17 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	// Start of section that contains operations that must be implemented.
 
 	@Override
+	public void convertAmount(final PersistentQuantity quantity, final PersistentAbsUnit unit, final Invoker invoker) throws PersistenceException {
+		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		final PersistentConvertAmountCommand command = model.meta.ConvertAmountCommand.createConvertAmountCommand(common.Fraction.Null, now, now);
+		command.setQuantity(quantity);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+	}
+
+	@Override
 	public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit, final Invoker invoker) throws PersistenceException {
 		final java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
 		final PersistentConvertCommand command = model.meta.ConvertCommand.createConvertCommand(now, now);
@@ -299,7 +311,8 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
-	public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) throws model.NotComputableException, PersistenceException {
+	public common.Fraction convertAmount(final PersistentQuantity quantity, final PersistentAbsUnit unit) throws model.NotComputableException,
+			PersistenceException {
 		if (!(quantity.getUnit().getType().equals(unit.getType()))) {
 			throw new NotComputableException(ExceptionConstants.WRONG_UNIT_TYPE_FOR_CONVERSION);
 		}
@@ -357,9 +370,14 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 				return amount;
 			}
 		});
+		return resultAmount;
+	}
+
+	@Override
+	public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) throws model.NotComputableException, PersistenceException {
+		final Fraction resultAmount = getThis().convertAmount(quantity, unit);
 		quantity.setAmount(resultAmount);
 		quantity.setUnit(unit);
-
 	}
 
 	@Override

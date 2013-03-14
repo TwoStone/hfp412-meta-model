@@ -537,6 +537,7 @@ part quantity {
 		active Quantity createQuantity(AbsUnit unit, Fraction amount);
 		AbsQuantity invertSign(AbsQuantity absQuantity);
 		active void convert(Quantity quantity, AbsUnit unit) throws NotComputableException;
+		active Fraction convertAmount(Quantity quantity, AbsUnit unit) throws NotComputableException;
 
 		active AbsQuantity add(AbsQuantity summand1, AbsQuantity summand2) throws NotComputableException;
 		active AbsQuantity sub(AbsQuantity minuend, AbsQuantity subtrahend) throws NotComputableException;
