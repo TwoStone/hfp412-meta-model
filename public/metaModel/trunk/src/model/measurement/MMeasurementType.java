@@ -27,6 +27,7 @@ import persistence.PersistentMModelItem;
 import persistence.PersistentMQuantiObjectType;
 import persistence.PersistentMType;
 import persistence.TDObserver;
+import utils.SearchLists;
 
 /* Additional import section end */
 
@@ -220,13 +221,12 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-		// TODO: implement method: fetchDependentItems
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		final MModelItemSearchList result = new MModelItemSearchList();
+
+		// Exemplare
+		SearchLists.addSecondToFirst(result, getThis().inverseGetType());
+
+		return result;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -247,16 +247,9 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
     
     // Start of section that contains overridden operations only.
     
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: delete
-        
-    }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

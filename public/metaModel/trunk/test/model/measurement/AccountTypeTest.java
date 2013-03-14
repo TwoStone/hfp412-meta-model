@@ -22,7 +22,7 @@ import persistence.PersistentUnitType;
 import util.InjectSingleton;
 import util.TestingBase;
 
-public class AccountTypeManagerTest extends TestingBase {
+public class AccountTypeTest extends TestingBase {
 
 	@InjectSingleton(AccountManager.class)
 	private PersistentAccountManager accountMan;

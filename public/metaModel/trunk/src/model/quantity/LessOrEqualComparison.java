@@ -34,8 +34,7 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 
 	/** Throws persistence exception if the object with the given id does not exist. */
 	public static PersistentLessOrEqualComparison getById(final long objectId) throws PersistenceException {
-		final long classId = ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade
-				.getClass(objectId);
+		final long classId = ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade.getClass(objectId);
 		return (PersistentLessOrEqualComparison) PersistentProxi.createProxi(objectId, classId);
 	}
 
@@ -43,16 +42,13 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 		return createLessOrEqualComparison(false);
 	}
 
-	public static PersistentLessOrEqualComparison createLessOrEqualComparison(final boolean delayed$Persistence)
-			throws PersistenceException {
+	public static PersistentLessOrEqualComparison createLessOrEqualComparison(final boolean delayed$Persistence) throws PersistenceException {
 		PersistentLessOrEqualComparison result = null;
 		if (delayed$Persistence) {
-			result = ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade
-					.newDelayedLessOrEqualComparison();
+			result = ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade.newDelayedLessOrEqualComparison();
 			result.setDelayed$Persistence(true);
 		} else {
-			result = ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade
-					.newLessOrEqualComparison(-1);
+			result = ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade.newLessOrEqualComparison(-1);
 		}
 		final java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
 		result.initialize(result, final$$Fields);
@@ -64,12 +60,10 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 			final PersistentLessOrEqualComparison This) throws PersistenceException {
 		PersistentLessOrEqualComparison result = null;
 		if (delayed$Persistence) {
-			result = ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade
-					.newDelayedLessOrEqualComparison();
+			result = ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade.newDelayedLessOrEqualComparison();
 			result.setDelayed$Persistence(true);
 		} else {
-			result = ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade
-					.newLessOrEqualComparison(-1);
+			result = ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade.newLessOrEqualComparison(-1);
 		}
 		final java.util.Hashtable<String, Object> final$$Fields = new java.util.Hashtable<String, Object>();
 		result.initialize(This, final$$Fields);
@@ -78,9 +72,8 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 	}
 
 	@Override
-	public java.util.Hashtable<String, Object> toHashtable(final java.util.Hashtable<String, Object> allResults,
-			final int depth, final int essentialLevel, final boolean forGUI, final boolean leaf,
-			final TDObserver tdObserver) throws PersistenceException {
+	public java.util.Hashtable<String, Object> toHashtable(final java.util.Hashtable<String, Object> allResults, final int depth,
+			final int essentialLevel, final boolean forGUI, final boolean leaf, final TDObserver tdObserver) throws PersistenceException {
 		java.util.Hashtable<String, Object> result = null;
 		if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth) {
 			result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
@@ -150,8 +143,7 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 		if (!this.isDelayed$Persistence())
 			return;
 		if (this.getClassId() == -380)
-			ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade.newLessOrEqualComparison(this
-					.getId());
+			ConnectionHandler.getTheConnectionHandler().theLessOrEqualComparisonFacade.newLessOrEqualComparison(this.getId());
 		super.store();
 
 	}
@@ -223,14 +215,12 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 	}
 
 	@Override
-	public <E extends UserException> void accept(final AnythingExceptionVisitor<E> visitor)
-			throws PersistenceException, E {
+	public <E extends UserException> void accept(final AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
 		visitor.handleLessOrEqualComparison(this);
 	}
 
 	@Override
-	public <R, E extends UserException> R accept(final AnythingReturnExceptionVisitor<R, E> visitor)
-			throws PersistenceException, E {
+	public <R, E extends UserException> R accept(final AnythingReturnExceptionVisitor<R, E> visitor) throws PersistenceException, E {
 		return visitor.handleLessOrEqualComparison(this);
 	}
 
@@ -244,15 +234,41 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 	}
 
 	@Override
-	public void initializeOnInstantiation() throws PersistenceException {
-		// TODO: implement method: initializeOnInstantiation
-
+	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields) throws PersistenceException {
+		this.setThis((PersistentLessOrEqualComparison) This);
+		if (this.equals(This)) {
+		}
 	}
 
-	@Override
-	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
-		// TODO: implement method: copyingPrivateUserAttributes
+	// Start of section that contains operations that must be implemented.
 
+	@Override
+	public PersistentMBoolean compareAtomar(final PersistentQuantity arg1, final PersistentQuantity arg2) throws model.NotComputableException,
+			PersistenceException {
+
+		return null;
+		// TODO Kann weg, auch in GOJA
+
+		// PersistentMBoolean result = MFalse.getTheMFalse();
+		// if (arg1.getUnit().getType().equals(arg2.getUnit().getType())) {
+		// if (arg1.getUnit().equals(arg2.getUnit())) {
+		// try {
+		// result = arg1.getAmount().isLessOrEqual(arg2.getAmount());
+		// } catch (final Throwable e) {
+		// throw new model.NotComputableException(e.getMessage());
+		// }
+		// } else {
+		// QuantityManager.getTheQuantityManager().convert(arg1, arg2.getUnit());
+		// try {
+		// return arg1.getAmount().isLessOrEqual(arg2.getAmount());
+		// } catch (final Throwable e) {
+		// throw new model.NotComputableException(e.getMessage());
+		// }
+		// }
+		// } else {
+		// throw new model.NotComputableException(ExceptionConstants.NOT_COMPARABLE_UT);
+		// }
+		// return result;
 	}
 
 	@Override
@@ -264,15 +280,8 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 	}
 
 	@Override
-	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields)
-			throws PersistenceException {
-		this.setThis((PersistentLessOrEqualComparison) This);
-		if (this.equals(This)) {
-		}
-	}
-
-	@Override
-	public PersistentMBoolean compareMixed(final PersistentCompoundQuantity comp, final PersistentQuantity atom) {
+	public PersistentMBoolean compareMixed(final PersistentCompoundQuantity comp, final PersistentQuantity atom) throws model.NotComputableException,
+			PersistenceException {
 
 		return null;
 		// TODO Kann weg, auch in GOJA
@@ -308,12 +317,6 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 		// } catch (final Throwable e) {
 		// return null;
 		// }
-	}
-
-	@Override
-	public void initializeOnCreation() throws PersistenceException {
-		// TODO: implement method: initializeOnCreation
-
 	}
 
 	@Override
@@ -399,33 +402,24 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 	}
 
 	@Override
-	public PersistentMBoolean compareAtomar(final PersistentQuantity arg1, final PersistentQuantity arg2)
-			throws model.NotComputableException, PersistenceException {
+	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
+		// TODO: implement method: copyingPrivateUserAttributes
 
-		return null;
-		// TODO Kann weg, auch in GOJA
-
-		// PersistentMBoolean result = MFalse.getTheMFalse();
-		// if (arg1.getUnit().getType().equals(arg2.getUnit().getType())) {
-		// if (arg1.getUnit().equals(arg2.getUnit())) {
-		// try {
-		// result = arg1.getAmount().isLessOrEqual(arg2.getAmount());
-		// } catch (final Throwable e) {
-		// throw new model.NotComputableException(e.getMessage());
-		// }
-		// } else {
-		// QuantityManager.getTheQuantityManager().convert(arg1, arg2.getUnit());
-		// try {
-		// return arg1.getAmount().isLessOrEqual(arg2.getAmount());
-		// } catch (final Throwable e) {
-		// throw new model.NotComputableException(e.getMessage());
-		// }
-		// }
-		// } else {
-		// throw new model.NotComputableException(ExceptionConstants.NOT_COMPARABLE_UT);
-		// }
-		// return result;
 	}
+
+	@Override
+	public void initializeOnCreation() throws PersistenceException {
+		// TODO: implement method: initializeOnCreation
+
+	}
+
+	@Override
+	public void initializeOnInstantiation() throws PersistenceException {
+		// TODO: implement method: initializeOnInstantiation
+
+	}
+
+	// Start of section that contains overridden operations only.
 
 	/* Start of protected part that is not overridden by persistence generator */
 	//
@@ -468,8 +462,7 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 	// return true;
 	// }
 
-	private class FetchQuantityAmountVisitor implements
-			AbsQuantityReturnExceptionVisitor<Fraction, model.NotComputableException> {
+	private class FetchQuantityAmountVisitor implements AbsQuantityReturnExceptionVisitor<Fraction, model.NotComputableException> {
 
 		public boolean convertUnits;
 
@@ -479,8 +472,7 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 		}
 
 		@Override
-		public Fraction handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
-				throws PersistenceException, NotComputableException {
+		public Fraction handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException, NotComputableException {
 			Fraction compSum = Fraction.Null;
 			final Iterator<PersistentQuantity> i = compoundQuantity.getParts().iterator();
 			while (i.hasNext()) {
@@ -493,21 +485,18 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 						compSum = compSum.add(curQuantity.getAmount());
 					}
 				} catch (final Throwable e) {
-					throw new model.NotComputableException("Es fehlt eine DefaultUnit für "
-							+ curQuantity.getUnit().getType()); // TODO
-																// Fehlertext
+					throw new model.NotComputableException("Es fehlt eine DefaultUnit für " + curQuantity.getUnit().getType()); // TODO
+																																	// Fehlertext
 				}
 			}
 			return compSum;
 		}
 
 		@Override
-		public Fraction handleQuantity(final PersistentQuantity quantity) throws PersistenceException,
-				NotComputableException {
+		public Fraction handleQuantity(final PersistentQuantity quantity) throws PersistenceException, NotComputableException {
 			if (this.convertUnits) {
 				try {
-					return QuantityManager.getTheQuantityManager().convertAmount(quantity,
-							quantity.getUnit().getType().fetchDefaultUnit());
+					return QuantityManager.getTheQuantityManager().convertAmount(quantity, quantity.getUnit().getType().fetchDefaultUnit());
 				} catch (final ConsistencyException e) {
 					throw new NotComputableException(e.getMessage());
 				}
@@ -519,8 +508,7 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 	private class FetchQuantityUnitTypeVisitor implements AbsQuantityReturnVisitor<PersistentAbsUnitType> {
 
 		@Override
-		public PersistentAbsUnitType handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
-				throws PersistenceException {
+		public PersistentAbsUnitType handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
 			return compoundQuantity.getParts().iterator().next().getUnit().getType();
 		}
 
@@ -530,13 +518,11 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 		}
 	}
 
-	private boolean checkForSameUnits(final PersistentAbsQuantity myArg1, final PersistentAbsQuantity myArg2)
-			throws PersistenceException {
+	private boolean checkForSameUnits(final PersistentAbsQuantity myArg1, final PersistentAbsQuantity myArg2) throws PersistenceException {
 		final PersistentQuantity quantity1 = myArg1.accept(new AbsQuantityReturnVisitor<PersistentQuantity>() {
 
 			@Override
-			public PersistentQuantity handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
-					throws PersistenceException {
+			public PersistentQuantity handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
 				return null;
 			}
 
@@ -551,8 +537,7 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 		return myArg2.accept(new AbsQuantityReturnVisitor<Boolean>() {
 
 			@Override
-			public Boolean handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity)
-					throws PersistenceException {
+			public Boolean handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
 				return false;
 			}
 

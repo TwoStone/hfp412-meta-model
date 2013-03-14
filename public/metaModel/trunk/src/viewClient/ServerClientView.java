@@ -673,6 +673,28 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
                 item = new javax.swing.JMenuItem();
+                item.setText("Konto entfernen");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Konto entfernen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().deleteAccount((AccountView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }catch (ConsistencyException userException){
+                                ReturnValueView view = new ReturnValueView(userException.getMessage(), new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
+                                view.setLocationRelativeTo(getNavigationPanel());
+                                view.setVisible(true);
+                                view.repaint();
+                                getConnection().setEagerRefresh();
+                            }
+                        }
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
                 item.setText("Konto unterordnen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -1154,6 +1176,28 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 result.add(item);
             }
             if (selected instanceof MAccountTypeView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Kontotyp entfernen");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Kontotyp entfernen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                            try {
+                                getConnection().deleteAccountType((MAccountTypeView)selected);
+                                getConnection().setEagerRefresh();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }catch (ConsistencyException userException){
+                                ReturnValueView view = new ReturnValueView(userException.getMessage(), new java.awt.Dimension(getNavigationScrollPane().getWidth()*8/9,getNavigationScrollPane().getHeight()*8/9));
+                                view.setLocationRelativeTo(getNavigationPanel());
+                                view.setVisible(true);
+                                view.repaint();
+                                getConnection().setEagerRefresh();
+                            }
+                        }
+                    }
+                    
+                });
+                result.add(item);
                 item = new javax.swing.JMenuItem();
                 item.setText("Kontotyp unterordnen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {

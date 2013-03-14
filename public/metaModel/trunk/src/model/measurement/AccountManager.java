@@ -14,6 +14,7 @@ import persistence.PersistenceException;
 import persistence.PersistentAccount;
 import persistence.PersistentAccountManager;
 import persistence.PersistentCreateAccountCommand;
+import persistence.PersistentDeleteAccountCommand;
 import persistence.PersistentMAccountType;
 import persistence.PersistentMObject;
 import persistence.PersistentObject;
@@ -166,6 +167,15 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     
     // Start of section that contains operations that must be implemented.
     
+    public void deleteAccount(final PersistentAccount account, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentDeleteAccountCommand command = model.meta.DeleteAccountCommand.createDeleteAccountCommand(now, now);
+		command.setAccount(account);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAccountManager)This);
@@ -181,6 +191,10 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
 		this.getThis().getAccounts().add(result);
 		return result;
 	}
+    public void deleteAccount(final PersistentAccount account) 
+				throws model.ConsistencyException, PersistenceException{
+		account.delete();
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 
@@ -195,9 +209,7 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

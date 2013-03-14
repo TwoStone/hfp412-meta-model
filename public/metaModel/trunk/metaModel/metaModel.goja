@@ -131,7 +131,8 @@ server Server {
 	void addSubAccount@@Konto_unterordnen(Account parent, Account child) throws CycleException;
 	void createEntry@@Eintrag_anlegen(Account account, MObject object{objectManager;objects}, MMeasurementType measurementType{measurementTypeManager;measurementTypes}, Quantity quantity{quantityManager;quantities}) throws ConsistencyException;
 	AbsQuantity aggregateByStrategy@@Aggregationsstrategie_anwenden(Account account, AggregationStrategySUBTYPEName strategy) throws NotComputableException, ConsistencyException;
-
+	void deleteAccount@@Konto_entfernen(Account account) throws ConsistencyException;
+	void deleteAccountType@@Kontotyp_entfernen(MAccountType accountType) throws ConsistencyException;
 
  	/** Naming **/
 	void createNameScheme@@Namensschema_erstellen(NameSchemeManager manager, String schemeName, String regExp, MBooleanSUBTYPEName isIterable);
@@ -686,11 +687,13 @@ singleton MeasurementTypeManager##MsrmntTpMng {
 singleton AccountTypeManager {
 	MAccountType** accountTypes;
 	active MAccountType createAccountType(String name, MType type, UnitType unitType);
+	active void deleteAccountType(MAccountType accountType) throws ConsistencyException;
 }
 
 singleton AccountManager {
 	Account** accounts;
 	active Account createAccount(String name, MAccountType type, MObject object);
+	active void deleteAccount(Account account) throws ConsistencyException;
 }
 
 abstract class MQuantiObjectType@@QuantifiedObjectType covers MModelItem {

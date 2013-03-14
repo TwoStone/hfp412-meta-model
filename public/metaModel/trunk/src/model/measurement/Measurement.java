@@ -261,13 +261,8 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
-		// TODO: implement method: fetchDependentItems
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"fetchDependentItems\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		final MModelItemSearchList result = new MModelItemSearchList();
+		return result;
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -309,11 +304,6 @@ public class Measurement extends model.measurement.QuantifObject implements Pers
 		final MeasurementSearchList measurements = new MeasurementSearchList();
 		measurements.add(this.getThis());
 		return strategy.aggregateMeasurements(this.getThis().getType().getUnitType(), measurements);
-	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: delete
-
 	}
 
     /* Start of protected part that is not overridden by persistence generator */

@@ -1099,6 +1099,30 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> deleteAccountType(String accountTypeProxiString){
+        try {
+            PersistentMAccountType accountType = (PersistentMAccountType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(accountTypeProxiString));
+            ((PersistentServer)this.server).deleteAccountType(accountType);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.ConsistencyException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> deleteAccount(String accountProxiString){
+        try {
+            PersistentAccount account = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(accountProxiString));
+            ((PersistentServer)this.server).deleteAccount(account);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.ConsistencyException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> deleteAspect(String aspectProxiString){
         try {
             PersistentMAspect aspect = (PersistentMAspect)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(aspectProxiString));

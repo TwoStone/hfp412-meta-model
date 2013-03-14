@@ -317,16 +317,9 @@ public class MAccountType extends model.measurement.MQuantiObjectType implements
     
     // Start of section that contains overridden operations only.
     
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-        //TODO: implement method: delete
-        
-    }
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

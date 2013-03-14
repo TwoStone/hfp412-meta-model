@@ -1051,6 +1051,14 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		getOperationManager().createVoidOperation(source, name, fp, getThis());
 	}
+    public void deleteAccountType(final PersistentMAccountType accountType) 
+				throws model.ConsistencyException, PersistenceException{
+		getAccountTypeManager().deleteAccountType(accountType, getThis());
+	}
+    public void deleteAccount(final PersistentAccount account) 
+				throws model.ConsistencyException, PersistenceException{
+		getAccountManager().deleteAccount(account, getThis());
+	}
     public void deleteAspect(final PersistentMAspect aspect) 
 				throws PersistenceException{
 		getAspectManager().deleteAspect(aspect, getThis());

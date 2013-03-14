@@ -13,6 +13,7 @@ import persistence.Invoker;
 import persistence.PersistenceException;
 import persistence.PersistentAccountTypeManager;
 import persistence.PersistentCreateAccountTypeCommand;
+import persistence.PersistentDeleteAccountTypeCommand;
 import persistence.PersistentMAccountType;
 import persistence.PersistentMType;
 import persistence.PersistentObject;
@@ -166,6 +167,15 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
     
     // Start of section that contains operations that must be implemented.
     
+    public void deleteAccountType(final PersistentMAccountType accountType, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date now = new java.sql.Date(new java.util.Date().getTime());
+		PersistentDeleteAccountTypeCommand command = model.meta.DeleteAccountTypeCommand.createDeleteAccountTypeCommand(now, now);
+		command.setAccountType(accountType);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentAccountTypeManager)This);
@@ -182,6 +192,10 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
 		this.getThis().getAccountTypes().add(result);
 		return result;
 	}
+    public void deleteAccountType(final PersistentMAccountType accountType) 
+				throws model.ConsistencyException, PersistenceException{
+		accountType.delete();
+	}
     public void initializeOnCreation() 
 				throws PersistenceException{
 
@@ -196,9 +210,7 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }
