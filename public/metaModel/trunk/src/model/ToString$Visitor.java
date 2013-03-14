@@ -451,8 +451,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleFractionWrapper(final PersistentFractionWrapper fractionWrapper) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		this.result = fractionWrapper.getFraction().toString();
 	}
 
 	@Override
