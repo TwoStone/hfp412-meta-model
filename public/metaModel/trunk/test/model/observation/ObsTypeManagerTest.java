@@ -63,17 +63,12 @@ public class ObsTypeManagerTest extends TestingBase {
 	PersistentMEnum enumeration2;
 
 	PersistentMEnumValue enumVal;
-	PersistentMEnumValue enumVal2;
 
 	PersistentMAtomicType typeA;
 
 	PersistentMObject objA;
 
 	PersistentMAtomicType typeB;
-
-	PersistentMObject objB;
-
-	PersistentMObservationType obsType;
 
 	@Before
 	public void setUpAspects() throws ConsistencyException, PersistenceException, DoubleDefinitionException {
@@ -83,42 +78,52 @@ public class ObsTypeManagerTest extends TestingBase {
 		enumeration = enumMan.createEnum("Enum1");
 		enumeration2 = enumMan.createEnum("Enum2");
 		enumVal = enumValMan.createEnumValue("Val 1", enumeration);
-		enumVal2 = enumValMan.createEnumValue("Val 2", enumeration2);
 		objA = objectMan.createMObject(typeA, new MAtomicTypeSearchList());
-		objB = objectMan.createMObject(typeB, new MAtomicTypeSearchList());
-		obsType = obsTypeMan.createObsType("Obs Type", enumeration, typeA);
 	}
 
 	@Test
-	public void createObservation_Test1() throws DoubleDefinitionException, PersistenceException, ConsistencyException {
-		final PersistentMObservation val = obsMan.createObservation("Obs", obsType, objA, enumVal);
+	public void createObsType_Test1() throws DoubleDefinitionException, PersistenceException {
+		final PersistentMObservationType val = obsTypeMan.createObsType("ObsType1", enumeration, typeA);
 
-		Assert.assertEquals("Obs", val.getName());
-		Assert.assertEquals(obsType, val.getTheType());
-		Assert.assertEquals(objA, val.getTheObsObject());
-		Assert.assertEquals(enumVal, val.getEnumValue());
+		Assert.assertEquals("ObsType1", val.getName());
+		Assert.assertEquals(enumeration, val.getEnumType());
+		Assert.assertEquals(typeA, val.getTheType());
 	}
 
-	@Test(expected = ConsistencyException.class)
-	public void createObservation_Test2() throws DoubleDefinitionException, PersistenceException, ConsistencyException {
-		obsMan.createObservation("Obs", obsType, objB, enumVal);
-	}
-
-	@Test(expected = ConsistencyException.class)
-	public void createObservation_Test3() throws DoubleDefinitionException, PersistenceException, ConsistencyException {
-		obsMan.createObservation("Obs", obsType, objA, enumVal2);
-	}
-
-	@Test(expected = ConsistencyException.class)
-	public void createObservation_Test4() throws DoubleDefinitionException, PersistenceException, ConsistencyException {
-		obsMan.createObservation("Obs", obsType, objB, enumVal2);
+	@Test(expected = DoubleDefinitionException.class)
+	public void createObsType_Test2() throws DoubleDefinitionException, PersistenceException {
+		obsTypeMan.createObsType("ObsType1", enumeration, typeA);
+		obsTypeMan.createObsType("ObsType1", enumeration, typeA);
 	}
 
 	@Test
-	public void deleteObservation_Test1() throws DoubleDefinitionException, PersistenceException, ConsistencyException {
-		final PersistentMObservation val = obsMan.createObservation("Obs", obsType, objA, enumVal);
+	public void deleteObsType_Test1() throws DoubleDefinitionException, PersistenceException, ConsistencyException {
+		final PersistentMObservationType val = obsTypeMan.createObsType("ObsType1", enumeration, typeA);
+
+		Assert.assertTrue(obsTypeMan.getObservationTypes().getLength() == 1);
+		obsTypeMan.deleteObsType(val);
+		Assert.assertTrue(obsTypeMan.getObservationTypes().getLength() == 0);
+	}
+
+	@Test(expected = ConsistencyException.class)
+	public void deleteObsType_Test2() throws DoubleDefinitionException, PersistenceException, ConsistencyException {
+		final PersistentMObservationType val = obsTypeMan.createObsType("ObsType1", enumeration, typeA);
+		obsMan.createObservation("Obs1", val, objA, enumVal);
+
+		Assert.assertTrue(obsTypeMan.getObservationTypes().getLength() == 1);
+		obsTypeMan.deleteObsType(val);
+	}
+
+	@Test
+	public void deleteObsType_Test3() throws DoubleDefinitionException, PersistenceException, ConsistencyException {
+		final PersistentMObservationType val = obsTypeMan.createObsType("ObsType1", enumeration, typeA);
+		final PersistentMObservation obs = obsMan.createObservation("Obs1", val, objA, enumVal);
+		Assert.assertTrue(obsTypeMan.getObservationTypes().getLength() == 1);
 		Assert.assertTrue(obsMan.getObservations().getLength() == 1);
-		obsMan.deleteObservation(val);
+		obsMan.deleteObservation(obs);
+		obsTypeMan.deleteObsType(val);
+		Assert.assertTrue(obsTypeMan.getObservationTypes().getLength() == 0);
 		Assert.assertTrue(obsMan.getObservations().getLength() == 0);
 	}
+
 }

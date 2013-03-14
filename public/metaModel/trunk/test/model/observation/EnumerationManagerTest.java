@@ -21,6 +21,8 @@ import persistence.PersistentEnumerationManager;
 import persistence.PersistentMAspect;
 import persistence.PersistentMAtomicType;
 import persistence.PersistentMEnum;
+import persistence.PersistentMEnumValue;
+import persistence.PersistentMObservationType;
 import persistence.PersistentObsTypeManager;
 import persistence.PersistentTypeManager;
 import util.GOJAUnitTestRunner;
@@ -91,6 +93,26 @@ public class EnumerationManagerTest extends TestingBase {
 
 		assertTrue(enumMan.getEnumTypes().getLength() == 1);
 		enumMan.deleteEnum(enumeration);
+	}
+
+	@Test
+	public void deleteEnum_Test4() throws DoubleDefinitionException, PersistenceException, ConsistencyException {
+		final PersistentMEnum enumeration = enumMan.createEnum("Enum1");
+		final PersistentMObservationType obst = obsTypeMan.createObsType("O1", enumeration, typeA);
+		obsTypeMan.deleteObsType(obst);
+		assertTrue(enumMan.getEnumTypes().getLength() == 1);
+		enumMan.deleteEnum(enumeration);
+		assertTrue(enumMan.getEnumTypes().getLength() == 0);
+	}
+
+	@Test
+	public void deleteEnum_Test5() throws DoubleDefinitionException, PersistenceException, ConsistencyException {
+		final PersistentMEnum enumeration = enumMan.createEnum("Enum1");
+		final PersistentMEnumValue val = enumValMan.createEnumValue("Test", enumeration);
+		enumValMan.deleteEnumValue(val);
+		assertTrue(enumMan.getEnumTypes().getLength() == 1);
+		enumMan.deleteEnum(enumeration);
+		assertTrue(enumMan.getEnumTypes().getLength() == 0);
 	}
 
 }
