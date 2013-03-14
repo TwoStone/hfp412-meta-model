@@ -512,7 +512,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Enum lï¿½schen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum lï¿½schen" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteEnum((MEnumView)selected);
                                 getConnection().setEagerRefresh();
@@ -560,7 +560,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeOperation");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeOperation" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeOperation" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeOperation((OperationView)selected);
                                 getConnection().setEagerRefresh();
@@ -578,7 +578,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Enum Wert lï¿½schen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum Wert lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum Wert lï¿½schen" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteEnumValue((MEnumValueView)selected);
                                 getConnection().setEagerRefresh();
@@ -626,7 +626,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeAssociation");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeAssociation" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeAssociation" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeAssociation((AssociationView)selected);
                                 getConnection().setEagerRefresh();
@@ -644,7 +644,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Observation Type lï¿½schen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation Type lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation Type lï¿½schen" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteObsType((MObservationTypeView)selected);
                                 getConnection().setEagerRefresh();
@@ -677,7 +677,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeFormalParameter");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeFormalParameter" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeFormalParameter" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeFp((FormalParameterView)selected);
                                 getConnection().setEagerRefresh();
@@ -951,7 +951,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("deleteComplexType");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteComplexType" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteComplexType" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteComplexType((MComplexTypeView)selected);
                                 getConnection().setEagerRefresh();
@@ -1159,7 +1159,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("Observation lï¿½schen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation lï¿½schen" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteObservation((MObservationView)selected);
                                 getConnection().setEagerRefresh();
@@ -1207,7 +1207,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeHierarchy");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeHierarchy" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeHierarchy" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeHierarchy((HierarchyView)selected);
                                 getConnection().setEagerRefresh();
@@ -1238,22 +1238,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 result.add(item);
             }
             if (selected instanceof QuantityView){
-                item = new javax.swing.JMenuItem();
-                item.setText("convertToDefault");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "convertToDefault" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
-                            try {
-                                getConnection().convertToDefault((QuantityView)selected);
-                                getConnection().setEagerRefresh();
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
-                    }
-                    
-                });
-                result.add(item);
                 item = new javax.swing.JMenuItem();
                 item.setText("convert ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
@@ -1322,7 +1306,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("fetchScalarType");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "fetchScalarType" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "fetchScalarType" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().fetchScalarType((UnitTypeManagerView)selected);
                                 getConnection().setEagerRefresh();
@@ -1338,7 +1322,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("fetchScalar");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "fetchScalar" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "fetchScalar" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().fetchScalar((UnitTypeManagerView)selected);
                                 getConnection().setEagerRefresh();
@@ -1497,7 +1481,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("deleteAtomicType");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteAtomicType" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteAtomicType" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteAtomicType((MAtomicTypeView)selected);
                                 getConnection().setEagerRefresh();
@@ -1530,7 +1514,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("removeLink");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeLink" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "removeLink" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().removeLink((LinkView)selected);
                                 getConnection().setEagerRefresh();
@@ -1563,7 +1547,7 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 item.setText("deleteAspect");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteAspect" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "deleteAspect" + Wizard.ConfirmQuestionMark, "BestÃ¤tigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteAspect((MAspectView)selected);
                                 getConnection().setEagerRefresh();

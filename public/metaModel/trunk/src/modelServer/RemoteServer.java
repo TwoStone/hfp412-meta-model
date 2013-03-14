@@ -576,16 +576,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> convertToDefault(String quantityProxiString){
-        try {
-            PersistentQuantity quantity = (PersistentQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(quantityProxiString));
-            ((PersistentServer)this.server).convertToDefault(quantity);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.Hashtable<?,?> convert(String quantityProxiString, String unitProxiString){
         try {
             PersistentQuantity quantity = (PersistentQuantity)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(quantityProxiString));

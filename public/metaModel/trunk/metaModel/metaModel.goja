@@ -113,7 +113,7 @@ server Server {
 	void createQuantity@@Create_quantity(QuantityManager manager, AbsUnit unit, Fraction f);
 	void setConversion(Unit unit, Fraction factor, Fraction constant);
 	void setDefaultUnit(UnitType type, Unit defaultUnit{unitTypeManager;units});
-	void convertToDefault(Quantity quantity);
+
 	void convert(Quantity quantity, AbsUnit unit);
 
 	/** computing **/
@@ -433,8 +433,8 @@ part quantity {
 		prior no-view one-to-one (myConversion) Unit source;
 		prior Function myFunction;
 
-		Quantity convert(Fraction amount);
-		Quantity convertInverse(Fraction amount);
+		Fraction convert(Fraction amount);
+		Fraction convertInverse(Fraction amount);
 	}
 
 	class Function covers MModelItem{
@@ -539,8 +539,7 @@ part quantity {
 		AbsQuantity ** quantities;
 		active Quantity createQuantity(AbsUnit unit, Fraction amount);
 		AbsQuantity invertSign(AbsQuantity absQuantity);
-		active void convertToDefault(Quantity quantity);
-		active void convert(Quantity quantity, AbsUnit unit);
+		active void convert(Quantity quantity, AbsUnit unit) throws NotComputableException;
 
 		active AbsQuantity add(AbsQuantity summand1, AbsQuantity summand2) throws NotComputableException;
 		active AbsQuantity sub(AbsQuantity minuend, AbsQuantity subtrahend) throws NotComputableException;

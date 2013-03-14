@@ -14,7 +14,6 @@ import org.junit.Test;
 import persistence.PersistenceException;
 import persistence.PersistentConversion;
 import persistence.PersistentFunction;
-import persistence.PersistentQuantity;
 import persistence.PersistentUnit;
 import persistence.PersistentUnitType;
 import util.TestingBase;
@@ -65,9 +64,8 @@ public class ConversionTest extends TestingBase {
 	public void testConvert() throws Exception {
 		this.initObjects();
 		final PersistentConversion c = Conversion.createConversion(unit, function);
-		final PersistentQuantity convertedAmount = c.convert(Fraction.parse("4"));
-		assertEquals(this.defaultUnit, convertedAmount.getUnit());
-		assertEquals("31", convertedAmount.getAmount().toString());
+		final Fraction convertedAmount = c.convert(Fraction.parse("4"));
+		assertEquals("31", convertedAmount.toString());
 	}
 
 	/**
@@ -77,9 +75,8 @@ public class ConversionTest extends TestingBase {
 	public void testConvertInverse() throws Exception {
 		this.initObjects();
 		final PersistentConversion c = Conversion.createConversion(unit, function);
-		final PersistentQuantity convertedAmount = c.convertInverse(Fraction.parse("4"));
-		assertEquals(this.unit, convertedAmount.getUnit());
-		assertEquals("1/7", convertedAmount.getAmount().toString());
+		final Fraction convertedAmount = c.convertInverse(Fraction.parse("4"));
+		assertEquals("1/7", convertedAmount.toString());
 	}
 
 }

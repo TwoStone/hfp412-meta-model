@@ -834,11 +834,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void connected(final String user) 
 				throws PersistenceException{
 	}
-    public void convertToDefault(final PersistentQuantity quantity) 
-				throws PersistenceException{
-		getQuantityManager().convertToDefault(quantity, getThis());
-
-	}
     public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) 
 				throws PersistenceException{
 		getQuantityManager().convert(quantity, unit, getThis());
