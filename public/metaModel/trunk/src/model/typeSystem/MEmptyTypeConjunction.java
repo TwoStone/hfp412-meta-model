@@ -350,12 +350,14 @@ public class MEmptyTypeConjunction extends model.typeSystem.MAtomicTypeConjuncti
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	@Override
 	public SearchListRoot<? extends PersistentMType> obtainContainedTypes() {
 		return new MTypeSearchList();
 	}
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

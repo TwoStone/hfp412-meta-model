@@ -425,6 +425,7 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
     
     
     
+    
 
 	@Override
 	public SearchListRoot<? extends PersistentMType> obtainContainedTypes() throws PersistenceException {
@@ -451,6 +452,7 @@ public class MNonEmptyAtomicTypeConjunction extends model.typeSystem.MAtomicType
 	}
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

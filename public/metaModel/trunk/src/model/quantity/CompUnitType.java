@@ -289,7 +289,9 @@ public class CompUnitType extends model.quantity.AbsUnitType implements Persiste
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

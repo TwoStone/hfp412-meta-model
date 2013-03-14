@@ -1325,6 +1325,7 @@ public class Server extends PersistentObject implements PersistentServer{
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	private void demoUnits() throws DoubleDefinitionException, PersistenceException {
 		final PersistentUnitType distance = getThis().getUnitTypeManager().createUnitType("Strecke");
@@ -1369,6 +1370,7 @@ public class Server extends PersistentObject implements PersistentServer{
 		account.addEntry(measurement2_3Euro);
 	}
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

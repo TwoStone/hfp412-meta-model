@@ -346,6 +346,7 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	private Set<PersistentMAspect> getAspects() throws PersistenceException {
 		return Sets.transform(this.getThis().getTypes().getList(), new Lists.FunctionWithResult<PersistentMAtomicType, PersistentMAspect>() {
@@ -360,6 +361,7 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 			}
 		});
 	}
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

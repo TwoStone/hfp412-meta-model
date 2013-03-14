@@ -255,7 +255,9 @@ public abstract class BasicCalculation extends PersistentObject implements Persi
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

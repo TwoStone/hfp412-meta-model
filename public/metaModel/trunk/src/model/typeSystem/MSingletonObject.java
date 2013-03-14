@@ -257,7 +257,9 @@ public class MSingletonObject extends model.typeSystem.AbstractObject implements
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

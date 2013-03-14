@@ -172,8 +172,10 @@ public class MTrue extends model.basic.MBoolean implements PersistentMTrue{
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

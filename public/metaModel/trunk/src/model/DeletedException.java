@@ -89,6 +89,8 @@ public class DeletedException extends model.ConsistencyException{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

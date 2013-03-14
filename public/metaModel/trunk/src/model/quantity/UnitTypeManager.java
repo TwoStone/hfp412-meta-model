@@ -886,6 +886,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	private String getNameForCompoundUnitType(final ReferenceTypeSearchList refTypeList) throws PersistenceException {
 		String ret = "";
@@ -913,6 +914,7 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		return ret;
 	}
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -276,6 +276,7 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	protected SummableHashMap<PersistentUnit> targetRefs;
 	protected SummableHashMap<PersistentUnitType> targetRefTypes;
@@ -368,6 +369,7 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 		return result;
 	}
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -379,7 +379,9 @@ public class MObservation extends PersistentObject implements PersistentMObserva
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

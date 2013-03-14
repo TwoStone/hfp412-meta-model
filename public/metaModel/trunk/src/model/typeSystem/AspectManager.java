@@ -235,10 +235,12 @@ public class AspectManager extends PersistentObject implements PersistentAspectM
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	private boolean existsAspectWithName(final String name) throws PersistenceException {
 		return MAspect.getMAspectByName(name).getLength() > 0;
 	}
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

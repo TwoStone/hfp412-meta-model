@@ -107,6 +107,7 @@ public abstract class MBoolean extends PersistentObject implements PersistentMBo
     
     
     
+    
 
 	public static PersistentMBoolean createFromBoolean(final boolean bool) throws PersistenceException {
 		return bool ? MTrue.getTheMTrue() : MFalse.getTheMFalse();
@@ -117,6 +118,7 @@ public abstract class MBoolean extends PersistentObject implements PersistentMBo
 	}
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

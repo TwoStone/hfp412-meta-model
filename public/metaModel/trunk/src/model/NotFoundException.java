@@ -73,6 +73,8 @@ public class NotFoundException extends model.UserException{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -306,7 +306,9 @@ public abstract class AbstractObject extends PersistentObject implements Persist
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

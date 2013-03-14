@@ -136,6 +136,7 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	protected PersistentMBoolean allChildrenAreStructuralEquivalent(final PersistentMComplexType other) throws PersistenceException {
 		final Iterator<PersistentMType> thisI = getThis().fetchContainedTypes().iterator();
@@ -153,6 +154,7 @@ public abstract class MComplexType extends model.typeSystem.MType implements Per
 
 	public abstract SearchListRoot<? extends PersistentMType> obtainContainedTypes() throws PersistenceException;
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -319,7 +319,9 @@ public class FormalParameter extends PersistentObject implements PersistentForma
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

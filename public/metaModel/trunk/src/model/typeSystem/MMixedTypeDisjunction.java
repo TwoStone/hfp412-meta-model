@@ -334,6 +334,7 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
     
     
     
+    
 
 	@Override
 	public SearchListRoot<? extends PersistentMType> obtainContainedTypes() throws PersistenceException {
@@ -360,6 +361,7 @@ public class MMixedTypeDisjunction extends model.typeSystem.MAbstractTypeDisjunc
 	}
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

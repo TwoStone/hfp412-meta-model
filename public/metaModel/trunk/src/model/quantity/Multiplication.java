@@ -230,6 +230,7 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	/**
 	 * Liest aus der Einheit einer Quantität die Referenz-Konfiguration aus und gibt das Ergebnis als Map zurück.
@@ -298,6 +299,7 @@ public class Multiplication extends model.quantity.UnitMutabCalc implements Pers
 		return result;
 	}
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

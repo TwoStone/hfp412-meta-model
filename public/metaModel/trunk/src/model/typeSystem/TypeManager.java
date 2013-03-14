@@ -419,6 +419,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	private static void checkMAtomicTypeNameAndConsitency(final String name, final PersistentMBoolean singletonType,
 			final PersistentMBoolean abstractType, final PersistentMAspect aspect) throws PersistenceException, ConsistencyException {
@@ -510,6 +511,7 @@ public class TypeManager extends PersistentObject implements PersistentTypeManag
 			}
 		});
 	}
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

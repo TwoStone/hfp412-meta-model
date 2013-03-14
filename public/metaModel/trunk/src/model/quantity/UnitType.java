@@ -259,7 +259,9 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

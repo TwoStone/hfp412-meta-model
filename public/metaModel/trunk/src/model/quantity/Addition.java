@@ -206,7 +206,9 @@ public class Addition extends model.quantity.UnitImutabCalc implements Persisten
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

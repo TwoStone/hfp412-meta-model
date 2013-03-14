@@ -237,6 +237,7 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	/**
 	 * Liest aus der Einheit einer Quantität die Referenz-Konfiguration aus und gibt das Ergebnis als Map zurück.
@@ -303,6 +304,7 @@ public class Division extends model.quantity.UnitMutabCalc implements Persistent
 		return result;
 	}
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

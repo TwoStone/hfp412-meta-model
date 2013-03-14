@@ -199,8 +199,10 @@ public abstract class AbsUnit extends PersistentObject implements PersistentAbsU
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

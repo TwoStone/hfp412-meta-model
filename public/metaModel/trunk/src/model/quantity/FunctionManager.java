@@ -181,8 +181,10 @@ public class FunctionManager extends PersistentObject implements PersistentFunct
     
     
     
+    
 
 	
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

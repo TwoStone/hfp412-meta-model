@@ -297,7 +297,9 @@ public class MessageManager extends PersistentObject implements PersistentMessag
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

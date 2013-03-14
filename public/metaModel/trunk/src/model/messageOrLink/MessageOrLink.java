@@ -223,7 +223,9 @@ public abstract class MessageOrLink extends PersistentObject implements Persiste
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -479,6 +479,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	// Start of section that contains overridden operations only.
 
 	/* Start of protected part that is not overridden by persistence generator */
+
 	protected PersistentQuantity doInvertSign(final PersistentQuantity q) throws PersistenceException {
 		final Fraction amount = FractionManager.getTheFractionManager().invertSign(q.getAmount());
 		final PersistentQuantity res = Quantity.createQuantity(amount, q.getUnit());
@@ -497,6 +498,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 		getThis().getQuantities().add(cp);
 		return cp;
 	}
+
 	/* End of protected part that is not overridden by persistence generator */
 
 }

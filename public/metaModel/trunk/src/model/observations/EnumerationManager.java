@@ -223,7 +223,9 @@ public class EnumerationManager extends PersistentObject implements PersistentEn
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

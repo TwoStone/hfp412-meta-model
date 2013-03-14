@@ -149,6 +149,7 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	private PersistentQuantity getQuantityWithSameUnit(final PersistentCompoundQuantity comp, final PersistentQuantity argument)
 			throws PersistenceException {
@@ -225,6 +226,7 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
 
 	}
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

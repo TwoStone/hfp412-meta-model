@@ -75,6 +75,8 @@ public class DoubleDefinitionException extends model.UserException{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

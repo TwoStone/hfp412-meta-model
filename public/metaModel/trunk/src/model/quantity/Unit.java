@@ -242,7 +242,9 @@ public class Unit extends model.quantity.AbsUnit implements PersistentUnit{
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }
