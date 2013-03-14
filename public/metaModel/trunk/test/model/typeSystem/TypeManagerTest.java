@@ -6,6 +6,8 @@ import java.util.List;
 import junit.framework.Assert;
 import model.ConsistencyException;
 import model.CycleException;
+import model.abstractOperation.Association;
+import model.messageOrLink.Link;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +16,7 @@ import org.junit.runner.RunWith;
 import persistence.MTypeSearchList;
 import persistence.PersistenceException;
 import persistence.PersistentAspectManager;
+import persistence.PersistentAssociation;
 import persistence.PersistentMAbstractTypeConjunction;
 import persistence.PersistentMAbstractTypeDisjunction;
 import persistence.PersistentMAspect;
@@ -22,6 +25,7 @@ import persistence.PersistentMEmptyTypeDisjunction;
 import persistence.PersistentMMixedConjunction;
 import persistence.PersistentMMixedTypeDisjunction;
 import persistence.PersistentMObject;
+import persistence.PersistentMSingletonObject;
 import persistence.PersistentMType;
 import persistence.PersistentTypeManager;
 import persistence.Predcate;
@@ -29,6 +33,7 @@ import util.GOJAUnitTestRunner;
 import util.InjectSingleton;
 import util.TestingBase;
 import utils.SearchLists;
+import utils.TruePredcate;
 
 @RunWith(GOJAUnitTestRunner.class)
 public class TypeManagerTest extends TestingBase {
@@ -93,6 +98,7 @@ public class TypeManagerTest extends TestingBase {
 	 * @throws ConsistencyException
 	 * @throws PersistenceException
 	 */
+	@SuppressWarnings("unused")
 	@Test(expected = ConsistencyException.class)
 	public void createAtomicType_test3() throws ConsistencyException, PersistenceException {
 		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
@@ -107,6 +113,7 @@ public class TypeManagerTest extends TestingBase {
 	 */
 	@Test(expected = ConsistencyException.class)
 	public void createAtomicType_test4() throws ConsistencyException, PersistenceException {
+		@SuppressWarnings("unused")
 		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mTrue, mTrue);
 	}
 
@@ -134,7 +141,7 @@ public class TypeManagerTest extends TestingBase {
 	@Test
 	public void createAtomicType_test6() throws ConsistencyException, PersistenceException {
 		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mTrue, mFalse);
-		// TODO auf SingletonInstance pruefen
+		Assert.assertEquals(1, at1.getSingletonObject().getLength());
 		assertMFalse(at1.isAbstract());
 		assertMTrue(at1.isSingleton());
 		Assert.assertEquals(1, at1.getSingletonObject().getLength());
@@ -264,6 +271,7 @@ public class TypeManagerTest extends TestingBase {
 		final PersistentMAtomicType at3 = typeMngr.createAtomicRootType(aspects.get(2), "AT3", mFalse, mFalse);
 		final PersistentMAtomicType at4 = typeMngr.createAtomicRootType(aspects.get(3), "AT4", mFalse, mFalse);
 
+		@SuppressWarnings("unused")
 		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(createTypeDisjunction(at3, at1_1), createTypeDisjunction(at4, at1_2));
 	}
 
@@ -461,6 +469,7 @@ public class TypeManagerTest extends TestingBase {
 	 * @throws PersistenceException
 	 * @throws CycleException
 	 */
+	@SuppressWarnings("unused")
 	@Test(expected = ConsistencyException.class)
 	public void renameAT_test2() throws ConsistencyException, PersistenceException, CycleException {
 		final PersistentMAtomicType at1_1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
@@ -523,6 +532,78 @@ public class TypeManagerTest extends TestingBase {
 		typeMngr.changeAbstract(at1, mFalse);
 		assertMFalse(at1.getAbstractType());
 		typeMngr.changeAbstract(at1, mTrue);
+	}
+
+	/**
+	 * Change singleton, fine cases
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test()
+	public void changeSingleton_test1() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(0), "AT2", mTrue, mFalse);
+
+		typeMngr.changeSingleton(at1, mFalse);
+		assertMFalse(at1.getSingletonType());
+		typeMngr.changeSingleton(at1, mTrue);
+		assertMTrue(at1.getSingletonType());
+
+		typeMngr.changeSingleton(at2, mTrue);
+		assertMTrue(at2.getSingletonType());
+		typeMngr.changeSingleton(at2, mFalse);
+		assertMFalse(at2.getSingletonType());
+	}
+
+	/**
+	 * Change Singleton abstract
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void changeSingleton_test2() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mTrue);
+
+		typeMngr.changeSingleton(at1, mFalse);
+		assertMFalse(at1.getSingletonType());
+		typeMngr.changeSingleton(at1, mTrue);
+	}
+
+	/**
+	 * Change Singleton mit Object
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void changeSingleton_test3() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMObject obj1 = MObject.createMObject();
+		obj1.getTypes().add(at1);
+		typeMngr.changeSingleton(at1, mFalse);
+		assertMFalse(at1.getSingletonType());
+		typeMngr.changeSingleton(at1, mTrue);
+	}
+
+	/**
+	 * Change Singleton with SingletonObj having dependent objs
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void changeSingleton_test4() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mTrue, mFalse);
+		final PersistentMSingletonObject singletonObj = at1.getSingletonObject().findFirst(new TruePredcate<PersistentMSingletonObject>());
+		final PersistentAssociation ass = Association.createAssociation("Ass1", at1, at1);
+		Link.createLink(singletonObj, singletonObj, ass);
+		typeMngr.changeSingleton(at1, mFalse);
 	}
 
 	/*
