@@ -179,38 +179,6 @@ public class Unit extends model.quantity.AbsUnit implements PersistentUnit{
     }
     
     
-    public PersistentConversion getMyConversion() 
-				throws PersistenceException{
-        PersistentConversion result = null;
-		try {
-			if (result == null) result = (PersistentConversion)ConnectionHandler.getTheConnectionHandler().theConversionFacade
-							.inverseGetSource(this.getId(), this.getClassId()).iterator().next();
-		} catch (java.util.NoSuchElementException nsee){}
-		return result;
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentUnit)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentUnit)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-			this.setType((PersistentAbsUnitType)final$$Fields.get("type"));
-			this.setName((String)final$$Fields.get("name"));
-		}
-    }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
-
-	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_UNIT);
-	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: fetchDependentItems
@@ -221,25 +189,49 @@ public class Unit extends model.quantity.AbsUnit implements PersistentUnit{
 			throw uoe;
 		}
 	}
-    public void initializeOnCreation() 
+    public PersistentConversion getMyConversion() 
 				throws PersistenceException{
-		// implement method: initializeOnCreation
-
-	}
+        PersistentConversion result = null;
+		try {
+			if (result == null) result = (PersistentConversion)ConnectionHandler.getTheConnectionHandler().theConversionFacade
+							.inverseGetSource(this.getId(), this.getClassId()).iterator().next();
+		} catch (java.util.NoSuchElementException nsee){}
+		return result;
+    }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		// implement method: initializeOnInstantiation
 
 	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentUnit)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentUnit)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+			this.setType((PersistentAbsUnitType)final$$Fields.get("type"));
+			this.setName((String)final$$Fields.get("name"));
+		}
+    }
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 		//
 
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_UNIT);
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+		// implement method: initializeOnCreation
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

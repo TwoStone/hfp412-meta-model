@@ -163,34 +163,6 @@ public class Addition extends model.quantity.UnitImutabCalc implements Persisten
     }
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentAddition)This);
-		if(this.equals(This)){
-		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public common.Fraction calcFraction(final common.Fraction arg1, final common.Fraction arg2) 
-				throws model.NotComputableException, PersistenceException{
-		try {
-			return arg1.add(arg2);
-		} catch (final Throwable e) {
-			throw new model.NotComputableException(e.getMessage());
-		}
-	}
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
-
-	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-		// implement method: initializeOnCreation
-
-	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		// implement method: initializeOnInstantiation
@@ -200,10 +172,30 @@ public class Addition extends model.quantity.UnitImutabCalc implements Persisten
 				throws PersistenceException{
 		return MFalse.getTheMFalse();
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentAddition)This);
+		if(this.equals(This)){
+		}
+    }
+    public common.Fraction calcFraction(final common.Fraction arg1, final common.Fraction arg2) 
+				throws model.NotComputableException, PersistenceException{
+		try {
+			return arg1.add(arg2);
+		} catch (final Throwable e) {
+			throw new model.NotComputableException(e.getMessage());
+		}
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+		// implement method: initializeOnCreation
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

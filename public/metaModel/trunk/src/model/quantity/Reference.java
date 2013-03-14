@@ -252,20 +252,6 @@ public class Reference extends PersistentObject implements PersistentReference{
     }
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentReference)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentReference)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-			this.setExponent((Long)final$$Fields.get("exponent"));
-			this.setRef((PersistentUnit)final$$Fields.get("ref"));
-		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
     public CompUnitSearchList inverseGetRefs() 
 				throws PersistenceException{
         CompUnitSearchList result = null;
@@ -273,15 +259,6 @@ public class Reference extends PersistentObject implements PersistentReference{
 							.inverseGetRefs(this.getId(), this.getClassId());
 		return result;
     }
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
-
-	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_REFERENCE);
-	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: fetchDependentItems
@@ -292,25 +269,40 @@ public class Reference extends PersistentObject implements PersistentReference{
 			throw uoe;
 		}
 	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-		// implement method: initializeOnCreation
-
-	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		// implement method: initializeOnInstantiation
 
+	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_REFERENCE);
 	}
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 		//
 
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentReference)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentReference)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+			this.setExponent((Long)final$$Fields.get("exponent"));
+			this.setRef((PersistentUnit)final$$Fields.get("ref"));
+		}
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+		// implement method: initializeOnCreation
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

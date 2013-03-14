@@ -56,4 +56,6 @@ public final class ExceptionConstants {
 	public static final String CE_NAME_DOUBLE = "Name bereits vergeben: ";
 
 	public static final String NA_FP = "Formalparameter befindet sich nicht in der Parameterliste.";
+
+	public static final String NOT_COMPARABLE_UT = "Nur mit gleichem Einheitstyp vergleichbar!";
 }

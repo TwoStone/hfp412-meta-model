@@ -198,36 +198,6 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
     }
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentUnitType)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentUnitType)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-			this.setName((String)final$$Fields.get("name"));
-		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
-
-	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_UNITTYPE);
-	}
-    public PersistentAbsUnit fetchDefaultUnit() 
-				throws model.ConsistencyException, PersistenceException{
-		final PersistentUnit result = this.getDefaultUnit();
-		if (result == null) {
-			throw new ConsistencyException(ExceptionConstants.NO_DEFAULT_UNIT);
-		}
-		return result;
-	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: fetchDependentItems
@@ -238,25 +208,47 @@ public class UnitType extends model.quantity.AbsUnitType implements PersistentUn
 			throw uoe;
 		}
 	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-		// implement method: initializeOnCreation
-
-	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		// implement method: initializeOnInstantiation
 
 	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+		// implement method: copyingPrivateUserAttributes
+
+	}
+    public PersistentAbsUnit fetchDefaultUnit() 
+				throws model.ConsistencyException, PersistenceException{
+		final PersistentUnit result = this.getDefaultUnit();
+		if (result == null) {
+			throw new ConsistencyException(ExceptionConstants.NO_DEFAULT_UNIT);
+		}
+		return result;
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentUnitType)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentUnitType)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+			this.setName((String)final$$Fields.get("name"));
+		}
+    }
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 		//
 
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		throw new ConsistencyException(ExceptionConstants.DONT_DELETE_UNITTYPE);
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+		// implement method: initializeOnCreation
+
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 

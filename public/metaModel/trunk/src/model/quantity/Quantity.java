@@ -207,28 +207,6 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
     }
     
     
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentQuantity)This);
-		if(this.equals(This)){
-			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentQuantity)This);
-			this.setMyCONCMModelItem(myCONCMModelItem);
-			this.setAmount((common.Fraction)final$$Fields.get("amount"));
-			this.setUnit((PersistentAbsUnit)final$$Fields.get("unit"));
-		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-	}
-    public void delete() 
-				throws model.ConsistencyException, PersistenceException{
-		// TODO: implement method: delete
-
-	}
     public MModelItemSearchList fetchDependentItems() 
 				throws PersistenceException{
 		// TODO: implement method: fetchDependentItems
@@ -239,21 +217,35 @@ public class Quantity extends model.quantity.AbsQuantity implements PersistentQu
 			throw uoe;
 		}
 	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
-	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 	}
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+	}
+    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentQuantity)This);
+		if(this.equals(This)){
+			PersistentCONCMModelItem myCONCMModelItem = model.CONCMModelItem.createCONCMModelItem(this.isDelayed$Persistence(), (PersistentQuantity)This);
+			this.setMyCONCMModelItem(myCONCMModelItem);
+			this.setAmount((common.Fraction)final$$Fields.get("amount"));
+			this.setUnit((PersistentAbsUnit)final$$Fields.get("unit"));
+		}
+    }
     public void prepareForDeletion() 
 				throws model.ConsistencyException, PersistenceException{
 		// TODO: implement method: prepareForDeletion
 
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
+    public void delete() 
+				throws model.ConsistencyException, PersistenceException{
+		// TODO: implement method: delete
+
+	}
+    public void initializeOnCreation() 
+				throws PersistenceException{
+	}
 
     /* Start of protected part that is not overridden by persistence generator */
 
