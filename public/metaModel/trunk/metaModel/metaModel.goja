@@ -48,7 +48,7 @@ server Server {
 
 	/** Object **/
 	void createMObject@@Exemplar_erstellen(MAtomicType type {typeManager;types}, MAtomicType** otherTypes {typeManager;types});	
-	void addType@@Typen_hinzuf?gen(MObject object, MAtomicType newType {typeManager;types});
+	void addType@@Typen_hinzufügen(MObject object, MAtomicType newType {typeManager;types});
 	void removeType@@Typen_entfernen(MObject object, MAtomicType oldType {;object;types});
 	void replaceType@@Typen_ersetzen(MObject object, MAtomicType oldType {;object;types}, MAtomicType newType {;oldType;aspect;types});
 	void deleteObject@@Loeschen(MObject object);
@@ -56,13 +56,13 @@ server Server {
 	/** Enums **/
 	void createEnum@@Enum_erstellen(String name);
 	void createEnumValue@@Enum_Wert_erstellen(MEnum type, String name);
-	void deleteEnum@@Enum_lï¿½schen(MEnum type);
-	void deleteEnumValue@@Enum_Wert_lï¿½schen(MEnumValue enumValue);
+	void deleteEnum@@Enum_löschen(MEnum type);
+	void deleteEnumValue@@Enum_Wert_löschen(MEnumValue enumValue);
 
 	void createObservation@@Observation_erstellen(MObservationType theType, String name, MObject theObsObject, MEnumValue enumValue);
-	void deleteObservation@@Observation_lï¿½schen(MObservation observation);
+	void deleteObservation@@Observation_löschen(MObservation observation);
 	void createObsType@@Observation_Type_erstellen(String name, MEnum enumType, MType theType);
-	void deleteObsType@@Observation_Type_lï¿½schen(MObservationType theType);
+	void deleteObsType@@Observation_Type_löschen(MObservationType theType);
 
 	/** Manager zu AbstractOperation **/
 	derived AssociationManager associationManager;

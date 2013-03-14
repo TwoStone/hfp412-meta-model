@@ -6,7 +6,6 @@ import model.measurement.AccountManager;
 import model.measurement.AccountTypeManager;
 import model.measurement.Measurement;
 import model.measurement.MeasurementTypeManager;
-import model.meta.StringFACTORY;
 import model.observations.EnumValueManager;
 import model.observations.EnumerationManager;
 import model.observations.ObsTypeManager;
@@ -870,14 +869,14 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public PersistentAbsQuantity aggregateByStrategy(final PersistentAccount account, final String strategy) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-        //TODO: implement method: aggregateByStrategy
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"aggregateByStrategy\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
-    }
+		// TODO: implement method: aggregateByStrategy
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"aggregateByStrategy\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
     public void assignNameScheme(final PersistentMAtomicType type, final PersistentNameScheme scheme) 
 				throws PersistenceException{
 		getNameSchemeManager().assignType(scheme, type, getThis());
@@ -1335,7 +1334,6 @@ public class Server extends PersistentObject implements PersistentServer{
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
 	private void demoUnits() throws DoubleDefinitionException, PersistenceException {
 		final PersistentUnitType distance = getThis().getUnitTypeManager().createUnitType("Strecke");
@@ -1354,14 +1352,14 @@ public class Server extends PersistentObject implements PersistentServer{
 		final PersistentMAspect aspect1 = MAspect.createMAspect("Bankkunde");
 		final PersistentMAtomicType type = MAtomicType.createMAtomicType("Person", MFalse.getTheMFalse(), MFalse.getTheMFalse(), aspect1,
 				MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
-		final PersistentUnitType unitType1 = UnitTypeManager.getTheUnitTypeManager().createUnitType("Währung");
+		final PersistentUnitType unitType1 = UnitTypeManager.getTheUnitTypeManager().createUnitType("W�hrung");
 
 		final PersistentMAccountType accType1 = AccountTypeManager.getTheAccountTypeManager().createAccountType("Bankkonto", type, unitType1);
 
 		final PersistentMObject obj1 = ObjectManager.getTheObjectManager().createMObject(type, new MAtomicTypeSearchList());
 		final PersistentMObject obj2 = ObjectManager.getTheObjectManager().createMObject(type, new MAtomicTypeSearchList());
 
-		final PersistentAccount account = AccountManager.getTheAccountManager().createAccount("Björns Konto", accType1, obj1);
+		final PersistentAccount account = AccountManager.getTheAccountManager().createAccount("Hugos Konto", accType1, obj1);
 
 		final PersistentUnit unit = Unit.createUnit(unitType1, "Euro");
 		unitType1.setDefaultUnit(unit);
@@ -1380,7 +1378,6 @@ public class Server extends PersistentObject implements PersistentServer{
 		account.addEntry(measurement2_3Euro);
 	}
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

@@ -108,11 +108,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 
 	/**
-	 * Formatiert den Klassennamen des Ã¼bergebenen Objekts fÃ¼r die Debug-Ausgabe.
+	 * Formatiert den Klassennamen des übergebenen Objekts für die Debug-Ausgabe.
 	 * 
 	 * @param anything
 	 *            Das zu formatierende Objekt
-	 * @return FÃ¼r Debug-Ausgabe formatierter Klassenname
+	 * @return Für Debug-Ausgabe formatierter Klassenname
 	 */
 	private String formatClassNameForDebug(final Object anything) {
 		if (anything == null) {

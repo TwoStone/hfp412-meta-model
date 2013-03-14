@@ -411,10 +411,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
                 item = new javax.swing.JMenuItem();
-                item.setText("Enum lï¿½schen");
+                item.setText("Enum löschen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum löschen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteEnum((MEnumView)selected);
                                 getConnection().setEagerRefresh();
@@ -477,10 +477,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
             }
             if (selected instanceof MEnumValueView){
                 item = new javax.swing.JMenuItem();
-                item.setText("Enum Wert lï¿½schen");
+                item.setText("Enum Wert löschen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum Wert lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Enum Wert löschen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteEnumValue((MEnumValueView)selected);
                                 getConnection().setEagerRefresh();
@@ -543,10 +543,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
             }
             if (selected instanceof MObservationTypeView){
                 item = new javax.swing.JMenuItem();
-                item.setText("Observation Type lï¿½schen");
+                item.setText("Observation Type löschen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation Type lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation Type löschen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteObsType((MObservationTypeView)selected);
                                 getConnection().setEagerRefresh();
@@ -1057,10 +1057,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
                 item = new javax.swing.JMenuItem();
-                item.setText("Typen hinzuf?gen ... ");
+                item.setText("Typen hinzufügen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerAddTypeMObjectMAtomicTypeMssgWizard wizard = new ServerAddTypeMObjectMAtomicTypeMssgWizard("Typen hinzuf?gen");
+                        ServerAddTypeMObjectMAtomicTypeMssgWizard wizard = new ServerAddTypeMObjectMAtomicTypeMssgWizard("Typen hinzufügen");
                         wizard.setFirstArgument((MObjectView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
@@ -1089,10 +1089,10 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
             }
             if (selected instanceof MObservationView){
                 item = new javax.swing.JMenuItem();
-                item.setText("Observation lï¿½schen");
+                item.setText("Observation löschen");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation lï¿½schen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
+                        if (javax.swing.JOptionPane.showConfirmDialog(getNavigationPanel(), "Observation löschen" + Wizard.ConfirmQuestionMark, "Bestätigen", javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null) == javax.swing.JOptionPane.YES_OPTION){
                             try {
                                 getConnection().deleteObservation((MObservationView)selected);
                                 getConnection().setEagerRefresh();
