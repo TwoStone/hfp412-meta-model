@@ -23,6 +23,7 @@ import modelServer.ConnectionServer;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
@@ -41,6 +42,7 @@ import persistence.PersistentMMixedTypeDisjunction;
 import persistence.PersistentMTrue;
 import persistence.PersistentMType;
 import persistence.PersistentRoot;
+import test.TestSupport;
 import utils.SearchLists;
 import utils.Sets;
 
@@ -75,6 +77,11 @@ public abstract class TestingBase {
 		// TODO Hier vielleicht noch das leeren der DB einbauen... Für pauschalbereinigung
 
 		ConnectionServer.stopTheConnectionServer();
+	}
+
+	@Before
+	public void resetSingletons() {
+		TestSupport.prepareSingletons();
 	}
 
 	protected static PersistentMAtomicType atomicType(final String name, final PersistentMAspect aspect) throws PersistenceException, CycleException {
