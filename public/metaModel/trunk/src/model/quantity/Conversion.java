@@ -284,14 +284,14 @@ public class Conversion extends PersistentObject implements PersistentConversion
     
     // Start of section that contains operations that must be implemented.
     
-    public common.Fraction convertInverse(final common.Fraction amount) 
-				throws PersistenceException{
-		return this.getThis().getMyFunction().executeInverse(amount);
-	}
-    public common.Fraction convert(final common.Fraction amount) 
+    public common.Fraction convertFromDefault(final common.Fraction amount) 
 				throws PersistenceException{
 		return this.getThis().getMyFunction().execute(amount);
 
+	}
+    public common.Fraction convertToDefault(final common.Fraction amount) 
+				throws PersistenceException{
+		return this.getThis().getMyFunction().executeInverse(amount);
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

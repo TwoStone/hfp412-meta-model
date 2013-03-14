@@ -64,7 +64,7 @@ public class ConversionTest extends TestingBase {
 	public void testConvert() throws Exception {
 		this.initObjects();
 		final PersistentConversion c = Conversion.createConversion(unit, function);
-		final Fraction convertedAmount = c.convert(Fraction.parse("4"));
+		final Fraction convertedAmount = c.convertFromDefault(Fraction.parse("4"));
 		assertEquals("31", convertedAmount.toString());
 	}
 
@@ -75,7 +75,7 @@ public class ConversionTest extends TestingBase {
 	public void testConvertInverse() throws Exception {
 		this.initObjects();
 		final PersistentConversion c = Conversion.createConversion(unit, function);
-		final Fraction convertedAmount = c.convertInverse(Fraction.parse("4"));
+		final Fraction convertedAmount = c.convertToDefault(Fraction.parse("4"));
 		assertEquals("1/7", convertedAmount.toString());
 	}
 

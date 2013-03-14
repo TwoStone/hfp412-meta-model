@@ -114,7 +114,7 @@ server Server {
 	void setConversion(Unit unit, Fraction factor, Fraction constant);
 	void setDefaultUnit(UnitType type, Unit defaultUnit{unitTypeManager;units});
 
-	void convert(Quantity quantity, AbsUnit unit);
+	void convert(Quantity quantity, AbsUnit unit{unitTypeManager;units});
 
 	/** computing **/
 	void add(AbsQuantity summand1{quantityManager;quantities}, AbsQuantity summand2{quantityManager;quantities}) throws NotComputableException;
@@ -433,8 +433,8 @@ part quantity {
 		prior no-view one-to-one (myConversion) Unit source;
 		prior Function myFunction;
 
-		Fraction convert(Fraction amount);
-		Fraction convertInverse(Fraction amount);
+		Fraction convertFromDefault(Fraction amount);
+		Fraction convertToDefault(Fraction amount);
 	}
 
 	class Function covers MModelItem{

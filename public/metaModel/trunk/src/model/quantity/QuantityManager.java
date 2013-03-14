@@ -3,9 +3,11 @@ package model.quantity;
 import java.util.Iterator;
 
 import model.DoubleDefinitionException;
+import model.NotComputableException;
 import model.NotFoundException;
 import model.UserException;
 import model.visitor.AbsQuantityReturnVisitor;
+import model.visitor.AbsUnitReturnExceptionVisitor;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -18,7 +20,9 @@ import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnit;
 import persistence.PersistentAddCommand;
 import persistence.PersistentAddition;
+import persistence.PersistentCompUnit;
 import persistence.PersistentCompoundQuantity;
+import persistence.PersistentConversion;
 import persistence.PersistentConvertCommand;
 import persistence.PersistentCreateQuantityCommand;
 import persistence.PersistentDivCommand;
@@ -32,11 +36,14 @@ import persistence.PersistentQuantity;
 import persistence.PersistentQuantityManager;
 import persistence.PersistentSubCommand;
 import persistence.PersistentSubtraction;
+import persistence.PersistentUnit;
 import persistence.QuantityManagerProxi;
 import persistence.QuantityManager_QuantitiesProxi;
 import persistence.TDObserver;
 
 import common.Fraction;
+
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -249,7 +256,33 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
     public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) 
 				throws model.NotComputableException, PersistenceException{
-		final Fraction amount = quantity.getAmount();
+		if (!(quantity.getUnit().getType().equals(unit.getType()))) {
+			throw new NotComputableException(ExceptionConstants.WRONG_UNIT_TYPE_FOR_CONVERSION);
+		}
+		final Fraction resultAmount = quantity.getUnit().accept(new AbsUnitReturnExceptionVisitor<Fraction, NotComputableException>() {
+
+			@Override
+			public Fraction handleUnit(final PersistentUnit unit1) throws PersistenceException, NotComputableException {
+				final PersistentConversion conversion1 = unit1.getMyConversion();
+				if (conversion1 == null) {
+					throw new NotComputableException(ExceptionConstants.NO_CONVERSION + unit1);
+				}
+				final Fraction amount = conversion1.convertToDefault(quantity.getAmount());
+				final PersistentConversion conversion2 = ((PersistentUnit) unit).getMyConversion();
+				if (conversion2 == null) {
+					throw new NotComputableException(ExceptionConstants.NO_CONVERSION + unit);
+				}
+				return conversion2.convertFromDefault(amount);
+			}
+
+			@Override
+			public Fraction handleCompUnit(final PersistentCompUnit compUnit) throws PersistenceException, NotComputableException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+		quantity.setAmount(resultAmount);
+		quantity.setUnit(unit);
 
 	}
     public void copyingPrivateUserAttributes(final Anything copy) 

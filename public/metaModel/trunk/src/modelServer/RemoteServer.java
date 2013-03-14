@@ -484,6 +484,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> unit_Path_In_Convert(){
+        try {
+            AbsUnitSearchList result = ((PersistentServer)this.server).unit_Path_In_Convert();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> unit_Path_In_CreateQuantity(){
         try {
             AbsUnitSearchList result = ((PersistentServer)this.server).unit_Path_In_CreateQuantity();

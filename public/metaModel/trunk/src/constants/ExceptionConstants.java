@@ -18,6 +18,8 @@ public final class ExceptionConstants {
 	public static final String UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY = "UnitType des Measurements passt nicht zum UnitType der Quantity.";
 
 	public static final String NO_DEFAULT_UNIT_FOR_CONVERSION = "Im UnitType dieser Unit ist keine Default-Unit gesetzt. Diese wird für die Conversion benötigt.";
+	public static final String NO_CONVERSION = "Es ist keine Conversion vorhanden in: ";
+	public static final String WRONG_UNIT_TYPE_FOR_CONVERSION = "Die Ziel-Unit hat den falschen UnitType für die Konvertierung.";
 
 	public static final String NO_DEFAULT_UNIT = "Im UnitType dieser Unit ist keine Default-Unit gesetzt.";
 
