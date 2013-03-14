@@ -800,6 +800,11 @@ public class Server extends PersistentObject implements PersistentServer{
         		return new UnitTypeSearchList(getThis().getUnitTypeManager().
 				getAtomicUnitTypes());
     }
+    public AbsUnitSearchList unit_Path_In_CreateQuantity() 
+				throws model.UserException, PersistenceException{
+        		return new AbsUnitSearchList(getThis().getUnitTypeManager().
+				getUnits().getList());
+    }
     public void addAssociation(final PersistentHierarchy h, final PersistentAssociation a) 
 				throws PersistenceException{
 		getThis().getAssociationManager().addAssociation(h, a, getThis());

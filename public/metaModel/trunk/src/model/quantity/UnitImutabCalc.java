@@ -195,8 +195,9 @@ public abstract class UnitImutabCalc extends model.quantity.BasicCalculation imp
 
 		} else {
 
-			if (!(atom1.getUnit().getType().equals(atom2.getUnit().getType())))
+			if (!(atom1.getUnit().getType().equals(atom2.getUnit().getType()))) {
 				throw new NotComputableException(constants.ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_ADD_OR_SUB);
+			}
 
 			final PersistentCompoundQuantity result = CompoundQuantity.createCompoundQuantity();
 

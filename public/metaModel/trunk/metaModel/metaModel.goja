@@ -110,7 +110,7 @@ server Server {
 	void fetchScalar(UnitTypeManager manager);
 	void changeUnitName(AbsUnit unit, String name);
 	void addReference(AbsUnit unit, String name, Unit referenceUnit{unitTypeManager;units}, Integer exponent);
-	void createQuantity@@Create_quantity(QuantityManager manager, AbsUnit unit, Fraction f);
+	void createQuantity@@Create_quantity(QuantityManager manager, AbsUnit unit{unitTypeManager;units}, Fraction f);
 	void setConversion(Unit unit, Fraction factor, Fraction constant);
 	void setDefaultUnit(UnitType type, Unit defaultUnit{unitTypeManager;units});
 
@@ -478,9 +478,6 @@ part quantity {
 		abstract void calcTargetRefs(Quantity arg1, Quantity arg2) throws NotComputableException;
 		abstract void calcTargetRefTypes(Quantity arg1, Quantity arg2) throws NotComputableException;
 		void findTargetUnit() throws NotComputableException;
-		void findTargetUnitType() throws NotComputableException;
-		void createTargetUnitType() throws NotComputableException;
-		void createTargetUnit() throws NotComputableException;
 		
 	}
 	class Multiplication extends UnitMutabCalc {}
