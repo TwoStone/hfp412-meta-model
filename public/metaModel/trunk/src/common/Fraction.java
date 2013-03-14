@@ -148,4 +148,18 @@ public class Fraction {
 		final BigInteger p = (m.multiply(n)).divide(o);
 		return p;
 	}
+
+	public Fraction pow(final long exponent) throws Throwable {
+		Fraction result = Fraction.parse("1");
+		if (exponent == 0) {
+			return result;
+		}
+		for (int i = 1; i <= Math.abs(exponent); i++) {
+			result = result.mul(this);
+		}
+		if (exponent <= 0) {
+			result = result.invert();
+		}
+		return result;
+	}
 }

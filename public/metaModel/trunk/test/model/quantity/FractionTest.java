@@ -235,4 +235,23 @@ public class FractionTest extends TestingBase {
 		assertTrue(arg2.isLessOrEqual(arg1).toBoolean());
 	}
 
+	@Test
+	public void testPow() throws Throwable {
+		// (3/4)¹
+		final Fraction x = Fraction.parse("3/4");
+		Fraction result = x.pow(1);
+		assertEquals("(3/4)¹ sollte 3/4 ergeben", x, result);
+
+		// (3/4)^0
+		result = x.pow(0);
+		assertEquals("Exponent = 0 sollte 1 ergeben", Fraction.parse("1"), result);
+
+		// (3/4)³
+		result = x.pow(3);
+		assertEquals("(3/4)³ sollte 27/64 ergeben", Fraction.parse("27/64"), result);
+
+		result = x.pow(-3);
+		assertEquals("(3/4)^-3 sollte 64/27 ergeben", Fraction.parse("64/27"), result);
+	}
+
 }
