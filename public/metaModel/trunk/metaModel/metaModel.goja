@@ -394,7 +394,7 @@ part quantity {
 	}
 
 	class CompoundQuantity extends AbsQuantity {
-		Quantity ** parts; // +
+		symmetric Quantity ** parts; // +
 	}
 
 	abstract class AbsUnit covers MModelItem{
