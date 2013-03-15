@@ -20,6 +20,7 @@ import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.Predcate;
 import persistence.TDObserver;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -255,8 +256,8 @@ public class EnumValueManager extends PersistentObject implements PersistentEnum
 			});
 
 			enumValue.delete();
-		} else {
-			throw new model.ConsistencyException("Deletion not possible. There are observations connected with the enum value!");
+		} else {// TODO: Doppelte Abfrage entfernen
+			throw new model.ConsistencyException(ExceptionConstants.CE_ENUM_DELETE_OBSERVATION);
 		}
 
 	}

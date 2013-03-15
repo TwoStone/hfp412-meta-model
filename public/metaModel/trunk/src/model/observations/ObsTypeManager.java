@@ -21,6 +21,7 @@ import persistence.PersistentObsTypeManager;
 import persistence.PersistentProxi;
 import persistence.Predcate;
 import persistence.TDObserver;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -249,8 +250,8 @@ public class ObsTypeManager extends PersistentObject implements PersistentObsTyp
 				}
 			});
 			theType.delete();
-		} else {
-			throw new model.ConsistencyException("Cannot delete Observation Type because there are dependent observations");
+		} else {// TODO: Doppelte Abfrage entfernen
+			throw new model.ConsistencyException(ExceptionConstants.CE_OBSERVATIONTYPE_DELETE);
 		}
 
 	}

@@ -36,10 +36,12 @@ public final class ExceptionConstants {
 	public static final String DDE_HIERARCHY = "Eine Hierarchie mit diesem Namen existiert bereits.";
 	public static final String NA_IN_HIERARCHY = "Die gewälte Assoziation ist nicht in der Hierarchie enthalten.";
 	public static final String CE_LAST_ASSOC_IN_HIERARCHY = "Die gewälte Assoziation ist die letzte Assoziation in der gewälten Hierarchie und kann deshalb nicht entfernt werden.";
+	public static final String CE_ASSOC_WRONG_SOURCE_EMPTY_DIS = "Die Quelle einer Assoziation darf nicht der leeren Disjunktion entsprechen.";
+	public static final String CE_ASSOC_WRONG_TARGET_EMPTY_DIS = "Das Ziel einer Assoziation darf nicht der leeren Disjunktion entsprechen.";
 
 	public static final String CE_FP_ALREADY_IN_OP = "Die Operation enthält bereits den gewälten Formalparameter.";
 	public static final String DDE_FP = "Ein Formalparameter mit diesem Namen existiert bereits.";
-	public static final String CE_WRONG_TYPE_EMPTYTYPEDIS = "Der Typ eines Formalparameters darf nicht der leeren Disjunktion entsprechen.";
+	public static final String CE_FP_WRONG_TYPE_EMPTY_DIS = "Der Typ eines Formalparameters darf nicht der leeren Disjunktion entsprechen.";
 	public static final String CE_OP_SOURCE_AND_TARGET_EMPTYTYPEDISJ = "Quelle und Ziel könnn nicht gleichhzeitig leere Disjunktion sein.";
 	public static final String CE_OP_HAS_MESSAGES_FP = "Zu dieser Operation existieren Exemplare, daher darf der Formalparameter nicht entfernt werden.";
 	public static final String DDE_OP = "Eine Operation mit diesem Namen existiert bereits.";
@@ -48,6 +50,7 @@ public final class ExceptionConstants {
 	public static final String CYCLE_CREATE_LINK = "Das Erstellen des Links ist nicht möglich, da ein Zyklus entstehen würde.";
 	public static final String CE_LINK_SOURCE_WRONG_TYPE = "Die gewälte Quelle passt nicht zur Assoziation.";
 	public static final String CE_LINK_TARGET_WRONG_TYPE = "Das gewälte Ziel passt nicht zur Assoziation.";
+	/* Ende Exceptions für Association, Operation, Link ... */
 
 	public static final String CE_AT_SINGLETON_AND_ABSTRACT = "Atomare Typen duerfen nicht sowohl abstract als auch Singleton sein.";
 	public static final String CE_AT_ABSTRACT_WITH_OBJECTS = "Atomare Typen mit Objekten duerfen nicht abstract sein.";
@@ -55,8 +58,6 @@ public final class ExceptionConstants {
 	public static final String CE_AT_SINGLETON_WITH_DEPENDENT_ITEMS = "Singletons zu denen abhaenginge Items existieren duerfen nicht umdeklariert werden.";
 	public static final String CE_AT_NAME_EMPTY = "Atomare Typen muessen einen nicht leeren Namen tragen.";
 	public static final String CE_NAME_DOUBLE = "Name bereits vergeben: ";
-
-	/* Ende Exceptions für Association, Operation, Link ... */
 
 	public static final String NOT_COMPARABLE_UT = "Nur mit gleichem Einheitstyp vergleichbar!";
 
@@ -67,7 +68,19 @@ public final class ExceptionConstants {
 	public static final String CE_OBJ_MAX_ONE_TYPE = "Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s";
 	public static final String CE_OBJ_NAME_WITH_SCHEME = "Das Objekt hat bereits einen Namen in dem Schema!";
 	public static final String CE_OBJ_NOT_THIS_SCHEME = "Das Objekt kann nicht in diesem Schema benannt werden!";
-	public static final String CE_NAME_NOT_VALID_FOR_SCHEME = "Der angegebene Name entspricht nicht dem Schema!";
-	public static final String CE_CONJ_NO_SINGLETON = "Typen in TypeKonjunktionen dürfen keine Singletons sein";
-	public static final String CE_ASP_IN_CONJ_UNIQUE = "Aspekte in TypeKonjunktionen müssen eindeutig sein.";
+	public static final String CE_SCHEME_NAME_NOT_VALID = "Der angegebene Name entspricht nicht dem Schema!";
+	public static final String CE_CONJ_NO_SINGLETON = "Typen in Typ-Konjunktionen dürfen keine Singletons sein";
+	public static final String CE_ASP_IN_CONJ_UNIQUE = "Aspekte in Typ-Konjunktionen müssen eindeutig sein.";
+	public static final String CE_ASP_NAME_UNIQUE = "Aspekt-Namen müssen eindeutig sein. Es existiert bereits ein Aspekt mit dem Namen: ";
+	public static final String CE_CYCLE_NOT_VALID = "Es ist eine unerwartete CycleException aufgetreten: ";
+	public static final String CE_ENUM_TYPE_NOT_VALID = "Enumwert ist nicht vom korrekten Typ.";
+
+	public static final String CE_MI_DELETE = "Das folgende Element kann nicht gelöscht werden, da es noch Abhängigkeiten zu anderen Elementen gibt: ";
+	public static final String CE_DELETE_ANYTHING = "'ANYTHING' darf nicht gelöscht werden.";
+	public static final String CE_DELETE_NOTHING = "'NOTHING' darf nicht gelöscht werden.";
+
+	public static final String CE_ENUM_DELETE_ENUMVALUE = "Enumeration kann nicht gelöscht werden, da es noch Abhängigkeiten zu Enumwerten gibt.";
+	public static final String CE_ENUM_DELETE_OBSERVATION = "Enumeration kann nicht gelöscht werden, da es noch Abhängigkeiten zu Observationen gibt.";
+	public static final String CE_OBSERVATION_DELETE = "Observation kann nicht gelöscht werden, da es noch Abhängigkeiten zu anderen Elementen gibt.";
+	public static final String CE_OBSERVATIONTYPE_DELETE = "Observation-Typ kann nicht gelöscht werden, da es noch Abhängigkeiten zu anderen Elementen gibt.";
 }

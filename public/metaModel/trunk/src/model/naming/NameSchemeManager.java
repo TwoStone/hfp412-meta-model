@@ -280,7 +280,7 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
 
 	private static void checkNameIsValid(final PersistentName name, final String value) throws PersistenceException, PatternNotMatchException {
 		if (!name.getNameScheme().match(value).toBoolean()) {
-			throw new PatternNotMatchException(ExceptionConstants.CE_NAME_NOT_VALID_FOR_SCHEME);
+			throw new PatternNotMatchException(ExceptionConstants.CE_SCHEME_NAME_NOT_VALID);
 		}
 	}
 

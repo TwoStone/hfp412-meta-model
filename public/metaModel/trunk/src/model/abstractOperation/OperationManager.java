@@ -344,7 +344,7 @@ public class OperationManager extends PersistentObject implements PersistentOper
 
 		final EmptyTypeDisjReturnBooleanVisitor emptySumTypeReturnBooleanVisitor = new EmptyTypeDisjReturnBooleanVisitor();
 		if (ofType.accept(emptySumTypeReturnBooleanVisitor)) {
-			throw new ConsistencyException(ExceptionConstants.CE_WRONG_TYPE_EMPTYTYPEDIS);
+			throw new ConsistencyException(ExceptionConstants.CE_FP_WRONG_TYPE_EMPTY_DIS);
 		}
 
 		final PersistentFormalParameter findFirst = getThis().getFormalParameters().findFirst(new Predcate<PersistentFormalParameter>() {
