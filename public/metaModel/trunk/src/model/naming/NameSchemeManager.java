@@ -30,6 +30,7 @@ import persistence.PersistentProxi;
 import persistence.Predcate;
 import persistence.SearchListRoot;
 import persistence.TDObserver;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -216,13 +217,12 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
 		checkNameSchemeIsNotPresent(object, name);
 		checkNameIsValid(name, value);
 
-		PersistentNameSchemeInstance nameSchemeInstance = NameSchemeInstance.createNameSchemeInstance(value,
-				name.getNameScheme());
+		final PersistentNameSchemeInstance nameSchemeInstance = NameSchemeInstance.createNameSchemeInstance(value, name.getNameScheme());
 		NameInstance.createNameInstance(name, object, nameSchemeInstance);
 	}
     public PersistentName assignType(final PersistentNameScheme scheme, final PersistentMAtomicType type) 
 				throws PersistenceException{
-		PersistentName name = Name.createName(type, scheme);
+		final PersistentName name = Name.createName(type, scheme);
 		this.getNames().add(name);
 
 		return name;
@@ -232,7 +232,7 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
 	}
     public PersistentNameScheme createNameScheme(final String name, final String regExpPattern, final PersistentMBoolean isIterable) 
 				throws PersistenceException{
-		PersistentNameScheme nameScheme = NameScheme.createNameScheme(regExpPattern, name, isIterable);
+		final PersistentNameScheme nameScheme = NameScheme.createNameScheme(regExpPattern, name, isIterable);
 		this.getThis().getSchemes().add(nameScheme);
 		return nameScheme;
 	}
@@ -248,53 +248,42 @@ public class NameSchemeManager extends PersistentObject implements PersistentNam
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    
-    
-    
-    
-	private static void checkTypeIsAssignable(final PersistentMObject object, final PersistentName name)
-			throws PersistenceException, ConsistencyException {
-		SearchListRoot<PersistentMAtomicType> fittingTypes = object.getTypes().findAll(
-				new Predcate<PersistentMAtomicType>() {
 
-					@Override
-					public boolean test(PersistentMAtomicType argument) throws PersistenceException {
-						return argument.isLessOrEqual(name.getFromType()).toBoolean();
-					}
-				});
+	private static void checkTypeIsAssignable(final PersistentMObject object, final PersistentName name) throws PersistenceException,
+			ConsistencyException {
+		final SearchListRoot<PersistentMAtomicType> fittingTypes = object.getTypes().findAll(new Predcate<PersistentMAtomicType>() {
+
+			@Override
+			public boolean test(final PersistentMAtomicType argument) throws PersistenceException {
+				return argument.isLessOrEqual(name.getFromType()).toBoolean();
+			}
+		});
 
 		if (!fittingTypes.iterator().hasNext()) {
-			throw new model.ConsistencyException("Das Objekt kann nicht in diesem Schema benannt werden!");
+			throw new model.ConsistencyException(ExceptionConstants.CE_OBJ_NOT_THIS_SCHEME);
 		}
 	}
 
-	private static void checkNameSchemeIsNotPresent(final PersistentMObject object, final PersistentName name)
-			throws PersistenceException, ConsistencyException {
-		PersistentNameInstance nameWithScheme = object.getNames().findFirst(new Predcate<PersistentNameInstance>() {
+	private static void checkNameSchemeIsNotPresent(final PersistentMObject object, final PersistentName name) throws PersistenceException,
+			ConsistencyException {
+		final PersistentNameInstance nameWithScheme = object.getNames().findFirst(new Predcate<PersistentNameInstance>() {
 
 			@Override
-			public boolean test(PersistentNameInstance argument) throws PersistenceException {
+			public boolean test(final PersistentNameInstance argument) throws PersistenceException {
 				return argument.getType().equals(name);
 			}
 		});
 		if (nameWithScheme != null) {
-			throw new ConsistencyException("Das Objekt hat bereits einen Namen in dem Schema!");
+			throw new ConsistencyException(ExceptionConstants.CE_OBJ_NAME_WITH_SCHEME);
 		}
 	}
 
-	private static void checkNameIsValid(final PersistentName name, final String value) throws PersistenceException,
-			PatternNotMatchException {
+	private static void checkNameIsValid(final PersistentName name, final String value) throws PersistenceException, PatternNotMatchException {
 		if (!name.getNameScheme().match(value).toBoolean()) {
-			throw new PatternNotMatchException("Der angegebene Name entspricht nicht dem Schema!");
+			throw new PatternNotMatchException(ExceptionConstants.CE_NAME_NOT_VALID_FOR_SCHEME);
 		}
 	}
 
-	
-    
-    
-    
-    
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }

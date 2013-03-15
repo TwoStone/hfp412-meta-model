@@ -29,9 +29,9 @@ public final class ExceptionConstants {
 
 	public static final String UNIT_TYPE_DOES_NOT_MATCH_ADD_OR_SUB = "Addition oder Subtraktion nur mit gleichem Einheitstyp möglich!";
 
-	/* Exceptions fÃ¼r Association, Operation, Link ... */
+	/* Beginn Exceptions für Association, Operation, Link ... */
 	public static final String DDE_ASSOC = "Eine Assoziation mit diesem Namen existiert bereits.";
-	public static final String CYCLE_ADD_ASSOC = "Das Hinzufuegen der Assoziation zu dieser Hierarchie ist nicht möglich, da ein Zyklus entstehen würde. Erster Zyklus durch: ";
+	public static final String CYCLE_ADD_ASSOC = "Das Hinzufügen der Assoziation zu dieser Hierarchie ist nicht möglich, da ein Zyklus entstehen würde. Erster Zyklus durch: ";
 	public static final String CE_ASSOC_ALREADY_IN_HIERARCHY = "Die Assoziation ist bereits in der Hierarchie enthalten.";
 	public static final String DDE_HIERARCHY = "Eine Hierarchie mit diesem Namen existiert bereits.";
 	public static final String NA_IN_HIERARCHY = "Die gewälte Assoziation ist nicht in der Hierarchie enthalten.";
@@ -43,6 +43,7 @@ public final class ExceptionConstants {
 	public static final String CE_OP_SOURCE_AND_TARGET_EMPTYTYPEDISJ = "Quelle und Ziel könnn nicht gleichhzeitig leere Disjunktion sein.";
 	public static final String CE_OP_HAS_MESSAGES_FP = "Zu dieser Operation existieren Exemplare, daher darf der Formalparameter nicht entfernt werden.";
 	public static final String DDE_OP = "Eine Operation mit diesem Namen existiert bereits.";
+	public static final String NA_FP = "Formalparameter befindet sich nicht in der Parameterliste.";
 
 	public static final String CYCLE_CREATE_LINK = "Das Erstellen des Links ist nicht möglich, da ein Zyklus entstehen würde.";
 	public static final String CE_LINK_SOURCE_WRONG_TYPE = "Die gewälte Quelle passt nicht zur Assoziation.";
@@ -55,7 +56,18 @@ public final class ExceptionConstants {
 	public static final String CE_AT_NAME_EMPTY = "Atomare Typen muessen einen nicht leeren Namen tragen.";
 	public static final String CE_NAME_DOUBLE = "Name bereits vergeben: ";
 
-	public static final String NA_FP = "Formalparameter befindet sich nicht in der Parameterliste.";
+	/* Ende Exceptions für Association, Operation, Link ... */
 
 	public static final String NOT_COMPARABLE_UT = "Nur mit gleichem Einheitstyp vergleichbar!";
+
+	public static final String CE_OBJ_CONC_TYPE = "Objekte dürfen nur in konkreten Typen klassifiziert werden!";
+	public static final String CE_OBJ_NOT_SINGLETON_TYPE = "Objekte dürfen nur in nicht-singleton Typen klassifiziert werden!";
+	public static final String CE_OBJ_ONLY_ONE_TYPE_PER_ASPECT = "Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s";
+	public static final String CE_OBJ_MIN_ONE_TYPE = "Das Objekt muss in mindestens einem Typen klassifiziert! Fügen sie einen weiteren Typen hinzu bevor Sie diesen entfernen!";
+	public static final String CE_OBJ_MAX_ONE_TYPE = "Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s";
+	public static final String CE_OBJ_NAME_WITH_SCHEME = "Das Objekt hat bereits einen Namen in dem Schema!";
+	public static final String CE_OBJ_NOT_THIS_SCHEME = "Das Objekt kann nicht in diesem Schema benannt werden!";
+	public static final String CE_NAME_NOT_VALID_FOR_SCHEME = "Der angegebene Name entspricht nicht dem Schema!";
+	public static final String CE_CONJ_NO_SINGLETON = "Typen in TypeKonjunktionen dürfen keine Singletons sein";
+	public static final String CE_ASP_IN_CONJ_UNIQUE = "Aspekte in TypeKonjunktionen müssen eindeutig sein.";
 }

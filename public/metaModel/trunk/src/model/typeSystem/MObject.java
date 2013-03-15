@@ -44,6 +44,7 @@ import persistence.TDObserver;
 import utils.Lists;
 import utils.SearchLists;
 import utils.Sets;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -221,16 +222,15 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
     public void addType(final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
 		if (newType.isAbstract().toBoolean()) {
-			throw new ConsistencyException("Objekte dürfen nur in konkreten Typen klassifiziert werden!");
+			throw new ConsistencyException(ExceptionConstants.CE_OBJ_CONC_TYPE);
 		}
 
 		if (newType.isSingleton().toBoolean()) {
-			throw new ConsistencyException("Objekte dürfen nur in nicht-singleton Typen klassifiziert werden!");
+			throw new ConsistencyException(ExceptionConstants.CE_OBJ_NOT_SINGLETON_TYPE);
 		}
 
 		if (this.getAspects().contains(newType.getAspect())) {
-			throw new ConsistencyException(String.format("Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s",
-					newType.getAspect().getName()));
+			throw new ConsistencyException(String.format(ExceptionConstants.CE_OBJ_ONLY_ONE_TYPE_PER_ASPECT, newType.getAspect().getName()));
 		}
 		this.getThis().getTypes().add(newType);
 	}
@@ -250,8 +250,7 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
     public void removeType(final PersistentMAtomicType oldType) 
 				throws model.ConsistencyException, PersistenceException{
 		if (this.getThis().getTypes().getLength() <= 1) {
-			throw new ConsistencyException(
-					"Das Objekt muss in mindestens einem Typen klassifiziert! F??gen sie einen weiteren Typen hinzu bevor Sie diesen entfernen!");
+			throw new ConsistencyException(ExceptionConstants.CE_OBJ_MIN_ONE_TYPE);
 		}
 		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
 
@@ -265,8 +264,7 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
     public void replaceType(final PersistentMAtomicType oldType, final PersistentMAtomicType newType) 
 				throws model.ConsistencyException, PersistenceException{
 		if (this.getAspects().contains(newType.getAspect()) && !oldType.getAspect().equals(newType.getAspect())) {
-			throw new ConsistencyException(String.format("Das Objekt kann nur in nur einem Typen pro Aspekt klassifiziert werden! Aspekt: %s",
-					newType.getAspect().getName()));
+			throw new ConsistencyException(String.format(ExceptionConstants.CE_OBJ_MAX_ONE_TYPE, newType.getAspect().getName()));
 		}
 		this.getThis().getTypes().removeFirstSuccess(new Predcate<PersistentMAtomicType>() {
 
@@ -351,7 +349,6 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
 	private Set<PersistentMAspect> getAspects() throws PersistenceException {
 		return Sets.transform(this.getThis().getTypes().getList(), new Lists.FunctionWithResult<PersistentMAtomicType, PersistentMAspect>() {
@@ -366,7 +363,7 @@ public class MObject extends model.typeSystem.AbstractObject implements Persiste
 			}
 		});
 	}
-	
-    /* End of protected part that is not overridden by persistence generator */
+
+	/* End of protected part that is not overridden by persistence generator */
     
 }

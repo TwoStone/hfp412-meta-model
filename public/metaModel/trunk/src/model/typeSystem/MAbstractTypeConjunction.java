@@ -31,6 +31,7 @@ import persistence.Procdure;
 import persistence.ProcdureException;
 import persistence.SearchListRoot;
 import persistence.TDObserver;
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -162,7 +163,6 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
-    
 
 	public static String TYPE_LINK_OP = "**";
 
@@ -305,7 +305,7 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 			}
 		});
 		if (findFirst != null) {
-			throw new ConsistencyException("Types in TypeConjunctions may not be Singleton");
+			throw new ConsistencyException(ExceptionConstants.CE_CONJ_NO_SINGLETON);
 		}
 	}
 
@@ -322,7 +322,7 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 					@Override
 					public void doItTo(final PersistentMAspect argument) throws PersistenceException, ConsistencyException {
 						if (argument.equals(currentBAspect)) {
-							throw new ConsistencyException("Aspects in TypeConjunctions must be unique.");
+							throw new ConsistencyException(ExceptionConstants.CE_ASP_IN_CONJ_UNIQUE);
 						}
 					}
 				});
@@ -378,7 +378,6 @@ public abstract class MAbstractTypeConjunction extends model.typeSystem.MComplex
 		return result;
 	}
 
-	
-    /* End of protected part that is not overridden by persistence generator */
+	/* End of protected part that is not overridden by persistence generator */
     
 }
