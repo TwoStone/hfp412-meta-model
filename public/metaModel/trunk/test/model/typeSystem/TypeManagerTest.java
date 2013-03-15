@@ -606,6 +606,218 @@ public class TypeManagerTest extends TestingBase {
 		typeMngr.changeSingleton(at1, mFalse);
 	}
 
+	/**
+	 * delete an AtomicType in an Aspect
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test
+	public void deleteAtomicType_test1() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(0), "AT2", mTrue, mFalse);
+		final PersistentMAtomicType at3 = typeMngr.createAtomicRootType(aspects.get(0), "AT3", mFalse, mTrue);
+		Assert.assertEquals(3, aspects.get(0).getTypes().getLength());
+		Assert.assertEquals(3, typeMngr.getTypes().getLength());
+		typeMngr.deleteAtomicType(at1);
+		Assert.assertEquals(2, aspects.get(0).getTypes().getLength());
+		Assert.assertEquals(2, typeMngr.getTypes().getLength());
+		typeMngr.deleteAtomicType(at2);
+		Assert.assertEquals(1, aspects.get(0).getTypes().getLength());
+		Assert.assertEquals(1, typeMngr.getTypes().getLength());
+		typeMngr.deleteAtomicType(at3);
+		Assert.assertEquals(0, aspects.get(0).getTypes().getLength());
+		Assert.assertEquals(0, typeMngr.getTypes().getLength());
+	}
+
+	/**
+	 * Error: Delete an AtomicType contained in a compl.
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void deleteAtomicType_test2() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		createTypeConjunction(at1);
+		typeMngr.deleteAtomicType(at1);
+	}
+
+	/**
+	 * Error: Delete an AtomicType contained in a compl.
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void deleteAtomicType_test3() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		createTypeDisjunction(at1);
+		typeMngr.deleteAtomicType(at1);
+	}
+
+	/**
+	 * Error: Delete a Singleton with links.
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void deleteAtomicType_test4() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mTrue, mFalse);
+		final PersistentMSingletonObject singletonObj = at1.getSingletonObject().findFirst(new TruePredcate<PersistentMSingletonObject>());
+		final PersistentAssociation ass = Association.createAssociation("Ass1", at1, at1);
+		Link.createLink(singletonObj, singletonObj, ass);
+		typeMngr.deleteAtomicType(at1);
+	}
+
+	/**
+	 * Error: Delete a AT with objs.
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void deleteAtomicType_test6() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMObject createMObject = MObject.createMObject();
+		createMObject.addType(at1);
+		typeMngr.deleteAtomicType(at1);
+	}
+
+	/**
+	 * Error: Delete a AT with Subtype.
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void deleteAtomicType_test7() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMAtomicType at2 = typeMngr.createAtomicSubType(at1, "AT2", mFalse, mFalse);
+		typeMngr.deleteAtomicType(at1);
+	}
+
+	/**
+	 * Error: Delete Anything
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void deleteAnything() throws ConsistencyException, PersistenceException, CycleException {
+		typeMngr.deleteComplexeType(anything);
+	}
+
+	/**
+	 * Error: Delete Nothing
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void deleteNothing() throws ConsistencyException, PersistenceException, CycleException {
+		typeMngr.deleteComplexeType(nothing);
+	}
+
+	/**
+	 * Error: Delete Conjunction in Disjunction
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void deleteConmplexType_test1() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(1), "AT2", mTrue, mFalse);
+		final PersistentMAtomicType at3 = typeMngr.createAtomicRootType(aspects.get(1), "AT3", mFalse, mFalse);
+		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(at1, at2);
+		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(conj, at3);
+
+		typeMngr.deleteComplexeType(conj);
+	}
+
+	/**
+	 * Error: Delete Disjunction in Conjunction
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void deleteConmplexType_test2() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(1), "AT2", mTrue, mFalse);
+		final PersistentMAtomicType at3 = typeMngr.createAtomicRootType(aspects.get(1), "AT3", mFalse, mFalse);
+		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(at1, at2);
+		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(disj, at3);
+		typeMngr.deleteComplexeType(disj);
+	}
+
+	/**
+	 * Sequentiell: Delete Conjunction in Disjunction
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test()
+	public void deleteConmplexType_test3() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(1), "AT2", mTrue, mFalse);
+		final PersistentMAtomicType at3 = typeMngr.createAtomicRootType(aspects.get(1), "AT3", mFalse, mFalse);
+		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(at1, at2);
+		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(conj, at3);
+		Assert.assertEquals(5, typeMngr.getTypes().getLength());
+		typeMngr.deleteComplexeType(disj);
+		Assert.assertEquals(4, typeMngr.getTypes().getLength());
+		typeMngr.deleteComplexeType(conj);
+		Assert.assertEquals(3, typeMngr.getTypes().getLength());
+		typeMngr.deleteAtomicType(at3);
+		Assert.assertEquals(2, typeMngr.getTypes().getLength());
+		typeMngr.deleteAtomicType(at2);
+		Assert.assertEquals(1, typeMngr.getTypes().getLength());
+		typeMngr.deleteAtomicType(at1);
+		Assert.assertEquals(0, typeMngr.getTypes().getLength());
+
+	}
+
+	/**
+	 * Sequentiell: Delete Disjunction in Conjunction
+	 * 
+	 * @throws ConsistencyException
+	 * @throws PersistenceException
+	 * @throws CycleException
+	 */
+	@Test(expected = ConsistencyException.class)
+	public void deleteConmplexType_test4() throws ConsistencyException, PersistenceException, CycleException {
+		final PersistentMAtomicType at1 = typeMngr.createAtomicRootType(aspects.get(0), "AT1", mFalse, mFalse);
+		final PersistentMAtomicType at2 = typeMngr.createAtomicRootType(aspects.get(1), "AT2", mTrue, mFalse);
+		final PersistentMAtomicType at3 = typeMngr.createAtomicRootType(aspects.get(1), "AT3", mFalse, mFalse);
+		final PersistentMAbstractTypeDisjunction disj = createTypeDisjunction(at1, at2);
+		final PersistentMAbstractTypeConjunction conj = createTypeConjunction(disj, at3);
+		Assert.assertEquals(5, typeMngr.getTypes().getLength());
+		typeMngr.deleteComplexeType(conj);
+		Assert.assertEquals(4, typeMngr.getTypes().getLength());
+		typeMngr.deleteComplexeType(disj);
+		Assert.assertEquals(3, typeMngr.getTypes().getLength());
+		typeMngr.deleteAtomicType(at3);
+		Assert.assertEquals(2, typeMngr.getTypes().getLength());
+		typeMngr.deleteAtomicType(at2);
+		Assert.assertEquals(1, typeMngr.getTypes().getLength());
+		typeMngr.deleteAtomicType(at1);
+		Assert.assertEquals(0, typeMngr.getTypes().getLength());
+	}
+
 	/*
  * 
  * 
