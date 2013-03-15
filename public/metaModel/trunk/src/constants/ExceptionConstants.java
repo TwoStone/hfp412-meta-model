@@ -83,4 +83,19 @@ public final class ExceptionConstants {
 	public static final String CE_ENUM_DELETE_OBSERVATION = "Enumeration kann nicht gelöscht werden, da es noch Abhängigkeiten zu Observationen gibt.";
 	public static final String CE_OBSERVATION_DELETE = "Observation kann nicht gelöscht werden, da es noch Abhängigkeiten zu anderen Elementen gibt.";
 	public static final String CE_OBSERVATIONTYPE_DELETE = "Observation-Typ kann nicht gelöscht werden, da es noch Abhängigkeiten zu anderen Elementen gibt.";
+	public static final String CYCLE_ACCOUNT_HIERARCHY = "Es wurde Zyklus in der Account-Hierarchie festgestellt.";
+	public static final String CYCLE_ACCOUNTTYPE_HIERARCHY = "Es wurde Zyklus in der Accounttyp-Hierarchie festgestellt.";
+	public static final String CYCLE_COMPLEXTYPE_HIERARCHY = "Es wurde Zyklus in der komplexen Typ-Hierarchie festgestellt.";
+	public static final String CYCLE_ATOMICTYPE_HIERARCHY = "Es wurde Zyklus in der atomaren Typ-Hierarchie festgestellt.";
+
+	public static final String DDE_FRACTION = "Ein solcher Bruch existiert bereits: ";
+	public static final String DDE_ENUM = "Eine Enumeration mit diesem Namen existiert bereits.";
+	public static final String DDE_ENUMVALUE = "Eine Enumerationswert mit diesem Namen existiert zur Enumeration bereits.";
+	public static final String DDE_OBSERVATION = "Eine Observation mit diesem Namen existiert bereits.";
+
+	public static final String NC_QUANTITY_UNITTYPES = "Es können keine Quantitäten zu unterschiedlichen Einheitentypen addiert werden.";
+	public static final String NC_DIFFRENT_TYPES = "Die Typen stimmen nicht überein.";
+	public static final String NC_DEFAULTUNIT = "Es fehlt eine DefaultUnit für ";
+	public static final String NOT_FOUND = " wurde nicht gefunden.";
+
 }

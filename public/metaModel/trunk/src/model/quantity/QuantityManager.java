@@ -313,7 +313,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 		final PersistentAbsUnitType arg1Type = summand1.accept(new FetchUnitTypeVisitor());
 		final PersistentAbsUnitType arg2Type = summand2.accept(new FetchUnitTypeVisitor());
 		if (!arg1Type.equals(arg2Type)) {
-			throw new NotComputableException("Es können keine Quantitäten zu unterschiedlichen Einheitentypen addiert werden");
+			throw new NotComputableException(ExceptionConstants.NC_QUANTITY_UNITTYPES);
 		}
 
 		final QuantitySearchList arg1Parts = summand1.accept(new FetchQuantityPartsVisitor());

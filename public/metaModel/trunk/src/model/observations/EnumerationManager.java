@@ -228,7 +228,7 @@ public class EnumerationManager extends PersistentObject implements PersistentEn
 			getThis().getEnumTypes().add(ret);
 			return ret;
 		} else {
-			throw new model.DoubleDefinitionException("An enum with name " + name + " already exists.");
+			throw new model.DoubleDefinitionException(ExceptionConstants.DDE_ENUM);
 		}
 	}
 

@@ -235,7 +235,7 @@ public class ObsTypeManager extends PersistentObject implements PersistentObsTyp
 			getThis().getObservationTypes().add(ret);
 			return ret;
 		} else {
-			throw new model.DoubleDefinitionException("An observation type with name " + name + " already exists.");
+			throw new model.DoubleDefinitionException(ExceptionConstants.DDE_OBSERVATION);
 		}
 	}
 

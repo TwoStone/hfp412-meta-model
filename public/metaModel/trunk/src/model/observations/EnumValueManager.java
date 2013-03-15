@@ -239,7 +239,7 @@ public class EnumValueManager extends PersistentObject implements PersistentEnum
 			getThis().getEnumValues().add(ret);
 			return ret;
 		} else {
-			throw new model.DoubleDefinitionException("An enum value with name " + name + " already exists for enumeration.");
+			throw new model.DoubleDefinitionException(ExceptionConstants.DDE_ENUMVALUE);
 		}
 
 	}
