@@ -494,10 +494,6 @@ part quantity {
 		transient AbsQuantity arg2;
 		
 		MBoolean compare() throws NotComputableException;
-		MBoolean	compareAtomar(Quantity arg1, Quantity arg2) throws NotComputableException;
-		MBoolean compareMixed(CompoundQuantity comp, Quantity atom) throws NotComputableException;
-		MBoolean compareComp(CompoundQuantity comp1, CompoundQuantity comp2) throws NotComputableException;
-	
 	}
 
 
@@ -542,6 +538,7 @@ part quantity {
 		AbsQuantity invertSign(AbsQuantity absQuantity);
 		active void convert(Quantity quantity, AbsUnit unit) throws NotComputableException;
 		active Fraction convertAmount(Quantity quantity, AbsUnit unit) throws NotComputableException;
+		AbsQuantity concludeQuantity(AbsQuantity quantity);
 
 		active AbsQuantity add(AbsQuantity summand1, AbsQuantity summand2) throws NotComputableException;
 		active AbsQuantity sub(AbsQuantity minuend, AbsQuantity subtrahend) throws NotComputableException;
