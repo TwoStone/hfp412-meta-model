@@ -6,6 +6,7 @@ import model.measurement.AccountManager;
 import model.measurement.AccountTypeManager;
 import model.measurement.Measurement;
 import model.measurement.MeasurementTypeManager;
+import model.meta.StringFACTORY;
 import model.observations.EnumValueManager;
 import model.observations.EnumerationManager;
 import model.observations.ObsTypeManager;
@@ -31,6 +32,7 @@ import model.visitor.RemoteVisitor;
 import persistence.AbsQuantitySearchList;
 import persistence.AbsUnitSearchList;
 import persistence.AbstractPersistentRoot;
+import persistence.AccountSearchList;
 import persistence.Anything;
 import persistence.AssociationSearchList;
 import persistence.Command;
@@ -38,6 +40,8 @@ import persistence.ConnectionHandler;
 import persistence.FormalParameterSearchList;
 import persistence.MAccountTypeSearchList;
 import persistence.MAtomicTypeSearchList;
+import persistence.MEnumSearchList;
+import persistence.MEnumValueSearchList;
 import persistence.MMeasurementTypeSearchList;
 import persistence.MObjectSearchList;
 import persistence.MTypeSearchList;
@@ -509,15 +513,30 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     
     
-    public MTypeSearchList containees_Path_In_CreateTypeConjunction() 
+    public AssociationSearchList a_Path_In_CreateHierarchy() 
 				throws model.UserException, PersistenceException{
-        		return new MTypeSearchList(getThis().getTypeManager().
-				getTypes().getList());
+        		return new AssociationSearchList(getThis().getAssociationManager().
+				getAssociations().getList());
     }
     
     
     // Start of section that contains operations that must be implemented.
     
+    public MAccountTypeSearchList child_Path_In_AddSubAccountType() 
+				throws model.UserException, PersistenceException{
+        		return new MAccountTypeSearchList(getThis().getAccountTypeManager().
+				getAccountTypes().getList());
+    }
+    public AccountSearchList child_Path_In_AddSubAccount() 
+				throws model.UserException, PersistenceException{
+        		return new AccountSearchList(getThis().getAccountManager().
+				getAccounts().getList());
+    }
+    public MTypeSearchList containees_Path_In_CreateTypeConjunction() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
     public MTypeSearchList containees_Path_In_CreateTypeDisjunction() 
 				throws model.UserException, PersistenceException{
         		return new MTypeSearchList(getThis().getTypeManager().
@@ -537,6 +556,16 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws model.UserException, PersistenceException{
         		return new AbsQuantitySearchList(getThis().getQuantityManager().
 				getQuantities().getList());
+    }
+    public MEnumSearchList enumType_Path_In_CreateObsType() 
+				throws model.UserException, PersistenceException{
+        		return new MEnumSearchList(getThis().getEnumManager().
+				getEnumTypes().getList());
+    }
+    public MEnumValueSearchList enumValue_Path_In_CreateObservation() 
+				throws model.UserException, PersistenceException{
+        		return new MEnumValueSearchList(getThis().getEnumValueManager().
+				getEnumValues().getList());
     }
     public AbsQuantitySearchList factor1_Path_In_Mul() 
 				throws model.UserException, PersistenceException{
@@ -730,6 +759,11 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         this.changed = signal;
     }
+    public MTypeSearchList source_Path_In_CreateAssociation() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
     public MObjectSearchList source_Path_In_CreateLink() 
 				throws model.UserException, PersistenceException{
         		return new MObjectSearchList(getThis().getObjectManager().
@@ -760,6 +794,11 @@ public class Server extends PersistentObject implements PersistentServer{
         		return new AbsQuantitySearchList(getThis().getQuantityManager().
 				getQuantities().getList());
     }
+    public MTypeSearchList target_Path_In_CreateAssociation() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
     public MTypeSearchList target_Path_In_CreateConstant() 
 				throws model.UserException, PersistenceException{
         		return new MTypeSearchList(getThis().getTypeManager().
@@ -776,6 +815,16 @@ public class Server extends PersistentObject implements PersistentServer{
 				getTypes().getList());
     }
     public MTypeSearchList target_Path_In_CreateStaticOp() 
+				throws model.UserException, PersistenceException{
+        		return new MTypeSearchList(getThis().getTypeManager().
+				getTypes().getList());
+    }
+    public MObjectSearchList theObsObject_Path_In_CreateObservation() 
+				throws model.UserException, PersistenceException{
+        		return new MObjectSearchList(getThis().getObjectManager().
+				getObjects().getList());
+    }
+    public MTypeSearchList theType_Path_In_CreateObsType() 
 				throws model.UserException, PersistenceException{
         		return new MTypeSearchList(getThis().getTypeManager().
 				getTypes().getList());
@@ -846,12 +895,11 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void addSubAccountType(final PersistentMAccountType parent, final PersistentMAccountType child) 
 				throws model.CycleException, PersistenceException{
-		// TODO: implement method: addSubAccountType
+		parent.addSubAccountType(child, this.getThis());
 	}
     public void addSubAccount(final PersistentAccount parent, final PersistentAccount child) 
 				throws model.CycleException, PersistenceException{
-		// TODO: implement method: addSubAccount
-
+		parent.addSubAccount(child, this.getThis());
 	}
     public void addToHierarchy(final PersistentAssociation association, final PersistentHierarchy theHierarchy) 
 				throws PersistenceException{
@@ -868,13 +916,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public PersistentAbsQuantity aggregateByStrategy(final PersistentAccount account, final String strategy) 
 				throws model.ConsistencyException, model.NotComputableException, PersistenceException{
-		// TODO: implement method: aggregateByStrategy
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"aggregateByStrategy\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return account.aggregate(StringFACTORY.createObjectBySubTypeNameForAggregationStrategy(strategy));
 	}
     public void assignNameScheme(final PersistentMAtomicType type, final PersistentNameScheme scheme) 
 				throws PersistenceException{
@@ -950,17 +992,13 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createEntry(final PersistentAccount account, final PersistentMObject object, final PersistentMMeasurementType measurementType, final PersistentQuantity quantity) 
 				throws model.ConsistencyException, PersistenceException{
-		// try {
 		account.addEntry(Measurement.createMeasurement(object, measurementType, quantity), getThis());
-		// } catch (final Throwable e) {
-		// e.printStackTrace();
-		// }
 	}
     public void createEnumValue(final PersistentMEnum type, final String name) 
 				throws PersistenceException{
 		EnumValueManager.getTheEnumValueManager().createEnumValue(name, type, getThis());
 	}
-    public void createEnum(final String name) 
+    public void createEnum(final PersistentEnumerationManager enumManager, final String name) 
 				throws PersistenceException{
 		EnumerationManager.getTheEnumerationManager().createEnum(name, getThis());
 
@@ -1000,7 +1038,7 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		getNameSchemeManager().createNameScheme(schemeName, regExp, MBoolean.createFromFactoryString(isIterable), getThis());
 	}
-    public void createObsType(final String name, final PersistentMEnum enumType, final PersistentMType theType) 
+    public void createObsType(final PersistentObsTypeManager obsTypeManager, final String name, final PersistentMEnum enumType, final PersistentMType theType) 
 				throws PersistenceException{
 		ObsTypeManager.getTheObsTypeManager().createObsType(name, enumType, theType, getThis());
 

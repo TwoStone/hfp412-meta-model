@@ -165,6 +165,46 @@ public class StrategyTest extends TestingBase {
 	}
 
 	@Test
+	public void onMinStrategy_test02() throws PersistenceException, CycleException, ConsistencyException, NotComputableException {
+
+		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
+		final PersistentMType type = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1, MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
+		final PersistentUnitType unitType1 = UnitType.createUnitType("Strecke");
+
+		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
+
+		final PersistentMinStrategy minStrategy = MinStrategy.getTheMinStrategy();
+
+		final PersistentMObject obj1 = MObject.createMObject();
+		final PersistentMObject obj2 = MObject.createMObject();
+
+		final PersistentAccount account = Account.createAccount(obj1, accType1, "jau");
+
+		final PersistentUnit unit = Unit.createUnit(unitType1, "cm");
+		unitType1.setDefaultUnit(unit);
+		final PersistentQuantity quantity1 = Quantity.createQuantity(Fraction.parse("1/3"), unit);
+		final PersistentQuantity quantity2 = Quantity.createQuantity(Fraction.parse("1/3"), unit);
+		final PersistentQuantity quantity3 = Quantity.createQuantity(Fraction.parse("1/3"), unit);
+
+		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1, "jau");
+		final PersistentMeasurement msmnt1 = Measurement.createMeasurement(obj2, msmntType1, quantity1);
+		final PersistentMeasurement msmnt2 = Measurement.createMeasurement(obj2, msmntType1, quantity2);
+		final PersistentMeasurement msmnt3 = Measurement.createMeasurement(obj2, msmntType1, quantity3);
+
+		// "1/3 cm"
+		account.addEntry(msmnt1);
+		// "4/3 cm"
+		account.addEntry(msmnt2);
+		// "2/3 cm"
+		account.addEntry(msmnt3);
+
+		final PersistentQuantity resultQuantity = (PersistentQuantity) account.aggregate(minStrategy);
+		assertEquals(Fraction.parse("1/3"), resultQuantity.getAmount());
+		assertEquals(unit, resultQuantity.getUnit());
+
+	}
+
+	@Test
 	public void onMaxStrategy_test01() throws PersistenceException, CycleException, ConsistencyException, NotComputableException {
 
 		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
@@ -204,6 +244,45 @@ public class StrategyTest extends TestingBase {
 	}
 
 	@Test
+	public void onMaxStrategy_test02() throws PersistenceException, CycleException, ConsistencyException, NotComputableException {
+
+		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
+		final PersistentMType type = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1, MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
+		final PersistentUnitType unitType1 = UnitType.createUnitType("Strecke");
+
+		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
+
+		final PersistentMaxStrategy maxStrategy = MaxStrategy.getTheMaxStrategy();
+
+		final PersistentMObject obj1 = MObject.createMObject();
+		final PersistentMObject obj2 = MObject.createMObject();
+
+		final PersistentAccount account = Account.createAccount(obj1, accType1, "jau");
+
+		final PersistentUnit unit = Unit.createUnit(unitType1, "cm");
+		unitType1.setDefaultUnit(unit);
+		final PersistentQuantity quantity1 = Quantity.createQuantity(Fraction.parse("1/3"), unit);
+		final PersistentQuantity quantity2 = Quantity.createQuantity(Fraction.parse("1/3"), unit);
+		final PersistentQuantity quantity3 = Quantity.createQuantity(Fraction.parse("1/3"), unit);
+
+		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1, "jau");
+		final PersistentMeasurement msmnt1 = Measurement.createMeasurement(obj2, msmntType1, quantity1);
+		final PersistentMeasurement msmnt2 = Measurement.createMeasurement(obj2, msmntType1, quantity2);
+		final PersistentMeasurement msmnt3 = Measurement.createMeasurement(obj2, msmntType1, quantity3);
+
+		// "1/3 cm"
+		account.addEntry(msmnt1);
+		// "4/3 cm"
+		account.addEntry(msmnt2);
+		// "2/3 cm"
+		account.addEntry(msmnt3);
+
+		final PersistentQuantity resultQuantity = (PersistentQuantity) account.aggregate(maxStrategy);
+		assertEquals(Fraction.parse("1/3"), resultQuantity.getAmount());
+		assertEquals(unit, resultQuantity.getUnit());
+	}
+
+	@Test
 	public void onAvgStrategy_test01() throws PersistenceException, CycleException, ConsistencyException, NotComputableException {
 
 		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
@@ -221,9 +300,44 @@ public class StrategyTest extends TestingBase {
 
 		final PersistentUnit unit = Unit.createUnit(unitType1, "cm");
 		unitType1.setDefaultUnit(unit);
+		final PersistentQuantity quantity1 = Quantity.createQuantity(Fraction.parse("3"), unit);
+		final PersistentQuantity quantity2 = Quantity.createQuantity(Fraction.parse("9"), unit);
+
+		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1, "jau");
+		final PersistentMeasurement msmnt1 = Measurement.createMeasurement(obj2, msmntType1, quantity1);
+		final PersistentMeasurement msmnt2 = Measurement.createMeasurement(obj2, msmntType1, quantity2);
+
+		account.addEntry(msmnt1);
+		account.addEntry(msmnt2);
+
+		// Was ist der Durchschnitt von 1/3, 4/3 und 2/3? ~0,7777
+		final PersistentQuantity resultQuantity = (PersistentQuantity) account.aggregate(avgStrategy);
+		assertEquals(Fraction.parse("6"), resultQuantity.getAmount());
+		assertEquals(unit, resultQuantity.getUnit());
+
+	}
+
+	@Test
+	public void onAvgStrategy_test02() throws PersistenceException, CycleException, ConsistencyException, NotComputableException {
+
+		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");
+		final PersistentMType type = MAtomicType.createMAtomicType("A", mFalse, mFalse, aspect1, MEmptyTypeConjunction.getTheMEmptyTypeConjunction());
+		final PersistentUnitType unitType1 = UnitType.createUnitType("Strecke");
+
+		final PersistentMAccountType accType1 = MAccountType.createMAccountType(type, unitType1, "jau");
+
+		final PersistentAvgStrategy avgStrategy = AvgStrategy.getTheAvgStrategy();
+
+		final PersistentMObject obj1 = MObject.createMObject();
+		final PersistentMObject obj2 = MObject.createMObject();
+
+		final PersistentAccount account = Account.createAccount(obj1, accType1, "jau");
+
+		final PersistentUnit unit = Unit.createUnit(unitType1, "cm");
+		unitType1.setDefaultUnit(unit);
 		final PersistentQuantity quantity1 = Quantity.createQuantity(Fraction.parse("1/3"), unit);
-		final PersistentQuantity quantity2 = Quantity.createQuantity(Fraction.parse("4/3"), unit);
-		final PersistentQuantity quantity3 = Quantity.createQuantity(Fraction.parse("2/3"), unit);
+		final PersistentQuantity quantity2 = Quantity.createQuantity(Fraction.parse("1/3"), unit);
+		final PersistentQuantity quantity3 = Quantity.createQuantity(Fraction.parse("1/3"), unit);
 
 		final PersistentMMeasurementType msmntType1 = MMeasurementType.createMMeasurementType(type, unitType1, "jau");
 		final PersistentMeasurement msmnt1 = Measurement.createMeasurement(obj2, msmntType1, quantity1);
@@ -239,7 +353,7 @@ public class StrategyTest extends TestingBase {
 
 		// Was ist der Durchschnitt von 1/3, 4/3 und 2/3? ~0,7777
 		final PersistentQuantity resultQuantity = (PersistentQuantity) account.aggregate(avgStrategy);
-		assertEquals(Fraction.parse("7/1"), resultQuantity.getAmount());
+		assertEquals(Fraction.parse("1/3"), resultQuantity.getAmount());
 		assertEquals(unit, resultQuantity.getUnit());
 
 	}

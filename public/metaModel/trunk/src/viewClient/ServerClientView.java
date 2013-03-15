@@ -284,30 +284,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private java.util.Vector<javax.swing.JButton> getToolButtonsForStaticOperations() {
         java.util.Vector<javax.swing.JButton> result = new java.util.Vector<javax.swing.JButton>();
         javax.swing.JButton currentButton = null;
-        currentButton = new javax.swing.JButton("Enum erstellen ... ");
-        currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateEnumStringMssgWizard wizard = new ServerCreateEnumStringMssgWizard("Enum erstellen");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });result.add(currentButton);
-        currentButton = new javax.swing.JButton("Observation Type erstellen ... ");
-        currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateObsTypeStringMEnumMTypeMssgWizard wizard = new ServerCreateObsTypeStringMEnumMTypeMssgWizard("Observation Type erstellen");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });result.add(currentButton);
         currentButton = new javax.swing.JButton("createTypeConjunction ... ");
         currentButton.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -337,34 +313,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private JPopupMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations) {
         JPopupMenu result = new JPopupMenu();
         javax.swing.JMenuItem item = null;
-        item = new javax.swing.JMenuItem();
-        item.setText("(S) Enum erstellen ... ");
-        item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateEnumStringMssgWizard wizard = new ServerCreateEnumStringMssgWizard("Enum erstellen");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });
-        if (withStaticOperations) result.add(item);
-        item = new javax.swing.JMenuItem();
-        item.setText("(S) Observation Type erstellen ... ");
-        item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateObsTypeStringMEnumMTypeMssgWizard wizard = new ServerCreateObsTypeStringMEnumMTypeMssgWizard("Observation Type erstellen");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });
-        if (withStaticOperations) result.add(item);
         item = new javax.swing.JMenuItem();
         item.setText("(S) createTypeConjunction ... ");
         item.addActionListener(new java.awt.event.ActionListener() {
@@ -536,6 +484,23 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                                 handleException(me);
                             }
                         }
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof ObsTypeManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Observation Type erstellen ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateObsTypeObsTypeManagerStringMEnumMTypeMssgWizard wizard = new ServerCreateObsTypeObsTypeManagerStringMEnumMTypeMssgWizard("Observation Type erstellen");
+                        wizard.setFirstArgument((ObsTypeManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
                     }
                     
                 });
@@ -1312,6 +1277,40 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                 });
                 result.add(item);
             }
+            if (selected instanceof AspectManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createAspect ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateAspectAspectManagerStringMssgWizard wizard = new ServerCreateAspectAspectManagerStringMssgWizard("createAspect");
+                        wizard.setFirstArgument((AspectManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof EnumerationManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("Enum erstellen ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateEnumEnumerationManagerStringMssgWizard wizard = new ServerCreateEnumEnumerationManagerStringMssgWizard("Enum erstellen");
+                        wizard.setFirstArgument((EnumerationManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
             if (selected instanceof AbsUnitView){
                 item = new javax.swing.JMenuItem();
                 item.setText("addReference ... ");
@@ -1334,23 +1333,6 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     public void actionPerformed(java.awt.event.ActionEvent e) {
                         ServerChangeUnitNameAbsUnitStringMssgWizard wizard = new ServerChangeUnitNameAbsUnitStringMssgWizard("changeUnitName");
                         wizard.setFirstArgument((AbsUnitView)selected);
-                        wizard.pack();
-                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                        wizard.pack();
-                        wizard.setLocationRelativeTo(getNavigationPanel());
-                        wizard.setVisible(true);
-                    }
-                    
-                });
-                result.add(item);
-            }
-            if (selected instanceof AspectManagerView){
-                item = new javax.swing.JMenuItem();
-                item.setText("createAspect ... ");
-                item.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        ServerCreateAspectAspectManagerStringMssgWizard wizard = new ServerCreateAspectAspectManagerStringMssgWizard("createAspect");
-                        wizard.setFirstArgument((AspectManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -1855,7 +1837,19 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("child", "view.MAccountTypeView", (ViewRoot) getConnection().getServerView(), this));		
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("child", "view.MAccountTypeView", new ListRoot(getConnection().child_Path_In_AddSubAccountType()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1905,7 +1899,19 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("child", "view.AccountView", (ViewRoot) getConnection().getServerView(), this));		
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("child", "view.AccountView", new ListRoot(getConnection().child_Path_In_AddSubAccount()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -2810,8 +2816,32 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", (ViewRoot) getConnection().getServerView(), this));
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("source", "view.MTypeView", new ListRoot(getConnection().source_Path_In_CreateAssociation()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("target", "view.MTypeView", new ListRoot(getConnection().target_Path_In_CreateAssociation()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }
 			getParametersPanel().add(new StringSelectionPanel("name", this));		
 		}	
 		protected void handleDependencies(int i) {
@@ -3143,20 +3173,20 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateEnumStringMssgWizard extends Wizard {
+	class ServerCreateEnumEnumerationManagerStringMssgWizard extends Wizard {
 
-		protected ServerCreateEnumStringMssgWizard(String operationName){
+		protected ServerCreateEnumEnumerationManagerStringMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateEnumStringMssgWizard.help";
+			this.helpFileName = "ServerCreateEnumEnumerationManagerStringMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createEnum(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().createEnum(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -3176,6 +3206,15 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			getParametersPanel().add(new StringSelectionPanel("name", this));		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+		private EnumerationManagerView firstArgument; 
+	
+		public void setFirstArgument(EnumerationManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
 		}
 		
 		
@@ -3273,7 +3312,19 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		protected void addParameters(){
-			getParametersPanel().add(new ObjectSelectionPanel("a", "view.AssociationView", (ViewRoot) getConnection().getServerView(), this));
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("a", "view.AssociationView", new ListRoot(getConnection().a_Path_In_CreateHierarchy()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }
 			getParametersPanel().add(new StringSelectionPanel("name", this));		
 		}	
 		protected void handleDependencies(int i) {
@@ -3690,20 +3741,20 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateObsTypeStringMEnumMTypeMssgWizard extends Wizard {
+	class ServerCreateObsTypeObsTypeManagerStringMEnumMTypeMssgWizard extends Wizard {
 
-		protected ServerCreateObsTypeStringMEnumMTypeMssgWizard(String operationName){
+		protected ServerCreateObsTypeObsTypeManagerStringMEnumMTypeMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateObsTypeStringMEnumMTypeMssgWizard.help";
+			this.helpFileName = "ServerCreateObsTypeObsTypeManagerStringMEnumMTypeMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createObsType(((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
+				getConnection().createObsType(firstArgument, ((StringSelectionPanel)getParametersPanel().getComponent(0)).getResult(),
 									(MEnumView)((ObjectSelectionPanel)getParametersPanel().getComponent(1)).getResult(),
 									(MTypeView)((ObjectSelectionPanel)getParametersPanel().getComponent(2)).getResult());
 				getConnection().setEagerRefresh();
@@ -3723,10 +3774,43 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 		protected void addParameters(){
 			getParametersPanel().add(new StringSelectionPanel("name", this));
-			getParametersPanel().add(new ObjectSelectionPanel("enumType", "view.MEnumView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("theType", "view.MTypeView", (ViewRoot) getConnection().getServerView(), this));		
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("enumType", "view.MEnumView", new ListRoot(getConnection().enumType_Path_In_CreateObsType()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("theType", "view.MTypeView", new ListRoot(getConnection().theType_Path_In_CreateObsType()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ObsTypeManagerView firstArgument; 
+	
+		public void setFirstArgument(ObsTypeManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
 		}
 		
 		
@@ -3765,8 +3849,32 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 		protected void addParameters(){
 			getParametersPanel().add(new StringSelectionPanel("name", this));
-			getParametersPanel().add(new ObjectSelectionPanel("theObsObject", "view.MObjectView", (ViewRoot) getConnection().getServerView(), this));
-			getParametersPanel().add(new ObjectSelectionPanel("enumValue", "view.MEnumValueView", (ViewRoot) getConnection().getServerView(), this));		
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("theObsObject", "view.MObjectView", new ListRoot(getConnection().theObsObject_Path_In_CreateObservation()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("enumValue", "view.MEnumValueView", new ListRoot(getConnection().enumValue_Path_In_CreateObservation()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
 		}

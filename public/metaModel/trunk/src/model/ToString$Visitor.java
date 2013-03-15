@@ -456,8 +456,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleMSingletonObject(final PersistentMSingletonObject mSingletonObject) throws PersistenceException {
-		// TODO StringRepräsentation von Singletons
-
+		this.result = " of " + mSingletonObject.getType().getName();
 	}
 
 	@Override

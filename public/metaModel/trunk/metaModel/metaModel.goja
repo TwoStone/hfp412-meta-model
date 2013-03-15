@@ -54,14 +54,14 @@ server Server {
 	void deleteObject@@Loeschen(MObject object);
 
 	/** Enums **/
-	void createEnum@@Enum_erstellen(String name);
+	void createEnum@@Enum_erstellen(EnumerationManager enumManager, String name);
 	void createEnumValue@@Enum_Wert_erstellen(MEnum type, String name);
 	void deleteEnum@@Enum_löschen(MEnum type);
 	void deleteEnumValue@@Enum_Wert_löschen(MEnumValue enumValue);
 
-	void createObservation@@Observation_erstellen(MObservationType theType, String name, MObject theObsObject, MEnumValue enumValue);
+	void createObservation@@Observation_erstellen(MObservationType theType, String name, MObject theObsObject{objectManager;objects}, MEnumValue enumValue{enumValueManager;enumValues});
 	void deleteObservation@@Observation_löschen(MObservation observation);
-	void createObsType@@Observation_Type_erstellen(String name, MEnum enumType, MType theType);
+	void createObsType@@Observation_Type_erstellen(ObsTypeManager obsTypeManager, String name, MEnum enumType{enumManager;enumTypes}, MType theType{typeManager;types});
 	void deleteObsType@@Observation_Type_löschen(MObservationType theType);
 
 	/** Manager zu AbstractOperation **/
@@ -71,9 +71,9 @@ server Server {
 	derived LinkManager linkManager;
 
 	/** Associations und Hierarchy **/
-	void createAssociation(AssociationManager manager, MType source, MType target, String name);
+	void createAssociation(AssociationManager manager, MType source{typeManager;types}, MType target{typeManager;types}, String name);
 	void removeAssociation(Association a);
-	void createHierarchy(AssociationManager manager, Association a, String name);
+	void createHierarchy(AssociationManager manager, Association a{associationManager;associations}, String name);
 	void createHierarchy(Association a, String name);
 	void removeHierarchy(Hierarchy h);
 
@@ -126,9 +126,9 @@ server Server {
 	/** Measurement/Account **/
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
 	void createAccountType@@Kontotyp_anlegen(AccountTypeManager accountTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
-	void addSubAccountType@@Kontotyp_unterordnen(MAccountType parent, MAccountType child) throws CycleException;
+	void addSubAccountType@@Kontotyp_unterordnen(MAccountType parent, MAccountType child{accountTypeManager;accountTypes}) throws CycleException;
 	void createAccount@@Konto_anlegen(AccountManager accountManager, String name, MAccountType type {accountTypeManager;accountTypes}, MObject object {objectManager;objects});
-	void addSubAccount@@Konto_unterordnen(Account parent, Account child) throws CycleException;
+	void addSubAccount@@Konto_unterordnen(Account parent, Account child{accountManager;accounts}) throws CycleException;
 	void createEntry@@Eintrag_anlegen(Account account, MObject object{objectManager;objects}, MMeasurementType measurementType{measurementTypeManager;measurementTypes}, Quantity quantity{quantityManager;quantities}) throws ConsistencyException;
 	AbsQuantity aggregateByStrategy@@Aggregationsstrategie_anwenden(Account account, AggregationStrategySUBTYPEName strategy) throws NotComputableException, ConsistencyException;
 	void deleteAccount@@Konto_entfernen(Account account) throws ConsistencyException;

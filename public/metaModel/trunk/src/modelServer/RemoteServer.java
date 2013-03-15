@@ -18,6 +18,39 @@ public  class RemoteServer extends RemoteServerMaster {
         return this.server;
     } 
 
+    public synchronized java.util.Hashtable<?,?> a_Path_In_CreateHierarchy(){
+        try {
+            AssociationSearchList result = ((PersistentServer)this.server).a_Path_In_CreateHierarchy();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> child_Path_In_AddSubAccountType(){
+        try {
+            MAccountTypeSearchList result = ((PersistentServer)this.server).child_Path_In_AddSubAccountType();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> child_Path_In_AddSubAccount(){
+        try {
+            AccountSearchList result = ((PersistentServer)this.server).child_Path_In_AddSubAccount();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> containees_Path_In_CreateTypeConjunction(){
         try {
             MTypeSearchList result = ((PersistentServer)this.server).containees_Path_In_CreateTypeConjunction();
@@ -65,6 +98,28 @@ public  class RemoteServer extends RemoteServerMaster {
     public synchronized java.util.Hashtable<?,?> divisor_Path_In_Div(){
         try {
             AbsQuantitySearchList result = ((PersistentServer)this.server).divisor_Path_In_Div();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> enumType_Path_In_CreateObsType(){
+        try {
+            MEnumSearchList result = ((PersistentServer)this.server).enumType_Path_In_CreateObsType();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> enumValue_Path_In_CreateObservation(){
+        try {
+            MEnumValueSearchList result = ((PersistentServer)this.server).enumValue_Path_In_CreateObservation();
             return createOKResult(result.getVector(1, 0, false, this, false, true));
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -308,6 +363,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> source_Path_In_CreateAssociation(){
+        try {
+            MTypeSearchList result = ((PersistentServer)this.server).source_Path_In_CreateAssociation();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> source_Path_In_CreateLink(){
         try {
             MObjectSearchList result = ((PersistentServer)this.server).source_Path_In_CreateLink();
@@ -374,6 +440,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> target_Path_In_CreateAssociation(){
+        try {
+            MTypeSearchList result = ((PersistentServer)this.server).target_Path_In_CreateAssociation();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> target_Path_In_CreateConstant(){
         try {
             MTypeSearchList result = ((PersistentServer)this.server).target_Path_In_CreateConstant();
@@ -410,6 +487,28 @@ public  class RemoteServer extends RemoteServerMaster {
     public synchronized java.util.Hashtable<?,?> target_Path_In_CreateStaticOp(){
         try {
             MTypeSearchList result = ((PersistentServer)this.server).target_Path_In_CreateStaticOp();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> theObsObject_Path_In_CreateObservation(){
+        try {
+            MObjectSearchList result = ((PersistentServer)this.server).theObsObject_Path_In_CreateObservation();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> theType_Path_In_CreateObsType(){
+        try {
+            MTypeSearchList result = ((PersistentServer)this.server).theType_Path_In_CreateObsType();
             return createOKResult(result.getVector(1, 0, false, this, false, true));
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -825,9 +924,10 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createEnum(String name){
+    public synchronized java.util.Hashtable<?,?> createEnum(String enumManagerProxiString, String name){
         try {
-            ((PersistentServer)this.server).createEnum(name);
+            PersistentEnumerationManager enumManager = (PersistentEnumerationManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(enumManagerProxiString));
+            ((PersistentServer)this.server).createEnum(enumManager, name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -929,11 +1029,12 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createObsType(String name, String enumTypeProxiString, String theTypeProxiString){
+    public synchronized java.util.Hashtable<?,?> createObsType(String obsTypeManagerProxiString, String name, String enumTypeProxiString, String theTypeProxiString){
         try {
+            PersistentObsTypeManager obsTypeManager = (PersistentObsTypeManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(obsTypeManagerProxiString));
             PersistentMEnum enumType = (PersistentMEnum)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(enumTypeProxiString));
             PersistentMType theType = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(theTypeProxiString));
-            ((PersistentServer)this.server).createObsType(name, enumType, theType);
+            ((PersistentServer)this.server).createObsType(obsTypeManager, name, enumType, theType);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
