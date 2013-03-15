@@ -191,7 +191,7 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 			targetTypeIsScalar = true;
 		}
 
-		if ((targetRefs.getMap().size() == 1) & (targetRefs.getMap().values().iterator().next().equals(new Long(1)))) {
+		if ((targetRefs.getMap().size() == 1) && (targetRefs.getMap().values().iterator().next().equals(new Long(1)))) {
 			targetTypeIsAtomar = true;
 		}
 
