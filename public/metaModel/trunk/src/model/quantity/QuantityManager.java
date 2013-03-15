@@ -1,6 +1,8 @@
 package model.quantity;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import model.DoubleDefinitionException;
 import model.NotComputableException;
@@ -13,6 +15,7 @@ import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
 import model.visitor.AnythingVisitor;
 import persistence.Anything;
+import persistence.CompoundQuantitySearchList;
 import persistence.ConnectionHandler;
 import persistence.Invoker;
 import persistence.PersistenceException;
@@ -313,13 +316,39 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 
 	@Override
 	public PersistentAbsQuantity concludeQuantity(final PersistentAbsQuantity quantity) throws PersistenceException {
-		// TODO: implement method: concludeQuantity
-		try {
-			throw new java.lang.UnsupportedOperationException("Method \"concludeQuantity\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
-		}
+		return quantity.accept(new AbsQuantityReturnVisitor<PersistentAbsQuantity>() {
+
+			@Override
+			public PersistentAbsQuantity handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
+				final Map<PersistentAbsUnit, PersistentQuantity> exisitingQuantitiesWithUnits = new HashMap<PersistentAbsUnit, PersistentQuantity>();
+				final Iterator<PersistentQuantity> i = compoundQuantity.getParts().iterator();
+				while (i.hasNext()) {
+					final PersistentQuantity curQuantity = i.next();
+					final PersistentQuantity existingQuantityForUnit = exisitingQuantitiesWithUnits.get(curQuantity.getUnit());
+					if (existingQuantityForUnit != null) {
+						try {
+							existingQuantityForUnit.setAmount(existingQuantityForUnit.getAmount().add(curQuantity.getAmount()));
+						} catch (final Throwable e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						i.remove();
+					} else {
+						exisitingQuantitiesWithUnits.put(curQuantity.getUnit(), curQuantity);
+					}
+				}
+				return compoundQuantity;
+			}
+
+			@Override
+			public PersistentAbsQuantity handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
+				final CompoundQuantitySearchList compoundQuantitySearchList = quantity.inverseGetParts();
+				if (compoundQuantitySearchList.getLength() > 0) {
+					return QuantityManager.this.getThis().concludeQuantity(compoundQuantitySearchList.iterator().next());
+				}
+				return quantity;
+			}
+		});
 	}
 
 	@Override
