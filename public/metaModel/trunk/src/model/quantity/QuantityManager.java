@@ -307,8 +307,8 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
-	public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) throws PersistenceException,
-			NotComputableException {
+	public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) throws model.NotComputableException,
+			PersistenceException {
 		final PersistentAbsUnitType arg1Type = summand1.accept(new FetchUnitTypeVisitor());
 		final PersistentAbsUnitType arg2Type = summand2.accept(new FetchUnitTypeVisitor());
 		if (!arg1Type.equals(arg2Type)) {

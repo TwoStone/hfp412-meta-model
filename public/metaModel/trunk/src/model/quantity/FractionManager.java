@@ -19,9 +19,10 @@ import persistence.PersistentFractionWrapper;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.TDObserver;
-import constants.ExceptionConstants;
 
 import common.Fraction;
+
+import constants.ExceptionConstants;
 
 /* Additional import section end */
 
@@ -257,6 +258,14 @@ public class FractionManager extends PersistentObject implements PersistentFract
 			e.printStackTrace();
 			return null;
 		}
+
+		// Start of section that contains overridden operations only.
+
+		/* Start of protected part that is not overridden by persistence generator */
+
+		/* End of protected part that is not overridden by persistence generator */
+
+	}
 
 	// Start of section that contains overridden operations only.
 

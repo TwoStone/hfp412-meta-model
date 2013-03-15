@@ -343,7 +343,7 @@ public class MAtomicType extends model.typeSystem.MType implements PersistentMAt
 		if (newValue == null)
 			throw new PersistenceException("Null values not allowed!", 0);
 		if (newValue.containsMAtomicTypeHierarchy(getThis()))
-			throw new model.CycleException(ExceptionConstants.CYCLE_ATOMICTYPE_HIERARCHY);
+			throw new model.CycleException("Cycle in MAtomicTypeHierarchy detected!");
 		if (newValue.equals(this.superType))
 			return;
 		final long objectId = newValue.getId();

@@ -1666,6 +1666,21 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
             }
             if (selected instanceof AccountManagerView){
                 item = new javax.swing.JMenuItem();
+                item.setText("Eintrag entfernen ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerDeleteEntryAccountManagerMeasurementMssgWizard wizard = new ServerDeleteEntryAccountManagerMeasurementMssgWizard("Eintrag entfernen");
+                        wizard.setFirstArgument((AccountManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
                 item.setText("Konto anlegen ... ");
                 item.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -4663,6 +4678,68 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		private OperationManagerView firstArgument; 
 	
 		public void setFirstArgument(OperationManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerDeleteEntryAccountManagerMeasurementMssgWizard extends Wizard {
+
+		protected ServerDeleteEntryAccountManagerMeasurementMssgWizard(String operationName){
+			super();
+			getOkButton().setText(operationName);
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerDeleteEntryAccountManagerMeasurementMssgWizard.help";
+			super.initialize();			
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().deleteEntry(firstArgument, (MeasurementView)((ObjectSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().setEagerRefresh();
+				setVisible(false);
+				dispose();	
+			}
+			catch(ModelException me){
+				handleException(me);
+				setVisible(false);
+				dispose();
+			}
+			catch(ConsistencyException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		
+		protected void addParameters(){
+			try{
+				getParametersPanel().add(new ObjectSelectionPanel("measurement", "view.MeasurementView", new ListRoot(getConnection().measurement_Path_In_DeleteEntry()), this));
+			}catch(ModelException me){;
+				 handleException(me);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }catch(UserException ue){;
+				 handleUserException(ue);
+				 setVisible(false);
+				 dispose();
+				 return;
+			 }		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private AccountManagerView firstArgument; 
+	
+		public void setFirstArgument(AccountManagerView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();

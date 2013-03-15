@@ -205,6 +205,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> measurement_Path_In_DeleteEntry(){
+        try {
+            MeasurementSearchList result = ((PersistentServer)this.server).measurement_Path_In_DeleteEntry();
+            return createOKResult(result.getVector(1, 0, false, this, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> minuend_Path_In_Sub(){
         try {
             AbsQuantitySearchList result = ((PersistentServer)this.server).minuend_Path_In_Sub();
@@ -1253,6 +1264,19 @@ public  class RemoteServer extends RemoteServerMaster {
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.Hashtable<?,?> deleteEntry(String accountManagerProxiString, String measurementProxiString){
+        try {
+            PersistentAccountManager accountManager = (PersistentAccountManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(accountManagerProxiString));
+            PersistentMeasurement measurement = (PersistentMeasurement)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(measurementProxiString));
+            ((PersistentServer)this.server).deleteEntry(accountManager, measurement);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.ConsistencyException e0){
+            return createExceptionResult(e0, this);
         }
     }
     
