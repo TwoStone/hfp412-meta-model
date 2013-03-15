@@ -415,7 +415,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleObjectManager(final PersistentObjectManager objectManager) throws PersistenceException {
-		this.result = "Objektwelt";
+		this.result = "Liste der Objekte";
 	}
 
 	@Override
@@ -435,7 +435,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleNameSchemeManager(final PersistentNameSchemeManager nameSchemeManager) throws PersistenceException {
-		this.result = "Liste von Namensschemata";
+		this.result = "Liste der Namensschemata";
 	}
 
 	@Override
@@ -555,7 +555,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleObservationManager(final PersistentObservationManager observationManager) throws PersistenceException {
-		result = "Liste der Observations";
+		result = "Liste der Observationen";
 
 	}
 
@@ -567,18 +567,18 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 
 	@Override
 	public void handleEnumerationManager(final PersistentEnumerationManager enumerationManager) throws PersistenceException {
-		result = "Liste der Enumerations";
+		result = "Liste der Enumerationen";
 
 	}
 
 	@Override
 	public void handleEnumValueManager(final PersistentEnumValueManager enumValueManager) throws PersistenceException {
-		result = "Liste der Enum Werte";
+		result = "Liste der Enum-Werte";
 	}
 
 	@Override
 	public void handleObsTypeManager(final PersistentObsTypeManager obsTypeManager) throws PersistenceException {
-		result = "Liste der Observation Types";
+		result = "Liste der Observationstypen";
 
 	}
 

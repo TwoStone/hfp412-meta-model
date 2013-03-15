@@ -1017,22 +1017,22 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Server$$aspectManager = "Server$$aspectManager";
     protected static final String Server$$typeManager = "Server$$typeManager";
-    protected static final String Server$$quantityManager = "Server$$quantityManager";
-    protected static final String Server$$unitTypeManager = "Server$$unitTypeManager";
-    protected static final String Server$$fractionManager = "Server$$fractionManager";
-    protected static final String Server$$measurementTypeManager = "Server$$measurementTypeManager";
-    protected static final String Server$$accountTypeManager = "Server$$accountTypeManager";
-    protected static final String Server$$accountManager = "Server$$accountManager";
     protected static final String Server$$objectManager = "Server$$objectManager";
-    protected static final String Server$$nameSchemeManager = "Server$$nameSchemeManager";
-    protected static final String Server$$enumManager = "Server$$enumManager";
-    protected static final String Server$$enumValueManager = "Server$$enumValueManager";
-    protected static final String Server$$obsTypeManager = "Server$$obsTypeManager";
-    protected static final String Server$$observationManager = "Server$$observationManager";
     protected static final String Server$$associationManager = "Server$$associationManager";
+    protected static final String Server$$linkManager = "Server$$linkManager";
     protected static final String Server$$operationManager = "Server$$operationManager";
     protected static final String Server$$messageManager = "Server$$messageManager";
-    protected static final String Server$$linkManager = "Server$$linkManager";
+    protected static final String Server$$unitTypeManager = "Server$$unitTypeManager";
+    protected static final String Server$$quantityManager = "Server$$quantityManager";
+    protected static final String Server$$fractionManager = "Server$$fractionManager";
+    protected static final String Server$$accountTypeManager = "Server$$accountTypeManager";
+    protected static final String Server$$accountManager = "Server$$accountManager";
+    protected static final String Server$$measurementTypeManager = "Server$$measurementTypeManager";
+    protected static final String Server$$obsTypeManager = "Server$$obsTypeManager";
+    protected static final String Server$$observationManager = "Server$$observationManager";
+    protected static final String Server$$enumManager = "Server$$enumManager";
+    protected static final String Server$$enumValueManager = "Server$$enumValueManager";
+    protected static final String Server$$nameSchemeManager = "Server$$nameSchemeManager";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

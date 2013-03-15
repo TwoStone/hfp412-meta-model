@@ -7,21 +7,26 @@ server Server {
 	/**** Manager ****/
 	derived AspectManager aspectManager;
 	derived TypeManager typeManager;
-	derived QuantityManager quantityManager;
+	derived ObjectManager objectManager;
+
+	derived AssociationManager associationManager;
+	derived LinkManager linkManager;
+	derived OperationManager operationManager;
+	derived MessageManager messageManager;
+
 	derived UnitTypeManager unitTypeManager;
+	derived QuantityManager quantityManager;
 	derived FractionManager fractionManager;
 
-	derived MeasurementTypeManager measurementTypeManager;
 	derived AccountTypeManager accountTypeManager;
 	derived AccountManager accountManager;
-
-	derived ObjectManager objectManager;
-	derived NameSchemeManager nameSchemeManager;
+	derived MeasurementTypeManager measurementTypeManager;
+	derived ObsTypeManager obsTypeManager;
+	derived ObservationManager	observationManager;
 
 	derived EnumerationManager enumManager;
 	derived EnumValueManager enumValueManager;
-	derived ObsTypeManager obsTypeManager;
-	derived ObservationManager	observationManager;
+	derived NameSchemeManager nameSchemeManager;
 
 	/** Type **/
 	void createAspect(AspectManager aspectManager, String name);
@@ -39,12 +44,6 @@ server Server {
 	
 	void deleteAtomicType(MAtomicType type);
 	void deleteComplexType(MComplexType type);
-		
-		
-		
-
-
-	//	void addSubType@@Bestehenden_Typ_unterordnen(MAtomicType superType, MAtomicType subType@@Untertyp{typeManager;atomicTypes});
 
 	/** Object **/
 	void createMObject@@Exemplar_erstellen(MAtomicType type {typeManager;types}, MAtomicType** otherTypes {typeManager;types});	
@@ -63,12 +62,6 @@ server Server {
 	void deleteObservation@@Observation_löschen(MObservation observation);
 	void createObsType@@Observation_Type_erstellen(ObsTypeManager obsTypeManager, String name, MEnum enumType{enumManager;enumTypes}, MType theType{typeManager;types});
 	void deleteObsType@@Observation_Type_löschen(MObservationType theType);
-
-	/** Manager zu AbstractOperation **/
-	derived AssociationManager associationManager;
-	derived OperationManager operationManager;
-	derived MessageManager messageManager;
-	derived LinkManager linkManager;
 
 	/** Associations und Hierarchy **/
 	void createAssociation(AssociationManager manager, MType source{typeManager;types}, MType target{typeManager;types}, String name);

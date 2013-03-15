@@ -182,60 +182,6 @@ public class Server extends PersistentObject implements PersistentServer{
                     if(forGUI && typeManager.hasEssentialFields())typeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot quantityManager = (AbstractPersistentRoot)this.getQuantityManager(tdObserver);
-            if (quantityManager != null) {
-                result.put("quantityManager", quantityManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    quantityManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && quantityManager.hasEssentialFields())quantityManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot unitTypeManager = (AbstractPersistentRoot)this.getUnitTypeManager(tdObserver);
-            if (unitTypeManager != null) {
-                result.put("unitTypeManager", unitTypeManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    unitTypeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && unitTypeManager.hasEssentialFields())unitTypeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot fractionManager = (AbstractPersistentRoot)this.getFractionManager(tdObserver);
-            if (fractionManager != null) {
-                result.put("fractionManager", fractionManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    fractionManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && fractionManager.hasEssentialFields())fractionManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot measurementTypeManager = (AbstractPersistentRoot)this.getMeasurementTypeManager(tdObserver);
-            if (measurementTypeManager != null) {
-                result.put("measurementTypeManager", measurementTypeManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    measurementTypeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && measurementTypeManager.hasEssentialFields())measurementTypeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot accountTypeManager = (AbstractPersistentRoot)this.getAccountTypeManager(tdObserver);
-            if (accountTypeManager != null) {
-                result.put("accountTypeManager", accountTypeManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    accountTypeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && accountTypeManager.hasEssentialFields())accountTypeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot accountManager = (AbstractPersistentRoot)this.getAccountManager(tdObserver);
-            if (accountManager != null) {
-                result.put("accountManager", accountManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    accountManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && accountManager.hasEssentialFields())accountManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             AbstractPersistentRoot objectManager = (AbstractPersistentRoot)this.getObjectManager(tdObserver);
             if (objectManager != null) {
                 result.put("objectManager", objectManager.createProxiInformation(false, essentialLevel == 0));
@@ -245,51 +191,6 @@ public class Server extends PersistentObject implements PersistentServer{
                     if(forGUI && objectManager.hasEssentialFields())objectManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot nameSchemeManager = (AbstractPersistentRoot)this.getNameSchemeManager(tdObserver);
-            if (nameSchemeManager != null) {
-                result.put("nameSchemeManager", nameSchemeManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    nameSchemeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && nameSchemeManager.hasEssentialFields())nameSchemeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot enumManager = (AbstractPersistentRoot)this.getEnumManager(tdObserver);
-            if (enumManager != null) {
-                result.put("enumManager", enumManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    enumManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && enumManager.hasEssentialFields())enumManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot enumValueManager = (AbstractPersistentRoot)this.getEnumValueManager(tdObserver);
-            if (enumValueManager != null) {
-                result.put("enumValueManager", enumValueManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    enumValueManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && enumValueManager.hasEssentialFields())enumValueManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot obsTypeManager = (AbstractPersistentRoot)this.getObsTypeManager(tdObserver);
-            if (obsTypeManager != null) {
-                result.put("obsTypeManager", obsTypeManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    obsTypeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && obsTypeManager.hasEssentialFields())obsTypeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot observationManager = (AbstractPersistentRoot)this.getObservationManager(tdObserver);
-            if (observationManager != null) {
-                result.put("observationManager", observationManager.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    observationManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && observationManager.hasEssentialFields())observationManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             AbstractPersistentRoot associationManager = (AbstractPersistentRoot)this.getAssociationManager(tdObserver);
             if (associationManager != null) {
                 result.put("associationManager", associationManager.createProxiInformation(false, essentialLevel == 0));
@@ -297,6 +198,15 @@ public class Server extends PersistentObject implements PersistentServer{
                     associationManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
                     if(forGUI && associationManager.hasEssentialFields())associationManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot linkManager = (AbstractPersistentRoot)this.getLinkManager(tdObserver);
+            if (linkManager != null) {
+                result.put("linkManager", linkManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    linkManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && linkManager.hasEssentialFields())linkManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             AbstractPersistentRoot operationManager = (AbstractPersistentRoot)this.getOperationManager(tdObserver);
@@ -317,13 +227,103 @@ public class Server extends PersistentObject implements PersistentServer{
                     if(forGUI && messageManager.hasEssentialFields())messageManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
-            AbstractPersistentRoot linkManager = (AbstractPersistentRoot)this.getLinkManager(tdObserver);
-            if (linkManager != null) {
-                result.put("linkManager", linkManager.createProxiInformation(false, essentialLevel == 0));
+            AbstractPersistentRoot unitTypeManager = (AbstractPersistentRoot)this.getUnitTypeManager(tdObserver);
+            if (unitTypeManager != null) {
+                result.put("unitTypeManager", unitTypeManager.createProxiInformation(false, essentialLevel == 0));
                 if(depth > 1) {
-                    linkManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    unitTypeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && linkManager.hasEssentialFields())linkManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && unitTypeManager.hasEssentialFields())unitTypeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot quantityManager = (AbstractPersistentRoot)this.getQuantityManager(tdObserver);
+            if (quantityManager != null) {
+                result.put("quantityManager", quantityManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    quantityManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && quantityManager.hasEssentialFields())quantityManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot fractionManager = (AbstractPersistentRoot)this.getFractionManager(tdObserver);
+            if (fractionManager != null) {
+                result.put("fractionManager", fractionManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    fractionManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && fractionManager.hasEssentialFields())fractionManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot accountTypeManager = (AbstractPersistentRoot)this.getAccountTypeManager(tdObserver);
+            if (accountTypeManager != null) {
+                result.put("accountTypeManager", accountTypeManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    accountTypeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && accountTypeManager.hasEssentialFields())accountTypeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot accountManager = (AbstractPersistentRoot)this.getAccountManager(tdObserver);
+            if (accountManager != null) {
+                result.put("accountManager", accountManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    accountManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && accountManager.hasEssentialFields())accountManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot measurementTypeManager = (AbstractPersistentRoot)this.getMeasurementTypeManager(tdObserver);
+            if (measurementTypeManager != null) {
+                result.put("measurementTypeManager", measurementTypeManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    measurementTypeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && measurementTypeManager.hasEssentialFields())measurementTypeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot obsTypeManager = (AbstractPersistentRoot)this.getObsTypeManager(tdObserver);
+            if (obsTypeManager != null) {
+                result.put("obsTypeManager", obsTypeManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    obsTypeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && obsTypeManager.hasEssentialFields())obsTypeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot observationManager = (AbstractPersistentRoot)this.getObservationManager(tdObserver);
+            if (observationManager != null) {
+                result.put("observationManager", observationManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    observationManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && observationManager.hasEssentialFields())observationManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot enumManager = (AbstractPersistentRoot)this.getEnumManager(tdObserver);
+            if (enumManager != null) {
+                result.put("enumManager", enumManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    enumManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && enumManager.hasEssentialFields())enumManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot enumValueManager = (AbstractPersistentRoot)this.getEnumValueManager(tdObserver);
+            if (enumValueManager != null) {
+                result.put("enumValueManager", enumValueManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    enumValueManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && enumValueManager.hasEssentialFields())enumValueManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot nameSchemeManager = (AbstractPersistentRoot)this.getNameSchemeManager(tdObserver);
+            if (nameSchemeManager != null) {
+                result.put("nameSchemeManager", nameSchemeManager.createProxiInformation(false, essentialLevel == 0));
+                if(depth > 1) {
+                    nameSchemeManager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && nameSchemeManager.hasEssentialFields())nameSchemeManager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, essentialLevel == 0));
@@ -493,22 +493,22 @@ public class Server extends PersistentObject implements PersistentServer{
     public int getLeafInfo() throws PersistenceException{
         if (this.getAspectManager() != null) return 1;
         if (this.getTypeManager() != null) return 1;
-        if (this.getQuantityManager() != null) return 1;
-        if (this.getUnitTypeManager() != null) return 1;
-        if (this.getFractionManager() != null) return 1;
-        if (this.getMeasurementTypeManager() != null) return 1;
-        if (this.getAccountTypeManager() != null) return 1;
-        if (this.getAccountManager() != null) return 1;
         if (this.getObjectManager() != null) return 1;
-        if (this.getNameSchemeManager() != null) return 1;
-        if (this.getEnumManager() != null) return 1;
-        if (this.getEnumValueManager() != null) return 1;
-        if (this.getObsTypeManager() != null) return 1;
-        if (this.getObservationManager() != null) return 1;
         if (this.getAssociationManager() != null) return 1;
+        if (this.getLinkManager() != null) return 1;
         if (this.getOperationManager() != null) return 1;
         if (this.getMessageManager() != null) return 1;
-        if (this.getLinkManager() != null) return 1;
+        if (this.getUnitTypeManager() != null) return 1;
+        if (this.getQuantityManager() != null) return 1;
+        if (this.getFractionManager() != null) return 1;
+        if (this.getAccountTypeManager() != null) return 1;
+        if (this.getAccountManager() != null) return 1;
+        if (this.getMeasurementTypeManager() != null) return 1;
+        if (this.getObsTypeManager() != null) return 1;
+        if (this.getObservationManager() != null) return 1;
+        if (this.getEnumManager() != null) return 1;
+        if (this.getEnumValueManager() != null) return 1;
+        if (this.getNameSchemeManager() != null) return 1;
         return 0;
     }
     
