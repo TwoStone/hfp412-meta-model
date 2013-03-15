@@ -85,7 +85,7 @@ public class MeasurementTest extends TestingBase {
 		}
 	}
 
-	@Test(expected = PersistenceException.class)
+	@Test(expected = ConsistencyException.class)
 	public void onMeasurement_test02() throws PersistenceException, CycleException, ConsistencyException {
 
 		final PersistentMAspect aspect1 = MAspect.createMAspect("bla");

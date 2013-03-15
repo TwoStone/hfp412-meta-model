@@ -397,8 +397,19 @@ public class Account extends model.measurement.QuantifObject implements Persiste
 
 	@Override
 	public void addEntry(final PersistentMeasurement measurement) throws model.ConsistencyException, PersistenceException {
-		if (!measurement.getType().getUnitType().equals(this.getThis().getType().getUnitType())) {
-			throw new ConsistencyException(ExceptionConstants.UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_ACCOUNT);
+
+		if (this.getThis().getEntries().getLength() > 0) {
+			final PersistentMeasurement firstMsmnt = this.getThis().getEntries().findFirst(new Predcate<PersistentMeasurement>() {
+
+				@Override
+				public boolean test(final PersistentMeasurement argument) throws PersistenceException {
+					return true;
+				}
+			});
+
+			if (!measurement.getType().equals(firstMsmnt.getType())) {
+				throw new ConsistencyException(ExceptionConstants.MEASUREMENT_TYPE_DOES_NOT_MATCH_TO_NEW_ENTRY_OF_ACCOUNT);
+			}
 		}
 		this.getThis().getEntries().add(measurement);
 	}

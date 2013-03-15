@@ -9,17 +9,17 @@ public final class ExceptionConstants {
 	public static final String DOUBLE_COMP_UNIT_TYPE = "Es existiert schon ein Unit Type mit Referenzen auf: ";
 	public static final String DOUBLE_REFERENCETYPE_DEFINITION = "Es existiert bereits eine Referenz auf: ";
 
-	public static final String DONT_DELETE_UNITTYPE = "Einheitentypen kÃ¶nnen nicht gelÃ¶scht werden.";
-	public static final String DONT_DELETE_UNIT = "Einheiten kÃ¶nnen nicht gelÃ¶scht werden.";
-	public static final String DONT_DELETE_REFERENCE_TYPE = "Referenz-Typen kÃ¶nnen nicht gelÃ¶scht werden.";
-	public static final String DONT_DELETE_REFERENCE = "Referenzen kÃ¶nnen nicht gelÃ¶scht werden.";
+	public static final String DONT_DELETE_UNITTYPE = "Einheitentypen können nicht gelöscht werden.";
+	public static final String DONT_DELETE_UNIT = "Einheiten können nicht gelöscht werden.";
+	public static final String DONT_DELETE_REFERENCE_TYPE = "Referenz-Typen können nicht gelöscht werden.";
+	public static final String DONT_DELETE_REFERENCE = "Referenzen können nicht gelöscht werden.";
 
-	public static final String UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_ACCOUNT = "UnitType des Measurements passt nicht zum UnitType des Accounts.";
+	public static final String MEASUREMENT_TYPE_DOES_NOT_MATCH_TO_NEW_ENTRY_OF_ACCOUNT = "MeasurementType passt nicht zu den übrigen Einträgen des Accounts.";
 	public static final String UNIT_TYPE_DOES_NOT_MATCH_MEASUREMENT_QUANTITY = "UnitType des Measurements passt nicht zum UnitType der Quantity.";
 
-	public static final String NO_DEFAULT_UNIT_FOR_CONVERSION = "Im UnitType dieser Unit ist keine Default-Unit gesetzt. Diese wird fÃ¼r die Conversion benÃ¶tigt.";
+	public static final String NO_DEFAULT_UNIT_FOR_CONVERSION = "Im UnitType dieser Unit ist keine Default-Unit gesetzt. Diese wird für die Conversion benötigt.";
 	public static final String NO_CONVERSION = "Es ist keine Conversion vorhanden in: ";
-	public static final String WRONG_UNIT_TYPE_FOR_CONVERSION = "Die Ziel-Unit hat den falschen UnitType fÃ¼r die Konvertierung.";
+	public static final String WRONG_UNIT_TYPE_FOR_CONVERSION = "Die Ziel-Unit hat den falschen UnitType für die Konvertierung.";
 
 	public static final String NO_DEFAULT_UNIT = "Im UnitType dieser Unit ist keine Default-Unit gesetzt.";
 
@@ -27,26 +27,26 @@ public final class ExceptionConstants {
 
 	public static final String ALREADY_EX_OF_ACCOUNT_TYPE = "Es existieren bereits Exemplare zu diesem AccountType";
 
-	public static final String UNIT_TYPE_DOES_NOT_MATCH_ADD_OR_SUB = "Addition oder Subtraktion nur mit gleichem Einheitstyp mÃ¶glich!";
+	public static final String UNIT_TYPE_DOES_NOT_MATCH_ADD_OR_SUB = "Addition oder Subtraktion nur mit gleichem Einheitstyp möglich!";
 
 	/* Exceptions fÃ¼r Association, Operation, Link ... */
 	public static final String DDE_ASSOC = "Eine Assoziation mit diesem Namen existiert bereits.";
-	public static final String CYCLE_ADD_ASSOC = "Das Hinzufuegen der Assoziation zu dieser Hierarchie ist nicht mÃ¶glich, da ein Zyklus entstehen wÃ¼rde. Erster Zyklus durch: ";
+	public static final String CYCLE_ADD_ASSOC = "Das Hinzufuegen der Assoziation zu dieser Hierarchie ist nicht möglich, da ein Zyklus entstehen würde. Erster Zyklus durch: ";
 	public static final String CE_ASSOC_ALREADY_IN_HIERARCHY = "Die Assoziation ist bereits in der Hierarchie enthalten.";
 	public static final String DDE_HIERARCHY = "Eine Hierarchie mit diesem Namen existiert bereits.";
-	public static final String NA_IN_HIERARCHY = "Die gewÃ¤hlte Assoziation ist nicht in der Hierarchie enthalten.";
-	public static final String CE_LAST_ASSOC_IN_HIERARCHY = "Die gewÃ¤hlte Assoziation ist die letzte Assoziation in der gewÃ¤hlten Hierarchie und kann deshalb nicht entfernt werden.";
+	public static final String NA_IN_HIERARCHY = "Die gewälte Assoziation ist nicht in der Hierarchie enthalten.";
+	public static final String CE_LAST_ASSOC_IN_HIERARCHY = "Die gewälte Assoziation ist die letzte Assoziation in der gewälten Hierarchie und kann deshalb nicht entfernt werden.";
 
-	public static final String CE_FP_ALREADY_IN_OP = "Die Operation enthÃ¤lt bereits den gewÃ¤hlten Formalparameter.";
+	public static final String CE_FP_ALREADY_IN_OP = "Die Operation enthält bereits den gewälten Formalparameter.";
 	public static final String DDE_FP = "Ein Formalparameter mit diesem Namen existiert bereits.";
 	public static final String CE_WRONG_TYPE_EMPTYTYPEDIS = "Der Typ eines Formalparameters darf nicht der leeren Disjunktion entsprechen.";
-	public static final String CE_OP_SOURCE_AND_TARGET_EMPTYTYPEDISJ = "Quelle und Ziel kÃ¶nnn nicht gleichhzeitig leere Disjunktion sein.";
+	public static final String CE_OP_SOURCE_AND_TARGET_EMPTYTYPEDISJ = "Quelle und Ziel könnn nicht gleichhzeitig leere Disjunktion sein.";
 	public static final String CE_OP_HAS_MESSAGES_FP = "Zu dieser Operation existieren Exemplare, daher darf der Formalparameter nicht entfernt werden.";
 	public static final String DDE_OP = "Eine Operation mit diesem Namen existiert bereits.";
 
-	public static final String CYCLE_CREATE_LINK = "Das Erstellen des Links ist nicht mÃ¶glich, da ein Zyklus entstehen wÃ¼rde.";
-	public static final String CE_LINK_SOURCE_WRONG_TYPE = "Die gewÃ¤hlte Quelle passt nicht zur Assoziation.";
-	public static final String CE_LINK_TARGET_WRONG_TYPE = "Das gewÃ¤hlte Ziel passt nicht zur Assoziation.";
+	public static final String CYCLE_CREATE_LINK = "Das Erstellen des Links ist nicht möglich, da ein Zyklus entstehen würde.";
+	public static final String CE_LINK_SOURCE_WRONG_TYPE = "Die gewälte Quelle passt nicht zur Assoziation.";
+	public static final String CE_LINK_TARGET_WRONG_TYPE = "Das gewälte Ziel passt nicht zur Assoziation.";
 
 	public static final String CE_AT_SINGLETON_AND_ABSTRACT = "Atomare Typen duerfen nicht sowohl abstract als auch Singleton sein.";
 	public static final String CE_AT_ABSTRACT_WITH_OBJECTS = "Atomare Typen mit Objekten duerfen nicht abstract sein.";
