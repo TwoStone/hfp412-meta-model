@@ -17,6 +17,7 @@ import persistence.CompUnitTypeProxi;
 import persistence.ConversionProxi;
 import persistence.EnumValueManagerProxi;
 import persistence.EnumerationManagerProxi;
+import persistence.ErrorDisplayProxi;
 import persistence.FractionManagerProxi;
 import persistence.FractionWrapperProxi;
 import persistence.FunctionProxi;
@@ -122,15 +123,14 @@ public class IconResourceManager {
 		this.getIconPaths().put(this.getClassImageId(MEmptyTypeDisjunctionProxi.class), IconConstants.ICON_SELECTION);
 		this.getIconPaths().put(this.getClassImageId(ObservationManagerProxi.class), IconConstants.ICON_SPY);
 		this.getIconPaths().put(this.getClassImageId(ObsTypeManagerProxi.class), IconConstants.ICON_ENVIRONMENT_VIEW);
-
 		this.getIconPaths().put(this.getClassImageId(MMixedTypeDisjunctionProxi.class), IconConstants.ICON_LOGIC_OR);
 		this.getIconPaths().put(this.getClassImageId(MNonEmptyAtomicTypeConjunctionProxi.class), IconConstants.ICON_LOGIC_AND);
 		this.getIconPaths().put(this.getClassImageId(HierarchyProxi.class), IconConstants.ICON_TEXT_TREE);
-
 		this.getIconPaths().put(this.getClassImageId(EnumerationManagerProxi.class), IconConstants.ICON_TABLE_SQL);
 		this.getIconPaths().put(this.getClassImageId(EnumValueManagerProxi.class), IconConstants.ICON_TABLE);
 		this.getIconPaths().put(this.getClassImageId(MEnumProxi.class), IconConstants.ICON_TABLE_SQL_VIEW);
 		this.getIconPaths().put(this.getClassImageId(MEnumValueProxi.class), IconConstants.ICON_TABLE_VIEW);
+		this.getIconPaths().put(this.getClassImageId(ErrorDisplayProxi.class), IconConstants.ICON_WARNING);
 		// ...
 	}
 

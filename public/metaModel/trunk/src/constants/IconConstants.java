@@ -70,6 +70,7 @@ public class IconConstants {
 	public static final String ICON_TABLE_VIEW = "table_view.png";
 	public static final String ICON_TABLE_SQL = "table_sql.png";
 	public static final String ICON_TABLE_SQL_VIEW = "table_sql_view.png";
+	public static final String ICON_WARNING = "warning.png";
 
 	public static final String ICON_LARGE_CUBES = "large/cubes.png";
 	public static final String ICON_LARGE_PIE_CHART = "large/pie-chart.png";
