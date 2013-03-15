@@ -312,6 +312,17 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
+	public PersistentAbsQuantity concludeQuantity(final PersistentAbsQuantity quantity) throws PersistenceException {
+		// TODO: implement method: concludeQuantity
+		try {
+			throw new java.lang.UnsupportedOperationException("Method \"concludeQuantity\" not implemented yet.");
+		} catch (final java.lang.UnsupportedOperationException uoe) {
+			uoe.printStackTrace();
+			throw uoe;
+		}
+	}
+
+	@Override
 	public common.Fraction convertAmount(final PersistentQuantity quantity, final PersistentAbsUnit unit) throws model.NotComputableException,
 			PersistenceException {
 		if (!(quantity.getUnit().getType().equals(unit.getType()))) {
