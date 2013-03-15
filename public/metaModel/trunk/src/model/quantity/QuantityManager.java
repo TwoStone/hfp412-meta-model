@@ -3,6 +3,7 @@ package model.quantity;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import model.DoubleDefinitionException;
 import model.NotComputableException;
@@ -43,6 +44,7 @@ import persistence.PersistentReference;
 import persistence.PersistentSubCommand;
 import persistence.PersistentSubtraction;
 import persistence.PersistentUnit;
+import persistence.Predcate;
 import persistence.QuantityManagerProxi;
 import persistence.QuantityManager_QuantitiesProxi;
 import persistence.TDObserver;
@@ -320,6 +322,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 
 			@Override
 			public PersistentAbsQuantity handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
+				PersistentAbsQuantity ret = compoundQuantity;
 				final Map<PersistentAbsUnit, PersistentQuantity> exisitingQuantitiesWithUnits = new HashMap<PersistentAbsUnit, PersistentQuantity>();
 				final Iterator<PersistentQuantity> i = compoundQuantity.getParts().iterator();
 				while (i.hasNext()) {
@@ -337,7 +340,19 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 						exisitingQuantitiesWithUnits.put(curQuantity.getUnit(), curQuantity);
 					}
 				}
-				return compoundQuantity;
+				if (exisitingQuantitiesWithUnits.size() == 1) {
+					final Entry<PersistentAbsUnit, PersistentQuantity> first = exisitingQuantitiesWithUnits.entrySet().iterator().next();
+					ret = first.getValue();
+
+					getThis().getQuantities().removeFirstSuccess(new Predcate<PersistentAbsQuantity>() {
+
+						@Override
+						public boolean test(final PersistentAbsQuantity argument) throws PersistenceException {
+							return argument.equals(quantity);
+						}
+					});
+				}
+				return ret;
 			}
 
 			@Override
@@ -419,6 +434,7 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 		final Fraction resultAmount = getThis().convertAmount(quantity, unit);
 		quantity.setAmount(resultAmount);
 		quantity.setUnit(unit);
+		getThis().concludeQuantity(quantity);
 	}
 
 	@Override

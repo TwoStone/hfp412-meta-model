@@ -216,7 +216,7 @@ public class LessOrEqualComparison extends PersistentObject implements Persisten
 		// Prüfen, ob die Typen übereinstimmen
 		final FetchQuantityUnitTypeVisitor fetchQuantityUnitTypeVisitor = new FetchQuantityUnitTypeVisitor();
 		if (!myArg1.accept(fetchQuantityUnitTypeVisitor).equals(myArg2.accept(fetchQuantityUnitTypeVisitor))) {
-			throw new model.NotComputableException("Die Typen stimmen nicht überein"); // TODO Fehlertext
+			throw new model.NotComputableException("Die Typen stimmen nicht �berein"); // TODO Fehlertext
 		}
 
 		final boolean convertUnits = !checkForSameUnits(myArg1, myArg2);
