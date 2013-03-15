@@ -19,7 +19,6 @@ import persistence.PersistentQuantity;
 import persistence.PersistentUnit;
 import persistence.PersistentUnitMutabCalc;
 import persistence.PersistentUnitType;
-import persistence.Predcate;
 import persistence.ReferenceSearchList;
 import persistence.TDObserver;
 
@@ -28,164 +27,155 @@ import common.SummableHashMap;
 
 /* Additional import section end */
 
-public abstract class UnitMutabCalc extends model.quantity.BasicCalculation implements PersistentUnitMutabCalc{
-    
-    
-    public java.util.Hashtable<String,Object> toHashtable(java.util.Hashtable<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.Hashtable<String,Object> result = null;
-        if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot targetUnit = (AbstractPersistentRoot)this.getTargetUnit();
-            if (targetUnit != null) {
-                result.put("targetUnit", targetUnit.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    targetUnit.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && targetUnit.hasEssentialFields())targetUnit.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            AbstractPersistentRoot targetUnitType = (AbstractPersistentRoot)this.getTargetUnitType();
-            if (targetUnitType != null) {
-                result.put("targetUnitType", targetUnitType.createProxiInformation(false, essentialLevel == 0));
-                if(depth > 1) {
-                    targetUnitType.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && targetUnitType.hasEssentialFields())targetUnitType.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
-            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.contains(uniqueKey)) allResults.put(uniqueKey, result);
-        }
-        return result;
-    }
-    
-    public abstract UnitMutabCalc provideCopy() throws PersistenceException;
-    
-    public boolean hasEssentialFields() throws PersistenceException{
-        return false;
-    }
-    protected PersistentAbsUnit targetUnit;
-    protected PersistentAbsUnitType targetUnitType;
-    
-    public UnitMutabCalc(PersistentAbsQuantity arg1,PersistentAbsQuantity arg2,PersistentAbsQuantity resultt,PersistentBasicCalculation This,PersistentAbsUnit targetUnit,PersistentAbsUnitType targetUnitType,long id) throws persistence.PersistenceException {
-        /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentAbsQuantity)arg1,(PersistentAbsQuantity)arg2,(PersistentAbsQuantity)resultt,(PersistentBasicCalculation)This,id);
-        this.targetUnit = targetUnit;
-        this.targetUnitType = targetUnitType;        
-    }
-    
-    static public long getTypeId() {
-        return 334;
-    }
-    
-    public long getClassId() {
-        return getTypeId();
-    }
-    
-    public void store() throws PersistenceException {
-        if(!this.isDelayed$Persistence()) return;
-        super.store();
-        if(this.getTargetUnit() != null){
-            this.getTargetUnit().store();
-            ConnectionHandler.getTheConnectionHandler().theUnitMutabCalcFacade.targetUnitSet(this.getId(), getTargetUnit());
-        }
-        if(this.getTargetUnitType() != null){
-            this.getTargetUnitType().store();
-            ConnectionHandler.getTheConnectionHandler().theUnitMutabCalcFacade.targetUnitTypeSet(this.getId(), getTargetUnitType());
-        }
-        
-    }
-    
-    public PersistentAbsUnit getTargetUnit() throws PersistenceException {
-        return this.targetUnit;
-    }
-    public void setTargetUnit(PersistentAbsUnit newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.targetUnit)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.targetUnit = (PersistentAbsUnit)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theUnitMutabCalcFacade.targetUnitSet(this.getId(), newValue);
-        }
-    }
-    public PersistentAbsUnitType getTargetUnitType() throws PersistenceException {
-        return this.targetUnitType;
-    }
-    public void setTargetUnitType(PersistentAbsUnitType newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.equals(this.targetUnitType)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.targetUnitType = (PersistentAbsUnitType)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theUnitMutabCalcFacade.targetUnitTypeSet(this.getId(), newValue);
-        }
-    }
-    public abstract PersistentUnitMutabCalc getThis() throws PersistenceException ;
-    
-    
-    
-    public void initialize(final Anything This, final java.util.Hashtable<String,Object> final$$Fields) 
-				throws PersistenceException{
-        this.setThis((PersistentUnitMutabCalc)This);
-		if(this.equals(This)){
+public abstract class UnitMutabCalc extends model.quantity.BasicCalculation implements PersistentUnitMutabCalc {
+
+	@Override
+	public java.util.Hashtable<String, Object> toHashtable(final java.util.Hashtable<String, Object> allResults, final int depth,
+			final int essentialLevel, final boolean forGUI, final boolean leaf, final TDObserver tdObserver) throws PersistenceException {
+		java.util.Hashtable<String, Object> result = null;
+		if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth) {
+			result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+			final AbstractPersistentRoot targetUnit = this.getTargetUnit();
+			if (targetUnit != null) {
+				result.put("targetUnit", targetUnit.createProxiInformation(false, essentialLevel == 0));
+				if (depth > 1) {
+					targetUnit.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true, tdObserver);
+				} else {
+					if (forGUI && targetUnit.hasEssentialFields())
+						targetUnit.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+				}
+			}
+			final AbstractPersistentRoot targetUnitType = this.getTargetUnitType();
+			if (targetUnitType != null) {
+				result.put("targetUnitType", targetUnitType.createProxiInformation(false, essentialLevel == 0));
+				if (depth > 1) {
+					targetUnitType.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true, tdObserver);
+				} else {
+					if (forGUI && targetUnitType.hasEssentialFields())
+						targetUnitType.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+				}
+			}
+			final String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+			if (leaf && !allResults.contains(uniqueKey))
+				allResults.put(uniqueKey, result);
 		}
-    }
-    
-    
-    // Start of section that contains operations that must be implemented.
-    
-    public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-		// implement method: copyingPrivateUserAttributes
+		return result;
+	}
+
+	@Override
+	public abstract UnitMutabCalc provideCopy() throws PersistenceException;
+
+	@Override
+	public boolean hasEssentialFields() throws PersistenceException {
+		return false;
+	}
+
+	protected PersistentAbsUnit targetUnit;
+	protected PersistentAbsUnitType targetUnitType;
+
+	public UnitMutabCalc(final PersistentAbsQuantity arg1, final PersistentAbsQuantity arg2, final PersistentAbsQuantity resultt,
+			final PersistentBasicCalculation This, final PersistentAbsUnit targetUnit, final PersistentAbsUnitType targetUnitType, final long id)
+			throws persistence.PersistenceException {
+		/* Shall not be used by clients for object construction! Use static create operation instead! */
+		super(arg1, arg2, resultt, This, id);
+		this.targetUnit = targetUnit;
+		this.targetUnitType = targetUnitType;
+	}
+
+	static public long getTypeId() {
+		return 334;
+	}
+
+	@Override
+	public long getClassId() {
+		return getTypeId();
+	}
+
+	@Override
+	public void store() throws PersistenceException {
+		if (!this.isDelayed$Persistence())
+			return;
+		super.store();
+		if (this.getTargetUnit() != null) {
+			this.getTargetUnit().store();
+			ConnectionHandler.getTheConnectionHandler().theUnitMutabCalcFacade.targetUnitSet(this.getId(), getTargetUnit());
+		}
+		if (this.getTargetUnitType() != null) {
+			this.getTargetUnitType().store();
+			ConnectionHandler.getTheConnectionHandler().theUnitMutabCalcFacade.targetUnitTypeSet(this.getId(), getTargetUnitType());
+		}
 
 	}
-    public void initializeOnCreation() 
-				throws PersistenceException{
+
+	@Override
+	public PersistentAbsUnit getTargetUnit() throws PersistenceException {
+		return this.targetUnit;
 	}
-    public void initializeOnInstantiation() 
-				throws PersistenceException{
+
+	@Override
+	public void setTargetUnit(final PersistentAbsUnit newValue) throws PersistenceException {
+		if (newValue == null)
+			throw new PersistenceException("Null values not allowed!", 0);
+		if (newValue.equals(this.targetUnit))
+			return;
+		final long objectId = newValue.getId();
+		final long classId = newValue.getClassId();
+		this.targetUnit = (PersistentAbsUnit) PersistentProxi.createProxi(objectId, classId);
+		if (!this.isDelayed$Persistence()) {
+			newValue.store();
+			ConnectionHandler.getTheConnectionHandler().theUnitMutabCalcFacade.targetUnitSet(this.getId(), newValue);
+		}
+	}
+
+	@Override
+	public PersistentAbsUnitType getTargetUnitType() throws PersistenceException {
+		return this.targetUnitType;
+	}
+
+	@Override
+	public void setTargetUnitType(final PersistentAbsUnitType newValue) throws PersistenceException {
+		if (newValue == null)
+			throw new PersistenceException("Null values not allowed!", 0);
+		if (newValue.equals(this.targetUnitType))
+			return;
+		final long objectId = newValue.getId();
+		final long classId = newValue.getClassId();
+		this.targetUnitType = (PersistentAbsUnitType) PersistentProxi.createProxi(objectId, classId);
+		if (!this.isDelayed$Persistence()) {
+			newValue.store();
+			ConnectionHandler.getTheConnectionHandler().theUnitMutabCalcFacade.targetUnitTypeSet(this.getId(), newValue);
+		}
+	}
+
+	@Override
+	public abstract PersistentUnitMutabCalc getThis() throws PersistenceException;
+
+	@Override
+	public void initializeOnInstantiation() throws PersistenceException {
 		// implement method: initializeOnInstantiation
 
 	}
-    
-    
-    // Start of section that contains overridden operations only.
-    
-    public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) 
-				throws model.NotComputableException, PersistenceException{
-		getThis().setResultt(this.doCalc1Compound1Atomar(atom, comp));
-	}
-    public void calcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) 
-				throws model.NotComputableException, PersistenceException{
-		getThis().setResultt(this.doCalcAtomar(atom1, atom2));
+
+	@Override
+	public void copyingPrivateUserAttributes(final Anything copy) throws PersistenceException {
+		// implement method: copyingPrivateUserAttributes
 
 	}
-    public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) 
-				throws model.NotComputableException, PersistenceException{
-		final PersistentCompoundQuantity result = CompoundQuantity.createCompoundQuantity();
 
-		// über comp1 iterieren
-		final Iterator<PersistentQuantity> i1 = comp1.getParts().iterator();
-		while (i1.hasNext()) {
-			final PersistentQuantity i1_current = i1.next();
-			// über comp2 iterieren
-			final Iterator<PersistentQuantity> i2 = comp2.getParts().iterator();
-			while (i2.hasNext()) {
-				final PersistentQuantity i2_current = i2.next();
-				final PersistentQuantity i1_current_o_i2_current = this.doCalcAtomar(i1_current, i2_current);
-				result.getParts().add(i1_current_o_i2_current);
-			}
+	@Override
+	public void initialize(final Anything This, final java.util.Hashtable<String, Object> final$$Fields) throws PersistenceException {
+		this.setThis((PersistentUnitMutabCalc) This);
+		if (this.equals(This)) {
 		}
-
 	}
-    public void findTargetUnit() 
-				throws model.NotComputableException, PersistenceException{
+
+	@Override
+	public void initializeOnCreation() throws PersistenceException {
+	}
+
+	@Override
+	public void findTargetUnit() throws model.NotComputableException, PersistenceException {
 		PersistentAbsUnit result = null;
-		// TODO: neue Exception, wenn result null bleibt?
 		boolean targetTypeIsScalar = false;
 		boolean targetTypeIsAtomar = false;
 
@@ -201,20 +191,9 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 			result = UnitTypeManager.getTheUnitTypeManager().fetchScalar();
 		}
 
-		if (targetTypeIsAtomar) { // bedeutet aber auch, dass ein Faktor skalar sein kann ODER z.B. (m^2/s) * (s/m)
-
-			result = UnitTypeManager.getTheUnitTypeManager().getUnits().findFirst(new Predcate<PersistentAbsUnit>() {
-
-				@Override
-				public boolean test(final PersistentAbsUnit argument) throws PersistenceException {
-					boolean result = false;
-					if (argument.equals(targetRefs.getMap().keySet().iterator().next())) {
-						result = true;
-					}
-					return result;
-				}
-
-			});
+		if (targetTypeIsAtomar) {
+			// nimm den key aus der map! Brauchst nicht suchen
+			result = targetRefs.getMap().keySet().iterator().next();
 		} else {
 
 			final ReferenceSearchList refList = new ReferenceSearchList();
@@ -270,13 +249,43 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 			// }
 			// });
 		}
-
 		this.targetUnit = result;
 
 	}
 
-    /* Start of protected part that is not overridden by persistence generator */
-    
+	@Override
+	public void calcAtomar(final PersistentQuantity atom1, final PersistentQuantity atom2) throws model.NotComputableException, PersistenceException {
+		getThis().setResultt(this.doCalcAtomar(atom1, atom2));
+
+	}
+
+	@Override
+	public void calc1Compound1Atomar(final PersistentQuantity atom, final PersistentCompoundQuantity comp) throws model.NotComputableException,
+			PersistenceException {
+		getThis().setResultt(this.doCalc1Compound1Atomar(atom, comp));
+	}
+
+	@Override
+	public void calcComp(final PersistentCompoundQuantity comp1, final PersistentCompoundQuantity comp2) throws model.NotComputableException,
+			PersistenceException {
+		final PersistentCompoundQuantity result = CompoundQuantity.createCompoundQuantity();
+
+		// über comp1 iterieren
+		final Iterator<PersistentQuantity> i1 = comp1.getParts().iterator();
+		while (i1.hasNext()) {
+			final PersistentQuantity i1_current = i1.next();
+			// über comp2 iterieren
+			final Iterator<PersistentQuantity> i2 = comp2.getParts().iterator();
+			while (i2.hasNext()) {
+				final PersistentQuantity i2_current = i2.next();
+				final PersistentQuantity i1_current_o_i2_current = this.doCalcAtomar(i1_current, i2_current);
+				result.getParts().add(i1_current_o_i2_current);
+			}
+		}
+
+	}
+
+	/* Start of protected part that is not overridden by persistence generator */
 
 	protected SummableHashMap<PersistentUnit> targetRefs;
 	protected SummableHashMap<PersistentUnitType> targetRefTypes;
@@ -369,7 +378,6 @@ public abstract class UnitMutabCalc extends model.quantity.BasicCalculation impl
 		return result;
 	}
 
-	
-    /* End of protected part that is not overridden by persistence generator */
-    
+	/* End of protected part that is not overridden by persistence generator */
+
 }
