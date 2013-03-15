@@ -258,10 +258,10 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
 
 	@Override
 	public void deleteEntry(final PersistentMeasurement measurement) throws model.ConsistencyException, PersistenceException {
-		measurement.inverseGetEntries().removeFirstSuccess(new Predcate<PersistentAccount>() {
+		measurement.inverseGetEntries().getEntries().removeFirstSuccess(new Predcate<PersistentMeasurement>() {
 
 			@Override
-			public boolean test(final PersistentAccount argument) throws PersistenceException {
+			public boolean test(final PersistentMeasurement argument) throws PersistenceException {
 				return measurement.equals(argument);
 			}
 		});

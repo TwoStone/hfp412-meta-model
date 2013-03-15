@@ -719,7 +719,7 @@ class Measurement extends QuantifObject {
 class Account extends QuantifObject {
 	symmetric prior MAccountType type;
 	symmetric Account** subAccounts hierarchy AccountHierarchy;
-	symmetric Measurement** entries;
+	one-to-one Measurement** entries;
 	prior indexed String name; 
 	active void addSubAccount(Account account) throws CycleException, ConsistencyException;
 	active void addEntry(Measurement measurement) throws ConsistencyException;
