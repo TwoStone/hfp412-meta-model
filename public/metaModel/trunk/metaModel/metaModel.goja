@@ -39,11 +39,11 @@ server Server {
 	void changeAbstract@@Abstract_ändern(MAtomicType type, MBooleanSUBTYPEName newAbstractType);
 	void changeSingleton@@Singleton_ändern(MAtomicType type, MBooleanSUBTYPEName newSingletonType);
 
-	void createTypeDisjunction(TypeManager typeManager, MType** containees{typeManager;types});
-	void createTypeConjunction(TypeManager typeManager, MType** containees{typeManager;types});
+	void createTypeDisjunction@@TypeDisjunction_erstellen(TypeManager typeManager, MType** containees{typeManager;types});
+	void createTypeConjunction@@TypeConjunction_erstellen(TypeManager typeManager, MType** containees{typeManager;types});
 	
-	void deleteAtomicType(MAtomicType type);
-	void deleteComplexType(MComplexType type);
+	void deleteAtomicType@@AtomicType_entfernen(MAtomicType type);
+	void deleteComplexType@@ComplexType_entfernen(MComplexType type);
 
 	/** Object **/
 	void createMObject@@Exemplar_erstellen(MAtomicType type {typeManager;types}, MAtomicType** otherTypes {typeManager;types});	
@@ -56,7 +56,7 @@ server Server {
 	void createEnum@@Enum_erstellen(EnumerationManager enumManager, String name);
 	void createEnumValue@@Enum_Wert_erstellen(MEnum type, String name);
 	void deleteEnum@@Enum_entfernen(MEnum type);
-	void deleteEnumValue@@Enum_Wert_löschen(MEnumValue enumValue);
+	void deleteEnumValue@@Enum_Wert_entfernen(MEnumValue enumValue);
 
 	void createObservation@@Observation_erstellen(MObservationType theType, String name, MObject theObsObject{objectManager;objects}, MEnumValue enumValue{enumValueManager;enumValues});
 	void deleteObservation@@Observation_entfernen(MObservation observation);
@@ -68,53 +68,53 @@ server Server {
 	void removeAssociation@@Assoziation_entfernen(Association a);
 	void createHierarchy@@Hierarchie_erstellen(AssociationManager manager, Association a{associationManager;associations}, String name);
 	void createHierarchy@@Hierarchie_erstellen(Association a, String name);
-	void removeHierarchy(Hierarchy h);
+	void removeHierarchy@@Hierarchie_entfernen(Hierarchy h);
 
 	void addAssociation@@Assoziation_hinzufügen(Hierarchy h, Association a);
 	void addToHierarchy@@Zu_Hierarchie_hinzufügen(Association association, Hierarchy theHierarchy);
 	void removeFromHierarchy@@Aus_Hierarchie_entfernen(Hierarchy h, Association a);
 
 	/** Operations **/
-	void createConstant(OperationManager operationManager, String name, MType target {typeManager;types});
-	void createStaticOp(OperationManager operationManager, String name, MType target {typeManager;types}, FormalParameter** fp {operationManager;formalParameters});
-	void createOperation(OperationManager operationManager, MType source {typeManager;types}, MType target {typeManager;types}, String name, FormalParameter** fp {operationManager;formalParameters});
-	void createOperation(MType source {typeManager;types}, MType target {typeManager;types}, String name, FormalParameter** fp {operationManager;formalParameters});
+	void createConstant@@Konstante_erstellen(OperationManager operationManager, String name, MType target {typeManager;types});
+	void createStaticOp@@Statische_Operation_erstellen(OperationManager operationManager, String name, MType target {typeManager;types}, FormalParameter** fp {operationManager;formalParameters});
+	void createOperation@@Operation_erstellen(OperationManager operationManager, MType source {typeManager;types}, MType target {typeManager;types}, String name, FormalParameter** fp {operationManager;formalParameters});
+	void createOperation@@Operation_erstellen(MType source {typeManager;types}, MType target {typeManager;types}, String name, FormalParameter** fp {operationManager;formalParameters});
 
-	void createVoidOperation(OperationManager operationManager, MType source {typeManager;types}, String name, FormalParameter** fp);
-	void createVoidOperation(MType source, String name, FormalParameter** fp {operationManager;formalParameters});
- 	void createFp@@createFormalParameter(OperationManager operationManager, String name, MType ofType {typeManager;types});
+	void createVoidOperation@@VoidOperation_erstellen(OperationManager operationManager, MType source {typeManager;types}, String name, FormalParameter** fp);
+	void createVoidOperation@@VoidOperation_erstellen(MType source, String name, FormalParameter** fp {operationManager;formalParameters});
+ 	void createFp@@FormalParameter_erstellen(OperationManager operationManager, String name, MType ofType {typeManager;types});
 
-	void addFp@@addFormalParameter(Operation op, FormalParameter fp {operationManager;formalParameters});
-	void removeFpFromOp@@removeFormalParameter(Operation operation, FormalParameter fp); 
+	void addFp@@FormalParameter_hinzufügen(Operation op, FormalParameter fp {operationManager;formalParameters});
+	void removeFpFromOp@@FormalParameter_entfernen(Operation operation, FormalParameter fp); 
 	void removeFp@@removeFormalParameter(FormalParameter fp);
-	void removeOperation(Operation op);
+	void removeOperation@@Operation_entfernen(Operation op);
 
 	/** Links **/
 // Todo: Derived Attribut einfuehren damit nur moegliche Targets angezeigt werden
-	void createLink(LinkManager link, Association type{associationManager;associations}, MObject source {objectManager;objects}, MObject target {objectManager;objects});
-	void createLink(MObject source, Association type {associationManager;associations}, MObject target {objectManager;objects});
-	void removeLink(Link link);
+	void createLink@@Link_erstellen(LinkManager link, Association type{associationManager;associations}, MObject source {objectManager;objects}, MObject target {objectManager;objects});
+	void createLink@@Link_erstellen(MObject source, Association type {associationManager;associations}, MObject target {objectManager;objects});
+	void removeLink@@Link_entfernen(Link link);
 
 	/** Quantity/Unit **/
-	void createUnitType@@Create_unit_type(UnitTypeManager manager, String name);
-	void fetchScalarType(UnitTypeManager manager);
-	void changeUnitTypeName(AbsUnitType unitType, String name);
-	void addReferenceType(AbsUnitType unitType, String name, UnitType referenceUnitType {unitTypeManager;atomicUnitTypes}, Integer exponent);
-	void createUnit@@Create_unit(UnitType type, String name);
-	void fetchScalar(UnitTypeManager manager);
-	void changeUnitName(AbsUnit unit, String name);
-	void addReference(AbsUnit unit, String name, Unit referenceUnit{unitTypeManager;units}, Integer exponent);
-	void createQuantity@@Create_quantity(QuantityManager manager, AbsUnit unit{unitTypeManager;units}, Fraction f);
-	void setConversion(Unit unit, Fraction factor, Fraction constant);
-	void setDefaultUnit(UnitType type, Unit defaultUnit{unitTypeManager;units});
+	void createUnitType@@UnitType_erstellen(UnitTypeManager manager, String name);
+	void fetchScalarType@@ScalarType_abrufen(UnitTypeManager manager);
+	void changeUnitTypeName@@Umbenennen(AbsUnitType unitType, String name);
+	void addReferenceType@@ReferenceType_hinzufügen(AbsUnitType unitType, String name, UnitType referenceUnitType {unitTypeManager;atomicUnitTypes}, Integer exponent);
+	void createUnit@@Unit_erstellen(UnitType type, String name);
+	void fetchScalar@@Scalar_abrufen(UnitTypeManager manager);
+	void changeUnitName@@Umbenennen(AbsUnit unit, String name);
+	void addReference@@Reference_hinzufügen(AbsUnit unit, String name, Unit referenceUnit{unitTypeManager;units}, Integer exponent);
+	void createQuantity@@Quantity_erstellen(QuantityManager manager, AbsUnit unit{unitTypeManager;units}, Fraction f);
+	void setConversion@@Umrechnung_zuweisen(Unit unit, Fraction factor, Fraction constant);
+	void setDefaultUnit@@DefaultUnit_zuweisen(UnitType type, Unit defaultUnit{unitTypeManager;units});
 
-	void convert(Quantity quantity, AbsUnit unit{unitTypeManager;units});
+	void convert@@Umrechnen(Quantity quantity, AbsUnit unit{unitTypeManager;units});
 
 	/** computing **/
-	void add(AbsQuantity summand1{quantityManager;quantities}, AbsQuantity summand2{quantityManager;quantities}) throws NotComputableException;
-	void sub(AbsQuantity minuend{quantityManager;quantities}, AbsQuantity subtrahend{quantityManager;quantities}) throws NotComputableException;
-	void mul(AbsQuantity factor1{quantityManager;quantities}, AbsQuantity factor2{quantityManager;quantities}) throws NotComputableException, DoubleDefinitionException;
-	void div(AbsQuantity dividend{quantityManager;quantities}, AbsQuantity divisor{quantityManager;quantities}) throws NotComputableException;
+	void add@@Addition(AbsQuantity summand1{quantityManager;quantities}, AbsQuantity summand2{quantityManager;quantities}) throws NotComputableException;
+	void sub@@Subtraktion(AbsQuantity minuend{quantityManager;quantities}, AbsQuantity subtrahend{quantityManager;quantities}) throws NotComputableException;
+	void mul@@Multiplikation(AbsQuantity factor1{quantityManager;quantities}, AbsQuantity factor2{quantityManager;quantities}) throws NotComputableException, DoubleDefinitionException;
+	void div@@Division(AbsQuantity dividend{quantityManager;quantities}, AbsQuantity divisor{quantityManager;quantities}) throws NotComputableException;
 
 	/** Measurement/Account **/
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
