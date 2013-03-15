@@ -19,6 +19,7 @@ import persistence.PersistentMType;
 import persistence.PersistentObject;
 import persistence.PersistentProxi;
 import persistence.PersistentUnitType;
+import persistence.Predcate;
 import persistence.TDObserver;
 
 /* Additional import section end */
@@ -194,6 +195,14 @@ public class AccountTypeManager extends PersistentObject implements PersistentAc
 	}
     public void deleteAccountType(final PersistentMAccountType accountType) 
 				throws model.ConsistencyException, PersistenceException{
+		this.getThis().getAccountTypes().removeFirstSuccess(new Predcate<PersistentMAccountType>() {
+
+			@Override
+			public boolean test(final PersistentMAccountType argument) throws PersistenceException {
+				return accountType.equals(argument);
+			}
+
+		});
 		accountType.delete();
 	}
     public void initializeOnCreation() 

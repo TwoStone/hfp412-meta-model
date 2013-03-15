@@ -29,15 +29,15 @@ server Server {
 	derived NameSchemeManager nameSchemeManager;
 
 	/** Type **/
-	void createAspect(AspectManager aspectManager, String name);
-	void renameAspect(MAspect aspect, String newName);
-	void deleteAspect(MAspect aspect);
+	void createAspect@@Aspekt_erstellen(AspectManager aspectManager, String name);
+	void renameAspect@@Umbenennen(MAspect aspect, String newName);
+	void deleteAspect@@Entfernen(MAspect aspect);
 
-	void createAtomicRootType(MAspect aspect, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
-	void createAtomicSubType(MAtomicType superType, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
-	void renameAtomicType(MAtomicType type, String newName);
-	void changeAbstract(MAtomicType type, MBooleanSUBTYPEName newAbstractType);
-	void changeSingleton(MAtomicType type, MBooleanSUBTYPEName newSingletonType);
+	void createAtomicRootType@@AtomicRootType_erstellen(MAspect aspect, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
+	void createAtomicSubType@@AtomicSubType_erstellen(MAtomicType superType, String typeName, MBooleanSUBTYPEName singletonType, MBooleanSUBTYPEName abstractType);
+	void renameAtomicType@@AtomicType_umbenennen(MAtomicType type, String newName);
+	void changeAbstract@@Abstract_ändern(MAtomicType type, MBooleanSUBTYPEName newAbstractType);
+	void changeSingleton@@Singleton_ändern(MAtomicType type, MBooleanSUBTYPEName newSingletonType);
 
 	void createTypeDisjunction(TypeManager typeManager, MType** containees{typeManager;types});
 	void createTypeConjunction(TypeManager typeManager, MType** containees{typeManager;types});
@@ -50,29 +50,29 @@ server Server {
 	void addType@@Typen_hinzufügen(MObject object, MAtomicType newType {typeManager;types});
 	void removeType@@Typen_entfernen(MObject object, MAtomicType oldType {;object;types});
 	void replaceType@@Typen_ersetzen(MObject object, MAtomicType oldType {;object;types}, MAtomicType newType {;oldType;aspect;types});
-	void deleteObject@@Loeschen(MObject object);
+	void deleteObject@@Entfernen(MObject object);
 
 	/** Enums **/
 	void createEnum@@Enum_erstellen(EnumerationManager enumManager, String name);
 	void createEnumValue@@Enum_Wert_erstellen(MEnum type, String name);
-	void deleteEnum@@Enum_löschen(MEnum type);
+	void deleteEnum@@Enum_entfernen(MEnum type);
 	void deleteEnumValue@@Enum_Wert_löschen(MEnumValue enumValue);
 
 	void createObservation@@Observation_erstellen(MObservationType theType, String name, MObject theObsObject{objectManager;objects}, MEnumValue enumValue{enumValueManager;enumValues});
-	void deleteObservation@@Observation_löschen(MObservation observation);
+	void deleteObservation@@Observation_entfernen(MObservation observation);
 	void createObsType@@Observation_Type_erstellen(ObsTypeManager obsTypeManager, String name, MEnum enumType{enumManager;enumTypes}, MType theType{typeManager;types});
-	void deleteObsType@@Observation_Type_löschen(MObservationType theType);
+	void deleteObsType@@Observation_Type_entfernen(MObservationType theType);
 
 	/** Associations und Hierarchy **/
-	void createAssociation(AssociationManager manager, MType source{typeManager;types}, MType target{typeManager;types}, String name);
-	void removeAssociation(Association a);
-	void createHierarchy(AssociationManager manager, Association a{associationManager;associations}, String name);
-	void createHierarchy(Association a, String name);
+	void createAssociation@@Assoziation_erstellen(AssociationManager manager, MType source{typeManager;types}, MType target{typeManager;types}, String name);
+	void removeAssociation@@Assoziation_entfernen(Association a);
+	void createHierarchy@@Hierarchie_erstellen(AssociationManager manager, Association a{associationManager;associations}, String name);
+	void createHierarchy@@Hierarchie_erstellen(Association a, String name);
 	void removeHierarchy(Hierarchy h);
 
-	void addAssociation(Hierarchy h, Association a);
-	void addToHierarchy(Association association, Hierarchy theHierarchy);
-	void removeFromHierarchy(Hierarchy h, Association a);
+	void addAssociation@@Assoziation_hinzufügen(Hierarchy h, Association a);
+	void addToHierarchy@@Zu_Hierarchie_hinzufügen(Association association, Hierarchy theHierarchy);
+	void removeFromHierarchy@@Aus_Hierarchie_entfernen(Hierarchy h, Association a);
 
 	/** Operations **/
 	void createConstant(OperationManager operationManager, String name, MType target {typeManager;types});
@@ -119,13 +119,14 @@ server Server {
 	/** Measurement/Account **/
 	void createMeasurementType@@Messungstyp_anlegen(MeasurementTypeManager measurementTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
 	void createAccountType@@Kontotyp_anlegen(AccountTypeManager accountTypeManager, String name, MType type {typeManager;types}, UnitType unitType {unitTypeManager;atomicUnitTypes});
+	void deleteAccountType@@Kontotyp_entfernen(MAccountType accountType) throws ConsistencyException;
 	void addSubAccountType@@Kontotyp_unterordnen(MAccountType parent, MAccountType child{accountTypeManager;accountTypes}) throws CycleException;
 	void createAccount@@Konto_anlegen(AccountManager accountManager, String name, MAccountType type {accountTypeManager;accountTypes}, MObject object {objectManager;objects});
+	void deleteAccount@@Konto_entfernen(Account account) throws ConsistencyException;
 	void addSubAccount@@Konto_unterordnen(Account parent, Account child{accountManager;accounts}) throws CycleException;
 	void createEntry@@Eintrag_anlegen(Account account, MObject object{objectManager;objects}, MMeasurementType measurementType{measurementTypeManager;measurementTypes}, Quantity quantity{quantityManager;quantities}) throws ConsistencyException;
+	void deleteEntry@@Eintrag_entfernen(Measurement measurement) throws ConsistencyException;
 	AbsQuantity aggregateByStrategy@@Aggregationsstrategie_anwenden(Account account, AggregationStrategySUBTYPEName strategy) throws NotComputableException, ConsistencyException;
-	void deleteAccount@@Konto_entfernen(Account account) throws ConsistencyException;
-	void deleteAccountType@@Kontotyp_entfernen(MAccountType accountType) throws ConsistencyException;
 
  	/** Naming **/
 	void createNameScheme@@Namensschema_erstellen(NameSchemeManager manager, String schemeName, String regExp, MBooleanSUBTYPEName isIterable);
@@ -670,6 +671,7 @@ part measurement {
 singleton MeasurementTypeManager##MsrmntTpMng {
 	MMeasurementType** measurementTypes;
 	active MMeasurementType createMeasurementType(String name, MType type, UnitType unitType);
+	active void deleteMeasurementType(MMeasurementType measurementType) throws ConsistencyException;
 }
 
 singleton AccountTypeManager {
@@ -714,7 +716,7 @@ class Measurement extends QuantifObject {
 class Account extends QuantifObject {
 	symmetric prior MAccountType type;
 	symmetric Account** subAccounts hierarchy AccountHierarchy;
-	Measurement** entries;
+	symmetric Measurement** entries;
 	prior indexed String name; 
 	active void addSubAccount(Account account) throws CycleException, ConsistencyException;
 	active void addEntry(Measurement measurement) throws ConsistencyException;

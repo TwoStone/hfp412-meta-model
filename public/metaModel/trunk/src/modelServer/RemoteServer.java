@@ -1256,6 +1256,18 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.Hashtable<?,?> deleteEntry(String measurementProxiString){
+        try {
+            PersistentMeasurement measurement = (PersistentMeasurement)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(measurementProxiString));
+            ((PersistentServer)this.server).deleteEntry(measurement);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.ConsistencyException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
     public synchronized java.util.Hashtable<?,?> deleteEnumValue(String enumValueProxiString){
         try {
             PersistentMEnumValue enumValue = (PersistentMEnumValue)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(enumValueProxiString));
