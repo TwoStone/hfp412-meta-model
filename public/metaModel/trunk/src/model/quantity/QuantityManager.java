@@ -42,7 +42,6 @@ import persistence.PersistentQuantity;
 import persistence.PersistentQuantityManager;
 import persistence.PersistentReference;
 import persistence.PersistentSubCommand;
-import persistence.PersistentSubtraction;
 import persistence.PersistentUnit;
 import persistence.Predcate;
 import persistence.QuantityManagerProxi;
@@ -523,11 +522,14 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	@Override
 	public PersistentAbsQuantity sub(final PersistentAbsQuantity minuend, final PersistentAbsQuantity subtrahend)
 			throws model.NotComputableException, PersistenceException {
-		final PersistentSubtraction sub = Subtraction.createSubtraction();
-		sub.setArg1(minuend);
-		sub.setArg2(subtrahend);
-		sub.calculate();
-		return sub.getResultt();
+		final PersistentAbsQuantity invertSign = this.invertSign(subtrahend);
+		return getThis().add(minuend, invertSign);
+		//
+		// final PersistentSubtraction sub = Subtraction.createSubtraction();
+		// sub.setArg1(minuend);
+		// sub.setArg2(subtrahend);
+		// sub.calculate();
+		// return sub.getResultt();
 	}
 
 	// Start of section that contains overridden operations only.
