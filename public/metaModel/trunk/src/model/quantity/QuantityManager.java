@@ -22,8 +22,8 @@ import persistence.Invoker;
 import persistence.PersistenceException;
 import persistence.PersistentAbsQuantity;
 import persistence.PersistentAbsUnit;
+import persistence.PersistentAbsUnitType;
 import persistence.PersistentAddCommand;
-import persistence.PersistentAddition;
 import persistence.PersistentCompUnit;
 import persistence.PersistentCompoundQuantity;
 import persistence.PersistentConversion;
@@ -47,6 +47,7 @@ import persistence.PersistentUnit;
 import persistence.Predcate;
 import persistence.QuantityManagerProxi;
 import persistence.QuantityManager_QuantitiesProxi;
+import persistence.QuantitySearchList;
 import persistence.TDObserver;
 
 import common.Fraction;
@@ -307,63 +308,51 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 	}
 
 	@Override
-	public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) throws model.NotComputableException,
-			PersistenceException {
-		final PersistentAddition addi = Addition.createAddition();
-		addi.setArg1(summand1);
-		addi.setArg2(summand2);
-		addi.calculate();
-		return addi.getResultt();
+	public PersistentAbsQuantity add(final PersistentAbsQuantity summand1, final PersistentAbsQuantity summand2) throws PersistenceException,
+			NotComputableException {
+		final PersistentAbsUnitType arg1Type = summand1.accept(new FetchUnitTypeVisitor());
+		final PersistentAbsUnitType arg2Type = summand2.accept(new FetchUnitTypeVisitor());
+		if (!arg1Type.equals(arg2Type)) {
+			throw new NotComputableException("Es können keine Quantitäten zu unterschiedlichen Einheitentypen addiert werden");
+		}
+
+		final QuantitySearchList arg1Parts = summand1.accept(new FetchQuantityPartsVisitor());
+		final QuantitySearchList arg2Parts = summand2.accept(new FetchQuantityPartsVisitor());
+
+		PersistentAbsQuantity newQuantity = CompoundQuantity.createCompoundQuantity();
+		try {
+			((PersistentCompoundQuantity) newQuantity).getParts().add(arg1Parts);
+			((PersistentCompoundQuantity) newQuantity).getParts().add(arg2Parts);
+		} catch (final UserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		newQuantity = getThis().concludeQuantity(newQuantity);
+
+		replaceInQuantityList(summand1, summand2, newQuantity, false);
+		return newQuantity;
+
+		// final PersistentAddition addi = Addition.createAddition();
+		// addi.setArg1(summand1);
+		// addi.setArg2(summand2);
+		// addi.calculate();
+		// return addi.getResultt();
 	}
 
 	@Override
 	public PersistentAbsQuantity concludeQuantity(final PersistentAbsQuantity quantity) throws PersistenceException {
-		return quantity.accept(new AbsQuantityReturnVisitor<PersistentAbsQuantity>() {
-
-			@Override
-			public PersistentAbsQuantity handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
-				PersistentAbsQuantity ret = compoundQuantity;
-				final Map<PersistentAbsUnit, PersistentQuantity> exisitingQuantitiesWithUnits = new HashMap<PersistentAbsUnit, PersistentQuantity>();
-				final Iterator<PersistentQuantity> i = compoundQuantity.getParts().iterator();
-				while (i.hasNext()) {
-					final PersistentQuantity curQuantity = i.next();
-					final PersistentQuantity existingQuantityForUnit = exisitingQuantitiesWithUnits.get(curQuantity.getUnit());
-					if (existingQuantityForUnit != null) {
-						try {
-							existingQuantityForUnit.setAmount(existingQuantityForUnit.getAmount().add(curQuantity.getAmount()));
-						} catch (final Throwable e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						i.remove();
-					} else {
-						exisitingQuantitiesWithUnits.put(curQuantity.getUnit(), curQuantity);
-					}
-				}
-				if (exisitingQuantitiesWithUnits.size() == 1) {
-					final Entry<PersistentAbsUnit, PersistentQuantity> first = exisitingQuantitiesWithUnits.entrySet().iterator().next();
-					ret = first.getValue();
-
-					getThis().getQuantities().removeFirstSuccess(new Predcate<PersistentAbsQuantity>() {
-
-						@Override
-						public boolean test(final PersistentAbsQuantity argument) throws PersistenceException {
-							return argument.equals(quantity);
-						}
-					});
-				}
-				return ret;
-			}
-
-			@Override
-			public PersistentAbsQuantity handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
-				final CompoundQuantitySearchList compoundQuantitySearchList = quantity.inverseGetParts();
-				if (compoundQuantitySearchList.getLength() > 0) {
-					return QuantityManager.this.getThis().concludeQuantity(compoundQuantitySearchList.iterator().next());
-				}
-				return quantity;
-			}
-		});
+		final PersistentAbsQuantity ret = this.concludeQuantityInt(quantity);
+		//
+		// getThis().getQuantities().removeFirstSuccess(new Predcate<PersistentAbsQuantity>() {
+		//
+		// @Override
+		// public boolean test(final PersistentAbsQuantity argument) throws PersistenceException {
+		// return argument.equals(quantity);
+		// }
+		// });
+		//
+		// getThis().getQuantities().add(ret);
+		return ret;
 	}
 
 	@Override
@@ -431,10 +420,19 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 
 	@Override
 	public void convert(final PersistentQuantity quantity, final PersistentAbsUnit unit) throws model.NotComputableException, PersistenceException {
+		PersistentAbsQuantity typeToReplace = quantity;
+
+		final Iterator<PersistentCompoundQuantity> i = quantity.inverseGetParts().iterator();
+		if (i.hasNext()) {
+			typeToReplace = i.next();
+		}
+
 		final Fraction resultAmount = getThis().convertAmount(quantity, unit);
 		quantity.setAmount(resultAmount);
 		quantity.setUnit(unit);
-		getThis().concludeQuantity(quantity);
+		final PersistentAbsQuantity newQuantity = getThis().concludeQuantity(quantity);
+
+		replaceInQuantityList(typeToReplace, newQuantity, false);
 	}
 
 	@Override
@@ -555,6 +553,137 @@ public class QuantityManager extends PersistentObject implements PersistentQuant
 		return cp;
 	}
 
+	public PersistentAbsQuantity concludeQuantityInt(final PersistentAbsQuantity quantity) throws PersistenceException {
+		return quantity.accept(new AbsQuantityReturnVisitor<PersistentAbsQuantity>() {
+
+			@Override
+			public PersistentAbsQuantity handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
+				PersistentAbsQuantity ret = compoundQuantity;
+				final Map<PersistentAbsUnit, PersistentQuantity> exisitingQuantitiesWithUnits = new HashMap<PersistentAbsUnit, PersistentQuantity>();
+				final Iterator<PersistentQuantity> i = compoundQuantity.getParts().iterator();
+				while (i.hasNext()) {
+					final PersistentQuantity curQuantity = i.next();
+					final PersistentQuantity existingQuantityForUnit = exisitingQuantitiesWithUnits.get(curQuantity.getUnit());
+					if (existingQuantityForUnit != null) {
+						try {
+							existingQuantityForUnit.setAmount(existingQuantityForUnit.getAmount().add(curQuantity.getAmount()));
+						} catch (final Throwable e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						i.remove();
+					} else {
+						exisitingQuantitiesWithUnits.put(curQuantity.getUnit(), curQuantity);
+					}
+				}
+				if (exisitingQuantitiesWithUnits.size() == 1) {
+					final Entry<PersistentAbsUnit, PersistentQuantity> first = exisitingQuantitiesWithUnits.entrySet().iterator().next();
+					ret = first.getValue();
+					// final Predcate<PersistentAbsQuantity> predicate = new Predcate<PersistentAbsQuantity>() {
+					//
+					// @Override
+					// public boolean test(final PersistentAbsQuantity argument) throws PersistenceException {
+					// return argument.equals(quantity);
+					// }
+					// };
+					// final PersistentAbsQuantity findQuantityInList = getThis().getQuantities().findFirst(predicate);
+					// if (findQuantityInList != null) {
+					// getThis().getQuantities().add(ret);
+					// }
+					// getThis().getQuantities().removeFirstSuccess(predicate);
+				}
+				return ret;
+			}
+
+			@Override
+			public PersistentAbsQuantity handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
+				final CompoundQuantitySearchList compoundQuantitySearchList = quantity.inverseGetParts();
+				if (compoundQuantitySearchList.getLength() > 0) {
+					return QuantityManager.this.concludeQuantityInt(compoundQuantitySearchList.iterator().next());
+				}
+				return quantity;
+			}
+		});
+	}
+
+	private void replaceInQuantityList(final PersistentAbsQuantity oldQuantity, final PersistentAbsQuantity newQuantity, final boolean set)
+			throws PersistenceException {
+		final Predcate<PersistentAbsQuantity> predicate = new Predcate<PersistentAbsQuantity>() {
+
+			@Override
+			public boolean test(final PersistentAbsQuantity argument) throws PersistenceException {
+				return argument.equals(oldQuantity);
+			}
+		};
+		final PersistentAbsQuantity findFirst = getThis().getQuantities().findFirst(predicate);
+		getThis().getQuantities().removeFirstSuccess(predicate);
+
+		if (findFirst != null) {
+			getThis().getQuantities().add(newQuantity);
+		}
+	}
+
+	private void replaceInQuantityList(final PersistentAbsQuantity oldQuantity1, final PersistentAbsQuantity oldQuantity2,
+			final PersistentAbsQuantity newQuantity, final boolean set) throws PersistenceException {
+		final Predcate<PersistentAbsQuantity> predicate1 = new Predcate<PersistentAbsQuantity>() {
+
+			@Override
+			public boolean test(final PersistentAbsQuantity argument) throws PersistenceException {
+				return argument.equals(oldQuantity1);
+			}
+		};
+		final PersistentAbsQuantity findFirst1 = getThis().getQuantities().findFirst(predicate1);
+		getThis().getQuantities().removeFirstSuccess(predicate1);
+
+		final Predcate<PersistentAbsQuantity> predicate2 = new Predcate<PersistentAbsQuantity>() {
+
+			@Override
+			public boolean test(final PersistentAbsQuantity argument) throws PersistenceException {
+				return argument.equals(oldQuantity2);
+			}
+		};
+		final PersistentAbsQuantity findFirst2 = getThis().getQuantities().findFirst(predicate1);
+		getThis().getQuantities().removeFirstSuccess(predicate2);
+
+		if (findFirst1 != null || findFirst2 != null) {
+			getThis().getQuantities().add(newQuantity);
+		}
+	}
+
+	private class FetchQuantityPartsVisitor implements AbsQuantityReturnVisitor<QuantitySearchList> {
+
+		@Override
+		public QuantitySearchList handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
+			final QuantitySearchList ret = new QuantitySearchList();
+			final Iterator<PersistentQuantity> i = compoundQuantity.getParts().iterator();
+			while (i.hasNext()) {
+				final PersistentQuantity curQuantity = i.next();
+				ret.add(curQuantity);
+			}
+			return ret;
+		}
+
+		@Override
+		public QuantitySearchList handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
+			final QuantitySearchList ret = new QuantitySearchList();
+			ret.add(quantity);
+			return ret;
+		}
+	}
+
+	private class FetchUnitTypeVisitor implements AbsQuantityReturnVisitor<PersistentAbsUnitType> {
+
+		@Override
+		public PersistentAbsUnitType handleCompoundQuantity(final PersistentCompoundQuantity compoundQuantity) throws PersistenceException {
+			return compoundQuantity.getParts().iterator().next().getUnit().getType();
+		}
+
+		@Override
+		public PersistentAbsUnitType handleQuantity(final PersistentQuantity quantity) throws PersistenceException {
+			return quantity.getUnit().getType();
+		}
+
+	}
 	/* End of protected part that is not overridden by persistence generator */
 
 }
