@@ -909,9 +909,6 @@ public class UnitTypeManager extends PersistentObject implements PersistentUnitT
 		if (((PersistentUnitType) unit.getType()).getDefaultUnit() == null) {
 			throw new ConsistencyException(ExceptionConstants.NO_DEFAULT_UNIT_FOR_CONVERSION);
 		}
-		if (((PersistentUnitType) unit.getType()).getDefaultUnit() == unit) {
-			throw new ConsistencyException(ExceptionConstants.NO_CONVERSION_ALLOWED_FOR_DEFAULT_UNIT);
-		}
 
 		// Conversion ??ndern, wenn schon vorhanden
 		final PersistentConversion conversion = unit.getMyConversion();
