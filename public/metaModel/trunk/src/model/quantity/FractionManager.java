@@ -21,6 +21,8 @@ import persistence.PersistentProxi;
 import persistence.TDObserver;
 import constants.ExceptionConstants;
 
+import common.Fraction;
+
 /* Additional import section end */
 
 public class FractionManager extends PersistentObject implements PersistentFractionManager {
@@ -248,14 +250,13 @@ public class FractionManager extends PersistentObject implements PersistentFract
 
 	@Override
 	public common.Fraction invertSign(final common.Fraction fraction) throws PersistenceException {
-		// TODO: implement method: invertSign
 		try {
-			throw new java.lang.UnsupportedOperationException("Method \"invertSign\" not implemented yet.");
-		} catch (final java.lang.UnsupportedOperationException uoe) {
-			uoe.printStackTrace();
-			throw uoe;
+			return Fraction.parse("-1").mul(fraction);
+		} catch (final Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
-	}
 
 	// Start of section that contains overridden operations only.
 
