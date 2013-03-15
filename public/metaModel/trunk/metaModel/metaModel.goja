@@ -579,8 +579,6 @@ active void removeAssoFrmHier(Hierarchy h, Association a) throws NotAvailableExc
 
 singleton OperationManager {
 	Operation ** operations; // TODO: Typunterscheidung (spezialisierung static/nonstatic & constants)
-	derived Operation** staticOperations;
-	derived Operation** constants;
 	FormalParameter ** formalParameters;
 
 active Operation createConstant(String name, MType target) throws DoubleDefinitionException, ConsistencyException;

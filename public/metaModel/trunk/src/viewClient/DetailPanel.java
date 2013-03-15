@@ -1263,8 +1263,6 @@ class FormalParameterDefaultDetailPanel extends DefaultDetailPanel{
 class OperationManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String OperationManager$$operations = "OperationManager$$operations";
-    protected static final String OperationManager$$staticOperations = "OperationManager$$staticOperations";
-    protected static final String OperationManager$$constants = "OperationManager$$constants";
     protected static final String OperationManager$$formalParameters = "OperationManager$$formalParameters";
     
     protected OperationManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {

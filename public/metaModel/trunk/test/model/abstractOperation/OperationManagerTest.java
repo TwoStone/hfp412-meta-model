@@ -8,7 +8,6 @@ import model.ConsistencyException;
 import model.DoubleDefinitionException;
 import model.NotAvailableException;
 import model.messageOrLink.MessageManager;
-import model.typeSystem.MEmptyTypeConjunction;
 import model.typeSystem.MEmptyTypeDisjunction;
 
 import org.junit.Test;
@@ -101,7 +100,7 @@ public class OperationManagerTest extends AbstractTest {
 		final PersistentOperation createOperation = manager.createOperation(mat3, mat4, "Irgendeine", new FormalParameterSearchList());
 		manager.removeOperation(createOperation);
 
-		final PersistentOperation found = manager.getOperations().getList().findFirst(new Predcate<PersistentOperation>() {
+		final PersistentOperation found = manager.getOperations().findFirst(new Predcate<PersistentOperation>() {
 
 			@Override
 			public boolean test(final PersistentOperation argument) throws PersistenceException {
@@ -241,22 +240,6 @@ public class OperationManagerTest extends AbstractTest {
 		final String name = "IrgendeinerXXX";
 		final PersistentOperation createOperation = manager.createOperation(mat3, mat4, name, searchList);
 		manager.removeFpFromOp(createOperation, param2);
-	}
-
-	@Test
-	public void updateDerivedStaticListOnCreate() throws DoubleDefinitionException, ConsistencyException, PersistenceException {
-
-		final FormalParameterSearchList formalParameterSearchList = new FormalParameterSearchList();
-		formalParameterSearchList.add(manager.createFp("aa", mat3));
-		manager.createOperation(MEmptyTypeConjunction.getTheMEmptyTypeConjunction(), mat1, "hallo", new FormalParameterSearchList());
-		assertEquals(1, manager.getStaticOperations().getLength());
-	}
-
-	@Test
-	public void updateDerivedConstantListOnCreate() throws DoubleDefinitionException, ConsistencyException, PersistenceException {
-
-		manager.createOperation(MEmptyTypeConjunction.getTheMEmptyTypeConjunction(), mat1, "hallo", new FormalParameterSearchList());
-		assertEquals(1, manager.getConstants().getLength());
 	}
 
 	@Test(expected = ConsistencyException.class)
