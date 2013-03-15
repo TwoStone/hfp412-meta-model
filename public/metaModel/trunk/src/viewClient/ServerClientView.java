@@ -284,63 +284,11 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
     private java.util.Vector<javax.swing.JButton> getToolButtonsForStaticOperations() {
         java.util.Vector<javax.swing.JButton> result = new java.util.Vector<javax.swing.JButton>();
         javax.swing.JButton currentButton = null;
-        currentButton = new javax.swing.JButton("createTypeConjunction ... ");
-        currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateTypeConjunctionMTypeLSTMssgWizard wizard = new ServerCreateTypeConjunctionMTypeLSTMssgWizard("createTypeConjunction");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });result.add(currentButton);
-        currentButton = new javax.swing.JButton("createTypeDisjunction ... ");
-        currentButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateTypeDisjunctionMTypeLSTMssgWizard wizard = new ServerCreateTypeDisjunctionMTypeLSTMssgWizard("createTypeDisjunction");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });result.add(currentButton);
         return result;
     }
     private JPopupMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations) {
         JPopupMenu result = new JPopupMenu();
         javax.swing.JMenuItem item = null;
-        item = new javax.swing.JMenuItem();
-        item.setText("(S) createTypeConjunction ... ");
-        item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateTypeConjunctionMTypeLSTMssgWizard wizard = new ServerCreateTypeConjunctionMTypeLSTMssgWizard("createTypeConjunction");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });
-        if (withStaticOperations) result.add(item);
-        item = new javax.swing.JMenuItem();
-        item.setText("(S) createTypeDisjunction ... ");
-        item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                ServerCreateTypeDisjunctionMTypeLSTMssgWizard wizard = new ServerCreateTypeDisjunctionMTypeLSTMssgWizard("createTypeDisjunction");
-                wizard.pack();
-                wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
-                wizard.pack();
-                wizard.setLocationRelativeTo(getNavigationPanel());
-                wizard.setVisible(true);
-            }
-            
-        });
-        if (withStaticOperations) result.add(item);
         if (selected != null){
             if (selected instanceof MEnumView){
                 item = new javax.swing.JMenuItem();
@@ -1169,6 +1117,38 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
                     public void actionPerformed(java.awt.event.ActionEvent e) {
                         ServerAddSubAccountTypeMAccountTypeMAccountTypeMssgWizard wizard = new ServerAddSubAccountTypeMAccountTypeMAccountTypeMssgWizard("Kontotyp unterordnen");
                         wizard.setFirstArgument((MAccountTypeView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+            }
+            if (selected instanceof TypeManagerView){
+                item = new javax.swing.JMenuItem();
+                item.setText("createTypeConjunction ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateTypeConjunctionTypeManagerMTypeLSTMssgWizard wizard = new ServerCreateTypeConjunctionTypeManagerMTypeLSTMssgWizard("createTypeConjunction");
+                        wizard.setFirstArgument((TypeManagerView)selected);
+                        wizard.pack();
+                        wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
+                        wizard.pack();
+                        wizard.setLocationRelativeTo(getNavigationPanel());
+                        wizard.setVisible(true);
+                    }
+                    
+                });
+                result.add(item);
+                item = new javax.swing.JMenuItem();
+                item.setText("createTypeDisjunction ... ");
+                item.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        ServerCreateTypeDisjunctionTypeManagerMTypeLSTMssgWizard wizard = new ServerCreateTypeDisjunctionTypeManagerMTypeLSTMssgWizard("createTypeDisjunction");
+                        wizard.setFirstArgument((TypeManagerView)selected);
                         wizard.pack();
                         wizard.setPreferredSize(new java.awt.Dimension(getNavigationPanel().getWidth(), wizard.getHeight()));
                         wizard.pack();
@@ -4198,20 +4178,20 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		
 	}
 
-	class ServerCreateTypeConjunctionMTypeLSTMssgWizard extends Wizard {
+	class ServerCreateTypeConjunctionTypeManagerMTypeLSTMssgWizard extends Wizard {
 
-		protected ServerCreateTypeConjunctionMTypeLSTMssgWizard(String operationName){
+		protected ServerCreateTypeConjunctionTypeManagerMTypeLSTMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateTypeConjunctionMTypeLSTMssgWizard.help";
+			this.helpFileName = "ServerCreateTypeConjunctionTypeManagerMTypeLSTMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createTypeConjunction((java.util.Vector<MTypeView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().createTypeConjunction(firstArgument, (java.util.Vector<MTypeView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -4246,22 +4226,31 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 		}
 		
 		
+		private TypeManagerView firstArgument; 
+	
+		public void setFirstArgument(TypeManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
 	}
 
-	class ServerCreateTypeDisjunctionMTypeLSTMssgWizard extends Wizard {
+	class ServerCreateTypeDisjunctionTypeManagerMTypeLSTMssgWizard extends Wizard {
 
-		protected ServerCreateTypeDisjunctionMTypeLSTMssgWizard(String operationName){
+		protected ServerCreateTypeDisjunctionTypeManagerMTypeLSTMssgWizard(String operationName){
 			super();
 			getOkButton().setText(operationName);
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateTypeDisjunctionMTypeLSTMssgWizard.help";
+			this.helpFileName = "ServerCreateTypeDisjunctionTypeManagerMTypeLSTMssgWizard.help";
 			super.initialize();			
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createTypeDisjunction((java.util.Vector<MTypeView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(0)).getResult());
+				getConnection().createTypeDisjunction(firstArgument, (java.util.Vector<MTypeView>)((ObjectCollectionSelectionPanel)getParametersPanel().getComponent(0)).getResult());
 				getConnection().setEagerRefresh();
 				setVisible(false);
 				dispose();	
@@ -4293,6 +4282,15 @@ public class ServerClientView extends JPanel implements ExceptionAndEventHandler
 			 }		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+		private TypeManagerView firstArgument; 
+	
+		public void setFirstArgument(TypeManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
 		}
 		
 		

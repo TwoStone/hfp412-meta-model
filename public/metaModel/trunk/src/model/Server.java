@@ -1063,12 +1063,12 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		getOperationManager().createStaticOp(name, target, fp, getThis());
 	}
-    public void createTypeConjunction(final MTypeSearchList containees) 
+    public void createTypeConjunction(final PersistentTypeManager typeManager, final MTypeSearchList containees) 
 				throws PersistenceException{
 		getThis().getTypeManager().createTypeConjunction(containees, getThis());
 
 	}
-    public void createTypeDisjunction(final MTypeSearchList containees) 
+    public void createTypeDisjunction(final PersistentTypeManager typeManager, final MTypeSearchList containees) 
 				throws PersistenceException{
 		getThis().getTypeManager().createTypeDisjunction(containees, getThis());
 

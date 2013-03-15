@@ -34,8 +34,8 @@ server Server {
 	void changeAbstract(MAtomicType type, MBooleanSUBTYPEName newAbstractType);
 	void changeSingleton(MAtomicType type, MBooleanSUBTYPEName newSingletonType);
 
-	void createTypeDisjunction(MType** containees{typeManager;types});
-	void createTypeConjunction(MType** containees{typeManager;types});
+	void createTypeDisjunction(TypeManager typeManager, MType** containees{typeManager;types});
+	void createTypeConjunction(TypeManager typeManager, MType** containees{typeManager;types});
 	
 	void deleteAtomicType(MAtomicType type);
 	void deleteComplexType(MComplexType type);

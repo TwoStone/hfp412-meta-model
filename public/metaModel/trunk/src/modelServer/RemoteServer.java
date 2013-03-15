@@ -1117,30 +1117,32 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createTypeConjunction(java.util.Vector<String> containeesTrnsprt){
+    public synchronized java.util.Hashtable<?,?> createTypeConjunction(String typeManagerProxiString, java.util.Vector<String> containeesTrnsprt){
         try {
+            PersistentTypeManager typeManager = (PersistentTypeManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeManagerProxiString));
             MTypeSearchList containees = new MTypeSearchList();
 			java.util.Iterator<String> containeesItrtr = containeesTrnsprt.iterator();
 			while (containeesItrtr.hasNext()){
 				PersistentMType currentProxi = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(containeesItrtr.next()));
 				containees.add(currentProxi);
 			}
-            ((PersistentServer)this.server).createTypeConjunction(containees);
+            ((PersistentServer)this.server).createTypeConjunction(typeManager, containees);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.Hashtable<?,?> createTypeDisjunction(java.util.Vector<String> containeesTrnsprt){
+    public synchronized java.util.Hashtable<?,?> createTypeDisjunction(String typeManagerProxiString, java.util.Vector<String> containeesTrnsprt){
         try {
+            PersistentTypeManager typeManager = (PersistentTypeManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(typeManagerProxiString));
             MTypeSearchList containees = new MTypeSearchList();
 			java.util.Iterator<String> containeesItrtr = containeesTrnsprt.iterator();
 			while (containeesItrtr.hasNext()){
 				PersistentMType currentProxi = (PersistentMType)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(containeesItrtr.next()));
 				containees.add(currentProxi);
 			}
-            ((PersistentServer)this.server).createTypeDisjunction(containees);
+            ((PersistentServer)this.server).createTypeDisjunction(typeManager, containees);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
