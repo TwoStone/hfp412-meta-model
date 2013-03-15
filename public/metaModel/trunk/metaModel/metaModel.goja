@@ -126,6 +126,7 @@ server Server {
 	void addSubAccount@@Konto_unterordnen(Account parent, Account child{accountManager;accounts}) throws CycleException;
 	void createEntry@@Eintrag_anlegen(Account account, MObject object{objectManager;objects}, MMeasurementType measurementType{measurementTypeManager;measurementTypes}, Quantity quantity{quantityManager;quantities}) throws ConsistencyException;
 	void deleteEntry@@Eintrag_entfernen(Measurement measurement) throws ConsistencyException;
+	void deleteMeasurementType@@Messungstyp_entfernen(MMeasurementType measurementType) throws ConsistencyException;
 	AbsQuantity aggregateByStrategy@@Aggregationsstrategie_anwenden(Account account, AggregationStrategySUBTYPEName strategy) throws NotComputableException, ConsistencyException;
 
  	/** Naming **/

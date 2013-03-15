@@ -2,8 +2,6 @@ package model;
 
 import model.basic.MBoolean;
 import model.basic.MFalse;
-import model.measurement.AccountManager;
-import model.measurement.AccountTypeManager;
 import model.measurement.Measurement;
 import model.measurement.MeasurementTypeManager;
 import model.meta.StringFACTORY;
@@ -12,8 +10,6 @@ import model.observations.EnumerationManager;
 import model.observations.ObsTypeManager;
 import model.observations.ObservationManager;
 import model.quantity.QuantityManager;
-import model.quantity.UnitTypeManager;
-import model.typeSystem.ObjectManager;
 import model.visitor.AnythingExceptionVisitor;
 import model.visitor.AnythingReturnExceptionVisitor;
 import model.visitor.AnythingReturnVisitor;
@@ -1125,7 +1121,10 @@ public class Server extends PersistentObject implements PersistentServer{
     public void deleteEnum(final PersistentMEnum type) 
 				throws PersistenceException{
 		EnumerationManager.getTheEnumerationManager().deleteEnum(type, getThis());
-
+	}
+    public void deleteMeasurementType(final PersistentMMeasurementType measurementType) 
+				throws model.ConsistencyException, PersistenceException{
+		MeasurementTypeManager.getTheMeasurementTypeManager().deleteMeasurementType(measurementType);
 	}
     public void deleteObject(final PersistentMObject object) 
 				throws PersistenceException{
@@ -1408,23 +1407,22 @@ public class Server extends PersistentObject implements PersistentServer{
 	private void demoMeasurement() throws CycleException, PersistenceException, ConsistencyException, DoubleDefinitionException {
 		final PersistentMAspect aspect1 = getAspectManager().createAspect("Bankkunde");
 		final PersistentMAtomicType type = getTypeManager().createAtomicRootType(aspect1, "Person", MFalse.getTheMFalse(), MFalse.getTheMFalse());
-		final PersistentUnitType unitType1 = UnitTypeManager.getTheUnitTypeManager().createUnitType("Währung");
+		final PersistentUnitType unitType1 = getUnitTypeManager().createUnitType("Währung");
 
-		final PersistentMAccountType accType1 = AccountTypeManager.getTheAccountTypeManager().createAccountType("Bankkonto", type, unitType1);
+		final PersistentMAccountType accType1 = getAccountTypeManager().createAccountType("Bankkonto", type, unitType1);
 
-		final PersistentMObject obj1 = ObjectManager.getTheObjectManager().createMObject(type, new MAtomicTypeSearchList());
-		final PersistentMObject obj2 = ObjectManager.getTheObjectManager().createMObject(type, new MAtomicTypeSearchList());
+		final PersistentMObject obj1 = getObjectManager().createMObject(type, new MAtomicTypeSearchList());
+		final PersistentMObject obj2 = getObjectManager().createMObject(type, new MAtomicTypeSearchList());
 
-		final PersistentAccount account = AccountManager.getTheAccountManager().createAccount("Hugos Konto", accType1, obj1);
+		final PersistentAccount account = getAccountManager().createAccount("Hugos Konto", accType1, obj1);
 
-		final PersistentUnit unit = UnitTypeManager.getTheUnitTypeManager().createUnit("Euro", unitType1);
+		final PersistentUnit unit = getUnitTypeManager().createUnit("Euro", unitType1);
 		this.getThis().getUnitTypeManager().setDefaultUnit(unitType1, unit);
-		final PersistentQuantity quantity1_3Euro = QuantityManager.getTheQuantityManager().createQuantity(unit, Fraction.parse("1/3"));
-		final PersistentQuantity quantity4_3Euro = QuantityManager.getTheQuantityManager().createQuantity(unit, Fraction.parse("4/3"));
-		final PersistentQuantity quantity2_3Euro = QuantityManager.getTheQuantityManager().createQuantity(unit, Fraction.parse("2/3"));
+		final PersistentQuantity quantity1_3Euro = getQuantityManager().createQuantity(unit, Fraction.parse("1/3"));
+		final PersistentQuantity quantity4_3Euro = getQuantityManager().createQuantity(unit, Fraction.parse("4/3"));
+		final PersistentQuantity quantity2_3Euro = getQuantityManager().createQuantity(unit, Fraction.parse("2/3"));
 
-		final PersistentMMeasurementType msmntType1 = MeasurementTypeManager.getTheMeasurementTypeManager().createMeasurementType("Buchung", type,
-				unitType1);
+		final PersistentMMeasurementType msmntType1 = getMeasurementTypeManager().createMeasurementType("Buchung", type, unitType1);
 		final PersistentMeasurement measurement1_3Euro = Measurement.createMeasurement(obj2, msmntType1, quantity1_3Euro);
 		final PersistentMeasurement measurement4_3Euro = Measurement.createMeasurement(obj2, msmntType1, quantity4_3Euro);
 		final PersistentMeasurement measurement2_3Euro = Measurement.createMeasurement(obj2, msmntType1, quantity2_3Euro);

@@ -225,7 +225,6 @@ public class MMeasurementType extends model.measurement.MQuantiObjectType implem
 
 		// Exemplare
 		SearchLists.addSecondToFirst(result, getThis().inverseGetType());
-
 		return result;
 	}
     public void initializeOnCreation() 
