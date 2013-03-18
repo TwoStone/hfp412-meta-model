@@ -4,12 +4,11 @@ Zur Abbildung von Operationen und Assoziationen wurde im Zuge der Projektarbeit 
 Da es sich bei Assoziationen um spezielle, parameterlose Operationen handelt, wurde eine gemeinsame Oberklasse gewählt.
 Sowohl Operationen als auch Assoziationen haben genau ein Quell- und Zieltyp wobei diese in den unterschiedlichen Kontexten (Operation oder Assoziation) semantisch unterschiedlich interpretiert werden. Im Folgenden werden sowohl die Meta- als auch Exemplarebene erläutert und alle Operationen beschrieben, die es dem Anwender erlauben Operationen und Assoziationen sowie Messages\footnote{Wie im folgenden erläutert wird, sind Messages nicht Bestandteil der ersten Implementierungsstufe. Sie wurden nur aus Gründen der Vollständigkeit mit aufgeführt.} und Links zu verwalten.  
 
-\TODO[Ausschnitt mit viewport einfügen, siehe Forum]
-
+\img[width=\relWidth{0.7},viewport=150 520 800 1300, clip]{klassendiagramm/Klassendiagramm.pdf}{Klassendiagramm - Ausschnitt Operation}{img_operation}
 \subsubsection{Operationen}
 
 Die Klasse Operation repräsentiert die Abbildung von Operationen in dem erarbeiteten Modell.
-Wie in dem Modell aus dem digitalen Anhang ersichtlich, hat die Oberklasse AbstractOperation zwei  Assoziationen zu MType. 
+Wie in dem Modell aus Abbildung \ref{img_operation} ersichtlich, hat die Oberklasse AbstractOperation zwei  Assoziationen zu MType. 
 Im Kontext von Operationen ist die Quelle (source) der Typ, welcher die Operation enthält. 
 Das Ziel (target) einer Operation entspricht dem Rückgabetypen.
 Neben Quell- und Zieltypen besitzt eine Operation eine Liste von Formalparametern, welche 
@@ -38,7 +37,7 @@ Diese Operationen dient zum Erstellen einer neuen Operation. Um die Operation mo
 Die ersten zwei Parameter legen fest, zu welchem Typen diese Operation erstellt werden soll \textbf{(source)} bzw. welcher Typ als Rückgabetyp dient \textbf{(target).}
 Die Bezeichnung der Operation wird über den dritten Parameter \textbf{(name)} festgelegt. 
 Zur Definition der Parameterliste der zu erstellenden Operation dient der vierte Parameter \textbf{(fp).}
-Wie bei den meisten Klassen dieses Projekts, die eine Bezeichnung haben, dürfen auch Operationsnamen nicht mehrfach verwendet werden. Beim Versuch zwei Operationen mit identischem Namen anzulegen, wird eine \emph{DoubleDefinitionException} erzeugt und die Erstellung wird abgebrochen. Es ist außerdem nicht möglich, sowohl Quell- als auch Zieltyp der Operation mit der leeren Summe (EmptyTypeDisjunction) zu versehen. Wird ein solcher Versuch unternommen, mündet dies in der Erstellung einer \emph{ConsistencyException.} Wenn nur Quell- oder Zieltyp der leeren Summe entsprechen, existiert dazu eine semantisch sinnvolle Interpretation und stellt keine Ausnahme dar (siehe unten).
+Wie bei den meisten Klassen dieses Projekts, die eine Bezeichnung haben, dürfen auch Operationsnamen nicht mehrfach verwendet werden. Beim Versuch zwei Operationen mit identischem Namen anzulegen, wird eine \emph{DoubleDefinitionException} erzeugt und die Erstellung wird abgebrochen.
 \item[createStaticOperation]
 Diese Operation bietet dem Anwender eine komfortable Möglichkeit eine statische Operation zu erstellen. Die Quell-Assoziation wird dazu auf EmptyTypeDisjunction gesetzt und es ist nur noch \textbf{der Rückgabetyp, der Name und die Parameterliste} auswählbar. Durch die Delegation gelten exakt die gleichen Konsistenzbedingungen wie beim Erstellen eine Operation (createOperation).
 \item[createConstant]
