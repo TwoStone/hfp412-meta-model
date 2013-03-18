@@ -261,7 +261,7 @@ public class OperationManagerTest extends AbstractTest {
 		manager.createFp("f", mstEmpty);
 	}
 
-	@Test(expected = ConsistencyException.class)
+	@Test
 	public void createOpWithBothEmptyTypeDisj() throws DoubleDefinitionException, ConsistencyException, PersistenceException {
 		manager.createOperation(mstEmpty, mstEmpty, "a", new FormalParameterSearchList());
 	}
@@ -272,8 +272,4 @@ public class OperationManagerTest extends AbstractTest {
 		manager.removeFp(fp);
 	}
 
-	@Test(expected = ConsistencyException.class)
-	public void removeOpWithLink() throws DoubleDefinitionException, ConsistencyException, PersistenceException {
-		manager.createOperation(mstEmpty, mstEmpty, "a", new FormalParameterSearchList());
-	}
 }
