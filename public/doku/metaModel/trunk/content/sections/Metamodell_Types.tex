@@ -2,15 +2,13 @@
 Das Typsystem ist die zentrale Komponente des Metamodells. Im folgenden Abschnitt sind die 
 Änderungen bezüglich des in der Vorlesung erarbeiteten Modells kurz zusammengefasst.
 
-\TODO[Ausschnitt mit viewport einfügen, siehe Forum]
-
 \subsubsection{Aspekte und atomare Typen}
 
 Aspekte stellen gemäß der ursprünglichen Modellierung eine Dimension dar, in deren Elementen sich Objekte dynamisch klassifizieren lassen. 
 Atomare Typen der Klasse \emph{AtomicType} werden genau einem Aspekt zugeordnet. Durch die \emph{lessThan}-Assoziation lässt sich aspektintern eine 
 partielle Ordnung \emph{isLessOrEqualThan} ableiten.  
 
-\img[width=\relWidth{0.75}]{type/Aspekte.png}{Umarrangierter Ausschnitt Aspekte}{img_aspekts}
+\img[width=\relWidth{0.75}]{type/Aspekte.pdf}{Umarrangierter Ausschnitt Aspekte}{img_aspekts}
 
 Das Interface \emph{AnythingORMATomicType} ist als Zieltyp der \emph{lessThan}-Assoziation ergänzt worden, 
 um die Möglichkeit zu schaffen einen atomaren Typen mit Obertyp so zu ändern, dass er anschließend keinen 
@@ -95,7 +93,7 @@ Komplexe Typen bieten die Möglichkeit Und- und Oder-Typen zu bilden. Zyklenfrei
 dass \emph{containedTypes} und alle Spezialisierungen Teil einer Hierarchie sind. Komplexe Typen sind immutable,
 lassen sich aber (bis auf \emph{Anything} und \emph{Nothing}) löschen, falls keine Abhängigkeiten existieren.
 
-\img[width=\relWidth{1}]{type/ComplexTypes.png}{Ergänzter Ausschnitt: Komplexe Typen}{img_complexTypes}
+\img[width=\relWidth{1}]{type/ComplexTypes.pdf}{Ergänzter Ausschnitt: Komplexe Typen}{img_complexTypes}
 
 Um für Unterklassen von \emph{ComplexType} die Assoziation \emph{containedTypes} weiter einschränken zu 
 können, ist sie spezialisiert worden. Ursprünglich ist \emph{containedTypes} abgeleitetes Attribut gewesen,
