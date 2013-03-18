@@ -17,6 +17,9 @@ Dies zieht u.a. einige Konsistenzbedingungen nach sich, welche beim Anlegen von 
   wobei jeder Formalparameter eine weitere Quelle darstellen würde. Um dies adäquat auf der Exemplarebene abzubilden, 
   würden die Links sich ihrer Aktualparameter bedienen. Das aktuelle \MM sieht diese Implementierung schon vor, da sowohl 
   Formal- als auch Aktualparameter von den jeweiligen Oberklassen \term{AbstractOperation} und \term{Message++Link} ausgehen.
+  \item[Gleichheit von Operationen] Zum derzeitigen Entwicklungsstand sind zwei Operationen gleich sobald sie den gleichen Namen haben. Dies ist in vielen Fällen nicht
+  sinnvoll, da zwei Operationen keinerlei Bezug zueinander haben wenn sie in unterschiedlichen Typen liegen. Selbst dann nicht, wenn sie gleich heißen. 
+  Ein praktikablereres Konzept ist, dass zwei Operationen gleich sind sobald sie die gleiche Quelle, den gleichen Namen und die gleichen Parameterlisten (also Anzahl der Parameter und Typisierung dieser) haben. 
   \item[Messages] Wie schon im Kapitel \ref{Message:Message} erläutert, wurden Messages in der ersten Implementierungsstufe nicht umgesetzt. 
   Zum gegenwärtigen Zeitpunkt existiert für ein Message-Exemplar sowohl die Interpretation des Nachrichtenaufrufs, als auch des Nachrichteninhalts.
 Bevor Messages umgesetzt werden können, muss sich geeinigt werden, welche der genannten Interpretationen für ein Message-Exemplars zutrifft. 
