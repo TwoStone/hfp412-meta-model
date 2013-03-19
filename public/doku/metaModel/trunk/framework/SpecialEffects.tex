@@ -43,9 +43,9 @@
 \newcommand*{\maintoc}{ % Hauptinhaltsverzeichnis
   \begingroup
     \@fileswfalse % Kein neues Verzeichnis öffnen
-    \renewcommand*{\appendixattoc}{ % Trennanweisung im Inhaltsverzeichnis
+    %\renewcommand*{\appendixattoc}{ % Trennanweisung im Inhaltsverzeichnis
       %\value{tocdepth}=-10000 % lokal tocdepth auf sehr kleinen Wert setzen
-    }%
+    %}%
     \tableofcontents % Verzeichnis ausgeben
   \endgroup
 }
