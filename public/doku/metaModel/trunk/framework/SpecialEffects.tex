@@ -49,24 +49,25 @@
     \tableofcontents % Verzeichnis ausgeben
   \endgroup
 }
+
 \newcommand*{\appendixtoc}{ % Anhangsinhaltsverzeichnis
   \begingroup
     \edef\@alltocdepth{\the\value{tocdepth}} % tocdepth merken
     \setcounter{tocdepth}{-10000} % Keine Verzeichniseinträge
-    \renewcommand*{\contentsname}{Anhangsverzeichnis} % Verzeichnisname ändern
-    \renewcommand*{\appendixattoc}{ % Trennanweisung im Inhaltsverzeichnis
-      \setcounter{tocdepth}{\@alltocdepth} % tocdepth wiederherstellen
-    }%
-    \tableofcontents % Verzeichnis ausgeben
+    %\renewcommand*{\contentsname}{Anhangsverzeichnis} % Verzeichnisname ändern
+    %\renewcommand*{\appendixattoc}{ % Trennanweisung im Inhaltsverzeichnis
+    %  \setcounter{tocdepth}{\@alltocdepth} % tocdepth wiederherstellen
+    %}%
+    %\tableofcontents % Verzeichnis ausgeben
     \setcounter{tocdepth}{\@alltocdepth} % tocdepth wiederherstellen
   \endgroup
 }
 \newcommand*{\appendixattoc}{ % Trennanweisung im Inhaltsverzeichnis
 }
-\g@addto@macro\appendix{ % \appendix erweitern
+%\g@addto@macro\appendix{ % \appendix erweitern
   %\newpage % Neue Seite
-  %\phantomsection % Sprungmarke korrigieren
-  \addcontentsline{toc}{section}{\appendixname} % Eintrag ins Hauptverzeichnis
-  \addtocontents{toc}{\protect\appendixattoc} % Trennanweisung in die toc-Datei
-}
+ %\phantomsection % Sprungmarke korrigieren
+  %\addcontentsline{toc}{section}{\appendixname} % Eintrag ins Hauptverzeichnis
+  %\addtocontents{toc}{\protect\appendixattoc} % Trennanweisung in die toc-Datei
+%}
 \makeatother

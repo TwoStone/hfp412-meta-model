@@ -48,7 +48,7 @@ Mit dieser Operation kann der Name eines Einheitentypen geändert werden. Ebenso
 \item[addReferenceType]
 Mit dieser Operation kann einem Einheitentypen, egal ob zusammengesetzt oder atomar, eine Referenz auf einen atomaren Einheitentypen hinzugefügt werden. Hierdurch entsteht dann ein neuer zusammengesetzter Einheitentyp. Zusätzlich zu dem zu referenzierenden Einheitentypen muss noch der Exponent der Referenz und der Name des neu entstehenden zusammengesetzten Einheitentypen übergeben werden. Wie bei den anderen beiden Methoden gilt auch hier: ist der Name schon vorhanden, gibt es eine DoubleDefinitionException. Existiert schon ein Einheitentyp mit genau den selben Referenzen, wird kein neuer Einheitentyp erstellt, sondern der vorhandene zurückgegeben.
 \item[setDefaultUnit]
-Diese Methode weist einem atomaren Einheitentypen eine Standard-Einheit zu, die für Umrechnungen in andere Einheiten benötigt wird. Die Umrechnungen werden im Kapitel \ref{ConversionsKapitel} genauer erläutert.
+Diese Methode weist einem atomaren Einheitentypen eine Standard-Einheit zu, die für Umrechnungen in andere Einheiten benötigt wird. Die Umrechnungen werden im Abschnitt \ref{ConversionsKapitel} genauer erläutert.
 \end{description}
 
 Folgende Operationen sind für die interne Verarbeitung relevant und können nicht über die Oberfläche aufgerufen werden:
@@ -168,7 +168,8 @@ Die Addition, Subtraktion, Division und Multiplikation sind als Grundrechenarten
 
 \subsubsubsection{Berechnungslogik}
 
-Werden zweistellige Operationen zwischen AbsQuantity-Exemplaren ausgeführt, treten abhängig vom Typ der Quantität 3 Fälle auf:
+Bei der Ausführung von zweistelligen Operationen auf AbsQuantity-Exemplaren, 
+treten abhängig vom Typ der Quantität die folgenden drei Fälle auf:
 \begin{enumerate}
 \item \textit{op(vektor, vektor)}
 \item \textit{op(vektor, element)}

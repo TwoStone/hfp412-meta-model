@@ -18,8 +18,8 @@ liefert alle Modellelemente zurück, die vom Element auf dem sie aufgerufen wird
 Ein Element \emph{A} ist von einem Element \emph{B} abhängig, wenn \emph{A} eine Referenz auf \emph{B} hält, also z.b.   
 \emph{A} in \emph{B} klassifiziert ist oder u.a. aus einem \emph{B}-Objekt besteht.
  
-\item[delete()] vereinheitlich das Löschen von ModelItems. ModelItem stellt eine \term{Template-Method} für das 
-Standardverhalten bereit. Es wird zuerst \term{fetchDependentItems()} aufgerufen und geprüft ob abhängige Modellelemente 
+\item[delete()] vereinheitlich das Löschen von ModelItems. For das Standardverhalten stellt ModelItem eine \term{Template-Method}  
+bereit. Es wird zuerst \term{fetchDependentItems()} aufgerufen und geprüft ob abhängige Modellelemente 
 existieren. Werden Abhänigkeiten gefunden, so wird eine \term{ConsistencyException} ausgelöst. Andernfalls wird anschließend 
 die abstrakte Operation \emph{prepareForDeletion()} aufgerufen. Lässt sich diese ohne Ausnahme ausführen wird das Modellelement 
 abschließend durch den Aufruf von \emph{getThis().delete\$ME} gelöscht.
