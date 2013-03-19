@@ -117,11 +117,17 @@ So sind die beiden Typkonjunktionen A**B und B**A zwar semantischt äquivalent, 
 \begin{equation}\forall t \in NEATConjunction : 
 	t.containedTypes.length > 0
 \end{equation}
-\begin{equation}\forall t \in AbsTConjunction : 
+\begin{equation}
+\begin{split}
+	\forall t \in AbsTConjunction :\\ 
 	\forall a,b \in t.containedTypes : a.Aspects \cap b.Aspects = \emptyset
+\end{split}
 \end{equation}
-\begin{equation}\forall t \in NEDisjunctiveNF : 
+\begin{equation}
+\begin{split}
+	\forall t \in NEDisjunctiveNF :\\ 
 	\forall ct \in t.containedTypes : ct.instanceOf ATConjunction
+\end{split}
 \end{equation}
 \begin{equation}\forall t \in NEDisjunctiveNF : 
 	t.containedTypes.length > 0

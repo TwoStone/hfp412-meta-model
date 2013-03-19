@@ -71,7 +71,7 @@ Dabei wird zwischen atomaren Einheiten (z.B. Meter [m]) und zusammengesetzten Ei
 
 Die Zusammenhänge zwischen Units und UnitTypes sollen an dieser Stelle anhand eines beispielhaften Objektmodells in \refImg{unit_unittypes_objektmodell} verdeutlicht werden.
 
-\img[width=\relWidth{1}]{quantity/unit_unittypes_objektmodell.png}{Objektmodell: Geschwindigkeit und Beschleunigung}{unit_unittypes_objektmodell}
+\img[width=\relWidth{1}]{quantity/unit_unittypes_objektmodell.pdf}{Objektmodell - Geschwindigkeit und Beschleunigung}{unit_unittypes_objektmodell}
 
 Auf der Typebene gibt es die beiden atomaren UnitTypes \textit{Strecke} und \textit{Zeit}, außerdem zwei CompoundUnitTypes \textit{Geschwindigkeit} und \textit{Beschleunigung}. \textit{Geschwindigkeit} hat zwei Referenzen (RefTypes), eine mit dem Exponent 1 auf \textit{Strecke} und eine mit dem Exponenten -1 auf \textit{Zeit}. \textit{Beschleunigung} hat ebenfalls eine Referenz mit dem Exponenten 1 auf \textit{Strecke}. Hierbei wird dasselbe RefType-Objekt verwendet, welches auch \textit{Geschwindigkeit} nutzt. Außerdem besitzt \textit{Beschleunigung} noch eine Referenz auf \textit{Zeit}. Da diese jedoch den Exponenten -2 hat, wird hierbei ein anderes RefType-Objekt verwendet als bei \textit{Geschwindigkeit}.
 
@@ -89,9 +89,13 @@ Folgende konsistenzbedingungen stellen sicher, dass sich Einheiten und Einheiten
 
 \begin{equation} \forall r \in Ref : r.exponent \ne 0 \end{equation}
 
-\begin{equation} \forall cu \in CompUnit:
-\forall rt \in cu.types.refs:
-ut \in rt.ref \Rightarrow rt.exp = \sum_{s \in \bigcup \{ x \in cu.refs | x.ref.type = ut \}} s.exp \end{equation}
+\begin{equation} 
+\begin{split}
+\forall cu \in CompUnit: \forall rt \in cu.types.refs:\\
+ut \in rt.ref \Rightarrow rt.exp = \sum_{s \in \bigcup \{ x \in cu.refs | x.ref.type = ut \}} s.exp 
+\end{split}
+\end{equation}
+
 
 \begin{equation} \forall cu \in CompUnit :
 \forall u \in cu.refs.ref \exists ut \in cu.type.refs.ref : u.type = ut \end{equation}
@@ -142,8 +146,12 @@ Im gezeigten Beispiel gibt es drei Einheiten a, b und c, wobei zunächst a die D
 
 Die entsprechende Konsistenzbedingung für diesen Fall lautet wie folgt:
 
-\begin{equation} \forall ut \in UnitType : 
-\forall f \in ut.defaultUnit.from^{-1}.myFunction: f.factor = 1 \wedge f.constant = 1 \end{equation}
+\begin{equation} 
+\begin{split}
+\forall ut \in UnitType : \forall f \in ut.defaultUnit.from^{-1}.myFunction: \\
+f.factor = 1 \wedge f.constant = 1 
+\end{split}
+\end{equation}
 
 \subsubsection{Quantitäten}\label{Quantitaeten}
 
