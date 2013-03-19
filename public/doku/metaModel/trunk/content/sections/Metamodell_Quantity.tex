@@ -46,7 +46,7 @@ Liefert den skalaren Einheitentyp, welcher aus einem zusammengesetzten Einheiten
 \item[changeUTName]
 Mit dieser Operation kann der Name eines Einheitentypen geändert werden. Ebenso wie beim neu erstellen, gibt es auch hier eine DoubleDefinitionException, wenn schon ein Einheitentyp mit diesem Namen existiert.
 \item[addReferenceType]
-Mit dieser Operation kann einem Einheitentypen, egal ob zusammengesetzt oder atomar, eine Referenz auf einen atomaren Einheitentypen hinzugefügt werden. Hierdurch entsteht dann ein zusammengesetzter Einheitentyp. Zusätzlich zu dem zu referenzierenden Einheitentypen muss noch der Exponent der Referenz und der Name des neu entstehenden zusammengesetzten Einheitentypen übergeben werden. Wie bei den anderen beiden Methoden gilt auch hier: ist der Name schon vorhanden, gibt es eine DoubleDefinitionException. Existiert schon ein Einheitentyp mit genau den selben Referenzen, wird kein neuer Einheitentyp erstellt, sondern der vorhandene zurückgegeben.
+Mit dieser Operation kann einem Einheitentypen, egal ob zusammengesetzt oder atomar, eine Referenz auf einen atomaren Einheitentypen hinzugefügt werden. Hierdurch entsteht dann ein neuer zusammengesetzter Einheitentyp. Zusätzlich zu dem zu referenzierenden Einheitentypen muss noch der Exponent der Referenz und der Name des neu entstehenden zusammengesetzten Einheitentypen übergeben werden. Wie bei den anderen beiden Methoden gilt auch hier: ist der Name schon vorhanden, gibt es eine DoubleDefinitionException. Existiert schon ein Einheitentyp mit genau den selben Referenzen, wird kein neuer Einheitentyp erstellt, sondern der vorhandene zurückgegeben.
 \item[setDefaultUnit]
 Diese Methode weist einem atomaren Einheitentypen eine Standard-Einheit zu, die für Umrechnungen in andere Einheiten benötigt wird. Die Umrechnungen werden im Kapitel \ref{ConversionsKapitel} genauer erläutert.
 \end{description}
@@ -133,7 +133,7 @@ Mithilfe dieser Operation kann eine Referenz-Instanz mit einem gewissen Exponent
 
 Eine Conversion, also die Umrechnung von einer Unit zur entsprechend zum UnitType gehörigen DefaultUnit, kann über zwei Wege zustande kommen, bzw. verändert werden: Zum einen über die setConversion-Operation und zum anderen über die setDefaultUnit-Operation.
 Conversions sind immer lineare Funktionen, damit eine Umkehrbarkeit gewährleistet ist. Jede Conversion enthält also einen Faktor und eine Konstante (als Fraction), um der linearen Funktion m*x+b gerecht zu weden. Die Angabe von m und b hat folgende Semantik: y DefaultUnit = m * unitWert + b.
-Am Beispiel von Fahrenheit und Celsius würde für Celsius die Conversion folgendermaßen lauten, wenn Fahrenheit die DefaultUnit darstellt:
+Am Beispiel von Fahrenheit und Celsius lautet für Celsius die Conversion folgendermaßen, wenn Fahrenheit die DefaultUnit darstellt:
 
 \begin{equation} Wert_{^\circ F} = Wert_{^\circ C} * \frac{9}{5} + 32
 \end{equation}
@@ -149,7 +149,7 @@ Die entsprechende Konsistenzbedingung für diesen Fall lautet wie folgt:
 \begin{equation} 
 \begin{split}
 \forall ut \in UnitType : \forall f \in ut.defaultUnit.from^{-1}.myFunction: \\
-f.factor = 1 \wedge f.constant = 1 
+f.factor = 1 \wedge f.constant = 0 
 \end{split}
 \end{equation}
 
