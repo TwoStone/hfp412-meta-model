@@ -5,7 +5,7 @@ eine qualitative Messung. Im Kontext dieses Projekts wird diese Art von Messung 
 \ref{Observations}) bezeichnet. Unter quantitativen Messungen, bezeichnet als \term{Measurement}, wird
 beispielsweise das Feststellen der Körpergröße eines Menschen verstanden.
 
-\img[width=\relWidth{0.8},viewport=3588 390 4280 1170, clip]{klassendiagramm/Klassendiagramm.pdf}{Klassendiagramm - Ausschnitt Measurement (vereinfacht)}{img_measurement}
+\img[width=\relWidth{1.0}]{measurement/Ausschnitt_Measurement.pdf}{Klassendiagramm - Ausschnitt Measurement (vereinfacht)}{img_measurement}
 
 \term{Measurements} (beispielsweise die \qq{Körpergröße von Hugo Egon Balder: 190cm}) werden in Form von Quantitäten bzw.
 \term{Quantities} auf Konten (\term{Accounts}) erfasst. Des Weiteren gibt es \term{MeasurementTypes} und
@@ -82,13 +82,13 @@ Wie bereits beschrieben, ist ein Account in einem AccountType klassifiziert. Die
 In \refImg{Measurement:AccTypeHier} wird eine AccountType Hierarchie dargestellt. \term{A} ist in diesem Beispiel der oberste AccountType, welcher die darunterliegenden SubAccountTypes referenziert. 
 Auf \term{F} wird von keinem AccountType referenziert und refernziert auch selbst keine anderen AccountTypes.  
 
-\img[width=\relWidth{0.4}]{measurement/AccountTypeHierarchy.png}{AccountType Hierarchie}{Measurement:AccTypeHier}
+\img[width=\relWidth{0.4}]{measurement/AccountTypeHierarchy.pdf}{AccountType Hierarchie}{Measurement:AccTypeHier}
 
 Nun sollen Exemplare (also Accounts) erstellt werden, welche SubAccounts enthalten. In \refImg{Measurement:SubAccounts} können die im Folgenden beschriebenen Fälle nachvollzogen werden.
 Der Einfachheit halber wird mit \term{K1:A} ein Account \term{K1} mit AccountType \term{A} bezeichnet. Da $C \leq A$ ist, darf \term{K2} als SubAccount zu \term{K1} hinzugefügt werden.
 In den anderen drei Fällen ist der AccountType vom SubAccount entweder nicht $\leq$ dem Typen des Hauptkontos (Beispiel 2 und 4, von links) oder aber der AccountType ist in einer anderen Hierarchie (Beispiel 3, von links).
 
-\img[width=\relWidth{0.5}]{measurement/SubAccounts.png}{SubAccount Exemplare}{Measurement:SubAccounts}
+\img[width=\relWidth{0.5}]{measurement/SubAccounts.pdf}{SubAccount Exemplare}{Measurement:SubAccounts}
 
 Des Weiteren ist zu beachten, dass die im Account referenzierten Einträge (\term{Measurements}) vom selben 
 \term{MeasurementType} sein müssen. Daraus ergeben sich die folgenden Konsistenzbedingungen, 

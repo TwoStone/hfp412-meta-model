@@ -142,8 +142,8 @@ Komplexe Typen werden vom \emph{TypeManager} verwaltet. Es wird sichergestellt, 
 die angelegten komplexen Typen paarweise nicht strukturell äquivalent sind. 
 
 \begin{description}
-\item[createTypeConjunction] legt normalisierten\footnote{Im folgenden Abschnitt wird die Typnormalisierung ausführlich beschrieben.} \qq{UND-Typen} an, falls noch kein strukturell äquivalenter Typ verwaltet wird. Andernfalls wird dieser zurückgegen.
-\item[createTypeDisjunction] legt normalisierten \qq{ODER-Typen} an, falls noch kein strukturell äquivalenter Typ verwaltet wird. Andernfalls wird dieser zurückgegen.
+\item[createTypeConjunction] legt normalisierten\footnote{Im Folgenden Abschnitt wird die Typnormalisierung ausführlich beschrieben.} \qq{UND-Typen} an, falls noch kein strukturell äquivalenter Typ verwaltet wird. Andernfalls wird dieser zurückgegeben.
+\item[createTypeDisjunction] legt normalisierten \qq{ODER-Typen} an, falls noch kein strukturell äquivalenter Typ verwaltet wird. Andernfalls wird dieser zurückgegeben.
 \item[deleteComplexType] löscht einen komplexen Typen, falls keine Abhängigkeiten bestehen.
 \end{description}
 
@@ -151,7 +151,7 @@ die angelegten komplexen Typen paarweise nicht strukturell äquivalent sind.
 \textbf{Typnormalisierung} \newline
 In den \term{create}-Operationen werden die Typen normalisiert. 
 \begin{enumerate}
-\item \textbf{Überflüssige Verschachtelungen auflösen:}  \newline 
+\item \textbf{Überflüssige Verschachtelungen auflösen}  \newline 
 	Wird eine Konjunktion erstellt, so werden alle als Argument übergebenen Konjunktionen (rekursiv) entpackt und deren Bestandteile direkt verwendet.
 	Bei Disjunktionen wird analog verfahren. 
 \item \textbf{Überflüssige Elemente entfernen}  \newline 
