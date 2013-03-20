@@ -75,7 +75,14 @@ Die Zusammenhänge zwischen Units und UnitTypes sollen an dieser Stelle anhand e
 
 Auf der Typebene gibt es die beiden atomaren UnitTypes \textit{Strecke} und \textit{Zeit}, außerdem zwei CompoundUnitTypes \textit{Geschwindigkeit} und \textit{Beschleunigung}. \textit{Geschwindigkeit} hat zwei Referenzen (RefTypes), eine mit dem Exponent 1 auf \textit{Strecke} und eine mit dem Exponenten -1 auf \textit{Zeit}. \textit{Beschleunigung} hat ebenfalls eine Referenz mit dem Exponenten 1 auf \textit{Strecke}. Hierbei wird dasselbe RefType-Objekt verwendet, welches auch \textit{Geschwindigkeit} nutzt. Außerdem besitzt \textit{Beschleunigung} noch eine Referenz auf \textit{Zeit}. Da diese jedoch den Exponenten -2 hat, wird hierbei ein anderes RefType-Objekt verwendet als bei \textit{Geschwindigkeit}.
 
-Auf der Exemplarebene gibt es die atomaren Units \textit{km}, typisiert in \textit{Strecke}, und \textit{h} und \textit{s}, beide typisiert in \textit{Zeit}. Außerdem gibt es die CompoundUnits \textit{km/h}, welche als Einheitentyp \textit{Geschwindigkeit} hat, und \textit{km/(s*h)}, welche zum Einheitentyp \textit{Beschleunigung} gehört. Auf \textit{km} gibt es eine Referenz mit Exponent 1, welche sowohl von \textit{km/h} als auch von \textit{km/(s*h)} verwendet wird. Die Referenz mit Exponent -1 auf \textit{h} wird ebenfalls von \textit{km/h} und \textit{km/(s*h)} benutzt. Außerdem geht von \textit{km/(s*h)} aus noch eine Referenz mit Exponenten -1 auf \textit{s}. Somit gibt es auf der Exemplarebene von der \textit{Beschleunigungs}-Einheit zwei Referenzen auf \textit{Zeit}-Einheiten. Summiert man jedoch ihre Exponenten, erhält man den auf der Typebene geforderten Exponenten -2.
+Auf der Exemplarebene gibt es die atomaren Units \textit{km} (typisiert in \textit{Strecke}) sowie \textit{h} und \textit{s} (typisiert in \textit{Zeit}). 
+Außerdem gibt es die CompoundUnits \textit{km/h} (typisiert in \textit{Geschwindigkeit}) 
+sowie \textit{km/(s*h)} (typisiert in \textit{Beschleunigung}). Auf \textit{km} gibt es eine Referenz mit Exponent 1, 
+welche sowohl von \textit{km/h} als auch von \textit{km/(s*h)} verwendet wird. 
+Die Referenz mit Exponent -1 auf \textit{h} wird ebenfalls von \textit{km/h} und \textit{km/(s*h)} genutzt. 
+Außerdem geht von \textit{km/(s*h)} aus noch eine Referenz mit Exponenten -1 auf \textit{s}. 
+Somit gibt es auf der Exemplarebene von der Einheit \textit{Beschleunigung} zwei Referenzen auf \textit{Zeit}-Einheiten. 
+Beim Summieren der Exponenten werden dann die auf der Typebene geforderten Exponenten -2 geliefert.
 
 \subsubsubsection{Konsistenzbedingungen}
 
