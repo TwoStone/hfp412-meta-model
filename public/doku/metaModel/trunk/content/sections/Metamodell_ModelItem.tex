@@ -22,7 +22,11 @@ Ein Element \emph{A} ist von einem Element \emph{B} abhängig, wenn \emph{A} ein
 bereit. Es wird zuerst \term{fetchDependentItems()} aufgerufen und geprüft ob abhängige Modellelemente 
 existieren. Werden Abhänigkeiten gefunden, so wird eine \term{ConsistencyException} ausgelöst. Andernfalls wird anschließend 
 die abstrakte Operation \emph{prepareForDeletion()} aufgerufen. Lässt sich diese ohne Ausnahme ausführen wird das Modellelement 
-abschließend durch den Aufruf von \emph{getThis().delete\$ME} gelöscht.
+abschließend durch den Aufruf von \emph{getThis().delete\$ME} in der Datenbank als gelöscht markiert, sodass es durch \emph {indexed}-Zugriffe 
+und \emph{invere-Getter} nicht mehr erreicht werden kann. Es muss sichergestellt werden, dass nach dem Aufruf von \emph{delete()} keine 
+keine Referenzen von anderen Objekten mehr existieren, damit das JAVA-Objekt vom Garbage-Collector erfasst werden kann. 
+
+
 
 \item[prepareForDeletion()] ist als Analogon zu \term{initializeOnCreation()} entworfen worden und ermöglicht ein 
 \qq{Aufräumen} vor dem tatsächlichen Löschen. Ein Singleton-Type erstellt z.B. im \term{initializeOnCreation()} sein zugehöriges 

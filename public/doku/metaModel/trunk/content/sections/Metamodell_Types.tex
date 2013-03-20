@@ -23,10 +23,10 @@ Obertypen mehr besitzt. Folgende Möglichkeiten wurden in der Entwurfsphase betr
 Die erste Variante lässt sich in GOJA aufgrund der restriktiven Set-Methoden nicht realisieren, da diese keine NULL-Werte akzeptieren.
 Ein State-Pattern ist die sauberste Implementierung, ist aber wegen fehlenden Mehrwertes ausgeschieden. 
 Variante drei hat den Nachteil, dass die mitgenerierten Typen die Semantik \qq{unkategorisiert} im zugehörigen Aspekt besitzen.
-Damit wird pro Aspekt ein Platzhalter für Null generiert und sorgt für zusätzliche Komplexität ohne Mehrwert. 
+Damit wird pro Aspekt ein Platzhalter für NULL generiert und sorgt für zusätzliche Komplexität ohne Mehrwert. 
 Da ohne State-Pattern aber eine Repräsentation für keinen atomaren Obertypen benötigt wird, wird an dieser Stelle \emph{Anything} verwendet 
-da es ohnehin Obertyp eines jeden Typen ist. Dies ist insofern unsauber, als das \emph{Anything} nicht Teil eines einzigen Aspektes ist.
-Weitere Nachteile sind bisher nicht ersichtlich.
+da es ohnehin Obertyp eines jeden Typen ist. Das ist auch der wichtigste Unterschied zwischen \emph{Anything} und einem atomaren Obertyp; Anything ist Teil jedes Aspekts, 
+während atomare Typen genau einem Aspekt zugeordnet sind. 
 
 
 \subsubsubsection{Aspekte}
@@ -66,18 +66,22 @@ Atomare Typen werden vom \emph{TypeManager} verwaltet.
 \item[renameAtomicType] benennt einen atomaren Typen um. 
 \item[changeAbstract] ist eine modifizierte Set-Methode. Kann einen konkreten Typen nur abstrakt umdeklarieren, wenn er weder Singletons ist, noch 
 Objekte in ihm klassifiziert sind.
-\item[changeSingleton] ist eine modifizierte Set-Methode. Kann die Singletoneigenschaft nur wiederrufen, wenn das \emph{SingletonObject} gelöscht werden kann. 
- Kann die Singletoneigenschaft nur gewähren, wenn keine Objekte existieren und der Typ nicht abstrakt ist. 
+\item[changeSingleton] ist eine modifizierte Set-Methode. Kann die Singleton-Eigenschaft nur wiederrufen, wenn das \emph{SingletonObject} gelöscht werden kann. 
+ Kann die Singleton-Eigenschaft nur gewähren, wenn keine Objekte existieren und der Typ nicht abstrakt ist\footnote{Im Folgenden wird auf die Semantik von Singletons näher eingegangen.}. 
  \item[delteAtomicType] löscht einen atomaren Typen, falls keine Abhängigkeiten bestehen.
 \end{description}
 
 \textbf{Singletons} \newline
-Die Singletoneigenschaft eines atomaren Typen A bedeutet ausschließlich, dass genau ein Objekt existiert, dessen konkretester Typ A ist.
+Die Singleton-Eigenschaft eines atomaren Typen A bedeutet ausschließlich, dass genau ein Objekt existiert, dessen konkretester Typ A ist.
 Von Singletons darf beliebig abgeleitet werden. 
 In der \emph{initializeOnCreation}-Operation des atomaren Typen wird, falls er über die Singletoneigenschaft verfügt, 
 sein \emph{SingletonObject} erstellt. In der \emph{prepareForDeletion}-Operation wird - falls vorhanden - das \emph{SingeletonObject}
 mit gelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{SingletonObject}s. In den entsprechenden Operationen im 
 \term{TypeManager} werden \term{SingeltonObject}s beim \term{ObjectManager} registriert bzw. entfernt.
+Der Zeitpunkt des Erzeugens von term{SingeltonObject}s ist so früh gewählt um eine 1:1 Beziehnung zwischen Typ und \emph{SingeletonObject} zu garantieren.
+Damit wird zum Ausdruck gebracht, dass Typ und \emph{SingeletonObject} ein Objekt sind. Diese Interpretation führt zu einigen Einschränkungen beim Ändern des Singleton-Attributs, 
+sodass es für eine spätere Ausbaustufe geplant ist, die Semantik der Singleton-Eigenschaft zu \emph{höchstens einem Objekt zum Typen} zu ändern. Dies ermöglicht dann 
+auch einen nicht-Singleton Typen mit einem Objekt nachträglich als Singleton zu klassifizieren ohne das Objekt vorher löschen zu müssen.  
  
 \newpage
 \textbf{Abhängige Elemente}
@@ -96,8 +100,7 @@ lassen sich aber (bis auf \emph{Anything} und \emph{Nothing}) löschen, falls ke
 \img[width=\relWidth{1}]{type/ComplexTypes.pdf}{Ergänzter Ausschnitt: Komplexe Typen}{img_complexTypes}
 
 Um für Unterklassen von \emph{ComplexType} die Assoziation \emph{containedTypes} weiter einschränken zu 
-können, ist sie spezialisiert worden. Ursprünglich ist \emph{containedTypes} abgeleitetes Attribut gewesen,
-ist aber wegen Problemen in GOJA zu einer \emph{fetch}-Operation refaktoriert worden. 
+können, ist sie spezialisiert worden und ist nun als \emph{fetch}-Operation im Modell vorhanden. 
 Ziel ist, z.B. in den leeren Typen keine Änderungen an der Assoziation zu erlauben und diese für die Bereitstellung 
 der disjunktiven Normalform mit weiteren Constraints zu versehen (siehe z.B. \emph{NonEmptyAtomicTypeConjunction}) 
 
@@ -139,7 +142,7 @@ Komplexe Typen werden vom \emph{TypeManager} verwaltet. Es wird sichergestellt, 
 die angelegten komplexen Typen paarweise nicht strukturell äquivalent sind. 
 
 \begin{description}
-\item[createTypeConjunction] legt normalisierten \qq{UND-Typen} an, falls noch kein strukturell äquivalenter Typ verwaltet wird. Andernfalls wird dieser zurückgegen.
+\item[createTypeConjunction] legt normalisierten\footnote{Im folgenden Abschnitt wird die Typnormalisierung ausführlich beschrieben.} \qq{UND-Typen} an, falls noch kein strukturell äquivalenter Typ verwaltet wird. Andernfalls wird dieser zurückgegen.
 \item[createTypeDisjunction] legt normalisierten \qq{ODER-Typen} an, falls noch kein strukturell äquivalenter Typ verwaltet wird. Andernfalls wird dieser zurückgegen.
 \item[deleteComplexType] löscht einen komplexen Typen, falls keine Abhängigkeiten bestehen.
 \end{description}
@@ -158,10 +161,9 @@ In den \term{create}-Operationen werden die Typen normalisiert.
 \end{enumerate} 
 
 \textbf{Persistenz} \newline
-Komplexe Typen werden grundsätzlich transient erstellt und erst wenn vom \term{TypeManager} verwaltet werden persistiert. 
-Operationen auf \emph{ModelItem}s (z.B. \term{fetchProductType} auf \emph{AbstractObject}) erzeugen ausschließlich transiente Typen.
-Hierzu wird in GOJA \term{delayedPersistence} verwendet. Es scheinen allerdings zumindest bei der Generierung ohne Datenbank
-durch die Oberfläche Typen persistiert zu werden. Gleiches Verhalten bei der Generierung mit Datenbank wäre höchst problematisch.  
+Komplexe Typen werden grundsätzlich \emph{delayedPersistent} erstellt und werden erst, wenn sie vom \term{TypeManager} verwaltet werden, persistiert. 
+Typen, die als Rückgabewerte für Operationen auf \emph{ModelItem}s (z.B. \term{fetchProductType} auf \emph{AbstractObject}) erzeugt werden, 
+werden in der Regel nicht persistiert. 
 
 \textbf{Abhängige Elemente}
 \begin{itemize}
