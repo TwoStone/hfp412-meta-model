@@ -2,17 +2,19 @@
 
 Zur Abbildung von Operationen und Assoziationen wurde im Zuge der Projektarbeit die Klasse \term{AbstractOperation} entwickelt von der sowohl Operation als auch Assoziation erben. 
 Da es sich bei Assoziationen um spezielle, parameterlose Operationen handelt, wurde eine gemeinsame Oberklasse gewählt.
-Sowohl Operationen als auch Assoziationen haben genau ein Quell- und Zieltyp wobei diese in den unterschiedlichen Kontexten (Operation oder Assoziation) semantisch unterschiedlich interpretiert werden. Im Folgenden werden sowohl die Meta- als auch Exemplarebene erläutert und alle Operationen beschrieben, die es dem Anwender erlauben Operationen und Assoziationen sowie Messages\footnote{Wie im Folgenden erläutert wird, sind Messages nicht Bestandteil der ersten Implementierungsstufe. Sie wurden nur aus Gründen der Vollständigkeit mit aufgeführt.} und Links zu verwalten.  
+Sowohl Operationen als auch Assoziationen haben genau einen Quell- und einen Zieltyp, wobei diese in den unterschiedlichen Kontexten (Operation oder Assoziation) semantisch unterschiedlich interpretiert werden. 
+Im Folgenden werden sowohl die Modell- als auch Exemplarebene erläutert und alle Operationen beschrieben, die es dem Anwender erlauben Operationen und Assoziationen 
+sowie Messages\footnote{Wie im Folgenden erläutert wird, sind Messages nicht Bestandteil der ersten Implementierungsstufe. Sie wurden nur aus Gründen der Vollständigkeit mit aufgeführt.} und Links zu verwalten.  
 
 \img[width=\relWidth{1.0}]{operation/Ausschnitt_Operation.pdf}{Klassendiagramm - Ausschnitt Operation (vereinfacht)}{img_operation}
 \subsubsection{Operationen}
 
 Die Klasse Operation repräsentiert die Abbildung von Operationen in dem erarbeiteten Modell.
-Wie im Modell (siehe \refImg{img_operation}) ersichtlich, hat die Oberklasse AbstractOperation zwei  Assoziationen zu MType. 
+Wie im Modell (siehe \refImg{img_operation}) ersichtlich, hat die Oberklasse \term{AbstractOperation} zwei Assoziationen zu \term{Type}. 
 Im Kontext von Operationen ist die Quelle (source) der Typ, welcher die Operation enthält. 
 Das Ziel (target) einer Operation entspricht dem Rückgabetypen.
 Neben Quell- und Zieltypen besitzt eine Operation eine Liste von Formalparametern, welche 
-wiederum über die Klasse MType typisiert sind.
+wiederum über die Klasse \term{Type} typisiert sind.
 
 Die Klasse Operation enthält nur genau zwei Operationen.
 Die Operation \textbf{isStatic()} gibt genau dann true zurück, wenn der Quelltyp dieser Operation der leeren Summe entspricht.
