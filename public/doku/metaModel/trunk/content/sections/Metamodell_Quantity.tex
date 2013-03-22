@@ -18,9 +18,9 @@ Der UnitTypeManager beinhaltet zwei auf der Oberfläche sichtbare und zwei nicht
 
 \subsubsubsection{FractionManager}\label{FractionManager}
 
-Der FractionManager verwaltet alle Brüche so, dass jede Rationale Zahl als Bruch nur einmal durchgekürzt (als \emph{Repräsentant}) vorkommt.
+Der FractionManager verwaltet alle Brüche so, dass jede Rationale Zahl als Bruch nur einmal durchgekürzt (als \emph{Repräsentant}) vorkommt. Die Brüche werden durch ihre textuelle Repräsentation indiziert. Da dieser Index sehr schnell sehr groß werden kann, wird in der nächsten Ausbaustufe eine performantere Form der Indizierung gesucht.
 Über die Operation \textit{getFraction(key:String):Fraction} wird auf einen vorhandenen Bruch zugegriffen, wobei der Schlüssel die \textit{toString-Ausgabe} des Bruchs ist.
-Die Operation \textit{addFraction} wird ein neuer Bruch publiziert, wenn er erstmalig benötigt wird. Die Operation \textit{invertSign(f:Fraction):Fraction} sucht das Negativkomplement zu der Zahl und erstellt es, falls nötig.
+Durch ie Operation \textit{addFraction} wird ein neuer Bruch erzeugt und über den FractionManager verwaltet, wenn er erstmalig benötigt wird. Die Operation \textit{invertSign(f:Fraction):Fraction} sucht das Negativkomplement zu der Zahl und erstellt es, falls nötig.
 
 GOJA unterstütz keine 3-stelligen Assoziationen bei denen der Wert eines Wert-Schlüssel-Paares ein in GOJA primitiver Typ ist. Deswegen wurde die Klasse \textit{FractionWrapper} erstellt, die den Wert des Bruchs umhüllt. Somit wird das Problem umgangen: \texttt{FractionWrapper **String** managedFractions;}
 
@@ -31,7 +31,7 @@ Der QuantityManager verwaltet die Zugriffe auf Quantitäten und ist die Schnitts
 Zudem wird der FractionManager als zentrale Fassade für das arithmetische und logische Operieren auf Quantitäten verwendet (siehe dazu Abschnitt \ref{Berechnungen}).
 
 Beim Erstellen einer atomaren Quantität referenziert die \textit{amount}-Assoziation ein Fraction-Objekt aus dem FractionManager. Wird beim Anlegen der Quantität festgestellt, dass es diesen Bruch noch nicht gibt,
-wird sie neu erstellt und im FractionManager publiziert. 
+wird er neu erstellt und in die Collection der verwalteten Brüche im FractionManager eingefügt.
 
 \subsubsection{Einheitentypen}
 Die Einheitentypen (UnitTypes) geben an, welche verschiedenen Einheiten fachlich zusammen gehören. Beispielsweise sind Dollar und Euro beides Währungen und können damit zusammengerechnet werden. In diesem Fall ist der Einheitentyp Währung und die beiden zugehörigen Einheiten sind Dollar und Euro. Bei Euro und Kilometer hingegen macht es wenig Sinn, diese zu Addieren oder zu Subtrahieren, denn das eine ist eine Währung und das andere eine Strecken-Angabe. Die Multiplikation und Division hingegen können auch auf unterschiedlichen Einheitentypen geschehen, wodurch dann zusammengesetzte Einheitentypen (CompoundUnitTypes) wie Geschwindigkeit (Strecke/Zeit) entstehen.
@@ -171,7 +171,7 @@ Dabei kann man zusammengesetzte Quantitäten als Vektoren auffassen, deren Eleme
 
 \subsubsubsection{Berechnungen und Vergleiche}\label{Berechnungen}
 
-\img[width=\relWidth{1}]{quantity/subdiagram_quantity.png}{Quantitäten und Berechnungen}{quantity_and_calc}
+\img[width=\relWidth{0.8}]{quantity/subdiagram_quantity.png}{Quantitäten und Berechnungen}{quantity_and_calc}
 
 Die Addition, Subtraktion, Division und Multiplikation sind als Grundrechenarten (BasicCalculation) im Klassenmodell (s. Abbildung \refImg{quantity_and_calc} dargestellt. Man unterscheidet zwischen Grundrechenarten, die die Referenzen der Einheit verändern, und solchen, die dies nicht tun. Z.B. ergibt die Addition zweier Längenangaben (z.B. Meter) wieder eine Längenangabe. Also nennen wir eine solche Rechnung \emph{einheitstypbewahrend}. Im Klassenmodell ist diese Generalisierung als die Klasse \textit{UnitImutabCalc} zu erkennen. Im Gegensatz dazu ergibt z.B. die Multiplikation zweier Längenangaben eine Flächenangabe (z.B. Quadratmeter). Wir nennen diese Rechnungen \emph{einheitstypverändernd} - im Klassenmodell als \textit{UnitMutabCalc} zu sehen. Diese Implementierung besitzt Ansätze eines \emph{Kommando-Entwurfsmusters}.
 
@@ -195,6 +195,6 @@ Die Methode der Operation \textit{calculate} der Klasse \textit{BasicCalculation
 Das Rechnen mit zusammengesetzten Quantitäten folgt den allgemeinen Gesetzten der Vektorenrechnung.
 
 Die Addition und Subtraktion funktioniert nur mit \emph{einheitstypgleichen} Quantitäten. Dagegen funktioniert die Multiplikation und Division mit allen Quantitäten, vorausgesetzt, es wird eine \emph{Zieleinheit}, bzw. ein \emph{Zieleinheitstyp} gefunden. Ist dies nicht der Fall wird eine \emph{Ausnahme} ausgelöst. Die Signatur der Klasse 
-\textit{UnitMutabCalc} ist bereits darauf vorbereitet, automatisch Einheiten und Typen zu generieren, sollte noch keine Zieleinheit als \emph{Unit-Stammsatz} angelegt sein. Zum Zeitpunkt der Fertigstellung dieser Dokumentation ist dieser Automatismus noch nicht implementiert.
+\textit{UnitMutabCalc} ist bereits darauf vorbereitet, automatisch Einheiten und Typen zu generieren, sollte noch keine Zieleinheit als \emph{Unit-Stammsatz} angelegt sein. Zum Zeitpunkt der Fertigstellung dieser Dokumentation ist dieser Automatismus noch nicht implementiert. Es soll aber möglich sein, Einheiten und Einheitstypen automatisch zu erzeugen. Die Namen dieser erzeugeugten Stammdaten sind nachträglich mit einer \textit{changeName}-Operation änderbar.
 
 Der einzige bisher implementierte logische Verglich \emph{isLessOrEqual} folgt genau dem gleichen Schema, ist jedoch nur als eine Klasse \textit{LessOrEqualComparison} realisiert.
