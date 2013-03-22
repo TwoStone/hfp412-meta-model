@@ -10,7 +10,7 @@ partielle Ordnung \emph{isLessOrEqualThan} ableiten.
 
 \img[width=\relWidth{0.75}]{type/Aspekte.pdf}{Umarrangierter Ausschnitt Aspekte}{img_aspekts}
 
-Das Interface \emph{AnythingORMATomicType} ist als Zieltyp der \emph{lessThan}-Assoziation ergänzt worden, 
+Das Interface \emph{AnythingORAtomicType} ist als Zieltyp der \emph{lessThan}-Assoziation ergänzt worden, 
 um die Möglichkeit zu schaffen einen atomaren Typen mit Obertyp so zu ändern, dass er anschließend keinen 
 Obertypen mehr besitzt. Folgende Möglichkeiten wurden in der Entwurfsphase betrachtet: 
 \begin{enumerate}
@@ -54,7 +54,7 @@ Aspekte werden vom \emph{AspectManager} verwaltet. Alle Operation werden transak
 \textbf{Zusätzliche Konsistenzbedinungen}
 \begin{enumerate}
   		\item Paarweise verschiedene Namen in einem Aspekt
-  		\item \(\forall a \in AT : !(a.singleton \land a.abstract) \)
+  		\item \(\forall a \in AT : \lnot(a.singleton \land a.abstract) \)
 \end{enumerate}
 
 \textbf{Manager} \newline
