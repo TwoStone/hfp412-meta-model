@@ -48,13 +48,13 @@ Beispielsweise kann so Summe, Durchschnitt, Maximum oder Minimum der Einträge e
 
 Im \MM besitzt ein Account die folgenden Assoziationen.
 \begin{description}
-	\item[MAccountType type] Jeder Accounts ist in einem \term{AccountType} klassifiziert.
-	\item[Account** subAccounts (AccountHierarchy)] Liste bzw. Komposition von Unterkonten.
+	\item[AccountType type] Jeder Accounts ist in einem \term{AccountType} klassifiziert.
+	\item[Account** subAccounts (Hierarchy)] Liste bzw. Komposition von Unterkonten.
 	\item[Measurement** entries] Liste von Einträgen bzw. Messungen (\term{Measurements}).
-	\item[MObject object] Von \term{QuantifiedObject} geerbt (siehe Abschnitt \ref{Measurement:QuantifiedObject}).
+	\item[Object object] Von \term{QuantifiedObject} geerbt (siehe Abschnitt \ref{Measurement:QuantifiedObject}).
 \end{description}
 
-Hinzu kommen die folgenden Operationen, welche zum Befüllen der o.g. Listen dienen.
+Hinzu kommen die folgenden Operationen, welche zum Befüllen der Listen dienen.
 \begin{description}
 	\item[addEntry] Fügt einen neues Measurement in die entries-Liste hinzu. Das Element muss vom selben Typ sein wie die anderen Einträge der Liste (Konsistenzbedingungen folgen weiter unten).  
 	\item[addSubAccount] Fügt einem Konto ein neues Unterkonto hinzu. Hierbei muss der Typ des neuen Unterkontos $\leq$ dem Typ des Hauptkontos sein (Konsistenzbedingungen folgen weiter unten).
@@ -67,10 +67,10 @@ Sobald ein \term{AccountType} Exemplare besitzt, kann dieser nicht mehr gelösch
 
 Im \MM besitzt ein \term{AccountType} (neben der vom \term{QuantifiedObjectType} geerbten) die folgende Assoziation.
 \begin{description}
-	\item[MAccountType** subAccountTypes (MAccountTypeHierarchy)] Durch diese \\Liste bzw. Komposition werden AccountTypes in Relation gesetzt.
+	\item[AccountType** subAccountTypes (Hierarchy)] Durch diese \\Liste bzw. Komposition werden AccountTypes in Relation gesetzt.
 \end{description}
 
-Hinzu kommt die folgende Operation, welche zum Befüllen der o.g. Liste dient.
+Hinzu kommt die folgende Operation, welche zum Befüllen der Liste dient.
 \begin{description}
 	\item[addSubAccountType] Fügt einen neuen \term{AccountType} der \term{subAccountTypes} Liste eines \term{AccountTypes} hinzu. Besonders relevant ist beim Hinzufügen 
 	von SubAccounts die Eigenschaft der Komposition (siehe Abschnitt \ref{Measurement:accUndAccType}).
