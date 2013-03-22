@@ -1,12 +1,12 @@
 \subsection{Messages und Links}\label{Message:Message}
 
-Messages und Links haben eine gemeinsame Oberklasse MessageOrLink. In der ersten Ausbaustufe werden lediglich die Links implementiert. Zu den Messages existiert eine rudimentäre
+Messages und Links haben eine gemeinsame Oberklasse MessageOrLink (siehe \refImg{img_operation}). 
+In der ersten Ausbaustufe werden lediglich die Links implementiert. Zu den Messages existiert eine rudimentäre
 Implementierung die dem Anwender aber über die Oberfläche nicht bereitgestellt wird, da die 
 Semantik eines Messageexemplars bislang nicht eindeutig geklärt ist.
-Es existiert zum einen die Interpretation, dass Messages Aufrufe von Operationen sind. Eine weitere Interpretationsmöglichkeit ist, dass eine Message die Methode an sich inklusive ihres Inhalts beschreibt. 
+Es existiert zum einen die Interpretation, dass Messages Aufrufe von Operationen sind. 
+Eine weitere Interpretationsmöglichkeit ist, dass eine Message die Methode an sich inklusive ihres Inhalts beschreibt. 
 Dazu müsste aber ein domänenspezifische Sprache (DSL) entwickelt und im Modell verwendet werden.
-
-\TODO[Ausschnitt mit viewport einfügen, siehe Forum]
 
 Da Messages in dieser Ausbaustufe nicht enthalten sind, verlieren auch Actualparameter ihre Daseinsberechtigung. Aus diesem Grund werden auch diese nicht implementiert.
 
@@ -26,5 +26,5 @@ da sich sonst keinerlei Aggregationsbeziehung abbilden ließen.
 Auf der Ebene der Exemplare hingegen, müssen \term{alle Links, die in Assoziation typisiert sind, in jeder Hierarchie an der diese teilnehmen, zyklenfrei sein.}
 Wenn ein Anwender versucht zyklische Links zu erzeugen, wird eine \term{CycleException} erzeugt und der jeweilige Link wird nicht erstellt.
 \item[removeLink]
-Beim Entfernen eines bestehenden Links gibt es keinerlei Restriktionen zu beachten. Nach Wahl des zu löschenden \textbf{Links,} kann dieser ohne weitere Prüfung entfernt werden.
+Beim Entfernen eines bestehenden Links gibt es keinerlei Restriktionen zu beachten. Nach Wahl des zu löschenden \textbf{Links} kann dieser ohne weitere Prüfung entfernt werden.
 \end{description}
