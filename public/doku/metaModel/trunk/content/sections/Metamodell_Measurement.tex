@@ -62,35 +62,35 @@ Hinzu kommen die folgenden Operationen, welche zum Befüllen der o.g. Listen die
 
 
 \subsubsection{AccountType}
-Der Typ eines Accounts (AccountType) dient zur Klassifizieren eines Kontos. Beispielsweise kann ein Konto als Bankkonto klassifiziert werden. Untertyp (SubAccountType) kann an dieser Stelle z.B. ein Giro- oder Kreditkartenkonto sein.
-Sobald ein AccountType Exemplare besitzt, kann dieser nicht mehr gelöscht werden (siehe folgender Abschnitt). Um Hierarchien dieser Art abbilden zu können sind die folgenden Assoziationen und Operationen notwendig. 
+Der Typ eines \term{Accounts} (\term{AccountType}) dient zur Klassifizieren eines Kontos. Beispielsweise kann ein Konto als Bankkonto klassifiziert werden. Untertyp (\term{SubAccountType}) kann an dieser Stelle z.B. ein Giro- oder Kreditkartenkonto sein.
+Sobald ein \term{AccountType} Exemplare besitzt, kann dieser nicht mehr gelöscht werden (siehe folgender Abschnitt). Um Hierarchien dieser Art abbilden zu können sind die folgenden Assoziationen und Operationen notwendig. 
 
-Im \MM besitzt ein AccountType (neben der vom \term{QuantifiedObjectType} geerbten) die folgende Assoziation.
+Im \MM besitzt ein \term{AccountType} (neben der vom \term{QuantifiedObjectType} geerbten) die folgende Assoziation.
 \begin{description}
 	\item[MAccountType** subAccountTypes (MAccountTypeHierarchy)] Durch diese \\Liste bzw. Komposition werden AccountTypes in Relation gesetzt.
 \end{description}
 
 Hinzu kommt die folgende Operation, welche zum Befüllen der o.g. Liste dient.
 \begin{description}
-	\item[addSubAccountType] Fügt einen neuen AccountType der subAccountTypes Liste eines AccountTypes hinzu. Besonders relevant ist beim Hinzufügen 
+	\item[addSubAccountType] Fügt einen neuen \term{AccountType} der \term{subAccountTypes} Liste eines \term{AccountTypes} hinzu. Besonders relevant ist beim Hinzufügen 
 	von SubAccounts die Eigenschaft der Komposition (siehe Abschnitt \ref{Measurement:accUndAccType}).
 \end{description}
 
 
 \subsubsection{Account, AccountType, Measurement \& MeasurementType}\label{Measurement:accUndAccType}
-Wie bereits beschrieben, ist ein Account in einem AccountType klassifiziert. Dieser Typ ist unter anderem relevant, wenn dem Konto ein neues Unterkonto hinzugefügt werden soll.  
-In \refImg{Measurement:AccTypeHier} wird eine AccountType Hierarchie dargestellt. \term{A} ist in diesem Beispiel der oberste AccountType, welcher die darunterliegenden SubAccountTypes referenziert. 
-Auf \term{F} wird von keinem AccountType referenziert und refernziert auch selbst keine anderen AccountTypes.  
+Wie bereits beschrieben, ist ein \term{Account} in einem \term{AccountType} klassifiziert. Dieser Typ ist unter anderem relevant, wenn dem Konto ein neues Unterkonto hinzugefügt werden soll.  
+In \refImg{Measurement:AccTypeHier} wird eine \term{AccountType}-Hierarchie dargestellt. \term{A} ist in diesem Beispiel der oberste \term{AccountType}, welcher die darunterliegenden SubAccountTypes referenziert. 
+Auf \term{F} wird von keinem \term{AccountType} referenziert und refernziert auch selbst keine anderen \term{AccountTypes}.  
 
 \img[width=\relWidth{0.4}]{measurement/AccountTypeHierarchy.pdf}{AccountType Hierarchie}{Measurement:AccTypeHier}
 
-Nun sollen Exemplare (also Accounts) erstellt werden, welche SubAccounts enthalten. In \refImg{Measurement:SubAccounts} können die im Folgenden beschriebenen Fälle nachvollzogen werden.
-Der Einfachheit halber wird mit \term{K1:A} ein Account \term{K1} mit AccountType \term{A} bezeichnet. Da $C \leq A$ ist, darf \term{K2} als SubAccount zu \term{K1} hinzugefügt werden.
-In den anderen drei Fällen ist der AccountType vom SubAccount entweder nicht $\leq$ dem Typen des Hauptkontos (Beispiel 2 und 4, von links) oder aber der AccountType ist in einer anderen Hierarchie (Beispiel 3, von links).
+Nun sollen Exemplare (also \term{Accounts}) erstellt werden, welche SubAccounts enthalten. In \refImg{Measurement:SubAccounts} können die im Folgenden beschriebenen Fälle nachvollzogen werden.
+Der Einfachheit halber wird mit \term{K1:A} ein \term{Account} \term{K1} mit \term{AccountType} \term{A} bezeichnet. Da $C \leq A$ ist, darf \term{K2} als SubAccount zu \term{K1} hinzugefügt werden.
+In den anderen drei Fällen ist der AccountType vom SubAccount entweder nicht $\leq$ dem Typen des Hauptkontos (Beispiel 2 und 4, von links) oder aber der \term{AccountType} ist in einer anderen Hierarchie (Beispiel 3, von links).
 
 \img[width=\relWidth{0.5}]{measurement/SubAccounts.pdf}{SubAccount Exemplare}{Measurement:SubAccounts}
 
-Des Weiteren ist zu beachten, dass die im Account referenzierten Einträge (\term{Measurements}) vom selben 
+Des Weiteren ist zu beachten, dass die im \term{Account} referenzierten Einträge (\term{Measurements}) vom selben 
 \term{MeasurementType} sein müssen. Daraus ergeben sich die folgenden Konsistenzbedingungen, 
 welche bei Nichteinhaltung zu einer \term{ConsistencyException} führen.
 \begin{equation}
@@ -102,36 +102,36 @@ welche bei Nichteinhaltung zu einer \term{ConsistencyException} führen.
 
 
 \subsubsection{AccountManager}
-Der AccountManager dient zur Erstellung von Accounts und beinhaltet alle Accounts des Modells.
+Der \term{AccountManager} dient zur Erstellung von \term{Accounts} und beinhaltet alle \term{Accounts} des Modells.
 
-Im \MM besitzt der AccountManager die folgende Assoziation.
+Im \MM besitzt der \term{AccountManager} die folgende Assoziation.
 \begin{description}
-	\item[Account** accounts] Diese Liste beinhaltet alle Accounts des Modells.
+	\item[Account** accounts] Diese Liste beinhaltet alle \term{Accounts} des Modells.
 \end{description}
 
 Hinzu kommt die folgende Operation, welche zum Befüllen der o.g. Liste dient.
 \begin{description}
-	\item[createAccount] Dient zum Erstellen von Accounts. Es wird ein Name, ein \term{MAccountType} sowie ein \term{MObject} übergeben, auf welches sich das Konto bezieht.
+	\item[createAccount] Dient zum Erstellen von \term{Accounts}. Es wird ein Name, ein \term{AccountType} sowie ein \term{Object} übergeben, auf welches sich das Konto bezieht.
 \end{description}
 
 Neben den Accounts werden auch die \term{AccountTypes} zentral verwaltet. Dazu dient der \term{AccountTypeManager}.
 
 
 \subsubsection{AccountTypeManager}
-Der AccountTypeManager dient zur Erstellung von \term{AccountTypes} und beinhaltet alle \term{AccountTypes} des Modells.
+Der \term{AccountTypeManager} dient zur Erstellung von \term{AccountTypes} und beinhaltet alle \term{AccountTypes} des Modells.
 
 Im \MM besitzt der \term{AccountTypeManager} die folgende Assoziation.
 \begin{description}
-	\item[MAccountType** accountTypes] Beschreiben
+	\item[AccountType** accountTypes] Beschreiben
 \end{description}
 
 Hinzu kommt die folgende Operation, welche zum Befüllen der o.g. Liste dient.
 \begin{description}
 	\item[createAccountType] Dient zum Erstellen von \term{AccountTypes}. 
-	Es wird ein Name, ein \term{MType} und ein \term{UnitType} übergeben.
+	Es wird ein Name, ein \term{Type} und ein \term{UnitType} übergeben.
 \end{description}
 
-Wie bereits beschrieben werden in Accounts Messungen in Form von Measurements erfasst. 
+Wie bereits beschrieben werden in \term{Accounts} Messungen in Form von \term{Measurements} erfasst. 
 Im folgenden Abschnitt wird auf die Assoziationen und Operationen von Measurements genauer eingegangen.
 
 
