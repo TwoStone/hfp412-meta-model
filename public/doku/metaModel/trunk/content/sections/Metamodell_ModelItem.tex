@@ -14,20 +14,20 @@ ersetzen.
 \begin{description}
 \item[fetchDependentItems()] 
 liefert alle Modellelemente zurück, die vom Element auf dem sie aufgerufen wird, direkt abhängig sind.
-Ein Element \emph{A} ist von einem Element \emph{B} abhängig, wenn \emph{A} eine Referenz auf \emph{B} hält, also z.b.   
-\emph{A} in \emph{B} klassifiziert ist oder u.a. aus einem \emph{B}-Objekt besteht.
+Ein Element \term{A} ist von einem Element \term{B} abhängig, wenn \term{A} eine Referenz auf \term{B} hält, also z.b.   
+\term{A} in \term{B} klassifiziert ist oder u.a. aus einem \term{B}-Objekt besteht.
  
 \item[delete()] vereinheitlich das Löschen von ModelItems. For das Standardverhalten stellt ModelItem eine \term{Template-Method}  
 bereit. Es wird zuerst \term{fetchDependentItems()} aufgerufen und geprüft ob abhängige Modellelemente 
 existieren. Werden Abhänigkeiten gefunden, so wird eine \term{ConsistencyException} ausgelöst. Andernfalls wird anschließend 
-die abstrakte Operation \emph{prepareForDeletion()} aufgerufen. Lässt sich diese ohne Ausnahme ausführen wird das Modellelement 
-abschließend durch den Aufruf von \emph{getThis().delete\$ME} in der Datenbank als gelöscht markiert, sodass es durch \emph {indexed}-Zugriffe 
-und \emph{invere-Getter} nicht mehr erreicht werden kann. Es muss sichergestellt werden, dass nach dem Aufruf von \emph{delete()} keine 
+die abstrakte Operation \term{prepareForDeletion()} aufgerufen. Lässt sich diese ohne Ausnahme ausführen wird das Modellelement 
+abschließend durch den Aufruf von \term{getThis().delete\$ME} in der Datenbank als gelöscht markiert, sodass es durch \term {indexed}-Zugriffe 
+und \term{invere-Getter} nicht mehr erreicht werden kann. Es muss sichergestellt werden, dass nach dem Aufruf von \term{delete()} keine 
 keine Referenzen von anderen Objekten mehr existieren, damit das JAVA-Objekt vom Garbage-Collector erfasst werden kann. 
 
 
 
 \item[prepareForDeletion()] ist als Analogon zu \term{initializeOnCreation()} entworfen worden und ermöglicht ein 
 \qq{Aufräumen} vor dem tatsächlichen Löschen. Ein Singleton-Type erstellt z.B. im \term{initializeOnCreation()} sein zugehöriges 
-Singleton-Objekt und löscht dies in \emph{prepareForDeletion()}. 
+Singleton-Objekt und löscht dies in \term{prepareForDeletion()}. 
 \end{description}

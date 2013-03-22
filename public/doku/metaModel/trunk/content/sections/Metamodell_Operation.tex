@@ -29,7 +29,7 @@ Der OperationManager beinhaltet zwei Listen zur Verwaltung von Operationen und P
 \end{description}
 
 Um diese Listen verwalten zu können, stellt der Operationmanager 10 transaktionale Operationen bereit.
-Im Folgenden werden diese Operationen kurz beschrieben, wobei sowohl \textbf{Parameter} als auch \emph{Exceptions} durch entsprechende Formatierungen hervorgehoben werden.
+Im Folgenden werden diese Operationen kurz beschrieben, wobei sowohl \textbf{Parameter} als auch \term{Exceptions} durch entsprechende Formatierungen hervorgehoben werden.
 
 \begin{description}
 \item[createOperation]
@@ -56,7 +56,7 @@ die gewählte \textbf{Operation} an die addMultipleFormalparameter-Operation zu 
 Aufgrund von Delegation gelten auch hier die Konsistenzbedingung der addFormalParamter-Operation. 
 \item[removeFormalParameterFromOperation]
 Wenn ein Formalparameter aus der Parameterliste einer Operation entfernt werden soll, stellt diese Operation die notwendige Funktionalität bereit. Zum Entfernen eines \textbf{Formalparameters} aus einer \textbf{Operation} sind diese beiden Angaben essentiell. Sofern der zu entfernende Formalparameter in der Formalparameterliste der gewählten Operation ist und es keine Exemplare zu der Operation gibt, wird der Parameter aus der Parameterliste entfernt.
-Sollte der Parameter nicht in der Parameterliste der Operation sein oder es Exemplare zu der Operation geben, wird eine \emph{ConsistencyException} erzeugt.
+Sollte der Parameter nicht in der Parameterliste der Operation sein oder es Exemplare zu der Operation geben, wird eine \term{ConsistencyException} erzeugt.
 
 Anmerkung: Zum aktuellen Zeitpunkt kann der zweite Fall nicht eintreten, da sich Message-Objekte nicht an der Oberfläche erstellen lassen.
 \item[removeFormalParameter]
@@ -89,38 +89,38 @@ Der AssoziationManager bietet sechs transaktionale Operationen an und beinhaltet
 Diese beiden Listen werden dem Anwender an der 
 Oberfläche präsentiert. Über entsprechende Operationen kann der Anwender die Elemente dieser Listen verwalten.
 
-Wie schon bei dem OperationManager, werden \textbf{Parameter} und \emph{Exceptions} durch entsprechende Formatierungen kenntlich gemacht.
+Wie schon bei dem OperationManager, werden \textbf{Parameter} und \term{Exceptions} durch entsprechende Formatierungen kenntlich gemacht.
 
 \begin{description}
 \item[createAssociation] Bei Aufruf dieser Operation müssen \textbf{Quell- und Zieltyp} sowie der \textbf{Name} der zu erstellenden Assoziation 
 angegeben werden.
-Sollte der Name schon von einer anderen Assoziation verwendet werden, erzeugt die Operation eine \emph{DoubleDefinitionException} und die Assoziation wird nicht
+Sollte der Name schon von einer anderen Assoziation verwendet werden, erzeugt die Operation eine \term{DoubleDefinitionException} und die Assoziation wird nicht
 erstellt. Außerdem darf eine Assoziation nie in der leeren Disjunktion als Quelle oder Ziel typisiert sein. In einem solchen Fall
-wird eine \emph{ConsistencyException} erstellt.
+wird eine \term{ConsistencyException} erstellt.
 Wenn keine der genannten Exceptions aufgetreten ist, wird die Assoziation erstellt und zur Liste der bekannten Assoziationen hingefügt. 
 \item[removeAssociation] Diese Operation erwartet beim Aufruf nur die zu entfernende \textbf{Assoziation}. 
 Bei erfolgreicher Durchführung dieser Operation, wird die
 angegebene Assoziation aus dem System entfernt.
-Sollte es ein oder mehrere Exemplare (Links) zu dieser Assoziation geben oder sich die zu löschende Assoziation in mindestens einer Hierarchie befinden, wird eine \emph{ConsistencyException} erzeugt und die Assoziation wird nicht entfernt. 
+Sollte es ein oder mehrere Exemplare (Links) zu dieser Assoziation geben oder sich die zu löschende Assoziation in mindestens einer Hierarchie befinden, wird eine \term{ConsistencyException} erzeugt und die Assoziation wird nicht entfernt. 
 \item[createHierarchy] Da es in dem erarbeiteten Modell keine leeren Hierarchien geben darf, wird neben dem \textbf{Namen} der zu erstellenden Hierarchie auch eine 
 \textbf{Assoziation} erwartet. Nach erfolgreicher Durchführung, wird die Hierarchie erstellt und die angegebene Assoziation der neuen Hierarchie zugeordnet.
 Insbesondere folgende Gründe führen zum Misserfolg:
 \begin{itemize}
-\item Es exisitiert bereits eine Hierarchie mit diesem Namen. Das hat zur Folge, dass eine \emph{DoubleDefinitionException} erzeugt wird.
+\item Es exisitiert bereits eine Hierarchie mit diesem Namen. Das hat zur Folge, dass eine \term{DoubleDefinitionException} erzeugt wird.
 \item Es existiert auf der Exemplarebene ein Zyklus. Wie in der Beschreibung zu addAssociation erläutert, ist dieser Umstand für Hierarchien untersagt.
- Es resultiert eine \emph{CycleException.}
- \item Durch den internen Aufruf von addAssociation, kann es bei dieser Operation außerdem zu einer \emph{ConsistencyException} kommen.
+ Es resultiert eine \term{CycleException.}
+ \item Durch den internen Aufruf von addAssociation, kann es bei dieser Operation außerdem zu einer \term{ConsistencyException} kommen.
 \end{itemize}
 \item[removeHierarchy] Nach erfolgreicher Ausführung dieser Operation, wird die übergebene \textbf{Hierarchie} aus dem System entfernt. 
-Es wird lediglich die Hierarchie entfernt. Die Assoziationen, welche an der gelöschten Hierarchie teilnehmen, bleiben weiterhin bestehen. Durch den Template-Mechanismus von ModelItem kann diese Operation außerdem eine \emph{ConsistencyException} erzeugen. Aufgrund der Tatsache, dass Hierarchien in der aktuellen Implementierungsstufe keine abhängigen Objekte haben, kann es nie zu dieser Exception kommen.
+Es wird lediglich die Hierarchie entfernt. Die Assoziationen, welche an der gelöschten Hierarchie teilnehmen, bleiben weiterhin bestehen. Durch den Template-Mechanismus von ModelItem kann diese Operation außerdem eine \term{ConsistencyException} erzeugen. Aufgrund der Tatsache, dass Hierarchien in der aktuellen Implementierungsstufe keine abhängigen Objekte haben, kann es nie zu dieser Exception kommen.
 \item[addAssociation] Diese Operation erwartet zum einen die \textbf{Hierarchie} zu der die Assoziation hinzugefügt werden soll und zum anderen die \textbf{Assoziation} selbst.
 Wenn es auf der Exemplarebene keine zyklischen Links zu dieser Assoziation gibt, wird die Assoziation der Hierarchie zugeordnet. Sollte es zyklische Links
-zu dieser Assoziation geben oder die Assoziation ist bereits in dieser Hierarchie, werden entsprechende Exceptions (\emph{CycleException,} bzw. \emph{ConsistencyException}) 
+zu dieser Assoziation geben oder die Assoziation ist bereits in dieser Hierarchie, werden entsprechende Exceptions (\term{CycleException,} bzw. \term{ConsistencyException}) 
 erstellt und die Assoziation wird der Hierarchie nicht zugeordnet.
 \item[removeAssoFrmHier] Zum Entfernen von Assoziationen aus Hierarchien, ist es notwendig dieser Operation sowohl die \textbf{Hierarchie}, als auch die zu entfernende 
 \textbf{Assoziation} anzugeben. Dabei wird lediglich die Assoziation aus der Hierarchie entfernt, die Assoziation an sich bleibt bestehen. 
 Sofern die angegebene Assoziation an dieser Hierarchie teilnimmt, wird diese Verbindung durch die Ausführung dieser Operation entfernt. 
-Sollte dies nicht der Fall sein, wird eine \emph{NotAvailableException} geworfen. Einen Sonderfall bildet die letzte Assoziation einer
+Sollte dies nicht der Fall sein, wird eine \term{NotAvailableException} geworfen. Einen Sonderfall bildet die letzte Assoziation einer
 Hierarchie. Diese darf gemäß des Modells nicht entfernt werden, da leere Hierarchien nicht zulässig sind. Beim Versuch die letzte
-Assoziation einer Hierarchie aus der Hierarchie zu entfernen, wird eine \emph{ConsistencyException} erzeugt und der Versuch wird abgebrochen. 
+Assoziation einer Hierarchie aus der Hierarchie zu entfernen, wird eine \term{ConsistencyException} erzeugt und der Versuch wird abgebrochen. 
 \end{description}

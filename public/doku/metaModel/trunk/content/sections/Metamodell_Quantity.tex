@@ -174,7 +174,7 @@ f.factor = 1 \wedge f.constant = 0
 Quantitäten können sowohl atomar als auch zusammengesetzt sein.
 Dies wird definiert durch die \textit{parts}-Assoziation zwischen \term{CompoundQuantity} und \term{Quantity}. 
 Dabei kann man zusammengesetzte Quantitäten als Vektoren auffassen, deren Elemente einfache Quantitäten sind. 
-\emph{In einem Vektor dürfen nur solche Quantiäten enthalten sein, die mit dem gleichen UnitType assoziiert sind}. 
+\term{In einem Vektor dürfen nur solche Quantiäten enthalten sein, die mit dem gleichen UnitType assoziiert sind}. 
 
 \subsubsubsection{Berechnungen und Vergleiche}\label{Berechnungen}
 
@@ -192,7 +192,7 @@ treten abhängig vom Typ der Quantität die folgenden drei Fälle auf:
 \item \textit{op(element, element)}
 \end{enumerate}
 
-Die Methode der Operation \textit{calculate} der Klasse \textit{BasicCalculation} ermittelt mit Hilfe von \emph{Visitoren} die auszuführende Logik und ruft nach dem Template-Entwurfsmuster die entsprechende Methode auf, die in der zweiten Stufe der Klassenhierarchie implementiert werden, nämlich in \textit{UnitImutabCalc} und \textit{UnitMutabCalc}:
+Die Methode der Operation \textit{calculate} der Klasse \textit{BasicCalculation} ermittelt mit Hilfe von \term{Visitoren} die auszuführende Logik und ruft nach dem Template-Entwurfsmuster die entsprechende Methode auf, die in der zweiten Stufe der Klassenhierarchie implementiert werden, nämlich in \textit{UnitImutabCalc} und \textit{UnitMutabCalc}:
 \begin{itemize}
 \item \textit{calc1Compound1Atomar}
 \item \textit{calcAtomar}
@@ -201,7 +201,7 @@ Die Methode der Operation \textit{calculate} der Klasse \textit{BasicCalculation
 
 Das Rechnen mit zusammengesetzten Quantitäten folgt den allgemeinen Gesetzten der Vektorenrechnung.
 
-Die Addition und Subtraktion funktioniert nur mit \emph{einheitstypgleichen} Quantitäten. Dagegen funktioniert die Multiplikation und Division mit allen Quantitäten, vorausgesetzt, es wird eine \emph{Zieleinheit}, bzw. ein \emph{Zieleinheitstyp} gefunden. Ist dies nicht der Fall wird eine \emph{Ausnahme} ausgelöst. Die Signatur der Klasse 
-\textit{UnitMutabCalc} ist bereits darauf vorbereitet, automatisch Einheiten und Typen zu generieren, sollte noch keine Zieleinheit als \emph{Unit-Stammsatz} angelegt sein. Zum Zeitpunkt der Fertigstellung dieser Dokumentation ist dieser Automatismus noch nicht implementiert. Es soll aber möglich sein, Einheiten und Einheitstypen automatisch zu erzeugen. Die Namen dieser erzeugeugten Stammdaten sind nachträglich mit einer \textit{changeName}-Operation änderbar.
+Die Addition und Subtraktion funktioniert nur mit \term{einheitstypgleichen} Quantitäten. Dagegen funktioniert die Multiplikation und Division mit allen Quantitäten, vorausgesetzt, es wird eine \term{Zieleinheit}, bzw. ein \term{Zieleinheitstyp} gefunden. Ist dies nicht der Fall wird eine \term{Ausnahme} ausgelöst. Die Signatur der Klasse 
+\textit{UnitMutabCalc} ist bereits darauf vorbereitet, automatisch Einheiten und Typen zu generieren, sollte noch keine Zieleinheit als \term{Unit-Stammsatz} angelegt sein. Zum Zeitpunkt der Fertigstellung dieser Dokumentation ist dieser Automatismus noch nicht implementiert. Es soll aber möglich sein, Einheiten und Einheitstypen automatisch zu erzeugen. Die Namen dieser erzeugeugten Stammdaten sind nachträglich mit einer \textit{changeName}-Operation änderbar.
 
-Der einzige bisher implementierte logische Verglich \emph{isLessOrEqual} folgt genau dem gleichen Schema, ist jedoch nur als eine Klasse \textit{LessOrEqualComparison} realisiert.
+Der einzige bisher implementierte logische Verglich \term{isLessOrEqual} folgt genau dem gleichen Schema, ist jedoch nur als eine Klasse \textit{LessOrEqualComparison} realisiert.

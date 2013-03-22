@@ -6,23 +6,21 @@ Stelle eine klare Trennung zu erreichen und die Transparenz des Modells zu erhö
 
 \img[width=\relWidth{1}]{observation/observation.pdf}{Ausschnitt Observations}{img_observations}
 
-Observations werden auf Modellebene durch die Klassen \emph{Enum} und \emph{ObservationType} repräsentiert. 
-Wie man daran bereits erkennen kann, werden Observations mithilfe von Enumerationen interpretiert. 
-Dass bedeutet dass jeder konkreten Observation ein Wert einer Enumeration zugewiesen wird. 
-Die Klasse \emph{Enum} typisiert dabei die Enumeration. 
+Observations werden auf Modellebene durch die Klassen \term{Enum} und \term{ObservationType} repräsentiert. 
+Zum Interpretieren der Observations dienen Enumerationen. Das bedeutet, dass jeder konkreten Observation
+ein Wert einer Enumeration zugewiesen wird. Die Klasse \term{Enum} typisiert dabei die Enumeration. 
+Im aktuellen Entwicklungsstand ist es nicht vorgesehen Enumerations zu spezialisieren.
 
-Ein Beispiel für einen Enum Typ ist \qq{Blutgruppe}. Die Klasse ObservationType stellt auf Modellebene die 
-Typisierung einer Observation dar. Dabei haben wir festgelegt, dass jede Observation genau einer Enumeration 
+Ein Beispiel für einen Enum Typ ist \qq{Blutgruppe}. Die Klasse \term{ObservationType} stellt auf Modellebene die 
+Typisierung einer \term{Observation} dar. Dabei haben wir festgelegt, dass jede Observation genau einer Enumeration 
 und genau einem Typen zugeordnet sein muss. Man kann sich an dieser Stelle nun fragen, warum nicht mehrere Typen 
 zugeordnet werden können. Der Grund dafür ist, dass wir dies bereits über komplexe Typen definieren können und somit 
 an dieser Stelle darauf verzichtet werden kann.
 
-Auf der Instanzebene werden Observations mit den Klassen \emph{EnumValue} und \emph{Observation} abgebildet. 
-Die Klasse \emph{EnumValue} spiegelt dabei einen konkreten Enumeration Wert (z. B. Blutgruppe A) wieder, 
-wobei die Zuordnung zur Enumeration über die theType Assoziation erfolgt. 
-Die Klasse Observation definiert eine konkrete Observation. 
-Sie ist typisiert in einem ObservationType und hat jeweils eine zu-Eins Assoziation zu einem konkreten Enumeration Wert 
-und einem konkreten Objekt.
+Auf der Instanzebene werden Observations mit den Klassen \term{EnumValue} term \term{Observation} abgebildet. 
+Die Klasse \term{EnumValue} spiegelt dabei einen konkreten Enumeration Wert (z. B. Blutgruppe A) wieder, 
+wobei die Zuordnung zur Enumeration über die theType Assoziation erfolgt. Die Klasse \term{Observation} definiert eine konkrete Observation. 
+Sie ist typisiert in einem \term{ObservationType} und hat jeweils eine zu-Eins Assoziation zu einem konkreten Enumeration Wert sowie einem konkreten Objekt.
 
 Es ergeben sich die folgenden Konsistenzbedingungen:
 \begin{itemize}

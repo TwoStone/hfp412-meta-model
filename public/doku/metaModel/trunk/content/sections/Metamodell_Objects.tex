@@ -4,13 +4,13 @@ Im Folgenden werden die Anpassungen der Klasse \term{Object} und deren Methoden 
 \img[width=\relWidth{0.5}]{type/Object.pdf}{Ausschnitt Objektwelt}{img_obj}
 
 \subsubsection{Änderungen und neue Methoden}
-Die Klasse \term{Object} wurde wie viele Klassen im Modell um den Präfix \qq{M} erweitert um Verwechselungen mit der Klasse \term{java.lang.Object} zu vermeiden.
-Desweiteren wurde der Klasse die Methode \term{getProductType()} hinzugefügt, die ein MTypeConjunction liefert.
+Die Klasse \term{Object} wurde wie viele Klassen im Goja-Modell um den Präfix \qq{M} erweitert um Verwechselungen mit der Klasse \term{java.lang.Object} zu vermeiden.
+Desweiteren wurde der Klasse die Methode \term{getProductType()} hinzugefügt, die ein TypeConjunction liefert.
 Diese TypeConjunction repräsentiert die Produkttypen des Objekts, der implizit durch die Assoziation \term{types} dargestellt wird.
 
 \subsubsection{Löschen}
-Das Löschen von \term{MObject}-Exemplaren funktioniert wie auch sonst im System über die Klasse \term{MModelItem}.
-Die Abhängigkeiten eines \term{MObject}s sind hierbei 
+Das Löschen von \term{Object}-Exemplaren funktioniert wie auch sonst im System über die Klasse \term{MModelItem}.
+Die Abhängigkeiten eines \term{Object}s sind hierbei 
 \begin{itemize}
 \item \term{Links} die entweder mit \term{source} oder \term{target} auf das Objekt zeigen,
 \item \term{Measurement}s und \term{Account}s
@@ -20,11 +20,11 @@ Die Abhängigkeiten eines \term{MObject}s sind hierbei
 Das Löschen eines Objekts ist zur Zeit nur möglich, wenn keine Exemplare dieser Klassen im System vorhanden sind, die von dem Objekt abhängen.
 
 \subsubsection{Singletons und \qq{normale} Objekte}
-Für die Unterscheidung von Exemplaren von Singleton-Typen und \qq{normalen} Objekte, wurden eine Vererbungshierarchie eingeführt, welche Objekte in \term{MObject} (\qq{normale} Objekte)
-und \term{MSingletonObject} (Exemplare von Singleton Typen) partitioniert. Die dazu eingeführte Oberklasse \term{AbstractObject} abstrahiert die Gemeinsamkeiten der beiden Klassen. 
+Für die Unterscheidung von Exemplaren von Singleton-Typen und \qq{normalen} Objekte, wurden eine Vererbungshierarchie eingeführt, welche Objekte in \term{Object} (\qq{normale} Objekte)
+und \term{SingletonObject} (Exemplare von Singleton Typen) partitioniert. Die dazu eingeführte Oberklasse \term{AbstractObject} abstrahiert die Gemeinsamkeiten der beiden Klassen. 
 Durch die Partitionierung ist es möglich die unterschiedlichen geltenden Konsistenzbedingungen in den jeweiligen Klassen zu implementieren.
 Dazu wurde die Types Assoziation in den konkreten Klassen hinterlegt, wobei SingletonExemplare nur einen Typen haben können.
-Entsprechend sind auch die Operationen zum Hinzufügen, Ändern und Entfernen von Typen nur in der Klasse \term{MObject} zu finden.
+Entsprechend sind auch die Operationen zum Hinzufügen, Ändern und Entfernen von Typen nur in der Klasse \term{Object} zu finden.
 
 Kritik:
 Diese Designentscheidung ist kritisch zu betrachten. Dadurch, dass Objekte in der späteren Anwendung immer Exeplare entweder von MObject oder MSingeltonObject sind,

@@ -138,7 +138,7 @@ So sind die beiden Typkonjunktionen A**B und B**A zwar semantischt äquivalent, 
 
 
 \textbf{Manager} \newline
-Komplexe Typen werden vom \emph{TypeManager} verwaltet. Es wird sichergestellt, dass 
+Komplexe Typen werden vom \term{TypeManager} verwaltet. Es wird sichergestellt, dass 
 die angelegten komplexen Typen paarweise nicht strukturell äquivalent sind. 
 
 \begin{description}
@@ -161,8 +161,8 @@ In den \term{create}-Operationen werden die Typen normalisiert.
 \end{enumerate} 
 
 \textbf{Persistenz} \newline
-Komplexe Typen werden grundsätzlich \emph{delayedPersistent} erstellt und werden erst, wenn sie vom \term{TypeManager} verwaltet werden, persistiert. 
-Typen, die als Rückgabewerte für Operationen auf \emph{ModelItem}s (z.B. \term{fetchProductType} auf \emph{AbstractObject}) erzeugt werden, 
+Komplexe Typen werden grundsätzlich \term{delayedPersistent} erstellt und werden erst, wenn sie vom \term{TypeManager} verwaltet werden, persistiert. 
+Typen, die als Rückgabewerte für Operationen auf \term{ModelItem}s (z.B. \term{fetchProductType} auf \term{AbstractObject}) erzeugt werden, 
 werden in der Regel nicht persistiert. 
 
 \textbf{Abhängige Elemente}
