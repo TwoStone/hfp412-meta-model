@@ -82,13 +82,13 @@ Wie bereits beschrieben, ist ein \term{Account} in einem \term{AccountType} klas
 In \refImg{Measurement:AccTypeHier} wird eine \term{AccountType}-Hierarchie dargestellt. \term{A} ist in diesem Beispiel der oberste \term{AccountType}, welcher die darunterliegenden SubAccountTypes referenziert. 
 Auf \term{F} wird von keinem \term{AccountType} referenziert und refernziert auch selbst keine anderen \term{AccountTypes}.  
 
-\img[width=\relWidth{0.4}]{measurement/AccountTypeHierarchy.pdf}{AccountType Hierarchie}{Measurement:AccTypeHier}
+\img[width=\relWidth{0.4}]{measurement/AccountTypeHierarchy.pdf}{AccountType-Hierarchie}{Measurement:AccTypeHier}
 
 Nun sollen Exemplare (also \term{Accounts}) erstellt werden, welche SubAccounts enthalten. In \refImg{Measurement:SubAccounts} können die im Folgenden beschriebenen Fälle nachvollzogen werden.
 Der Einfachheit halber wird mit \term{K1:A} ein \term{Account} \term{K1} mit \term{AccountType} \term{A} bezeichnet. Da $C \leq A$ ist, darf \term{K2} als SubAccount zu \term{K1} hinzugefügt werden.
 In den anderen drei Fällen ist der AccountType vom SubAccount entweder nicht $\leq$ dem Typen des Hauptkontos (Beispiel 2 und 4, von links) oder aber der \term{AccountType} ist in einer anderen Hierarchie (Beispiel 3, von links).
 
-\img[width=\relWidth{0.5}]{measurement/SubAccounts.pdf}{SubAccount Exemplare}{Measurement:SubAccounts}
+\img[width=\relWidth{0.5}]{measurement/SubAccounts.pdf}{SubAccount-Exemplare}{Measurement:SubAccounts}
 
 Des Weiteren ist zu beachten, dass die im \term{Account} referenzierten Einträge (\term{Measurements}) vom selben 
 \term{MeasurementType} sein müssen. Daraus ergeben sich die folgenden Konsistenzbedingungen, 

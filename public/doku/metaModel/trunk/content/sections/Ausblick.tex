@@ -11,24 +11,25 @@ soll nachträgliche Implementierungen anregen.
 	welche zwei boolsche Attribute $\leq$ und $\geq$ enthält. Damit lassen sich die vier Multiplizitäten $0..n$, $1..n$, $1$ und $0..1$ darstellen.
 	Dies zieht u.~a. einige Konsistenzbedingungen nach sich, welche beim Anlegen von Links beachtet werden müssen. 
   \item[Mehrstellige Assoziationen] Aktuell gibt es für eine Assoziation nur genau einen Quell- und genau einen Zieltypen. 
-  	Um mehrstellige Assoziationen und Links zu implementieren, können die Formal- und Aktualparameter verwendet werden. 
-  	Eine Assoziation besteht dann aus den zwei explizit genannten Quell- und Zieltypen sowie einer Liste von Formalparametern 
+  	Um mehrstellige Assoziationen und Links zu implementieren, bietet sich die Verwendung von Formal- und Aktualparameter an. 
+  	Eine Assoziation besteht dann aus den zwei explizit genannten Quell- und Zieltypen sowie einer Liste von Formalparametern, 
   	wobei jeder Formalparameter eine weitere Quelle darstellt. Um dies adäquat auf der Exemplarebene abzubilden, 
   	bedienen sich die Links ihrer Aktualparameter. Das aktuelle \MM sieht diese Implementierung schon vor, da sowohl 
   	Formal- als auch Aktualparameter von den jeweiligen Oberklassen \term{AbstractOperation} und \term{Message++Link} ausgehen.
-  \item[Gleichheit von Operationen] Zum derzeitigen Entwicklungsstand sind zwei Operationen gleich sobald sie den gleichen Namen haben. Dies ist in vielen Fällen nicht
-  	sinnvoll, da zwei Operationen keinerlei Bezug zueinander haben wenn sie in unterschiedlichen Typen liegen. Selbst dann nicht, wenn sie gleich heißen. 
-  	Ein praktikablereres Konzept ist, dass zwei Operationen gleich sind sobald sie die gleiche Quelle, den gleichen Namen und die gleichen Parameterlisten (also Anzahl der Parameter und Typisierung dieser) haben. 
+  \item[Gleichheit von Operationen] Zum derzeitigen Entwicklungsstand sind zwei Operationen gleich, sobald sie den gleichen Namen haben. 
+  	Dies ist in vielen Fällen nicht	sinnvoll, da zwei Operationen keinerlei Bezug zueinander haben, wenn sie in unterschiedlichen Typen liegen. 
+  	Selbst dann nicht, wenn sie gleich heißen. Ein praktikableres Konzept ist, dass zwei Operationen gleich sind, sobald sie dieselbe Quelle, 
+  	den gleichen Namen und die gleichen Parameterlisten (also Anzahl der Parameter und Typisierung dieser) haben. 
   \item[Messages] Wie schon im Kapitel \ref{Message:Message} erläutert, wurden Messages in der ersten Implementierungsstufe nicht umgesetzt. 
   	Zum gegenwärtigen Zeitpunkt existiert für ein Message-Exemplar sowohl die Interpretation des Nachrichtenaufrufs, als auch des Nachrichteninhalts.
-	Bevor Messages umgesetzt werden können, muss sich geeinigt werden, welche der genannten Interpretationen für ein Message-Exemplars zutrifft. 
-  \item[ActualParameter] Da aus genannten Gründen weder Message-Exemplare erzeugt, noch mehrstellige Assoziationen/Links angelegt werden können, 
-  	haben Aktualparameter derzeit keinerlei Daseinsberechtigung. Aus diesen Gründen wird die Verwaltung von Aktualparametern dem Anwender nicht angeboten.
-  \item[Zentrale Ablage der Constraints] Durch die durch die Einführung von \term{ModelItem} geschaffene Möglichkeit einen Abhängigkeitsgraphen 
-	auszuwerten, können alle Modellelemente ermittelt werden, deren Konsistenz nach einer Änderung zu prüfen ist. Wenn alle Konsistenzbedingungen 
-	in einer zentralen Komponente abgelegt sind, ist es möglich nach einer Änderung einfach die Konsistenz aller (transitiv) abhängigen Modellelemente zu überprüfen. 
+	Bevor Messages umgesetzt werden können, muss entschieden werden, welche der genannten Interpretationen für ein Message-Exemplar zutrifft. 
+  \item[ActualParameter] Da aus den genannten Gründen weder Message-Exemplare erzeugt, noch mehrstellige Assoziationen/Links angelegt werden können, 
+  	haben Aktualparameter derzeit keinerlei Daseinsberechtigung. Von daher wird dem Anwender die Verwaltung von Aktualparametern nicht angeboten.
+  \item[Zentrale Ablage der Constraints] Durch die Einführung von \term{ModelItem} wird die Möglichkeit geschaffen, einen Abhängigkeitsgraphen 
+	auszuwerten. Dadurch können alle Modellelemente ermittelt werden, deren Konsistenz nach einer Änderung zu prüfen ist. Wenn alle Konsistenzbedingungen 
+	in einer zentralen Komponente abgelegt sind, ist es möglich, nach einer Änderung einfach die Konsistenz aller (transitiv) abhängigen Modellelemente zu überprüfen. 
 	Da alle Änderungen in Transaktionen geschehen, kann bei einem inkonsistenten Folgezustand ein Rollback eingeleitet werden.
 	Großer Vorteil ist, dass veränderliche Elemente keinerlei Kenntnis über die Konsistenzbedingungen ihrer abhängigen Modellobjekte mehr benötigen.
 \end{description}
 
-Weitere Themen neben den o.g. sind beispielsweise Versionierung, Posting Rules, Path. Diese werden in diesem Dokument jedoch nicht weiter ausgeführt.
+Weitere Themen neben den oben genannten sind beispielsweise Versionierung, Posting Rules, Path. Diese werden in diesem Dokument jedoch nicht weiter ausgeführt.

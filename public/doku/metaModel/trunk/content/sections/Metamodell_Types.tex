@@ -8,7 +8,7 @@ Aspekte stellen gemäß der ursprünglichen Modellierung eine Dimension dar, in 
 Atomare Typen der Klasse \emph{AtomicType} werden genau einem Aspekt zugeordnet. Durch die \emph{lessThan}-Assoziation lässt sich aspektintern eine 
 partielle Ordnung \emph{isLessOrEqualThan} ableiten.  
 
-\img[width=\relWidth{0.75}]{type/Aspekte.pdf}{Umarrangierter Ausschnitt Aspekte}{img_aspekts}
+\img[width=\relWidth{0.75}]{type/Aspekte.pdf}{Klassendiagramm - Ausschnitt Aspekte (umarrangiert)}{img_aspekts}
 
 Das Interface \emph{AnythingORAtomicType} ist als Zieltyp der \emph{lessThan}-Assoziation ergänzt worden, 
 um die Möglichkeit zu schaffen einen atomaren Typen mit Obertyp so zu ändern, dass er anschließend keinen 
@@ -97,7 +97,7 @@ Komplexe Typen bieten die Möglichkeit Und- und Oder-Typen zu bilden. Zyklenfrei
 dass \emph{containedTypes} und alle Spezialisierungen Teil einer Hierarchie sind. Komplexe Typen sind immutable,
 lassen sich aber (bis auf \emph{Anything} und \emph{Nothing}) löschen, falls keine Abhängigkeiten existieren.
 
-\img[width=\relWidth{1}]{type/ComplexTypes.pdf}{Ergänzter Ausschnitt: Komplexe Typen}{img_complexTypes}
+\img[width=\relWidth{1}]{type/ComplexTypes.pdf}{Klassendiagramm - Ausschnitt Komplexe Typen (ergänzt)}{img_complexTypes}
 
 Um für Unterklassen von \emph{ComplexType} die Assoziation \emph{containedTypes} weiter einschränken zu 
 können, ist sie spezialisiert worden und ist nun als \emph{fetch}-Operation im Modell vorhanden. 
