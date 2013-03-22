@@ -189,16 +189,17 @@ In einem Vektor dürfen nur solche Quantiäten enthalten sein, die mit demselben
 
 Die Addition, Subtraktion, Division und Multiplikation sind als Grundrechenarten (\term{BasicCalculation}) im Klassenmodell (siehe \refImg{quantity_and_calc}) dargestellt. 
 Es wird zwischen zwei Grundrechenarten unterschieden, welche die Referenzen der Einheit verändern und solchen, welche dies nicht tun. 
-Beispielsweise ergibt die Addition zweier Längenangaben (z.B. Meter) wieder eine Längenangabe. 
+
+Beispielsweise ergibt die Addition zweier Längenangaben (z.~B. Meter) wieder eine Längenangabe. 
 Eine solche Rechnung wird als \emph{einheitstypbewahrend} bezeichnet. Im Klassenmodell ist diese Generalisierung als die Klasse \textit{UnitImutabCalc} zu erkennen. 
-Im Gegensatz dazu ergibt z.B. die Multiplikation zweier Längenangaben eine Flächenangabe (z.B. Quadratmeter). 
+Im Gegensatz dazu ergibt z.B. die Multiplikation zweier Längenangaben eine Flächenangabe (z.~B. Quadratmeter). 
 Diese Rechnungen wird als \emph{einheitstypverändernd} bezeichnet. Im Klassenmodell ist diese als \textit{UnitMutabCalc} zu sehen. 
 Diese Implementierung besitzt Ansätze eines \emph{Kommando-Entwurfsmusters}.
 
 \newpage
 \subsubsubsection{Berechnungslogik}
 
-Bei der Ausführung von zweistelligen Operationen auf AbsQuantity-Exemplaren, 
+Bei der Ausführung von zweistelligen Operationen auf \term{AbsQuantity}-Exemplaren, 
 treten abhängig vom Typ der Quantität die folgenden drei Fälle auf:
 \begin{enumerate}
 \item \textit{op(vektor, vektor)}
@@ -206,16 +207,16 @@ treten abhängig vom Typ der Quantität die folgenden drei Fälle auf:
 \item \textit{op(element, element)}
 \end{enumerate}
 
-Die Methode der Operation \textit{calculate} der Klasse \textit{BasicCalculation} ermittelt mit Hilfe von \term{Visitoren} die auszuführende Logik und ruft nach dem Template-Entwurfsmuster die entsprechende Methode auf, die in der zweiten Stufe der Klassenhierarchie implementiert werden, nämlich in \textit{UnitImutabCalc} und \textit{UnitMutabCalc}:
+Die Methode der Operation \textit{calculate} der Klasse \textit{BasicCalculation} ermittelt mithilfe von \term{Visitoren} die auszuführende Logik und ruft nach dem Template-Entwurfsmuster die entsprechende Methode auf, die in der zweiten Stufe der Klassenhierarchie implementiert werden, nämlich in \textit{UnitImutabCalc} und \textit{UnitMutabCalc}:
 \begin{itemize}
 \item \textit{calc1Compound1Atomar}
 \item \textit{calcAtomar}
 \item \textit{calcComp}
 \end{itemize}
 
-Das Rechnen mit zusammengesetzten Quantitäten folgt den allgemeinen Gesetzten der Vektorenrechnung.
+Das Rechnen mit zusammengesetzten Quantitäten folgt den allgemeinen Gesetzen der Vektorrechnung.
 
-Die Addition und Subtraktion funktioniert nur mit \term{einheitstypgleichen} Quantitäten. Dagegen funktioniert die Multiplikation und Division mit allen Quantitäten, vorausgesetzt, es wird eine \term{Zieleinheit}, bzw. ein \term{Zieleinheitstyp} gefunden. Ist dies nicht der Fall wird eine \term{Ausnahme} ausgelöst. Die Signatur der Klasse 
-\textit{UnitMutabCalc} ist bereits darauf vorbereitet, automatisch Einheiten und Typen zu generieren, sollte noch keine Zieleinheit als \term{Unit-Stammsatz} angelegt sein. Zum Zeitpunkt der Fertigstellung dieser Dokumentation ist dieser Automatismus noch nicht implementiert. Es soll aber möglich sein, Einheiten und Einheitstypen automatisch zu erzeugen. Die Namen dieser erzeugeugten Stammdaten sind nachträglich mit einer \textit{changeName}-Operation änderbar.
+Die Addition und Subtraktion funktioniert nur mit \term{einheitstypgleichen} Quantitäten. Dagegen funktioniert die Multiplikation und Division mit allen Quantitäten, vorausgesetzt, es wird eine \term{Zieleinheit} bzw. ein \term{Zieleinheitstyp} gefunden. Ist dies nicht der Fall, wird eine \term{Ausnahme} ausgelöst. Die Signatur der Klasse 
+\textit{UnitMutabCalc} ist bereits darauf vorbereitet, automatisch Einheiten und Typen zu generieren, sollte noch keine Zieleinheit als \term{Unit-Stammsatz} angelegt sein. Zum Zeitpunkt der Fertigstellung dieser Dokumentation ist dieser Automatismus noch nicht implementiert. Es soll aber möglich sein, Einheiten und Einheitstypen automatisch zu erzeugen. Die Namen dieser erzeugten Stammdaten sind nachträglich mit einer \textit{changeName}-Operation änderbar.
 
-Der einzige bisher implementierte logische Verglich \term{isLessOrEqual} folgt genau dem gleichen Schema, ist jedoch nur als eine Klasse \textit{LessOrEqualComparison} realisiert.
+Der einzige bisher implementierte logische Vergleich \term{isLessOrEqual} folgt genau demselben Schema, ist jedoch als eine Klasse \textit{LessOrEqualComparison} realisiert.

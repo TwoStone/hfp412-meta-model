@@ -1,35 +1,34 @@
 \section{Ausblick}
-Im Laufe des Projekts sind viele Ideen aufgekommen, die aufgrund von Entwurfsentscheidungen oder Zeitmangel 
-jedoch nicht umgesetzt werden konnten. Dieser kurze Ausblick skizziert eine Auswahl von Erweiterungsmöglichkeiten und 
+Im Laufe des Projekts sind viele Ideen aufgekommen, die aufgrund von Entwurfsentscheidungen oder der kurzen Laufzeit des Projektes 
+nicht umgesetzt werden konnten. Dieser kurze Ausblick skizziert eine Auswahl von Erweiterungsmöglichkeiten und 
 soll nachträgliche Implementierungen anregen.
 
 \begin{description}
   \item[Multiplizitäten] Zurzeit besitzen Assoziationen keine Einschränkungen. 
-Es werden sozusagen überall $0..n$-Multiplizitäten verwendet. 
-Mit der Einführung von Multiplizitäten können Assoziationen eingeschränkt werden.
-Es bietet sich beispielsweise an, eine Klasse \term{Multiplicity} zwischen \term{Association} und \term{Type} zu hängen,
-welche zwei boolsche Attribute $\leq$ und $\geq$ enthält. 
-Damit lassen sich die vier Multiplizitäten $0..n$, $1..n$, $1$ und $0..1$ darstellen.
-Dies zieht u.a. einige Konsistenzbedingungen nach sich, welche beim Anlegen von Links beachtet werden müssen. 
-  \item[Mehrstellige Assoziationen] Aktuell gibt es für eine Assoziation nur genau ein Quell- und genau ein Zieltypen. 
-  Um Mehrstellige Assoziationen und Links zu implementieren, können die Formal- und Aktualparameter verwendet werden. 
-  Eine Assoziation besteht dann aus den zwei explizit genannten Quell- und Zieltypen sowie einer Liste von Formalparametern 
-  wobei jeder Formalparameter eine weitere Quelle darstellt. Um dies adäquat auf der Exemplarebene abzubilden, 
-  bedienen sich die Links ihrer Aktualparameter. Das aktuelle \MM sieht diese Implementierung schon vor, da sowohl 
-  Formal- als auch Aktualparameter von den jeweiligen Oberklassen \term{AbstractOperation} und \term{Message++Link} ausgehen.
+	Es werden entsprechend überall $0..n$-Multiplizitäten verwendet. 
+	Mit der Einführung von Multiplizitäten können Assoziationen eingeschränkt werden.
+	Es bietet sich beispielsweise an, eine Klasse \term{Multiplicity} zwischen \term{Association} und \term{Type} zu hängen,
+	welche zwei boolsche Attribute $\leq$ und $\geq$ enthält. Damit lassen sich die vier Multiplizitäten $0..n$, $1..n$, $1$ und $0..1$ darstellen.
+	Dies zieht u.~a. einige Konsistenzbedingungen nach sich, welche beim Anlegen von Links beachtet werden müssen. 
+  \item[Mehrstellige Assoziationen] Aktuell gibt es für eine Assoziation nur genau einen Quell- und genau einen Zieltypen. 
+  	Um mehrstellige Assoziationen und Links zu implementieren, können die Formal- und Aktualparameter verwendet werden. 
+  	Eine Assoziation besteht dann aus den zwei explizit genannten Quell- und Zieltypen sowie einer Liste von Formalparametern 
+  	wobei jeder Formalparameter eine weitere Quelle darstellt. Um dies adäquat auf der Exemplarebene abzubilden, 
+  	bedienen sich die Links ihrer Aktualparameter. Das aktuelle \MM sieht diese Implementierung schon vor, da sowohl 
+  	Formal- als auch Aktualparameter von den jeweiligen Oberklassen \term{AbstractOperation} und \term{Message++Link} ausgehen.
   \item[Gleichheit von Operationen] Zum derzeitigen Entwicklungsstand sind zwei Operationen gleich sobald sie den gleichen Namen haben. Dies ist in vielen Fällen nicht
-  sinnvoll, da zwei Operationen keinerlei Bezug zueinander haben wenn sie in unterschiedlichen Typen liegen. Selbst dann nicht, wenn sie gleich heißen. 
-  Ein praktikablereres Konzept ist, dass zwei Operationen gleich sind sobald sie die gleiche Quelle, den gleichen Namen und die gleichen Parameterlisten (also Anzahl der Parameter und Typisierung dieser) haben. 
+  	sinnvoll, da zwei Operationen keinerlei Bezug zueinander haben wenn sie in unterschiedlichen Typen liegen. Selbst dann nicht, wenn sie gleich heißen. 
+  	Ein praktikablereres Konzept ist, dass zwei Operationen gleich sind sobald sie die gleiche Quelle, den gleichen Namen und die gleichen Parameterlisten (also Anzahl der Parameter und Typisierung dieser) haben. 
   \item[Messages] Wie schon im Kapitel \ref{Message:Message} erläutert, wurden Messages in der ersten Implementierungsstufe nicht umgesetzt. 
-  Zum gegenwärtigen Zeitpunkt existiert für ein Message-Exemplar sowohl die Interpretation des Nachrichtenaufrufs, als auch des Nachrichteninhalts.
-Bevor Messages umgesetzt werden können, muss sich geeinigt werden, welche der genannten Interpretationen für ein Message-Exemplars zutrifft. 
+  	Zum gegenwärtigen Zeitpunkt existiert für ein Message-Exemplar sowohl die Interpretation des Nachrichtenaufrufs, als auch des Nachrichteninhalts.
+	Bevor Messages umgesetzt werden können, muss sich geeinigt werden, welche der genannten Interpretationen für ein Message-Exemplars zutrifft. 
   \item[ActualParameter] Da aus genannten Gründen weder Message-Exemplare erzeugt, noch mehrstellige Assoziationen/Links angelegt werden können, 
-  haben Aktualparameter derzeit keinerlei Daseinsberechtigung. Aus diesen Gründen wird die Verwaltung von Aktualparametern dem Anwender nicht angeboten.
+  	haben Aktualparameter derzeit keinerlei Daseinsberechtigung. Aus diesen Gründen wird die Verwaltung von Aktualparametern dem Anwender nicht angeboten.
   \item[Zentrale Ablage der Constraints] Durch die durch die Einführung von \term{ModelItem} geschaffene Möglichkeit einen Abhängigkeitsgraphen 
-		auszuwerten, können alle Modellelemente ermittelt werden, deren Konsistenz nach einer Änderung zu prüfen ist. Wenn alle Konsistenzbedingungen 
-		in einer zentralen Komponente abgelegt sind, ist es möglich nach einer Änderung einfach die Konsistenz aller (transitiv) abhängigen Modellelemente zu überprüfen. 
-		Da alle Änderungen in Transaktionen geschehen, kann bei einem inkonsistenten Folgezustand ein Rollback eingeleitet werden.
-		Großer Vorteil ist, dass veränderliche Elemente keinerlei Kenntnis über die Konsistenzbedingungen ihrer abhängigen Modellobjekte mehr benötigen.
+	auszuwerten, können alle Modellelemente ermittelt werden, deren Konsistenz nach einer Änderung zu prüfen ist. Wenn alle Konsistenzbedingungen 
+	in einer zentralen Komponente abgelegt sind, ist es möglich nach einer Änderung einfach die Konsistenz aller (transitiv) abhängigen Modellelemente zu überprüfen. 
+	Da alle Änderungen in Transaktionen geschehen, kann bei einem inkonsistenten Folgezustand ein Rollback eingeleitet werden.
+	Großer Vorteil ist, dass veränderliche Elemente keinerlei Kenntnis über die Konsistenzbedingungen ihrer abhängigen Modellobjekte mehr benötigen.
 \end{description}
 
 Weitere Themen neben den o.g. sind beispielsweise Versionierung, Posting Rules, Path. Diese werden in diesem Dokument jedoch nicht weiter ausgeführt.
