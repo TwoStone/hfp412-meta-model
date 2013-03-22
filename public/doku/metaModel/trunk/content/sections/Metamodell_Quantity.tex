@@ -142,6 +142,7 @@ Diese Operation ist ähnlich der \term{getExistingCU()}-Operation. Jedoch wird h
 Mithilfe dieser Operation kann ein Referenzexemplar mit einem gewissen Exponenten auf eine bestimmte \term{Unit} ermittelt werden. Falls dieses Exemplar noch nicht existierte, wird es erzeugt. Das dient zum Vermeiden von doppelt angelegten Referenzen.
 \end{description}
 
+\newpage
 \subsubsubsection{Conversions}\label{ConversionsKapitel} 
 
 \img[width=\relWidth{0.7}]{quantity/Ausschnitt_Conversion.pdf}{Klassendiagramm - Ausschnitt Conversion}{klassendiagramm_conversion}
@@ -156,8 +157,9 @@ Am Beispiel von Fahrenheit und Celsius lautet für Celsius die \term{Conversion}
 
 \[Wert_{^\circ F} = Wert_{^\circ C} * \frac{9}{5} + 32\]
 
-Mittels \term{setConversion()} wird eine bereits gesetzte \term{Conversion} für eine \term{Unit} überschrieben.
-Bei \term{setDefaultUnit()} wird eine Umrechnung von bereits vorhanden \term{Conversions} notwendig, da diese ja in Abhängigkeit zu einer nun veralteten \term{DefaultUnit} angegeben wurden. Das betrifft alle Umrechnungen für \term{Units} zum selben \term{UnitType} wie die \term{DefaultUnit}.
+Mittels \term{setConversion()} wird eine gesetzte \term{Conversion} für eine \term{Unit} überschrieben.
+Bei \term{setDefaultUnit()} wird eine Umrechnung von vorhandenen \term{Conversions} notwendig, da diese in Abhängigkeit zu einer veralteten \term{DefaultUnit} angegeben wurden. 
+Das betrifft alle Umrechnungen für \term{Units} zum selben \term{UnitType} wie die \term{DefaultUnit}.
 
 \refImg{setDefaultUnitGrafik} beschreibt die Umrechnungen, falls sich eine \term{DefaultUnit} ändert.
 \img[width=\relWidth{0.8}]{quantity/setDefaultUnit.png}{Umrechnung beim Ändern einer DefaultUnit}{setDefaultUnitGrafik}
@@ -199,24 +201,24 @@ Diese Implementierung besitzt Ansätze eines \emph{Kommando-Entwurfsmusters}.
 \newpage
 \subsubsubsection{Berechnungslogik}
 
-Bei der Ausführung von zweistelligen Operationen auf \term{AbsQuantity}-Exemplaren, 
-treten abhängig vom Typ der Quantität die folgenden drei Fälle auf:
+Bei der Ausführung von zweistelligen Operationen auf Exemplaren einer abstrakten Quantität (\term{AbsQuantity}) treten abhängig vom jeweiligen Typ der Quantität die folgenden drei Fälle auf:
 \begin{enumerate}
 \item \textit{op(vektor, vektor)}
 \item \textit{op(vektor, element)}
 \item \textit{op(element, element)}
 \end{enumerate}
 
-Die Methode der Operation \textit{calculate} der Klasse \textit{BasicCalculation} ermittelt mithilfe von \term{Visitoren} die auszuführende Logik und ruft nach dem Template-Entwurfsmuster die entsprechende Methode auf, die in der zweiten Stufe der Klassenhierarchie implementiert werden, nämlich in \textit{UnitImutabCalc} und \textit{UnitMutabCalc}:
+Die Methode der Operation \textit{calculate} der Klasse \textit{BasicCalculation} ermittelt mithilfe von \term{Visitoren} die auszuführende Logik und ruft nach dem Template-Entwurfsmuster die entsprechende Methode auf, 
+die in der zweiten Stufe der Klassenhierarchie in \textit{UnitImutabCalc} und \textit{UnitMutabCalc} implementiert werden.
 \begin{itemize}
 \item \textit{calc1Compound1Atomar}
 \item \textit{calcAtomar}
 \item \textit{calcComp}
 \end{itemize}
 
-Das Rechnen mit zusammengesetzten Quantitäten folgt den allgemeinen Gesetzen der Vektorrechnung.
+Das Rechnen mit zusammengesetzten Quantitäten folgt den allgemeinen Gesetzen der Vektorrechnung. Die Addition und Subtraktion funktioniert nur mit \term{einheitstypgleichen} Quantitäten. Dagegen funktioniert die Multiplikation und Division mit allen Quantitäten, vorausgesetzt, es wird eine \term{Zieleinheit} bzw. ein \term{Zieleinheitstyp} gefunden. Ist dies nicht der Fall, wird eine \term{Ausnahme} ausgelöst. 
 
-Die Addition und Subtraktion funktioniert nur mit \term{einheitstypgleichen} Quantitäten. Dagegen funktioniert die Multiplikation und Division mit allen Quantitäten, vorausgesetzt, es wird eine \term{Zieleinheit} bzw. ein \term{Zieleinheitstyp} gefunden. Ist dies nicht der Fall, wird eine \term{Ausnahme} ausgelöst. Die Signatur der Klasse 
+Die Signatur der Klasse 
 \textit{UnitMutabCalc} ist bereits darauf vorbereitet, automatisch Einheiten und Typen zu generieren, sollte noch keine Zieleinheit als \term{Unit-Stammsatz} angelegt sein. Zum Zeitpunkt der Fertigstellung dieser Dokumentation ist dieser Automatismus noch nicht implementiert. Es soll aber möglich sein, Einheiten und Einheitstypen automatisch zu erzeugen. Die Namen dieser erzeugten Stammdaten sind nachträglich mit einer \textit{changeName}-Operation änderbar.
 
 Der einzige bisher implementierte logische Vergleich \term{isLessOrEqual} folgt genau demselben Schema, ist jedoch als eine Klasse \textit{LessOrEqualComparison} realisiert.

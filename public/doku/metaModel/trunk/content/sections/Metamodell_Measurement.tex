@@ -1,8 +1,8 @@
 \subsection{Measurement}
 Martin Fowler unterscheidet in seinem Werk \refLibLiteratur{fowler1997analysis} zwischen qualitativen und quantitativen
 Messungen. Wird beispielsweise die Blutgruppe (A, B, AB und 0) eines Menschen typisiert, so handelt es sich um
-eine qualitative Messung. Im Kontext dieses Projekts wird diese Art von Messung als \term{Observation} (siehe Abschnitt
-\ref{Observations}) bezeichnet. Unter quantitativen Messungen, bezeichnet als \term{Measurement}, wird
+eine qualitative Messung. Im Kontext dieses Projekts wird diese Art von Messung als \term{Observation} (wie bereits in Abschnitt
+\ref{Observations} beschrieben) bezeichnet. Unter quantitativen Messungen, bezeichnet als \term{Measurement}, wird
 beispielsweise das Feststellen der Körpergröße eines Menschen verstanden.
 
 \img[width=\relWidth{1.0}]{measurement/Ausschnitt_Measurement.pdf}{Klassendiagramm - Ausschnitt Measurement (vereinfacht)}{img_measurement}
@@ -42,7 +42,7 @@ der zum \term{QuantifiedObject} gehörenden \term{Quantity} typisiert ist. Er bi
 
 \subsubsection{Account}
 Ein Konto (\term{Account}) gehört zu einem bestimmten Objekt (\term{Object}) und beinhaltet Einträge (entries) in Form von quantitativen Messungen (\term{Measurements}). 
-Jedes Konto ist in einem Typ (\term{AccountType}) klassifiziert und kann außerdem mehrere Unterkonten (Komposition von subAccounts) besitzen.
+Jedes Konto ist in einem Typ (\term{AccountType}) klassifiziert und kann mehrere Unterkonten (Komposition von subAccounts) besitzen.
 Auf einem Konto kann auf Basis einer definierten Strategie (\term{AggregationStrategy}) aggregiert werden. 
 Beispielsweise kann so Summe, Durchschnitt, Maximum oder Minimum der Einträge errechnet werden. 
 

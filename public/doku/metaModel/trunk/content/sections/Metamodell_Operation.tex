@@ -16,7 +16,7 @@ Das Ziel (target) einer Operation entspricht dem Rückgabetypen.
 Neben Quell- und Zieltypen besitzt eine Operation eine Liste von Formalparametern, welche 
 wiederum über die Klasse \term{Type} typisiert sind.
 
-Die Klasse \term{Operation} enthält nur genau zwei Operationen.
+Die Klasse \term{Operation} enthält genau zwei Operationen: \textbf{isStatic()} und \textbf{isConstant()}.
 Die Operation \textbf{isStatic()} gibt genau dann \term{true} zurück, wenn der Quelltyp dieser Operation der leeren Summe entspricht.
 Zusätzlich zu der Bedingung aus \textbf{isStatic()} gilt für die zweite Operation \textbf{isConstant()}, dass die Operation keine Parameter enthalten darf. 
 
@@ -83,7 +83,7 @@ Die Möglichkeit der Zuweisung von Formalparametern an Assoziationen wird dem An
 
 \subsubsubsection{AssociationManager}
 
-Der \term{AssociationManager} bietet sechs transaktionale Operationen an und beinhaltet zwei Listen, welche er verwaltet.
+Dieser Manager bietet sechs transaktionale Operationen und zwei Listen an.
 \begin{description}
 \item[Association ** associations] In dieser Liste werden alle erstellten Assoziationen aufbewahrt und durch entsprechende Operationen verwaltet.
 \item[Hierarchy ** hierarchies] Erstellte Hierarchien werden in dieser Liste abgelegt.
@@ -114,7 +114,7 @@ Insbesondere folgende Gründe führen zum Misserfolg:
  \item Durch den internen Aufruf von \textbf{addAssociation}, kann es bei dieser Operation außerdem zu einer \term{ConsistencyException} kommen.
 \end{itemize}
 \item[removeHierarchy] Nach erfolgreicher Ausführung dieser Operation, wird die übergebene \textbf{Hierarchie} aus dem System entfernt. 
-Es wird lediglich die Hierarchie entfernt. Die Assoziationen, welche an der gelöschten Hierarchie teilnehmen, bleiben weiterhin bestehen. Durch den Template-Mechanismus von ModelItem kann diese Operation außerdem eine \term{ConsistencyException} erzeugen. Aufgrund der Tatsache, dass Hierarchien in der aktuellen Implementierungsstufe keine abhängigen Objekte haben, kann es nie zu dieser Exception kommen.
+Dabei wird lediglich die Hierarchie entfernt. Die Assoziationen, welche an der gelöschten Hierarchie teilnehmen, bleiben weiterhin bestehen. Durch den Template-Mechanismus von ModelItem kann diese Operation außerdem eine \term{ConsistencyException} erzeugen. Aufgrund der Tatsache, dass Hierarchien in der aktuellen Implementierungsstufe keine abhängigen Objekte haben, kann es nie zu dieser Exception kommen.
 \item[addAssociation] Diese Operation erwartet zum einen die \textbf{Hierarchie} zu der die Assoziation hinzugefügt werden soll und zum anderen die \textbf{Assoziation} selbst.
 Wenn es auf der Exemplarebene keine zyklischen Links zu dieser Assoziation gibt, wird die Assoziation der Hierarchie zugeordnet. Sollte es zyklische Links
 zu dieser Assoziation geben oder die Assoziation ist bereits in dieser Hierarchie, werden entsprechende Exceptions (\term{CycleException} bzw. \term{ConsistencyException}) 
