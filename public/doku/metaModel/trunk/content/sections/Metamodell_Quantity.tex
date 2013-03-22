@@ -174,15 +174,22 @@ f.factor = 1 \wedge f.constant = 0
 
 Quantitäten können sowohl atomar als auch zusammengesetzt sein.
 Dies wird definiert durch die \textit{parts}-Assoziation zwischen \term{CompoundQuantity} und \term{Quantity}. 
-Dabei kann man zusammengesetzte Quantitäten als Vektoren auffassen, deren Elemente einfache Quantitäten sind. 
+Dabei können zusammengesetzte Quantitäten als Vektoren aufgefasst werden, deren Elemente einfache Quantitäten sind. 
 \term{In einem Vektor dürfen nur solche Quantiäten enthalten sein, die mit dem gleichen UnitType assoziiert sind}. 
 
 \subsubsubsection{Berechnungen und Vergleiche}\label{Berechnungen}
 
 \img[width=\relWidth{1}]{quantity/Ausschnitt_Quantity.pdf}{Klassendiagramm - Ausschnitt Quantitäten und Berechnungen}{quantity_and_calc}
 
-Die Addition, Subtraktion, Division und Multiplikation sind als Grundrechenarten (BasicCalculation) im Klassenmodell (siehe \refImg{quantity_and_calc}) dargestellt. Man unterscheidet zwischen Grundrechenarten, die die Referenzen der Einheit verändern, und solchen, die dies nicht tun. Z.B. ergibt die Addition zweier Längenangaben (z.B. Meter) wieder eine Längenangabe. Also nennen wir eine solche Rechnung \emph{einheitstypbewahrend}. Im Klassenmodell ist diese Generalisierung als die Klasse \textit{UnitImutabCalc} zu erkennen. Im Gegensatz dazu ergibt z.B. die Multiplikation zweier Längenangaben eine Flächenangabe (z.B. Quadratmeter). Wir nennen diese Rechnungen \emph{einheitstypverändernd} - im Klassenmodell als \textit{UnitMutabCalc} zu sehen. Diese Implementierung besitzt Ansätze eines \emph{Kommando-Entwurfsmusters}.
+Die Addition, Subtraktion, Division und Multiplikation sind als Grundrechenarten (BasicCalculation) im Klassenmodell (siehe \refImg{quantity_and_calc}) dargestellt. 
+Es wird zwischen zwei Grundrechenarten unterschieden, welche die Referenzen der Einheit verändern und solchen, welche dies nicht tun. 
+Beispielsweise ergibt die Addition zweier Längenangaben (z.B. Meter) wieder eine Längenangabe. 
+Eine solche Rechnung wird als \emph{einheitstypbewahrend} bezeichnet. Im Klassenmodell ist diese Generalisierung als die Klasse \textit{UnitImutabCalc} zu erkennen. 
+Im Gegensatz dazu ergibt z.B. die Multiplikation zweier Längenangaben eine Flächenangabe (z.B. Quadratmeter). 
+Diese Rechnungen wird als \emph{einheitstypverändernd} bezeichnet. Im Klassenmodell ist diese als \textit{UnitMutabCalc} zu sehen. 
+Diese Implementierung besitzt Ansätze eines \emph{Kommando-Entwurfsmusters}.
 
+\newpage
 \subsubsubsection{Berechnungslogik}
 
 Bei der Ausführung von zweistelligen Operationen auf AbsQuantity-Exemplaren, 

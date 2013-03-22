@@ -12,10 +12,9 @@ ein Wert einer Enumeration zugewiesen wird. Die Klasse \term{Enum} typisiert dab
 Im aktuellen Entwicklungsstand ist es nicht vorgesehen Enumerations zu spezialisieren.
 
 Ein Beispiel für einen Enum Typ ist \qq{Blutgruppe}. Die Klasse \term{ObservationType} stellt auf Modellebene die 
-Typisierung einer \term{Observation} dar. Dabei haben wir festgelegt, dass jede Observation genau einer Enumeration 
-und genau einem Typen zugeordnet sein muss. Man kann sich an dieser Stelle nun fragen, warum nicht mehrere Typen 
-zugeordnet werden können. Der Grund dafür ist, dass wir dies bereits über komplexe Typen definieren können und somit 
-an dieser Stelle darauf verzichtet werden kann.
+Typisierung einer \term{Observation} dar. Dabei wurde festgelegt, dass jede Observation genau einer Enumeration 
+und genau einem Typen zugeordnet sein muss. Es stellt sich die Frage, warum nicht mehrere Typen zugeordnet werden können. 
+Der Grund dafür ist, dass dies bereits über komplexe Typen definiert werden kann und somit an dieser Stelle darauf verzichtet werden kann.
 
 Auf der Instanzebene werden Observations mit den Klassen \term{EnumValue} term \term{Observation} abgebildet. 
 Die Klasse \term{EnumValue} spiegelt dabei einen konkreten Enumeration Wert (z. B. Blutgruppe A) wieder, 
