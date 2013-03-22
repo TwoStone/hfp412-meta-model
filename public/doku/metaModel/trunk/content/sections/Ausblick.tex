@@ -12,10 +12,10 @@ welche zwei boolsche Attribute $\leq$ und $\geq$ enthält.
 Damit lassen sich die vier Multiplizitäten $0..n$, $1..n$, $1$ und $0..1$ darstellen.
 Dies zieht u.a. einige Konsistenzbedingungen nach sich, welche beim Anlegen von Links beachtet werden müssen. 
   \item[Mehrstellige Assoziationen] Aktuell gibt es für eine Assoziation nur genau ein Quell- und genau ein Zieltypen. 
-  Um Mehrstellige Assoziationen und Links zu implementieren, könnten die Formal- und Aktualparameter verwendet werden. 
-  Eine Assoziation bestünde dann aus den zwei explizit genannten Quell- und Zieltypen sowie einer Liste von Formalparametern 
-  wobei jeder Formalparameter eine weitere Quelle darstellen würde. Um dies adäquat auf der Exemplarebene abzubilden, 
-  würden die Links sich ihrer Aktualparameter bedienen. Das aktuelle \MM sieht diese Implementierung schon vor, da sowohl 
+  Um Mehrstellige Assoziationen und Links zu implementieren, können die Formal- und Aktualparameter verwendet werden. 
+  Eine Assoziation besteht dann aus den zwei explizit genannten Quell- und Zieltypen sowie einer Liste von Formalparametern 
+  wobei jeder Formalparameter eine weitere Quelle darstellt. Um dies adäquat auf der Exemplarebene abzubilden, 
+  bedienen sich die Links ihrer Aktualparameter. Das aktuelle \MM sieht diese Implementierung schon vor, da sowohl 
   Formal- als auch Aktualparameter von den jeweiligen Oberklassen \term{AbstractOperation} und \term{Message++Link} ausgehen.
   \item[Gleichheit von Operationen] Zum derzeitigen Entwicklungsstand sind zwei Operationen gleich sobald sie den gleichen Namen haben. Dies ist in vielen Fällen nicht
   sinnvoll, da zwei Operationen keinerlei Bezug zueinander haben wenn sie in unterschiedlichen Typen liegen. Selbst dann nicht, wenn sie gleich heißen. 
