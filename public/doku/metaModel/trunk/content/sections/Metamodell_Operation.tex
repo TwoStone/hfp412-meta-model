@@ -57,7 +57,10 @@ Zu diesem Zweck ist es notwenig die \textbf{Liste von Formalparametern} sowie
 die gewählte \textbf{Operation} an die addMultipleFormalparameter-Operation zu übergeben. 
 Aufgrund von Delegation gelten auch hier die Konsistenzbedingung der addFormalParamter-Operation. 
 \item[removeFormalParameterFromOperation]
-Wenn ein Formalparameter aus der Parameterliste einer Operation entfernt werden soll, stellt diese Operation die notwendige Funktionalität bereit. Zum Entfernen eines \textbf{Formalparameters} aus einer \textbf{Operation} sind diese beiden Angaben essentiell. Sofern der zu entfernende Formalparameter in der Formalparameterliste der gewählten Operation ist und es keine Exemplare zu der Operation gibt, wird der Parameter aus der Parameterliste entfernt.
+Wenn ein Formalparameter aus der Parameterliste einer Operation entfernt werden soll, stellt diese Operation die notwendige Funktionalität bereit. 
+Zum Entfernen eines \textbf{Formalparameters} aus einer \textbf{Operation} sind diese beiden Angaben essentiell. 
+Sofern der zu entfernende Formalparameter in der Formalparameterliste der gewählten Operation ist und es keine Exemplare zu der Operation gibt, 
+wird der Parameter aus der Parameterliste entfernt.
 Sollte der Parameter nicht in der Parameterliste der Operation sein oder es Exemplare zu der Operation geben, wird eine \term{ConsistencyException} erzeugt.
 
 Anmerkung: Zum aktuellen Zeitpunkt kann der zweite Fall nicht eintreten, da sich Message-Objekte nicht an der Oberfläche erstellen lassen.
