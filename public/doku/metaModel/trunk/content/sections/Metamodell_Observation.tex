@@ -1,43 +1,43 @@
 \subsection{Observation}\label{Observations}
-In der ursprünglichen Modellierung handelte es sich bei einer Observation um eine Assoziation bei der das Ziel auf einen 
-Typ zeigte, der nur aus Singletons bestand. Damit dies aber möglich ist, müssen in der Typ-Hierarchie alle Knoten 
-abstrakt und alle Blätter Singletons sein. Diese Bedingung muss aber für allgemeine Singletons nicht gelten. Um an dieser 
-Stelle eine klare Trennung zu erreichen und die Transparenz des Modells zu erhöhen, wurden Observations als eigener Modell-Abschnitt ausgelagert.
+In der ursprünglichen Modellierung handelte es sich bei einer \term{Observation} um eine Assoziation bei der das Ziel auf einen 
+Typ zeigte, der nur aus \term{Singletons} bestand. Damit dies aber möglich ist, müssen in der Typ-Hierarchie alle Knoten 
+abstrakt und alle Blätter \term{Singletons} sein. Diese Bedingung muss aber für allgemeine Singletons nicht gelten. Um an dieser 
+Stelle eine klare Trennung zu erreichen und die Transparenz des Modells zu erhöhen, wurden \term{Observation} als eigener Modellabschnitt ausgelagert.
 
 \img[width=\relWidth{1}]{observation/observation.pdf}{Ausschnitt Observations}{img_observations}
 
-Observations werden auf Modellebene durch die Klassen \term{Enum} und \term{ObservationType} repräsentiert. 
-Zum Interpretieren der Observations dienen Enumerationen. Das bedeutet, dass jeder konkreten Observation
+\term{Observations} werden auf Modellebene durch die Klassen \term{Enum} und \term{ObservationType} repräsentiert. 
+Zum Interpretieren der \term{Observations} dienen Enumerationen. Das bedeutet, dass jeder konkreten \term{Observation}
 ein Wert einer Enumeration zugewiesen wird. Die Klasse \term{Enum} typisiert dabei die Enumeration. 
-Im aktuellen Entwicklungsstand ist es nicht vorgesehen Enumerations zu spezialisieren.
+Im aktuellen Entwicklungsstand ist es nicht vorgesehen, \term{Enumerations} zu spezialisieren.
 
-Ein Beispiel für einen Enum Typ ist \qq{Blutgruppe}. Die Klasse \term{ObservationType} stellt auf Modellebene die 
-Typisierung einer \term{Observation} dar. Dabei wurde festgelegt, dass jede Observation genau einer Enumeration 
+Ein Beispiel für einen \term{Enum}-Typ ist \qq{Blutgruppe}. Die Klasse \term{ObservationType} stellt auf Modellebene die 
+Typisierung einer \term{Observation} dar. Dabei wurde festgelegt, dass jede \term{Observation} genau einer Enumeration 
 und genau einem Typen zugeordnet sein muss. Es stellt sich die Frage, warum nicht mehrere Typen zugeordnet werden können. 
-Der Grund dafür ist, dass dies bereits über komplexe Typen definiert werden kann und somit an dieser Stelle darauf verzichtet werden kann.
+Der Grund dafür ist, dass dies bereits über komplexe Typen definiert und somit an dieser Stelle darauf verzichtet werden kann.
 
-Auf der Instanzebene werden Observations mit den Klassen \term{EnumValue} term \term{Observation} abgebildet. 
-Die Klasse \term{EnumValue} spiegelt dabei einen konkreten Enumeration Wert (z. B. Blutgruppe A) wieder, 
-wobei die Zuordnung zur Enumeration über die theType Assoziation erfolgt. Die Klasse \term{Observation} definiert eine konkrete Observation. 
-Sie ist typisiert in einem \term{ObservationType} und hat jeweils eine zu-Eins Assoziation zu einem konkreten Enumeration Wert sowie einem konkreten Objekt.
+Auf der Exemplarebene werden \term{Observations} mit den Klassen \term{EnumValue} und \term{Observation} abgebildet. 
+Die Klasse \term{EnumValue} spiegelt dabei einen konkreten Enumerationswert (z.B. \qq{Blutgruppe A}) wieder, 
+wobei die Zuordnung zur Enumeration über die \term{theType}-Assoziation erfolgt. Die Klasse \term{Observation} definiert eine konkrete Observation. 
+Sie ist typisiert in einem \term{ObservationType} und hat jeweils eine Zu-eins-Assoziation zu einem konkreten Enumerationswert sowie einem konkreten Objekt.
 
 Es ergeben sich die folgenden Konsistenzbedingungen:
 \begin{itemize}
-  \item Enum Objekte dürfen nur gelöscht werden wenn weder EnumValue noch ObservationType Objekte diese referenzieren.
-  \item ObservationType Objekte dürfen nur gelöscht werden, wenn es keine Ausprägungen auf der Instanzebene gibt (Observation).
-  \item Der Name von EnumValue Objekte muss innerhalb des gleichen Typs (Enum) eindeutig sein. Somit soll verhindert werden, dass beispielsweise 2x der Wert \qq{Blutgruppe A} einer Enumeration \qq{Blutgruppe} zugewiesen werden kann.
+  \item \term{Enum}-Objekte dürfen nur gelöscht werden wenn weder \term{EnumValue} noch \term{ObservationType} Objekte diese referenzieren.
+  \item \term{ObservationType}-Objekte dürfen nur gelöscht werden, wenn es keine Ausprägungen auf der Exemplarebene gibt (\term{Observations}).
+  \item Der Name von \term{EnumValue}-Objekten muss innerhalb des selben Typs (\term{Enum}) eindeutig sein. Somit soll verhindert werden, dass beispielsweise zweimal der Wert \qq{Blutgruppe A} einer Enumeration \qq{Blutgruppe} zugewiesen werden kann.
 \end{itemize}
 
-Für die Observation Objekte müssen folgende Bedingungen gelten:
+Für die \term{Observation}-Objekte müssen folgende Bedingungen gelten:
 \begin{equation}\forall o \in Observation: o.theType.enumType = o.enumValue.theType
 \end{equation}
 \begin{equation}\forall o \in Observation: o.theObsObject.type \leq o.theType.theType
 \end{equation}
 
-Für die Erzeugung, das Löschen und die Verwaltung von Observations wurden die folgenden Manager definiert:
+Für die Erzeugung, das Löschen und die Verwaltung von \term{Observations} wurden die folgenden Manager definiert:
 \begin{description}
-\item[EnumerationManager] Erzeugen und Löschen von Enumerations.
-\item[ObsTypeManager] Erzeugen und Löschen von Observation Types.
-\item[ObservationManager] Erzeugen und Löschen von Observations.
-\item[EnumValueManager] Erzeugen und Löschen von Enumeration Werten.
+\item[EnumerationManager] Erzeugen und Löschen von \term{Enumerations}.
+\item[ObsTypeManager] Erzeugen und Löschen von \term{ObservationTypes}.
+\item[ObservationManager] Erzeugen und Löschen von \term{Observations}.
+\item[EnumValueManager] Erzeugen und Löschen von Enumerationswerten.
 \end{description}

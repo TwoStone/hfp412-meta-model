@@ -9,28 +9,28 @@ sowie Messages\footnote{Wie im Folgenden erläutert wird, sind Messages nicht Be
 \img[width=\relWidth{1.0}]{operation/Ausschnitt_Operation.pdf}{Klassendiagramm - Ausschnitt Operation (vereinfacht)}{img_operation}
 \subsubsection{Operationen}
 
-Die Klasse Operation repräsentiert die Abbildung von Operationen in dem erarbeiteten Modell.
+Die Klasse \term{Operation} repräsentiert die Abbildung von Operationen im erarbeiteten Modell.
 Wie im Modell (siehe \refImg{img_operation}) ersichtlich, hat die Oberklasse \term{AbstractOperation} zwei Assoziationen zu \term{Type}. 
 Im Kontext von Operationen ist die Quelle (source) der Typ, welcher die Operation enthält. 
 Das Ziel (target) einer Operation entspricht dem Rückgabetypen.
 Neben Quell- und Zieltypen besitzt eine Operation eine Liste von Formalparametern, welche 
 wiederum über die Klasse \term{Type} typisiert sind.
 
-Die Klasse Operation enthält nur genau zwei Operationen.
-Die Operation \textbf{isStatic()} gibt genau dann true zurück, wenn der Quelltyp dieser Operation der leeren Summe entspricht.
-Zusätzlich zu der Bedingung aus isStatic gilt für die zweite Operation \textbf{isConstant()}, dass die Operation keine Parameter enthalten darf. 
+Die Klasse \term{Operation} enthält nur genau zwei Operationen.
+Die Operation \textbf{isStatic()} gibt genau dann \term{true} zurück, wenn der Quelltyp dieser Operation der leeren Summe entspricht.
+Zusätzlich zu der Bedingung aus \textbf{isStatic()} gilt für die zweite Operation \textbf{isConstant()}, dass die Operation keine Parameter enthalten darf. 
 
 
 \subsubsubsection{OperationManager}
 
-Der OperationManager beinhaltet zwei Listen zur Verwaltung von Operationen und Parametern.
+Der \term{OperationManager} beinhaltet zwei Listen zur Verwaltung von Operationen und Parametern.
 
 \begin{description}
 \item[Operation** operations] Diese Liste enthält alle Operationen, die der Manager verwaltet.
 \item[FormalParameter** formalParameters] Hier werden alle Formalparameter abgelegt, die der Manager verwaltet.
 \end{description}
 
-Um diese Listen verwalten zu können, stellt der Operationmanager 10 transaktionale Operationen bereit.
+Um diese Listen verwalten zu können, stellt der \term{OperationManager} zehn transaktionale Operationen bereit.
 Im Folgenden werden diese Operationen kurz beschrieben, wobei sowohl \textbf{Parameter} als auch \term{Exceptions} durch entsprechende Formatierungen hervorgehoben werden.
 
 \begin{description}
@@ -71,7 +71,7 @@ Mithilfe dieser Operation lassen sich Operationen aus dem System entfernen. Zur 
 \newpage
 \subsubsection{Assoziationen}\label{Operation:Associationen}
 
-Die Klasse Association repräsentiert die Möglichkeit Assoziationen zwischen zwei beliebigen Typen abzubilden.
+Die Klasse \term{Association} repräsentiert die Möglichkeit Assoziationen zwischen zwei beliebigen Typen abzubilden.
 Neben dem Quell- und Zieltypen, kann eine Assoziation an beliebig vielen Hierarchien teilnehmen.
 Wie bei vielen anderen Modellbestandteilen, sind auch die Namen der Assoziation indiziert. Daraus folgt auch, dass es keine gleichnamigen 
 Assoziationen geben darf.
@@ -83,7 +83,7 @@ Die Möglichkeit der Zuweisung von Formalparametern an Assoziationen wird dem An
 
 \subsubsubsection{AssociationManager}
 
-Der AssoziationManager bietet sechs transaktionale Operationen an und beinhaltet zwei Listen, welche er verwaltet.
+Der \term{AssociationManager} bietet sechs transaktionale Operationen an und beinhaltet zwei Listen, welche er verwaltet.
 \begin{description}
 \item[Association ** associations] In dieser Liste werden alle erstellten Assoziationen aufbewahrt und durch entsprechende Operationen verwaltet.
 \item[Hierarchy ** hierarchies] Erstellte Hierarchien werden in dieser Liste abgelegt.
@@ -91,7 +91,7 @@ Der AssoziationManager bietet sechs transaktionale Operationen an und beinhaltet
 Diese beiden Listen werden dem Anwender an der 
 Oberfläche präsentiert. Über entsprechende Operationen kann der Anwender die Elemente dieser Listen verwalten.
 
-Wie schon bei dem OperationManager, werden \textbf{Parameter} und \term{Exceptions} durch entsprechende Formatierungen kenntlich gemacht.
+Wie schon bei dem \term{OperationManager}, werden \textbf{Parameter} und \term{Exceptions} durch entsprechende Formatierungen kenntlich gemacht.
 
 \begin{description}
 \item[createAssociation] Bei Aufruf dieser Operation müssen \textbf{Quell- und Zieltyp} sowie der \textbf{Name} der zu erstellenden Assoziation 
@@ -109,15 +109,15 @@ Sollte es ein oder mehrere Exemplare (Links) zu dieser Assoziation geben oder si
 Insbesondere folgende Gründe führen zum Misserfolg:
 \begin{itemize}
 \item Es exisitiert bereits eine Hierarchie mit diesem Namen. Das hat zur Folge, dass eine \term{DoubleDefinitionException} erzeugt wird.
-\item Es existiert auf der Exemplarebene ein Zyklus. Wie in der Beschreibung zu addAssociation erläutert, ist dieser Umstand für Hierarchien untersagt.
+\item Es existiert auf der Exemplarebene ein Zyklus. Wie in der Beschreibung zu \textbf{addAssociation} erläutert, ist dieser Umstand für Hierarchien untersagt.
  Es resultiert eine \term{CycleException.}
- \item Durch den internen Aufruf von addAssociation, kann es bei dieser Operation außerdem zu einer \term{ConsistencyException} kommen.
+ \item Durch den internen Aufruf von \textbf{addAssociation}, kann es bei dieser Operation außerdem zu einer \term{ConsistencyException} kommen.
 \end{itemize}
 \item[removeHierarchy] Nach erfolgreicher Ausführung dieser Operation, wird die übergebene \textbf{Hierarchie} aus dem System entfernt. 
 Es wird lediglich die Hierarchie entfernt. Die Assoziationen, welche an der gelöschten Hierarchie teilnehmen, bleiben weiterhin bestehen. Durch den Template-Mechanismus von ModelItem kann diese Operation außerdem eine \term{ConsistencyException} erzeugen. Aufgrund der Tatsache, dass Hierarchien in der aktuellen Implementierungsstufe keine abhängigen Objekte haben, kann es nie zu dieser Exception kommen.
 \item[addAssociation] Diese Operation erwartet zum einen die \textbf{Hierarchie} zu der die Assoziation hinzugefügt werden soll und zum anderen die \textbf{Assoziation} selbst.
 Wenn es auf der Exemplarebene keine zyklischen Links zu dieser Assoziation gibt, wird die Assoziation der Hierarchie zugeordnet. Sollte es zyklische Links
-zu dieser Assoziation geben oder die Assoziation ist bereits in dieser Hierarchie, werden entsprechende Exceptions (\term{CycleException,} bzw. \term{ConsistencyException}) 
+zu dieser Assoziation geben oder die Assoziation ist bereits in dieser Hierarchie, werden entsprechende Exceptions (\term{CycleException} bzw. \term{ConsistencyException}) 
 erstellt und die Assoziation wird der Hierarchie nicht zugeordnet.
 \item[removeAssoFrmHier] Zum Entfernen von Assoziationen aus Hierarchien, ist es notwendig dieser Operation sowohl die \textbf{Hierarchie}, als auch die zu entfernende 
 \textbf{Assoziation} anzugeben. Dabei wird lediglich die Assoziation aus der Hierarchie entfernt, die Assoziation an sich bleibt bestehen. 
