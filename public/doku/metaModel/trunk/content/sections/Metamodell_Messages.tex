@@ -1,16 +1,18 @@
 \subsection{Message und Link}\label{Message:Message}
 
-Messages und Links haben eine gemeinsame Oberklasse MessageOrLink (siehe \refImg{img_operation}). 
-In der ersten Ausbaustufe werden lediglich die Links implementiert. Zu den Messages existiert eine rudimentäre
-Implementierung die dem Anwender aber über die Oberfläche nicht bereitgestellt wird, da die 
-Semantik eines Messageexemplars bislang nicht eindeutig geklärt ist.
-Es existiert zum einen die Interpretation, dass Messages Aufrufe von Operationen sind. 
-Eine weitere Interpretationsmöglichkeit ist, dass eine Message die Methode an sich inklusive ihres Inhalts beschreibt. 
+\term{Messages} und \term{Links} haben eine gemeinsame Oberklasse \term{MessageOrLink} (siehe \refImg{img_operation}). 
+In der ersten Ausbaustufe werden lediglich die \term{Links} implementiert. Zu den \term{Messages} existiert eine rudimentäre
+Implementierung die dem Anwender aber über die Oberfläche nicht bereitgestellt wird, da die Semantik eines \term{Message}-Exemplars bislang nicht eindeutig geklärt ist.
+Es existiert zum einen die Interpretation, dass \term{Messages} Aufrufe von Operationen sind. 
+Eine weitere Interpretationsmöglichkeit ist, dass eine \term{Message} die Methode an sich inklusive ihres Inhalts beschreibt. 
 Dazu müsste aber ein domänenspezifische Sprache (DSL) entwickelt und im Modell verwendet werden.
 
-Da Messages in dieser Ausbaustufe nicht enthalten sind, verlieren auch Actualparameter ihre Daseinsberechtigung. Aus diesem Grund werden auch diese nicht implementiert.
+Da \term{Messages} in dieser Ausbaustufe nicht enthalten sind, verlieren auch Actualparameter ihre Daseinsberechtigung. 
+Aus diesem Grund werden auch diese nicht implementiert.
 
-Ein Link ist eine konkrete Ausprägung einer Assoziation. Folglich ist die Erstellung eines Links nur möglich, wenn der zu erstellende Link sich an die aus der Assoziation resultierenden Konsistenzbedingungen hält. Für Links stehen dem Anwender zwei Operationen zur Verfügung.
+Ein \term{Link} ist eine konkrete Ausprägung einer Assoziation. Folglich ist die Erstellung eines \term{Links} nur möglich, 
+wenn der zu erstellende \term{Link} sich an die aus der Assoziation resultierenden Konsistenzbedingungen hält. 
+Für \term{Links} stehen dem Anwender zwei Operationen zur Verfügung.
 
 \begin{description}
 \item[createLink]
@@ -21,8 +23,8 @@ gestattet sind.
 \end{equation} 
 \begin{equation} \forall \, l \in Link: l.target.type.isLessOrEqual(l.type.target)
 \end{equation}
-Desweiteren ist es Assoziationen möglich an mehreren Hierarchien teilzunehmen. Zyklische Assoziationen sind auf der Metaebene möglich, 
-da sich sonst keinerlei Aggregationsbeziehung abbilden ließen.
+Des Weiteren ist es Assoziationen möglich an mehreren Hierarchien teilzunehmen. Zyklische Assoziationen sind auf der Modellebene möglich, 
+da sich sonst keinerlei Aggregationsbeziehungen abbilden lassen.
 Auf der Ebene der Exemplare hingegen, müssen \term{alle Links, die in Assoziation typisiert sind, in jeder Hierarchie an der diese teilnehmen, zyklenfrei sein.}
 Wenn ein Anwender versucht zyklische Links zu erzeugen, wird eine \term{CycleException} erzeugt und der jeweilige Link wird nicht erstellt.
 \item[removeLink]
