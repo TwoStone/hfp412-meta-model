@@ -77,10 +77,16 @@ Die Zusammenhänge zwischen \term{Units} und \term{UnitTypes} sollen an dieser S
 
 \img[width=\relWidth{1}]{quantity/unit_unittypes_objektmodell.pdf}{Objektmodell - Geschwindigkeit und Beschleunigung}{unit_unittypes_objektmodell}
 
-Auf der Typebene gibt es die beiden atomaren UnitTypes \textit{Strecke} und \textit{Zeit}, außerdem zwei CompoundUnitTypes \textit{Geschwindigkeit} und \textit{Beschleunigung}. \textit{Geschwindigkeit} hat zwei Referenzen (RefTypes), eine mit dem Exponent 1 auf \textit{Strecke} und eine mit dem Exponenten -1 auf \textit{Zeit}. \textit{Beschleunigung} hat ebenfalls eine Referenz mit dem Exponenten 1 auf \textit{Strecke}. Hierbei wird dasselbe RefType-Objekt verwendet, welches auch \textit{Geschwindigkeit} nutzt. Außerdem besitzt \textit{Beschleunigung} noch eine Referenz auf \textit{Zeit}. Da diese jedoch den Exponenten -2 hat, wird hierbei ein anderes RefType-Objekt verwendet als bei \textit{Geschwindigkeit}.
+Auf der Typebene gibt es die beiden atomaren \term{UnitTypes} \qq{Strecke} und \qq{Zeit}, 
+außerdem zwei \term{CompoundUnitTypes} \qq{Geschwindigkeit} und \qq{Beschleunigung}. 
+\qq{Geschwindigkeit} hat zwei Referenzen (\term{RefTypes}), eine mit dem Exponent 1 auf \qq{Strecke} und eine mit dem Exponenten -1 auf \qq{Zeit}. 
+\qq{Beschleunigung} hat ebenfalls eine Referenz mit dem Exponenten 1 auf \qq{Strecke}. 
+Hierbei wird dasselbe \term{RefType}-Objekt verwendet, welches auch \qq{Geschwindigkeit} nutzt. 
+Außerdem besitzt \qq{Beschleunigung} noch eine Referenz auf \qq{Zeit}. 
+Da diese jedoch den Exponenten -2 hat, wird hierbei ein anderes \term{RefType}-Objekt verwendet als bei \qq{Geschwindigkeit}.
 
-Auf der Exemplarebene gibt es die atomaren Units $km$ (typisiert in \qq{Strecke}) sowie $h$ und $s$ (typisiert in \qq{Zeit}). 
-Außerdem gibt es die CompoundUnits $\frac{km}{h}$ (typisiert in \qq{Geschwindigkeit}) 
+Auf der Exemplarebene gibt es die atomaren \term{Units} $km$ (typisiert in \qq{Strecke}) sowie $h$ und $s$ (typisiert in \qq{Zeit}). 
+Außerdem gibt es die \term{CompoundUnits} $\frac{km}{h}$ (typisiert in \qq{Geschwindigkeit}) 
 sowie $\frac{km}{s*h}$ (typisiert in \qq{Beschleunigung}). Auf $km$ gibt es eine Referenz mit Exponent 1, 
 welche sowohl von $\frac{km}{h}$ als auch von $\frac{km}{s*h}$ verwendet wird. 
 Die Referenz mit Exponent -1 auf $h$ wird ebenfalls von $\frac{km}{h}$ und $\frac{km}{s*h}$ genutzt. 
