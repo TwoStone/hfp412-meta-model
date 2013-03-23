@@ -40,11 +40,11 @@ In diesem Fall ist der Einheitentyp \qq{Währung} und die beiden zugehörigen Ei
 denn das eine ist eine Währung und das andere eine Streckenangabe. Die Multiplikation und Division hingegen können auch auf unterschiedlichen Einheitentypen geschehen, 
 wodurch dann zusammengesetzte Einheitentypen (\term{CompoundUnitTypes}) wie \qq{Geschwindigkeit ($\frac{Strecke}{Zeit}$)} entstehen.
 
-Zur Verwaltung von \term{UnitTypes} und \term{CompoundUnitTypes} stellt der term{UnitTypeManager} acht transaktionale Operationen bereit. Folgende dieser Operationen sind direkt über die Oberfläche erreichbar:
+Zur Verwaltung von \term{UnitTypes} und \term{CompoundUnitTypes} stellt der \term{UnitTypeManager} acht transaktionale Operationen bereit. Folgende dieser Operationen sind direkt über die Oberfläche erreichbar:
 
 \begin{description}
 \item[createUnitType]
-Diese Operation dient zum Erstellen eines neuen atomaren Einheitentypen. Da jeder Einheitentyp einen eigenen, eindeutigen Namen besitzen muss, wird dieser als Parameter der Operation übergeben. Sollte es schon einen Einheitentyp, egal ob atomar oder zusammengesetzt, mit diesem Namen geben, gibt es eine DoubleDefinitionException.
+Diese Operation dient zum Erstellen eines neuen atomaren Einheitentypen. Da jeder Einheitentyp einen eigenen, eindeutigen Namen besitzen muss, wird dieser als Parameter der Operation übergeben. Sollte es schon einen Einheitentyp, egal ob atomar oder zusammengesetzt, mit diesem Namen geben, gibt es eine \term{DoubleDefinitionException}.
 \item[fetchScalarType]
 Liefert den skalaren Einheitentyp, welcher aus einem zusammengesetzten Einheitentypen ohne Referenzen auf atomare Typen besteht. 
 \item[changeUTName]
@@ -126,7 +126,7 @@ Diese Operation dient zum Umbenennen einer \term{Unit}. Auch hier wird die \term
 Liefert die eine \term{CompoundUnits}, die keine Referenzen zu anderen \term{Units} aufweist.
 \item[addReference]
 Diese Operation kann sowohl auf zusammengesetzten Einheiten, als auch auf atomaren Einheiten angewendet werden. 
-Sie dient zum Erstellen von \term{CompoundUnits}. Analog zur \term{createUnit()}-Methode wird hier ein Name benötigt. Die entsprechende neue Referenz zur ausgewählten \term{Unit} wird durch einen Exponenten definiert. Die \term{DoubleDefinitionException} wird auch hier geworfen, falls es zu Namenskonflikten kommt.
+Sie dient zum Erstellen von \term{CompoundUnits}. Analog zur \term{createUnit}-Methode wird hier ein Name benötigt. Die entsprechende neue Referenz zur ausgewählten \term{Unit} wird durch einen Exponenten definiert. Die \term{DoubleDefinitionException} wird auch hier geworfen, falls es zu Namenskonflikten kommt.
 \item[setConversion]
 Mittels dieser Operation lässt sich für eine \term{Unit} eine \term{Conversion} zur aktuellen \term{DefaultUnit} des entsprechenden \term{UnitTypes} angeben. Die Umrechnungsrate besteht immer aus einem Faktor und einer Konstante. Die \term{Conversions} werden im Kapitel \ref{ConversionsKapitel} näher erläutert.
 \end{description}
@@ -137,7 +137,7 @@ Folgende Operationen sind für die interne Verarbeitung relevant und können nic
 \item[getExistingCU]
 Hier wird anhand einer Liste von vorhandenen Referenzen eine CompoundUnit ermittelt, welche durch genau diese Referenzen definiert ist. Sollte diese Unit noch nicht existieren, wird null zurückgeliefert. Diese Operation dient zum vermeiden von doppelt angelegten \term{CompoundUnits}.
 \item[fetchCU]
-Diese Operation ist ähnlich der \term{getExistingCU()}-Operation. Jedoch wird hierbei die \term{CompoundUnit} angelegt, falls sie noch nicht existiert. Die Angabe eines Namens ist erforderlich, falls eine neue \term{CompoundUnit} zustandekommen sollte. Auch hier wird entsprechend eine \term{DoubleDefinitionException} geworfen, falls eine \term{Unit} mit dem gewählten Namen bereits existiert.
+Diese Operation ist ähnlich der \term{getExistingCU}-Operation. Jedoch wird hierbei die \term{CompoundUnit} angelegt, falls sie noch nicht existiert. Die Angabe eines Namens ist erforderlich, falls eine neue \term{CompoundUnit} zustandekommen sollte. Auch hier wird entsprechend eine \term{DoubleDefinitionException} geworfen, falls eine \term{Unit} mit dem gewählten Namen bereits existiert.
 \item[fetchReference]
 Mithilfe dieser Operation kann ein Referenzexemplar mit einem gewissen Exponenten auf eine bestimmte \term{Unit} ermittelt werden. Falls dieses Exemplar noch nicht existierte, wird es erzeugt. Das dient zum Vermeiden von doppelt angelegten Referenzen.
 \end{description}
@@ -147,7 +147,7 @@ Mithilfe dieser Operation kann ein Referenzexemplar mit einem gewissen Exponente
 
 \img[width=\relWidth{0.7}]{quantity/Ausschnitt_Conversion.pdf}{Klassendiagramm - Ausschnitt Conversion}{klassendiagramm_conversion}
 
-Eine \term{Conversion}, also die Umrechnung von einer \term{Unit} zur entsprechenden \term{Default"-Unit} eines \term{UnitTypes}, kann über zwei Wege zustandekommen bzw. verändert werden: Zum einen über die \term{setConversion()}-Operation und zum anderen über die \term{setDefaultUnit()}-Operation.
+Eine \term{Conversion}, also die Umrechnung von einer \term{Unit} zur entsprechenden \term{Default"-Unit} eines \term{UnitTypes}, kann über zwei Wege zustandekommen bzw. verändert werden: Zum einen über die \term{setConversion}-Operation und zum anderen über die \term{setDefaultUnit}-Operation.
 \term{Conversions} sind immer lineare Funktionen, damit eine Umkehrbarkeit gewährleistet ist. Jede \term{Conversion} enthält einen Faktor und eine Konstante vom Typ \term{Fraction} (siehe \refImg{klassendiagramm_conversion}), um der linearen Funktion $m*x+b$ gerecht zu werden. 
 Die Angabe von $m$ und $b$ hat folgende Semantik: 
 \[y (DefaultUnit) = m * unitWert + b\]
@@ -157,8 +157,8 @@ Am Beispiel von Fahrenheit und Celsius lautet für Celsius die \term{Conversion}
 
 \[Wert_{^\circ F} = Wert_{^\circ C} * \frac{9}{5} + 32\]
 
-Mittels \term{setConversion()} wird eine gesetzte \term{Conversion} für eine \term{Unit} überschrieben.
-Bei \term{setDefaultUnit()} wird eine Umrechnung von vorhandenen \term{Conversions} notwendig, da diese in Abhängigkeit zu einer veralteten \term{DefaultUnit} angegeben wurden. 
+Mittels \term{setConversion} wird eine gesetzte \term{Conversion} für eine \term{Unit} überschrieben.
+Bei \term{setDefaultUnit} wird eine Umrechnung von vorhandenen \term{Conversions} notwendig, da diese in Abhängigkeit zu einer veralteten \term{DefaultUnit} angegeben wurden. 
 Das betrifft alle Umrechnungen für \term{Units} zum selben \term{UnitType} wie die \term{DefaultUnit}.
 
 \refImg{setDefaultUnitGrafik} beschreibt die Umrechnungen, falls sich eine \term{DefaultUnit} ändert.

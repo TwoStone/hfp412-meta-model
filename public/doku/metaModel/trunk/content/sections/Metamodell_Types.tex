@@ -78,7 +78,7 @@ In der \emph{initializeOnCreation}-Operation des atomaren Typen wird, falls er �
 sein \emph{SingletonObject} erstellt. In der \emph{prepareForDeletion}-Operation wird - falls vorhanden - das \emph{SingeletonObject}
 mit gelöscht. Die \emph{changeSingleton}-Operation verwaltet ebenfalls \emph{SingletonObject}s. In den entsprechenden Operationen im 
 \term{TypeManager} werden \term{SingeltonObject}s beim \term{ObjectManager} registriert bzw. entfernt.
-Der Zeitpunkt des Erzeugens von term{SingeltonObject}s ist so früh gewählt um eine 1:1 Beziehnung zwischen Typ und \emph{SingeletonObject} zu garantieren.
+Der Zeitpunkt des Erzeugens von \term{SingeltonObjects} ist so früh gewählt um eine 1:1 Beziehnung zwischen Typ und \emph{SingeletonObject} zu garantieren.
 Damit wird zum Ausdruck gebracht, dass Typ und \emph{SingeletonObject} ein Objekt sind. Diese Interpretation führt zu einigen Einschränkungen beim Ändern des Singleton-Attributs, 
 sodass es für eine spätere Ausbaustufe geplant ist, die Semantik der Singleton-Eigenschaft zu \emph{höchstens einem Objekt zum Typen} zu ändern. Dies ermöglicht dann 
 auch einen nicht-Singleton Typen mit einem Objekt nachträglich als Singleton zu klassifizieren ohne das Objekt vorher löschen zu müssen.  
