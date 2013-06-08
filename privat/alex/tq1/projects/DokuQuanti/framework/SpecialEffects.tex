@@ -1,0 +1,73 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             WARNUNG            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% In dieser Datei wirds richtig freakig.
+% Also wenn du hier was ändern willst,
+% dann solltest du wirklich Ahnung haben.
+% Ansonsten lass lieber die Finger davon ;)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       Quellenverzeichnis       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\renewenvironment{thebibliography}[1]
+     {\subsection*{\refname}%
+      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       Anhangsverzeichnis       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\newcommand*{\maintoc}{ % Hauptinhaltsverzeichnis
+  %\begingroup
+    %\@fileswfalse % Kein neues Verzeichnis öffnen
+    %\renewcommand*{\appendixattoc}{ % Trennanweisung im Inhaltsverzeichnis
+      %\value{tocdepth}=-10000 % lokal tocdepth auf sehr kleinen Wert setzen
+    %}%
+    \tableofcontents % Verzeichnis ausgeben
+  %\endgroup
+}
+
+\newcommand*{\appendixtoc}{ % Anhangsinhaltsverzeichnis
+  \begingroup
+    \edef\@alltocdepth{\the\value{tocdepth}} % tocdepth merken
+    \setcounter{tocdepth}{-10000} % Keine Verzeichniseinträge
+    \renewcommand*{\contentsname}{Anhangsverzeichnis} % Verzeichnisname ändern
+    \renewcommand*{\appendixattoc}{ % Trennanweisung im Inhaltsverzeichnis
+      \setcounter{tocdepth}{\@alltocdepth} % tocdepth wiederherstellen
+    }%
+    %\tableofcontents % Verzeichnis ausgeben
+    \setcounter{tocdepth}{\@alltocdepth} % tocdepth wiederherstellen
+  \endgroup
+}
+\newcommand*{\appendixattoc}{ % Trennanweisung im Inhaltsverzeichnis
+}
+\g@addto@macro\appendix{ % \appendix erweitern
+  \newpage % Neue Seite
+ \phantomsection % Sprungmarke korrigieren
+  \addcontentsline{toc}{section}{\appendixname} % Eintrag ins Hauptverzeichnis
+  \addtocontents{toc}{\protect\appendixattoc} % Trennanweisung in die toc-Datei
+}
+\makeatother
