@@ -1,0 +1,69 @@
+\section{Protokoll vom 18.05.2013}
+
+\subsection{Wiederholung vom letzten Mal}
+
+\TODO[Bild Grundgesamtheit und Stichprobe vgl. Skript 4.3]
+
+\begin{description}
+	\item[Kapitel 5] Konfidenzintervalle (KI) -- Schätzverfahren
+	\begin{description}
+		\item[Kapitel 5.1] Punktschätzer
+		\item[Kapitel 5.2] Intervallschätzung für Parameter $\Theta$
+	\end{description}
+\end{description}
+
+KI für $\mu$: SI für $\hat{\Theta}$ $(\Theta \pm \epsilon)$ $\to$ KI für $\Theta$ $(\hat{\Theta}  \pm \epsilon)$
+
+---
+
+\begin{description}
+	\item[1. Fall] $X$ normalverteilt, $\sigma^2$ bekannt $\Rightarrow$ KI für $\mu$:
+	\[\bar{x} \pm z_{1-\frac{\alpha}{2}} * \frac{\sigma}{\sqrt{n}}\]
+	Das Konfidenzniveau beträgt hierbei $= 1 - \alpha$
+	
+	\item[2. Fall] $n \geq 30$, $\sigma^2$ bekannt $\Rightarrow$ KI für $\mu$:
+	\[\bar{x} \pm z_{1-\frac{\alpha}{2}} * \frac{\sigma}{\sqrt{n}}\]
+	Das Konfidenzniveau beträgt hierbei $\approx 1 - \alpha$
+	
+	\item[3. Fall] $X$ normalverteilt, $\sigma^2$ unbekannt $\Rightarrow$ KI für $\mu$:
+	\[\bar{x} \pm t_{n-1; 1-\frac{\alpha}{2}} * \frac{s}{\sqrt{n}}\]
+	
+	\item[4. Fall] $n \geq 100$, $\sigma^2$ unbekannt $\Rightarrow$ KI für $\mu$:
+	\[\bar{x} \pm z_{1-\frac{\alpha}{2}} * \frac{s}{\sqrt{n}}\]
+\end{description}
+
+
+\subsection{\qq{Los gehts}}
+
+\begin{itemize}
+  \item Spalten $nm$ bis $rooms$ kopieren
+  \item Beispiel: Durchschnittsmiete für eine Zwei-Zimmer-Wohnung
+  \item Filter auf $rooms$: Nur Zeilen mit Wert $2$ anzeigen
+  \item Jetzt Werte der Spalten $nm$ bis $rooms$ kopieren und darunter einfügen (sonst rechnet er trotzdem mit den
+  ausgeblendeten Zeilen)
+  \item Um $n$ zu erhalten, benutzen wir folgende Formel: \[=Z\ddot{A}HLEN(A2058:A2772)\]
+  Alternativ hätten wir die Formel \[=Z\ddot{A}HLENWENN(A2:A2054;2)\] benutzen können, ohne die Werte kopieren zu müssen
+  \item Um die Standardabweichung $s$ zu errechnen, benutzen wir die folgende Formel: \[=STABW.S(A2058:A2772)\]
+  \item Um $z_{1-\frac{\alpha}{2}}$ zu berechnen, geben wir ein: \[=NORM.S.INV(0.975)\]
+  \item Die Durchschnittsmiete $dm$ berechnen wir mit der Formel \[=MITTELWERT(A2058:A2772)\]
+  \item Die Mietober- und Mietuntergrenze können wir nun folgendermaßen berechnen: \[dm \pm z_{1 -
+  \frac{\alpha}{2}} * \frac{s}{\sqrt{n}}\]
+  und bekommen das Intervall $[474,59; 499]$ heraus
+  \item \TODO[Was berechnen wir hier? \qq{Abweichung Konfidenintervall}] \[=KONFIDENZ.NORM(\alpha; s; n)\]
+  \[=KONFIDENZ.NORM(0,05; F2061; F2059)\]
+  \[= 12,21~\widehat{=}~\epsilon
+  ~\widehat{=}~z_{1-\frac{\alpha}{2}} * \frac{s}{\sqrt{n}}
+  ~\widehat{=}~z_{1-\frac{\alpha}{2}} * \frac{\sigma}{\sqrt{n}}\]
+  Somit können wir die vorherige Formel auch wie folgt aufschreiben:
+  \[dm \pm \epsilon = \{Obergrenze; Untergrenze\}\]
+  \item Konfidenz für T-Verteilung \[=KONFIDENZ.T(\alpha; s; n)\]
+  \[=KONFIDENZ.T(0,05; F2061; F2059)\]
+  \item Björn stellt die Frage: \qq{Wie kommt man auf die Grenzen für das Konfidenzintervall?}
+  \[=T.INV(0,975; n-1)\]
+  \emph{Hinweis: Bis zur Version 2007 kann Excel nur die Konfidenz mit der Normalverteilung errechnen. Der Befehl
+  KONFIDENZ $\widehat{=}$ KONFIDENZ.NORM in Excel 2007.}
+\end{itemize}
+
+---
+
+ 
