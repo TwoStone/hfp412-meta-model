@@ -162,35 +162,38 @@ werden:
 
 \subsection{Messzahlen / Kennzahlen}
 
-Der Modus oder häufigster Wert
-Diese Maßzahl ist für alle Daten (mindestens nominal) anwendbar.
-Wie der Name schon sagt ist der MODUS (oder MODALWERT) für ordinale oder
-diskrete Merkmale die Ausprägung mit der höchster Häufigkeit.
-Bei stetigen Merkmalen wird die Mitte der Klasse mit der größten
-Häufigkeitsdichte als Modus bezeichnet. Man spricht in diesem Fall auch vom
-DICHTESTEN WERT.
-Idealerweise hat man nur ein Modus (UNIMODALE Verteilung). Haben zwei
-(oder mehr) Ausprägungen die gleiche höchste Häufigkeit/Dichte spricht man
-von einer BI- (oder MULTI-)MODALEN Verteilung.
-Sehr aussagefähig ist diese Maßzahl naturgegeben nicht!
+Der Modus oder Modalwert ist bei einer empirischen Häufigkeitsverteilung der häufigste Wert. Diese
+Maßzahl ist für alle Daten (mindestens nominal) anwendbar. Der Modus ist für ordinale oder diskrete
+Merkmale die Ausprägung mit der höchsten Häufigkeit. Bei stetigen Merkmalen wird die Mitte der
+Klasse mit der größten Häufigkeitsdichte als Modus bezeichnet, wobei die Bezeichnung \qq{dichtester
+Wert} verwendet wird. Es wird außerdem unterschieden zwischen unimodaler, bi- oder multimodaler
+Verteilung, welche die Anzahl der Maxima bestimmt (sehr aussagefähig ist diese Maßzahl nicht).
+\begin{description}
+  \item[unimodal:] Nur ein Maximum. Im folgenden Beispiel ist die häufigste Ausprägung 4 (8
+  Beobachtungen) und somit der Modus \qq{4}. \[\{1,1,1,1,2,2,2,3,4,4,4,4,4,4,4,4,5,5\}\]
+  \item[bimodal:] Genau zwei Maxima. Das folgende Beispiel besitzt zwei Modi, \qq{2}
+  und \qq{5}, je mit der Häufigkeit 2. \[\{1,2,2,3,4,5,5,6,7\}\]
+  \item[multimodal:] Mehr als zwei Maxima. Beispielsweise \qq{2}, \qq{5} und
+  \qq{6}. \[\{1,2,2,3,4,5,5,6,6,7\}\]
+\end{description} 
+ 
 
 
 \section{Ordinalskala}
-\todo[Umformulieren]
-(2) Ordinalskala: Diese ordnet die Untersuchungsobjekte nach ihrem Rang (z.B. Rating A ist besser als Rating B), sagt jedoch nichts über das Ausmaß der Unterschiede aus. Zulässige mathematische Operationen bei ordinalskalierten Daten sind bspw. die Berechnung des Modus und des Medians.
-(vgl. \refLibInternet{gabler:skalenniveau}).
+Die Ordinalskala ordnet die Untersuchungsobjekte nach ihrem Rang (z.B. Rating A ist besser als
+Rating B), sagt jedoch nichts über das Ausmaß der Unterschiede aus. Zulässige mathematische
+Operationen bei ordinalskalierten Daten sind beispielsweise die Berechnung des Modus und des
+Medians (vgl. \refLibInternet{gabler:skalenniveau}).
 
-Kurzerklärung:
-Möglichkeit der Reihung verschiedener Messgrößen.
-
-Ausführliche Erklärung:
-Rangskala; Skala, auf der alternative Ausprägungen neben Verschiedenheit auch eine Rangordnung zum
-Ausdruck bringen, z.B. Schulnote oder Intelligenzquotient (vgl.
+Genauer dient die Ordinalskala der Charakterisierung von (Zufalls-)Variablen mit Ausprägungen,
+zwischen denen eine natürliche Rangordnung besteht.
+Ordinal-Variablen enthalten also Nominal-Informationen und auch Informationen über die Reihung (Ordnung) der Variablenwerte. 
+Beobachtungen auf einem Merkmal mit ordinalem Messniveau können hinsichtlich dieses Merkmals gruppiert und ihrer Größe nach geordnet werden.
+Werden die Merkmalsausprägungen (Kategorien) mit (Rang-)Zahlen (Ordnungsziffern) bezeichnet, werden diese so gewählt, 
+dass die Rangfolge der Zahlen der Rangfolge der Ausprägungen entspricht. D.h. eine Beobachtung bzw. ein Objekt mit einem höheren Rang besitzt 
+auch eine höhere Ausprägung auf dem betrachteten Merkmal als eine Beobachtung mit einem niedrigeren Rang. 
+Über die Größe des Merkmalsunterschieds zwischen den Objekten, d.h. die Abstände zwischen den Rangplätzen, lässt sich aber keine Aussage machen(vgl.
 \refLibInternet{gabler:ordinalskala}).
-
-\todo[Umformulieren]
-Die Ordinalskala dient in der Statistik der Charakterisierung von (Zufalls-)Variablen mit Ausprägungen, zwischen denen eine natürliche Rangordnung besteht.[1] Ordinal-Variablen enthalten also Nominal-Informationen und auch Informationen über die Reihung (Ordnung) der Variablenwerte. Beobachtungen auf einem Merkmal mit ordinalem Messniveau können hinsichtlich dieses Merkmals gruppiert und ihrer Größe nach geordnet werden.
-Werden die Merkmalsausprägungen (Kategorien) mit (Rang-)Zahlen (Ordnungsziffern) bezeichnet, werden diese so gewählt, dass die Rangfolge der Zahlen der Rangfolge der Ausprägungen entspricht. D. h. eine Beobachtung bzw. ein Objekt mit einem höheren Rang besitzt auch eine höhere Ausprägung auf dem betrachteten Merkmal als eine Beobachtung mit einem niedrigeren Rang. Über die Größe des Merkmalsunterschieds zwischen den Objekten, d. h. die Abstände zwischen den Rangplätzen, lässt sich aber keine Aussage machen.
 
 
 Zusätzlich zu den Bedingungen zur Konstruktion einer Nominalskala erfordert die Konstruktion einer Ordinalskala die Eigenschaft der Trichotomie (Dreiteilung)\footnote{Diese Eigenschaft gilt in jeder total geordneten Menge.}:
@@ -203,7 +206,7 @@ Zusätzlich zu den Bedingungen zur Konstruktion einer Nominalskala erfordert die
 		\end{itemize} 
 \end{description}
 
-Nachfolgende Tabelle enthält Beispiele für ordinalskalierte Merkmale (vgl.
+Nachfolgende Auflistung enthält Beispiele für ordinalskalierte Merkmale (vgl.
 \refLibInternet{wiki:ordinalskala}).
 \begin{description}
   \item[Zufriedenheit mit einem Produkt:] sehr zufrieden > eher zufrieden > eher unzufrieden > sehr unzufrieden
@@ -251,6 +254,7 @@ Wohnbest) festgestellt wurde. Diese müssen zunächst zusammengeführt werden, d
 Es ergibt sich die folgende Häufigkeitstabelle:
 Häufigkeit der Wohnqualität bestimmen\ldots
 
+=HÄUFIGKEIT(wohngut;E3)
 
 
 \begin{table}[h]
@@ -271,29 +275,31 @@ $\Sigma$ & \textbf{2053}
 \end{table}% 
 
 
-Mit wohngut\ldots
-xi	0	1	2
-ni	1205	803	45
-ni/n	58,7%	39,1%	2,2%
-Si	1205	2008	2053
-Fi	58,7%	97,8%	100,0%
-
-
-xi	0	1	2
-Fi	59%	98%	100%
 
 
 \subsection{Darstellung als Diagramm}
 Darstellung der Häufigkeit (Balken- / Säulendiagramm)
+\img[width=\relWidth{0.8}]{darstderhaeufigkeit.pdf}{Darstellung der
+Häufigkeit ($x_i,n_i$)}{img_darthaeufigkeit}
+
+
+
+\img[width=\relWidth{0.8}]{treppenfunktion.pdf}{Darstellung der kum. Häufigkeiten, Vert.-Funktion:
+Treppenfunktion ($x_i,F_i$)}{img_treppenfunktion}
+
+ 
 
 Darstellung der kumulierten Häufigkeit (Verteilfunktion: Treppenfunktion)
 
 \subsection{Messzahlen / Kennzahlen}
+Wie bereits im letzten Abschnitt angesprochen, ist der Modus bereits ab einem nominalen Skalenniveau
+bestimmbar. Aus diesem Grund wird an dieser Stelle auf den Modus nicht weiter eingegangen. Ab einem
+ordinalen Skalenniveau können Prozentpunkte (Quantile) bestimmt werden.
 
-Perzentile - Prozentpunkte (Quantile) als Lagemaße
-Prozentpunkte oder Quantile xw
-Ab einem mindestens ordinalen (nicht nominalen) Skalenniveau können
-Prozentpunkte allgemein bestimmt werden. Dies kann aus der Rangwertreihe
+ als Lagemaße Prozentpunkte oder Quantile 
+
+
+. Dies kann aus der Rangwertreihe
 exakt oder aus einer Graphik oder einer Häufigkeitstabelle annähernd gemacht
 werden.
 1. Verfahren für Einzeldaten (Rangwertreihe)
