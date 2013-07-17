@@ -3,7 +3,7 @@ Die Menge aller für die Unterschung relevanten Merkmalsträger wird in den stat
 Wissenschaften als \qq{Grundgesamtheit} bezeichnet. Die Menge aller in der Untersuchung auftretenden
 Merkmalsträger wird \qq{Stichprobe} genannt. Die Gesamtheit aller Daten (Merkmale, Merkmalsträger
 und Merkmalsausprägungen) aus der Stichprobe wird als Beobachtungsdaten oder \qq{Urliste} bezeichnet
-(siehe dazu \refImg{img_grundgesamtheitStichprobe}) (vgl. \refLibLiteratur{GasnierStat}).
+(siehe dazu \refImg{img_grundgesamtheitStichprobe}) (vgl. \refLibLiteratur[S.~11~ff.]{GasnierStat}).
 
 \img[width=\relWidth{0.9}]{grundgesamtheitStichprobe.pdf}{Zusammenhang zwischen Grundgesamtheit und
 Stichprobe}{img_grundgesamtheitStichprobe}
@@ -17,9 +17,8 @@ ist. Es muss beispielsweise bedachte werden, dass eine Person die Antwort unter 
 verweigern kann. Aus diesem Grund wird meist eine Kategorie \qq{missing value} hinzugefügt, welche
 dann in der Ausprägung z.B. den Wert \qq{0} erhält. 
 
-Die Datenmatrix setzt sich (mithilfe der Codierung) somit aus aus Merkmalsträgern (X-Achse) und
-den zugehörigen Ausprägungen des Merkmals (Y-Achse) zusammen (siehe
-\refImg{img_merkmaleAuspraegungen}).
+Die Datenmatrix setzt sich (mithilfe der Codierung) somit aus aus Merkmalsträgern (X-Achse) und den 
+zugehörigen Ausprägungen des Merkmals (Y-Achse) zusammen (siehe \refImg{img_merkmaleAuspraegungen}).
 
 \img[width=\relWidth{0.5}]{merkmaleAuspraegungen.pdf}{Datenmatrix - Merkmale und
 Ausprägungen}{img_merkmaleAuspraegungen}
@@ -27,8 +26,7 @@ Ausprägungen}{img_merkmaleAuspraegungen}
 Genauer besteht die Datenmatrix aus $m$ Merkmalsträgern: $j=1,...,m$ als Laufindex für den
 $j$-ten Merkmalsträger. Als $X$ wird das allgemeine Merkmal bezeichnet.
 
-$x_j$ bezeichnet die Ausprägung des Merkmals $X$ für den $j$-ten
-Merkmalsträger. 
+$x_j$ bezeichnet die Ausprägung des Merkmals $X$ für den $j$-ten Merkmalsträger. 
 
 Die Datenreihe oder \qq{Urliste} (eine Spalte der Datenmatrix) für ein Merkmal $X$
 lautet dann: \[x_1, x_2 ,..., x_j ,..., x_{m-1},x_m\]
@@ -80,14 +78,14 @@ So entsteht eine Häufigkeitstabelle.
 Im Folgenden wird mit den Daten des Mietspiegels eine Häufigkeitstabelle bzgl. der Bezirke erstellt.
 
 \begin{enumerate}
-  \item Die Spalte \qq{bez} (Bezirke) kopieren, in ein neues Arbeitsblatt einfügen und anschließend
-  sortieren. Damit wird eine geordnete Urliste erzeugt.
+  \item Die Spalte \qq{bez} (Bezirke) kopieren, in ein neues Arbeitsblatt einfügen, anschließend
+  sortieren und benennen. Damit wird eine geordnete Urliste erzeugt.
   \item Ein Blick auf den Filter verrät, dass 25 verschiedene Bezirke existieren.
   \item Drei Spalten mit den Überschriften $x_i$ (vorhandene Ausprägungen), $n_i$ (Häufigkeiten) und
   $\frac{n_i}{n}$ (Relative Häufigkeit) versehen.
   \item Die Spalte $x_i$ mit Zahlen von 1 bis 25 versehen.
   \item Die Spalte $n_i$ wird mit der Excel Funktion $\text{ZÄHLENWENN}$ versehen.
-  \[=\text{ZÄHLENWENN}(UrlisteBeginn:UrlisteEnde;Eintrag x_i)\] Beispielsweise sieht der
+  \[=\text{ZÄHLENWENN}(bez;x_i)\] Beispielsweise sieht der
   Eintrag für die Zelle $E4$ wie folgt aus (wobei die Urliste von $A2$ bis $A2054$ geht und
   die Spalte $D$ die Überschrift $x_i$ trägt): \[=\text{ZÄHLENWENN}(A2:A2054;D4)=43\]
   \item Die genannte Excel Formel wird für jede der 25 Ausprägungen verwendet, wobei Beginn und Ende
@@ -95,16 +93,16 @@ Im Folgenden wird mit den Daten des Mietspiegels eine Häufigkeitstabelle bzgl. 
   \item Die Spalte der Ausprägungen wird anschließend summiert und ergibt den Wert $2053$, welcher
   die Anzahl der Datensätze aus der Urliste ist.
   \item Durch das Teilen des Wertes der Häufigkeiten ($n_i$) durch die soeben
-  ausgerechnete Summe, errechnet sich die relative Häufigkeit. \[=Eintrag n_i/SummeHaeufigkeiten\]
+  ausgerechnete Summe, errechnet sich die relative Häufigkeit. \[=n_i/SummeHaeufigkeiten\]
   Beispielsweise sieht der Eintrag für die Zelle $F4$ wie folgt aus (wobei in $E29$ die Summe der
-  Häufigkeiten steht): \[=E4/E29\]
+  Häufigkeiten steht): \[=E4/E29=2,1\%\]
 \end{enumerate} 
-
+ 
 \newpage
 Es ergibt sich die folgende Häufigkeitstabelle:
 
 \begin{table}[h]
-\caption{Häufigkeitstabelle für Bezirke} \label{tab:haeufigkeitenBez}
+\caption{Häufigkeitstabelle für Bezirke}\label{tab:haeufigkeitenBez}
 \begin{center}
 \begin{tabular}{p{1.25cm}p{1.25cm}p{1.25cm}}
 \hline \hline
@@ -160,24 +158,35 @@ werden:
 \img[width=\relWidth{0.8}]{nominalTorte.pdf}{Kreisdiagramm}{img_nominalTorte}
 
 
-\subsection{Messzahlen / Kennzahlen}
+\subsection{Maßzahlen / Kennzahlen}
+In der deskriptiven Statistik existieren verschiedene Kennzahlen, welche es ermöglichen, sich mit wenigen quantitativen Daten 
+bereits eine gute Übersicht über Verteilungen, Mittelwerte, etc. zu verschaffen. 
+Es gibt unter anderem die folgenden Kennzahlen, welche zu den Lagemaßen gehören und Auskunft über das Zentrum einer Verteilung geben (vgl. \refLibInternet{wiki:kennzahl}).
+\begin{itemize}
+  	\item Arithmetisches Mittel
+	\item Median
+	\item Modalwert
+\end{itemize}
 
 Der Modus oder Modalwert ist bei einer empirischen Häufigkeitsverteilung der häufigste Wert. Diese
 Maßzahl ist für alle Daten (mindestens nominal) anwendbar. Der Modus ist für ordinale oder diskrete
 Merkmale die Ausprägung mit der höchsten Häufigkeit. Bei stetigen Merkmalen wird die Mitte der
 Klasse mit der größten Häufigkeitsdichte als Modus bezeichnet, wobei die Bezeichnung \qq{dichtester
 Wert} verwendet wird. Es wird außerdem unterschieden zwischen unimodaler, bi- oder multimodaler
-Verteilung, welche die Anzahl der Maxima bestimmt (sehr aussagefähig ist diese Maßzahl nicht).
+Verteilung, welche die Anzahl der Maxima bestimmt. Die Aussagekraft dieser Messzahl ist jedoch eher schwach 
+(vgl. \refLibLiteratur[S.~18~ff.]{GasnierStat}).
 \begin{description}
-  \item[unimodal:] Nur ein Maximum. Im folgenden Beispiel ist die häufigste Ausprägung 4 (8
+  \item[Unimodal:] Nur ein Maximum. Im folgenden Beispiel ist die häufigste Ausprägung 4 (8
   Beobachtungen) und somit der Modus \qq{4}. \[\{1,1,1,1,2,2,2,3,4,4,4,4,4,4,4,4,5,5\}\]
-  \item[bimodal:] Genau zwei Maxima. Das folgende Beispiel besitzt zwei Modi, \qq{2}
+  \item[Bimodal:] Genau zwei Maxima. Das folgende Beispiel besitzt zwei Modi, \qq{2}
   und \qq{5}, je mit der Häufigkeit 2. \[\{1,2,2,3,4,5,5,6,7\}\]
-  \item[multimodal:] Mehr als zwei Maxima. Beispielsweise \qq{2}, \qq{5} und
+  \item[Multimodal:] Mehr als zwei Maxima. Beispielsweise \qq{2}, \qq{5} und
   \qq{6}. \[\{1,2,2,3,4,5,5,6,6,7\}\]
 \end{description} 
- 
 
+Neben der Methode des \qq{scharfen Hinsehens} gibt es in Microsoft Excel die Funktion $\text{MODALWERT}$ um den Modus auszurechnen.
+Angewendet auf das Beispiel (siehe Tabelle \ref{tab:haeufigkeitenBez}) ergibt sich somit: \[=\text{MODALWERT}(bez)=9=8,6\%\]
+In Worten: Der Bezirk \qq{9} kommt am häufigsten vor (nämlich 177 mal, was 8,6\% entspricht). Da dieser Wert das einzige Maximum ist, trifft außerdem die Eigenschaft der \qq{Unimodalität} zu.
 
 \section{Ordinalskala}
 Die Ordinalskala ordnet die Untersuchungsobjekte nach ihrem Rang (z.B. Rating A ist besser als
@@ -192,8 +201,8 @@ Beobachtungen auf einem Merkmal mit ordinalem Messniveau können hinsichtlich di
 Werden die Merkmalsausprägungen (Kategorien) mit (Rang-)Zahlen (Ordnungsziffern) bezeichnet, werden diese so gewählt, 
 dass die Rangfolge der Zahlen der Rangfolge der Ausprägungen entspricht. D.h. eine Beobachtung bzw. ein Objekt mit einem höheren Rang besitzt 
 auch eine höhere Ausprägung auf dem betrachteten Merkmal als eine Beobachtung mit einem niedrigeren Rang. 
-Über die Größe des Merkmalsunterschieds zwischen den Objekten, d.h. die Abstände zwischen den Rangplätzen, lässt sich aber keine Aussage machen(vgl.
-\refLibInternet{gabler:ordinalskala}).
+Über die Größe des Merkmalsunterschieds zwischen den Objekten, d.h. die Abstände zwischen den Rangplätzen, 
+lässt sich aber keine Aussage machen (vgl. \refLibInternet{gabler:ordinalskala}).
 
 
 Zusätzlich zu den Bedingungen zur Konstruktion einer Nominalskala erfordert die Konstruktion einer Ordinalskala die Eigenschaft der Trichotomie (Dreiteilung)\footnote{Diese Eigenschaft gilt in jeder total geordneten Menge.}:
@@ -206,8 +215,7 @@ Zusätzlich zu den Bedingungen zur Konstruktion einer Nominalskala erfordert die
 		\end{itemize} 
 \end{description}
 
-Nachfolgende Auflistung enthält Beispiele für ordinalskalierte Merkmale (vgl.
-\refLibInternet{wiki:ordinalskala}).
+Nachfolgende Auflistung enthält Beispiele für ordinalskalierte Merkmale (vgl. \refLibInternet{wiki:ordinalskala}).
 \begin{description}
   \item[Zufriedenheit mit einem Produkt:] sehr zufrieden > eher zufrieden > eher unzufrieden > sehr unzufrieden
   \item[Schulische Leistung:] sehr gut > gut > befriedigend > ausreichend > mangelhaft > ungenügend
@@ -228,34 +236,40 @@ erstellt. Zuvor stellen wir jedoch fest, dass die Wohnqualität über zwei Merkm
 Wohnbest) festgestellt wurde. Diese müssen zunächst zusammengeführt werden, damit sich die Codierungen nicht
 überdecken (Wohngut(2) = Wohnbest(1)). 
 
+Neben den Spalten für die vorhandenen Ausprägungen, Häufigkeiten und relative Häufigkeit werden außerdem die kumulierte Häufigkeit $S_i$ und die kumulierte relative Häufigkeit $F_i$ mit hinzugefügt.
+\begin{description}
+\item[Kumulierte Häufigkeit oder Summenhäufigkeit ($S_i$):] Summe der Häufigkeiten der Merkmalsausprägungen von der kleinsten Ausprägung bis hin zu der jeweils betrachteten Schranke (vgl. \refLibInternet{wiki:kumhaeufigkeit}).
+\item[Kumulierte relative Häufigkeit ($F_i$):] Gibt den Anteil der Elemente einer Menge wieder, bei denen eine bestimmte Merkmalsausprägung vorliegt. Sie wird berechnet, indem die absolute Häufigkeit eines Merkmals in einer zugrundeliegenden Menge durch die Anzahl der Objekte in dieser Menge geteilt wird (vgl. \refLibInternet{wiki:relhaeufigkeit}).
+\end{description}
+
+Es sind die folgenden Schritte in Microsoft Excel notwendig:
+
 \begin{enumerate}
-  \item Die neue zusammengeführte Spalte \qq{wohnquali} in ein neues Arbeitsblatt kopieren und
-  sortieren.
+  \item Die neue zusammengeführte Spalte \qq{wohnquali} in ein neues Arbeitsblatt kopieren,
+  sortieren und benennen.
   \item Ein Blick auf den Filter verrät, dass 3 verschiedene Wohnqualitäten existieren.
   \item Fünf Spalten mit den Überschriften $x_i$ (vorhandene Ausprägungen), $n_i$
-  (Häufigkeiten), $\frac{n_i}{n}$ (Relative Häurigkeit), $S_i$ (Kumulierte Häufigkeit) und $F_i$
+  (Häufigkeiten), $\frac{n_i}{n}$ (relative Häufigkeit), $S_i$ (kumulierte Häufigkeit) und $F_i$
   (Kumulierte relative Häufigkeit) versehen.
   \item Die Spalte $x_i$ mit Zahlen von 0 bis 2 versehen.
   \item Die Spalte $n_i$ wird mit der Excel Funktion $\text{ZÄHLENWENN}$ versehen.
-  \[=\text{ZÄHLENWENN}(UrlisteBeginn:UrlisteEnde;Eintrag x_i)\] Beispielsweise sieht der
+  \[=\text{ZÄHLENWENN}(wohnquali;x_i)\] Beispielsweise sieht der
   Eintrag für die Zelle $E4$ wie folgt aus (wobei die Urliste von $A2$ bis $A2054$ geht und
-  die Spalte $D$ die Überschrift $x_i$ trägt): \[=\text{ZÄHLENWENN}(A2:A2054;D4)=43\]
-  \item Die genannte Excel Formel wird für jede der 25 Ausprägungen verwendet, wobei Beginn und Ende
-  der Urliste gleich bleiben und sich nur der Eintrag $x_i$ verändert.
+  die Spalte $D$ die Überschrift $x_i$ trägt): \[=\text{ZÄHLENWENN}(A2:A2054;D4)=1205\]
+  \item Die genannte Excel Formel wird für jede der 3 Ausprägungen verwendet, wobei sich nur der Eintrag $x_i$ verändert.
   \item Die Spalte der Ausprägungen wird anschließend summiert und ergibt den Wert $2053$, welcher
   die Anzahl der Datensätze aus der Urliste ist.
   \item Durch das Teilen des Wertes der Häufigkeiten ($n_i$) durch die soeben
-  ausgerechnete Summe, errechnet sich die relative Häufigkeit. \[=Eintrag n_i/SummeHaeufigkeiten\]
+  ausgerechnete Summe, errechnet sich die relative Häufigkeit. \[=n_i/SummeHaeufigkeiten\]
   Beispielsweise sieht der Eintrag für die Zelle $F4$ wie folgt aus (wobei in $E29$ die Summe der
-  Häufigkeiten steht): \[=E4/E29\]
+  Häufigkeiten steht): \[=E4/E29=58,7\%\]
+  \item Die Excel Funktion $\text{HÄUFIGKEIT}$ errechnet die kumulierte Häufigkeit. 
+  Für die Zelle $G4$ sieht der Eintrag beispielsweise wie folgt aus: \[=\text{HÄUFIGKEIT}(wohngut;E4)=1205\] 
+  \item Die kumulierte relative Häufigkeit errechnet sich dementsprechend durch die Division von kumulierter Häufigkeit durch die Summe. 
+  Für die Zelle $H4$ sieht der Eintrag beispielsweise wie folgt aus: \[=G4/E29=58,7\%\]
 \end{enumerate} 
-
-\newpage
+ 
 Es ergibt sich die folgende Häufigkeitstabelle:
-Häufigkeit der Wohnqualität bestimmen\ldots
-
-=HÄUFIGKEIT(wohngut;E3)
-
 
 \begin{table}[h]
 \caption{Häufigkeitstabelle für Wohnqualität} \label{tab:excel_bsp}
@@ -274,69 +288,57 @@ $\Sigma$ & \textbf{2053}
 \label{default}
 \end{table}% 
 
+Auf die relative Summenhäugigkeit bezogen, kann man die folgenden Aussagen treffen:
+\begin{enumerate}
+\item Anteil der Werte, die mehr als $X_i$ haben: $1-F_i$
+\item Anteil der Werte, die mindestens $X_i$ haben: $1-F_{i-1}$
+\end{enumerate}
 
+Betrachten wir bezüglich dieser beiden Aussagen den Wert $F_1=97,8\%$. 
+Dieser sagt zunächst aus, dass höchstens 97,8\% der Wohnungen eine gute Qualität aufweisen.
+Außerdem sagt der Wert in Verbindung mit Aussage 1 aus, dass $1-97,8\%=2,2\%$ eine bessere Qualität als \qq{gut} aufweisen 
+und in Verbindung mit Aussage 2, dass mindestens $1-F_0=1-58,7\%=41,3\%$ der Wohnungen eine gute Qualität besitzen.
 
-
+ 
 \subsection{Darstellung als Diagramm}
-Darstellung der Häufigkeit (Balken- / Säulendiagramm)
+Die Häufigkeiten sowie die kumulierten Häufigkeiten lassen sich als Balkendiagramm darstellen (siehe \refImg{img_darthaeufigkeit} und \refImg{img_treppenfunktion}).
+Bei den kumulierten Häufigkeiten wird die Verteilfunktion in Form einer sogenannten Treppenfunktion dargestellt (Balkendiagramm ohne Zwischenräume).
 \img[width=\relWidth{0.8}]{darstderhaeufigkeit.pdf}{Darstellung der
-Häufigkeit ($x_i,n_i$)}{img_darthaeufigkeit}
-
+Häufigkeiten ($x_i,n_i$)}{img_darthaeufigkeit}
 
 
 \img[width=\relWidth{0.8}]{treppenfunktion.pdf}{Darstellung der kum. Häufigkeiten, Vert.-Funktion:
 Treppenfunktion ($x_i,F_i$)}{img_treppenfunktion}
 
- 
 
-Darstellung der kumulierten Häufigkeit (Verteilfunktion: Treppenfunktion)
 
-\subsection{Messzahlen / Kennzahlen}
+\subsection{Maßzahlen / Kennzahlen}
 Wie bereits im letzten Abschnitt angesprochen, ist der Modus bereits ab einem nominalen Skalenniveau
-bestimmbar. Aus diesem Grund wird an dieser Stelle auf den Modus nicht weiter eingegangen. Ab einem
-ordinalen Skalenniveau können Prozentpunkte (Quantile) bestimmt werden.
+bestimmbar. Aus diesem Grund wird auf diesen Wert an dieser Stelle nicht weiter eingegangen. Ab einem
+ordinalen Skalenniveau können Prozentpunkte (Quantile) allgemein bestimmt werden (vgl. \refLibLiteratur[S.~18~ff.]{GasnierStat}). 
 
- als Lagemaße Prozentpunkte oder Quantile 
+Ein $p$-Quantil ist ein Lagemaß in der Statistik, wobei $p$ eine reelle Zahl zwischen 0 und 1 ist. 
+Das $p$-Quantil ist ein Wert einer Variablen oder Zufallsvariablen, der die Menge aller Merkmalswerte (die Verteilung) in zwei Abschnitte unterteilt: 
+Links vom p-Quantil liegt der Anteil $p \equiv p \cdot 100\,\%$ aller Beobachtungswerte oder der Gesamtzahl der Zufallswerte oder der Fläche unter der Verteilungskurve; 
+rechts davon liegt der jeweilige restliche Anteil $1-p \equiv (1-p) \cdot 100\,\%$. Die Zahl p heißt auch der Unterschreitungsanteil (vgl. \refLibInternet{wiki:quantil}).
 
+Das meist verwendete Quantil ist der Median oder auch Zentralwert, bei welchem $p=0,5$ ist (bezeichnet als $X_{0,5}$) und 
+welcher dadurch die Beobachtungswerte halbiert. Bei geradem $n$ ist der Median = Durchschnitt aus den beiden mittleren benachbarten Werten. 
+Bei ungeraden Werten der mittlere Punkt. Man muß garantieren, dass $F(x0,5) \leq 0,5$ (vgl. \refLibLiteratur[S.~19~ff.]{GasnierStat}).
 
-. Dies kann aus der Rangwertreihe
-exakt oder aus einer Graphik oder einer Häufigkeitstabelle annähernd gemacht
-werden.
-1. Verfahren für Einzeldaten (Rangwertreihe)
-Def.: Man definiert PROZENTPUNKTE Xw als jeweils erste Punte der
-Rangwertreihe, die den Anteil w hinter sich haben. Spezielle Prozentpunkte
-sind der MEDIAN (W=0,5) und die QUARTILE (w=0,25 oder w=0,75).
-Praktisch: Man multipliziert den Stichprobenumfang mit dem Anteil w. Das
-Ergebnis ergibt die Stelle des Prozentpunktes in der Rangwertreihe und dieser
-wird abgelesen. Spezielle Prozentpunkte werden in den nächsten Abschnitten
-vorgestellt.
+Der Median für das Beispiel bzgl. der Wohnqualität errechnet sich wie folgt:
+\[
+	n=2053
+	X_{0,5}=X_{1027}
+\]
 
-Median	0	 = 1027. Wert der geordneten Reihe			
-					
-unteres Quartil	0	d.h.  25% der Wohnungen haben die Standard-Qualität			
-oberes Quartil	1	d.h.  75% der Wohnungen haben höchstens die gute Qualität			
+Der Median (n ist ungerade) ist der 1027. Wert der geordneten Reihe, also $0$. 
 
+Neben dem Median ($X_{0,5}$) gibt es noch weitere Quantile bzw. Quartile (lat. \qq{Viertelwerte}). Das untere (Q1, $X_{0,25}$) und das obere Quartil (Q3, $X_{0,75}$).
+Der Median entspricht hierbei dem Q2. Bezogen auf das Beispiel ist das untere Quartil ist gleich \qq{0}, d.h. 25\% der Wohnungen besitzen eine Standard-Qualität. Das obere Quartil ist gleich \qq{1}, d.h. 
+75\% der Wohnungen besitzen höchstens eine gute Qualität.
 
-
-
-Median
-2. Der Median oder Zentralwert
-Def.: der MEDIAN oder Zentralwert oder 50%-PUNKT X0,5 = P0,5 ist der Punkt,
-der die Beobachtungswerte halbiert. Bei geradem n ist der Median =
-Durchschnitt aus den beiden mittleren benachbarten Werten. Bei ungeraden
-Werten der mittlere Punkt. Man muß garantieren, daß F(x0,5) kleiner gleich 0,5.
- 
-Quartile
-Die Quartile
-Def.: Das UNTERE ODER ERSTE QUARTIL kommt nach den untersten oder ersten
-25% der Werte.
-x0,25 = Q P der Werte d unterhalb 1 = 0,25 =:25% sin , 75%derWerte sind oberhalb
-Ist n durch 4 teilbar, dann muß man wie beim Median den Durchschnitt aus
-dem n/4-ten Wert und sein Nachbarn berechnen. Ist dies nicht der Fall (z.B.
-n=15, 15/4=3,75, dann ist Q1=der 4. Wert)
-Def.: Das 2. oder mittlere Quartil ist = dem Median,
-Def.: und das DRITTE ODER OBERE QUARTIL trennt die untersten 75% Werte
-von den obersten 25%. 0,75 3 0,75 x = Q = P . Ist n durch 4 teilbar, , dann muß man
-wie beim Median den Durchschnitt aus dem 3n/4-ten Wert und sein Nachbarn
-berechnen. Ist dies nicht der Fall (z.B. n=15, 3*15/4=11,25, dann ist Q3=der
-12. Wert) dann ist Q3 der nächste Wert.
+Microsoft Excel für die angesprochenen Maßzahlen auch entsprechende Funktionen an. 
+Um den Median zu berechnen, gibt es die Funktion $\text{MEDIAN}$, welche für unser Beispiel mit \qq{wohnquali} befüllt wird. 
+Außerdem bietet Excel für die Berechnung der jeweiligen Quartile die Funktion $\text{QUARTILE}$, welche neben der Matrix (wohnquali) einen Parameter
+für das gewünschte Quartil bereithält. Hier kann schnell festgestellt werden, dass $\text{MEDIAN(wohnquali)}=\text{QUARTILE(wohnquali;2)}$ ist. 
