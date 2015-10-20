@@ -1,0 +1,230 @@
+\subsection{Quantity}
+Die Klasse \term{Quantity} dient zur Angabe von einheitenbehafteten Werten. Jede Einheit ist dabei in einem Einheitentyp typisiert (siehe \refImg{klassendiagramm_quantity_complete}). Bei den Quantitäten gibt es atomare, die nur einen Wert mit einer Einheit besitzen, und zusammengesetzte, die einen Vektor atomarer Quantitäten mit unterschiedlichen Einheiten darstellen, wobei die Einheiten alle im selben Einheitentyp typisiert sein müssen.
+
+\img[width=\relWidth{1}]{quantity/Ausschnitt_Quantity_Komplett.pdf}{Klassendiagramm - Ausschnitt Quantity}{klassendiagramm_quantity_complete}
+
+\subsubsection{UnitTypeManager}
+
+Der \term{UnitTypeManager} beinhaltet zwei auf der Oberfläche sichtbare und zwei nicht sichtbare Listen zur Verwaltung von Einheiten (\term{Units}) und Einheitentypen (\term{UnitTypes}).
+
+\begin{description}
+\item[AbsUnitType** unitTypes] Diese Liste enthält alle Einheitentypen, die der Manager verwaltet.
+\item[AbsUnit ** units] Hier werden alle Einheiten abgelegt, die der Manager verwaltet.
+\item[ReferenceType** refTypes] Diese Liste enthält alle Referenztypen, die der Manager verwaltet. Sie ist nicht sichtbar und dient nur zur internen Verarbeitung von zusammengesetzten Einheitentypen (\term{CompoundUnitTypes}).
+\item[Reference** refs] In dieser Liste werden alle Referenzen abgelegt, die der Manager verwaltet. Sie ist nicht sichtbar und dient nur zur internen Verarbeitung von zusammengesetzten Einheiten (\term{CompoundUnits}).
+\end{description}
+
+\subsubsection{FractionManager}\label{FractionManager}
+
+Der \term{FractionManager} verwaltet alle Brüche so, dass jede Rationale Zahl als Bruch nur einmal durchgekürzt (als \emph{Repräsentant}) vorkommt. Die Brüche werden durch ihre textuelle Repräsentation indiziert. Da dieser Index sehr schnell sehr groß werden kann, wird in der nächsten Ausbaustufe eine performantere Form der Indizierung gesucht.
+
+Über die Operation \textit{getFraction(key:String):Fraction} wird auf einen vorhandenen Bruch zugegriffen, wobei der Schlüssel die \textit{toString-Ausgabe} des Bruchs ist.
+Durch die Operation \textit{addFraction} wird ein neuer Bruch erzeugt und über den \term{FractionManager} verwaltet, wenn er erstmalig benötigt wird. Die Operation \textit{invertSign(f:Fraction):Fraction} sucht das Negativkomplement zu der Zahl und erstellt es, falls nötig.
+
+GOJA unterstützt keine dreistelligen Assoziationen, bei denen der Wert eines Wert-Schlüssel-Paares ein in GOJA primitiver Typ ist. Deshalb wurde die Klasse \textit{FractionWrapper} erstellt, die den Wert des Bruchs umhüllt. Somit wird das Problem umgangen: \texttt{FractionWrapper **String** managedFractions;}
+
+
+\subsubsection{QuantityManager}\label{QuantityManager}
+
+Der \term{QuantityManager} verwaltet die Zugriffe auf Quantitäten und ist die Schnittstelle zum Erstellen neuer Exemplare.
+Zudem wird der \term{FractionManager} als zentrale Fassade für das arithmetische und logische Operieren auf Quantitäten verwendet (siehe dazu Abschnitt \ref{Berechnungen}).
+
+Beim Erstellen einer atomaren Quantität referenziert die \textit{amount}-Assoziation ein \term{Fraction}-Objekt aus dem \term{FractionManager}. 
+Wird beim Anlegen der Quantität festgestellt, dass es diesen Bruch noch nicht gibt,
+wird er neu erstellt und in die Collection der verwalteten Brüche im FractionManager eingefügt.
+
+\subsubsection{UnitTypes}
+\img[width=\relWidth{0.7}]{quantity/Ausschnitt_Unit.pdf}{Klassendiagramm - Ausschnitt Unit}{klassendiagramm_unit}
+Die Einheitentypen (\term{UnitTypes}, siehe auch \refImg{klassendiagramm_unit}) geben an, welche verschiedenen Einheiten fachlich zusammengehören. Beispielsweise sind Dollar und Euro beides Währungen und können damit zusammengerechnet werden. 
+In diesem Fall ist der Einheitentyp \qq{Währung} und die beiden zugehörigen Einheiten sind \qq{Dollar} und \qq{Euro}. Bei \qq{Euro} und \qq{Kilometer} hingegen macht es wenig Sinn, diese zu addieren oder zu subtrahieren, 
+denn das eine ist eine Währung und das andere eine Streckenangabe. Die Multiplikation und Division hingegen können auch auf unterschiedlichen Einheitentypen geschehen, 
+wodurch dann zusammengesetzte Einheitentypen (\term{CompoundUnitTypes}) wie \qq{Geschwindigkeit ($\frac{Strecke}{Zeit}$)} entstehen.
+
+Zur Verwaltung von \term{UnitTypes} und \term{CompoundUnitTypes} stellt der \term{UnitTypeManager} acht transaktionale Operationen bereit. Folgende dieser Operationen sind direkt über die Oberfläche erreichbar:
+
+\begin{description}
+\item[createUnitType]
+Diese Operation dient zum Erstellen eines neuen atomaren Einheitentypen. Da jeder Einheitentyp einen eigenen, eindeutigen Namen besitzen muss, wird dieser als Parameter der Operation übergeben. Sollte es schon einen Einheitentyp, egal ob atomar oder zusammengesetzt, mit diesem Namen geben, gibt es eine \term{DoubleDefinitionException}.
+\item[fetchScalarType]
+Liefert den skalaren Einheitentyp, welcher aus einem zusammengesetzten Einheitentypen ohne Referenzen auf atomare Typen besteht. 
+\item[changeUTName]
+Mit dieser Operation kann der Name eines Einheitentypen geändert werden. Ebenso wie beim Neuerstellen, gibt es auch hier eine \term{DoubleDefinitionException}, wenn schon ein Einheitentyp mit diesem Namen existiert.
+\item[addReferenceType]
+Mit dieser Operation kann einem Einheitentypen, egal ob zusammengesetzt oder atomar, eine Referenz auf einen atomaren Einheitentypen hinzugefügt werden. Hierdurch entsteht dann ein neuer zusammengesetzter Einheitentyp. Zusätzlich zu dem zu referenzierenden Einheitentypen muss noch der Exponent der Referenz und der Name des neu entstehenden zusammengesetzten Einheitentypen übergeben werden. Wie bei den anderen beiden Methoden gilt auch hier: ist der Name schon vorhanden, gibt es eine \term{DoubleDefinitionException}. Existiert schon ein Einheitentyp mit genau denselben Referenzen, wird kein neuer Einheitentyp erstellt, sondern der vorhandene zurückgegeben.
+\item[setDefaultUnit]
+Diese Methode weist einem atomaren Einheitentypen eine Standardeinheit zu, die für Umrechnungen in andere Einheiten benötigt wird. Die Umrechnungen werden im Abschnitt \ref{ConversionsKapitel} genauer erläutert.
+\end{description}
+
+Folgende Operationen sind für die interne Verarbeitung relevant und können nicht über die Oberfläche aufgerufen werden:
+
+\begin{description}
+\item[getExistingCUT]
+Diese Operation ermittelt anhand einer Liste von Referenzen, ob schon ein zusammengesetzter Einheitentyp mit genau diesen Referenzen existiert, und, wenn vorhanden, wird er zurückgegeben. 
+\item[fetchCUT]
+Diese Methode prüft zunächst anhand einer Liste von Referenzen, ob schon ein Einheitentyp mit diesen existiert (dazu wird \term{getExistingCUT} verwendet) und legt, wenn nicht vorhanden, diesen neu an. Anschließend wird der Einheitentyp, der durch die übergebenen Referenzen definiert ist, zurückgegeben. Dafür muss auch ein Name übergeben werden, der jedoch nur beim Neu erstellen Verwendung findet. Auch hier gilt: Ist der Name schon vorhanden, gibt es eine \term{DoubleDefinitionException}. Diese Methode dient der Vermeidung von doppelt angelegten Einheitentypen.
+\item[fetchReferenceType]
+Diese Operation ermittelt, ob es schon eine Referenz auf einen Einheitentyp mit einem bestimmten Exponenten gibt. Wenn ja, wird sie zurückgegeben, wenn nicht, wird eine neue erstellt. Diese Methode dient der Vermeidung von doppelt angelegten Referenzen auf Einheitentypen.
+\end{description}
+
+
+\subsubsection{Units}
+Fachlich gesehen können Einheiten (\term{Units}) von Quantitäten angenommen werden und sind in Einheitentypen typisiert (siehe \refImg{klassendiagramm_unit}).
+Dabei wird zwischen atomaren Einheiten (z.~B. Meter $m$) und zusammengesetzten Einheiten (z.~B. Kilometer pro Stunde $\frac{km}{h}$) unterschieden.
+
+\subsubsubsection{Objektmodell}
+
+Die Zusammenhänge zwischen \term{Units} und \term{UnitTypes} sollen an dieser Stelle anhand eines beispielhaften Objektmodells in \refImg{unit_unittypes_objektmodell} verdeutlicht werden.
+
+\img[width=\relWidth{1}]{quantity/unit_unittypes_objektmodell.pdf}{Objektmodell - Geschwindigkeit und Beschleunigung}{unit_unittypes_objektmodell}
+
+Auf der Typebene gibt es die beiden atomaren \term{UnitTypes} \qq{Strecke} und \qq{Zeit}, 
+außerdem zwei \term{CompoundUnitTypes} \qq{Geschwindigkeit} und \qq{Beschleunigung}. 
+\qq{Geschwindigkeit} hat zwei Referenzen (\term{RefTypes}), eine mit dem Exponent 1 auf \qq{Strecke} und eine mit dem Exponenten -1 auf \qq{Zeit}. 
+\qq{Beschleunigung} hat ebenfalls eine Referenz mit dem Exponenten 1 auf \qq{Strecke}. 
+Hierbei wird dasselbe \term{RefType}-Objekt verwendet, welches auch \qq{Geschwindigkeit} nutzt. 
+Außerdem besitzt \qq{Beschleunigung} noch eine Referenz auf \qq{Zeit}. 
+Da diese jedoch den Exponenten -2 hat, wird hierbei ein anderes \term{RefType}-Objekt verwendet als bei \qq{Geschwindigkeit}.
+
+Auf der Exemplarebene gibt es die atomaren \term{Units} $km$ (typisiert in \qq{Strecke}) sowie $h$ und $s$ (typisiert in \qq{Zeit}). 
+Außerdem gibt es die \term{CompoundUnits} $\frac{km}{h}$ (typisiert in \qq{Geschwindigkeit}) 
+sowie $\frac{km}{s*h}$ (typisiert in \qq{Beschleunigung}). Auf $km$ gibt es eine Referenz mit Exponent 1, 
+welche sowohl von $\frac{km}{h}$ als auch von $\frac{km}{s*h}$ verwendet wird. 
+Die Referenz mit Exponent -1 auf $h$ wird ebenfalls von $\frac{km}{h}$ und $\frac{km}{s*h}$ genutzt. 
+Außerdem geht von $\frac{km}{s*h}$ aus noch eine Referenz mit Exponenten -1 auf $s$. 
+Somit gibt es auf der Exemplarebene von der Einheit \qq{Beschleunigung} zwei Referenzen auf \qq{Zeit}-Einheiten. 
+Beim Summieren der Exponenten wird dann der auf der Typebene geforderte Exponent -2 geliefert.
+
+\newpage
+\subsubsubsection{Konsistenzbedingungen}
+
+Folgende Konsistenzbedingungen stellen sicher, dass sich Einheiten und Einheitentypen konsistent zueinander verhalten:
+
+\begin{equation} \forall ut \in UnitType : ut.defaultUnit.type = ut \end{equation}
+
+\begin{equation} \forall cut \in CompUnitType, r_1, r_2 \in cut.refs : r_1.ref = r_2.ref \Rightarrow r_1 = r_2 \end{equation}
+
+\begin{equation} \forall r \in RefType : r.exponent \ne 0 \end{equation}
+
+\begin{equation} \forall r \in Ref : r.exponent \ne 0 \end{equation}
+
+\begin{equation} 
+\begin{split}
+\forall cu \in CompUnit: \forall rt \in cu.types.refs:\\
+ut \in rt.ref \Rightarrow rt.exp = \sum_{s \in \bigcup \{ x \in cu.refs | x.ref.type = ut \}} s.exp 
+\end{split}
+\end{equation}
+
+ 
+\begin{equation} \forall cu \in CompUnit :
+\forall u \in cu.refs.ref \exists ut \in cu.type.refs.ref : u.type = ut \end{equation}
+
+\subsubsubsection{Verwalten von Units}
+
+Für die Verwaltung von \term{Units} und \term{CompoundUnits} stellt der \term{UnitTypeManager} acht transaktionale Operationen bereit.
+Folgende dieser Operationen sind direkt über die Oberfläche erreichbar:
+
+\begin{description}
+\item[createUnit]
+Diese Operation dient zum Erstellen einer neuen \term{Unit}. Da jede Unit fachlich in einem \term{UnitType} typisiert werden und einen Namen haben muss, können dieser Methode diese Werte entsprechend übergeben werden. Eine \term{DoubleDefinitionException} wird geworfen, wenn eine \term{Unit} mit dem gewählten Namen bereits existiert.
+\item[changeUName]
+Diese Operation dient zum Umbenennen einer \term{Unit}. Auch hier wird die \term{DoubleDefinitionException} im doppelten Namensfall geworfen.
+\item[fetchScalar]
+Liefert die eine \term{CompoundUnits}, die keine Referenzen zu anderen \term{Units} aufweist.
+\item[addReference]
+Diese Operation kann sowohl auf zusammengesetzten Einheiten, als auch auf atomaren Einheiten angewendet werden. 
+Sie dient zum Erstellen von \term{CompoundUnits}. Analog zur \term{createUnit}-Methode wird hier ein Name benötigt. Die entsprechende neue Referenz zur ausgewählten \term{Unit} wird durch einen Exponenten definiert. Die \term{DoubleDefinitionException} wird auch hier geworfen, falls es zu Namenskonflikten kommt.
+\item[setConversion]
+Mittels dieser Operation lässt sich für eine \term{Unit} eine \term{Conversion} zur aktuellen \term{DefaultUnit} des entsprechenden \term{UnitTypes} angeben. Die Umrechnungsrate besteht immer aus einem Faktor und einer Konstante. Die \term{Conversions} werden im Kapitel \ref{ConversionsKapitel} näher erläutert.
+\end{description}
+
+Folgende Operationen sind für die interne Verarbeitung relevant und können nicht über die Oberfläche aufgerufen werden:
+\begin{description}
+
+\item[getExistingCU]
+Hier wird anhand einer Liste von vorhandenen Referenzen eine CompoundUnit ermittelt, welche durch genau diese Referenzen definiert ist. Sollte diese Unit noch nicht existieren, wird null zurückgeliefert. Diese Operation dient zum vermeiden von doppelt angelegten \term{CompoundUnits}.
+\item[fetchCU]
+Diese Operation ist ähnlich der \term{getExistingCU}-Operation. Jedoch wird hierbei die \term{CompoundUnit} angelegt, falls sie noch nicht existiert. Die Angabe eines Namens ist erforderlich, falls eine neue \term{CompoundUnit} zustandekommen sollte. Auch hier wird entsprechend eine \term{DoubleDefinitionException} geworfen, falls eine \term{Unit} mit dem gewählten Namen bereits existiert.
+\item[fetchReference]
+Mithilfe dieser Operation kann ein Referenzexemplar mit einem gewissen Exponenten auf eine bestimmte \term{Unit} ermittelt werden. Falls dieses Exemplar noch nicht existierte, wird es erzeugt. Das dient zum Vermeiden von doppelt angelegten Referenzen.
+\end{description}
+
+\newpage
+\subsubsubsection{Conversions}\label{ConversionsKapitel} 
+
+\img[width=\relWidth{0.7}]{quantity/Ausschnitt_Conversion.pdf}{Klassendiagramm - Ausschnitt Conversion}{klassendiagramm_conversion}
+
+Eine \term{Conversion}, also die Umrechnung von einer \term{Unit} zur entsprechenden \term{Default"-Unit} eines \term{UnitTypes}, kann über zwei Wege zustandekommen bzw. verändert werden: Zum einen über die \term{setConversion}-Operation und zum anderen über die \term{setDefaultUnit}-Operation.
+\term{Conversions} sind immer lineare Funktionen, damit eine Umkehrbarkeit gewährleistet ist. Jede \term{Conversion} enthält einen Faktor und eine Konstante vom Typ \term{Fraction} (siehe \refImg{klassendiagramm_conversion}), um der linearen Funktion $m*x+b$ gerecht zu werden. 
+Die Angabe von $m$ und $b$ hat folgende Semantik: 
+\[y (DefaultUnit) = m * unitWert + b\]
+
+
+Am Beispiel von Fahrenheit und Celsius lautet für Celsius die \term{Conversion} folgendermaßen, wenn Fahrenheit die \term{DefaultUnit} darstellt:
+
+\[Wert_{^\circ F} = Wert_{^\circ C} * \frac{9}{5} + 32\]
+
+Mittels \term{setConversion} wird eine gesetzte \term{Conversion} für eine \term{Unit} überschrieben.
+Bei \term{setDefaultUnit} wird eine Umrechnung von vorhandenen \term{Conversions} notwendig, da diese in Abhängigkeit zu einer veralteten \term{DefaultUnit} angegeben wurden. 
+Das betrifft alle Umrechnungen für \term{Units} zum selben \term{UnitType} wie die \term{DefaultUnit}.
+
+\refImg{setDefaultUnitGrafik} beschreibt die Umrechnungen, falls sich eine \term{DefaultUnit} ändert.
+\img[width=\relWidth{0.8}]{quantity/setDefaultUnit.png}{Umrechnung beim Ändern einer DefaultUnit}{setDefaultUnitGrafik}
+Im gezeigten Beispiel gibt es drei Einheiten $a$, $b$ und $c$, wobei zunächst $a$ die \term{DefaultUnit} zum gemeinsamen \term{UnitType} darstellt (oberer Bereich). Die \term{DefaultUnit} kann nur den Umrechnungsfaktor $1$ haben, da die Funktion immer umkehrbar ist ($1a=1a$). 
+
+Für den unteren Bereich der Abbildung wird dann die \term{DefaultUnit} auf $b$ gesetzt. Die jeweils neuen \term{Conversions} ergeben sich, indem die jeweilige Funktion der \term{Unit} mit der noch aktuellen Funktion der neuen \term{DefaultUnit} (also $b$) gleichgesetzt wird und mittels Äquivalenzumformung zur neuen \term{Default"-Unit} hin umgestellt wird (rechter Bereich). Für die neue \term{DefaultUnit} ist der Umrechnungsfaktor wieder $1$.
+
+Die entsprechende Konsistenzbedingung für diesen Fall lautet wie folgt:
+
+\begin{equation} 
+\begin{split}
+\forall ut \in UnitType : \forall f \in ut.defaultUnit.from^{-1}.myFunction: \\
+f.factor = 1 \wedge f.constant = 0 
+\end{split}
+\end{equation} 
+
+\subsubsection{Quantitäten}\label{Quantitaeten}
+
+\subsubsubsection{Einfache und zusammengesetzte Quantitäten}
+
+Quantitäten können sowohl atomar als auch zusammengesetzt sein.
+Dies wird definiert durch die \textit{parts}-Assoziation zwischen \term{CompoundQuantity} und \term{Quantity}. 
+Dabei können zusammengesetzte Quantitäten als Vektoren aufgefasst werden, deren Elemente einfache Quantitäten sind. 
+In einem Vektor dürfen nur solche Quantiäten enthalten sein, die mit demselben \term{UnitType} assoziiert sind. 
+
+\subsubsubsection{Berechnungen und Vergleiche}\label{Berechnungen}
+
+\img[width=\relWidth{1}]{quantity/Ausschnitt_Quantity.pdf}{Klassendiagramm - Ausschnitt Quantitäten und Berechnungen}{quantity_and_calc}
+
+Die Addition, Subtraktion, Division und Multiplikation sind als Grundrechenarten (\term{BasicCalculation}) im Klassenmodell (siehe \refImg{quantity_and_calc}) dargestellt. 
+Es wird zwischen zwei Grundrechenarten unterschieden, welche die Referenzen der Einheit verändern und solchen, welche dies nicht tun. 
+
+Beispielsweise ergibt die Addition zweier Längenangaben (z.~B. Meter) wieder eine Längenangabe. 
+Eine solche Rechnung wird als \emph{einheitstypbewahrend} bezeichnet. Im Klassenmodell ist diese Generalisierung als die Klasse \textit{UnitImutabCalc} zu erkennen. 
+Im Gegensatz dazu ergibt z.B. die Multiplikation zweier Längenangaben eine Flächenangabe (z.~B. Quadratmeter). 
+Diese Rechnungen wird als \emph{einheitstypverändernd} bezeichnet. Im Klassenmodell ist diese als \textit{UnitMutabCalc} zu sehen. 
+Diese Implementierung besitzt Ansätze eines \emph{Kommando-Entwurfsmusters}.
+
+\newpage
+\subsubsubsection{Berechnungslogik}
+
+Bei der Ausführung von zweistelligen Operationen auf Exemplaren einer abstrakten Quantität (\term{AbsQuantity}) treten abhängig vom jeweiligen Typ der Quantität die folgenden drei Fälle auf:
+\begin{enumerate}
+\item \textit{op(vektor, vektor)}
+\item \textit{op(vektor, element)}
+\item \textit{op(element, element)}
+\end{enumerate}
+
+Die Methode der Operation \textit{calculate} der Klasse \textit{BasicCalculation} ermittelt mithilfe von \term{Visitoren} die auszuführende Logik und ruft nach dem Template-Entwurfsmuster die entsprechende Methode auf, 
+die in der zweiten Stufe der Klassenhierarchie in \textit{UnitImutabCalc} und \textit{UnitMutabCalc} implementiert werden.
+\begin{itemize}
+\item \textit{calc1Compound1Atomar}
+\item \textit{calcAtomar}
+\item \textit{calcComp}
+\end{itemize}
+
+Das Rechnen mit zusammengesetzten Quantitäten folgt den allgemeinen Gesetzen der Vektorrechnung. Die Addition und Subtraktion funktioniert nur mit \term{einheitstypgleichen} Quantitäten. Dagegen funktioniert die Multiplikation und Division mit allen Quantitäten, vorausgesetzt, es wird eine \term{Zieleinheit} bzw. ein \term{Zieleinheitstyp} gefunden. Ist dies nicht der Fall, wird eine \term{Ausnahme} ausgelöst. 
+
+Die Signatur der Klasse 
+\textit{UnitMutabCalc} ist bereits darauf vorbereitet, automatisch Einheiten und Typen zu generieren, sollte noch keine Zieleinheit als \term{Unit-Stammsatz} angelegt sein. Zum Zeitpunkt der Fertigstellung dieser Dokumentation ist dieser Automatismus noch nicht implementiert. Es soll aber möglich sein, Einheiten und Einheitstypen automatisch zu erzeugen. Die Namen dieser erzeugten Stammdaten sind nachträglich mit einer \textit{changeName}-Operation änderbar.
+
+Der einzige bisher implementierte logische Vergleich \term{isLessOrEqual} folgt genau demselben Schema, ist jedoch als eine Klasse \textit{LessOrEqualComparison} realisiert.

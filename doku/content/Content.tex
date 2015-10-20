@@ -1,0 +1,68 @@
+\begin{document} % Ab hier beginnt der wirkliche Text, alles nachfolgende erscheint im Dokument
+\resetPageTitle % Seitentitel initial setzen
+
+% Titelseite
+\pagenumbering{Roman} % Nummerierung der Seiten in römischen Zahlen
+\thispagestyle{empty} % Kopf- und Fußzeile ausblenden
+\include{\content/pages/Titelseite} % Inhalt einbinden
+
+% Abstract
+%\newpage
+%\setPageTitle{Abstract} % Seitentitel ändern, da diese Section ausgeblendet ist
+%\include{\content/pages/Abstract} % Inhalt einbinden
+
+% Inhaltsverzeichnis
+\newpage
+\resetPageTitle % Wichtig: Seitentitel wieder zurücksetzen, da er auf der letzten Seite geändert wurde
+\maintoc % Inhaltsverzeichnis einfügen
+
+% Beginn des Inhalts
+\newpage
+\pagenumbering{arabic} % Nummerierung der Seiten in arabischen Zahlen
+\setcounter{page}{1} % Seitenzahlen zurück auf Anfang setzen
+\glsresetall % Alle verwendeten Abkürzungen zurücksetzen
+
+% Kapitel
+\include{\content/sections/Einleitung} % Inhalt einbinden
+
+% Kapitel
+%\include{\content/sections/Grundlagen} % Inhalt einbinden
+
+% Kapitel
+\include{\content/sections/Metamodell} % Inhalt einbinden
+
+% Kapitel
+\include{\content/sections/Ausblick} % Inhalt einbinden
+
+% Abbildungsverzeichnis
+\newpage
+\resetPageTitle % Wichtig: Seitentitel wieder zurücksetzen, da er auf der letzten Seite geändert wurde
+\listoffigures % Abbildungsverzeichnis einfügen
+
+% Tabellenverzeichnis
+%\newpage
+%\listoftables % Tabellenverzeichnis einfügen
+
+% Abkürzungsverzeichnis
+\newpage
+\renewcommand*{\glspostdescription}{} % Text am Ende eines Verzeichniseintrags (Standard: ".")
+\printglossary[type=\acronymtype,style=super,nonumberlist] % Abkürzungen einbinden
+
+% Glossar
+\newpage
+\renewcommand*{\glspostdescription}{~--} % Text am Ende eines Glossareintrags (Standard: ".")
+\printglossary[style=altlist,nonumberlist=false] % Glossar ausgeben
+
+% Quellenverzeichnis
+\newpage
+\setPageTitle{Quellenverzeichnis} % Seitentitel ändern, da diese Section ausgeblendet ist
+\include{\content/pages/Quellenverzeichnis} % Inhalt einbinden
+
+% Beginn des Anhangs
+%\newpage
+%\resetPageTitle % Wichtig: Seitentitel wieder zurücksetzen, da er auf der letzten Seite geändert wurde
+%\appendix % Beginn des Anhangs (diese Zeile auskommentieren, falls kein Anhang vorhanden ist)
+\appendixtoc % Schwarze Magie - niemals auskommentieren
+%\input{\content/sections/appendix/Anhang} % Inhalt einbinden
+
+\end{document}
